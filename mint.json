@@ -1,6 +1,9 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "ProjectDiscovery Documentation",
+  "primaryTab": {
+    "name": "Getting Started"
+  },
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
@@ -25,52 +28,71 @@
     }
   ],
   "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "name": "Try Cloud",
+    "url": "https://projectdiscovery.io/cloudplatform"
   },
   "tabs": [
     {
-      "name": "API Reference",
+      "name": "Tools",
+      "url": "tools"
+    },
+    {
+      "name": "Templates",
+      "url": "templates"
+    },
+    {
+      "name": "Cloud",
+      "url": "cloud"
+    },
+    {
+      "name": "API",
       "url": "api-reference"
+    },
+    {
+      "name": "Help",
+      "url": "help"
     }
   ],
   "anchors": [
     {
       "name": "Documentation",
       "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
+      "url": "https://docs.projectdiscovery.io"
     },
     {
       "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
+      "icon": "discord",
+      "url": "https://projectdiscovery.io/community"
     },
     {
       "name": "Blog",
       "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
+      "url": "https://blog.projectdiscovery.io"
     }
   ],
   "navigation": [
     {
       "group": "Get Started",
-      "pages": ["introduction", "quickstart", "development"]
+      "pages": ["introduction", "overview", "workflows"]
     },
     {
-      "group": "Essentials",
-      "pages": ["essentials/markdown", "essentials/code", "essentials/images", "essentials/settings", "essentials/navigation"]
-    },
-    {
-      "group": "API Documentation",
-      "pages": ["api-reference/authentication"]
-    },
-    {
-      "group": "Endpoint Examples",
+      "group": "Tools",
       "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/update",
-        "api-reference/endpoint/delete"
+        "tools/index"
+      ]
+    },
+    {
+      "group": "Nuclei",
+      "pages": [
+        "tools/nuclei/install",
+        "tools/nuclei/running"
+      ]
+    },
+    {
+      "group": "Subfinder",
+      "pages": [
+        "tools/subfinder/install",
+        "tools/subfinder/running"
       ]
     }
   ],
