@@ -55,7 +55,7 @@
   ],
   "anchors": [
     {
-      "name": "Documentation",
+      "name": "Documentation Home",
       "icon": "book-open-cover",
       "url": "https://docs.projectdiscovery.io"
     },
@@ -63,11 +63,6 @@
       "name": "Community",
       "icon": "discord",
       "url": "https://projectdiscovery.io/community"
-    },
-    {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://blog.projectdiscovery.io"
     }
   ],
   "navigation": [
@@ -85,7 +80,11 @@
     },
     {
       "group": "Nuclei",
-      "pages": ["tools/nuclei/overview", "tools/nuclei/install", "tools/nuclei/running"]
+      "pages": [
+        "tools/nuclei/overview",
+        "tools/nuclei/install",
+        "tools/nuclei/running"
+      ]
     },
     {
       "group": "Subfinder",
@@ -97,7 +96,62 @@
     },
     {
       "group": "Templates",
-      "pages": ["templates/introduction"]
+      "pages": ["templates/introduction", "templates/structure"]
+    },
+    {
+      "group": "Protocols",
+      "pages": [
+        {
+          "group": "HTTP",
+          "pages": [
+            "templates/protocols/http/basic-http",
+            "templates/protocols/http/raw-http",
+            {
+              "group": "HTTP Fuzzing",
+              "pages": [
+                "templates/protocols/http/fuzzing-overview",
+                "templates/protocols/http/fuzzing-examples",
+                "templates/protocols/http/http-payloads",
+                "templates/protocols/http/http-payloads-examples"
+              ]
+            },
+            {
+              "group": "Advanced HTTP",
+              "pages": [
+                "templates/protocols/http/unsafe-http",
+                "templates/protocols/http/connection-tampering",
+                "templates/protocols/http/request-tampering",
+                "templates/protocols/http/race-conditions"
+              ]
+            }
+          ]
+        },
+        "templates/protocols/headless",
+        "templates/protocols/network",
+        "templates/protocols/dns",
+        "templates/protocols/file",
+        "templates/protocols/javascript",
+        "templates/protocols/code",
+        "templates/protocols/flow",
+        "templates/protocols/multi-protocol"
+      ]
+    },
+    {
+      "group": "Reference",
+      "pages": [
+        "templates/reference/operators",
+        "templates/reference/variables",
+        "templates/reference/helper-functions",
+        "templates/reference/preprocessors",
+        "templates/reference/oob-testing"
+      ]
+    },
+    {
+      "group": "Workflows",
+      "pages": [
+        "templates/workflows/overview",
+        "templates/workflows/examples"
+      ]
     }
   ],
   "footerSocials": {
