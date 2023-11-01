@@ -85,7 +85,7 @@
     },
     {
       "group": "Nuclei",
-      "pages": ["tools/nuclei/install", "tools/nuclei/running"]
+      "pages": ["tools/nuclei/overview", "tools/nuclei/install", "tools/nuclei/running"]
     },
     {
       "group": "Subfinder",
@@ -94,6 +94,10 @@
     {
       "group": "httpx",
       "pages": ["tools/httpx/install", "tools/httpx/running"]
+    },
+    {
+      "group": "Templates",
+      "pages": ["templates/introduction"]
     }
   ],
   "footerSocials": {
