@@ -72,8 +72,12 @@
   ],
   "navigation": [
     {
+      "group": "Welcome",
+      "pages": ["introduction"]
+    },
+    {
       "group": "Get Started",
-      "pages": ["introduction", "overview", "workflows"]
+      "pages": ["overview", "workflows"]
     },
     {
       "group": "Tools",
