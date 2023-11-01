@@ -3,4 +3,65 @@ title: 'Open Source Tools'
 description: "Learn about ProjectDiscovery's Open Source Tools"
 ---
 
-# ProjectDiscovery Tools
+# ProjectDiscovery Tool Suite
+
+ProjectDiscovery produces a suite of open source tools tailored for offensive security: security engineers, bug bounty hunters, and red teamers. Our toolkit is structured around three distinct layers to optimize your security assessment and penetration testing processes:
+
+1. **Discover** - Identify assets and broaden the attack surface.
+2. **Enrich** - Understand the technologies and open services exposed to the internet.
+3. **Detect** - Pinpoint exploitable vulnerabilities within the attack surface.
+
+Let's delve into the specifics of each category and its corresponding tools.
+
+---
+
+## Discover
+In the discovery phase, the goal is to map out the entire's online presence, finding subdomains, open ports, and other valuable endpoints. The tools in this category are instrumental in revealing a comprehensive view of the target's landscape. This stage includes tools like:
+
+### Subfinder
+A robust tool focused on passive subdomain enumeration, providing a holistic view of a target's online assets.
+
+### Cloudlist
+A comprehensive tool for enumerating assets across multiple cloud providers, ensuring visibility into the cloud-based infrastructure of your target.
+
+### Naabu
+A lightning-fast port scanner designed to swiftly identify open ports on target hosts, ensuring no potential entry point is overlooked.  
+
+### dnsx
+A versatile DNS toolkit that allows for efficient operations such as mass DNS resolutions, wildcard testing, and more.
+
+### Chaos
+Offering an internet-wide asset data source, Chaos is crucial for expanding the scope of your asset discovery efforts.  
+
+### Uncover
+Designed to search and highlight exposed hosts across various APIs, ensuring that no stone is left unturned in the discovery phase.
+
+---
+## Enrich
+Once assets are discovered, the next step is to enrich the gathered data. This phase involves understanding the nature of the assets, the technologies behind them, and their exposure level. This stage includes tools like:
+
+### httpx
+An essential HTTP toolkit that probes services, identifying crucial details about web servers, status codes, and other valuable metadata.
+
+### tlsx
+Specialized for TLS-based data collection, Tlsx offers insights into certificates, cipher suites, and other SSL/TLS details of a target.  
+### Katana
+A next-generation web crawling framework designed to navigate and parse web content efficiently, revealing hidden details of web assets.
+
+---
+## Detect
+With the landscape mapped and details enriched, the next phase is detection. Here, the aim is to pinpoint exploitable vulnerabilities, ensuring a thorough risk assessment. This stage includes tools like:
+
+### Nuclei
+A vulnerability scanner designed to identify exploitable weaknesses in the attack surface with a vast library of templates for various known vulnerabilities. 
+
+### Interact.sh
+An out-of-band (OOB) interaction gathering library, essential for identifying vulnerabilities that may not be immediately evident through conventional scanning methods.
+
+### Notify
+Streamlining the workflow, Notify allows users to stream the output of various tools to multiple platforms, ensuring real-time updates and alerts.  
+
+
+---
+
+Dive into the individual tool's documentation to explore in-depth functionalities, usage examples, and best practices. Your journey into enhanced offensive security starts here!

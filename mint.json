@@ -86,6 +86,10 @@
     {
       "group": "Subfinder",
       "pages": ["tools/subfinder/install", "tools/subfinder/running"]
+    },
+    {
+      "group": "httpx",
+      "pages": ["tools/httpx/install", "tools/httpx/running"]
     }
   ],
   "footerSocials": {
