@@ -5,16 +5,16 @@
     "name": "Getting Started"
   },
   "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "dark": "/logo/ProjectDiscovery Logo White.png",
+    "light": "/logo/ProjectDiscovery Logo Black.png"
   },
   "favicon": "/favicon.png",
   "colors": {
     "primary": "#9563FF",
-    "light": "#AE87FF",
+    "light": "#6366f1",
     "dark": "#0D001D",
     "background": {
-      "dark": "#090014"
+      "dark": "#09090b"
     },
     "anchors": {
       "from": "#FF7F57",
@@ -23,13 +23,13 @@
   },
   "topbarLinks": [
     {
-      "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "name": "Try Cloud",
+      "url": "https://projectdiscovery.io/cloudplatform"
     }
   ],
   "topbarCtaButton": {
-    "name": "Try Cloud",
-    "url": "https://projectdiscovery.io/cloudplatform"
+    "type": "github",
+    "url": "https://github.com/projectdiscovery/nuclei"
   },
   "tabs": [
     {
@@ -77,28 +77,22 @@
     },
     {
       "group": "Tools",
-      "pages": [
-        "tools/index"
-      ]
+      "pages": ["tools/index"]
     },
     {
       "group": "Nuclei",
-      "pages": [
-        "tools/nuclei/install",
-        "tools/nuclei/running"
-      ]
+      "pages": ["tools/nuclei/install", "tools/nuclei/running"]
     },
     {
       "group": "Subfinder",
-      "pages": [
-        "tools/subfinder/install",
-        "tools/subfinder/running"
-      ]
+      "pages": ["tools/subfinder/install", "tools/subfinder/running"]
     }
   ],
   "footerSocials": {
-    "twitter": "https://twitter.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://www.linkedin.com/company/mintsearch"
+    "github": "https://github.com/projectdiscovery",
+    "twitter": "https://twitter.com/pdiscoveryio",
+    "discord": "https://discord.com/invite/projectdiscovery",
+    "linkedin": "https://www.linkedin.com/company/projectdiscovery",
+    "youtube": "https://www.youtube.com/@projectdiscovery"
   }
 }
