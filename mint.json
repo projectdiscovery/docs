@@ -103,6 +103,8 @@
       "pages": [
         {
           "group": "HTTP",
+          "icon": "globe",
+          "iconType": "solid",
           "pages": [
             "templates/protocols/http/basic-http",
             "templates/protocols/http/raw-http",
