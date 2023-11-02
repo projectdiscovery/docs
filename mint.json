@@ -150,7 +150,15 @@
     {
       "group": "Reference",
       "pages": [
-        "templates/reference/operators",
+        {
+          "group": "Operators",
+          "icon": "calculator-simple",
+          "iconType": "duotone",
+          "pages": [
+            "templates/reference/matchers",
+            "templates/reference/extractors"
+          ]
+        },
         "templates/reference/variables",
         "templates/reference/helper-functions",
         "templates/reference/preprocessors",
