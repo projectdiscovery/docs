@@ -1,20 +1,19 @@
 ---
-title: "Race Conditions"
+title: "HTTP Race Condition Examples"
 ---
 
-Race Conditions are another class of bugs not easily automated via traditional tooling. Burp Suite introduced a Gate mechanism to Turbo Intruder where all the bytes for all the requests are sent expect the last one at once which is only sent together for all requests synchronizing the send event.
+## Race condition testing with single POST request.
 
-We have implemented **Gate** mechanism in nuclei engine and allow them run via templates which makes the testing for this specific bug class simple and portable.
+This template makes a defined POST request in RAW format to `/coupons` endpoint, as the `race_count`is defined as `10`, this will make 10 requests at same time by holding last bytes for all the requests which sent together for all requests synchronizing the send event.
 
-To enable race condition check within template, `race` attribute can be set to `true` and `race_count` defines the number of simultaneous request you want to initiate.
+You can also define the matcher as any other template for the expected output which helps to identify if the race condition exploit worked or not.
 
-Below is an example template where the same request is repeated for 10 times using the gate logic.
 
 ```yaml
 id: race-condition-testing
 
 info:
-  name: Race condition testing
+  name: Race Condition testing
   author: pdteam
   severity: info
 
@@ -23,6 +22,10 @@ http:
       - |
         POST /coupons HTTP/1.1
         Host: {{Hostname}}
+        Pragma: no-cache
+        Cache-Control: no-cache, no-transform
+        User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0
+        Cookie: user_session=42332423342987567896
 
         promo_code=20OFF        
 
@@ -36,32 +39,16 @@ http:
           - 200
 ```
 
-You can simply replace the `POST` request with any suspected vulnerable request and change the `race_count` as per your need, and it's ready to run.
+## Race condition testing with multiple requests.
 
-```bash
-nuclei -t race.yaml -target https://api.target.com
-```
-
-**Multi request race condition testing**
-
-For the scenario when multiple requests needs to be sent in order to exploit the race condition, we can make use of threads.
+This template makes the defined and multiple POST requests in RAW format with `threads` sets to `5`, `threads` can be utilized in race condition templates when multiple requests needs to be sent to exploit the race condition, `threads` number should be same as the number of you are making with template and not needed if you're only making single request.
 
 ```yaml
-    threads: 5
-    race: true
-```
-
-`threads` is a total number of request you wanted make with the template to perform race condition testing.
-
-
-Below is an example template where multiple (5) unique request will be sent at the same time using the gate logic.
-
-```yaml
-id: multi-request-race
+id: race-condition-testing
 
 info:
   name: Race condition testing with multiple requests
-  author: pd-team
+  author: pdteam
   severity: info
 
 http:
@@ -113,8 +100,9 @@ http:
 
     threads: 5
     race: true
-```
 
-<Tip>
-More complete examples are provided [here](/templates/protocols/http/http-race-condition-examples)
-</Tip>
+    matchers:
+      - type: status
+        status:
+          - 200
+```

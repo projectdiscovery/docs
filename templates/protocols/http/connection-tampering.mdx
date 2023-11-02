@@ -1,3 +1,94 @@
 ---
 title: "Connection Tampering"
 ---
+
+### Pipelining
+
+HTTP Pipelining support has been added which allows multiple HTTP requests to be sent on the same connection inspired from [http-desync-attacks-request-smuggling-reborn](https://portswigger.net/research/http-desync-attacks-request-smuggling-reborn).
+
+Before running HTTP pipelining based templates, make sure the running target supports HTTP Pipeline connection, otherwise nuclei engine fallbacks to standard HTTP request engine. 
+
+If you want to confirm the given domain or list of subdomains supports HTTP Pipelining, [httpx](https://github.com/projectdiscovery/) has a flag `-pipeline` to do so.
+
+An example configuring showing pipelining attributes of nuclei.
+
+```yaml
+    unsafe: true
+    pipeline: true
+    pipeline-concurrent-connections: 40
+    pipeline-requests-per-connection: 25000
+```
+
+An example template demonstrating pipelining capabilities of nuclei has been provided below-
+
+```yaml
+id: pipeline-testing
+info:
+  name: pipeline testing
+  author: pdteam
+  severity: info
+
+http:
+  - raw:
+      - |+
+        GET /{{path}} HTTP/1.1
+        Host: {{Hostname}}
+        Referer: {{BaseURL}}
+
+    attack: batteringram
+    payloads:
+      path: path_wordlist.txt
+
+    unsafe: true
+    pipeline: true
+    pipeline-concurrent-connections: 40
+    pipeline-requests-per-connection: 25000
+
+    matchers:
+      - type: status
+        part: header
+        status:
+          - 200
+```
+
+### Connection pooling
+
+While the earlier versions of nuclei did not do connection pooling, users can now configure templates to either use HTTP connection pooling or not. This allows for faster scanning based on requirement.
+
+To enable connection pooling in the template, `threads` attribute can be defined with respective number of threads you wanted to use in the payloads sections.
+
+`Connection: Close` header can not be used in HTTP connection pooling template, otherwise engine will fail and fallback to standard HTTP requests with pooling.
+
+An example template using HTTP connection pooling-
+
+```yaml
+id: fuzzing-example
+info:
+  name: Connection pooling example
+  author: pdteam
+  severity: info
+
+http:
+
+  - raw:
+      - |
+        GET /protected HTTP/1.1
+        Host: {{Hostname}}
+        Authorization: Basic {{base64('admin:§password§')}}
+
+    attack: batteringram
+    payloads:
+      password: password.txt
+    threads: 40
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "Unique string"
+        part: body
+```
