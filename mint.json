@@ -172,6 +172,27 @@
         "templates/workflows/overview",
         "templates/workflows/examples"
       ]
+    },
+    {
+      "group": "ProjectDiscovery Cloud Platform",
+      "pages": [
+        "cloud/introduction"
+      ]
+    },
+    {
+      "group": "Editor",
+      "pages": [
+        "cloud/editor/introduction",
+        "cloud/editor/ai",
+        "cloud/editor/share",
+        "cloud/editor/shortcuts"
+      ]
+    },
+    {
+      "group": "Scanning",
+      "pages": [
+        "cloud/scanning/introduction"
+      ]
     }
   ],
   "footerSocials": {
