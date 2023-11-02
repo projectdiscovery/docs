@@ -5,8 +5,8 @@
     "name": "Getting Started"
   },
   "logo": {
-    "dark": "/logo/ProjectDiscovery Logo White.png",
-    "light": "/logo/ProjectDiscovery Logo Black.png"
+    "dark": "/logo/ProjectDiscovery-Logo-OnDark.svg",
+    "light": "/logo/ProjectDiscovery-Logo-OnLight.svg"
   },
   "favicon": "/favicon.png",
   "colors": {
