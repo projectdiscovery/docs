@@ -1,0 +1,48 @@
+---
+title: "JavaScript Protocol Introduction"
+sidebarTitle: "Introduction"
+---
+
+## Introduction
+
+Nuclei and its community thrives on its ability to write exploits/checks in fast and simple way in YAML format and we aim to make **nuclei templates** as standard for writing security checks and that comes with understanding its limitations and addressing them as well as expanding its capabilities. It is already possible to write most complex HTTP, DNS, SSL protocol exploits / checks with increasing support and a powerful and easy to use DSL in nuclei engine but we understand this may not be enough for addressing / writing vulnerabilities across all protocols as well as other non-remote domains of security like local privilege escalation checks, kernel etc.
+
+To address this and expand to other domains of security, Nuclei v3 ships with a embedded runtime for javascript that is tailored for **Nuclei** with the help of **[Goja](https://github.com/dop251/goja)**.
+
+
+## Features
+
+**Provider/Driver specific exploit**
+
+Some vulnerabilities are specific to software/driver, example a redis buffer overflow exploit or a exploit of specific VPN software or anything that's not a IETF standard protocol. since they are not standard protocols and it doesn't make much sense to add them as a protocol in nuclei.
+Such exploits cannot be written using 'network' protocol or Very complex to write, such exploits can be written by exposing required library in nuclei (if not already present) and writing actual exploit in javascript protocol minus the boilerplate and scaling issues and other goodies of nuclei
+
+**Non Network Checks**
+
+Security is not limited to network and nuclei also doesn't intend to limit itself to network only. There are lot of security checks that are not network related like
+
+1. local privilege escalation checks
+2. kernel exploits
+3. account misconfigurations
+4. system misconfigurations etc
+
+**Complex network protocol exploits**
+
+Some network exploits are very complex to write due to nature of protocol or exploit itself example [CVE-2020-0796](https://nvd.nist.gov/vuln/detail/cve-2020-0796) where you have to manually construct a packet. such exploits are usually written in python but now can be written in javascript protocol itself
+
+**Multi Step Exploits**
+
+Ldap / kerberos exploits usually involves multi step process of authentication and then exploitation etc and not easy to write in YAML based DSL
+
+**Scalable and maintainable exploits**
+
+One off exploits written in code are not scalable and maintainable due to nature of language , boilerplate code and lot of other factors. The goal here is to only write **bare minimum** code required to run exploit and let nuclei engine handle the rest
+
+**Leveraging turing complete language**
+
+While YAML based DSL is powerful and easy to use it is not turing complete and has its own limitations. Javascript is turing complete thus users who are already familiar with javascript can write network and other exploits without learning new DSL or hacking around existing DSL.
+
+## Requirements
+
+- A bare minimum knowledge of javascript (loops, functions , arrays is enough) is required to write javascript protocol template
+- Nuclei v3.0.0 or above

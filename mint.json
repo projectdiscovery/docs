@@ -132,7 +132,16 @@
         "templates/protocols/network",
         "templates/protocols/dns",
         "templates/protocols/file",
-        "templates/protocols/javascript",
+        {
+          "group": "JavaScript",
+          "icon": "square-js",
+          "iconType": "solid",
+          "pages": [
+            "templates/protocols/javascript/introduction",
+            "templates/protocols/javascript/protocol",
+            "templates/protocols/javascript/api-reference"
+          ]
+        },
         "templates/protocols/code",
         "templates/protocols/flow",
         "templates/protocols/multi-protocol"
