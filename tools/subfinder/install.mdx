@@ -1,8 +1,55 @@
 ---
-title: 'Install'
-description: "Learn about Nuclei"
+title: "Installing Subfinder"
+description: "Learn about how to install and get started with Subfinder"
+sidebarTitle: "Install"
 ---
 
-# Nuclei
+<Tabs>
+  <Tab title="Go">
+    ```bash
+    go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
+    ```
 
-## Install
+    <Note>Subfinder require latest **GO** version to install successfully.</Note>
+
+  </Tab>
+  <Tab title="Brew">
+    ```bash
+    brew install subfinder
+    ```
+
+    <Note>Supported in **macOS** (or Linux)</Note>
+
+  </Tab>
+  <Tab title="Docker">
+    ```bash
+    docker pull projectdiscovery/subfinder:latest
+    ```
+
+    {/* Docker-specific usage instructions can be found [here](./running#running-with-docker). */}
+
+  </Tab>
+  <Tab title="GitHub">
+    ```bash
+    git clone https://github.com/projectdiscovery/subfinder.git; \
+    cd subfinder/v2/cmd/subfinder; \
+    go build; \
+    mv subfinder /usr/local/bin/; \
+    subfinder -version;
+    ```
+
+    <Note> Subfinder require the latest **GO** version to install successfully.</Note>
+
+  </Tab>
+  <Tab title="Binary">
+    ```bash
+    https://github.com/projectdiscovery/subfinder/releases
+    ```
+
+    <Tip>
+    - Download the latest binary for your OS.
+    - Unzip the ready to run binary.
+    </Tip>
+
+  </Tab>
+</Tabs>

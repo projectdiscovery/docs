@@ -1,8 +1,55 @@
 ---
-title: 'Install'
-description: "Learn about httpx"
+title: "Installing httpx"
+description: "Learn about how to install and get started with httpx"
+sidebarTitle: "Install"
 ---
 
-# httpx
+<Tabs>
+  <Tab title="Go">
+    ```bash
+    go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest
+    ```
 
-## Install
+    <Note>httpx require latest **GO** version to install successfully.</Note>
+
+  </Tab>
+  <Tab title="Brew">
+    ```bash
+    brew install httpx
+    ```
+
+    <Note>Supported in **macOS** (or Linux)</Note>
+
+  </Tab>
+  <Tab title="Docker">
+    ```bash
+    docker pull projectdiscovery/httpx:latest
+    ```
+
+    {/* Docker-specific usage instructions can be found [here](./running#running-with-docker). */}
+
+  </Tab>
+  <Tab title="GitHub">
+    ```bash
+    git clone https://github.com/projectdiscovery/httpx.git; \
+    cd httpx/cmd/httpx; \
+    go build; \
+    mv httpx /usr/local/bin/; \
+    httpx -version;
+    ```
+
+    <Note> httpx require the latest **GO** version to install successfully.</Note>
+
+  </Tab>
+  <Tab title="Binary">
+    ```bash
+    https://github.com/projectdiscovery/httpx/releases
+    ```
+
+    <Tip>
+    - Download the latest binary for your OS.
+    - Unzip the ready to run binary.
+    </Tip>
+
+  </Tab>
+</Tabs>
