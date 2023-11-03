@@ -83,7 +83,8 @@
       "pages": [
         "tools/nuclei/overview",
         "tools/nuclei/install",
-        "tools/nuclei/running"
+        "tools/nuclei/running",
+        "tools/nuclei/faq"
       ]
     },
     {
@@ -96,7 +97,11 @@
     },
     {
       "group": "Templates",
-      "pages": ["templates/introduction", "templates/structure"]
+      "pages": [
+        "templates/introduction", 
+        "templates/structure",
+        "templates/faq"
+      ]
     },
     {
       "group": "Protocols",
@@ -168,16 +173,11 @@
     },
     {
       "group": "Workflows",
-      "pages": [
-        "templates/workflows/overview",
-        "templates/workflows/examples"
-      ]
+      "pages": ["templates/workflows/overview", "templates/workflows/examples"]
     },
     {
       "group": "ProjectDiscovery Cloud Platform",
-      "pages": [
-        "cloud/introduction"
-      ]
+      "pages": ["cloud/introduction"]
     },
     {
       "group": "Editor",
@@ -190,9 +190,7 @@
     },
     {
       "group": "Scanning",
-      "pages": [
-        "cloud/scanning/introduction"
-      ]
+      "pages": ["cloud/scanning/introduction"]
     }
   ],
   "footerSocials": {
