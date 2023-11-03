@@ -72,7 +72,7 @@
     },
     {
       "group": "Get Started",
-      "pages": ["overview", "workflows"]
+      "pages": ["overview", "documentation-overview"]
     },
     {
       "group": "Tools",
@@ -191,6 +191,19 @@
     {
       "group": "Scanning",
       "pages": ["cloud/scanning/introduction"]
+    },
+    {
+      "group": "API Reference",
+      "pages": [
+        {
+          "group": "Editor",
+          "pages": ["api-reference/editor/scan", "api-reference/editor/generate"]
+        }
+      ]
+    },
+    {
+      "group": "Help",
+      "pages": ["help/home"]
     }
   ],
   "footerSocials": {
