@@ -1,7 +1,7 @@
 ---
-title: 'Open Source Tools'
+title: "Open Source Tools"
 description: "Learn about ProjectDiscovery's Open Source Tools"
-sidebarTitle: 'Overview'
+sidebarTitle: "Overview"
 ---
 
 <Snippet file="tools-statement.mdx" />
@@ -9,54 +9,216 @@ sidebarTitle: 'Overview'
 Let's delve into the specifics of each category and its corresponding tools.
 
 ## Discover
+
 In the discovery phase, the goal is to map out the entire's online presence, finding subdomains, open ports, and other valuable endpoints. The tools in this category are instrumental in revealing a comprehensive view of the target's landscape. This stage includes tools like:
 
-#### Subfinder
-A robust tool focused on passive subdomain enumeration, providing a holistic view of a target's online assets.
-
-#### Cloudlist
-A comprehensive tool for enumerating assets across multiple cloud providers, ensuring visibility into the cloud-based infrastructure of your target.
-
-#### Naabu
-A lightning-fast port scanner designed to swiftly identify open ports on target hosts, ensuring no potential entry point is overlooked.  
-
-#### dnsx
-A versatile DNS toolkit that allows for efficient operations such as mass DNS resolutions, wildcard testing, and more.
-
-#### Chaos
-Offering an internet-wide asset data source, Chaos is crucial for expanding the scope of your asset discovery efforts.  
-
-#### Uncover
-Designed to search and highlight exposed hosts across various APIs, ensuring that no stone is left unturned in the discovery phase.
-
----
+<CardGroup cols={2}>
+  <Card
+    title="Subfinder"
+    icon="radar"
+    iconType="duotone"
+    href="/tools/subfinder"
+  >
+    A robust tool focused on passive subdomain enumeration, providing a holistic
+    view of a target's online assets.
+  </Card>
+  <Card
+    title="Cloudlist"
+    icon="cloud"
+    iconType="duotone"
+    href="https://github.com/projectdiscovery/cloudlist"
+  >
+    A comprehensive tool for enumerating assets across multiple cloud providers,
+    ensuring visibility into the cloud-based infrastructure of your target.
+  </Card>
+  <Card
+    title="Naabu"
+    icon="person-to-portal"
+    iconType="duotone"
+    href="https://github.com/projectdiscovery/naabu"
+  >
+    A lightning-fast port scanner designed to swiftly identify open ports on
+    target hosts, ensuring no potential entry point is overlooked.
+  </Card>
+  <Card
+    title="Katana"
+    icon="sword"
+    iconType="duotone"
+    href="https://github.com/projectdiscovery/katana"
+  >
+    A next-generation web crawling framework designed to navigate and parse web
+    content efficiently, revealing hidden details of web assets.
+  </Card>
+  <Card
+    title="Chaos"
+    icon="globe"
+    iconType="duotone"
+    href="https://github.com/projectdiscovery/chaos"
+  >
+    Offering an internet-wide asset data source, Chaos is crucial for expanding
+    the scope of your asset discovery efforts.
+  </Card>
+  <Card
+    title="Uncover"
+    icon="telescope"
+    iconType="duotone"
+    href="https://github.com/projectdiscovery/uncover"
+  >
+    Designed to search and highlight exposed hosts across various APIs, ensuring
+    that no stone is left unturned in the discovery phase.
+  </Card>
+  <Card
+    title="ASNmap"
+    icon="map-location-dot"
+    iconType="duotone"
+    href="https://github.com/projectdiscovery/asnmap"
+  >
+    Quickly map an organization's network ranges using autonomous system number
+    (ASN) information.
+  </Card>
+  <Card
+    title="alterx"
+    icon="cloud-word"
+    iconType="duotone"
+    href="https://github.com/projectdiscovery/alterx"
+  >
+    Fast and customizable subdomain wordlist generator using DSL.
+  </Card>
+  <Card
+    title="shuffledns"
+    icon="shuffle"
+    iconType="duotone"
+    href="https://github.com/projectdiscovery/shuffledns"
+  >
+    massDNS wrapper to bruteforce and resolve the subdomains with wildcard handling support
+  </Card>
+</CardGroup>
 
 ## Enrich
+
 Once assets are discovered, the next step is to enrich the gathered data. This phase involves understanding the nature of the assets, the technologies behind them, and their exposure level. This stage includes tools like:
 
-#### httpx
-An essential HTTP toolkit that probes services, identifying crucial details about web servers, status codes, and other valuable metadata.
-
-#### tlsx
-Specialized for TLS-based data collection, Tlsx offers insights into certificates, cipher suites, and other SSL/TLS details of a target.  
-
-#### Katana
-A next-generation web crawling framework designed to navigate and parse web content efficiently, revealing hidden details of web assets.
-
----
+<CardGroup cols={2}>
+  <Card title="httpx" icon="browser" iconType="duotone" href="/tools/httpx">
+    An essential HTTP toolkit that probes services, identifying crucial details
+    about web servers, status codes, and other valuable metadata.
+  </Card>
+  <Card
+    title="dnsx"
+    icon="tags"
+    iconType="duotone"
+    href="https://github.com/projectdiscovery/dnsx"
+  >
+    A versatile DNS toolkit that allows for efficient operations such as mass
+    DNS resolutions, wildcard testing, and more.
+  </Card>
+  <Card
+    title="tlsx"
+    icon="shield-halved"
+    iconType="duotone"
+    href="https://github.com/projectdiscovery/tlsx"
+  >
+    Specialized for TLS-based data collection, Tlsx offers insights into
+    certificates, cipher suites, and other SSL/TLS details of a target.
+  </Card>
+</CardGroup>
 
 ## Detect
+
 With the landscape mapped and details enriched, the next phase is detection. Here, the aim is to pinpoint exploitable vulnerabilities, ensuring a thorough risk assessment. This stage includes tools like:
 
-#### Nuclei
-A vulnerability scanner designed to identify exploitable weaknesses in the attack surface with a vast library of templates for various known vulnerabilities. 
+<CardGroup cols={2}>
+  <Card title="Nuclei" icon="atom" iconType="regular" href="/tools/nuclei">
+    A vulnerability scanner designed to identify exploitable weaknesses in the
+    attack surface with a vast library of templates for various known
+    vulnerabilities.
+  </Card>
+  <Card
+    title="interactsh"
+    icon="whistle"
+    iconType="solid"
+    href="https://github.com/projectdiscovery/interactsh"
+  >
+    An out-of-band (OOB) interaction gathering library, essential for
+    identifying vulnerabilities that may not be immediately evident through
+    conventional scanning methods.
+  </Card>
+  <Card
+    title="tlsx"
+    icon="shield-halved"
+    iconType="duotone"
+    href="https://github.com/projectdiscovery/tlsx"
+  >
+    Specialized for TLS-based data collection, Tlsx offers insights into
+    certificates, cipher suites, and other SSL/TLS details of a target.
+  </Card>
+</CardGroup>
 
-#### Interact.sh
-An out-of-band (OOB) interaction gathering library, essential for identifying vulnerabilities that may not be immediately evident through conventional scanning methods.
+## Utilties
 
-#### Notify
-Streamlining the workflow, Notify allows users to stream the output of various tools to multiple platforms, ensuring real-time updates and alerts.  
+These utilties can be combined with our other tooling based on the [Unix philosophy](https://blog.projectdiscovery.io/how-projectdiscovery-applies-the-unix-philosophy-to-their-tools/) to create pipelines and customize your offensive security or bug bounty hunting program.
 
+<CardGroup cols={2}>
+  <Card
+    title="pdtm"
+    icon="toolbox"
+    iconType="solid"
+    href="https://github.com/projectdiscovery/pdtm"
+  >
+    pdtm is a simple and easy-to-use tool for managing all of the open source
+    projects from ProjectDiscovery.
+  </Card>
+  <Card
+    title="Notify"
+    icon="bell"
+    iconType="solid"
+    href="https://github.com/projectdiscovery/notify"
+  >
+    Streamlining the workflow, Notify allows users to stream the output of
+    various tools to multiple platforms, ensuring real-time updates and alerts.
+  </Card>
+  <Card
+    title="mapcidr"
+    icon="map"
+    iconType="solid"
+    href="https://github.com/projectdiscovery/mapcidr"
+  >
+    A utility program to perform multiple operations for a given subnet/CIDR
+    ranges.
+  </Card>
+  <Card
+    title="cdncheck"
+    icon="ballot-check"
+    iconType="duotone"
+    href="https://github.com/projectdiscovery/cdncheck"
+  >
+    A utility to detect various technologies for a given DNS / IP address.
+  </Card>
+  <Card
+    title="aix"
+    icon="brain-circuit"
+    iconType="duotone"
+    href="https://github.com/projectdiscovery/aix"
+  >
+    AIx is a cli tool to interact with Large Language Models (LLM) APIs.
+  </Card>
+  <Card
+    title="proxify"
+    icon="ethernet"
+    iconType="solid"
+    href="https://github.com/projectdiscovery/proxify"
+  >
+    A utility to detect various technologies for a given DNS / IP address.
+  </Card>
+  <Card
+    title="simplehttpserver"
+    icon="server"
+    iconType="duotone"
+    href="https://github.com/projectdiscovery/simplehttpserver"
+  >
+    A golang enhanced version of the well known python simplehttpserver.
+  </Card>
+</CardGroup>
 
 ---
 
