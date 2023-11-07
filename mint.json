@@ -93,7 +93,7 @@
     },
     {
       "group": "httpx",
-      "pages": ["tools/httpx/install", "tools/httpx/running"]
+      "pages": ["tools/httpx/install", "tools/httpx/usage", "tools/httpx/running"]
     },
     {
       "group": "Templates",
