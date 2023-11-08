@@ -98,7 +98,7 @@
     },
     {
       "group": "httpx",
-      "pages": ["tools/httpx/install", "tools/httpx/usage", "tools/httpx/running"]
+      "pages": ["tools/httpx/overview", "tools/httpx/install", "tools/httpx/usage", "tools/httpx/running"]
     },
     {
       "group": "Templates",
