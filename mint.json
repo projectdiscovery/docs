@@ -217,5 +217,9 @@
     "discord": "https://discord.com/invite/projectdiscovery",
     "linkedin": "https://www.linkedin.com/company/projectdiscovery",
     "youtube": "https://www.youtube.com/@projectdiscovery"
-  }
+   },
+   "feedback":{
+      "thumbsRating":true,
+      "suggestEdit":true
+   }
 }
