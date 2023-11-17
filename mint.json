@@ -93,12 +93,12 @@
       ]
     },
     {
-      "group": "Subfinder",
-      "pages": ["tools/subfinder/install", "tools/subfinder/running"]
-    },
-    {
       "group": "httpx",
       "pages": ["tools/httpx/overview", "tools/httpx/install", "tools/httpx/usage", "tools/httpx/running"]
+    },
+    {
+      "group": "Subfinder",
+      "pages": ["tools/subfinder/install", "tools/subfinder/running"]
     },
     {
       "group": "Templates",
