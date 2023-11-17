@@ -73,11 +73,11 @@
   "navigation": [
     {
       "group": "Welcome",
-      "pages": ["introduction"]
+      "pages": ["introduction", "documentation-nav", "overview"]
     },
     {
       "group": "Get Started",
-      "pages": ["overview", "documentation-overview"]
+      "pages": ["getstarted-overview"]
     },
     {
       "group": "Tools",
