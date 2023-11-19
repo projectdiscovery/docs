@@ -6,7 +6,7 @@ title: "HTTP Payloads"
 
 Nuclei engine supports payloads module that allow to run various type of payloads in multiple format, It's possible to define placeholders with simple keywords (or using brackets `{{helper_function(variable)}}` in case mutator functions are needed), and perform **batteringram**, **pitchfork** and **clusterbomb** attacks. The wordlist for these attacks needs to be defined during the request definition under the Payload field, with a name matching the keyword, Nuclei supports both file based and in template wordlist support and Finally all DSL functionalities are fully available and supported, and can be used to manipulate the final values.
 
-Payloads are defined using variable name and can be referenced in the request in between `§ §` or `{{ }}` marker.
+Payloads are defined using variable name and can be referenced in the request in between `{{ }}` marker.
 
 ## Examples 
 
@@ -75,8 +75,8 @@ http:
         User-Agent: {{header}}
         Host: {{Hostname}}
 
+    attack: clusterbomb # Defining HTTP fuzz attack type
     payloads:
       path: helpers/wordlists/prams.txt
       header: helpers/wordlists/header.txt
-    attack: clusterbomb # Defining HTTP fuzz attack type
 ```
