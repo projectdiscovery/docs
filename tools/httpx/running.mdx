@@ -1,10 +1,68 @@
 ---
 title: 'Running'
-description: "Learn about httpx"
+description: "Learn about httpx with examples"
 ---
 
-<Tip>
-This documentation page is coming soon! 
+For all of the flags and options available for `httpx` be sure to check out the [Usage}(/usage) page. This page provides examples of httpx with specific flags and goals
+and the output you can expect from each. 
 
-Currently you can find httpx [documentation on GitHub](https://github.com/projectdiscovery/httpx).
-</Tip>
+If you have questions reach out to us through any of the options available through [Help}(/help)
+
+## URL probe
+Run `httpx` against all the hosts and subdomains in hosts.txt to return URLs running an HTTP webserver.
+
+- `cat hosts.txt | httpx`
+
+```
+cat hosts.txt | httpx 
+
+    __    __  __       _  __
+   / /_  / /_/ /_____ | |/ /
+  / __ \/ __/ __/ __ \|   / 
+ / / / / /_/ /_/ /_/ /   |  
+/_/ /_/\__/\__/ .___/_/|_|   v1.1.1  
+             /_/            
+
+    projectdiscovery.io
+
+[WRN] Use with caution. You are responsible for your actions
+[WRN] Developers assume no liability and are not responsible for any misuse or damage.
+
+https://mta-sts.managed.hackerone.com
+https://mta-sts.hackerone.com
+https://mta-sts.forwarding.hackerone.com
+https://docs.hackerone.com
+https://www.hackerone.com
+https://resources.hackerone.com
+https://api.hackerone.com
+https://support.hackerone.com
+
+```
+
+## File input
+Run `httpx` with the `-probe` flag against all the hosts in hosts.txt to return URLs with probed status.
+
+```
+httpx -list hosts.txt -silent -probe
+
+http://ns.hackerone.com [FAILED]
+https://docs.hackerone.com [SUCCESS]
+https://mta-sts.hackerone.com [SUCCESS]
+https://mta-sts.managed.hackerone.com [SUCCESS]
+http://email.hackerone.com [FAILED]
+https://mta-sts.forwarding.hackerone.com [SUCCESS]
+http://links.hackerone.com [FAILED]
+https://api.hackerone.com [SUCCESS]
+https://www.hackerone.com [SUCCESS]
+http://events.hackerone.com [FAILED]
+https://support.hackerone.com [SUCCESS]
+https://gslink.hackerone.com [SUCCESS]
+http://o1.email.hackerone.com [FAILED]
+http://info.hackerone.com [FAILED]
+https://resources.hackerone.com [SUCCESS]
+http://o2.email.hackerone.com [FAILED]
+http://o3.email.hackerone.com [FAILED]
+http://go.hackerone.com [FAILED]
+http://a.ns.hackerone.com [FAILED]
+http://b.ns.hackerone.com [FAILED]
+```
