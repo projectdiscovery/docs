@@ -4,14 +4,10 @@ description: "Learn about httpx with examples"
 ---
 
 For all of the flags and options available for `httpx` be sure to check out the [Usage](/usage) page. This page provides examples of httpx with specific flags and goals
-and the output you can expect from each. 
-
-If you have questions, reach out to us through [Help](/help).
+and the output you can expect from each. *If you have questions, reach out to us through [Help](/help).*
 
 ## ASN Fingerprint
-Use 'httpx' with the '-asn' flag for ASN (Autonomous System Number) fingerprinting, an effective technique for mapping the network affiliations of various domains. 
-
-`subfinder -d hackerone.com -silent | httpx -asn`
+Use `httpx` with the `-asn` flag for ASN (Autonomous System Number) fingerprinting, an effective technique for mapping the network affiliations of various domains. 
 
 ```
 subfinder -d hackerone.com -silent | httpx -asn
@@ -53,8 +49,6 @@ https://216.101.17.252
 ## CIDR Input 
 Run `httpx` with CIDR input (for example 173.0.84.0/24)
 
-`echo 173.0.84.0/24 | httpx -silent`
-
 ```
 echo 173.0.84.0/24 | httpx -silent
 
@@ -78,9 +72,7 @@ https://173.0.84.16
 https://173.0.84.34
 ```
 ## Docker Run
-Use Docker to run 'httpx' in an isolated container. For example, by piping subdomain lists into the Docker container, you can seamlessly perform probing across multiple targets, harnessing the power of 'httpx' without direct installation requirements.
-
-`cat sub_domains.txt | docker run -i projectdiscovery/httpx`
+Use Docker to run `httpx` in an isolated container. For example, by piping subdomain lists into the Docker container, you can seamlessly perform probing across multiple targets, harnessing the power of `httpx` without direct installation requirements.
 
 ```
 cat sub_domains.txt | docker run -i projectdiscovery/httpx
@@ -108,7 +100,7 @@ https://support.hackerone.com
 ```
 ## Error Page Classifier and Filtering
 The Error Page Classifier and Filtering feature aims to add intelligence to `httpx` by enabling `httpx` to classify and filter out common error pages returned by web applications. 
-It is an enhancement to the existing capabilities and is geared towards reducing the noise in the results and helping you focus on actual results. 
+It is an enhancement geared towards reducing noise and helping focus on actual results. 
 
 Using the `-fep` or `-filter-error-page` option creates a filtered error page in the file `filtered_error_page.json` in jsonline format.
 
@@ -129,8 +121,6 @@ https://scanme.sh/v1/api
 ```
 ## Favicon Hash
 Extract and display the mmh3 hash of the '/favicon.ico' file from given targets.
-
-`subfinder -d hackerone.com -silent | httpx -favicon`
 
 ```
 subfinder -d hackerone.com -silent | httpx -favicon
@@ -158,9 +148,7 @@ https://mta-sts.hackerone.com/favicon.ico [-1700323260]
 https://www.hackerone.com/favicon.ico [778073381]
 ```
 ## File/Path Bruteforce
-Use 'httpx' with the '-path' option for efficient File/Path Bruteforcing. This feature allows probing specific paths across multiple URLs, uncovering response codes and revealing potentially vulnerable or unsecured endpoints in web applications.
-
-`httpx -l urls.txt -path /v1/api -sc`
+Use `httpx` with the `-path` option for efficient File/Path Bruteforcing. This feature allows probing specific paths across multiple URLs, uncovering response codes and revealing potentially vulnerable or unsecured endpoints in web applications.
 
 ```
 httpx -l urls.txt -path /v1/api -sc
@@ -191,8 +179,6 @@ http://www.hackerone.com/v1/api [301]
 ## File Input
 Run `httpx` with the `-probe` flag against all the hosts in hosts.txt to return URLs with probed status.
 
-`httpx -list hosts.txt -silent -probe`
-
 ```
 httpx -list hosts.txt -silent -probe
 
@@ -218,11 +204,9 @@ http://a.ns.hackerone.com [FAILED]
 http://b.ns.hackerone.com [FAILED]
 ```
 ## JARM Fingerprint
-Use 'httpx' with the '-jarm' flag to leverage JARM fingerprinting, a specialized tool for active TLS server fingerprinting. 
+Use `httpx` with the `-jarm` flag to leverage JARM fingerprinting, a specialized tool for active TLS server fingerprinting. 
 This approach enables the identification and categorization of servers based on their TLS configurations, making it an effective method for detecting and analyzing diverse internet servers, 
 including potential security threats.
-
-`subfinder -d hackerone.com -silent | httpx -jarm`
 
 ```
 subfinder -d hackerone.com -silent | httpx -jarm
@@ -247,10 +231,8 @@ https://mta-sts.forwarding.hackerone.com [29d29d00029d29d00042d43d00041d2aa5ce6a
 https://resources.hackerone.com [2ad2ad0002ad2ad0002ad2ad2ad2ad043bfbd87c13813505a1b60adf4f6ff5]
 ```
 ## Tool Chain 
-Combining 'httpx' with other tools like 'subfinder' can elevate your web reconnaissance. 
-For example, pipe results from 'subfinder' directly into 'httpx' to efficiently identify active web servers and their technologies across various subdomains of a given target.
-
-`subfinder -d hackerone.com -silent | httpx -title -tech-detect -status-code`
+Combining `httpx` with other tools like `subfinder` can elevate your web reconnaissance. 
+For example, pipe results from `subfinder` directly into 'httpx' to efficiently identify active web servers and their technologies across various subdomains of a given target.
 
 ```
 subfinder -d hackerone.com -silent| httpx -title -tech-detect -status-code
@@ -276,8 +258,6 @@ https://resources.hackerone.com [301,301,404] [Sorry, no Folders found.]
 
 ## URL probe
 Run `httpx` against all the hosts and subdomains in hosts.txt to return URLs running an HTTP webserver.
-
-`cat hosts.txt | httpx`
 
 ```
 cat hosts.txt | httpx 
