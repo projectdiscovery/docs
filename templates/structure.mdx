@@ -4,6 +4,23 @@ icon: "table-tree"
 iconType: "light"
 ---
 
+# Template Structure
+
+Nuclei Templates utilize a custom YAML-based DSL, with their structure varying according to the specific protocol employed. Typically, a template comprises the following elements:
+
+- A [unique ID](#id) for the template
+- Essential [information](#information) and [metadata](#metadata) relevant to the template
+- The designated protocol, such as [HTTP](/templates/protocols/http/basic-http), [DNS](/templates/protocols/dns), [File](/templates/protocols/file), etc.
+- Details specific to the chosen protocol, like the requests made in the HTTP protocol
+- A series of [matchers](/templates/reference/matchers) to ascertain the presence of findings
+- Necessary [extractors](/templates/reference/extractors) for data retrieval from the results
+
+<Tip>
+For a detailed, automatically generated overview of everything available in the nuclei template syntax, you can visit the [syntax reference](https://github.com/projectdiscovery/nuclei/blob/dev/SYNTAX-REFERENCE.md) on GitHub
+</Tip>
+
+## ID
+
 Each template has a unique ID which is used during output writing to specify the template name for an output line.
 
 The template file ends with **YAML** extension. The template files can be created any text editor of your choice.
@@ -14,7 +31,7 @@ id: git-config
 
 ID must not contain spaces. This is done to allow easier output parsing.
 
-### Information
+## Information
 
 Next important piece of information about a template is the **info** block. Info block provides **name**, **author**, **severity**, **description**, **reference**, **tags** and `metadata`. It also contains **severity** field which indicates the severity of the template, **info** block also supports dynamic fields, so one can define N number of `key: value` blocks to provide more useful information about the template. **reference** is another popular tag to define external reference links for the template.
 
@@ -37,7 +54,7 @@ Each template file can contain multiple requests to be made. The template is ite
 
 The best part of this is you can simply share your crafted template with your teammates, triage/security team to replicate the issue on the other side with ease.
 
-#### Metadata
+## Metadata
 
 It's possible to add metadata nodes, for example, to integrates with [uncover](https://github.com/projectdiscovery/uncover) (cf. [Uncover Integration](https://nuclei.projectdiscovery.io/nuclei/get-started/#uncover-integration)).
 
