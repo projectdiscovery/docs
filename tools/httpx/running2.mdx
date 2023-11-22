@@ -302,3 +302,44 @@ This functionality enables a comprehensive view of the target's visual content.
 Rendered DOM body is also included in json line output when `-screenshot` option is used with `-json` option.
 
 To use this feature, add the `-screenshot` flag to the `httpx` command. 
+
+`httpx -screenshot -u https://example.com`
+
+<Tip> **Performance Considerations**
+Screenshots are captured using a headless browser, and as a result `httpx` will be slower when using the `-screenshot` option.
+</Tip>
+
+**Domain, Subdomain, and Path Support** 
+The `-screenshot` option is versatile and can be used to capture screenshots for domains, subdomains, and even specific paths when used in conjunction with the `-path` option:
+
+```
+httpx -screenshot -u example.com
+httpx -screenshot -u https://example.com/login
+httpx -screenshot -path fuzz_path.txt -u https://example.com
+```
+
+**Use with Other Tools**
+`subfinder -d example.com | httpx -screenshot`
+
+**System Chrome Support**
+By default, `httpx` uses the go-rod library to install and manage Chrome for taking screenshots. 
+However, if you prefer to use your locally installed system Chrome, add the `-system-chrome` flag:
+
+`httpx -screenshot -system-chrome -u https://example.com`
+
+**Output Directory**
+Screenshots are stored in the output/screenshot directory by default. To specify a custom output directory, use the `-srd` option:
+
+`httpx -screenshot -srd /path/to/custom/directory -u https://example.com`
+
+**Body Preview**
+Body preview shows first N characters of response. And strip html tags in response.
+
+```
+httpx -u https://example.com -silent -body-preview
+https://example.com [Example Domain This domain is for use in illustrative examples in documents. You may use this domai]
+```
+```
+httpx -u https://example.com -silent -body-preview=200 -strip=html
+https://example.com [Example Domain This domain is for use in illustrative examples in documents. You may use this domain in literature without prior coordination or asking for permission. More information...]
+```
