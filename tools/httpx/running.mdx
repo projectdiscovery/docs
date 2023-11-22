@@ -320,18 +320,24 @@ httpx -screenshot -path fuzz_path.txt -u https://example.com
 
 In the example below we're providing subfinder output to the `httpx` screenshot.
 
-```subfinder -d example.com | httpx -screenshot```
+```
+subfinder -d example.com | httpx -screenshot
+```
 
 #### System Chrome Support
 By default, `httpx` uses the go-rod library to install and manage Chrome for taking screenshots. 
 However, if you prefer to use your locally installed system Chrome, add the `-system-chrome` flag:
 
-```httpx -screenshot -system-chrome -u https://example.com```
+```
+httpx -screenshot -system-chrome -u https://example.com
+```
 
 #### Output Directory
 Screenshots are stored in the output/screenshot directory by default. To specify a custom output directory, use the `-srd` option:
 
-```httpx -screenshot -srd /path/to/custom/directory -u https://example.com```
+```
+httpx -screenshot -srd /path/to/custom/directory -u https://example.com
+```
 
 #### Body Preview
 Body preview shows first N characters of response. And strip html tags in response.
