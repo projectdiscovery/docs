@@ -118,7 +118,7 @@ In above nuclei template we are bruteforcing ssh server with list of usernames a
 - If pre-condition returns `true` only then code is executed otherwise it is skipped
 - In code section we import `nuclei/ssh` module and create a new instance of `SSHClient` object
 - and then we attempt to connect to ssh server with username and password
-- this template uses [payloads](https://docs.nuclei.sh/template-guide/http/http-payloads) to launch a clusterbomb attack with 10 threads and exits on first match
+- this template uses [payloads](https://docs.projectdiscovery.io/templates/protocols/http/http-payloads) to launch a clusterbomb attack with 10 threads and exits on first match
 
 Looking at this template now we can tell that javascript template is very powerful to write multi step and protocol/vendor specific exploits which is primary goal of javascript protocol.
 
