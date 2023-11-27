@@ -33,7 +33,7 @@ http:
           - contains(dns_cname, 'github.io') # check for cname from dns response
         condition: and
 ```
-The example above demonstrates that there is no need for new logic or syntax. Simply write the logic for each protocol and then use the protocol-prefixed variable or the [dynamic extractor](https://docs.nuclei.sh/template-guide/operators/extractors#dynamic-extractor) to export that variable. This variable is then shared across all protocols. We refer to this as the **Template Context**, which contains all variables that are scoped at the template level.
+The example above demonstrates that there is no need for new logic or syntax. Simply write the logic for each protocol and then use the protocol-prefixed variable or the [dynamic extractor](https://docs.projectdiscovery.io/templates/reference/extractors#dynamic-extractor) to export that variable. This variable is then shared across all protocols. We refer to this as the **Template Context**, which contains all variables that are scoped at the template level.
 
 ## Features
 
@@ -99,7 +99,7 @@ nuclei -t multi-protocol-template.yaml -u scanme.sh -debug -svd
 
 ### Data Export across Protocols
 
-If you are unfamiliar with dynamic extractors, we recommend reading the [dynamic extractor](https://docs.nuclei.sh/template-guide/operators/extractors#dynamic-extractor) section first.
+If you are unfamiliar with dynamic extractors, we recommend reading the [dynamic extractor](https://docs.projectdiscovery.io/templates/reference/extractors#dynamic-extractor) section first.
 
 Previously, Dynamic Extractors were only supported for specific protocols or workflows. However, with multi-protocol execution, dynamically extracted values are stored in the template context and can be used across all protocols.
 
