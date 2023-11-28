@@ -49,7 +49,7 @@ Similarly, Workflows can be executed against a list of URLs.
 nuclei -list http_urls.txt -w workflows/wordpress-workflow.yaml
 ```
 
-### Nuclei **Filters**
+### Template **Filters**
 
 Nuclei engine supports three basic filters to customize template execution.
 
@@ -86,6 +86,8 @@ AND has `critical` OR `high` severity AND `geeknik` as author of template.
 ```sh
 nuclei -u https://example.com -tags cve -severity critical,high -author geeknik
 ```
+
+### Advance Filters
 
 Multiple filters can also be combined using the template condition flag (`-tc`) that allows complex expressions like the following ones:
 
@@ -125,6 +127,15 @@ nuclei -w workflows/wordpress-workflow.yaml -severity critical,high -list http_u
 In Workflows, Nuclei filters are applied on templates or sub-templates running via workflows, not on the workflows itself.
 
 </Note>
+
+### List Template Paths
+
+`-tl` option in Nuclei is used to list the paths of templates, rather than executing them. This can help you inspect which templates would be used for scan given your current template filter.
+
+```sh
+# Command to list templates (-tl)
+nuclei -tags cve -severity critical,high -author geeknik -tl
+```
 
 ### Public Templates
 
