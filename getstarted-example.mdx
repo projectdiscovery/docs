@@ -48,6 +48,7 @@ Before we jump into the installation here's a super high-level overview of Nucle
 
 Nuclei is a community-powered vulnerability scanner that uses templates to identify vulnerabilities in your assets. 
 As an open-source tool, it has the benefit of a huge community of users and contributors who have helped to create a vast library of templates. 
+
 Templates, are YAML files used to define what is scanned by Nuclei. The template library has a ton of options and customizations, and supports any templates you create to meet your requirements.
 
 <Steps>
@@ -102,7 +103,7 @@ We'll be using the test URL(`http://honey.scanme.sh/`) in our example to demonst
 To scan your target host, on your terminal, run `nuclei -u http://honey.scanme.sh/`. 
 _The -u option specifies the target you want to scan with all available templates._ 
 
-### Sample results
+### View results
 Here we have an example (edited for easier readability) 
 
 ```java
@@ -162,17 +163,3 @@ So, for each line of output from our scan the data format is as follows:
 ```
 [tikiwiki-reflected-xss] [http] [high] http://honey.scanme.sh/tiki-5.2/tiki-edit_wiki_section.php?type=%22%3E%3Cscript%3Ealert(31337)%3C/script%3E
 ```
-## What's Next
-### Learn more about Nuclei
-Now that you understand the basics we have a ton of resources available to help you learn more about Nuclei capabilities, 
-in addition to learning more about our complete range of open-source tools. 
-
- - Check out some common areas [where Nuclei may be able to help you or your organization](https://docs.projectdiscovery.io/tools/nuclei/overview#where-to-use-nuclei)
- - Explore more information about [running Nuclei](https://docs.projectdiscovery.io/tools/nuclei/running) including details about our extensive [library of public templates](https://docs.projectdiscovery.io/tools/nuclei/running#public-templates)
-- Learn more about selecting [an effective scanning strategy](https://docs.projectdiscovery.io/tools/nuclei/running#which-scan-strategy-to-use)
-
-### Explore our open-source tools
-
-Check out the tools we offer and the layers of optimization they fall under (Discover, Enrich, Detect!) [for improving your security assessments.](https://docs.projectdiscovery.io/tools/index) 
-
-Watch a video where we explore every ProjectDiscovery tool in just 30 minutes!
