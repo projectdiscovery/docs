@@ -77,7 +77,7 @@
     },
     {
       "group": "Get Started",
-      "pages": ["getstarted-overview", "getstarted-example"]
+      "pages": ["getstarted-overview", "getstarted-example", "getstarted-nextsteps"]
     },
     {
       "group": "Tools",
