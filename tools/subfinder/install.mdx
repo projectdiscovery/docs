@@ -53,3 +53,55 @@ sidebarTitle: "Install"
 
   </Tab>
 </Tabs>
+
+## Post install configuration
+
+Subfinder is available immediately after installation, however the following services require the configuration of API keys to work:
+
+[BeVigil](https://bevigil.com/osint-api), [BinaryEdge](https://binaryedge.io), [BufferOver](https://tls.bufferover.run), [C99](https://api.c99.nl/), [Censys](https://censys.io), [CertSpotter](https://sslmate.com/certspotter/api/), [Chaos](https://chaos.projectdiscovery.io), 
+[Chinaz](http://my.chinaz.com/ChinazAPI/DataCenter/MyDataApi), [DNSDB](https://api.dnsdb.info), [Fofa](https://fofa.info/static_pages/api_help), [FullHunt](https://fullhunt.io), [GitHub](https://github.com), [Intelx](https://intelx.io), 
+[PassiveTotal](http://passivetotal.org), [quake](https://quake.360.cn), [Robtex](https://www.robtex.com/api/), [SecurityTrails](http://securitytrails.com), [Shodan](https://shodan.io), [ThreatBook](https://x.threatbook.cn/en), 
+[VirusTotal](https://www.virustotal.com), [WhoisXML API](https://whoisxmlapi.com/), [ZoomEye](https://www.zoomeye.org), [ZoomEye API](https://api.zoomeye.org), 
+[dnsrepo](https://dnsrepo.noc.org), [Hunter](https://hunter.qianxin.com/), [Facebook](https://developers.facebook.com), [BuiltWith](https://api.builtwith.com/domain-api)
+
+You can also use the `subfinder -ls` command to display all the available sources.
+
+These values are stored in the `$HOME/.config/subfinder/provider-config.yaml` file which will be created when you run the tool for the first time. 
+The configuration file uses the YAML format. Multiple API keys can be specified for each of these services from which one of them will be used for enumeration.
+
+Composite keys for sources like, Censys, PassiveTotal, Fofa, Intellix and 360quake, need to be separated with a colon (:).
+
+## Example provider config
+An example provider config file: 
+
+```
+binaryedge:
+  - 0bf8919b-aab9-42e4-9574-d3b639324597
+  - ac244e2f-b635-4581-878a-33f4e79a2c13
+censys:
+  - ac244e2f-b635-4581-878a-33f4e79a2c13:dd510d6e-1b6e-4655-83f6-f347b363def9
+certspotter: []
+passivetotal:
+  - sample-email@user.com:sample_password
+redhuntlabs:
+  - ENDPOINT:API_TOKEN
+  - https://reconapi.redhuntlabs.com/community/v1/domains/subdomains:joEPzJJp2AuOCw7teAj63HYrPGnsxuPQ
+securitytrails: []
+shodan:
+  - AAAAClP1bJJSRMEYJazgwhJKrggRwKA
+github:
+  - ghp_lkyJGU3jv1xmwk4SDXavrLDJ4dl2pSJMzj4X
+  - ghp_gkUuhkIYdQPj13ifH4KA3cXRn8JD2lqir2d4
+zoomeyeapi:
+  - 4f73021d-ff95-4f53-937f-83d6db719eec
+quake:
+  - 0cb9030c-0a40-48a3-b8c4-fca28e466ba3
+facebook:
+  - APP_ID:APP_SECRET
+intelx:
+  - HOST:API_KEY
+  - 2.intelx.io:s4324-b98b-41b2-220e8-3320f6a1284d
+  ```
+
+## RedHunt Lab Attack Surface Recon API
+RedHunt Labs's [Attack Surface Recon API](https://devportal.redhuntlabs.com/) has different API endpoints depending on the user's subscription. Make sure to add the appropriate endpoint before running any scans.
