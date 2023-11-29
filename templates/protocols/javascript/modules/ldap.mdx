@@ -1,0 +1,73 @@
+<a name="module_ldap"></a>
+
+## ldap
+
+* [ldap](#module_ldap)
+    * [`LdapClient`](#module_ldap..LdapClient)
+        * [`.CollectLdapMetadata(domain, controller)`](#module_ldap..LdapClient+CollectLdapMetadata) ⇒ <code>LDAPMetadata</code>
+        * [`.IsLdap(host, port)`](#module_ldap..LdapClient+IsLdap) ⇒ <code>boolean</code>
+    * [`LDAPMetadata`](#module_ldap..LDAPMetadata) : <code>object</code>
+
+<a name="module_ldap..LdapClient"></a>
+
+### (ldap).LdapClient
+LdapClient is a client for ldap protocol in golang. It is a wrapper around the standard library ldap package.
+
+**Kind**: inner class of [<code>ldap</code>](#module_ldap)  
+
+* [`LdapClient`](#module_ldap..LdapClient)
+    * [`.CollectLdapMetadata(domain, controller)`](#module_ldap..LdapClient+CollectLdapMetadata) ⇒ <code>LDAPMetadata</code>
+    * [`.IsLdap(host, port)`](#module_ldap..LdapClient+IsLdap) ⇒ <code>boolean</code>
+
+<a name="module_ldap..LdapClient+CollectLdapMetadata"></a>
+
+#### ldapClient.CollectLdapMetadata(domain, controller) ⇒ <code>LDAPMetadata</code>
+CollectLdapMetadata collects metadata from ldap server.
+
+**Kind**: instance method of [<code>LdapClient</code>](#module_ldap..LdapClient)  
+**Returns**: <code>LDAPMetadata</code> - - The metadata from ldap server.  
+**Throws**:
+
+- <code>error</code> - The error encountered during metadata collection.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| domain | <code>string</code> | The domain to collect metadata from. |
+| controller | <code>string</code> | The controller to collect metadata from. |
+
+**Example**  
+```js
+let m = require('nuclei/ldap');
+let c = m.LdapClient();
+let metadata = c.CollectLdapMetadata('example.com', 'controller1');
+```
+<a name="module_ldap..LdapClient+IsLdap"></a>
+
+#### ldapClient.IsLdap(host, port) ⇒ <code>boolean</code>
+IsLdap checks if the given host and port are running ldap server.
+
+**Kind**: instance method of [<code>LdapClient</code>](#module_ldap..LdapClient)  
+**Returns**: <code>boolean</code> - - Whether the given host and port are running ldap server.  
+**Throws**:
+
+- <code>error</code> - The error encountered during the check.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| host | <code>string</code> | The host to check. |
+| port | <code>int</code> | The port to check. |
+
+**Example**  
+```js
+let m = require('nuclei/ldap');
+let c = m.LdapClient();
+let isLdap = c.IsLdap('localhost', 389);
+```
+<a name="module_ldap..LDAPMetadata"></a>
+
+### (ldap).LDAPMetadata : <code>object</code>
+LDAPMetadata is an object containing metadata from ldap server.
+
+**Kind**: inner typedef of [<code>ldap</code>](#module_ldap)  

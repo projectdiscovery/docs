@@ -1,0 +1,77 @@
+<a name="module_structs"></a>
+
+## structs
+
+* [structs](#module_structs)
+    * [`Pack(formatStr, msg)`](#module_structs..Pack) ⇒ <code>Uint8Array</code>
+    * [`StructsCalcSize(format)`](#module_structs..StructsCalcSize) ⇒ <code>number</code>
+    * [`Unpack(format, msg)`](#module_structs..Unpack)
+
+<a name="module_structs..Pack"></a>
+
+### (structs).Pack(formatStr, msg) ⇒ <code>Uint8Array</code>
+Pack returns a byte slice containing the values of msg slice packed according to the given format.
+The items of msg slice must match the values required by the format exactly.
+
+**Kind**: inner method of [<code>structs</code>](#module_structs)  
+**Returns**: <code>Uint8Array</code> - - The packed message in a byte array.  
+**Throws**:
+
+- <code>error</code> - The error encountered during packing.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| formatStr | <code>string</code> | The format string. |
+| msg | <code>Array.&lt;any&gt;</code> | The message to be packed. |
+
+**Example**  
+```js
+let s = require('nuclei/structs'); 
+let packedMsg = s.Pack("H", [0]);
+```
+<a name="module_structs..StructsCalcSize"></a>
+
+### (structs).StructsCalcSize(format) ⇒ <code>number</code>
+StructsCalcSize returns the number of bytes needed to pack the values according to the given format.
+
+**Kind**: inner method of [<code>structs</code>](#module_structs)  
+**Returns**: <code>number</code> - - The number of bytes needed to pack the values.  
+**Throws**:
+
+- <code>error</code> - The error encountered during calculation.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| format | <code>string</code> | The format string. |
+
+**Example**  
+```js
+let s = require('nuclei/structs'); 
+let size = s.StructsCalcSize("H");
+```
+<a name="module_structs..Unpack"></a>
+
+### (structs).Unpack(format, msg)
+Unpack the byte slice (presumably packed by Pack(format, msg)) according to the given format.
+The result is a []interface{} slice even if it contains exactly one item.
+The byte slice must contain not less the amount of data required by the format
+(len(msg) must more or equal CalcSize(format)).
+
+**Kind**: inner method of [<code>structs</code>](#module_structs)  
+**Throws**:
+
+- <code>error</code> - The error encountered during unpacking.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| format | <code>string</code> | The format string. |
+| msg | <code>Uint8Array</code> | The packed message to be unpacked. |
+
+**Example**  
+```js
+let s = require('nuclei/structs'); 
+let unpackedMsg = s.Unpack(">I", buff[:nb]);
+```

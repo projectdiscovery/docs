@@ -1,0 +1,130 @@
+## Functions
+
+<dl>
+<dt><a href="#Rand">Rand(n)</a> ⇒ <code>Uint8Array</code></dt>
+<dd><p>Rand returns a random byte slice of length n</p></dd>
+<dt><a href="#RandInt">RandInt()</a> ⇒ <code>number</code></dt>
+<dd><p>RandInt returns a random int</p></dd>
+<dt><a href="#log">log(msg)</a></dt>
+<dd><p>log prints given input to stdout with [JS] prefix for debugging purposes</p></dd>
+<dt><a href="#getNetworkPort">getNetworkPort(port, defaultPort)</a> ⇒ <code>string</code></dt>
+<dd><p>getNetworkPort registers defaultPort and returns defaultPort if it is a colliding port with other protocols</p></dd>
+<dt><a href="#isPortOpen">isPortOpen(host, port, [timeout])</a> ⇒ <code>boolean</code></dt>
+<dd><p>isPortOpen checks if given port is open on host. timeout is optional and defaults to 5 seconds</p></dd>
+<dt><a href="#ToBytes">ToBytes(...args)</a> ⇒ <code>Uint8Array</code></dt>
+<dd><p>ToBytes converts given input to byte slice</p></dd>
+<dt><a href="#ToString">ToString(...args)</a> ⇒ <code>string</code></dt>
+<dd><p>ToString converts given input to string</p></dd>
+</dl>
+
+<a name="Rand"></a>
+
+## Rand(n) ⇒ <code>Uint8Array</code>
+Rand returns a random byte slice of length n
+
+**Kind**: global function  
+**Returns**: <code>Uint8Array</code> - - The random byte slice.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| n | <code>number</code> | The length of the byte slice. |
+
+**Example**  
+```js
+let randbytes = Rand(10); // returns a random byte slice of length 10
+```
+<a name="RandInt"></a>
+
+## RandInt() ⇒ <code>number</code>
+RandInt returns a random int
+
+**Kind**: global function  
+**Returns**: <code>number</code> - - The random integer.  
+**Example**  
+```js
+let myint = m.RandInt(); // returns a random int
+```
+<a name="log"></a>
+
+## log(msg)
+log prints given input to stdout with [JS] prefix for debugging purposes
+
+**Kind**: global function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| msg | <code>string</code> \| <code>Object</code> | The message to print. |
+
+**Example**  
+```js
+log("Hello World!");
+log({"Hello": "World!"});
+```
+<a name="getNetworkPort"></a>
+
+## getNetworkPort(port, defaultPort) ⇒ <code>string</code>
+getNetworkPort registers defaultPort and returns defaultPort if it is a colliding port with other protocols
+
+**Kind**: global function  
+**Returns**: <code>string</code> - - The default port if the given port is colliding, otherwise the given port.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| port | <code>string</code> | The port to check. |
+| defaultPort | <code>string</code> | The default port to return if the given port is colliding. |
+
+**Example**  
+```js
+let port = getNetworkPort(Port, "2843"); // 2843 is default port (even if 80,443 etc is given in Port from input)
+```
+<a name="isPortOpen"></a>
+
+## isPortOpen(host, port, [timeout]) ⇒ <code>boolean</code>
+isPortOpen checks if given port is open on host. timeout is optional and defaults to 5 seconds
+
+**Kind**: global function  
+**Returns**: <code>boolean</code> - - True if the port is open, false otherwise.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| host | <code>string</code> |  | The host to check. |
+| port | <code>string</code> |  | The port to check. |
+| [timeout] | <code>number</code> | <code>5</code> | The timeout in seconds. |
+
+**Example**  
+```js
+let open = isPortOpen("localhost", "80"); // returns true if port 80 is open on localhost
+let open = isPortOpen("localhost", "80", 10); // returns true if port 80 is open on localhost within 10 seconds
+```
+<a name="ToBytes"></a>
+
+## ToBytes(...args) ⇒ <code>Uint8Array</code>
+ToBytes converts given input to byte slice
+
+**Kind**: global function  
+**Returns**: <code>Uint8Array</code> - - The byte slice.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ...args | <code>any</code> | The input to convert. |
+
+**Example**  
+```js
+let mybytes = ToBytes("Hello World!"); // returns byte slice of "Hello World!"
+```
+<a name="ToString"></a>
+
+## ToString(...args) ⇒ <code>string</code>
+ToString converts given input to string
+
+**Kind**: global function  
+**Returns**: <code>string</code> - - The string.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ...args | <code>any</code> | The input to convert. |
+
+**Example**  
+```js
+let mystr = ToString([0x48, 0x65, 0x6c, 0x6c, 0x6f]); // returns "Hello"
+```

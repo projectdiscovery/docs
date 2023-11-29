@@ -1,0 +1,124 @@
+<a name="module_redis"></a>
+
+## redis
+
+* [redis](#module_redis)
+    * [`Connect(host, port, password)`](#module_redis..Connect) ⇒ <code>boolean</code>
+    * [`GetServerInfo(host, port)`](#module_redis..GetServerInfo) ⇒ <code>string</code>
+    * [`GetServerInfoAuth(host, port, password)`](#module_redis..GetServerInfoAuth) ⇒ <code>string</code>
+    * [`IsAuthenticated(host, port)`](#module_redis..IsAuthenticated) ⇒ <code>boolean</code>
+    * [`RunLuaScript(host, port, password, script)`](#module_redis..RunLuaScript)
+
+<a name="module_redis..Connect"></a>
+
+### (redis).Connect(host, port, password) ⇒ <code>boolean</code>
+Connect tries to connect redis server with password
+
+**Kind**: inner method of [<code>redis</code>](#module_redis)  
+**Returns**: <code>boolean</code> - - The status of the connection.  
+**Throws**:
+
+- <code>error</code> - The error encountered during connection.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| host | <code>string</code> | The host of the redis server. |
+| port | <code>number</code> | The port of the redis server. |
+| password | <code>string</code> | The password for the redis server. |
+
+**Example**  
+```js
+let m = require('nuclei/redis'); 
+let status = m.Connect('localhost', 6379, 'password');
+```
+<a name="module_redis..GetServerInfo"></a>
+
+### (redis).GetServerInfo(host, port) ⇒ <code>string</code>
+GetServerInfo returns the server info for a redis server
+
+**Kind**: inner method of [<code>redis</code>](#module_redis)  
+**Returns**: <code>string</code> - - The server info.  
+**Throws**:
+
+- <code>error</code> - The error encountered during getting server info.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| host | <code>string</code> | The host of the redis server. |
+| port | <code>number</code> | The port of the redis server. |
+
+**Example**  
+```js
+let m = require('nuclei/redis'); 
+let info = m.GetServerInfo('localhost', 6379);
+```
+<a name="module_redis..GetServerInfoAuth"></a>
+
+### (redis).GetServerInfoAuth(host, port, password) ⇒ <code>string</code>
+GetServerInfoAuth returns the server info for a redis server
+
+**Kind**: inner method of [<code>redis</code>](#module_redis)  
+**Returns**: <code>string</code> - - The server info.  
+**Throws**:
+
+- <code>error</code> - The error encountered during getting server info.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| host | <code>string</code> | The host of the redis server. |
+| port | <code>number</code> | The port of the redis server. |
+| password | <code>string</code> | The password for the redis server. |
+
+**Example**  
+```js
+let m = require('nuclei/redis'); 
+let info = m.GetServerInfoAuth('localhost', 6379, 'password');
+```
+<a name="module_redis..IsAuthenticated"></a>
+
+### (redis).IsAuthenticated(host, port) ⇒ <code>boolean</code>
+IsAuthenticated checks if the redis server requires authentication
+
+**Kind**: inner method of [<code>redis</code>](#module_redis)  
+**Returns**: <code>boolean</code> - - The authentication status.  
+**Throws**:
+
+- <code>error</code> - The error encountered during checking authentication.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| host | <code>string</code> | The host of the redis server. |
+| port | <code>number</code> | The port of the redis server. |
+
+**Example**  
+```js
+let m = require('nuclei/redis'); 
+let isAuthenticated = m.IsAuthenticated('localhost', 6379);
+```
+<a name="module_redis..RunLuaScript"></a>
+
+### (redis).RunLuaScript(host, port, password, script)
+RunLuaScript runs a lua script on the redis server
+
+**Kind**: inner method of [<code>redis</code>](#module_redis)  
+**Throws**:
+
+- <code>error</code> - The error encountered during running the lua script.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| host | <code>string</code> | The host of the redis server. |
+| port | <code>number</code> | The port of the redis server. |
+| password | <code>string</code> | The password for the redis server. |
+| script | <code>string</code> | The lua script to run. |
+
+**Example**  
+```js
+let m = require('nuclei/redis'); 
+m.RunLuaScript('localhost', 6379, 'password', 'return redis.call(\'ping\')');
+```
