@@ -98,7 +98,7 @@
     },
     {
       "group": "Subfinder",
-      "pages": ["tools/subfinder/overview", "tools/subfinder/install", "tools/subfinder/running"]
+      "pages": ["tools/subfinder/overview", "tools/subfinder/install", "tools/subfinder/usage", "tools/subfinder/running"]
     },
     {
       "group": "Templates",

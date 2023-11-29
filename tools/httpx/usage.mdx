@@ -3,8 +3,11 @@ title: "Httpx Usage"
 description: "Learn httpx usage including flags, probes, and options"
 sidebarTitle: "Usage"
 ---
+## Access help 
+
 Use `httpx - h` to display all help options. 
 
+## Httpx help options
 ```
 Flags:
 INPUT:
@@ -158,7 +161,7 @@ OPTIMIZATIONS:
    -rstr, -response-size-to-read int  max response size to read in bytes (default 2147483647)
    ```
 
-## Notes on Usage
+## Notes on usage
 
 - As default an `httpx` probe with an HTTPS scheme will fall-back to HTTP only if HTTPS is not reachable.
 - The `-no-fallback` flag can be used to probe and display both HTTP and HTTPS result.
