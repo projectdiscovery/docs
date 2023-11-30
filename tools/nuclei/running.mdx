@@ -128,15 +128,6 @@ In Workflows, Nuclei filters are applied on templates or sub-templates running v
 
 </Note>
 
-### List Template Paths
-
-`-tl` option in Nuclei is used to list the paths of templates, rather than executing them. This can help you inspect which templates would be used for scan given your current template filter.
-
-```sh
-# Command to list templates (-tl)
-nuclei -tags cve -severity critical,high -author geeknik -tl
-```
-
 ### Public Templates
 
 Nuclei has built-in support for automatic template download/update from [**nuclei templates**](https://github.com/projectdiscovery/nuclei-templates) project which provides [community-contributed](https://github.com/projectdiscovery/nuclei-templates#-community) list of ready-to-use templates that is constantly updated.
@@ -243,7 +234,7 @@ The nuclei engine can be updated to latest version by using the `-update` flag.
   others.
 </Tip>
 
-### Flags
+### Nuclei Flags
 
 ```
 nuclei -h
@@ -537,6 +528,15 @@ nuclei -l urls.txt -include-tags iot,misc,fuzz
 
 </Note>
 
+### List Template Path
+
+`-tl` option in Nuclei is used to list the paths of templates, rather than executing them. This can help you inspect which templates would be used for scan given your current template filter.
+
+```sh
+# Command to list templates (-tl)
+nuclei -tags cve -severity critical,high -author geeknik -tl
+```
+
 ### Scan on internet database
 
 Nuclei supports integration with [uncover module](https://github.com/projectdiscovery/uncover) that supports services like Shodan, Censys, Hunter, Zoomeye, many more to execute Nuclei on these databases.
@@ -708,9 +708,10 @@ Once configured, **config file be used as default**, additionally custom config 
 
 Nuclei comes with reporting module support with the release of [v2.3.0](https://nuclei.projectdiscovery.io/releases/nuclei-changelog/#nuclei-v230-10-march-2021) supporting GitHub, GitLab, and Jira integration, this allows nuclei engine to create automatic tickets on the supported platform based on found results.
 
-| **Platform** | GitHub                                                                                                                                                                                                                                                                                                            | GitLab                                                                                                                                                                                                                                                                                                            | Jira                                                                                                                                                                                                                                                                                                              | Markdown                                                                                                                                                                                                                                                                                                          | SARIF                                                                                                                                                                                                                                                                                                             | Elasticsearch                                                                                                                                                                                                                                                                                                     | Splunk HEC                                                                                                                                                                                                                                                                                                        |
-| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Support**  | <svg className="dark:fill-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fillRule="evenodd" d="M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm16.28-2.72a.75.75 0 00-1.06-1.06l-5.97 5.97-2.47-2.47a.75.75 0 00-1.06 1.06l3 3a.75.75 0 001.06 0l6.5-6.5z"></path></svg> | <svg className="dark:fill-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fillRule="evenodd" d="M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm16.28-2.72a.75.75 0 00-1.06-1.06l-5.97 5.97-2.47-2.47a.75.75 0 00-1.06 1.06l3 3a.75.75 0 001.06 0l6.5-6.5z"></path></svg> | <svg className="dark:fill-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fillRule="evenodd" d="M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm16.28-2.72a.75.75 0 00-1.06-1.06l-5.97 5.97-2.47-2.47a.75.75 0 00-1.06 1.06l3 3a.75.75 0 001.06 0l6.5-6.5z"></path></svg> | <svg className="dark:fill-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fillRule="evenodd" d="M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm16.28-2.72a.75.75 0 00-1.06-1.06l-5.97 5.97-2.47-2.47a.75.75 0 00-1.06 1.06l3 3a.75.75 0 001.06 0l6.5-6.5z"></path></svg> | <svg className="dark:fill-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fillRule="evenodd" d="M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm16.28-2.72a.75.75 0 00-1.06-1.06l-5.97 5.97-2.47-2.47a.75.75 0 00-1.06 1.06l3 3a.75.75 0 001.06 0l6.5-6.5z"></path></svg> | <svg className="dark:fill-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fillRule="evenodd" d="M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm16.28-2.72a.75.75 0 00-1.06-1.06l-5.97 5.97-2.47-2.47a.75.75 0 00-1.06 1.06l3 3a.75.75 0 001.06 0l6.5-6.5z"></path></svg> | <svg className="dark:fill-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fillRule="evenodd" d="M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm16.28-2.72a.75.75 0 00-1.06-1.06l-5.97 5.97-2.47-2.47a.75.75 0 00-1.06 1.06l3 3a.75.75 0 001.06 0l6.5-6.5z"></path></svg> |
+| Platform    | GitHub | GitLab | Jira | Markdown | SARIF | Elasticsearch | Splunk HEC |
+|-------------|:------:|:------:|:----:|:--------:|:-----:|:-------------:|:----------:|
+| Support     |   ✔    |   ✔    |  ✔   |    ✔     |   ✔   |       ✔       |     ✔      |
+
 
 `-rc, -report-config` flag can be used to provide a config file to read configuration details of the platform to integrate. Here is an [example config file](https://github.com/projectdiscovery/nuclei/blob/main/cmd/nuclei/issue-tracker-config.yaml) for all supported platforms.
 
@@ -725,6 +726,7 @@ github:
   token: '$token'
   project-name: 'testing-project'
   issue-label: 'Nuclei'
+  duplicate-issue-check: true
 ```
 
 Alternatively if you use GitLab, create a config file following content and replace the appropriate values:
