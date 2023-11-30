@@ -1,0 +1,146 @@
+<a name="module_ssh"></a>
+
+## ssh
+
+* [ssh](#module_ssh)
+    * [`SSHClient`](#module_ssh..SSHClient)
+        * [`.Close()`](#module_ssh..SSHClient+Close) ⇒ <code>boolean</code>
+        * [`.Connect(host, port, username, password)`](#module_ssh..SSHClient+Connect) ⇒ <code>boolean</code>
+        * [`.ConnectSSHInfoMode(host, port)`](#module_ssh..SSHClient+ConnectSSHInfoMode) ⇒ <code>HandshakeLog</code>
+        * [`.ConnectWithKey(host, port, username, key)`](#module_ssh..SSHClient+ConnectWithKey) ⇒ <code>boolean</code>
+        * [`.Run(cmd)`](#module_ssh..SSHClient+Run) ⇒ <code>string</code>
+    * [`HandshakeLog`](#module_ssh..HandshakeLog) : <code>object</code>
+
+<a name="module_ssh..SSHClient"></a>
+
+### (ssh).SSHClient
+SSHClient is a client for SSH servers. Internally client uses github.com/zmap/zgrab2/lib/ssh driver.
+
+**Kind**: inner class of [<code>ssh</code>](#module_ssh)  
+
+* [`SSHClient`](#module_ssh..SSHClient)
+    * [`.Close()`](#module_ssh..SSHClient+Close) ⇒ <code>boolean</code>
+    * [`.Connect(host, port, username, password)`](#module_ssh..SSHClient+Connect) ⇒ <code>boolean</code>
+    * [`.ConnectSSHInfoMode(host, port)`](#module_ssh..SSHClient+ConnectSSHInfoMode) ⇒ <code>HandshakeLog</code>
+    * [`.ConnectWithKey(host, port, username, key)`](#module_ssh..SSHClient+ConnectWithKey) ⇒ <code>boolean</code>
+    * [`.Run(cmd)`](#module_ssh..SSHClient+Run) ⇒ <code>string</code>
+
+<a name="module_ssh..SSHClient+Close"></a>
+
+#### sshClient.Close() ⇒ <code>boolean</code>
+Close closes the SSH connection and destroys the client. Returns the success state and error. If error is not nil, state will be false.
+
+**Kind**: instance method of [<code>SSHClient</code>](#module_ssh..SSHClient)  
+**Returns**: <code>boolean</code> - - The success state of the operation.  
+**Throws**:
+
+- <code>error</code> - The error encountered during the operation.
+
+**Example**  
+```js
+let m = require('nuclei/ssh');
+    let c = m.SSHClient();
+    let state = c.Connect('localhost', 22, 'user', 'password');
+    c.Close();
+```
+<a name="module_ssh..SSHClient+Connect"></a>
+
+#### sshClient.Connect(host, port, username, password) ⇒ <code>boolean</code>
+Connect tries to connect to provided host and port with provided username and password with ssh. Returns state of connection and error. If error is not nil, state will be false.
+
+**Kind**: instance method of [<code>SSHClient</code>](#module_ssh..SSHClient)  
+**Returns**: <code>boolean</code> - - The state of the connection.  
+**Throws**:
+
+- <code>error</code> - The error encountered during the connection.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| host | <code>string</code> | The host to connect to. |
+| port | <code>number</code> | The port to connect to. |
+| username | <code>string</code> | The username for the connection. |
+| password | <code>string</code> | The password for the connection. |
+
+**Example**  
+```js
+let m = require('nuclei/ssh');
+    let c = m.SSHClient();
+    let result = c.Connect('localhost', 22, 'user', 'password');
+```
+<a name="module_ssh..SSHClient+ConnectSSHInfoMode"></a>
+
+#### sshClient.ConnectSSHInfoMode(host, port) ⇒ <code>HandshakeLog</code>
+ConnectSSHInfoMode tries to connect to provided host and port with provided host and port. Returns HandshakeLog and error. If error is not nil, state will be false.
+
+**Kind**: instance method of [<code>SSHClient</code>](#module_ssh..SSHClient)  
+**Returns**: <code>HandshakeLog</code> - - The HandshakeLog object containing information about the ssh connection.  
+**Throws**:
+
+- <code>error</code> - The error encountered during the connection.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| host | <code>string</code> | The host to connect to. |
+| port | <code>number</code> | The port to connect to. |
+
+**Example**  
+```js
+let m = require('nuclei/ssh');
+    let c = m.SSHClient();
+    let result = c.ConnectSSHInfoMode('localhost', 22);
+```
+<a name="module_ssh..SSHClient+ConnectWithKey"></a>
+
+#### sshClient.ConnectWithKey(host, port, username, key) ⇒ <code>boolean</code>
+ConnectWithKey tries to connect to provided host and port with provided username and private_key. Returns state of connection and error. If error is not nil, state will be false.
+
+**Kind**: instance method of [<code>SSHClient</code>](#module_ssh..SSHClient)  
+**Returns**: <code>boolean</code> - - The state of the connection.  
+**Throws**:
+
+- <code>error</code> - The error encountered during the connection.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| host | <code>string</code> | The host to connect to. |
+| port | <code>number</code> | The port to connect to. |
+| username | <code>string</code> | The username for the connection. |
+| key | <code>string</code> | The private key for the connection. |
+
+**Example**  
+```js
+let m = require('nuclei/ssh');
+    let c = m.SSHClient();
+    let result = c.ConnectWithKey('localhost', 22, 'user', 'private_key');
+```
+<a name="module_ssh..SSHClient+Run"></a>
+
+#### sshClient.Run(cmd) ⇒ <code>string</code>
+Run tries to open a new SSH session, then tries to execute the provided command in said session. Returns string and error. If error is not nil, state will be false. The string contains the command output.
+
+**Kind**: instance method of [<code>SSHClient</code>](#module_ssh..SSHClient)  
+**Returns**: <code>string</code> - - The output of the command.  
+**Throws**:
+
+- <code>error</code> - The error encountered during the execution of the command.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| cmd | <code>string</code> | The command to execute. |
+
+**Example**  
+```js
+let m = require('nuclei/ssh');
+    let c = m.SSHClient();
+    let result = c.Run('ls');
+```
+<a name="module_ssh..HandshakeLog"></a>
+
+### (ssh).HandshakeLog : <code>object</code>
+HandshakeLog is a struct that contains information about the ssh connection.
+
+**Kind**: inner typedef of [<code>ssh</code>](#module_ssh)  

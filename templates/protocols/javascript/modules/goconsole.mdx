@@ -1,0 +1,86 @@
+<a name="module_goconsole"></a>
+
+## goconsole
+
+* [goconsole](#module_goconsole)
+    * [`GoConsolePrinter`](#module_goconsole..GoConsolePrinter)
+        * [`.Error(msg)`](#module_goconsole..GoConsolePrinter+Error)
+        * [`.Log(msg)`](#module_goconsole..GoConsolePrinter+Log)
+        * [`.Warn(msg)`](#module_goconsole..GoConsolePrinter+Warn)
+    * [`NewGoConsolePrinter()`](#module_goconsole..NewGoConsolePrinter) ⇒ <code>GoConsolePrinter</code>
+
+<a name="module_goconsole..GoConsolePrinter"></a>
+
+### (goconsole).GoConsolePrinter
+GoConsolePrinter is a console printer for nuclei using gologger
+
+**Kind**: inner class of [<code>goconsole</code>](#module_goconsole)  
+
+* [`GoConsolePrinter`](#module_goconsole..GoConsolePrinter)
+    * [`.Error(msg)`](#module_goconsole..GoConsolePrinter+Error)
+    * [`.Log(msg)`](#module_goconsole..GoConsolePrinter+Log)
+    * [`.Warn(msg)`](#module_goconsole..GoConsolePrinter+Warn)
+
+<a name="module_goconsole..GoConsolePrinter+Error"></a>
+
+#### goConsolePrinter.Error(msg)
+Error logs an error message
+
+**Kind**: instance method of [<code>GoConsolePrinter</code>](#module_goconsole..GoConsolePrinter)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| msg | <code>string</code> | The message to log. |
+
+**Example**  
+```js
+let m = require('nuclei/goconsole');
+let c = m.GoConsolePrinter();
+c.Error('This is an error message');
+```
+<a name="module_goconsole..GoConsolePrinter+Log"></a>
+
+#### goConsolePrinter.Log(msg)
+Log logs a message
+
+**Kind**: instance method of [<code>GoConsolePrinter</code>](#module_goconsole..GoConsolePrinter)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| msg | <code>string</code> | The message to log. |
+
+**Example**  
+```js
+let m = require('nuclei/goconsole');
+let c = m.GoConsolePrinter();
+c.Log('This is a log message');
+```
+<a name="module_goconsole..GoConsolePrinter+Warn"></a>
+
+#### goConsolePrinter.Warn(msg)
+Warn logs a warning message
+
+**Kind**: instance method of [<code>GoConsolePrinter</code>](#module_goconsole..GoConsolePrinter)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| msg | <code>string</code> | The message to log. |
+
+**Example**  
+```js
+let m = require('nuclei/goconsole');
+let c = m.GoConsolePrinter();
+c.Warn('This is a warning message');
+```
+<a name="module_goconsole..NewGoConsolePrinter"></a>
+
+### (goconsole).NewGoConsolePrinter() ⇒ <code>GoConsolePrinter</code>
+NewGoConsolePrinter creates a new instance of GoConsolePrinter
+
+**Kind**: inner method of [<code>goconsole</code>](#module_goconsole)  
+**Returns**: <code>GoConsolePrinter</code> - - The new instance of GoConsolePrinter.  
+**Example**  
+```js
+let m = require('nuclei/goconsole'); 
+let printer = m.NewGoConsolePrinter();
+```

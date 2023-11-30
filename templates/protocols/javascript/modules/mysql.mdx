@@ -1,0 +1,125 @@
+<a name="module_mysql"></a>
+
+## mysql
+
+* [mysql](#module_mysql)
+    * [`MySQLClient`](#module_mysql..MySQLClient)
+        * [`.Connect(host, port, username, password)`](#module_mysql..MySQLClient+Connect) ⇒ <code>bool</code>
+        * [`.ConnectWithDB(host, port, username, password, dbName)`](#module_mysql..MySQLClient+ConnectWithDB) ⇒ <code>bool</code>
+        * [`.ExecuteQuery(host, port, username, password, dbName, query)`](#module_mysql..MySQLClient+ExecuteQuery) ⇒ <code>string</code>
+        * [`.IsMySQL(host, port)`](#module_mysql..MySQLClient+IsMySQL) ⇒ <code>bool</code>
+
+<a name="module_mysql..MySQLClient"></a>
+
+### (mysql).MySQLClient
+MySQLClient is a client for MySQL database. Internally client uses go-sql-driver/mysql driver.
+
+**Kind**: inner class of [<code>mysql</code>](#module_mysql)  
+
+* [`MySQLClient`](#module_mysql..MySQLClient)
+    * [`.Connect(host, port, username, password)`](#module_mysql..MySQLClient+Connect) ⇒ <code>bool</code>
+    * [`.ConnectWithDB(host, port, username, password, dbName)`](#module_mysql..MySQLClient+ConnectWithDB) ⇒ <code>bool</code>
+    * [`.ExecuteQuery(host, port, username, password, dbName, query)`](#module_mysql..MySQLClient+ExecuteQuery) ⇒ <code>string</code>
+    * [`.IsMySQL(host, port)`](#module_mysql..MySQLClient+IsMySQL) ⇒ <code>bool</code>
+
+<a name="module_mysql..MySQLClient+Connect"></a>
+
+#### mySQLClient.Connect(host, port, username, password) ⇒ <code>bool</code>
+Connect connects to MySQL database using given credentials. If connection is successful, it returns true. If connection is unsuccessful, it returns false and error. The connection is closed after the function returns.
+
+**Kind**: instance method of [<code>MySQLClient</code>](#module_mysql..MySQLClient)  
+**Returns**: <code>bool</code> - - The result of the connection attempt.  
+**Throws**:
+
+- <code>error</code> - The error encountered during connection attempt.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| host | <code>string</code> | The host of the MySQL database. |
+| port | <code>int</code> | The port of the MySQL database. |
+| username | <code>string</code> | The username to connect to the MySQL database. |
+| password | <code>string</code> | The password to connect to the MySQL database. |
+
+**Example**  
+```js
+let m = require('nuclei/mysql');
+let c = m.MySQLClient();
+let result = c.Connect('localhost', 3306, 'root', 'password');
+```
+<a name="module_mysql..MySQLClient+ConnectWithDB"></a>
+
+#### mySQLClient.ConnectWithDB(host, port, username, password, dbName) ⇒ <code>bool</code>
+ConnectWithDB connects to MySQL database using given credentials and database name. If connection is successful, it returns true. If connection is unsuccessful, it returns false and error. The connection is closed after the function returns.
+
+**Kind**: instance method of [<code>MySQLClient</code>](#module_mysql..MySQLClient)  
+**Returns**: <code>bool</code> - - The result of the connection attempt.  
+**Throws**:
+
+- <code>error</code> - The error encountered during connection attempt.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| host | <code>string</code> | The host of the MySQL database. |
+| port | <code>int</code> | The port of the MySQL database. |
+| username | <code>string</code> | The username to connect to the MySQL database. |
+| password | <code>string</code> | The password to connect to the MySQL database. |
+| dbName | <code>string</code> | The name of the database to connect to. |
+
+**Example**  
+```js
+let m = require('nuclei/mysql');
+let c = m.MySQLClient();
+let result = c.ConnectWithDB('localhost', 3306, 'root', 'password', 'mydb');
+```
+<a name="module_mysql..MySQLClient+ExecuteQuery"></a>
+
+#### mySQLClient.ExecuteQuery(host, port, username, password, dbName, query) ⇒ <code>string</code>
+ExecuteQuery connects to Mysql database using given credentials and database name and executes a query on the db.
+
+**Kind**: instance method of [<code>MySQLClient</code>](#module_mysql..MySQLClient)  
+**Returns**: <code>string</code> - - The result of the query execution.  
+**Throws**:
+
+- <code>error</code> - The error encountered during query execution.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| host | <code>string</code> | The host of the MySQL database. |
+| port | <code>int</code> | The port of the MySQL database. |
+| username | <code>string</code> | The username to connect to the MySQL database. |
+| password | <code>string</code> | The password to connect to the MySQL database. |
+| dbName | <code>string</code> | The name of the database to connect to. |
+| query | <code>string</code> | The query to execute on the database. |
+
+**Example**  
+```js
+let m = require('nuclei/mysql');
+let c = m.MySQLClient();
+let result = c.ExecuteQuery('localhost', 3306, 'root', 'password', 'mydb', 'SELECT * FROM users');
+```
+<a name="module_mysql..MySQLClient+IsMySQL"></a>
+
+#### mySQLClient.IsMySQL(host, port) ⇒ <code>bool</code>
+IsMySQL checks if the given host is running MySQL database. If the host is running MySQL database, it returns true. If the host is not running MySQL database, it returns false.
+
+**Kind**: instance method of [<code>MySQLClient</code>](#module_mysql..MySQLClient)  
+**Returns**: <code>bool</code> - - The result of the check.  
+**Throws**:
+
+- <code>error</code> - The error encountered during the check.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| host | <code>string</code> | The host to check. |
+| port | <code>int</code> | The port to check. |
+
+**Example**  
+```js
+let m = require('nuclei/mysql');
+let c = m.MySQLClient();
+let result = c.IsMySQL('localhost', 3306);
+```

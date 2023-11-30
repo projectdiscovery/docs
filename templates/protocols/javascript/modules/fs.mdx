@@ -1,0 +1,95 @@
+<a name="module_fs"></a>
+
+## fs
+
+* [fs](#module_fs)
+    * [`ListDir(path, itemType)`](#module_fs..ListDir) ⇒ <code>Array.&lt;string&gt;</code>
+    * [`ReadFile(path)`](#module_fs..ReadFile) ⇒ <code>Uint8Array</code>
+    * [`ReadFileAsString(path)`](#module_fs..ReadFileAsString) ⇒ <code>string</code>
+    * [`ReadFilesFromDir(dir)`](#module_fs..ReadFilesFromDir) ⇒ <code>Array.&lt;string&gt;</code>
+
+<a name="module_fs..ListDir"></a>
+
+### (fs).ListDir(path, itemType) ⇒ <code>Array.&lt;string&gt;</code>
+ListDir lists all files and directories within a path depending on the itemType provided. itemType can be any one of ['file','dir','all']
+
+**Kind**: inner method of [<code>fs</code>](#module_fs)  
+**Returns**: <code>Array.&lt;string&gt;</code> - - The list of files and directories.  
+**Throws**:
+
+- <code>error</code> - The error encountered during listing.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| path | <code>string</code> | The path to list files and directories from. |
+| itemType | <code>string</code> | The type of items to list. Can be 'file', 'dir', or 'all'. |
+
+**Example**  
+```js
+let m = require('nuclei/fs'); 
+let items = m.ListDir('/tmp', 'all');
+```
+<a name="module_fs..ReadFile"></a>
+
+### (fs).ReadFile(path) ⇒ <code>Uint8Array</code>
+ReadFile reads file contents within permitted paths
+
+**Kind**: inner method of [<code>fs</code>](#module_fs)  
+**Returns**: <code>Uint8Array</code> - - The contents of the file.  
+**Throws**:
+
+- <code>error</code> - The error encountered during reading.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| path | <code>string</code> | The path to the file to read. |
+
+**Example**  
+```js
+let m = require('nuclei/fs'); 
+let content = m.ReadFile('/tmp/myfile.txt');
+```
+<a name="module_fs..ReadFileAsString"></a>
+
+### (fs).ReadFileAsString(path) ⇒ <code>string</code>
+ReadFileAsString reads file contents within permitted paths and returns content as string
+
+**Kind**: inner method of [<code>fs</code>](#module_fs)  
+**Returns**: <code>string</code> - - The contents of the file as a string.  
+**Throws**:
+
+- <code>error</code> - The error encountered during reading.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| path | <code>string</code> | The path to the file to read. |
+
+**Example**  
+```js
+let m = require('nuclei/fs'); 
+let content = m.ReadFileAsString('/tmp/myfile.txt');
+```
+<a name="module_fs..ReadFilesFromDir"></a>
+
+### (fs).ReadFilesFromDir(dir) ⇒ <code>Array.&lt;string&gt;</code>
+ReadFilesFromDir reads all files from a directory and returns a array with file contents of all files
+
+**Kind**: inner method of [<code>fs</code>](#module_fs)  
+**Returns**: <code>Array.&lt;string&gt;</code> - - The contents of all files in the directory.  
+**Throws**:
+
+- <code>error</code> - The error encountered during reading.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| dir | <code>string</code> | The directory to read files from. |
+
+**Example**  
+```js
+let m = require('nuclei/fs'); 
+let contentArray = m.ReadFilesFromDir('/tmp');
+```

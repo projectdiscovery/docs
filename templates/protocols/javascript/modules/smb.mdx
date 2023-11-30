@@ -1,0 +1,132 @@
+<a name="module_smb"></a>
+
+## smb
+
+* [smb](#module_smb)
+    * [`SMBClient`](#module_smb..SMBClient)
+        * [`.ConnectSMBInfoMode(host, port)`](#module_smb..SMBClient+ConnectSMBInfoMode) ⇒ <code>SMBLog</code>
+        * [`.DetectSMBGhost(host, port)`](#module_smb..SMBClient+DetectSMBGhost) ⇒ <code>boolean</code>
+        * [`.ListSMBv2Metadata(host, port)`](#module_smb..SMBClient+ListSMBv2Metadata) ⇒ <code>ServiceSMB</code>
+        * [`.ListShares(host, port, user, password)`](#module_smb..SMBClient+ListShares) ⇒ <code>Array.&lt;string&gt;</code>
+    * [`SMBLog`](#module_smb..SMBLog) : <code>object</code>
+    * [`ServiceSMB`](#module_smb..ServiceSMB) : <code>object</code>
+
+<a name="module_smb..SMBClient"></a>
+
+### (smb).SMBClient
+SMBClient is a client for SMB servers.
+
+**Kind**: inner class of [<code>smb</code>](#module_smb)  
+
+* [`SMBClient`](#module_smb..SMBClient)
+    * [`.ConnectSMBInfoMode(host, port)`](#module_smb..SMBClient+ConnectSMBInfoMode) ⇒ <code>SMBLog</code>
+    * [`.DetectSMBGhost(host, port)`](#module_smb..SMBClient+DetectSMBGhost) ⇒ <code>boolean</code>
+    * [`.ListSMBv2Metadata(host, port)`](#module_smb..SMBClient+ListSMBv2Metadata) ⇒ <code>ServiceSMB</code>
+    * [`.ListShares(host, port, user, password)`](#module_smb..SMBClient+ListShares) ⇒ <code>Array.&lt;string&gt;</code>
+
+<a name="module_smb..SMBClient+ConnectSMBInfoMode"></a>
+
+#### smbClient.ConnectSMBInfoMode(host, port) ⇒ <code>SMBLog</code>
+ConnectSMBInfoMode tries to connect to provided host and port and discover SMB information
+
+**Kind**: instance method of [<code>SMBClient</code>](#module_smb..SMBClient)  
+**Returns**: <code>SMBLog</code> - - The log of the SMB handshake.  
+**Throws**:
+
+- <code>error</code> - The error encountered during the connection.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| host | <code>string</code> | The host to connect to. |
+| port | <code>string</code> | The port to connect to. |
+
+**Example**  
+```js
+let m = require('nuclei/smb');
+let c = m.SMBClient();
+let log = c.ConnectSMBInfoMode('localhost', '445');
+```
+<a name="module_smb..SMBClient+DetectSMBGhost"></a>
+
+#### smbClient.DetectSMBGhost(host, port) ⇒ <code>boolean</code>
+DetectSMBGhost tries to detect SMBGhost vulnerability by using SMBv3 compression feature.
+
+**Kind**: instance method of [<code>SMBClient</code>](#module_smb..SMBClient)  
+**Returns**: <code>boolean</code> - - The result of the SMBGhost vulnerability detection.  
+**Throws**:
+
+- <code>error</code> - The error encountered during the detection.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| host | <code>string</code> | The host to connect to. |
+| port | <code>string</code> | The port to connect to. |
+
+**Example**  
+```js
+let m = require('nuclei/smb');
+let c = m.SMBClient();
+let isVulnerable = c.DetectSMBGhost('localhost', '445');
+```
+<a name="module_smb..SMBClient+ListSMBv2Metadata"></a>
+
+#### smbClient.ListSMBv2Metadata(host, port) ⇒ <code>ServiceSMB</code>
+ListSMBv2Metadata tries to connect to provided host and port and list SMBv2 metadata.
+
+**Kind**: instance method of [<code>SMBClient</code>](#module_smb..SMBClient)  
+**Returns**: <code>ServiceSMB</code> - - The metadata of the SMBv2 service.  
+**Throws**:
+
+- <code>error</code> - The error encountered during the listing.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| host | <code>string</code> | The host to connect to. |
+| port | <code>string</code> | The port to connect to. |
+
+**Example**  
+```js
+let m = require('nuclei/smb');
+let c = m.SMBClient();
+let metadata = c.ListSMBv2Metadata('localhost', '445');
+```
+<a name="module_smb..SMBClient+ListShares"></a>
+
+#### smbClient.ListShares(host, port, user, password) ⇒ <code>Array.&lt;string&gt;</code>
+ListShares tries to connect to provided host and port and list shares by using given credentials.
+
+**Kind**: instance method of [<code>SMBClient</code>](#module_smb..SMBClient)  
+**Returns**: <code>Array.&lt;string&gt;</code> - - The list of shares.  
+**Throws**:
+
+- <code>error</code> - The error encountered during the listing.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| host | <code>string</code> | The host to connect to. |
+| port | <code>string</code> | The port to connect to. |
+| user | <code>string</code> | The username for authentication. |
+| password | <code>string</code> | The password for authentication. |
+
+**Example**  
+```js
+let m = require('nuclei/smb');
+let c = m.SMBClient();
+let shares = c.ListShares('localhost', '445', 'user', 'password');
+```
+<a name="module_smb..SMBLog"></a>
+
+### (smb).SMBLog : <code>object</code>
+SMBLog is an object containing the log of the SMB handshake.
+
+**Kind**: inner typedef of [<code>smb</code>](#module_smb)  
+<a name="module_smb..ServiceSMB"></a>
+
+### (smb).ServiceSMB : <code>object</code>
+ServiceSMB is an object containing the metadata of the SMBv2 service.
+
+**Kind**: inner typedef of [<code>smb</code>](#module_smb)  

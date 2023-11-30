@@ -1,0 +1,80 @@
+<a name="module_rdp"></a>
+
+## rdp
+
+* [rdp](#module_rdp)
+    * [`RDPClient`](#module_rdp..RDPClient)
+        * [`.CheckRDPAuth(host, port)`](#module_rdp..RDPClient+CheckRDPAuth) ⇒ <code>CheckRDPAuthResponse</code>
+        * [`.IsRDP(host, port)`](#module_rdp..RDPClient+IsRDP) ⇒ <code>IsRDPResponse</code>
+    * [`CheckRDPAuthResponse`](#module_rdp..CheckRDPAuthResponse) : <code>object</code>
+    * [`IsRDPResponse`](#module_rdp..IsRDPResponse) : <code>object</code>
+
+<a name="module_rdp..RDPClient"></a>
+
+### (rdp).RDPClient
+RDPClient is a client for rdp servers
+
+**Kind**: inner class of [<code>rdp</code>](#module_rdp)  
+
+* [`RDPClient`](#module_rdp..RDPClient)
+    * [`.CheckRDPAuth(host, port)`](#module_rdp..RDPClient+CheckRDPAuth) ⇒ <code>CheckRDPAuthResponse</code>
+    * [`.IsRDP(host, port)`](#module_rdp..RDPClient+IsRDP) ⇒ <code>IsRDPResponse</code>
+
+<a name="module_rdp..RDPClient+CheckRDPAuth"></a>
+
+#### rdpClient.CheckRDPAuth(host, port) ⇒ <code>CheckRDPAuthResponse</code>
+CheckRDPAuth checks if the given host and port are running rdp server with authentication and returns their metadata.
+
+**Kind**: instance method of [<code>RDPClient</code>](#module_rdp..RDPClient)  
+**Returns**: <code>CheckRDPAuthResponse</code> - - The response from the check.  
+**Throws**:
+
+- <code>error</code> - The error encountered during the check.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| host | <code>string</code> | The host to check. |
+| port | <code>number</code> | The port to check. |
+
+**Example**  
+```js
+let m = require('nuclei/rdp');
+let c = m.RDPClient();
+let response = c.CheckRDPAuth('localhost', 3389);
+```
+<a name="module_rdp..RDPClient+IsRDP"></a>
+
+#### rdpClient.IsRDP(host, port) ⇒ <code>IsRDPResponse</code>
+IsRDP checks if the given host and port are running rdp server. If connection is successful, it returns true. If connection is unsuccessful, it returns false and error. The Name of the OS is also returned if the connection is successful.
+
+**Kind**: instance method of [<code>RDPClient</code>](#module_rdp..RDPClient)  
+**Returns**: <code>IsRDPResponse</code> - - The response from the check.  
+**Throws**:
+
+- <code>error</code> - The error encountered during the check.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| host | <code>string</code> | The host to check. |
+| port | <code>number</code> | The port to check. |
+
+**Example**  
+```js
+let m = require('nuclei/rdp');
+let c = m.RDPClient();
+let response = c.IsRDP('localhost', 3389);
+```
+<a name="module_rdp..CheckRDPAuthResponse"></a>
+
+### (rdp).CheckRDPAuthResponse : <code>object</code>
+CheckRDPAuthResponse is the response from the CheckRDPAuth method.
+
+**Kind**: inner typedef of [<code>rdp</code>](#module_rdp)  
+<a name="module_rdp..IsRDPResponse"></a>
+
+### (rdp).IsRDPResponse : <code>object</code>
+IsRDPResponse is the response from the IsRDP method.
+
+**Kind**: inner typedef of [<code>rdp</code>](#module_rdp)  

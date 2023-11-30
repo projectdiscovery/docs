@@ -1,0 +1,174 @@
+<a name="module_bytes"></a>
+
+## bytes
+
+* [bytes](#module_bytes)
+    * [`Buffer`](#module_bytes..Buffer)
+        * [`.Bytes()`](#module_bytes..Buffer+Bytes) ⇒ <code>Uint8Array</code>
+        * [`.Hex()`](#module_bytes..Buffer+Hex) ⇒ <code>string</code>
+        * [`.Hexdump()`](#module_bytes..Buffer+Hexdump) ⇒ <code>string</code>
+        * [`.Len()`](#module_bytes..Buffer+Len) ⇒ <code>number</code>
+        * [`.Pack(formatStr, msg)`](#module_bytes..Buffer+Pack) ⇒ <code>Buffer</code>
+        * [`.String()`](#module_bytes..Buffer+String) ⇒ <code>string</code>
+        * [`.Write(data)`](#module_bytes..Buffer+Write) ⇒ <code>Buffer</code>
+        * [`.WriteString(data)`](#module_bytes..Buffer+WriteString) ⇒ <code>Buffer</code>
+    * [`NewBuffer(call)`](#module_bytes..NewBuffer) ⇒ <code>Buffer</code>
+
+<a name="module_bytes..Buffer"></a>
+
+### (bytes).Buffer
+Buffer is a minimal buffer implementation to store and retrieve data
+
+**Kind**: inner class of [<code>bytes</code>](#module_bytes)  
+
+* [`Buffer`](#module_bytes..Buffer)
+    * [`.Bytes()`](#module_bytes..Buffer+Bytes) ⇒ <code>Uint8Array</code>
+    * [`.Hex()`](#module_bytes..Buffer+Hex) ⇒ <code>string</code>
+    * [`.Hexdump()`](#module_bytes..Buffer+Hexdump) ⇒ <code>string</code>
+    * [`.Len()`](#module_bytes..Buffer+Len) ⇒ <code>number</code>
+    * [`.Pack(formatStr, msg)`](#module_bytes..Buffer+Pack) ⇒ <code>Buffer</code>
+    * [`.String()`](#module_bytes..Buffer+String) ⇒ <code>string</code>
+    * [`.Write(data)`](#module_bytes..Buffer+Write) ⇒ <code>Buffer</code>
+    * [`.WriteString(data)`](#module_bytes..Buffer+WriteString) ⇒ <code>Buffer</code>
+
+<a name="module_bytes..Buffer+Bytes"></a>
+
+#### buffer.Bytes() ⇒ <code>Uint8Array</code>
+Bytes returns the byte slice of the buffer.
+
+**Kind**: instance method of [<code>Buffer</code>](#module_bytes..Buffer)  
+**Returns**: <code>Uint8Array</code> - - The byte slice of the buffer.  
+**Example**  
+```js
+let m = require('nuclei/bytes');
+let b = m.Buffer();
+let bytes = b.Bytes();
+```
+<a name="module_bytes..Buffer+Hex"></a>
+
+#### buffer.Hex() ⇒ <code>string</code>
+Hex returns the hex representation of the buffer.
+
+**Kind**: instance method of [<code>Buffer</code>](#module_bytes..Buffer)  
+**Returns**: <code>string</code> - - The hex representation of the buffer.  
+**Example**  
+```js
+let m = require('nuclei/bytes');
+let b = m.Buffer();
+let hex = b.Hex();
+```
+<a name="module_bytes..Buffer+Hexdump"></a>
+
+#### buffer.Hexdump() ⇒ <code>string</code>
+Hexdump returns the hexdump representation of the buffer.
+
+**Kind**: instance method of [<code>Buffer</code>](#module_bytes..Buffer)  
+**Returns**: <code>string</code> - - The hexdump representation of the buffer.  
+**Example**  
+```js
+let m = require('nuclei/bytes');
+let b = m.Buffer();
+let hexdump = b.Hexdump();
+```
+<a name="module_bytes..Buffer+Len"></a>
+
+#### buffer.Len() ⇒ <code>number</code>
+Len returns the length of the buffer.
+
+**Kind**: instance method of [<code>Buffer</code>](#module_bytes..Buffer)  
+**Returns**: <code>number</code> - - The length of the buffer.  
+**Example**  
+```js
+let m = require('nuclei/bytes');
+let b = m.Buffer();
+let length = b.Len();
+```
+<a name="module_bytes..Buffer+Pack"></a>
+
+#### buffer.Pack(formatStr, msg) ⇒ <code>Buffer</code>
+Pack uses structs.Pack and packs given data and appends it to the buffer. It packs the data according to the given format.
+
+**Kind**: instance method of [<code>Buffer</code>](#module_bytes..Buffer)  
+**Returns**: <code>Buffer</code> - - The buffer after packing the data.  
+**Throws**:
+
+- <code>error</code> - The error encountered during packing.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| formatStr | <code>string</code> | The format string to pack the data. |
+| msg | <code>string</code> | The message to pack. |
+
+**Example**  
+```js
+let m = require('nuclei/bytes');
+let b = m.Buffer();
+b.Pack('format', 'message');
+```
+<a name="module_bytes..Buffer+String"></a>
+
+#### buffer.String() ⇒ <code>string</code>
+String returns the string representation of the buffer.
+
+**Kind**: instance method of [<code>Buffer</code>](#module_bytes..Buffer)  
+**Returns**: <code>string</code> - - The string representation of the buffer.  
+**Example**  
+```js
+let m = require('nuclei/bytes');
+let b = m.Buffer();
+let str = b.String();
+```
+<a name="module_bytes..Buffer+Write"></a>
+
+#### buffer.Write(data) ⇒ <code>Buffer</code>
+Write appends a byte slice to the buffer.
+
+**Kind**: instance method of [<code>Buffer</code>](#module_bytes..Buffer)  
+**Returns**: <code>Buffer</code> - - The buffer after appending the byte slice.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| data | <code>Uint8Array</code> | The byte slice to append to the buffer. |
+
+**Example**  
+```js
+let m = require('nuclei/bytes');
+let b = m.Buffer();
+b.Write(new Uint8Array([1, 2, 3]));
+```
+<a name="module_bytes..Buffer+WriteString"></a>
+
+#### buffer.WriteString(data) ⇒ <code>Buffer</code>
+WriteString appends a string to the buffer.
+
+**Kind**: instance method of [<code>Buffer</code>](#module_bytes..Buffer)  
+**Returns**: <code>Buffer</code> - - The buffer after appending the string.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| data | <code>string</code> | The string to append to the buffer. |
+
+**Example**  
+```js
+let m = require('nuclei/bytes');
+let b = m.Buffer();
+b.WriteString('data');
+```
+<a name="module_bytes..NewBuffer"></a>
+
+### (bytes).NewBuffer(call) ⇒ <code>Buffer</code>
+NewBuffer creates a new buffer from a byte slice.
+
+**Kind**: inner method of [<code>bytes</code>](#module_bytes)  
+**Returns**: <code>Buffer</code> - - The new buffer created from the byte slice.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| call | <code>Uint8Array</code> | The byte slice to create the buffer from. |
+
+**Example**  
+```js
+let m = require('nuclei/bytes'); 
+let buffer = m.NewBuffer(new Uint8Array([1, 2, 3]));
+```

@@ -1,32 +1,43 @@
-# Mintlify Starter Kit
+# ProjectDiscovery Documentation
 
-Click on `Use this template` to copy the Mintlify starter kit. The starter kit contains examples including
+<h4 align="center">
+    This is the source code for the ProjectDiscovery documentation located at https://docs.projectdiscovery.io
+</h4>
 
-- Guide pages
-- Navigation
-- Customizations
-- API Reference pages
-- Use of popular components
 
-### Development
+<p align="center">
+<a href="https://github.com/projectdiscovery/docs/issues"><img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat"></a>
+<a href="https://twitter.com/pdiscoveryio"><img src="https://img.shields.io/twitter/follow/pdiscoveryio.svg?logo=twitter"></a>
+<a href="https://discord.gg/projectdiscovery"><img src="https://img.shields.io/discord/695645237418131507.svg?logo=discord"></a>
+</p>
 
-Install the [Mintlify CLI](https://www.npmjs.com/package/mintlify) to preview the documentation changes locally. To install, use the following command
+<p align="center">
+  <a href="#development">Development</a> •
+  <a href="#deploying">Deploying</a> •
+  <a href="https://discord.gg/projectdiscovery">Join Discord</a>
+</p>
 
-```
-npm i -g mintlify
-```
+---
 
-Run the following command at the root of your documentation (where mint.json is)
 
-```
-mintlify dev
-```
 
-### Publishing Changes
+## Development
 
-Install our Github App to autopropagate changes from youre repo to your deployment. Changes will be deployed to production automatically after pushing to the default branch. Find the link to install on your dashboard. 
+1. Checkout this repository
+1. Install mintlify with ``
+1. Run `mintlify dev`
 
-#### Troubleshooting
+## Deploying 
 
-- Mintlify dev isn't running - Run `mintlify install` it'll re-install dependencies.
-- Page loads as a 404 - Make sure you are running in a folder with `mint.json`
+To build the final product, we have a couple of additional steps:
+
+1. Build the JS Protocol Docs
+
+
+2. Build the PDCP API reference documentation
+
+Coming soon!
+
+3. Deployment
+
+After those, Mintlify handles the deployment automatically.
