@@ -19,8 +19,6 @@
 
 ---
 
-
-
 ## Development
 
 1. Checkout this repository
