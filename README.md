@@ -33,6 +33,8 @@ To build the final product, we have a couple of additional steps:
 
 1. Build the JS Protocol Docs
 
+- `npm install -g jsdoc-to-markdown`
+- `./jsdocs.sh`
 
 2. Build the PDCP API reference documentation
 
