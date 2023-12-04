@@ -13,7 +13,14 @@ ProjectDiscovery runs on any operating system that supports Go, but this example
 For instructions on installing Go for an OS besides Linux [check out this post our blog](https://blog.projectdiscovery.io/getting-started-with-projectdiscovery-in-linux-and-windows/) 
 or refer to the installation instructions [available through the Go website](https://go.dev/doc/install).
 
-Download and install [the latest version of Go](https://go.dev/doc/install). 
+<Steps>
+  <Step title="Get the latest version">
+  Download and install [the latest version of Go](https://go.dev/doc/install).
+  </Step> 
+  <Step title="Verify the version">
+  After downloading and installing run `go version` to verify that you are running the latest version (_v 1.21 at the time of writing_) 
+  </Step>
+</Steps>
 
 ### Update your $PATH
 
@@ -21,7 +28,8 @@ PATH is an environment variable on UNIX systems to define which directories cont
 The variable is set within the config file for your particular shell.
 
 To run Nuclei the folder where it resides needs to be in the PATH. ProjectDiscovery binaries are stored in the go/bin directory which is usually in the home directory. 
-_This folder is not automatically added to your PATH. Refer to the steps below to update it manually._
+
+_Note: This folder is not automatically added to your PATH. Refer to the steps below to update it manually._
 
 <Steps>
   <Step title="Verify your GOPATH">
@@ -45,6 +53,8 @@ _This folder is not automatically added to your PATH. Refer to the steps below t
 ### Install Nuclei
 
 Before we jump into the installation here's a super high-level overview of Nuclei, templates, and what this tool is all about!
+
+**What is Nuclei?**
 
 Nuclei is a community-powered vulnerability scanner that uses templates to identify vulnerabilities in your assets. 
 As an open-source tool, it has the benefit of a huge community of users and contributors who have helped to create a vast library of templates. 
