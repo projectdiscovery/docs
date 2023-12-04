@@ -34,14 +34,14 @@ _Note: This folder is not automatically added to your PATH. Refer to the steps b
 <Steps>
   <Step title="Verify your GOPATH">
     To verify your GOPATH Run `go env | grep GOPATH` in your terminal and copy the output path. 
-    You may need to add a `/bin` to the end of this path in order for it to work correctly. 
+    You may need to add a `/bin` to the end of this path for it to work correctly. 
   </Step>
   <Step title="Open your shell config file">
-    open the shell config file for your shell in the editor of your choice (this example refers to nano). This command is `nano ~/.zshrc` for zsh or `nano ~/.bashrc` for bash. 
-    At the bottom of the file, add `export PATH=”$PATH:insert/go/path/here/bin”`, replacing `insert/go/path/here` with the GOPATH you found earlier.
+    Open the shell config file for your shell in an editor (this example refers to nano). The command is `nano ~/.zshrc` for zsh or `nano ~/.bashrc` for bash. 
+    At the bottom of the file, add `export PATH=”$PATH:insert/go/path/here/bin”`, replacing `insert/go/path/here` with the GOPATH from Step 1.
   </Step>
   <Step title="Reset your terminal">
-    Finally, run `source /.zshrc` or `source /.bashrc` to reset your terminal and reload it with the new config added. 
+    Run `source /.zshrc` or `source /.bashrc` to reset your terminal and reload it with the new config added. 
     You can also just close your terminal and open it again for this to take effect.
   </Step>
   <Step title="Verify your updated PATH">
@@ -52,21 +52,21 @@ _Note: This folder is not automatically added to your PATH. Refer to the steps b
 
 ### Install Nuclei
 
-Before we jump into the installation here's a super high-level overview of Nuclei, templates, and what this tool is all about!
+Before we jump into the installation here's a quick high-level overview of what Nuclei and templates are all about!
 
 **What is Nuclei?**
 
 Nuclei is a community-powered vulnerability scanner that uses templates to identify vulnerabilities in your assets. 
 As an open-source tool, it has the benefit of a huge community of users and contributors who have helped to create a vast library of templates. 
 
-Templates, are YAML files used to define what is scanned by Nuclei. The template library has a ton of options and customizations, and supports any templates you create to meet your requirements.
+Templates, are YAML files used to define what is scanned by Nuclei. The template library includes many options and customizations, and supports any templates you create to meet your requirements.
 
 <Steps>
   <Step title="Install Nuclei with Go">
     From your terminal run the following command `go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest`
   </Step>
   <Step title="Confirm installation">
-    To confirm installation, on your terminal  run `nuclei -h` to see the list of options and flags available.
+    To confirm installation, on your terminal run `nuclei -h` to see the list of options and flags available.
   </Step>
 </Steps>
 
@@ -104,13 +104,13 @@ TEMPLATES:
 
 ## Run a Scan
 
-Typically, to run a scan you need to have assets identified (that you have permission to scan). 
-In our example we're going to run our scan with a testing host that we use to detect weak template matchers with sample vulnerabilities and sample results. 
+In this example we're going to run a scan with a testing host that we use to detect weak template matchers with sample vulnerabilities and sample results. 
 
-We'll be using the test URL(`http://honey.scanme.sh/`) in our example to demonstrate the expected behavior and walk you through some results. 
+We'll be using the test URL(`http://honey.scanme.sh/`) to demonstrate the expected scan behavior and walk you through some results. 
 
 ### Scan your host
 To scan your target host, on your terminal, run `nuclei -u http://honey.scanme.sh/`. 
+
 _The -u option specifies the target you want to scan with all available templates._ 
 
 ### View results
