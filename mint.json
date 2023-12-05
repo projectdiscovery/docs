@@ -13,6 +13,7 @@
       "siteId": "ICPEDSUC"
     }
   },
+  "openapi": "openapi.yaml",
   "favicon": "/favicon.png",
   "colors": {
     "primary": "#9563FF",
