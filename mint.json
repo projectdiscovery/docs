@@ -103,7 +103,7 @@
     },
     {
       "group": "Katana",
-      "pages": ["tools/katana/overview"]
+      "pages": ["tools/katana/overview", "tools/katana/install", "tools/katana/usage","tools/katana/running"]
     },
     {
       "group": "Templates",
