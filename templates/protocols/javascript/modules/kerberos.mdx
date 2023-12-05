@@ -1,0 +1,45 @@
+<a name="module_kerberos"></a>
+
+## kerberos
+
+* [kerberos](#module_kerberos)
+    * [`KerberosClient`](#module_kerberos..KerberosClient)
+        * [`.EnumerateUser(domain, controller, username)`](#module_kerberos..KerberosClient+EnumerateUser) ⇒ <code>EnumerateUserResponse</code>
+    * [`EnumerateUserResponse`](#module_kerberos..EnumerateUserResponse) : <code>object</code>
+
+<a name="module_kerberos..KerberosClient"></a>
+
+### (kerberos).KerberosClient
+KerberosClient is a kerberos client
+
+**Kind**: inner class of [<code>kerberos</code>](#module_kerberos)  
+<a name="module_kerberos..KerberosClient+EnumerateUser"></a>
+
+#### kerberosClient.EnumerateUser(domain, controller, username) ⇒ <code>EnumerateUserResponse</code>
+EnumerateUser returns true if the user exists in the domain. If the user is not found, false is returned. If the user is found, true is returned. Optionally, the AS-REP hash is also returned if discovered.
+
+**Kind**: instance method of [<code>KerberosClient</code>](#module_kerberos..KerberosClient)  
+**Returns**: <code>EnumerateUserResponse</code> - - The response of the enumeration.  
+**Throws**:
+
+- <code>error</code> - The error encountered during enumeration.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| domain | <code>string</code> | The domain to check. |
+| controller | <code>string</code> | The controller to use. |
+| username | <code>string</code> | The username to check. |
+
+**Example**  
+```js
+let m = require('nuclei/kerberos');
+let c = m.KerberosClient();
+let response = c.EnumerateUser('domain', 'controller', 'username');
+```
+<a name="module_kerberos..EnumerateUserResponse"></a>
+
+### (kerberos).EnumerateUserResponse : <code>object</code>
+EnumerateUserResponse is the response object from the EnumerateUser method.
+
+**Kind**: inner typedef of [<code>kerberos</code>](#module_kerberos)  

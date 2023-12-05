@@ -77,7 +77,7 @@
     },
     {
       "group": "Get Started",
-      "pages": ["getstarted-overview"]
+      "pages": ["getstarted-overview", "getstarted-example", "getstarted-nextsteps"]
     },
     {
       "group": "Tools",
@@ -98,7 +98,7 @@
     },
     {
       "group": "Subfinder",
-      "pages": ["tools/subfinder/install", "tools/subfinder/running"]
+      "pages": ["tools/subfinder/overview", "tools/subfinder/install", "tools/subfinder/usage","tools/subfinder/running"]
     },
     {
       "group": "Templates",
@@ -149,7 +149,34 @@
           "pages": [
             "templates/protocols/javascript/introduction",
             "templates/protocols/javascript/protocol",
-            "templates/protocols/javascript/api-reference"
+            {
+              "group": "Modules",
+              "iconType": "solid",
+              "pages": [
+                "templates/protocols/javascript/modules/bytes",
+                "templates/protocols/javascript/modules/fs",
+                "templates/protocols/javascript/modules/global",
+                "templates/protocols/javascript/modules/goconsole",
+                "templates/protocols/javascript/modules/ikev2",
+                "templates/protocols/javascript/modules/kerberos",
+                "templates/protocols/javascript/modules/ldap",
+                "templates/protocols/javascript/modules/mssql",
+                "templates/protocols/javascript/modules/mysql",
+                "templates/protocols/javascript/modules/net",
+                "templates/protocols/javascript/modules/oracle",
+                "templates/protocols/javascript/modules/pop3",
+                "templates/protocols/javascript/modules/postgres",
+                "templates/protocols/javascript/modules/rdp",
+                "templates/protocols/javascript/modules/redis",
+                "templates/protocols/javascript/modules/rsync",
+                "templates/protocols/javascript/modules/smb",
+                "templates/protocols/javascript/modules/smtp",
+                "templates/protocols/javascript/modules/ssh",
+                "templates/protocols/javascript/modules/structs",
+                "templates/protocols/javascript/modules/telnet",
+                "templates/protocols/javascript/modules/vnc"
+              ]
+            }
           ]
         },
         "templates/protocols/code",

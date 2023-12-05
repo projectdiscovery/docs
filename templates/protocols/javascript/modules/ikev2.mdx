@@ -1,0 +1,54 @@
+<a name="module_ikev2"></a>
+
+## ikev2
+
+* [ikev2](#module_ikev2)
+    * [`IKEMessage`](#module_ikev2..IKEMessage)
+        * [`.AppendPayload(payload)`](#module_ikev2..IKEMessage+AppendPayload)
+        * [`.Encode()`](#module_ikev2..IKEMessage+Encode) ⇒ <code>Uint8Array</code>
+
+<a name="module_ikev2..IKEMessage"></a>
+
+### (ikev2).IKEMessage
+IKEMessage is the IKEv2 message. IKEv2 implements a limited subset of IKEv2 Protocol, specifically the IKE_NOTIFY and IKE_NONCE payloads and the IKE_SA_INIT exchange.
+
+**Kind**: inner class of [<code>ikev2</code>](#module_ikev2)  
+
+* [`IKEMessage`](#module_ikev2..IKEMessage)
+    * [`.AppendPayload(payload)`](#module_ikev2..IKEMessage+AppendPayload)
+    * [`.Encode()`](#module_ikev2..IKEMessage+Encode) ⇒ <code>Uint8Array</code>
+
+<a name="module_ikev2..IKEMessage+AppendPayload"></a>
+
+#### ikeMessage.AppendPayload(payload)
+AppendPayload appends a payload to the IKE message
+
+**Kind**: instance method of [<code>IKEMessage</code>](#module_ikev2..IKEMessage)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| payload | <code>object</code> | The payload to append to the IKE message. |
+
+**Example**  
+```js
+let m = require('nuclei/ikev2');
+let ike = m.IKEMessage();
+ike.AppendPayload({data: 'test'});
+```
+<a name="module_ikev2..IKEMessage+Encode"></a>
+
+#### ikeMessage.Encode() ⇒ <code>Uint8Array</code>
+Encode encodes the final IKE message
+
+**Kind**: instance method of [<code>IKEMessage</code>](#module_ikev2..IKEMessage)  
+**Returns**: <code>Uint8Array</code> - - The encoded IKE message.  
+**Throws**:
+
+- <code>error</code> - The error encountered during encoding.
+
+**Example**  
+```js
+let m = require('nuclei/ikev2');
+let ike = m.IKEMessage();
+let encoded = ike.Encode();
+```

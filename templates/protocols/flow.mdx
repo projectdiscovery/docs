@@ -17,7 +17,7 @@ These features are implemented using JavaScript (ECMAScript 5.1) via the [goja](
 
 Many times when writing complex templates we might need to add some extra checks (or conditional statements) before executing certain part of request.
 
-An ideal example of this would be when [bruteforcing wordpress login](https://templates.nuclei.sh/public/wordpress-weak-credentials) with default usernames and passwords, but if we carefully re-evaluate this template, we can see that template is sending 276 requests without even checking, if the url actually exists or target site is actually a wordpress site.
+An ideal example of this would be when [bruteforcing wordpress login](https://cloud.projectdiscovery.io/public/wordpress-weak-credentials) with default usernames and passwords, but if we carefully re-evaluate this template, we can see that template is sending 276 requests without even checking, if the url actually exists or target site is actually a wordpress site.
 
 With addition of flow in Nuclei v3 we can re-write this template to first check if target is a wordpress site, if yes then bruteforce login with default credentials and this can be achieved by simply adding one line of content  i.e `flow: http(1) && http(2)` and nuclei will take care of everything else.
 

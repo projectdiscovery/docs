@@ -1,0 +1,44 @@
+<a name="module_rsync"></a>
+
+## rsync
+
+* [rsync](#module_rsync)
+    * [`RsyncClient`](#module_rsync..RsyncClient)
+        * [`.IsRsync(host, port)`](#module_rsync..RsyncClient+IsRsync) ⇒ <code>IsRsyncResponse</code>
+    * [`IsRsyncResponse`](#module_rsync..IsRsyncResponse) : <code>object</code>
+
+<a name="module_rsync..RsyncClient"></a>
+
+### (rsync).RsyncClient
+RsyncClient is a minimal Rsync client for nuclei scripts.
+
+**Kind**: inner class of [<code>rsync</code>](#module_rsync)  
+<a name="module_rsync..RsyncClient+IsRsync"></a>
+
+#### rsyncClient.IsRsync(host, port) ⇒ <code>IsRsyncResponse</code>
+IsRsync checks if a host is running a Rsync server.
+
+**Kind**: instance method of [<code>RsyncClient</code>](#module_rsync..RsyncClient)  
+**Returns**: <code>IsRsyncResponse</code> - - The response from the IsRsync check.  
+**Throws**:
+
+- <code>error</code> - The error encountered during the IsRsync check.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| host | <code>string</code> | The host to check. |
+| port | <code>int</code> | The port to check. |
+
+**Example**  
+```js
+let m = require('nuclei/rsync');
+let c = m.RsyncClient();
+let response = c.IsRsync('localhost', 22);
+```
+<a name="module_rsync..IsRsyncResponse"></a>
+
+### (rsync).IsRsyncResponse : <code>object</code>
+IsRsyncResponse is an object containing the response from the IsRsync check.
+
+**Kind**: inner typedef of [<code>rsync</code>](#module_rsync)  

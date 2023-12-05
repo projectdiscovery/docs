@@ -5,11 +5,53 @@ sidebarTitle: 'Introduction'
 icon: 'star'
 ---
 
-**Nuclei** is based on the concepts of `YAML` based template files that define how the requests will be sent and processed. This allows easy extensibility capabilities to nuclei.
+## What are Nuclei Templates?
+Nuclei templates are the cornerstone of the Nuclei scanning engine. Nuclei templates enable precise and rapid scanning across various protocols like TCP, DNS, HTTP, and more. They are designed to send targeted requests based on specific vulnerability checks, ensuring low-to-zero false positives and efficient scanning over large networks.
 
-The templates are written in `YAML` which specifies a simple human-readable format to quickly define the execution process.
+## YAML
+Nuclei templates are based on the concepts of `YAML` based template files that define how the requests will be sent and processed. This allows easy extensibility capabilities to nuclei. The templates are written in `YAML` which specifies a simple human-readable format to quickly define the execution process.
 
+## Universal Language for Vulnerabilities
+Nuclei Templates offer a streamlined way to identify and communicate vulnerabilities, combining essential details like severity ratings and detection methods. This open-source, community-developed tool accelerates threat response and is widely recognized in the cybersecurity world.
 
-{/* <Card title="Get Started" icon="book-open">
-  Guide to write your own nuclei template
-</Card> */}
+<Tip>
+Learn more about nuclei templates as a universal language for exploitable vulnerabilities [on our blog](https://blog.projectdiscovery.io/the-power-of-nuclei-templates-a-universal-language-of-vulnerabilities/).
+</Tip>
+
+## Learn more
+Let's dive into the world of Nuclei templates! Use the links on the left or those below to learn more.
+
+<CardGroup cols={2}>
+  <Card
+    title="Structure"
+    icon="table-tree"
+    iconType="regular"
+   href="/templates/structure"
+  >
+    Learn what makes up the structure of a nuclei template
+  </Card>
+  <Card
+    title="Basic HTTP"
+    icon="globe"
+    iconType="solid"
+    href="/templates/protocols/http/basic-http"
+  >
+    Get started making simple HTTP requests with Nuclei
+  </Card>
+  <Card
+    title="Writing your first template"
+    icon="video"
+    iconType="solid"
+    href="https://www.youtube.com/watch?v=nFXygQdtjyw"
+  >
+    Watch a video on writing your first nuclei template!
+  </Card>
+  <Card
+    title="Contributing"
+    icon="github"
+    iconType="solid"
+    href="https://github.com/projectdiscovery"
+  >
+    Nuclei thrives on community contributions. Submit your templates to be used security experts everywhere!
+  </Card>
+</CardGroup>

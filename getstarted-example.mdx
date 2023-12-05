@@ -1,0 +1,180 @@
+---
+title: 'Example Walkthrough'
+description: 'Follow the steps below to setup and try out Nuclei'
+sidebarTitle: 'Example Walkthrough'
+---
+
+## Installations
+
+### Install Go
+
+ProjectDiscovery runs on any operating system that supports Go, but this example uses Linux. 
+
+For instructions on installing Go for an OS besides Linux [check out this post on our blog](https://blog.projectdiscovery.io/getting-started-with-projectdiscovery-in-linux-and-windows/) 
+or refer to the installation instructions [available through the Go website](https://go.dev/doc/install).
+
+<Steps>
+  <Step title="Get the latest version">
+  Download and install [the latest version of Go](https://go.dev/doc/install).
+  </Step> 
+  <Step title="Verify the version">
+  After downloading and installing run `go version` to verify that you are running the latest version (_v 1.21 at the time of writing_) 
+  </Step>
+</Steps>
+
+### Update your $PATH
+
+PATH is an environment variable on UNIX systems to define which directories contain executable programs. 
+The variable is set within the config file for your particular shell.
+
+To run Nuclei the folder where it resides needs to be in the PATH. ProjectDiscovery binaries are stored in the go/bin directory which is usually in the home directory. 
+
+_Note: This folder is not automatically added to your PATH. Refer to the steps below to update it manually._
+
+<Steps>
+  <Step title="Verify your GOPATH">
+    To verify your GOPATH Run `go env | grep GOPATH` in your terminal and copy the output path. 
+    You may need to add a `/bin` to the end of this path for it to work correctly. 
+  </Step>
+  <Step title="Open your shell config file">
+    Open the shell config file for your shell in an editor (this example refers to nano). The command is `nano ~/.zshrc` for zsh or `nano ~/.bashrc` for bash. 
+    
+    At the bottom of the file, add `export PATH=”$PATH:insert/go/path/here/bin”`, replacing `insert/go/path/here` with the GOPATH from Step 1.
+  </Step>
+  <Step title="Reset your terminal">
+    Run `source ~/.zshrc` or `source~/.bashrc` to reset your terminal and reload it with the new config added. 
+    You can also just close your terminal and open it again for this to take effect.
+  </Step>
+  <Step title="Verify your updated PATH">
+    Your PATH should be updated. 
+    Type `$PATH` to check that the go binary directory is added to the end.
+  </Step>
+</Steps>
+
+### Install Nuclei
+
+Before we jump into the installation here's a quick high-level overview of what Nuclei and templates are all about!
+
+**What is Nuclei?**
+
+Nuclei is a community-powered vulnerability scanner that uses templates to identify vulnerabilities in your assets. 
+As an open-source tool, it has the benefit of a huge community of users and contributors who have helped to create a vast library of templates. 
+
+Templates, are YAML files used to define what is scanned by Nuclei. The template library includes many options and customizations, and supports any templates you create to meet your requirements.
+
+<Steps>
+  <Step title="Install Nuclei with Go">
+    From your terminal run the following command `go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest`
+  </Step>
+  <Step title="Confirm installation">
+    To confirm installation, on your terminal run `nuclei -h` to see the list of options and flags available.
+  </Step>
+</Steps>
+
+### Sample Nuclei Output
+
+```java
+user@Sample ~ % nuclei -h
+Nuclei is a fast, template based vulnerability scanner focusing
+on extensive configurability, massive extensibility and ease of use.
+
+Usage:
+  nuclei [flags]
+
+Flags:
+TARGET:
+   -u, -target string[]       target URLs/hosts to scan
+   -l, -list string           path to file containing a list of target URLs/hosts to scan (one per line)
+   -resume string             resume scan using resume.cfg (clustering will be disabled)
+   -sa, -scan-all-ips         scan all the IP's associated with dns record
+   -iv, -ip-version string[]  IP version to scan of hostname (4,6) - (default 4)
+
+TEMPLATES:
+   -nt, -new-templates                    run only new templates added in latest nuclei-templates release
+   -ntv, -new-templates-version string[]  run new templates added in specific version
+   -as, -automatic-scan                   automatic web scan using wappalyzer technology detection to tags mapping
+   -t, -templates string[]                list of template or template directory to run (comma-separated, file)
+   -tu, -template-url string[]            list of template urls to run (comma-separated, file)
+   -w, -workflows string[]                list of workflow or workflow directory to run (comma-separated, file)
+   -wu, -workflow-url string[]            list of workflow urls to run (comma-separated, file)
+   -validate                              validate the passed templates to nuclei
+   -nss, -no-strict-syntax                disable strict syntax check on templates
+   -td, -template-display                 displays the templates content
+   -tl                                    list all available templates
+   ```
+
+## Run a Scan
+
+In this example we're going to run a scan with a testing host that we use to detect weak template matchers with sample vulnerabilities and sample results. 
+
+We'll be using the test URL(`http://honey.scanme.sh/`) to demonstrate the expected scan behavior and walk you through some results. 
+
+### Scan your host
+To scan your target host, on your terminal, run `nuclei -u http://honey.scanme.sh/`. 
+
+_The -u option specifies the target you want to scan with all available templates._ 
+
+### View results
+Here we have an example (edited for easier readability) 
+
+```java
+user@Test-MBP ~ %  nuclei -u http://scanme.sh
+
+
+                    __     _
+  ____  __  _______/ /__  (_)
+ / __ \/ / / / ___/ / _ \/ /
+/ / / / /_/ / /__/ /  __/ /
+/_/ /_/\__,_/\___/_/\___/_/   v2.9.4
+
+
+       projectdiscovery.io
+
+
+[WRN] Found 2298 templates with syntax error (use -validate flag for further examination)
+[WRN] Found 16 templates with runtime error (use -validate flag for further examination)
+[INF] Current nuclei version: v2.9.4 (outdated)
+[INF] Current nuclei-templates version: v9.6.9 (latest)
+[INF] New templates added in latest release: 73
+[INF] Templates loaded for current scan: 4982
+[INF] Targets loaded for current scan: 1
+[INF] Templates clustered: 1230 (Reduced 1179 Requests)
+[INF] Using Interactsh Server: oast.fun
+[ssl-issuer] [ssl] [info] scanme.sh:443 [pd]
+[self-signed-ssl] [ssl] [low] scanme.sh:443
+[mismatched-ssl-certificate] [ssl] [low] scanme.sh:443 [CN: scanme]
+[http-missing-security-headers:strict-transport-security] [http] [info] http://scanme.sh
+[http-missing-security-headers:permissions-policy] [http] [info] http://scanme.sh
+----
+[weak-cipher-suites:tls-1.1] [ssl] [low] scanme.sh:443 [[tls11 TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA]]
+[nameserver-fingerprint] [dns] [info] scanme.sh [ns69.domaincontrol.com.,ns70.domaincontrol.com.]
+```
+### Understanding your results
+
+If you examine the following line of output
+
+`[mismatched-ssl-certificate] [ssl] [low] scanme.sh:443 [CN: scanme]`
+
+The fields are as follows:
+ - `[mismatched-ssl-certificate]` is the template-id for the finding
+ - `[ssl]` is the protocol associated with the finding
+ - `[low]` is the severity associated with the finding
+ - `Scanme.sh:443` is the output (in this case the host that the finding applies to)
+ - `[CN: scanme]` - This output also includes an [extracted value](https://docs.projectdiscovery.io/templates/reference/extractors), which is not typically in all templates but does show an example of some of the other types of output you might see. 
+
+
+So, for each line of output from our scan the data format is as follows:
+`[template-id]` `[protocol]` `[severity]` `output (impacted host, etc)`
+
+
+**Other examples:** 
+```
+[wp-ambience-xss] [http] [medium] http://honey.scanme.sh/wp-content/themes/ambience/thumb.php?src=%3Cbody%20onload%3Dalert(1)%3E.jpg
+```
+```
+[tikiwiki-reflected-xss] [http] [high] http://honey.scanme.sh/tiki-5.2/tiki-edit_wiki_section.php?type=%22%3E%3Cscript%3Ealert(31337)%3C/script%3E
+```
+
+## What's Next
+
+Take a look at the ["What's Next"](/getstarted-nextsteps) section for suggestions on what to explore next.

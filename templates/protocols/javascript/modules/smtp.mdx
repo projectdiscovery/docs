@@ -1,0 +1,44 @@
+<a name="module_smtp"></a>
+
+## smtp
+
+* [smtp](#module_smtp)
+    * [`SMTPClient`](#module_smtp..SMTPClient)
+        * [`.IsSMTP(host, port)`](#module_smtp..SMTPClient+IsSMTP) ⇒ <code>IsSMTPResponse</code>
+    * [`IsSMTPResponse`](#module_smtp..IsSMTPResponse) : <code>object</code>
+
+<a name="module_smtp..SMTPClient"></a>
+
+### (smtp).SMTPClient
+SMTPClient is a minimal SMTP client for nuclei scripts.
+
+**Kind**: inner class of [<code>smtp</code>](#module_smtp)  
+<a name="module_smtp..SMTPClient+IsSMTP"></a>
+
+#### smtpClient.IsSMTP(host, port) ⇒ <code>IsSMTPResponse</code>
+IsSMTP checks if a host is running a SMTP server.
+
+**Kind**: instance method of [<code>SMTPClient</code>](#module_smtp..SMTPClient)  
+**Returns**: <code>IsSMTPResponse</code> - - The response of the check.  
+**Throws**:
+
+- <code>error</code> - The error encountered during the check.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| host | <code>string</code> | The host to check. |
+| port | <code>int</code> | The port to check. |
+
+**Example**  
+```js
+let m = require('nuclei/smtp');
+let c = m.SMTPClient();
+let response = c.IsSMTP('localhost', 25);
+```
+<a name="module_smtp..IsSMTPResponse"></a>
+
+### (smtp).IsSMTPResponse : <code>object</code>
+IsSMTPResponse is an object containing the response of the IsSMTP check.
+
+**Kind**: inner typedef of [<code>smtp</code>](#module_smtp)  

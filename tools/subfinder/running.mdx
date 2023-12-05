@@ -1,10 +1,87 @@
 ---
 title: 'Running'
-description: "Learn about Subfinder"
+description: "Learn about running Subfinder with examples including commands and output"
+sidebarTitle: 'Running'
 ---
 
-<Tip>
-This documentation page is coming soon! 
+For all of the flags and options available for `Subfinder` be sure to check out the [Usage](/tools/subfinder/usage) page. On this page we'll share examples running Subfinder with specific flags and goals
+and the output you can expect from each. *If you have questions, reach out to us through [Help](/help).*
 
-Currently you can find subfinder [documentation on GitHub](https://github.com/projectdiscovery/subfinder).
-</Tip>
+## Basic Usage
+
+To run Subfinder on a specific target use the `-d` flag to specify the domain.
+
+```
+subfinder -d hackerone.com
+
+               __    _____           __         
+   _______  __/ /_  / __(_)___  ____/ /__  _____
+  / ___/ / / / __ \/ /_/ / __ \/ __  / _ \/ ___/
+ (__  ) /_/ / /_/ / __/ / / / / /_/ /  __/ /    
+/____/\__,_/_.___/_/ /_/_/ /_/\__,_/\___/_/ v2.4.9
+
+		projectdiscovery.io
+
+Use with caution. You are responsible for your actions
+Developers assume no liability and are not responsible for any misuse or damage.
+By using subfinder, you also agree to the terms of the APIs used.
+
+[INF] Enumerating subdomains for hackerone.com
+
+www.hackerone.com
+support.hackerone.com
+links.hackerone.com
+api.hackerone.com
+o1.email.hackerone.com
+go.hackerone.com
+3d.hackerone.com
+resources.hackerone.com
+a.ns.hackerone.com
+b.ns.hackerone.com
+mta-sts.hackerone.com
+docs.hackerone.com
+mta-sts.forwarding.hackerone.com
+gslink.hackerone.com
+hackerone.com
+info.hackerone.com
+mta-sts.managed.hackerone.com
+events.hackerone.com
+
+[INF] Found 18 subdomains for hackerone.com in 3 seconds 672 milliseconds
+```
+
+## Pipe Results to Other Tools
+
+The subdomains discovered can be piped to other tools. For example, you can pipe the discovered subdomains to httpx which will then find running HTTP servers on the host.
+
+```
+echo hackerone.com | subfinder -silent | httpx -silent
+
+http://hackerone.com
+http://www.hackerone.com
+http://docs.hackerone.com
+http://api.hackerone.com
+https://docs.hackerone.com
+http://mta-sts.managed.hackerone.com
+```
+
+## Subfinder and Docker
+
+Pull the latest tagged `subfinder` Docker image using:
+```
+docker pull projectdiscovery/subfinder:latest
+```
+
+Run `subfinder` using the Docker image:
+```
+docker run projectdiscovery/subfinder:latest -d hackerone.com
+```
+
+Run `subfinder` using the Docker image with a local config file:
+```
+docker run -v $CONFIG/subfinder:/root/.config/subfinder -t projectdiscovery/subfinder -d hackerone.com
+```
+
+## Subfinder Go library
+
+`subfinder` can also be used as library and a minimal examples of using subfinder SDK is available [in the example library.](https://github.com/projectdiscovery/subfinder/blob/dev/v2/examples/main.go)
