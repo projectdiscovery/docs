@@ -227,7 +227,16 @@
       "pages": [
         {
           "group": "Editor",
-          "pages": ["api-reference/editor/scan", "api-reference/editor/generate"]
+          "pages": [
+            "api-reference/editor/scan", 
+            "api-reference/editor/generate"
+          ]
+        },
+        {
+          "group": "Scans",
+          "pages": [
+            "api-reference/stop-scan"
+          ]
         }
       ]
     },
