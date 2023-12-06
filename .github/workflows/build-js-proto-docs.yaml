@@ -20,7 +20,7 @@ jobs:
         run: npm install -g jsdoc-to-markdown
 
       - name: Build JS Proto Docs
-        run: ./jsdocs.sh
+        run: ./bin/jsdocs.sh
 
       - name: Commit results to Github
         run: |
