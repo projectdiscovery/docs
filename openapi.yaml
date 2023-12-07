@@ -1,6 +1,4 @@
 openapi: 3.1.0
-x-stoplight:
-  id: 0rl2vnd6vvy8g
 info:
   title: PDCP API
   version: '1.0'
@@ -24,8 +22,6 @@ paths:
         '401':
           $ref: '#/components/responses/GetScansStatusResponse'
       operationId: get-v1-scans
-      x-stoplight:
-        id: vehrqazht3nti
       description: Get user scans status
       security:
         - X-API-Key: []
@@ -63,8 +59,6 @@ paths:
           $ref: '#/components/responses/TriggerUserScanResponse'
         '500':
           $ref: '#/components/responses/TriggerUserScanResponse'
-      x-stoplight:
-        id: 9k5vgctxnaa1v
       description: Trigger a scan
       security:
         - X-API-Key: []
@@ -89,8 +83,6 @@ paths:
         '500':
           $ref: '#/components/responses/GetScanDetailsResponse'
       operationId: get-v1-scans-scan_id
-      x-stoplight:
-        id: kifpbc6tmxxn0
       description: Get details of a scan
       security:
         - X-API-Key: []
@@ -105,8 +97,6 @@ paths:
           $ref: '#/components/responses/DeleteScansResponse'
         '500':
           $ref: '#/components/responses/DeleteTemplateResponse'
-      x-stoplight:
-        id: ro4gg6v4vio4f
       description: Delete a scan using scanId
       security:
         - X-API-Key: []
@@ -124,8 +114,6 @@ paths:
                 properties:
                   message:
                     type: string
-                    x-stoplight:
-                      id: qcrabl75dzbj3
                 required:
                   - message
         '401':
@@ -137,8 +125,6 @@ paths:
                 properties:
                   message:
                     type: string
-                    x-stoplight:
-                      id: d95zf9shl0ky9
                 required:
                   - message
         '500':
@@ -150,12 +136,8 @@ paths:
                 properties:
                   message:
                     type: string
-                    x-stoplight:
-                      id: 2jykm3iw05bqh
                 required:
                   - message
-      x-stoplight:
-        id: 9xxd3phxxwrle
       description: ''
       security:
         - X-API-Key: []
@@ -173,8 +155,6 @@ paths:
         '501':
           $ref: '#/components/responses/GetScanResultsResponse'
       operationId: 'get-v1-scans-result-:scanId'
-      x-stoplight:
-        id: vxpsvnuyxwxf7
       description: get results of specific scan by id
       security:
         - X-API-Key: []
@@ -232,8 +212,6 @@ paths:
         '500':
           $ref: '#/components/responses/DeleteScansResponse'
       operationId: get-v1-scans-scan_id-stop
-      x-stoplight:
-        id: vhzvtqcwehecm
       description: ''
       security:
         - X-API-Key: []
@@ -255,8 +233,6 @@ paths:
         '500':
           $ref: '#/components/responses/GetScanResultsResponse'
       operationId: get-v1-results
-      x-stoplight:
-        id: zhs78n78vf7i3
       description: Get scans results of a user
       parameters:
         - schema:
@@ -311,8 +287,6 @@ paths:
         '500':
           $ref: '#/components/responses/GetRetestResultsResponse'
       operationId: get-v1-retest
-      x-stoplight:
-        id: ksnjjw62nsfyt
       description: Get user retest results
       security:
         - X-API-Key: []
@@ -340,8 +314,6 @@ paths:
           $ref: '#/components/responses/PostRetestTemplateResponse'
         '500':
           $ref: '#/components/responses/PostRetestTemplateResponse'
-      x-stoplight:
-        id: tfuguf2z6rwzj
       description: Trigger a retest scan
       security:
         - X-API-Key: []
@@ -360,8 +332,6 @@ paths:
         '500':
           $ref: '#/components/responses/GetScansVulnIdResponse'
       operationId: 'get-v1-scans-vuln-:vulnId'
-      x-stoplight:
-        id: v7cmvj8q1z97t
       description: ''
       security:
         - X-API-Key: []
@@ -387,8 +357,6 @@ paths:
           $ref: '#/components/responses/GetScansVulnIdResponse'
         '500':
           $ref: '#/components/responses/GetScansVulnIdResponse'
-      x-stoplight:
-        id: nk8oh4lybd1pe
       security:
         - X-API-Key: []
   /v1/scans/import:
@@ -405,8 +373,6 @@ paths:
           $ref: '#/components/responses/ImportScanResponse'
         '500':
           $ref: '#/components/responses/ImportScanResponse'
-      x-stoplight:
-        id: oxhi6euj5osc3
       description: Import scan details
       security:
         - X-API-Key: []
@@ -428,8 +394,6 @@ paths:
         '500':
           $ref: '#/components/responses/GetAssetsListResponse'
       operationId: get-v1-assets
-      x-stoplight:
-        id: q6iiyfdafgy6n
       description: ''
       security:
         - X-API-Key: []
@@ -462,8 +426,6 @@ paths:
           $ref: '#/components/responses/UploadAssetResponse'
         '500':
           $ref: '#/components/responses/UploadAssetResponse'
-      x-stoplight:
-        id: 6ji6tsdo6ibbv
       security:
         - X-API-Key: []
       requestBody:
@@ -497,8 +459,6 @@ paths:
         '500':
           $ref: '#/components/responses/GetUserAssetResponse'
       operationId: get-v1-assets-assetId
-      x-stoplight:
-        id: gvmq9f6hi20hs
       security:
         - X-API-Key: []
     delete:
@@ -512,8 +472,6 @@ paths:
           $ref: '#/components/responses/DeleteAssetResponse'
         '500':
           $ref: '#/components/responses/DeleteAssetResponse'
-      x-stoplight:
-        id: knlbp1gd712th
       security:
         - X-API-Key: []
     patch:
@@ -530,8 +488,6 @@ paths:
                 properties:
                   message:
                     type: string
-                    x-stoplight:
-                      id: g73phw8tdrhjs
                 required:
                   - message
         '401':
@@ -543,8 +499,6 @@ paths:
                 properties:
                   message:
                     type: string
-                    x-stoplight:
-                      id: 0ghch3oyn6tdd
                 required:
                   - message
         '500':
@@ -556,12 +510,8 @@ paths:
                 properties:
                   message:
                     type: string
-                    x-stoplight:
-                      id: pto53spg5865r
                 required:
                   - message
-      x-stoplight:
-        id: 26nx6sw6bbfn4
       security:
         - X-API-Key: []
       requestBody:
@@ -587,8 +537,6 @@ paths:
                 properties:
                   message:
                     type: string
-                    x-stoplight:
-                      id: gwvh3oypdm2jk
                 required:
                   - message
         '500':
@@ -607,8 +555,6 @@ paths:
                 required:
                   - message
       operationId: get-v1-assets-id-contents
-      x-stoplight:
-        id: ywvrb5y50ichc
       security:
         - X-API-Key: []
     parameters:
@@ -628,8 +574,6 @@ paths:
           $ref: '#/components/responses/PatchAssetContentResponse'
         '500':
           $ref: '#/components/responses/PatchAssetContentResponse'
-      x-stoplight:
-        id: mpo0p27h90r4t
       requestBody:
         content:
           application/octet-stream:
@@ -644,85 +588,10 @@ paths:
           in: query
           name: update_type
           description: 'use options like: type, replace '
-  /v1/user/settings/apikey:
-    get:
-      summary: Get API Key
-      tags: ["users"]
-      responses:
-        '200':
-          $ref: '#/components/responses/GetUserAPIKeyResponse'
-        '400':
-          $ref: '#/components/responses/GetUserAPIKeyResponse'
-        '401':
-          $ref: '#/components/responses/GetUserAPIKeyResponse'
-        '500':
-          $ref: '#/components/responses/GetUserAPIKeyResponse'
-      operationId: get-v1-user-settings-apikey
-      x-stoplight:
-        id: f4nellkco5dzs
-      description: Get the API Key for the user
-      parameters: []
-      security:
-        - X-API-Key: []
-    post:
-      summary: Create API Key
-      tags: ["users"]
-      operationId: post-v1-user-settings-apikey
-      responses:
-        '201':
-          $ref: '#/components/responses/GetUserAPIKeyResponse'
-        '400':
-          $ref: '#/components/responses/GetUserAPIKeyResponse'
-        '401':
-          $ref: '#/components/responses/GetUserAPIKeyResponse'
-        '500':
-          $ref: '#/components/responses/GetUserAPIKeyResponse'
-      x-stoplight:
-        id: 9zzaq90196xyp
-      description: Create an API Key for the user
-      security:
-        - X-API-Key: []
-    delete:
-      summary: Delete API Key
-      tags: ["users"]
-      operationId: delete-v1-user-settings-apikey
-      responses:
-        '200':
-          $ref: '#/components/responses/DeleteUserAPIKeyResponse'
-        '400':
-          $ref: '#/components/responses/DeleteUserAPIKeyResponse'
-        '401':
-          $ref: '#/components/responses/DeleteUserAPIKeyResponse'
-        '500':
-          $ref: '#/components/responses/DeleteUserAPIKeyResponse'
-      x-stoplight:
-        id: 2qiec1of76596
-      description: Delete the API Key for the user
-      security:
-        - X-API-Key: []
-  /v1/user/settings/apikey/rotate:
-    post:
-      summary: Rotate API Key
-      tags: ["users"]
-      operationId: post-v1-user-settings-apikey-rotate
-      responses:
-        '200':
-          $ref: '#/components/responses/GetUserAPIKeyResponse'
-        '400':
-          $ref: '#/components/responses/GetUserAPIKeyResponse'
-        '401':
-          $ref: '#/components/responses/GetUserAPIKeyResponse'
-        '500':
-          $ref: '#/components/responses/GetUserAPIKeyResponse'
-      x-stoplight:
-        id: y0kxgmtcbookz
-      description: Rotate the API Key for the user
-      security:
-        - X-API-Key: []
   /v1/scans/results/filters:
     get:
       summary: Results Filters
-      tags: ["scans"]
+      tags: ["results"]
       responses:
         '200':
           $ref: '#/components/responses/GetScanResultsFiltersResponse'
@@ -731,8 +600,6 @@ paths:
         '500':
           $ref: '#/components/responses/GetScanResultsFiltersResponse'
       operationId: get-v1-scans-results-filters
-      x-stoplight:
-        id: ezch2k0alfizf
       description: Get users scan-result filters
       security:
         - X-API-Key: []
@@ -797,8 +664,6 @@ paths:
         '500':
           $ref: '#/components/responses/GetScanResultStatsResponse'
       operationId: get-v1-scans-results-stats
-      x-stoplight:
-        id: 51o49eylpc9pn
       description: Get user scan results stats
       security:
         - X-API-Key: []
@@ -861,8 +726,6 @@ paths:
                 properties:
                   message:
                     type: string
-                    x-stoplight:
-                      id: 0x6oy4h2w7m9y
         '500':
           description: Internal Server Error
           content:
@@ -872,11 +735,7 @@ paths:
                 properties:
                   message:
                     type: string
-                    x-stoplight:
-                      id: hd9jqprs7k8sa
       operationId: get-v1-scans-schedule
-      x-stoplight:
-        id: p6ycpbx77svq2
       description: Get scan schedules for a user
       security:
         - X-API-Key: []
@@ -891,8 +750,6 @@ paths:
           $ref: '#/components/responses/SetScanScheduleResponse'
         '500':
           $ref: '#/components/responses/SetScanScheduleResponse'
-      x-stoplight:
-        id: gajt6zz08yb0b
       description: 'set a scan schedule for a user '
       requestBody:
         $ref: '#/components/requestBodies/SetScanScheduleRequest'
@@ -909,8 +766,6 @@ paths:
           $ref: '#/components/responses/SetScanScheduleResponse'
         '500':
           $ref: '#/components/responses/SetScanScheduleResponse'
-      x-stoplight:
-        id: 0mm7y8oxp7wjn
       parameters:
         - schema:
             type: string
@@ -936,8 +791,6 @@ paths:
                 properties:
                   message:
                     type: string
-                    x-stoplight:
-                      id: ogj7830408lnx
                 required:
                   - message
         '401':
@@ -949,8 +802,6 @@ paths:
                 properties:
                   message:
                     type: string
-                    x-stoplight:
-                      id: x8ubv8pol5zyk
                 required:
                   - message
         '500':
@@ -962,12 +813,8 @@ paths:
                 properties:
                   message:
                     type: string
-                    x-stoplight:
-                      id: s61l8723ijg3m
                 required:
                   - message
-      x-stoplight:
-        id: zfvdmt7zw0duc
       security:
         - X-API-Key: []
       requestBody:
@@ -984,8 +831,6 @@ paths:
         '500':
           $ref: '#/components/responses/GetUserProfileResponse'
       operationId: get-v1-user
-      x-stoplight:
-        id: e93c4l140w431
       security:
         - X-API-Key: []
   /v1/user/apikey:
@@ -1000,8 +845,6 @@ paths:
         '500':
           $ref: '#/components/responses/GetUserAPIKeyResponse'
       operationId: get-v1-user-apikey
-      x-stoplight:
-        id: geyjt5r7zelu5
       security:
         - X-API-Key: []
     post:
@@ -1015,8 +858,6 @@ paths:
           $ref: '#/components/responses/GetUserAPIKeyResponse'
         '500':
           $ref: '#/components/responses/GetUserAPIKeyResponse'
-      x-stoplight:
-        id: bxeqp4r22um8f
       security:
         - X-API-Key: []
     delete:
@@ -1030,8 +871,6 @@ paths:
           $ref: '#/components/responses/DeleteUserAPIKeyResponse'
         '500':
           $ref: '#/components/responses/DeleteUserAPIKeyResponse'
-      x-stoplight:
-        id: lfa11kyabpskb
       security:
         - X-API-Key: []
   /v1/user/apikey/rotate:
@@ -1046,8 +885,6 @@ paths:
           $ref: '#/components/responses/GetUserAPIKeyResponse'
         '500':
           $ref: '#/components/responses/GetUserAPIKeyResponse'
-      x-stoplight:
-        id: kc45bdrroy9ts
       security:
         - X-API-Key: []
   /v1/template/public:
@@ -1062,8 +899,6 @@ paths:
         '500':
           $ref: '#/components/responses/GetPublicTemplateList'
       operationId: get-v1-template-public
-      x-stoplight:
-        id: skfrbwq9j625s
       description: ''
   /v1/template/public/*:
     get:
@@ -1078,8 +913,6 @@ paths:
               schema:
                 type: string
       operationId: get-v1-template-public-path
-      x-stoplight:
-        id: v7sbhqsheucvq
       requestBody:
         content: {}
   /v1/template:
@@ -1094,8 +927,6 @@ paths:
         '500':
           $ref: '#/components/responses/GetUserTemplateListResponse'
       operationId: get-v1-templates
-      x-stoplight:
-        id: uybe3chhnocb2
       security:
         - X-API-Key: []
     parameters: []
@@ -1110,8 +941,6 @@ paths:
           $ref: '#/components/responses/CreateTemplateResponse'
         '500':
           $ref: '#/components/responses/CreateTemplateResponse'
-      x-stoplight:
-        id: dgp65695lwhc8
       security:
         - X-API-Key: []
       requestBody:
@@ -1122,8 +951,6 @@ paths:
               properties:
                 template:
                   type: string
-                  x-stoplight:
-                    id: 4oxartpvmaku2
               required:
                 - template
     patch:
@@ -1137,8 +964,6 @@ paths:
           $ref: '#/components/responses/UpdateTemplateResponse'
         '500':
           $ref: '#/components/responses/UpdateTemplateResponse'
-      x-stoplight:
-        id: 5pwyfw7ihqf88
       security:
         - X-API-Key: []
       requestBody:
@@ -1162,8 +987,6 @@ paths:
         '500':
           $ref: '#/components/responses/GetTemplateResponse'
       operationId: get-v1-template-t_id
-      x-stoplight:
-        id: 471yqpvk7c2r3
       security:
         - X-API-Key: []
     delete:
@@ -1177,8 +1000,6 @@ paths:
           $ref: '#/components/responses/DeleteTemplateResponse'
         '500':
           $ref: '#/components/responses/DeleteTemplateResponse'
-      x-stoplight:
-        id: dtsuuzelwaqyt
       security:
         - X-API-Key: []
   /v1/template/ai:
@@ -1193,8 +1014,6 @@ paths:
           $ref: '#/components/responses/GenerateTemplateResponse'
         '500':
           $ref: '#/components/responses/GenerateTemplateResponse'
-      x-stoplight:
-        id: skoihytkkf9oc
       requestBody:
         $ref: '#/components/requestBodies/GenerateTemplateRequest'
       security:
@@ -1211,8 +1030,6 @@ paths:
         '500':
           $ref: '#/components/responses/GetShareStatusResponse'
       operationId: get-v1-template-share
-      x-stoplight:
-        id: 8ixdymdo569t2
       security:
         - X-API-Key: []
       parameters:
@@ -1241,8 +1058,6 @@ paths:
           $ref: '#/components/responses/ShareTemplateResponse'
         '500':
           description: Internal Server Error
-      x-stoplight:
-        id: 0ntcxtrcj3ycz
       security:
         - X-API-Key: []
       requestBody:
@@ -1266,8 +1081,6 @@ paths:
         '500':
           $ref: '#/components/responses/GetSharedTemplateResponse'
       operationId: get-v1-template-share-template_id
-      x-stoplight:
-        id: 97alyqq8hpi3s
       parameters:
         - schema:
             type: string
@@ -1293,8 +1106,6 @@ paths:
         '500':
           $ref: '#/components/responses/GetSingleRetestResultResponse'
       operationId: get-v1-retest-vuln_id
-      x-stoplight:
-        id: 0wx213razabwc
       security:
         - X-API-Key: []
 components:
@@ -1434,8 +1245,6 @@ components:
                 type: string
               cloud_scans:
                 type: boolean
-                x-stoplight:
-                  id: ewmbjdfcm73zv
             required:
               - message
     DeleteTemplateResponse:
@@ -1492,8 +1301,6 @@ components:
                   properties:
                     matcher_status:
                       type: boolean
-                      x-stoplight:
-                        id: 6dynccsmtr1t9
                     vuln_id:
                       type: string
                     target:
@@ -1502,22 +1309,14 @@ components:
                       type: string
                     created_at:
                       type: string
-                      x-stoplight:
-                        id: kdwc576h1xje9
                     updated_at:
                       type: string
-                      x-stoplight:
-                        id: q0gmiehqksc1k
                     scan_id:
                       type: string
-                      x-stoplight:
-                        id: 443cdp2gosxu0
                     event:
                       type: array
                       items:
                         type: object
-                        x-stoplight:
-                          id: oxedt2wc26tqo
                         properties:
                           template-id:
                             type: string
@@ -1538,114 +1337,60 @@ components:
                                 type: string
                               description:
                                 type: string
-                                x-stoplight:
-                                  id: 3zpzd3xpkofq5
                               impact:
                                 type: string
-                                x-stoplight:
-                                  id: iir9go0h2rce1
                               remediation:
                                 type: string
-                                x-stoplight:
-                                  id: tdvodtfquphbj
                               reference:
                                 type: array
-                                x-stoplight:
-                                  id: gl6poeh55cn8x
                                 items:
-                                  x-stoplight:
-                                    id: 7dfqa0bh1dq6e
                                   type: string
                               metadata:
                                 type: object
-                                x-stoplight:
-                                  id: fqr58ksm564b8
                                 properties:
                                   verified:
                                     type: boolean
-                                    x-stoplight:
-                                      id: osbjc77p73zfz
                                   max-request:
                                     type: integer
-                                    x-stoplight:
-                                      id: kudh46ygdhr0s
                                   total-request:
                                     type: integer
-                                    x-stoplight:
-                                      id: zwxky7nibwl3z
                                   vendor:
                                     type: string
-                                    x-stoplight:
-                                      id: n6h308w0vvv37
                                   product:
                                     type: string
-                                    x-stoplight:
-                                      id: ltvxuv1b3y5qb
                                   framework:
                                     type: string
-                                    x-stoplight:
-                                      id: y3xmmuowwaa5i
                                   shodan-query:
                                     type: string
-                                    x-stoplight:
-                                      id: n8jxw0qxod745
                                   fofa-query:
                                     type: string
-                                    x-stoplight:
-                                      id: e3wil27ft77lm
                                   censys-query:
                                     type: string
-                                    x-stoplight:
-                                      id: 7nn61mznhf3fe
                                   publicwww-query:
                                     type: string
-                                    x-stoplight:
-                                      id: 6z6v45tucu537
                                   google-query:
                                     type: string
-                                    x-stoplight:
-                                      id: slu7e1fm3f8ur
                               classification:
                                 type: object
-                                x-stoplight:
-                                  id: 053afailggucv
                                 properties:
                                   cvss-metrics:
                                     type: string
-                                    x-stoplight:
-                                      id: lhh0v9sxuk1w8
                                   cvss-score:
                                     type: number
-                                    x-stoplight:
-                                      id: 7nqtfz17dj56r
                                   cve-id:
                                     type: array
-                                    x-stoplight:
-                                      id: vtwev4m2z2gf0
                                     items:
-                                      x-stoplight:
-                                        id: mweyydyctpius
                                       type: string
                                   cwe-id:
                                     type: array
-                                    x-stoplight:
-                                      id: fse69oh01pxze
                                     items:
-                                      x-stoplight:
-                                        id: lzdkwcqmm3wwm
                                       type: string
                                   epss-score:
                                     type: number
-                                    x-stoplight:
-                                      id: d6xjynmjxrsx1
                                   epss-percentile:
                                     type: number
-                                    x-stoplight:
-                                      id: g2shbh6wphkqi
                                   cpe:
                                     type: string
-                                    x-stoplight:
-                                      id: wg4qxv96xo339
                           type:
                             type: string
                           host:
@@ -1660,64 +1405,34 @@ components:
                             type: boolean
                           matched-line:
                             type: array
-                            x-stoplight:
-                              id: 5llodi4toyhsb
                             items:
-                              x-stoplight:
-                                id: 1kwxuf2cfghfa
                               type: integer
                           ip:
                             type: string
-                            x-stoplight:
-                              id: xd18edjzfxf62
                           matched-at:
                             type: string
-                            x-stoplight:
-                              id: rsqwdmfcf1ogk
                           curl-command:
                             type: string
-                            x-stoplight:
-                              id: 9x521yhcf7vl5
                           matcher-name:
                             type: string
-                            x-stoplight:
-                              id: vyctmaf6wxf1d
                           extracted-results:
                             type: string
-                            x-stoplight:
-                              id: ms6yslne90pf5
                           template-url:
                             type: string
-                            x-stoplight:
-                              id: q36sdvlu7i9dz
                           template-path:
                             type: string
-                            x-stoplight:
-                              id: 4c6pmit7vbpv2
                           extractor-name:
                             type: string
-                            x-stoplight:
-                              id: vdo102qh5ennk
                           path:
                             type: string
-                            x-stoplight:
-                              id: imsxujfjhulrg
                     template_id:
                       type: string
-                      x-stoplight:
-                        id: k6ms0mhwaj8ue
                     template_path:
                       type: string
-                      x-stoplight:
-                        id: mv00x1nfezgo1
                     template_encoded:
                       type: string
-                      x-stoplight:
-                        id: chmtk9v0kvr4c
                     result_type:
                       type: string
-                      x-stoplight:
-                        id: w5lmo01509cb2
                   required:
                     - matcher_status
                     - vuln_id
@@ -1751,8 +1466,6 @@ components:
                 properties:
                   matcher_status:
                     type: boolean
-                    x-stoplight:
-                      id: s206vmzgoypf8
                   vuln_id:
                     type: string
                   target:
@@ -1761,18 +1474,12 @@ components:
                     type: string
                   created_at:
                     type: string
-                    x-stoplight:
-                      id: wv9qfgicxdeky
                   updated_at:
                     type: string
-                    x-stoplight:
-                      id: 0hzd233luzbrv
                   event:
                     type: array
                     items:
                       type: object
-                      x-stoplight:
-                        id: 6aaxmtzzirz19
                       properties:
                         template-id:
                           type: string
@@ -1793,114 +1500,60 @@ components:
                               type: string
                             description:
                               type: string
-                              x-stoplight:
-                                id: qm02bp7d7z17a
                             impact:
                               type: string
-                              x-stoplight:
-                                id: oing5w2838os2
                             remediation:
                               type: string
-                              x-stoplight:
-                                id: y15htd9hfes5i
                             reference:
                               type: array
-                              x-stoplight:
-                                id: cyrtou1gkqdai
                               items:
-                                x-stoplight:
-                                  id: trh85nwzhim81
                                 type: string
                             classification:
                               type: object
-                              x-stoplight:
-                                id: 9fkogiq4g8czb
                               properties:
                                 cvss-metrics:
                                   type: string
-                                  x-stoplight:
-                                    id: j75dqib98ps4e
                                 cvss-score:
                                   type: number
-                                  x-stoplight:
-                                    id: aj6gdc76lez6d
                                 cve-id:
                                   type: array
-                                  x-stoplight:
-                                    id: ipidqw2kruu88
                                   items:
-                                    x-stoplight:
-                                      id: di3dx8vwxmiwr
                                     type: string
                                 cwe-id:
                                   type: array
-                                  x-stoplight:
-                                    id: labu7eq1wbjt2
                                   items:
-                                    x-stoplight:
-                                      id: hf4pa1e1zr7bv
                                     type: string
                                 epss-score:
                                   type: number
-                                  x-stoplight:
-                                    id: 8hfem77534xfh
                                 epss-percentile:
                                   type: number
-                                  x-stoplight:
-                                    id: ba8he9liclm2s
                                 cpe:
                                   type: string
-                                  x-stoplight:
-                                    id: 8c1na2equjrpu
                             metadata:
                               type: object
-                              x-stoplight:
-                                id: kt9fetl9909ji
                               properties:
                                 verified:
                                   type: boolean
-                                  x-stoplight:
-                                    id: nvnd52u5sdgvc
                                 max-request:
                                   type: integer
-                                  x-stoplight:
-                                    id: 9yfsfw7kohbhi
                                 total-request:
                                   type: integer
-                                  x-stoplight:
-                                    id: ffyzrbpqh9pji
                                 vendor:
                                   type: string
-                                  x-stoplight:
-                                    id: zm6hwfsm3003i
                                 product:
                                   type: string
-                                  x-stoplight:
-                                    id: 4npru8cuf8jt2
                                 framework:
                                   type: string
-                                  x-stoplight:
-                                    id: w0u5v1ukp93j9
                                 shodan-query:
                                   type: string
-                                  x-stoplight:
-                                    id: xzllqrskusrcf
                                 fofa-query:
                                   type: string
-                                  x-stoplight:
-                                    id: u3mjju9gthrxp
                                 censys-query:
                                   type: string
-                                  x-stoplight:
-                                    id: 3rhgkjo6nmacu
                                 publicwww-query:
                                   type: string
-                                  x-stoplight:
-                                    id: 6vz5a0irudodt
                                 google-query:
                                   type: string
-                                  x-stoplight:
-                                    id: qvlgex7qp4taa
                         type:
                           type: string
                         host:
@@ -1915,48 +1568,26 @@ components:
                           type: boolean
                         matched-line:
                           type: array
-                          x-stoplight:
-                            id: 13qupzp7ob9b8
                           items:
-                            x-stoplight:
-                              id: xgry5uvaeo411
                             type: integer
                         ip:
                           type: string
-                          x-stoplight:
-                            id: rvo97enfg1kqm
                         matched-at:
                           type: string
-                          x-stoplight:
-                            id: s2vn5x29c4mza
                         curl-command:
                           type: string
-                          x-stoplight:
-                            id: zomtz0n8yc164
                         matcher-name:
                           type: string
-                          x-stoplight:
-                            id: guw88t001mqxr
                         extracted-results:
                           type: string
-                          x-stoplight:
-                            id: tmgzh3mv74887
                         template-url:
                           type: string
-                          x-stoplight:
-                            id: qvcd09gc1gytd
                         template-path:
                           type: string
-                          x-stoplight:
-                            id: 4bqc9kiz3wyrt
                         extractor-name:
                           type: string
-                          x-stoplight:
-                            id: u1oogwlfqevhj
                         path:
                           type: string
-                          x-stoplight:
-                            id: z18zn76quhv4r
             required:
               - message
               - results
@@ -1976,112 +1607,66 @@ components:
                   properties:
                     scan_id:
                       type: string
-                      x-stoplight:
-                        id: ydxowwr7go0yg
                     status:
                       type: string
-                      x-stoplight:
-                        id: s2e9hq3zo68d7
                     scan_time_elapsed:
                       type: string
-                      x-stoplight:
-                        id: vnhu1rcqbcy7e
                     progress:
                       type: integer
-                      x-stoplight:
-                        id: stat8c637b0wn
                     failure_reason:
                       type: string
-                      x-stoplight:
-                        id: i2s9eisrfa9el
                     created_at:
                       type: string
-                      x-stoplight:
-                        id: x7qy4nltu6l2i
                     total_target:
                       type: integer
-                      x-stoplight:
-                        id: dhv4smsgfmfcb
                     total_scan:
                       type: integer
-                      x-stoplight:
-                        id: 0qzmxu11g06td
                     severity:
                       type: object
-                      x-stoplight:
-                        id: 0tw3bshcrqgx6
                       properties:
                         info:
                           type:
                             - string
                             - integer
-                          x-stoplight:
-                            id: kxoqbt794a2g3
                         critical:
                           type:
                             - integer
                             - string
-                          x-stoplight:
-                            id: gxg9lglwumume
                         medium:
                           type:
                             - string
                             - integer
-                          x-stoplight:
-                            id: 7g2lp3m9g8gac
                         low:
                           type:
                             - string
                             - integer
-                          x-stoplight:
-                            id: mouclcf9tgflq
                         high:
                           type:
                             - string
                             - integer
-                          x-stoplight:
-                            id: ja7mcor9fe3by
                         unknown:
                           type:
                             - string
                             - integer
-                          x-stoplight:
-                            id: sox80c9pn3271
                     total_template:
                       type: integer
-                      x-stoplight:
-                        id: o8kkdwkavaj8p
                     updated_at:
                       type: string
-                      x-stoplight:
-                        id: a1mpvt3t9okmg
                     name:
                       type: string
-                      x-stoplight:
-                        id: hcc3baidbgam0
                     completed_at:
                       type: string
-                      x-stoplight:
-                        id: 381o4700w3czq
                     is_oss:
                       type: string
-                      x-stoplight:
-                        id: sa6lybqdm4ehl
                     is_cloud:
                       type: string
-                      x-stoplight:
-                        id: vbjek5676kly6
                     scan_frequency:
-                      x-stoplight:
-                        id: ngn9388l2g226
                       enum:
                         - daily
                         - weekly
                         - monthly
                     schedule_last_run:
                       type: string
-                      x-stoplight:
-                        id: 9b9trg9665nek
                   required:
                     - scan_id
                     - status
@@ -2099,25 +1684,15 @@ components:
             properties:
               message:
                 type: string
-                x-stoplight:
-                  id: it2kbietsmlyg
               data:
                 type: array
-                x-stoplight:
-                  id: dcgrxon0mqfva
                 items:
-                  x-stoplight:
-                    id: ghvy3djmczm85
                   type: object
                   properties:
                     id:
                       type: string
-                      x-stoplight:
-                        id: ezm2t4m3hbtle
                     status:
                       type: string
-                      x-stoplight:
-                        id: 20n032eptll8u
             required:
               - message
     TriggerUserScanResponse:
@@ -2139,24 +1714,16 @@ components:
             properties:
               message:
                 type: string
-                x-stoplight:
-                  id: hy5lvhtmdlqim
               id:
                 type: string
-                x-stoplight:
-                  id: 0f962j055qd6n
         multipart/form-data:
           schema:
             type: object
             properties:
               message:
                 type: string
-                x-stoplight:
-                  id: dnn2usjgci1mr
               id:
                 type: string
-                x-stoplight:
-                  id: 5pls5r1r9o0vy
             required:
               - message
         text/html:
@@ -2165,12 +1732,8 @@ components:
             properties:
               message:
                 type: string
-                x-stoplight:
-                  id: o5k79ejbyojtk
               id:
                 type: string
-                x-stoplight:
-                  id: 61s8icrntth6t
             required:
               - message
     GetScanDetailsResponse:
@@ -2202,24 +1765,14 @@ components:
                 type: integer
               is_oss:
                 type: string
-                x-stoplight:
-                  id: 1fc08c23cj6ot
               is_cloud:
                 type: string
-                x-stoplight:
-                  id: t2k0i1siqa09g
               name:
                 type: string
-                x-stoplight:
-                  id: 1hcvq934lnrsm
               severity:
                 type: object
-                x-stoplight:
-                  id: 7tw3979ue7shu
               failure_reason:
                 type: string
-                x-stoplight:
-                  id: pzvrsj2y129a9
             required:
               - created_at
               - progress
@@ -2253,270 +1806,140 @@ components:
                 type: string
               results:
                 type: array
-                x-stoplight:
-                  id: 4jqscj2u5c6jk
                 items:
-                  x-stoplight:
-                    id: cizxgswwl98g2
                   type: object
                   properties:
                     scan_id:
                       type: string
-                      x-stoplight:
-                        id: 88jv7gt3g8ym4
                     target:
                       type: string
-                      x-stoplight:
-                        id: 0r2zc88bxqxa6
                     template_encoded:
                       type: string
-                      x-stoplight:
-                        id: vxvnans2vbu2m
                     template_url:
                       type: string
-                      x-stoplight:
-                        id: yxy6g8b9p52r2
                     template_path:
                       type: string
-                      x-stoplight:
-                        id: uihencbfa2edf
                     template_id:
                       type: string
-                      x-stoplight:
-                        id: oxcp3owu7xjk4
                     vuln_id:
                       type: string
-                      x-stoplight:
-                        id: os2dp7ssvg83n
                     matcher_status:
                       type: boolean
-                      x-stoplight:
-                        id: ccldy50bmu5j3
                     created_at:
                       type: string
-                      x-stoplight:
-                        id: oxg8hb023alk0
                     updated_at:
                       type: string
-                      x-stoplight:
-                        id: jo56um3jz0aft
                     event:
                       type: array
-                      x-stoplight:
-                        id: 9noku80f6adpk
                       items:
-                        x-stoplight:
-                          id: tv010rsa19zd6
                         type: object
                         properties:
                           info:
                             type: object
-                            x-stoplight:
-                              id: 8vqjp3s0lmnq6
                             properties:
                               name:
                                 type: string
-                                x-stoplight:
-                                  id: f6zrs1gr5j0bt
                               author:
                                 type: array
-                                x-stoplight:
-                                  id: xexdzqzdz4mbo
                                 items:
-                                  x-stoplight:
-                                    id: v6yguwtk2bnaq
                                   type: array
                                   items: {}
                               tags:
                                 type: array
-                                x-stoplight:
-                                  id: 9q6y3r1c38mxj
                                 items:
-                                  x-stoplight:
-                                    id: hv1u2zouoqhjq
                                   type: string
                               severity:
                                 type: string
-                                x-stoplight:
-                                  id: 8ohkiaaq31ji6
                               reference:
                                 type: array
-                                x-stoplight:
-                                  id: at6j7pekp9m1q
                                 items:
-                                  x-stoplight:
-                                    id: 3iq3scdpn0lx2
                                   type: string
                               description:
                                 type: string
-                                x-stoplight:
-                                  id: r57mzgkho825e
                               remediation:
                                 type: string
-                                x-stoplight:
-                                  id: etnhf69mcmoni
                               metadata:
                                 type: object
-                                x-stoplight:
-                                  id: j24ad7ykwlhqj
                                 properties:
                                   vendor:
                                     type: string
-                                    x-stoplight:
-                                      id: 77jk95g3me9hz
                                   product:
                                     type: string
-                                    x-stoplight:
-                                      id: 1q1xke8liobki
                                   framework:
                                     type: string
-                                    x-stoplight:
-                                      id: cxbhw5l1qb99b
                                   shodan-query:
                                     type: string
-                                    x-stoplight:
-                                      id: xg3emulwhly4i
                                   censys-query:
                                     type: string
-                                    x-stoplight:
-                                      id: a8yi1txwjy82m
                                   publicwww-query:
                                     type: string
-                                    x-stoplight:
-                                      id: va4hycftz25d6
                                   google-query:
                                     type: string
-                                    x-stoplight:
-                                      id: 6hw2uu8ikcikt
                                   verified:
                                     type: boolean
-                                    x-stoplight:
-                                      id: dv6c4bi55b48o
                                   max-request:
                                     type: integer
-                                    x-stoplight:
-                                      id: kxxgicpetvdd8
                                   total-request:
                                     type: integer
-                                    x-stoplight:
-                                      id: addazla0w6dkc
                               classification:
                                 type: object
-                                x-stoplight:
-                                  id: k4lpukkkzhtws
                                 properties:
                                   cpe:
                                     type: string
-                                    x-stoplight:
-                                      id: abimra38sma9d
                                   cve-id:
                                     type: array
-                                    x-stoplight:
-                                      id: gmwkal6ss4nz2
                                     items:
-                                      x-stoplight:
-                                        id: vomi3j3tnhyrp
                                       type: string
                                   cwe-id:
                                     type: array
-                                    x-stoplight:
-                                      id: n4rvsgai5b89c
                                     items:
-                                      x-stoplight:
-                                        id: 3cr35ik2h200m
                                       type: string
                                   cvss-score:
                                     type: number
-                                    x-stoplight:
-                                      id: c878dix75wmed
                                   epss-score:
                                     type: number
-                                    x-stoplight:
-                                      id: q1znrp6y7e5dc
                                   cvss-metrics:
                                     type: string
-                                    x-stoplight:
-                                      id: xm6bywz0uv5nr
                                   epss-percentile:
                                     type: number
-                                    x-stoplight:
-                                      id: c34n6bfcm0ge8
                           ip:
                             type: string
-                            x-stoplight:
-                              id: 9e2qe95aq9l2q
                           host:
                             type: string
-                            x-stoplight:
-                              id: s9f5t7o8krgor
                           type:
                             type: string
-                            x-stoplight:
-                              id: 0e4yvicktzi2v
                           request:
                             type: string
-                            x-stoplight:
-                              id: zky92dih4fslr
                           response:
                             type: string
-                            x-stoplight:
-                              id: yfzpsddubpy6o
                           timestamp:
                             type: string
-                            x-stoplight:
-                              id: 9bx93vnm8rydf
                           matched-at:
                             type: string
-                            x-stoplight:
-                              id: yx1ye4hhdbbhp
                           template-id:
                             type: string
-                            x-stoplight:
-                              id: sf3oq0iaz2ctu
                           matcher-status:
                             type: boolean
-                            x-stoplight:
-                              id: 04a690xf683lw
                           curl-command:
                             type: string
-                            x-stoplight:
-                              id: qujh934cmtxr9
                           extracted-results:
                             type: string
-                            x-stoplight:
-                              id: hkw6cd4u8csxi
                           template-url:
                             type: string
-                            x-stoplight:
-                              id: 19btrjwdtljlg
                           template-path:
                             type: string
-                            x-stoplight:
-                              id: 2wrry2yghbh4t
                           matcher-name:
                             type: string
-                            x-stoplight:
-                              id: 0uq8ap5ir7nm2
                           extractor-name:
                             type: string
-                            x-stoplight:
-                              id: r6f2obufg50ee
                           path:
                             type: string
-                            x-stoplight:
-                              id: xqt3ov7a6nhyk
                           matched-line:
                             type: array
-                            x-stoplight:
-                              id: m48qgzyhr8k7p
                             items:
-                              x-stoplight:
-                                id: 0lgf6q09psugp
                               type: integer
                     result_type:
                       type: string
-                      x-stoplight:
-                        id: uni7fobxeq8d3
                   required:
                     - scan_id
                     - target
@@ -2527,17 +1950,11 @@ components:
                     - result_type
               stats:
                 type: object
-                x-stoplight:
-                  id: xpqvpzxf0iqbd
                 properties:
                   total:
                     type: integer
-                    x-stoplight:
-                      id: vyhgjuxn72qt1
               filters:
                 type: object
-                x-stoplight:
-                  id: 560c6x47f87v4
             required:
               - results
     PostRetestTemplateResponse:
@@ -2598,53 +2015,31 @@ components:
                               type: string
                             impact:
                               type: string
-                              x-stoplight:
-                                id: qblost4dz8tvh
                             metadata:
                               type: object
                               properties:
                                 vendor:
                                   type: string
-                                  x-stoplight:
-                                    id: 96sbqh3dvy6o6
                                 product:
                                   type: string
-                                  x-stoplight:
-                                    id: nqhuwp7oqcmqz
                                 max-request:
                                   type: integer
                                 total-request:
                                   type: integer
-                                  x-stoplight:
-                                    id: s9sub7zio0pdg
                                 framework:
                                   type: string
-                                  x-stoplight:
-                                    id: qjp3s4sx43o3v
                                 shodan-query:
                                   type: string
-                                  x-stoplight:
-                                    id: 6co6412y7esvg
                                 fofa-query:
                                   type: string
-                                  x-stoplight:
-                                    id: 54q2jblnvvake
                                 censys-query:
                                   type: string
-                                  x-stoplight:
-                                    id: q2dt5u0gmokyp
                                 publicwww-query:
                                   type: string
-                                  x-stoplight:
-                                    id: ij46acurdeo7y
                                 google-query:
                                   type: string
-                                  x-stoplight:
-                                    id: 6bquh3ssrq9wg
                                 verified:
                                   type: boolean
-                                  x-stoplight:
-                                    id: 1z587ogs235ux
                             classification:
                               type: object
                               properties:
@@ -2680,48 +2075,26 @@ components:
                           type: boolean
                         ip:
                           type: string
-                          x-stoplight:
-                            id: ilqg5s3jwaqpf
                         matched-line:
                           type: array
-                          x-stoplight:
-                            id: 43oqukt6tx3yf
                           items:
-                            x-stoplight:
-                              id: 5w1zemivxgjvh
                             type: integer
                         matched-at:
                           type: string
-                          x-stoplight:
-                            id: y33ctvw8fy6jo
                         curl-command:
                           type: string
-                          x-stoplight:
-                            id: ogpw8vyqd1fvk
                         matcher-name:
                           type: string
-                          x-stoplight:
-                            id: 0wff7qiafutgm
                         extracted-results:
                           type: string
-                          x-stoplight:
-                            id: exdb3l74tjvs0
                         template-url:
                           type: string
-                          x-stoplight:
-                            id: bdm8f7qe615e6
                         template-path:
                           type: string
-                          x-stoplight:
-                            id: xx36bva8h1upb
                         extractor-name:
                           type: string
-                          x-stoplight:
-                            id: kdwibpfgxh402
                         path:
                           type: string
-                          x-stoplight:
-                            id: 57cky33y175bx
     GetScansVulnIdResponse:
       description: '/scans/vuln/:vuln_id'
       content:
@@ -2741,12 +2114,8 @@ components:
                 type: boolean
               created_at:
                 type: string
-                x-stoplight:
-                  id: fgggu42ejtl8h
               updated_at:
                 type: string
-                x-stoplight:
-                  id: 1thshu6vj448t
               event:
                 type: object
                 properties:
@@ -2776,103 +2145,55 @@ components:
                             type: integer
                           vendor:
                             type: string
-                            x-stoplight:
-                              id: xvmhau6ofu98t
                           product:
                             type: string
-                            x-stoplight:
-                              id: vof30ae8xfb8h
                           framework:
                             type: string
-                            x-stoplight:
-                              id: 786c94zzvfjzg
                           shodan-query:
                             type: string
-                            x-stoplight:
-                              id: u25hznsf8vhsf
                           fofa-query:
                             type: string
-                            x-stoplight:
-                              id: w90jgmmlfmjh8
                           censys-query:
                             type: string
-                            x-stoplight:
-                              id: 6yykkf7ztx92r
                           publicwww-query:
                             type: string
-                            x-stoplight:
-                              id: ni6rrs26uaeuj
                           google-query:
                             type: string
-                            x-stoplight:
-                              id: l3frvpinuayly
                           verified:
                             type: string
-                            x-stoplight:
-                              id: ugc8wxmzfqram
                           total-request:
                             type: integer
-                            x-stoplight:
-                              id: tmp807hjr0x6a
                       classification:
                         type: object
                         properties:
                           cpe:
                             type: string
-                            x-stoplight:
-                              id: 8me3waxjb4t2m
                           cve-id:
                             type: array
-                            x-stoplight:
-                              id: 0o9nwamc0znii
                             items:
-                              x-stoplight:
-                                id: jkp52dpz0algt
                               type: string
                           cwe-id:
                             type: array
-                            x-stoplight:
-                              id: 0q2vurfnic5f9
                             items:
-                              x-stoplight:
-                                id: 2n1ypte3k4knd
                               type: string
                           cvss-score:
                             type: number
-                            x-stoplight:
-                              id: r6ifiszo4lcet
                           epss-score:
                             type: number
-                            x-stoplight:
-                              id: ptss5ah6yinwj
                           epss-percentile:
                             type: number
-                            x-stoplight:
-                              id: e9o7o0oas0ss6
                           cvss-metrics:
                             type: string
-                            x-stoplight:
-                              id: zyq92odzhot44
                       reference:
                         type: array
-                        x-stoplight:
-                          id: ewspi29dojtfd
                         items:
-                          x-stoplight:
-                            id: pdmhcbpinwamd
                           type: string
                       description:
                         type: string
-                        x-stoplight:
-                          id: ohb92skgelrdk
                       remediation:
                         type: string
-                        x-stoplight:
-                          id: i2q0mj2d8wkfh
                       impact:
                         type: string
-                        x-stoplight:
-                          id: mk87t33jwok8f
                     required:
                       - name
                   type:
@@ -2893,51 +2214,29 @@ components:
                     type: boolean
                   matcher-name:
                     type: string
-                    x-stoplight:
-                      id: zx9nima1cjn0p
                   extracted-results:
                     type: array
-                    x-stoplight:
-                      id: lei5niri9f6ab
                     items:
-                      x-stoplight:
-                        id: p15eukooxc9cm
                       type: string
                   template-url:
                     type: string
-                    x-stoplight:
-                      id: y6250vqoy7wcp
                   template-path:
                     type: string
-                    x-stoplight:
-                      id: qxn0c0680rdy2
                   extractor-name:
                     type: string
-                    x-stoplight:
-                      id: 842cg7y8z0rky
                   path:
                     type: string
-                    x-stoplight:
-                      id: p0mfttc0gith9
                   matched-line:
                     type: array
-                    x-stoplight:
-                      id: 12677mk1a2mvd
                     items:
-                      x-stoplight:
-                        id: s33eq7aphbqv6
                       type: integer
                 required:
                   - timestamp
                   - template-id
               template_encoded:
                 type: string
-                x-stoplight:
-                  id: ug91q7f8vhkjg
               template_path:
                 type: string
-                x-stoplight:
-                  id: u9n5qiued7zmk
             required:
               - scan_id
               - target
@@ -2956,8 +2255,6 @@ components:
                 type: string
               message:
                 type: string
-                x-stoplight:
-                  id: reumelzq2xo8z
             required:
               - id
               - message
@@ -2983,8 +2280,6 @@ components:
                       type: string
                     name:
                       type: string
-                      x-stoplight:
-                        id: vb3783n9ia814
                   required:
                     - asset_count
                     - asset_id
@@ -3046,12 +2341,8 @@ components:
             properties:
               message:
                 type: string
-                x-stoplight:
-                  id: usxvkfjl555p9
               api_key:
                 type: string
-                x-stoplight:
-                  id: g0bzm7vki501b
                 format: uuid
             required:
               - message
@@ -3065,8 +2356,6 @@ components:
             properties:
               message:
                 type: string
-                x-stoplight:
-                  id: z3ejyfw6q470w
             required:
               - message
     GetScanResultsFiltersResponse:
@@ -3080,21 +2369,13 @@ components:
                 type: string
               data:
                 type: array
-                x-stoplight:
-                  id: os3i3tf36fjpy
                 items:
-                  x-stoplight:
-                    id: wcu4ltritdtrf
                   type: object
                   properties:
                     value:
                       type: string
-                      x-stoplight:
-                        id: u5jrsdnggoulz
                     count:
                       type: string
-                      x-stoplight:
-                        id: 7kruxt9bm86pg
                   required:
                     - value
                     - count
@@ -3125,16 +2406,10 @@ components:
                     type: integer
                   total_target:
                     type: integer
-                    x-stoplight:
-                      id: l8gush2o35nq0
                   total_scan:
                     type: integer
-                    x-stoplight:
-                      id: mwwhgjp5twtzq
                   total_template:
                     type: integer
-                    x-stoplight:
-                      id: fdjrsyw19dd25
             required:
               - message
     SetScanScheduleResponse:
@@ -3178,12 +2453,8 @@ components:
             properties:
               message:
                 type: string
-                x-stoplight:
-                  id: y1iucy2n64cv9
               update_status:
                 type: string
-                x-stoplight:
-                  id: 8x7rtbxutit2g
             required:
               - message
     GetUserTemplateListResponse:
@@ -3195,41 +2466,25 @@ components:
             properties:
               data:
                 type: array
-                x-stoplight:
-                  id: bh5qp2gxs46iy
                 items:
-                  x-stoplight:
-                    id: kfnwwzyf4zm8n
                   type: object
                   properties:
                     name:
                       type: string
-                      x-stoplight:
-                        id: d9cbmankpz87h
                     id:
                       type: string
-                      x-stoplight:
-                        id: euc1ryzasq4xl
                     created_at:
                       type: string
-                      x-stoplight:
-                        id: qsmj2rzleftbd
                     updated_at:
                       type: string
-                      x-stoplight:
-                        id: iy6j12ofg1007
                     shared_publicly:
                       type: boolean
-                      x-stoplight:
-                        id: 37pug122vh7v4
                   required:
                     - name
                     - id
                     - created_at
               message:
                 type: string
-                x-stoplight:
-                  id: h7sbv6bkoutou
             required:
               - message
     GetShareStatusResponse:
@@ -3271,16 +2526,10 @@ components:
             properties:
               template:
                 type: string
-                x-stoplight:
-                  id: 7g98y50zvvwo3
               template_id:
                 type: string
-                x-stoplight:
-                  id: mlskrx99u02wr
               prompt:
                 type: string
-                x-stoplight:
-                  id: pgl6vzcy9jg5n
             required:
               - template
               - template_id
@@ -3314,20 +2563,12 @@ components:
                 type: string
               template_path:
                 type: string
-                x-stoplight:
-                  id: qyolt7rg00v0j
               template_url:
                 type: string
-                x-stoplight:
-                  id: x9csuozqajneo
               template_id:
                 type: string
-                x-stoplight:
-                  id: 0eoiie9asiwlh
               vuln_id:
                 type: string
-                x-stoplight:
-                  id: ry1mq4ydc6gp4
     ShareTemplateRequest:
       content:
         application/json:
@@ -3354,45 +2595,25 @@ components:
                   type: string
               assets:
                 type: array
-                x-stoplight:
-                  id: ek0fc148xd0g8
                 items:
-                  x-stoplight:
-                    id: 02gmo3lndsprn
                   type: string
               private_templates:
                 type: array
-                x-stoplight:
-                  id: zlp98x5nlnv3z
                 items:
-                  x-stoplight:
-                    id: zjpmgdap14kys
                   type: object
                   properties:
                     name:
                       type: string
-                      x-stoplight:
-                        id: w0ip92zol256k
                     contents:
                       type: string
-                      x-stoplight:
-                        id: 9rbk6z2f6rbeu
               scan_id:
                 type: string
-                x-stoplight:
-                  id: xny243v7pz02r
               name:
                 type: string
-                x-stoplight:
-                  id: ig1ruziw6dlru
               recommended:
                 type: boolean
-                x-stoplight:
-                  id: wsfmbl9o95e8w
               all:
                 type: boolean
-                x-stoplight:
-                  id: d72pnlnqkj5qp
     SetScanScheduleRequest:
       content:
         application/json:
@@ -3423,20 +2644,14 @@ components:
               scan_id:
                 type: string
               scan_frequency:
-                x-stoplight:
-                  id: wpswzdhgb6v3y
                 enum:
                   - daily
                   - monthly
                   - weekly
               recommended:
                 type: boolean
-                x-stoplight:
-                  id: vn2x6wd0hycsr
               all:
                 type: boolean
-                x-stoplight:
-                  id: rlvqcy75tf8nx
             required:
               - scan_frequency
       description: ''
@@ -3468,8 +2683,6 @@ components:
             properties:
               feedback_text:
                 type: string
-                x-stoplight:
-                  id: v0lae7zl4dak2
             required:
               - feedback_text
 x-internal: false
