@@ -1,0 +1,73 @@
+---
+title: "Cloud API Reference Introduction"
+description: 'Details on the ProjectDiscovery Cloud Platform API'
+sidebarTitle: 'Introduction'
+---
+
+## Overview 
+
+The ProjectDiscovery Cloud Platform API v1 is organized around [REST](http://en.wikipedia.org/wiki/Representational_State_Transfer). Our API has resource-oriented URLs, accepts and returns JSON in most cases, and the API uses standard HTTP response codes, authentication, and verbs. Our API also conforms to the [OpenAPI Specification](https://www.openapis.org/).
+
+This API documentation will walk you through each of the available resources, and provides code examples for `cURL`, `Python`, `JavaScript`, `PHP`, `Go` and `Java`. Each endpoint includes the required authorization information and parameters, and provides examples of the response you should expect.
+
+## Authentication
+
+The ProjectDiscovery Cloud Platform API uses API keys to authenticate requests. You can view and manage your API key in ProjectDiscovery Cloud Platform at https://cloud.projectdiscovery.io/ under your user information.
+
+Authentication with the API is performed using a custom request header - `X-Api-Key` - which should simply be the value of your API key found with your ProjectDiscovery Cloud Platform account.
+
+You must make all API calls over `HTTPS`. Calls made over plain HTTP will fail, as will requests without authentication or without all required parameters.
+
+## Resources
+Below (and in the menu on the left) you can find the various resources available to the ProjectDiscovery Cloud Platform API.
+
+<CardGroup cols={2}>
+  <Card
+    title="Assets"
+    icon="server"
+    iconType="duotone"
+   href="/api-reference/assets"
+  >
+    Your assets (hosts, CIDR ranges, etc.) for scanning.
+  </Card>
+  <Card
+    title="Templates"
+    icon="puzzle"
+    iconType="duotone"
+    href="/api-reference/templates"
+  >
+    Access public and private templates as well as AI template creation.
+  </Card>
+  <Card
+    title="Scans"
+    icon="radar"
+    iconType="duotone"
+    href="/api-reference/scans"
+  >
+    Manage scans, scan schedules, and create new scans.
+  </Card>
+  <Card
+    title="Results"
+    icon="ballot-check"
+    iconType="duotone"
+    href="/api-reference/results"
+  >
+    See and manage vulnerabilities detected by PDCP.
+  </Card>
+  <Card
+    title="Retest"
+    icon="microscope"
+    iconType="duotone"
+    href="/api-reference/scans"
+  >
+    Retest vulnerabilities or run single template/target scans.
+  </Card>
+  <Card
+    title="Results"
+    icon="ballot-check"
+    iconType="duotone"
+    href="/api-reference/results"
+  >
+    See and manage vulnerabilities detected by PDCP.
+  </Card>
+</CardGroup>

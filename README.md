@@ -22,7 +22,7 @@
 ## Development
 
 1. Checkout this repository
-1. Install mintlify with ``
+1. Install mintlify with `npm i -g mintlify@latest`
 1. Run `mintlify dev`
 
 ## Deploying 
@@ -32,11 +32,12 @@ To build the final product, we have a couple of additional steps:
 1. Build the JS Protocol Docs
 
 - `npm install -g jsdoc-to-markdown`
-- `./jsdocs.sh`
+- `./bin/jsdocs.sh`
 
 2. Build the PDCP API reference documentation
 
-Coming soon!
+- Either download the latest `openapi.yaml` manually or run `./bin/download-api.sh`
+- Run `./bin/generate-api.sh` to generate any new API files
 
 3. Deployment
 
