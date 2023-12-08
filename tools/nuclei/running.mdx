@@ -463,14 +463,6 @@ nuclei -header 'User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) / nuclei' -list
 
 Nuclei supports a variety of methods for excluding / blocking templates from execution. By default, **nuclei** excludes the tags/templates listed below from execution to avoid unexpected fuzz based scans and some that are not supposed to run for mass scan, and these can be easily overwritten with nuclei configuration file / flags.
 
-- Default [Template ignore](https://github.com/projectdiscovery/nuclei-templates/blob/master/.nuclei-ignore) list.
-
-<Warning>
-  **nuclei-ignore** file is not supposed to be updated / edited / removed by
-  user, to overwrite default ignore list, utilize [nuclei
-  configuration](/getting-started/features#nuclei-config) file.{' '}
-</Warning>
-
 Nuclei engine supports two ways to manually exclude templates from scan,
 
 1. Exclude Templates (`-exclude-templates/exclude`)
@@ -514,10 +506,17 @@ Example of excluding templates with multiple tags
 ```
 nuclei -l urls.txt -t cves/ -etags sqli,rce
 ```
-
 </Note>
 
-To easily overwrite [nuclei-ignore](https://github.com/projectdiscovery/nuclei-templates/blob/master/.nuclei-ignore), Nuclei engine supports **include-tags** / **include-templates** flag.
+- [.nuclei-ignore](https://github.com/projectdiscovery/nuclei-templates/blob/main/.nuclei-ignore) list - default list of tags and templates excluded from nuclei scan as default.
+
+<Warning>
+  **.nuclei-ignore** file is not supposed to be modified by
+  user, as it gets used by nuclei internally, to overwrite ignore list, utilize [nuclei
+  configuration](/tools/nuclei/running#nuclei-config) file.
+</Warning>
+
+To overwrite [nuclei-ignore](https://github.com/projectdiscovery/nuclei-templates/blob/master/.nuclei-ignore), Nuclei engine supports `-include-tags`, `-include-templates` flag.
 
 <Note>
 Example of running blocked templates
@@ -527,6 +526,8 @@ nuclei -l urls.txt -include-tags iot,misc,fuzz
 ```
 
 </Note>
+
+
 
 ### List Template Path
 

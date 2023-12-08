@@ -4,13 +4,13 @@ icon: "flask-vial"
 iconType: "solid"
 ---
 
-Since release of [Nuclei v2.3.6](https://github.com/projectdiscovery/nuclei/releases/tag/v2.3.6), Nuclei supports using the [interact.sh](https://github.com/projectdiscovery/interactsh) API to achieve OOB based vulnerability scanning with automatic Request correlation built in. It's as easy as writing `{{interactsh-url}}`  anywhere in the request, and adding a matcher for `interact_protocol`. Nuclei will handle correlation of the interaction to the template & the request it was generated from allowing effortless OOB scanning.
+Since release of [Nuclei v2.3.6](https://github.com/projectdiscovery/nuclei/releases/tag/v2.3.6), Nuclei supports using the [interactsh](https://github.com/projectdiscovery/interactsh) API to achieve OOB based vulnerability scanning with automatic Request correlation built in. It's as easy as writing `{{interactsh-url}}`  anywhere in the request, and adding a matcher for `interact_protocol`. Nuclei will handle correlation of the interaction to the template & the request it was generated from allowing effortless OOB scanning.
 
 ## Interactsh Placeholder
 
 `{{interactsh-url}}` placeholder is supported in **http** and **network** requests.
 
-An example of nuclei request with `{{interactsh-url}}` placeholders is provided below. These are replaced on runtime with unique interact.sh URLs.
+An example of nuclei request with `{{interactsh-url}}` placeholders is provided below. These are replaced on runtime with unique interactsh URLs.
 
 ```yaml
   - raw:
@@ -38,13 +38,13 @@ Value can be dns, http or smtp. This is the standard matcher for every interacts
 <Note>
 **interactsh_request**
 
-The request that the interact.sh server received.
+The request that the interactsh server received.
 </Note>
 
 <Note>
 **interactsh_response**
 
-The response that the interact.sh server sent to the client.
+The response that the interactsh server sent to the client.
 </Note>
 
 Example of Interactsh DNS Interaction matcher:

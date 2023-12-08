@@ -292,16 +292,12 @@
         {
           "group": "Users",
           "pages": [
-            "api-reference/users/get-api-key",
+            "api-reference/users/get-user-profile",
             "api-reference/users/create-api-key",
+            "api-reference/users/get-api-key",
             "api-reference/users/delete-api-key",
             "api-reference/users/rotate-api-key",
-            "api-reference/users/add-feedback",
-            "api-reference/users/get-user-profile",
-            "api-reference/users/get-api-key-1",
-            "api-reference/users/create-api-key-1",
-            "api-reference/users/delete-api-key-1",
-            "api-reference/users/rotate-api-key-1"
+            "api-reference/users/add-feedback"
           ]
         }
       ]
