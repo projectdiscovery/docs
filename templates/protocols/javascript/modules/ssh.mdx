@@ -9,6 +9,7 @@
         * [`.ConnectSSHInfoMode(host, port)`](#module_ssh..SSHClient+ConnectSSHInfoMode) ⇒ <code>HandshakeLog</code>
         * [`.ConnectWithKey(host, port, username, key)`](#module_ssh..SSHClient+ConnectWithKey) ⇒ <code>boolean</code>
         * [`.Run(cmd)`](#module_ssh..SSHClient+Run) ⇒ <code>string</code>
+        * [`.SetTimeout(sec)`](#module_ssh..SSHClient+SetTimeout)
     * [`HandshakeLog`](#module_ssh..HandshakeLog) : <code>object</code>
 
 <a name="module_ssh..SSHClient"></a>
@@ -24,11 +25,12 @@ SSHClient is a client for SSH servers. Internally client uses github.com/zmap/zg
     * [`.ConnectSSHInfoMode(host, port)`](#module_ssh..SSHClient+ConnectSSHInfoMode) ⇒ <code>HandshakeLog</code>
     * [`.ConnectWithKey(host, port, username, key)`](#module_ssh..SSHClient+ConnectWithKey) ⇒ <code>boolean</code>
     * [`.Run(cmd)`](#module_ssh..SSHClient+Run) ⇒ <code>string</code>
+    * [`.SetTimeout(sec)`](#module_ssh..SSHClient+SetTimeout)
 
 <a name="module_ssh..SSHClient+Close"></a>
 
 #### sshClient.Close() ⇒ <code>boolean</code>
-Close closes the SSH connection and destroys the client. Returns the success state and error. If error is not nil, state will be false.
+Close closes the SSH connection and destroys the client
 
 **Kind**: instance method of [<code>SSHClient</code>](#module_ssh..SSHClient)  
 **Returns**: <code>boolean</code> - - The success state of the operation.  
@@ -41,18 +43,18 @@ Close closes the SSH connection and destroys the client. Returns the success sta
 let m = require('nuclei/ssh');
     let c = m.SSHClient();
     let state = c.Connect('localhost', 22, 'user', 'password');
-    c.Close();
+    let result = c.Close();
 ```
 <a name="module_ssh..SSHClient+Connect"></a>
 
 #### sshClient.Connect(host, port, username, password) ⇒ <code>boolean</code>
-Connect tries to connect to provided host and port with provided username and password with ssh. Returns state of connection and error. If error is not nil, state will be false.
+Connect tries to connect to provided host and port with provided username and password with ssh.
 
 **Kind**: instance method of [<code>SSHClient</code>](#module_ssh..SSHClient)  
-**Returns**: <code>boolean</code> - - The state of the connection.  
+**Returns**: <code>boolean</code> - - The success state of the operation.  
 **Throws**:
 
-- <code>error</code> - The error encountered during the connection.
+- <code>error</code> - The error encountered during the operation.
 
 
 | Param | Type | Description |
@@ -71,13 +73,13 @@ let m = require('nuclei/ssh');
 <a name="module_ssh..SSHClient+ConnectSSHInfoMode"></a>
 
 #### sshClient.ConnectSSHInfoMode(host, port) ⇒ <code>HandshakeLog</code>
-ConnectSSHInfoMode tries to connect to provided host and port with provided host and port. Returns HandshakeLog and error. If error is not nil, state will be false.
+ConnectSSHInfoMode tries to connect to provided host and port with provided host and port
 
 **Kind**: instance method of [<code>SSHClient</code>](#module_ssh..SSHClient)  
 **Returns**: <code>HandshakeLog</code> - - The HandshakeLog object containing information about the ssh connection.  
 **Throws**:
 
-- <code>error</code> - The error encountered during the connection.
+- <code>error</code> - The error encountered during the operation.
 
 
 | Param | Type | Description |
@@ -94,13 +96,13 @@ let m = require('nuclei/ssh');
 <a name="module_ssh..SSHClient+ConnectWithKey"></a>
 
 #### sshClient.ConnectWithKey(host, port, username, key) ⇒ <code>boolean</code>
-ConnectWithKey tries to connect to provided host and port with provided username and private_key. Returns state of connection and error. If error is not nil, state will be false.
+ConnectWithKey tries to connect to provided host and port with provided username and private_key.
 
 **Kind**: instance method of [<code>SSHClient</code>](#module_ssh..SSHClient)  
-**Returns**: <code>boolean</code> - - The state of the connection.  
+**Returns**: <code>boolean</code> - - The success state of the operation.  
 **Throws**:
 
-- <code>error</code> - The error encountered during the connection.
+- <code>error</code> - The error encountered during the operation.
 
 
 | Param | Type | Description |
@@ -114,18 +116,18 @@ ConnectWithKey tries to connect to provided host and port with provided username
 ```js
 let m = require('nuclei/ssh');
     let c = m.SSHClient();
-    let result = c.ConnectWithKey('localhost', 22, 'user', 'private_key');
+    let result = c.ConnectWithKey('localhost', 22, 'user', 'key');
 ```
 <a name="module_ssh..SSHClient+Run"></a>
 
 #### sshClient.Run(cmd) ⇒ <code>string</code>
-Run tries to open a new SSH session, then tries to execute the provided command in said session. Returns string and error. If error is not nil, state will be false. The string contains the command output.
+Run tries to open a new SSH session, then tries to execute the provided command in said session
 
 **Kind**: instance method of [<code>SSHClient</code>](#module_ssh..SSHClient)  
 **Returns**: <code>string</code> - - The output of the command.  
 **Throws**:
 
-- <code>error</code> - The error encountered during the execution of the command.
+- <code>error</code> - The error encountered during the operation.
 
 
 | Param | Type | Description |
@@ -137,6 +139,23 @@ Run tries to open a new SSH session, then tries to execute the provided command 
 let m = require('nuclei/ssh');
     let c = m.SSHClient();
     let result = c.Run('ls');
+```
+<a name="module_ssh..SSHClient+SetTimeout"></a>
+
+#### sshClient.SetTimeout(sec)
+SetTimeout sets the timeout for the SSH connection in seconds
+
+**Kind**: instance method of [<code>SSHClient</code>](#module_ssh..SSHClient)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| sec | <code>number</code> | The number of seconds for the timeout. |
+
+**Example**  
+```js
+let m = require('nuclei/ssh');
+    let c = m.SSHClient();
+    c.SetTimeout(30);
 ```
 <a name="module_ssh..HandshakeLog"></a>
 
