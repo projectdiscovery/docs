@@ -90,7 +90,8 @@
         "tools/nuclei/overview",
         "tools/nuclei/install",
         "tools/nuclei/running",
-        "tools/nuclei/faq"
+        "tools/nuclei/faq",
+        "tools/nuclei/faq-revision"
       ]
     },
     {
