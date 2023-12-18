@@ -1,18 +1,18 @@
 ---
 title: "JavaScript Protocol"
-description: "Review examples of Javascript with Nuclei v3"
+description: "Review examples of JavaScript with Nuclei v3"
 sidebarTitle: "Protocol"
 ---
 
-Javascript protocol is new protocol added in nuclei v3 to allow writing exploits / checks in javascript language but internally are executed in go. And this javscript is tailored towards nuclei ecosystem this means
+The JavaScript protocol was added in nuclei v3 to allow writing exploits and checks in JavaScript, but internally they are executed in golang.
 
-- It is not intended to fit / imported with any existing javascript libraries or frameworks outside of nuclei ecosystem.
-- Nuclei Engine provides a set of functions, libraries that are tailor made for writing exploits / checks and only adds required/necessary functionality to compliment existing YAML based DSL.
-- It is not intended to be used as general purpose javascript runtime and does not replace matchers or extractors or any existing functionality of nuclei.
-- Javascript Protocol is intended to bridge gap between network protocol to add any new xyz protocol while adding lot of other functionalities.
-- Nuclei v3.0.0 ships with **15+ libraries (ssh,ftp,rdp,kerberos,redis)** tailored for writing exploits/checks in javascript and will be continiously expanded in future.
+- It is not intended to fit into or be imported with any existing JavaScript libraries or frameworks outside of nuclei ecosystem.
+- Nuclei Engine provides a set of functions, libraries that are tailor-made for writing exploits and checks and only adds required/necessary functionality to complement existing YAML-based DSL.
+- It is not intended to be used as a general purpose JavaScript runtime and does not replace matchers, extractors, or any existing functionality of nuclei.
+- JavaScript Protocol is intended to bridge the gap between network protocols.
+- Nuclei v3.0.0 ships with **15+ libraries (ssh, ftp, RDP, Kerberos, and Redis)** tailored for writing exploits and checks in JavaScript and will be continuously expanded in the future.
 
-Here is a simple example of javascript protocol template
+Here is a simple example of a JavaScript protocol template:
 
 ```yaml
 id: ssh-server-fingerprint
@@ -39,25 +39,21 @@ javascript:
           - '.ServerID.Raw'
 ```
 
-In above nuclei template we are fingerprinting SSH Server Software by connecting in Non-Auth mode and extracting server banner.  Lets break down the template.
+In the above nuclei template, we are fingerprinting SSH server software by connecting in non-auth mode and extracting the server banner.  Let's break down the template.
 
 ### Code
+The `code:` contains actual JavaScript code that is executed by nuclei engine at runtime. In the above template, we are:
 
-Code contains actual javascript code that is executed by nuclei engine at runtime In above template we are
-
-- importing `nuclei/ssh` module/library
-- creating a new instance of `SSHClient` object
-- connecting to SSH server in `Info` mode
-- converting response to json
+- Importing `nuclei/ssh` module/library
+- Creating a new instance of `SSHClient` object
+- Connecting to SSH server in `Info` mode
+- Converting response to json
 
 ### Args
+The `args:` section can be simply understood as variables in JavaScript that are passed at runtime and support DSL usage.
 
-Args can be simply understood as variables in javascript that are passed at runtime and support DSL usage
-
-
-### **Output**
-
-Value of Last expression is returned as output of javascript protocol template and can be used in matchers / extractors. If server returns an error instead then `error` variable is exposed in matcher/extractor with error message.
+### Output
+The value of the last expression is returned as the output of JavaScript protocol template and can be used in matchers and extractors. If the server returns an error instead, then the `error` variable is exposed in the matcher or extractor with an error message.
 
 ### Example
 
@@ -114,7 +110,7 @@ In above nuclei template we are bruteforcing ssh server with list of usernames a
 - address is actually a ssh server
 - ssh server is configured to allow password based authentication
 
-**Furthur explaination** 
+**Furthur explanation** 
 
 - If pre-condition returns `true` only then code is executed otherwise it is skipped
 - In code section we import `nuclei/ssh` module and create a new instance of `SSHClient` object
