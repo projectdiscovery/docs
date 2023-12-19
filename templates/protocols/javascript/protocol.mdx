@@ -4,17 +4,17 @@ description: "Review examples of JavaScript with Nuclei v3"
 sidebarTitle: "Protocol"
 ---
 
-The JavaScript protocol was added in nuclei v3 to allow writing exploits and checks in JavaScript, but internally they are executed in golang.
+The JavaScript protocol was added to Nuclei v3 to allow you to write checks and detections for exploits in JavaScript and to bridge the gap between network protocols. 
 
-- It is not intended to fit into or be imported with any existing JavaScript libraries or frameworks outside of nuclei ecosystem.
-- Nuclei Engine provides a set of functions, libraries that are tailor-made for writing exploits and checks and only adds required/necessary functionality to complement existing YAML-based DSL.
-- It is not intended to be used as a general purpose JavaScript runtime and does not replace matchers, extractors, or any existing functionality of nuclei.
-- JavaScript Protocol is intended to bridge the gap between network protocols.
+- Internally any content written using the JavaScript protocol is executed in Golang.
+- The JavaScript protocol is **not** intended to fit into or be imported with any existing JavaScript libraries or frameworks outside of the Nuclei ecosystem.
+- Nuclei provides a set of functions, libraries that are tailor-made for writing exploits and checks and only adds required/necessary functionality to complement existing YAML-based DSL.
+- The JavaScript protocol is **not** intended to be used as a general purpose JavaScript runtime and does not replace matchers, extractors, or any existing functionality of Nuclei.
 - Nuclei v3.0.0 ships with **15+ libraries (ssh, ftp, RDP, Kerberos, and Redis)** tailored for writing exploits and checks in JavaScript and will be continuously expanded in the future.
 
 ## Simple Example 
 
-Here is a simple example of a JavaScript protocol template:
+Here is a basic example of a JavaScript protocol template:
 
 ```yaml
 id: ssh-server-fingerprint
@@ -41,10 +41,10 @@ javascript:
           - '.ServerID.Raw'
 ```
 
-In the above nuclei template, we are fingerprinting SSH server software by connecting in non-auth mode and extracting the server banner.  Let's break down the template.
+In the Nuclei template example above, we are fingerprinting SSH server software by connecting in non-auth mode and extracting the server banner.  Let's break down the template.
 
 ### Code Section
-The `code:` contains actual JavaScript code that is executed by nuclei engine at runtime. In the above template, we are:
+The `code:` contains actual JavaScript code that is executed by Nuclei at runtime. In the above template, we are:
 
 - Importing `nuclei/ssh` module/library
 - Creating a new instance of `SSHClient` object
@@ -104,7 +104,7 @@ javascript:
         condition: and
 ```
 
-In the above nuclei template, we are bruteforcing ssh server with a list of usernames and passwords. We can tell that this might not have been possible to achieve with the network template. Let's break down the template.
+In the example template above, we are bruteforcing ssh server with a list of usernames and passwords. We can tell that this might not have been possible to achieve with the network template. Let's break down the template.
 
 ### Pre-Condition
 
