@@ -5,7 +5,7 @@ icon: "signature"
 iconType: "solid"
 ---
 
-Template signing via the private-public key mechanism is a crucial aspect of ensuring the integrity, authenticity and security of templates. This mechanism involves the use of asymmetric cryptography, specifically  ECDSA algorithm, to create a secure and verifiable signature.
+Template signing via the private-public key mechanism is a crucial aspect of ensuring the integrity, authenticity, and security of templates. This mechanism involves the use of asymmetric cryptography, specifically the Elliptic Curve Digital Signature Algorithm (ECDSA), to create a secure and verifiable signature.
 
 In this process, a template author generates a private key that remains confidential and securely stored. The corresponding public key is then shared with the template consumers. When a template is created or modified, the author signs it using their private key, generating a unique signature that is attached to the template.
 
@@ -15,29 +15,29 @@ By employing the private-public key mechanism, template signing adds an addition
 
 **What does signing a template mean?**
 
-Template signing is a mechanism to ensure the integrity and authenticity of templates. The primary goal is to provide template writers/consumers a way to trust crowdsource/custom templates ensuring that they are not tampered
+Template signing is a mechanism to ensure the integrity and authenticity of templates. The primary goal is to provide template writers and consumers a way to trust crowdsourced or custom templates ensuring that they are not tampered with.
 
-All [official nuclei templates](https://github.com/projectdiscovery/nuclei-templates) include a digital signature in them and are verified by nuclei while loading templates using ProjectDiscovery's public key shipped with nuclei binary itself.
+All [official Nuclei templates](https://github.com/projectdiscovery/nuclei-templates) include a digital signature and are verified by Nuclei while loading templates using ProjectDiscovery's public key (shipped with the Nuclei binary).
 
-Individuals / Organizations running nuclei in their work environment can generate their own key-pair with `nuclei` and sign their custom templates with their private key, thus ensuring that only authorized templates are being used in their environment.
+Individuals or organizations running Nuclei in their work environment can generate their own key-pair with `nuclei` and sign their custom templates with their private key, thus ensuring that only authorized templates are being used in their environment.
 
 This also allows entities to fully utilize the power of new protocols like `code` without worrying about malicious custom templates being used in their environment.
 
 **NOTE:**
 
 - **Template signing is optional for all protocols except `code`**.
-- **Unsigned code templates are disabled and can not be executed using nuclei**.
+- **Unsigned code templates are disabled and can not be executed using Nuclei**.
 - **Only signed code templates by the author (yourself) or ProjectDiscovery can be executed.**
 - **Template signing is primarily introduced to ensure security of template to run code on host machine.**
-- Code file references (ex: `source: protocols/code/pyfile.py`) are allowed and content of these files is included in the template digest.
-- Payload file references (ex: `payloads: protocols/http/params.txt`) are not included in the template digest as it is treated as a payload/helper and not actual code that is being executed.
-- Template signing is deterministic while both signing and verifying a template i.e if a code file is referenced in a template that is present outside of templates directory with `-lfa` flag then verification will fail if same template is used without `-lfa` flag. (Note this only applies to `-lfa` i.e local file access flag only)
+- Code file references (for example: `source: protocols/code/pyfile.py`) are allowed and content of these files is included in the template digest.
+- Payload file references (for example: `payloads: protocols/http/params.txt`) are not included in the template digest as it is treated as a payload/helper and not actual code that is being executed.
+- Template signing is deterministic while both signing and verifying a template i.e. if a code file is referenced in a template that is present outside of templates directory with `-lfa` flag then verification will fail if same template is used without `-lfa` flag. (Note this only applies to `-lfa` i.e. local file access flag only)
 
 ### Signing Custom Template
 
-Simplest and recommended way to generate key-pair and signing/verfifying templates is to use `nuclei` itself.
+The simplest and recommended way to generate key-pair and signing/verfifying templates is to use `nuclei` itself.
 
-When Signing a template if key-pair does not exist then nuclei will prompt user to generate a new key-pair with options.
+When signing a template if key-pair does not exist then Nuclei will prompt user to generate a new key-pair with options.
 
 ```console
 $ ./nuclei -t templates.yaml -sign
@@ -49,14 +49,14 @@ $ ./nuclei -t templates.yaml -sign
 ```
 > **Note:** Passphrase is optional and can be left blank when used private key is encrypted with passphrase using PEMCipherAES256 Algo
 
-Once key-pair is generated, you can sign any custom template using `-sign` flag as shown below.
+Once a key-pair is generated, you can sign any custom template using `-sign` flag as shown below.
 
 ```console
 $ ./nuclei -t templates.yaml -sign
 [INF] All templates signatures were elaborated success=1 failed=0
 ```
 
-> **Note:** Every time you make any change in your code template, you need to resign it again to run with nuclei.
+> **Note:** Every time you make any change in your code template, you need to re-sign it to run with Nuclei.
 
 ### Template Digest and Signing Keys
 
@@ -77,9 +77,9 @@ total 16
 -rw-------  1 tarun  staff   572B Oct  4 21:45 nuclei-user.crt # self signed certificate which includes public key and identifier (i.e user/org name)
 ```
 
-To use the public key for verification, you can either copy it to the `$CONFIG/nuclei/keys` directory on another user's machine or set the `NUCLEI_USER_CERTIFICATE` environment variable to the path or content of the public key.
+To use the public key for verification, you can either copy it to the `$CONFIG/nuclei/keys` directory on another user's machine, or set the `NUCLEI_USER_CERTIFICATE` environment variable to the path or content of the public key.
 
-To use the private key, you can copy it to the `$CONFIG/nuclei/keys` directory on another user's machine or set the `NUCLEI_USER_PRIVATE_KEY` environment variable to the path or content of the private key.
+To use the private key, you can copy it to the `$CONFIG/nuclei/keys` directory on another user's machine, or set the `NUCLEI_USER_PRIVATE_KEY` environment variable to the path or content of the private key.
 
 ```console
 $ export NUCLEI_USER_CERTIFICATE=$(cat path/to/nuclei-user.crt)
