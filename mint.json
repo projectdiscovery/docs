@@ -207,7 +207,7 @@
     },
     {
       "group": "ProjectDiscovery Cloud Platform",
-      "pages": ["cloud/introduction"]
+      "pages": ["cloud/introduction", "cloud/nuclei-integration"]
     },
     {
       "group": "Editor",
