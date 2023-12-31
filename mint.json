@@ -264,6 +264,7 @@
             "api-reference/scans/delete-scan",
             "api-reference/scans/update-scan",
             "api-reference/scans/stop-scan",
+            "api-reference/scans/rescan-by-id",
             "api-reference/scans/import-oss-scan",
             "api-reference/scans/results-filters",
             "api-reference/scans/get-scan-schedules",
@@ -277,7 +278,7 @@
             "api-reference/results/get-result-by-scanid",
             "api-reference/results/get-results",
             "api-reference/results/get-vulnerability-by-id",
-            "api-reference/results/rescan-vulnerability",
+            "api-reference/results/retest-vulnerability",
             "api-reference/results/results-stats"
           ]
         },
