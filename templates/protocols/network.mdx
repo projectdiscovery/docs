@@ -130,6 +130,13 @@ exclude-ports: 80,443
 ```
 When `exclude-ports` is used, the default reserved ports list will be overwritten. This means that if you want to run a network template on port `80`, you will have to explicitly specify it in the port field.
 
+Starting from Nuclei v3.1.0 `port` field supports comma seperated values and multi ports can be specified in the port field. For example, if you want to run a network template on port `5432` and `5433`, you can specify it in the port field like this:
+
+```yaml
+port: 5432,5433
+```
+In this case, Nuclei will first check if port is open from list and run template only on open ports
+
 #### Matchers / Extractor Parts
 
 Valid `part` values supported by **Network** protocol for Matchers / Extractor are - 

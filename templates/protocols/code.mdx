@@ -157,6 +157,14 @@ code:
 # digest: 4a0a00473045022100eb01da6b97893e7868c584f330a0cd52df9bddac005860bb8595ba5b8aed58c9022050043feac68d69045cf320cba9298a2eb2e792ea4720d045d01e803de1943e7d:4a3eb6b4988d95847d4203be25ed1d46
 ```
 
+## Running Code Templates
+
+By default Nuclei will not execute code templates. To enable code protocol execution, `-code` flag needs to be explicitly passed to nuclei.
+
+```bash
+nuclei -t code-template.yaml -code
+```
+
 ## Learn More 
 
 <Info>

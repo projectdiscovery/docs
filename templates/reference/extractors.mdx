@@ -121,3 +121,36 @@ extractors:
 The above extractor with name `csrf_token` will hold the value extracted by `([[:alnum:]]{16})` as `abcdefgh12345678`. 
 
 If no group option is provided with this regex, the above extractor with name `csrf_token` will hold the full match (by `<input name="csrf_token"\stype="hidden"\svalue="([[:alnum:]]{16})" />`) as `<input name="csrf_token" type="hidden" value="abcdefgh12345678" />`.
+
+### Reusable Dynamic Extractors
+
+With Nuclei v3.1.4 you can now reuse dynamic extracted value (ex: csrf_token in above example) immediately in next extractors and is by default available in subsequent requests
+
+Example:
+```
+id: basic-raw-example
+
+info:
+  name: Test RAW Template
+  author: pdteam
+  severity: info
+
+
+http:
+  - raw:
+      - |
+        GET / HTTP/1.1
+        Host: {{Hostname}}
+
+    extractors:
+      - type: regex
+        name: title
+        group: 1
+        regex:
+          - '<title>(.*)<\/title>'
+        internal: true
+
+      - type: dsl
+        dsl:
+          - '"Title is " + title'
+```
