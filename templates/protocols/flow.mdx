@@ -226,3 +226,50 @@ log(uniq.Values())
 And that's it, this automatically converts any slice/array to map and removes duplicates from it and returns a slice/array of unique values
 
 > Similar to DSL helper functions . we can either use built in functions available with `Javscript (ECMAScript 5.1)` or use DSL helper functions and its upto user to decide which one to uses.
+
+
+### Skip Internal Matchers in MultiProtocol / Flow Templates
+
+Before nuclei v3.1.4 , A template like [`CVE-2023-43177`](https://github.com/projectdiscovery/nuclei-templates/blob/c5be73e328ebd9a0c122ea0324f60bbdd7eb940d/http/cves/2023/CVE-2023-43177.yaml#L28) which has multiple requests/protocols and uses `flow` for logic, used to only return one result but it conflicted with logic when `for` loop was used in `flow` to fix this nuclei engine from v3.1.4 will print all events/results in a template and template writers can use `internal: true` in matchers to skip printing of events/results just like dynamic extractors.
+
+Note: this is only relevant if matchers/extractors are used in previous requests/protocols
+
+Example of [`CVE-2023-6553`](https://github.com/projectdiscovery/nuclei-templates/blob/c5be73e328ebd9a0c122ea0324f60bbdd7eb940d/http/cves/2023/CVE-2023-6553.yaml#L21) with new `internal: true` logic would be
+
+```yaml
+id: CVE-2023-6553
+
+info:
+  name: Worpress Backup Migration <= 1.3.7 - Unauthenticated Remote Code Execution
+  author: FLX
+  severity: critical
+
+flow: http(1) && http(2)
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/wp-content/plugins/backup-backup/readme.txt"
+
+    matchers:
+      - type: dsl
+        dsl:
+          - 'status_code == 200'
+          - 'contains(body, "Backup Migration")'
+        condition: and
+        internal: true  # <- updated logic (this will skip printing this event/result)
+
+  - method: POST
+    path:
+      - "{{BaseURL}}/wp-content/plugins/backup-backup/includes/backup-heart.php"
+    headers:
+      Content-Dir: "{{rand_text_alpha(10)}}"
+
+    matchers:
+      - type: dsl
+        dsl:
+          - 'len(body) == 0'
+          - 'status_code == 200'
+          - '!contains(body, "Incorrect parameters")'
+        condition: and
+```
