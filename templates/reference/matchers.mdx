@@ -211,11 +211,11 @@ http:
 
     matchers:
       - type: dsl
-        internal: true  # <- updated logic (this will skip printing this event/result)
         dsl:
           - 'status_code == 200'
           - 'contains(body, "Backup Migration")'
         condition: and
+        internal: true  # <- updated logic (this will skip printing this event/result)
 
   - method: POST
     path:
