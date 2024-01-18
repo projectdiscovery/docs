@@ -7,37 +7,58 @@ sidebarTitle: 'Running'
 <iframe src="https://www.youtube.com/embed/b5qMyQvL1ZA" width="640" height="360"></iframe>
 
 
-## How to Run **Nuclei**
+## How to Run Nuclei
 
-Nuclei templates can be primarily executed in two ways:
+Nuclei templates offer two primary execution methods:
 
-1. **Templates** (`-t/templates`)
+### Executing Nuclei Templates
+`-t/templates`
 
-As default, all the templates (except nuclei-ignore list) get executed from the default template installation path.
+**Default Templates**
+
+Most community templates from our [nuclei-template repository](https://github.com/projectdiscovery/nuclei-templates) are executed by default, directly from the standard installation path. The typical command is as follows:
 
 ```sh
 nuclei -u https://example.com
 ```
 
-Custom template directory or multiple template directory can be executed as follows:
+However, there are some exceptions regarding the templates that run by default:
 
-```sh
-nuclei -u https://example.com -t cves/ -t exposures/
-```
+- Certain tags and templates listed in the [default `.nuclei-ignore` file](https://github.com/projectdiscovery/nuclei-templates/blob/main/.nuclei-ignore) are not included.
+- [Code Templates](/templates/protocols/code) require the `-code` flag to execute.
+- [Headless Templates](/templates/protocols/headless) will not run unless you pass the `-headless` flag.
+- A separate collection of [Fuzzing Templates](/templates/protocols/http/fuzzing-overview), located in a [different repository](https://github.com/projectdiscovery/fuzzing-templates), must be downloaded and configured separately for use.
 
-Custom template Github repos are downloaded under `github` directory. Custom repo templates can be passed as follows:
-
-```sh
-nuclei -u https://example.com -t github/private-repo
-```
-
-Similarly, Templates can be executed against a list of URLs.
+You can also run templates against a list of URLs:
 
 ```sh
 nuclei -list http_urls.txt
 ```
 
-2. **Workflows** (`-w/workflows`)
+**Custom Templates**
+
+To run a custom template directory or multiple directories, use the following command structure:
+
+```sh
+nuclei -u https://example.com -t cves/ -t exposures/
+```
+
+Templates from custom GitHub repositories, stored under the github directory, can be executed with this command:
+
+```sh
+nuclei -u https://example.com -t github/private-repo
+```
+
+You can also directly run a template from any ProjectDiscovery Cloud Platform URL like this:
+
+```sh
+nuclei -u https://example.com -t https://cloud.projectdiscovery.io/public/tech-detect
+```
+
+### Executing Template Workflows
+`-w/workflows`
+
+[Workflows](/templates/workflows/overview) can be executed using the following command:
 
 ```sh
 nuclei -u https://example.com -w workflows/
@@ -48,6 +69,8 @@ Similarly, Workflows can be executed against a list of URLs.
 ```sh
 nuclei -list http_urls.txt -w workflows/wordpress-workflow.yaml
 ```
+
+## Types of Templates
 
 ### Template **Filters**
 
@@ -87,7 +110,7 @@ AND has `critical` OR `high` severity AND `geeknik` as author of template.
 nuclei -u https://example.com -tags cve -severity critical,high -author geeknik
 ```
 
-### Advance Filters
+### Advanced Filters
 
 Multiple filters can also be combined using the template condition flag (`-tc`) that allows complex expressions like the following ones:
 
