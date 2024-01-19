@@ -106,6 +106,10 @@
       "pages": ["tools/katana/overview", "tools/katana/install", "tools/katana/usage","tools/katana/running"]
     },
     {
+      "group": "cvemap",
+      "pages": ["tools/cvemap/overview", "tools/cvemap/install", "tools/cvemap/usage","tools/cvemap/running"]
+    },
+    {
       "group": "Templates",
       "pages": [
         "templates/introduction", 
