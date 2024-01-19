@@ -82,32 +82,59 @@
     },
     {
       "group": "Tools",
-      "pages": ["tools/index"]
-    },
-    {
-      "group": "Nuclei",
       "pages": [
-        "tools/nuclei/overview",
-        "tools/nuclei/install",
-        "tools/nuclei/running",
-        "tools/nuclei/faq"
+        "tools/index"
       ]
     },
     {
-      "group": "httpx",
-      "pages": ["tools/httpx/overview", "tools/httpx/install", "tools/httpx/usage", "tools/httpx/running"]
+      "group": "Discover",
+      "pages": [
+        {
+          "group": "Subfinder",
+          "icon": "radar",
+          "iconType": "duotone",
+          "pages": ["tools/subfinder/overview", "tools/subfinder/install", "tools/subfinder/usage","tools/subfinder/running"]
+        },
+        {
+          "group": "Katana",
+          "icon": "sword",
+          "iconType": "duotone",
+          "pages": ["tools/katana/overview", "tools/katana/install", "tools/katana/usage","tools/katana/running"]
+        }
+      ]
     },
     {
-      "group": "Subfinder",
-      "pages": ["tools/subfinder/overview", "tools/subfinder/install", "tools/subfinder/usage","tools/subfinder/running"]
+      "group": "Enrich",
+      "pages": [
+        {
+          "group": "httpx",
+          "icon": "browser",
+          "iconType": "duotone",
+          "pages": ["tools/httpx/overview", "tools/httpx/install", "tools/httpx/usage", "tools/httpx/running"]
+        }
+      ]
     },
     {
-      "group": "Katana",
-      "pages": ["tools/katana/overview", "tools/katana/install", "tools/katana/usage","tools/katana/running"]
-    },
-    {
-      "group": "cvemap",
-      "pages": ["tools/cvemap/overview", "tools/cvemap/install", "tools/cvemap/usage","tools/cvemap/running"]
+      "group": "Detect",
+      "pages": [
+        {
+          "group": "Nuclei",
+          "icon": "atom",
+          "iconType": "regular",
+          "pages": [
+            "tools/nuclei/overview",
+            "tools/nuclei/install",
+            "tools/nuclei/running",
+            "tools/nuclei/faq"
+          ]
+        },
+        {
+          "group": "cvemap",
+          "icon": "signs-post",
+          "iconType": "solid",
+          "pages": ["tools/cvemap/overview", "tools/cvemap/install", "tools/cvemap/usage","tools/cvemap/running"]
+        }
+      ]
     },
     {
       "group": "Templates",
