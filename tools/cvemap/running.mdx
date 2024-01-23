@@ -22,8 +22,8 @@ Before using cvemap, you'll need to get a ProjectDiscovery Cloud Platform (PDCP)
   </Step>
   <Step title="Authorize cvemap with PDCP">
   To authenticate your install of cvemap, run 
-  ```
-  bash cvemap -auth
+  ```bash
+  cvemap -auth
   ```
  When prompted, paste the key you obtained above.
   </Step>
@@ -70,14 +70,9 @@ List top CVEs being reported on hackerone platform using `-h1` or `-hackerone` o
 
 ```bash
 $ cvemap -h1
+```
 
-   ______   _____  ____ ___  ____  ____
-  / ___/ | / / _ \/ __ \__ \/ __ \/ __ \
- / /__ | |/ /  __/ / / / / / /_/ / /_/ /
- \___/ |___/\___/_/ /_/ /_/\__,_/ .___/ 
-                               /_/
-      projectdiscovery.io
-
+```markdown
 ╭────────────────┬──────┬──────────┬──────┬─────────┬───────────────────────┬──────────┬──────╮
 │ CVE            │ CVSS │ SEVERITY │ RANK │ REPORTS │ PRODUCT               │ TEMPLATE │  AGE │
 ├────────────────┼──────┼──────────┼──────┼─────────┼───────────────────────┼──────────┼──────┤
@@ -101,7 +96,10 @@ cvemap provide multiple ways to query cve data i.e by `product`, `vendor`, `seve
 List all the cves published for Atlassian Confluence:
 
 ```bash
-cvemap -product confluence -l 5 -silent
+cvemap -product confluence -l 5
+```
+
+```markdown
 ╭───────────────┬──────┬──────────┬─────────┬────────────┬──────────╮
 │ ID            │ CVSS │ SEVERITY │    EPSS │ PRODUCT    │ TEMPLATE │
 ├───────────────┼──────┼──────────┼─────────┼────────────┼──────────┤
@@ -116,7 +114,10 @@ cvemap -product confluence -l 5 -silent
 As default, cvemap display default / limit fields which can be custizmed and controoled using `-field`/ `-f` option, for example:
 
 ```bash
-$ cvemap -silent -severity critical -field assignee,vstatus,poc -l 5
+$ cvemap -severity critical -field assignee,vstatus,poc -l 5
+```
+
+```markdown
 ╭───────────────┬──────┬──────────┬─────────┬──────────────────┬──────────┬────────────────────────┬─────────────┬───────╮
 │ ID            │ CVSS │ SEVERITY │    EPSS │ PRODUCT          │ TEMPLATE │ ASSIGNEE               │ VSTATUS     │ POC   │
 ├───────────────┼──────┼──────────┼─────────┼──────────────────┼──────────┼────────────────────────┼─────────────┼───────┤
@@ -132,6 +133,9 @@ To list cves with matching threshold like, CVSS score or EPSS Score / Percentile
 
 ```bash
 $ cvemap -silent -cs '> 7' -es '> 0.00053' -l 5
+```
+
+```markdown
 ╭───────────────┬──────┬──────────┬─────────┬───────────────────────────────────────┬──────────╮
 │ ID            │ CVSS │ SEVERITY │    EPSS │ PRODUCT                               │ TEMPLATE │
 ├───────────────┼──────┼──────────┼─────────┼───────────────────────────────────────┼──────────┤
@@ -147,6 +151,9 @@ To filter cves to match with specifc conditions like, cves has public poc or tem
 
 ```bash
 $ cvemap -silent -template=false -poc=true -kev=true -l 5 -f poc,kev
+```
+
+```markdown
 ╭────────────────┬──────┬──────────┬─────────┬─────────┬──────────┬──────┬──────╮
 │ ID             │ CVSS │ SEVERITY │    EPSS │ PRODUCT │ TEMPLATE │ POC  │ KEV  │
 ├────────────────┼──────┼──────────┼─────────┼─────────┼──────────┼──────┼──────┤
@@ -190,15 +197,38 @@ $ echo CVE-2024-21887 | cvemap -json
       }
     ],
     "epss": {
-      "epss_score": 0,
-      "epss_percentile": 0
+      "epss_score": 0.95688,
+      "epss_percentile": 0.99289
     },
     "cpe": {
       "cpe": "cpe:2.3:a:ivanti:connect_secure:9.0:*:*:*:*:*:*:*",
       "vendor": "ivanti",
       "product": "connect_secure"
     },
+    "reference": [
+      "http://packetstormsecurity.com/files/176668/Ivanti-Connect-Secure-Unauthenticated-Remote-Code-Execution.html"
+    ],
     "poc": [
+      {
+        "url": "https://github.com/tucommenceapousser/CVE-2024-21887",
+        "source": "gh-nomi-sec",
+        "added_at": "2024-01-20T19:15:23Z"
+      },
+      {
+        "url": "https://github.com/mickdec/CVE-2023-46805_CVE-2024-21887_scan_grouped",
+        "source": "gh-nomi-sec",
+        "added_at": "2024-01-19T08:11:31Z"
+      },
+      {
+        "url": "https://github.com/seajaysec/Ivanti-Connect-Around-Scan",
+        "source": "gh-nomi-sec",
+        "added_at": "2024-01-19T02:12:11Z"
+      },
+      {
+        "url": "https://github.com/raminkarimkhani1996/CVE-2023-46805_CVE-2024-21887",
+        "source": "gh-nomi-sec",
+        "added_at": "2024-01-18T13:25:46Z"
+      },
       {
         "url": "https://github.com/TheRedDevil1/Check-Vulns-Script",
         "source": "gh-nomi-sec",
@@ -220,11 +250,6 @@ $ echo CVE-2024-21887 | cvemap -json
         "added_at": "2024-01-16T19:19:52Z"
       },
       {
-        "url": "https://github.com/yoryio/CVE-2023-46805_CVE-2024-21887_Scanner",
-        "source": "gh-nomi-sec",
-        "added_at": "2024-01-14T18:30:11Z"
-      },
-      {
         "url": "https://github.com/oways/ivanti-CVE-2024-21887",
         "source": "gh-nomi-sec",
         "added_at": "2024-01-14T09:25:56Z"
@@ -233,27 +258,28 @@ $ echo CVE-2024-21887 | cvemap -json
     "vendor_advisory": "https://forums.ivanti.com/s/article/CVE-2023-46805-Authentication-Bypass-CVE-2024-21887-Command-Injection-for-Ivanti-Connect-Secure-and-Ivanti-Policy-Secure-Gateways?language=en_US",
     "is_template": true,
     "nuclei_templates": {
-      "template_url": "https://cloud.projectdiscovery.io/public/CVE-2024-21887"
+      "template_path": "http/cves/2024/CVE-2024-21887.yaml",
+      "template_url": "https://cloud.projectdiscovery.io/public/CVE-2024-21887",
+      "created_at": "2024-01-17T02:23:45+05:30",
+      "updated_at": "2024-01-16T21:14:22Z"
     },
     "is_exploited": true,
     "kev": {
       "added_date": "2024-01-10",
-      "due_date": "2024-01-31"
+      "due_date": "2024-01-22"
     },
     "assignee": "support@hackerone.com",
     "published_at": "2024-01-12T17:15:10.017",
-    "updated_at": "2024-01-13T02:00:00.970",
-    "activity": {
-      "rank": 0,
+    "updated_at": "2024-01-22T17:15:09.523",
+    "hackerone": {
+      "rank": 6345,
       "count": 0
     },
-    "hackerone": {
-      "rank": 22,
-      "count": 3
-    },
-    "age_in_days": 5,
-    "vuln_status": "confirmed",
+    "age_in_days": 10,
+    "vuln_status": "modified",
     "is_poc": true,
+    "is_remote": false,
+    "is_oss": false,
     "vulnerable_cpe": [
       "cpe:2.3:a:ivanti:connect_secure:9.0:*:*:*:*:*:*:*",
       "cpe:2.3:a:ivanti:connect_secure:9.1:r1:*:*:*:*:*:*",
@@ -262,9 +288,80 @@ $ echo CVE-2024-21887 | cvemap -json
       "cpe:2.3:a:ivanti:connect_secure:9.1:r11.3:*:*:*:*:*:*",
       "cpe:2.3:a:ivanti:connect_secure:9.1:r11.4:*:*:*:*:*:*",
       "cpe:2.3:a:ivanti:connect_secure:9.1:r11.5:*:*:*:*:*:*",
-      "cpe:2.3:a:ivanti:policy_secure:22.6:r1:*:*:*:*:*:*",
-      ...
-      ...
+      "cpe:2.3:a:ivanti:connect_secure:9.1:r12:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:9.1:r12.1:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:9.1:r13:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:9.1:r13.1:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:9.1:r14:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:9.1:r15:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:9.1:r15.2:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:9.1:r16:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:9.1:r16.1:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:9.1:r17:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:9.1:r17.1:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:9.1:r18:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:9.1:r2:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:9.1:r3:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:9.1:r4:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:9.1:r4.1:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:9.1:r4.2:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:9.1:r4.3:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:9.1:r5:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:9.1:r6:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:9.1:r7:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:9.1:r8:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:9.1:r8.1:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:9.1:r8.2:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:9.1:r9:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:9.1:r9.1:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:22.1:r1:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:22.1:r6:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:22.2:-:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:22.2:r1:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:22.3:r1:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:22.4:r1:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:22.4:r2.1:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:22.5:r2.1:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:22.6:-:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:22.6:r1:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:connect_secure:22.6:r2:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:9.0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:9.1:r1:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:9.1:r10:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:9.1:r11:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:9.1:r12:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:9.1:r13:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:9.1:r13.1:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:9.1:r14:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:9.1:r15:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:9.1:r16:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:9.1:r17:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:9.1:r18:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:9.1:r2:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:9.1:r3:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:9.1:r3.1:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:9.1:r4:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:9.1:r4.1:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:9.1:r4.2:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:9.1:r5:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:9.1:r6:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:9.1:r7:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:9.1:r8:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:9.1:r8.1:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:9.1:r8.2:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:9.1:r9:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:22.1:r1:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:22.1:r6:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:22.2:r1:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:22.2:r3:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:22.3:r1:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:22.3:r3:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:22.4:r1:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:22.4:r2:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:22.4:r2.1:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:22.5:r1:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:22.5:r2.1:*:*:*:*:*:*",
+      "cpe:2.3:a:ivanti:policy_secure:22.6:r1:*:*:*:*:*:*"
     ]
   }
 ]
@@ -450,7 +547,7 @@ Use After FreeExploit Prediction Scoring System (EPSS) Data
   </Expandable>
 </ResponseField>
 
-### hackerone Data
+### HackerOne Data
 
 <ResponseField name="hackerone" type="hackerone Object">
   <Expandable title="properties">
