@@ -1,0 +1,28 @@
+---
+title: "Installing cvemap"
+description: "Learn about how to install and get started with cvemap"
+sidebarTitle: "Install"
+---
+
+<Tip> To access the cvemap API data you need a ProjectDiscovery Cloud Platform (PDCP) account and API key. Check out [Running](/tools/cvemap/running) for details. </Tip>
+
+<Tabs>
+  <Tab title="Go">
+    <Note> Enter the command below in a terminal to install ProjectDiscovery's httpx using Go. </Note>
+
+    ```bash
+    go install github.com/projectdiscovery/cvemap/cmd/cvemap@latest
+    ```
+  </Tab>
+</Tabs>
+
+## Installation Notes
+  - cvemap requires the latest version of [**Go**](https://go.dev/doc/install)
+  - Add the Go bin path to the system paths. On OSX or Linux, in your terminal use
+  
+  ```
+  echo export $PATH=$PATH:$HOME/go/bin >> $home/.bashrc
+  source $home/.bashrc
+  ```
+  - To add the Go bin path in Windows, [click this link for instructions.](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/)
+  - The binary will be located in `$home/go/bin/httpx`  
