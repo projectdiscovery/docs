@@ -226,7 +226,7 @@
       "pages": ["cloud/introduction", "cloud/nuclei-integration"]
     },
     {
-      "group": "Editor",
+      "group": "Template Editor",
       "pages": [
         "cloud/editor/introduction",
         "cloud/editor/ai",
