@@ -223,7 +223,7 @@
     },
     {
       "group": "ProjectDiscovery Cloud Platform",
-      "pages": ["cloud/introduction", "cloud/nuclei-integration"]
+      "pages": ["cloud/introduction", "cloud/pdcp-free"]
     },
     {
       "group": "Template Editor",
