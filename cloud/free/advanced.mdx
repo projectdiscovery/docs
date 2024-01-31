@@ -1,0 +1,36 @@
+---
+title: "Advanced Integration"
+description: "Implement Advanced Integration Settings for Your PDCP Setup"
+sidebarTitle: "Advanced Integration"
+---
+
+## Overview
+
+For users who want to apply some additional settings, ProductDiscovery Cloud Platform includes support in the free tier for some additional integraetin and scan options. Those options are outlined below.
+
+If you have questions or need assitance, reach out to us through any of the [Help options](/help).
+
+## Advanced Integration Options 
+
+### Setting API key via environment variable
+
+To avoid entering your API key through the command line you can set it via environment variable. Note: Your configured PDCP API key stored in `$HOME/.pdcp/credentials.yaml`
+
+```sh
+export PDCP_API_KEY=XXXX-XXXX
+```
+
+### Enable scan result upload by default
+
+If you want all your scans to automatically upload results to PDCP, enable the `ENABLE_CLOUD_UPLOAD` environment variable.
+
+```sh
+export ENABLE_CLOUD_UPLOAD=true
+```
+
+### Disabling PDCP upload warnings
+
+To suppress warnings about result uploads, disable the `DISABLE_CLOUD_UPLOAD_WRN` environment variable.
+
+```sh
+export DISABLE_CLOUD_UPLOAD_WRN=true

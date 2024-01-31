@@ -1,0 +1,72 @@
+---
+title: "Connect Your Scan to PDCP"
+description: "Review your Nuclei Scan Results in ProjectDiscovery Cloud Platform"
+sidebarTitle: "Connect Your Scan"
+---
+
+## Overview
+
+In this section we'll walk through the steps you need to run a scan in [Nuclei](/tools/nuclei/overview) and connect your scan to ProjectDiscovery Cloud Platform (PDCP). 
+
+## Run a Scan
+
+From a terminal window with your Nuclei installation, run a scan.
+
+**For example, a command might look like:**
+
+```bash
+nuclei -target http://honey.scanme.sh -cloud-upload
+```
+
+ - This example uses a sample site from ProjectDiscovery (http://honey.scanme.sh) 
+ - The `-cloud-upload` flag is required to share results with PDCP
+ - You can run this command against any URL you want (where you have the appropriate permissions)
+ - To reduce or narrow the scan results you can select a specific template folder for your scan
+    - For example `nuclei -u http://buffer.com -t dns/ -cloud-upload` 
+
+**And the output of your command (scan) would be:**
+
+```console
+                     __     _
+   ____  __  _______/ /__  (_)
+  / __ \/ / / / ___/ / _ \/ /
+ / / / / /_/ / /__/ /  __/ /
+/_/ /_/\__,_/\___/_/\___/_/   v3.1.0
+
+      projectdiscovery.io
+
+[INF] Current nuclei version: v3.1.0 (latest)
+[INF] Current nuclei-templates version: v9.6.9 (latest)
+[INF] To view results on cloud dashboard, visit https://cloud.projectdiscovery.io/scans upon scan completion.
+[INF] New templates added in latest release: 73
+[INF] Templates loaded for current scan: 71
+[INF] Executing 71 signed templates from projectdiscovery/nuclei-templates
+[INF] Targets loaded for current scan: 1
+[INF] Using Interactsh Server: oast.live
+[CVE-2017-9506] [http] [medium] http://honey.scanme.sh/plugins/servlet/oauth/users/icon-uri?consumerUri=http://clk37fcdiuf176s376hgjzo3xsoq5bdad.oast.live
+[CVE-2019-9978] [http] [medium] http://honey.scanme.sh/wp-admin/admin-post.php?swp_debug=load_options&swp_url=http://clk37fcdiuf176s376hgyk9ppdqe9a83z.oast.live
+[CVE-2019-8451] [http] [medium] http://honey.scanme.sh/plugins/servlet/gadgets/makeRequest
+[CVE-2015-8813] [http] [high] http://honey.scanme.sh/Umbraco/feedproxy.aspx?url=http://clk37fcdiuf176s376hgj885caqoc713k.oast.live
+[CVE-2020-24148] [http] [critical] http://honey.scanme.sh/wp-admin/admin-ajax.php?action=moove_read_xml
+[CVE-2020-5775] [http] [medium] http://honey.scanme.sh/external_content/retrieve/oembed?endpoint=http://clk37fcdiuf176s376hgyyxa48ih7jep5.oast.live&url=foo
+[CVE-2020-7796] [http] [critical] http://honey.scanme.sh/zimlet/com_zimbra_webex/httpPost.jsp?companyId=http://clk37fcdiuf176s376hgi9b8sd33se5sr.oast.live%23
+[CVE-2017-18638] [http] [high] http://honey.scanme.sh/composer/send_email?to=hVsp@XOvw&url=http://clk37fcdiuf176s376hgyf8y81i9oju3e.oast.live
+[CVE-2018-15517] [http] [high] http://honey.scanme.sh/index.php/System/MailConnect/host/clk37fcdiuf176s376hgi5j3fsht3dchj.oast.live/port/80/secure/
+[CVE-2021-45967] [http] [critical] http://honey.scanme.sh/services/pluginscript/..;/..;/..;/getFavicon?host=clk37fcdiuf176s376hgh1y3xjzb3yjpy.oast.live
+[CVE-2021-26855] [http] [critical] http://honey.scanme.sh/owa/auth/x.js
+[INF] Scan results uploaded! View them at https://cloud.projectdiscovery.io/scans/clk37krsr14s73afc3ag
+```
+
+## Viewing Your Scan
+
+After the scan is complete a URL will display on the command line interface. Visit this URL to check your results in PDCP. 
+
+<img src="/images/pdcp-result-dashboard.png" alt="PDCP Result Dashboard"/>
+
+Your scan results will also be available in the Scan tab of PDCP with a generic system generated name. You can rename the scan to identify it later.
+
+The scan "results" tab shows the scan results for all scans. 
+
+<Warning>
+Nuclei scans connected and uploaded to PDCP are scheduled for automatic cleanup after 30 days. This duration is subject to change as we gauge user feedback and requirements.
+</Warning>

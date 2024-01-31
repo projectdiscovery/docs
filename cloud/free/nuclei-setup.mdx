@@ -1,0 +1,65 @@
+---
+title: "Setting up Nuclei"
+description: "Walk through the steps to install Nuclei to connect to PDCP"
+sidebarTitle: "Nuclei Setup"
+---
+
+## Overview
+
+Connecting to the free tier of PDCP requires setting up Nuclei to run your scans. You'll need to install Go, update your $PATH, and install Nuclei. Steps for each of those configurations are below. 
+
+### Install Go
+
+ProjectDiscovery runs on any operating system that supports Go, but these steps use Linux. 
+
+For instructions on installing Go for an OS besides Linux [check out this post on our blog](https://blog.projectdiscovery.io/getting-started-with-projectdiscovery-in-linux-and-windows/) 
+or refer to the installation instructions [available through the Go website](https://go.dev/doc/install).
+
+<Steps>
+  <Step title="Get the latest version">
+  Download and install [the latest version of Go](https://go.dev/doc/install).
+  </Step> 
+  <Step title="Verify the version">
+  After downloading and installing run `go version` to verify that you are running the latest version (_v 1.21 at the time of writing_) 
+  </Step>
+</Steps>
+
+### Update your $PATH
+
+PATH is an environment variable on UNIX systems to define which directories contain executable programs. 
+The variable is set within the config file for your particular shell.
+
+To run Nuclei the folder where it resides needs to be in the PATH. ProjectDiscovery binaries are stored in the go/bin directory which is usually in the home directory. 
+
+_Note: This folder is not automatically added to your PATH. Refer to the steps below to update it manually._
+
+<Steps>
+  <Step title="Verify your GOPATH">
+    To verify your GOPATH Run `go env | grep GOPATH` in your terminal and copy the output path. 
+    You may need to add a `/bin` to the end of this path for it to work correctly. 
+  </Step>
+  <Step title="Open your shell config file">
+    Open the shell config file for your shell in an editor (this example refers to nano). The command is `nano ~/.zshrc` for zsh or `nano ~/.bashrc` for bash. 
+    
+    At the bottom of the file, add `export PATH=”$PATH:insert/go/path/here/bin”`, replacing `insert/go/path/here` with the GOPATH from Step 1.
+  </Step>
+  <Step title="Reset your terminal">
+    Run `source ~/.zshrc` or `source~/.bashrc` to reset your terminal and reload it with the new config added. 
+    You can also just close your terminal and open it again for this to take effect.
+  </Step>
+  <Step title="Verify your updated PATH">
+    Your PATH should be updated. 
+    Type `$PATH` to check that the go binary directory is added to the end.
+  </Step>
+</Steps>
+
+### Install Nuclei
+
+<Steps>
+  <Step title="Install Nuclei with Go">
+    From your terminal run the following command `go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest`
+  </Step>
+  <Step title="Confirm installation">
+    To confirm installation, on your terminal run `nuclei -h` to see the list of options and flags available.
+  </Step>
+</Steps>

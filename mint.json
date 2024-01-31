@@ -223,7 +223,11 @@
     },
     {
       "group": "ProjectDiscovery Cloud Platform",
-      "pages": ["cloud/introduction", "cloud/pdcp-free"]
+      "pages": ["cloud/introduction", "cloud/pdcp-free", "cloud/pdcp-teams"]
+    },
+    {
+      "group": "PDCP Free User Guide",
+      "pages": ["cloud/free/overview", "cloud/free/nuclei-setup", "cloud/free/pdcp-setup", "cloud/free/scan", "cloud/free/advanced"]
     },
     {
       "group": "Template Editor",

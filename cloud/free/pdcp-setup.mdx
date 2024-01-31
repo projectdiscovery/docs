@@ -1,0 +1,33 @@
+---
+title: "Setting up PDCP"
+description: "Review your Nuclei scan results in ProjectDiscovery Cloud Platform"
+sidebarTitle: "PDCP Setup"
+---
+
+## Overview
+
+After setting up Nuclei, or if you're already a Nuclei user, you'll need to sign up for PDCP and connect Nuclei. 
+
+## Setup PDCP
+Setup for PDCP will require signing up for an account and connecting that account with your Nuclei instance. 
+
+Follow these steps to sign up for a ProductDiscovery Cloud Platform (PDCP) account and connect your Nuclei scans.
+
+1. Launch `cloud.projectdiscovery.io`. 
+2. Navigate to the Profile/Login menu at the top right and select the **Login** option. 
+3. Select your login preference (GitHub, Google, or email & password) 
+  - Validate your account, if required, to complete the setup. 
+4. After setting up your account, login to PDCP and open the Profile/Login menu at the top right and select **API Key** to generate an API Key.
+  - Save your API Key information in a safe place, you'll need this to connect Nuclei to your PDCP account. 
+
+## Connect Nuclei to PDCP
+
+After successfully setting up Nuclei and creating your PDCP account you will need to connect your Nuclei setup to PDCP. 
+
+   1. Locate the API key you generated in PDCP
+   2. From a terminal window with your Nuclei installation, run the following command
+   
+   ```bash
+   nuclei -auth
+   ```
+   3. Enter your API key when prompted. 
