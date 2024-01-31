@@ -3,54 +3,63 @@ info:
   title: PDCP API
   version: '1.0'
   summary: ProjectDiscovery Cloud Platform
-  description: For more details, checkout https://docs.projectdiscovery.io/api-reference/
+  description: 'For more details, checkout https://docs.projectdiscovery.io/api-reference/editor/scan'
 servers:
-- url: https://api.projectdiscovery.io
-  description: Production
+  - url: 'https://api.projectdiscovery.io'
+    description: Production
+  - url: 'https://api.dev.projectdiscovery.io'
+    description: Development
+  - url: 'http://localhost:8080'
+    description: Localhost
 paths:
   /v1/scans:
     get:
       summary: Get Scans Status
-      tags: [scans]
+      tags:
+        - scans
       responses:
         '200':
           $ref: '#/components/responses/GetScansStatusResponse'
+        '400':
+          $ref: '#/components/responses/GetScansStatusResponse'
         '401':
+          $ref: '#/components/responses/GetScansStatusResponse'
+        '500':
           $ref: '#/components/responses/GetScansStatusResponse'
       operationId: get-v1-scans
       description: Get user scans status
       security:
-      - X-API-Key: []
+        - X-API-Key: []
       parameters:
-      - schema:
-          type: string
-        in: query
-        name: offset
-        description: number of scan-status results to skip
-        required: true
-      - schema:
-          type: integer
-        in: query
-        name: limit
-        description: number of scan-status results to fetch
-        required: true
-      - schema:
-          type: string
-        in: query
-        name: search
-        description: search term for running scans
-      - schema:
-          type: string
-        in: query
-        name: status
-        description: filter by status (failed, finished, queued, running, starting,
-          uploaded)
+        - schema:
+            type: integer
+          in: query
+          name: offset
+          description: number of scan-status results to skip
+        - schema:
+            type: integer
+          in: query
+          name: limit
+          description: number of scan-status results to fetch
+        - schema:
+            type: string
+          in: query
+          name: search
+          description: search term for running scans
+        - schema:
+            type: string
+          in: query
+          name: status
+          description: 'filter by status (failed, finished, queued, running, starting, uploaded)'
     post:
       summary: Create Scan
-      tags: [scans]
+      tags:
+        - scans
       operationId: post-v1-scans
       responses:
         '200':
+          $ref: '#/components/responses/TriggerUserScanResponse'
+        '400':
           $ref: '#/components/responses/TriggerUserScanResponse'
         '401':
           $ref: '#/components/responses/TriggerUserScanResponse'
@@ -58,34 +67,38 @@ paths:
           $ref: '#/components/responses/TriggerUserScanResponse'
       description: Trigger a scan
       security:
-      - X-API-Key: []
+        - X-API-Key: []
       requestBody:
         $ref: '#/components/requestBodies/TriggerUserScanRequest'
       parameters: []
-  /v1/scans/{scan_id}:
+  '/v1/scans/{scan_id}':
     parameters:
-    - schema:
-        type: string
-      name: scan_id
-      in: path
-      required: true
+      - schema:
+          type: string
+        name: scan_id
+        in: path
+        required: true
     get:
       summary: Get Scan by ID
-      tags: [scans]
+      tags:
+        - scans
       responses:
         '200':
           $ref: '#/components/responses/GetScanDetailsResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
         '401':
-          $ref: '#/components/responses/GetScanDetailsResponse'
+          $ref: '#/components/responses/MessageResponse'
         '500':
-          $ref: '#/components/responses/GetScanDetailsResponse'
+          $ref: '#/components/responses/MessageResponse'
       operationId: get-v1-scans-scan_id
       description: Get details of a scan
       security:
-      - X-API-Key: []
+        - X-API-Key: []
     delete:
       summary: Delete Scan
-      tags: [scans]
+      tags:
+        - scans
       operationId: delete-v1-scans-scan_id
       responses:
         '200':
@@ -96,134 +109,101 @@ paths:
           $ref: '#/components/responses/DeleteTemplateResponse'
       description: Delete a scan using scanId
       security:
-      - X-API-Key: []
+        - X-API-Key: []
     patch:
       summary: Update Scan
-      tags: [scans]
+      tags:
+        - scans
       operationId: patch-v1-scans-scan_id
       responses:
         '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                required:
-                - message
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                required:
-                - message
+          $ref: '#/components/responses/MessageResponse'
         '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                required:
-                - message
+          $ref: '#/components/responses/MessageResponse'
       description: ''
       security:
-      - X-API-Key: []
+        - X-API-Key: []
       requestBody:
         $ref: '#/components/requestBodies/UpdateScanRequest'
-  /v1/scans/result/{scanId}:
+  '/v1/scans/result/{scanId}':
     get:
       summary: Get Result by scanID
-      tags: [results]
+      tags:
+        - results
       responses:
         '200':
           $ref: '#/components/responses/GetScanResultsResponse'
+        '400':
+          $ref: '#/components/responses/GetScanResultsResponse'
+        '401':
+          $ref: '#/components/responses/GetScanResultsResponse'
         '500':
           $ref: '#/components/responses/GetScanResultsResponse'
-        '501':
-          $ref: '#/components/responses/GetScanResultsResponse'
-      operationId: get-v1-scans-result-:scanId
+      operationId: 'get-v1-scans-result-:scanId'
       description: get results of specific scan by id
       security:
-      - X-API-Key: []
+        - X-API-Key: []
       parameters:
-      - schema:
-          type: string
-        in: query
-        name: severity
-        description: comma separated severity e.g. severity=info,high
-      - schema:
-          type: string
-        in: query
-        name: search
-        description: search term
-      - schema:
-          type: integer
-        in: query
-        name: limit
-        description: 'number of results '
-        required: true
-      - schema:
-          type: string
-        in: query
-        name: offset
-        required: true
-        description: number of results to skip
-      - schema:
-          type: string
-        in: query
-        name: templates
-        description: comma separated templates e.g. templates=tech-detect,azure-takeover
-      - schema:
-          type: string
-        in: query
-        name: hosts
-        description: comma separated host e.g. hosts=https://example.com,https://x.com
+        - schema:
+            type: string
+          in: query
+          name: severity
+          description: 'comma separated severity e.g. severity=info,high'
+        - schema:
+            type: string
+          in: query
+          name: search
+          description: search term
+        - schema:
+            type: integer
+          in: query
+          name: limit
+          description: 'number of results '
+        - schema:
+            type: integer
+          in: query
+          name: offset
+          description: number of results to skip
+        - schema:
+            type: string
+          in: query
+          name: templates
+          description: 'comma separated templates e.g. templates=tech-detect,azure-takeover'
+        - schema:
+            type: string
+          in: query
+          name: hosts
+          description: 'comma separated host e.g. hosts=https://example.com,https://x.com'
+        - schema:
+            type: string
+          in: query
+          description: 'filter by time ( last_day, last_week, last_month )'
+          name: time
+        - schema:
+            type: string
+          in: query
+          name: vuln_status
+          description: 'comma separated vuln_status e.g vuln_status=open,fixed'
     parameters:
-    - schema:
-        type: string
-      name: scanId
-      in: path
-      required: true
-      description: scan specific results (by scanId)
-  /v1/scans/{scan_id}/stop:
-    get:
-      summary: Stop Scan
-      tags: [scans]
-      responses:
-        '200':
-          $ref: '#/components/responses/DeleteScansResponse'
-        '400':
-          $ref: '#/components/responses/DeleteScansResponse'
-        '401':
-          $ref: '#/components/responses/DeleteScansResponse'
-        '500':
-          $ref: '#/components/responses/DeleteScansResponse'
-      operationId: get-v1-scans-scan_id-stop
-      description: ''
-      security:
-      - X-API-Key: []
-    parameters:
-    - schema:
-        type: string
-      name: scan_id
-      in: path
-      required: true
+      - schema:
+          type: string
+        name: scanId
+        in: path
+        required: true
+        description: scan specific results (by scanId)
   /v1/scans/results:
     get:
       summary: Get Results
-      tags: [results]
+      tags:
+        - results
       responses:
         '200':
+          $ref: '#/components/responses/GetScanResultsResponse'
+        '400':
           $ref: '#/components/responses/GetScanResultsResponse'
         '401':
           $ref: '#/components/responses/GetScanResultsResponse'
@@ -232,50 +212,54 @@ paths:
       operationId: get-v1-results
       description: Get scans results of a user
       parameters:
-      - schema:
-          type: string
-        in: query
-        name: offset
-        required: true
-        description: number of results to skip
-      - schema:
-          type: integer
-        in: query
-        required: true
-        name: limit
-        description: number of results to get
-      - schema:
-          type: string
-        in: query
-        name: severity
-        description: string separated by comma e.g. info,high
-      - schema:
-          type: string
-        in: query
-        name: search
-        description: search term
-      - schema:
-          type: string
-        in: query
-        name: hosts
-        description: comma separated host e.g. hosts=https://example.com,https://x.com
-      - schema:
-          type: string
-        in: query
-        name: templates
-        description: comma separated templates e.g. templates=tech-detect,azure-takeover
-      - schema:
-          type: string
-        in: query
-        name: time
-        description: filter by time ( last_day, last_week, last_month )
+        - schema:
+            type: integer
+          in: query
+          name: offset
+          description: number of results to skip
+        - schema:
+            type: integer
+          in: query
+          name: limit
+          description: number of results to get
+        - schema:
+            type: string
+          in: query
+          name: severity
+          description: 'string separated by comma e.g. info,high'
+        - schema:
+            type: string
+          in: query
+          name: search
+          description: search term
+        - schema:
+            type: string
+          in: query
+          name: hosts
+          description: 'comma separated host e.g. hosts=https://example.com,https://x.com'
+        - schema:
+            type: string
+          in: query
+          name: templates
+          description: 'comma separated templates e.g. templates=tech-detect,azure-takeover'
+        - schema:
+            type: string
+          in: query
+          name: time
+          description: 'filter by time ( last_day, last_week, last_month )'
+        - schema:
+            type: string
+          in: query
+          name: vuln_status
+          description: 'comma separated vuln_status e.g vuln_status=open,fixed'
       security:
-      - X-API-Key: []
+        - X-API-Key: []
     parameters: []
   /v1/retest:
     get:
       summary: Get Retest Results
-      tags: [retest]
+      tags:
+        - retest
       responses:
         '200':
           $ref: '#/components/responses/GetRetestResultsResponse'
@@ -286,26 +270,29 @@ paths:
       operationId: get-v1-retest
       description: Get user retest results
       security:
-      - X-API-Key: []
+        - X-API-Key: []
       parameters:
-      - schema:
-          type: string
-        in: query
-        name: offset
-        description: number of results to skip
-        required: true
-      - schema:
-          type: integer
-        in: query
-        name: limit
-        description: number of results
-        required: true
+        - schema:
+            type: integer
+          in: query
+          name: offset
+          description: number of results to skip
+          required: true
+        - schema:
+            type: integer
+          in: query
+          name: limit
+          description: number of results
+          required: true
     post:
       summary: Create Retest Scan
-      tags: [retest]
+      tags:
+        - retest
       operationId: post-v1-retest
       responses:
         '200':
+          $ref: '#/components/responses/PostRetestTemplateResponse'
+        '400':
           $ref: '#/components/responses/PostRetestTemplateResponse'
         '401':
           $ref: '#/components/responses/PostRetestTemplateResponse'
@@ -313,53 +300,40 @@ paths:
           $ref: '#/components/responses/PostRetestTemplateResponse'
       description: Trigger a retest scan
       security:
-      - X-API-Key: []
+        - X-API-Key: []
       requestBody:
         $ref: '#/components/requestBodies/RetestTemplateRequest'
     parameters: []
-  /v1/scans/vuln/{vuln_id}:
+  '/v1/scans/vuln/{vuln_id}':
     get:
       summary: Get Vulnerability by ID
-      tags: [results]
-      responses:
-        '200':
-          $ref: '#/components/responses/GetScansVulnIdResponse'
-        '401':
-          $ref: '#/components/responses/GetScansVulnIdResponse'
-        '500':
-          $ref: '#/components/responses/GetScansVulnIdResponse'
-      operationId: get-v1-scans-vuln-:vulnId
-      description: ''
-      security:
-      - X-API-Key: []
-      requestBody:
-        content: {}
-    parameters:
-    - schema:
-        type: string
-      name: vuln_id
-      in: path
-      required: true
-      description: vulnerability ID
-    post:
-      summary: Rescan vulnerability
-      tags: [results]
-      operationId: post-v1-scans-vuln-vuln_id
+      tags:
+        - results
       responses:
         '200':
           $ref: '#/components/responses/GetScansVulnIdResponse'
         '400':
-          $ref: '#/components/responses/GetScansVulnIdResponse'
+          $ref: '#/components/responses/MessageResponse'
         '401':
-          $ref: '#/components/responses/GetScansVulnIdResponse'
+          $ref: '#/components/responses/MessageResponse'
         '500':
-          $ref: '#/components/responses/GetScansVulnIdResponse'
+          $ref: '#/components/responses/MessageResponse'
+      operationId: 'get-v1-scans-vuln-:vulnId'
+      description: ''
       security:
-      - X-API-Key: []
+        - X-API-Key: []
+    parameters:
+      - schema:
+          type: string
+        name: vuln_id
+        in: path
+        required: true
+        description: vulnerability ID
   /v1/scans/import:
     post:
       summary: Import OSS Scan
-      tags: [scans]
+      tags:
+        - scans
       operationId: post-v1-scans-import
       responses:
         '200':
@@ -372,7 +346,7 @@ paths:
           $ref: '#/components/responses/ImportScanResponse'
       description: Import scan details
       security:
-      - X-API-Key: []
+        - X-API-Key: []
       requestBody:
         content:
           application/octet-stream:
@@ -382,7 +356,8 @@ paths:
   /v1/assets:
     get:
       summary: Get Asset list
-      tags: [assets]
+      tags:
+        - assets
       responses:
         '200':
           $ref: '#/components/responses/GetAssetsListResponse'
@@ -393,28 +368,27 @@ paths:
       operationId: get-v1-assets
       description: ''
       security:
-      - X-API-Key: []
+        - X-API-Key: []
       parameters:
-      - schema:
-          type: string
-        in: query
-        name: offset
-        description: number of assets to skip
-        required: true
-      - schema:
-          type: integer
-        in: query
-        name: limit
-        description: number of assets to fetch
-        required: true
-      - schema:
-          type: string
-        in: query
-        name: search
-        description: search term for asset list
+        - schema:
+            type: integer
+          in: query
+          name: offset
+          description: number of assets to skip
+        - schema:
+            type: integer
+          in: query
+          name: limit
+          description: number of assets to fetch
+        - schema:
+            type: string
+          in: query
+          name: search
+          description: search term for asset list
     post:
       summary: Upload Asset
-      tags: [assets]
+      tags:
+        - assets
       operationId: post-v1-assets
       responses:
         '200':
@@ -424,7 +398,7 @@ paths:
         '500':
           $ref: '#/components/responses/UploadAssetResponse'
       security:
-      - X-API-Key: []
+        - X-API-Key: []
       requestBody:
         content:
           application/octet-stream:
@@ -432,35 +406,37 @@ paths:
               type: string
               format: binary
       parameters:
+        - schema:
+            type: string
+          in: query
+          name: name
+          description: name of asset
+      description: ''
+  '/v1/assets/{asset_Id}':
+    parameters:
       - schema:
           type: string
-        in: query
-        name: name
-        description: name of asset
-      description: ''
-  /v1/assets/{asset_Id}:
-    parameters:
-    - schema:
-        type: string
-      name: asset_Id
-      in: path
-      required: true
+        name: asset_Id
+        in: path
+        required: true
     get:
       summary: Get Asset Info
-      tags: [assets]
+      tags:
+        - assets
       responses:
         '200':
-          description: OK
+          $ref: '#/components/responses/GetUserAssetResponse'
         '401':
           $ref: '#/components/responses/GetUserAssetResponse'
         '500':
           $ref: '#/components/responses/GetUserAssetResponse'
       operationId: get-v1-assets-assetId
       security:
-      - X-API-Key: []
+        - X-API-Key: []
     delete:
       summary: Delete Asset
-      tags: [assets]
+      tags:
+        - assets
       operationId: delete-v1-assets-asset_Id
       responses:
         '200':
@@ -470,10 +446,11 @@ paths:
         '500':
           $ref: '#/components/responses/DeleteAssetResponse'
       security:
-      - X-API-Key: []
+        - X-API-Key: []
     patch:
       summary: Update Asset Metadata
-      tags: [assets]
+      tags:
+        - assets
       operationId: patch-v1-assets-asset_Id
       responses:
         '200':
@@ -486,7 +463,7 @@ paths:
                   message:
                     type: string
                 required:
-                - message
+                  - message
         '401':
           description: Unauthorized
           content:
@@ -497,7 +474,7 @@ paths:
                   message:
                     type: string
                 required:
-                - message
+                  - message
         '500':
           description: Internal Server Error
           content:
@@ -508,15 +485,16 @@ paths:
                   message:
                     type: string
                 required:
-                - message
+                  - message
       security:
-      - X-API-Key: []
+        - X-API-Key: []
       requestBody:
         $ref: '#/components/requestBodies/UpdateAssetRequest'
-  /v1/assets/{asset_id}/contents:
+  '/v1/assets/{asset_id}/contents':
     get:
       summary: Get Asset Content
-      tags: [assets]
+      tags:
+        - assets
       responses:
         '200':
           description: OK
@@ -535,7 +513,7 @@ paths:
                   message:
                     type: string
                 required:
-                - message
+                  - message
         '500':
           description: Internal Server Error
           content:
@@ -550,19 +528,20 @@ paths:
                   message:
                     type: string
                 required:
-                - message
+                  - message
       operationId: get-v1-assets-id-contents
       security:
-      - X-API-Key: []
+        - X-API-Key: []
     parameters:
-    - schema:
-        type: string
-      name: asset_id
-      in: path
-      required: true
+      - schema:
+          type: string
+        name: asset_id
+        in: path
+        required: true
     patch:
       summary: Update Asset Content
-      tags: [assets]
+      tags:
+        - assets
       operationId: patch-v1-assets-asset_id-contents
       responses:
         '200':
@@ -578,17 +557,18 @@ paths:
               type: string
               format: binary
       security:
-      - X-API-Key: []
+        - X-API-Key: []
       parameters:
-      - schema:
-          type: string
-        in: query
-        name: update_type
-        description: 'use options like: type, replace '
+        - schema:
+            type: string
+          in: query
+          name: update_type
+          description: 'use options like: type, replace '
   /v1/scans/results/filters:
     get:
       summary: Results Filters
-      tags: [results]
+      tags:
+        - results
       responses:
         '200':
           $ref: '#/components/responses/GetScanResultsFiltersResponse'
@@ -599,61 +579,64 @@ paths:
       operationId: get-v1-scans-results-filters
       description: Get users scan-result filters
       security:
-      - X-API-Key: []
+        - X-API-Key: []
       parameters:
-      - schema:
-          type: string
-        in: query
-        name: offset
-        description: (Required) The number of items to skip before starting to collect
-          the result set
-        required: true
-      - schema:
-          type: integer
-        in: query
-        name: limit
-        description: (Required) The numbers of items to return
-        required: true
-      - schema:
-          type: string
-        in: query
-        name: scan_id
-        description: specific scan_id results filters
-      - schema:
-          type: string
-        in: query
-        name: severity
-        description: comma separated severity e.g. severities=info,high
-      - schema:
-          type: string
-        in: query
-        name: templates
-        description: comma separated templates e.g. templates=tech-detect,azure-takeover
-      - schema:
-          type: string
-        in: query
-        name: hosts
-        description: comma separated host e.g. hosts=https://example.com,https://x.com
-      - schema:
-          type: string
-        in: query
-        name: search
-        description: search term
-      - schema:
-          type: string
-        in: query
-        name: type
-        required: true
-        description: type of filter
-      - schema:
-          type: string
-        in: query
-        name: time
-        description: filter by time ( last_day, last_week, last_month )
+        - schema:
+            type: integer
+          in: query
+          name: offset
+          description: The number of items to skip before starting to collect the result set
+        - schema:
+            type: integer
+          in: query
+          name: limit
+          description: The numbers of items to return
+        - schema:
+            type: string
+          in: query
+          name: scan_id
+          description: specific scan_id results filters
+        - schema:
+            type: string
+          in: query
+          name: severity
+          description: 'comma separated severity e.g. severities=info,high'
+        - schema:
+            type: string
+          in: query
+          name: templates
+          description: 'comma separated templates e.g. templates=tech-detect,azure-takeover'
+        - schema:
+            type: string
+          in: query
+          name: hosts
+          description: 'comma separated host e.g. hosts=https://example.com,https://x.com'
+        - schema:
+            type: string
+          in: query
+          name: search
+          description: search term
+        - schema:
+            type: string
+          in: query
+          name: type
+          required: true
+          description: type of filter
+        - schema:
+            type: string
+          in: query
+          name: time
+          description: 'filter by time ( last_day, last_week, last_month )'
+        - schema:
+            type: string
+          in: query
+          name: vuln_status
+          description: 'comma separated vuln_status e.g vuln_status=open,fixed'
   /v1/scans/results/stats:
     get:
       summary: Results Stats
-      tags: [results]
+      tags:
+        - results
       responses:
         '200':
           $ref: '#/components/responses/GetScanResultStatsResponse'
@@ -664,58 +647,72 @@ paths:
       operationId: get-v1-scans-results-stats
       description: Get user scan results stats
       security:
-      - X-API-Key: []
+        - X-API-Key: []
       parameters:
-      - schema:
-          type: string
-        in: query
-        name: offset
-        required: true
-        description: (Required) The number of items to skip before starting to collect
-          the result set
-      - schema:
-          type: string
-        in: query
-        name: limit
-        required: true
-        description: (Required) The numbers of items to return
-      - schema:
-          type: string
-        in: query
-        name: hosts
-        description: comma separated host e.g. hosts=https://example.com,https://x.com
-      - schema:
-          type: string
-        in: query
-        name: templates
-        description: comma separated templates e.g. templates=tech-detect,azure-takeover
-      - schema:
-          type: string
-        in: query
-        name: severity
-        description: comma separated severity e.g. severities=info,high
-      - schema:
-          type: string
-        in: query
-        name: search
-        description: search term
-      - schema:
-          type: string
-        in: query
-        name: scan_id
-        description: specific scan_id results filters
-      - schema:
-          type: string
-        in: query
-        description: filter by time ( last_day, last_week, last_month )
-        name: time
+        - schema:
+            type: integer
+          in: query
+          name: offset
+          description: The number of items to skip before starting to collect the result set
+        - schema:
+            type: integer
+          in: query
+          name: limit
+          description: The numbers of items to return
+        - schema:
+            type: string
+          in: query
+          name: hosts
+          description: 'comma separated host e.g. hosts=https://example.com,https://x.com'
+        - schema:
+            type: string
+          in: query
+          name: templates
+          description: 'comma separated templates e.g. templates=tech-detect,azure-takeover'
+        - schema:
+            type: string
+          in: query
+          name: severity
+          description: 'comma separated severity e.g. severities=info,high'
+        - schema:
+            type: string
+          in: query
+          name: search
+          description: search term
+        - schema:
+            type: string
+          in: query
+          name: scan_id
+          description: specific scan_id results filters
+        - schema:
+            type: string
+          in: query
+          description: 'filter by time ( last_day, last_week, last_month )'
+          name: time
+        - schema:
+            type: string
+          in: query
+          name: vuln_status
+          description: 'comma separated vuln_status e.g vuln_status=open,fixed'
   /v1/scans/schedule:
     get:
       summary: Get Scan Schedules
-      tags: [scans]
+      tags:
+        - scans
       responses:
         '200':
           $ref: '#/components/responses/GetScanScheduleResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
         '401':
           description: Unauthorized
           content:
@@ -725,6 +722,8 @@ paths:
                 properties:
                   message:
                     type: string
+                required:
+                  - message
         '500':
           description: Internal Server Error
           content:
@@ -734,16 +733,21 @@ paths:
                 properties:
                   message:
                     type: string
+                required:
+                  - message
       operationId: get-v1-scans-schedule
       description: Get scan schedules for a user
       security:
-      - X-API-Key: []
+        - X-API-Key: []
     post:
       summary: Set Scan Schedule
-      tags: [scans]
+      tags:
+        - scans
       operationId: post-v1-scans-schedule
       responses:
         '200':
+          $ref: '#/components/responses/SetScanScheduleResponse'
+        '400':
           $ref: '#/components/responses/SetScanScheduleResponse'
         '401':
           $ref: '#/components/responses/SetScanScheduleResponse'
@@ -753,32 +757,36 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/SetScanScheduleRequest'
       security:
-      - X-API-Key: []
+        - X-API-Key: []
     delete:
       summary: Delete Scan Schedule
-      tags: [scans]
+      tags:
+        - scans
       operationId: delete-v1-scans-schedule
       responses:
         '200':
-          $ref: '#/components/responses/SetScanScheduleResponse'
+          $ref: '#/components/responses/DeleteScanScheduleResponse'
+        '400':
+          $ref: '#/components/responses/DeleteScanScheduleResponse'
         '401':
-          $ref: '#/components/responses/SetScanScheduleResponse'
+          $ref: '#/components/responses/DeleteScanScheduleResponse'
         '500':
-          $ref: '#/components/responses/SetScanScheduleResponse'
+          $ref: '#/components/responses/DeleteScanScheduleResponse'
       parameters:
-      - schema:
-          type: string
-        in: query
-        name: scan_id
-        required: true
-        description: scan_id of schedule to be deleted
+        - schema:
+            type: string
+          in: query
+          name: scan_id
+          required: true
+          description: scan_id of schedule to be deleted
       security:
-      - X-API-Key: []
+        - X-API-Key: []
       description: Delete scan schedule for a user
   /v1/user/feedback:
     post:
       summary: Add feedback
-      tags: [users]
+      tags:
+        - users
       operationId: post-v1-user-feedback
       responses:
         '200':
@@ -791,7 +799,7 @@ paths:
                   message:
                     type: string
                 required:
-                - message
+                  - message
         '401':
           description: Unauthorized
           content:
@@ -802,7 +810,7 @@ paths:
                   message:
                     type: string
                 required:
-                - message
+                  - message
         '500':
           description: Internal Server Error
           content:
@@ -813,15 +821,16 @@ paths:
                   message:
                     type: string
                 required:
-                - message
+                  - message
       security:
-      - X-API-Key: []
+        - X-API-Key: []
       requestBody:
         $ref: '#/components/requestBodies/PostFeedbackRequest'
   /v1/user:
     get:
       summary: Get User Profile
-      tags: [users]
+      tags:
+        - users
       responses:
         '200':
           $ref: '#/components/responses/GetUserProfileResponse'
@@ -831,11 +840,12 @@ paths:
           $ref: '#/components/responses/GetUserProfileResponse'
       operationId: get-v1-user
       security:
-      - X-API-Key: []
+        - X-API-Key: []
   /v1/user/apikey:
     get:
       summary: Get API Key
-      tags: [users]
+      tags:
+        - users
       responses:
         '200':
           $ref: '#/components/responses/GetUserAPIKeyResponse'
@@ -845,10 +855,11 @@ paths:
           $ref: '#/components/responses/GetUserAPIKeyResponse'
       operationId: get-v1-user-apikey
       security:
-      - X-API-Key: []
+        - X-API-Key: []
     post:
       summary: Create API Key
-      tags: [users]
+      tags:
+        - users
       operationId: post-v1-user-apikey
       responses:
         '200':
@@ -858,10 +869,11 @@ paths:
         '500':
           $ref: '#/components/responses/GetUserAPIKeyResponse'
       security:
-      - X-API-Key: []
+        - X-API-Key: []
     delete:
       summary: Delete API Key
-      tags: [users]
+      tags:
+        - users
       operationId: delete-v1-user-apikey
       responses:
         '200':
@@ -871,25 +883,27 @@ paths:
         '500':
           $ref: '#/components/responses/DeleteUserAPIKeyResponse'
       security:
-      - X-API-Key: []
+        - X-API-Key: []
   /v1/user/apikey/rotate:
     post:
       summary: Rotate API Key
-      tags: [users]
+      tags:
+        - users
       operationId: post-v1-user-apikey-rotate
       responses:
         '200':
-          $ref: '#/components/responses/GetUserAPIKeyResponse'
+          $ref: '#/components/responses/PostApiKeyRotateResponse'
         '401':
-          $ref: '#/components/responses/GetUserAPIKeyResponse'
+          $ref: '#/components/responses/PostApiKeyRotateResponse'
         '500':
-          $ref: '#/components/responses/GetUserAPIKeyResponse'
+          $ref: '#/components/responses/PostApiKeyRotateResponse'
       security:
-      - X-API-Key: []
+        - X-API-Key: []
   /v1/template/public:
     get:
       summary: Get Public Template List
-      tags: [templates]
+      tags:
+        - templates
       responses:
         '200':
           $ref: '#/components/responses/GetPublicTemplateList'
@@ -899,10 +913,60 @@ paths:
           $ref: '#/components/responses/GetPublicTemplateList'
       operationId: get-v1-template-public
       description: ''
+  /v1/template/early:
+    get:
+      summary: Get Early Template List
+      tags:
+        - templates
+      responses:
+        '200':
+          $ref: '#/components/responses/GetEarlyTempateList'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      operationId: get-v1-early-templates
+      description: ''
+      security:
+        - X-API-Key: []
+    parameters: []
+  '/v1/template/early/{id}':
+    get:
+      summary: Get Early Template file content
+      tags:
+        - templates
+      responses:
+        '200':
+          description: Shared Response
+          content:
+            text/plain:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      operationId: get-v1-early-templates-id
+      description: ''
+      security:
+        - X-API-Key: []
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
   /v1/template/public/*:
     get:
       summary: Get Public Template Data
-      tags: [templates]
+      tags:
+        - templates
       responses:
         '200':
           description: OK
@@ -912,12 +976,11 @@ paths:
               schema:
                 type: string
       operationId: get-v1-template-public-path
-      requestBody:
-        content: {}
   /v1/template:
     get:
       summary: Get Template List
-      tags: [templates]
+      tags:
+        - templates
       responses:
         '200':
           $ref: '#/components/responses/GetUserTemplateListResponse'
@@ -927,21 +990,24 @@ paths:
           $ref: '#/components/responses/GetUserTemplateListResponse'
       operationId: get-v1-templates
       security:
-      - X-API-Key: []
+        - X-API-Key: []
     parameters: []
     post:
       summary: Create Template
-      tags: [templates]
+      tags:
+        - templates
       operationId: post-v1-template
       responses:
         '200':
+          $ref: '#/components/responses/CreateTemplateResponse'
+        '400':
           $ref: '#/components/responses/CreateTemplateResponse'
         '401':
           $ref: '#/components/responses/CreateTemplateResponse'
         '500':
           $ref: '#/components/responses/CreateTemplateResponse'
       security:
-      - X-API-Key: []
+        - X-API-Key: []
       requestBody:
         content:
           application/json:
@@ -950,36 +1016,44 @@ paths:
               properties:
                 template:
                   type: string
+                prompt:
+                  type: string
               required:
-              - template
+                - template
     patch:
       summary: Update Template
-      tags: [templates]
+      tags:
+        - templates
       operationId: patch-v1-template
       responses:
         '200':
+          $ref: '#/components/responses/UpdateTemplateResponse'
+        '400':
           $ref: '#/components/responses/UpdateTemplateResponse'
         '401':
           $ref: '#/components/responses/UpdateTemplateResponse'
         '500':
           $ref: '#/components/responses/UpdateTemplateResponse'
       security:
-      - X-API-Key: []
+        - X-API-Key: []
       requestBody:
         $ref: '#/components/requestBodies/UpdateTemplateRequest'
-  /v1/template/{template_id}:
+  '/v1/template/{template_id}':
     parameters:
-    - schema:
-        type: string
-      name: template_id
-      in: path
-      required: true
-      description: 'unique Id of template '
+      - schema:
+          type: string
+        name: template_id
+        in: path
+        required: true
+        description: 'unique Id of template '
     get:
       summary: Get Template Data
-      tags: [templates]
+      tags:
+        - templates
       responses:
         '200':
+          $ref: '#/components/responses/GetTemplateResponse'
+        '400':
           $ref: '#/components/responses/GetTemplateResponse'
         '401':
           $ref: '#/components/responses/GetTemplateResponse'
@@ -987,118 +1061,142 @@ paths:
           $ref: '#/components/responses/GetTemplateResponse'
       operationId: get-v1-template-t_id
       security:
-      - X-API-Key: []
+        - X-API-Key: []
     delete:
       summary: Delete Template
-      tags: [templates]
+      tags:
+        - templates
       operationId: delete-v1-template-template_id
       responses:
         '200':
+          $ref: '#/components/responses/DeleteTemplateResponse'
+        '400':
           $ref: '#/components/responses/DeleteTemplateResponse'
         '401':
           $ref: '#/components/responses/DeleteTemplateResponse'
         '500':
           $ref: '#/components/responses/DeleteTemplateResponse'
       security:
-      - X-API-Key: []
+        - X-API-Key: []
   /v1/template/ai:
     post:
       summary: Generate AI Template
-      tags: [templates]
+      tags:
+        - templates
       operationId: post-v1-template-ai
       responses:
         '200':
           $ref: '#/components/responses/GenerateTemplateResponse'
+        '400':
+          $ref: '#/components/responses/GenerateTemplateResponse'
         '401':
+          $ref: '#/components/responses/GenerateTemplateResponse'
+        '403':
           $ref: '#/components/responses/GenerateTemplateResponse'
         '500':
           $ref: '#/components/responses/GenerateTemplateResponse'
       requestBody:
         $ref: '#/components/requestBodies/GenerateTemplateRequest'
       security:
-      - X-API-Key: []
+        - X-API-Key: []
   /v1/template/share:
     get:
       summary: Get Share Status
-      tags: [templates]
+      tags:
+        - templates
       responses:
         '200':
           $ref: '#/components/responses/GetShareStatusResponse'
+        '400':
+          $ref: '#/components/responses/GetShareStatusResponse'
         '401':
+          $ref: '#/components/responses/GetShareStatusResponse'
+        '404':
           $ref: '#/components/responses/GetShareStatusResponse'
         '500':
           $ref: '#/components/responses/GetShareStatusResponse'
       operationId: get-v1-template-share
       security:
-      - X-API-Key: []
+        - X-API-Key: []
       parameters:
-      - schema:
-          type: string
-        in: query
-        name: template_id
-        description: short uuid of requested template
-        required: true
-      - schema:
-          type: string
-        in: query
-        name: user_name
-        description: user name of logged in user
-        required: true
+        - schema:
+            type: string
+          in: query
+          name: template_id
+          description: short uuid of requested template
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: user_name
+          description: user name of logged in user
+          required: true
     post:
       summary: Share Template
-      tags: [templates]
+      tags:
+        - templates
       operationId: post-v1-template-share
       responses:
         '200':
           $ref: '#/components/responses/ShareTemplateResponse'
-        '201':
-          description: Created
+        '400':
+          $ref: '#/components/responses/ShareTemplateResponse'
         '401':
           $ref: '#/components/responses/ShareTemplateResponse'
+        '404':
+          $ref: '#/components/responses/ShareTemplateResponse'
         '500':
-          description: Internal Server Error
+          $ref: '#/components/responses/ShareTemplateResponse'
       security:
-      - X-API-Key: []
+        - X-API-Key: []
       requestBody:
         $ref: '#/components/requestBodies/ShareTemplateRequest'
-  /v1/template/share/{template_id}:
+  '/v1/template/share/{template_id}':
     parameters:
-    - schema:
-        type: string
-      name: template_id
-      in: path
-      required: true
-      description: unique template ID
+      - schema:
+          type: string
+        name: template_id
+        in: path
+        required: true
+        description: unique template ID
     get:
       summary: Get Shared Template
-      tags: [templates]
+      tags:
+        - templates
       responses:
         '200':
           $ref: '#/components/responses/GetSharedTemplateResponse'
+        '400':
+          $ref: '#/components/responses/GetSharedTemplateResponse'
         '401':
+          $ref: '#/components/responses/GetSharedTemplateResponse'
+        '404':
           $ref: '#/components/responses/GetSharedTemplateResponse'
         '500':
           $ref: '#/components/responses/GetSharedTemplateResponse'
       operationId: get-v1-template-share-template_id
       parameters:
+        - schema:
+            type: string
+          in: query
+          name: user_name
+          description: user name of template owner
+          required: true
+  '/v1/retest/{vuln_id}':
+    parameters:
       - schema:
           type: string
-        in: query
-        name: user_name
-        description: user name of template owner
+        name: vuln_id
+        in: path
         required: true
-  /v1/retest/{vuln_id}:
-    parameters:
-    - schema:
-        type: string
-      name: vuln_id
-      in: path
-      required: true
     get:
       summary: Get Retest Vulnerability
-      tags: [retest]
+      tags:
+        - retest
       responses:
         '200':
+          $ref: '#/components/responses/GetSingleRetestResultResponse'
+        '400':
           $ref: '#/components/responses/GetSingleRetestResultResponse'
         '401':
           $ref: '#/components/responses/GetSingleRetestResultResponse'
@@ -1106,9 +1204,1555 @@ paths:
           $ref: '#/components/responses/GetSingleRetestResultResponse'
       operationId: get-v1-retest-vuln_id
       security:
-      - X-API-Key: []
+        - X-API-Key: []
+  /v1/admin/user/profile:
+    patch:
+      summary: Patch User Profile
+      operationId: patch-v1-admin-user-profile
+      responses:
+        '200':
+          $ref: '#/components/responses/PatchUserProfileResponse'
+        '401':
+          $ref: '#/components/responses/PatchUserProfileResponse'
+        '500':
+          $ref: '#/components/responses/PatchUserProfileResponse'
+      requestBody:
+        $ref: '#/components/requestBodies/PatchUserProfile'
+  /v1/admin/users:
+    post:
+      summary: Create New User
+      operationId: post-v1-admin-users
+      responses:
+        '200':
+          $ref: '#/components/responses/PostCreateUserResponse'
+        '400':
+          $ref: '#/components/responses/PostCreateUserResponse'
+        '401':
+          $ref: '#/components/responses/PostCreateUserResponse'
+        '500':
+          $ref: '#/components/responses/PostCreateUserResponse'
+      security:
+        - X-API-Key: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ai_status:
+                  type: boolean
+                scan_status:
+                  type: boolean
+                static_scan:
+                  type: boolean
+                early_template:
+                  type: boolean
+                email:
+                  type: string
+                invite_email:
+                  type: boolean
+              required:
+                - email
+  '/v1/scans/{scan_id}/stop':
+    parameters:
+      - schema:
+          type: string
+        name: scan_id
+        in: path
+        required: true
+    post:
+      summary: Stop Scan
+      tags:
+        - scans
+      operationId: post-v1-scans-scan_id-stop
+      responses:
+        '200':
+          $ref: '#/components/responses/DeleteScansResponse'
+        '400':
+          $ref: '#/components/responses/DeleteScansResponse'
+        '401':
+          $ref: '#/components/responses/DeleteScansResponse'
+        '500':
+          $ref: '#/components/responses/DeleteScansResponse'
+      security:
+        - X-API-Key: []
+  '/v1/scans/{scan_id}/rescan':
+    parameters:
+      - schema:
+          type: string
+        name: scan_id
+        in: path
+        required: true
+    post:
+      summary: Rescan by scan_id
+      tags:
+        - scans
+      operationId: post-v1-scans-scan_id-rescan
+      responses:
+        '200':
+          $ref: '#/components/responses/TriggerUserScanResponse'
+        '400':
+          $ref: '#/components/responses/TriggerUserScanResponse'
+        '401':
+          $ref: '#/components/responses/TriggerUserScanResponse'
+        '500':
+          $ref: '#/components/responses/TriggerUserScanResponse'
+      security:
+        - X-API-Key: []
+  '/v1/scans/{vuln_id}/retest':
+    parameters:
+      - schema:
+          type: string
+        name: vuln_id
+        in: path
+        required: true
+    post:
+      summary: Retest vulnerability
+      tags:
+        - scans
+      operationId: post-v1-scans-vuln_id-retest
+      responses:
+        '200':
+          $ref: '#/components/responses/PostRescanVulnResponse'
+        '400':
+          $ref: '#/components/responses/PostRescanVulnResponse'
+        '401':
+          $ref: '#/components/responses/PostRescanVulnResponse'
+        '500':
+          $ref: '#/components/responses/PostRescanVulnResponse'
+      security:
+        - X-API-Key: []
+  /v1/user/team:
+    get:
+      summary: Get Team
+      operationId: get-v1-user-team
+      responses:
+        '200':
+          $ref: '#/components/responses/GetTeamResponse'
+        '401':
+          $ref: '#/components/responses/GetTeamResponse'
+        '403':
+          $ref: '#/components/responses/GetTeamResponse'
+        '500':
+          $ref: '#/components/responses/GetTeamResponse'
+      security:
+        - X-API-Key: []
+    post:
+      summary: Create Team
+      tags: []
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      operationId: post-v1-user-team
+      requestBody:
+        $ref: '#/components/requestBodies/CreateTeamRequest'
+      security:
+        - X-API-Key: []
+    patch:
+      summary: Update Team
+      operationId: patch-v1-user-team
+      responses:
+        '200':
+          $ref: '#/components/responses/UpdateTeamResponse'
+        '400':
+          $ref: '#/components/responses/UpdateTeamResponse'
+        '401':
+          $ref: '#/components/responses/UpdateTeamResponse'
+        '403':
+          $ref: '#/components/responses/UpdateTeamResponse'
+        '500':
+          $ref: '#/components/responses/UpdateTeamResponse'
+      security:
+        - X-API-Key: []
+      requestBody:
+        $ref: '#/components/requestBodies/CreateTeamRequest'
+  /v1/user/team/member:
+    get:
+      summary: Get Team
+      tags: []
+      responses:
+        '200':
+          $ref: '#/components/responses/GetTeamMembersResponse'
+        '401':
+          $ref: '#/components/responses/GetTeamMembersResponse'
+        '403':
+          $ref: '#/components/responses/GetTeamMembersResponse'
+        '500':
+          $ref: '#/components/responses/GetTeamMembersResponse'
+      operationId: get-v1-user-team-member
+      security:
+        - X-API-Key: []
+    post:
+      summary: Add Member
+      operationId: post-v1-user-team-member
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      security:
+        - X-API-Key: []
+      requestBody:
+        $ref: '#/components/requestBodies/AddTeamMemberRequest'
+    delete:
+      summary: Delete Member
+      operationId: delete-v1-user-team-member
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      security:
+        - X-API-Key: []
+      requestBody:
+        $ref: '#/components/requestBodies/DeleteTeamMemberRequest'
+    patch:
+      summary: Update Member
+      operationId: patch-v1-user-team-member
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      security:
+        - X-API-Key: []
+      requestBody:
+        $ref: '#/components/requestBodies/InviteTeamMemberRequest'
+  /v1/scans/scan_ips:
+    get:
+      summary: Get static scan IPs
+      tags: []
+      responses:
+        '200':
+          $ref: '#/components/responses/StaticScanIPsResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      operationId: get-v1-scans-scan_ips
+  /v1/admin/team/member:
+    post:
+      summary: Add Team Member
+      operationId: post-v1-admin-team-member
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      security:
+        - X-API-Key: []
+      requestBody:
+        $ref: '#/components/requestBodies/AdminAddTeamMemberRequest'
+  '/v1/scans/{scan_id}/import':
+    parameters:
+      - schema:
+          type: string
+        name: scan_id
+        in: path
+        required: true
+    patch:
+      summary: Import more results to a given scan
+      operationId: patch-v1-scans-scan_id-import
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      description: Import more results to a given scan
+      requestBody:
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+  /v1/scans/stats:
+    get:
+      summary: Get scan statistics for a user
+      tags: []
+      responses:
+        '200':
+          $ref: '#/components/responses/ScanStatsResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      operationId: get-v1-scans-stats
+      parameters: []
+  '/v1/scans/{scan_id}/stats':
+    parameters:
+      - schema:
+          type: string
+        name: scan_id
+        in: path
+        required: true
+    get:
+      summary: Get scan statistics for a given scan
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ScanUsageStatsResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      operationId: get-v1-scans-scan_id-stats
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: offset
+          description: The number of items to skip before starting to collect the result set
+        - schema:
+            type: integer
+          in: query
+          name: limit
+          description: The numbers of items to return
+  '/v1/scans/{scan_id}/export':
+    parameters:
+      - schema:
+          type: string
+        name: scan_id
+        in: path
+        required: true
+    get:
+      summary: Export scan
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      operationId: get-v1-scans-scan_id-export
+      parameters:
+        - schema:
+            type: string
+            enum:
+              - json
+              - csv
+          in: query
+          name: type
+          description: 'json, csv (default json)'
+  '/v1/scans/vuln/{vuln_id}/export':
+    parameters:
+      - schema:
+          type: string
+        name: vuln_id
+        in: path
+        required: true
+    get:
+      summary: Export Vulnerability
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      operationId: get-v1-scans-vuln-vuln_id-export
+      parameters:
+        - schema:
+            type: string
+            enum:
+              - json
+              - csv
+          in: query
+          name: type
+          description: 'json, csv (default json)'
+  /v1/scans/vulns:
+    patch:
+      summary: Update Vulnerability Status
+      operationId: patch-v1-scans-vulns
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      requestBody:
+        $ref: '#/components/requestBodies/PatchScanVulnsRequest'
+  /v1/scans/config:
+    get:
+      summary: Get scan configs
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ConfigResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      operationId: get-v1-scans-config
+      parameters:
+        - schema:
+            enum:
+              - scan
+              - reporting
+              - template
+              - alerting
+              - cloudlist
+            type: string
+          in: query
+          name: type
+          description: filter by the type of config
+        - schema:
+            type: string
+          in: query
+          name: search
+          description: search by config name
+        - schema:
+            type: integer
+          in: query
+          name: limit
+          description: The numbers of items to return
+        - schema:
+            type: integer
+          in: query
+          description: The number of items to skip before starting to collect the result set
+          name: offset
+    post:
+      summary: Add scan config
+      operationId: post-v1-scans-config
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                config:
+                  type: string
+                config_type:
+                  $ref: '#/components/schemas/ConfigTypeEnum'
+                name:
+                  type: string
+                global:
+                  type: boolean
+              required:
+                - config
+                - name
+  '/v1/scans/config/{config_id}':
+    parameters:
+      - schema:
+          type: string
+        name: config_id
+        in: path
+        required: true
+    get:
+      summary: Get scan config by ID
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      operationId: get-v1-scans-config-config_id
+    patch:
+      summary: Update a config
+      operationId: patch-v1-scans-config-config_id
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                config:
+                  type: string
+                global:
+                  type: boolean
+    delete:
+      summary: Delete a config
+      operationId: delete-v1-scans-config-config_id
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+  /v1/payment/stripe/checkout_session:
+    post:
+      summary: start checkout session for stripe
+      operationId: post-v1-payment-stripe-checkout_session
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  payment_url:
+                    type: string
+                required:
+                  - message
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+      security:
+        - X-API-Key: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                period:
+                  type: string
+              required:
+                - period
+    parameters: []
+  /v1/user/subscription:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+                required:
+                  - status
+                  - message
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+      operationId: get-v1-user-subscription
+      security:
+        - X-API-Key: []
+  /v1/asset/enumerate:
+    get:
+      summary: List enumeration sources
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EnumerateResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      operationId: get-v1-asset-enumerate
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: offset
+          description: The number of items to skip before starting to collect the result set
+        - schema:
+            type: integer
+          in: query
+          name: limit
+          description: The numbers of items to return
+        - schema:
+            type: string
+          in: query
+          name: search
+    post:
+      summary: Add new enumeration task
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                required:
+                  - id
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      operationId: post-v1-asset-enumerate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                root_domains:
+                  type: array
+                  items:
+                    type: string
+                enrichment_inputs:
+                  type: array
+                  items:
+                    type: string
+                cloudlist_config_ids:
+                  type: array
+                  items:
+                    type: string
+                name:
+                  type: string
+                steps:
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                      - dns_resolve
+                      - port_scan
+                      - http_probe
+                      - endpoint_crawling
+  '/v1/asset/enumerate/{enumerate_id}':
+    parameters:
+      - schema:
+          type: string
+        name: enumerate_id
+        in: path
+        required: true
+    get:
+      summary: Get Enumeration task
+      tags: []
+      responses:
+        '200':
+          $ref: '#/components/responses/GetEnumerateIdContentsResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      operationId: get-v1-asset-enumerate-enumerate_id
+    patch:
+      summary: Update Enumeration
+      tags: []
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      operationId: patch-v1-asset-enumerate-enumerate_id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+  '/v1/asset/enumerate/{enumerate_id}/contents':
+    parameters:
+      - schema:
+          type: string
+        name: enumerate_id
+        in: path
+        required: true
+    get:
+      summary: Get enumeration contents
+      tags: []
+      responses:
+        '200':
+          $ref: '#/components/responses/GetEnumerateIdContents'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      operationId: get-v1-asset-enumerate-enumerate_id-contents
+      parameters:
+        - schema:
+            type: string
+            default: dns
+            enum:
+              - dns
+              - ports
+              - endpoints
+              - http
+          in: query
+          name: type
+          required: true
+          description: Filter by type of enumeration
+        - schema:
+            type: integer
+            default: 0
+          in: query
+          name: offset
+          description: The number of items to skip before starting to collect the result set
+        - schema:
+            type: integer
+            default: 100
+          in: query
+          name: limit
+          description: The numbers of items to return
+        - schema:
+            type: string
+          name: search
+          in: query
+          description: Search on the content name
+  '/v1/asset/enumerate/{enumerate_id}/rescan':
+    parameters:
+      - schema:
+          type: string
+        name: enumerate_id
+        in: path
+        required: true
+    post:
+      summary: Rescan Enumeration
+      operationId: post-v1-asset-enumerate-enumerate_id-rescan
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                required:
+                  - id
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      security:
+        - X-API-Key: []
+  /v1/enumeration/schedule:
+    get:
+      summary: Get Enumeration Schedules
+      tags: []
+      responses:
+        '200':
+          $ref: '#/components/responses/GetEnumerationScheduleResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      operationId: get-v1-enumeration-schedule
+    post:
+      summary: Set Enumeration Schedule
+      operationId: post-v1-enumeration-schedule
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      requestBody:
+        $ref: '#/components/requestBodies/SetEnumerationScheduleRequest'
+    delete:
+      summary: Delete Enumeration Schedule
+      operationId: delete-v1-enumeration-schedule
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: enumeration_id
+          description: enumeration_id of the schedule to be deleted
+          required: true
+  /v1/scans/config/verify:
+    post:
+      summary: Verify config
+      tags: []
+      responses:
+        '200':
+          $ref: '#/components/responses/VerifyConfigResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      operationId: post-v1-scans-config-verify
+      requestBody:
+        $ref: '#/components/requestBodies/VerifyConfigRequest'
 components:
-  schemas: {}
+  schemas:
+    VulnerabilityResults:
+      type: object
+      properties:
+        matcher_status:
+          type: boolean
+        vuln_id:
+          type: string
+        target:
+          type: string
+        template_url:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+        scan_id:
+          type: string
+        event:
+          type: array
+          items:
+            $ref: '#/components/schemas/VulnerabilityEvent'
+        template_id:
+          type: string
+        template_path:
+          type: string
+        template_encoded:
+          type: string
+        result_type:
+          type: string
+        vuln_status:
+          type: string
+      required:
+        - matcher_status
+        - vuln_id
+        - target
+        - created_at
+        - scan_id
+        - event
+        - template_id
+        - result_type
+    PrivateTemplates:
+      title: PrivateTemplates
+      type: object
+      properties:
+        name:
+          type: string
+        contents:
+          type: string
+      required:
+        - name
+        - contents
+    AssetListItem:
+      title: AssetListItem
+      type: object
+      properties:
+        asset_count:
+          type: integer
+        asset_id:
+          type: string
+        uploaded_at:
+          type: string
+        name:
+          type: string
+      required:
+        - asset_count
+        - asset_id
+        - uploaded_at
+        - name
+    ScanSchedule:
+      title: ScanSchedule
+      type: object
+      properties:
+        scan_frequency:
+          type: string
+        scan_id:
+          type: string
+        schedule_last_run:
+          type: string
+      required:
+        - scan_frequency
+        - scan_id
+        - schedule_last_run
+    ScanStatusItem:
+      title: ScanStatusItem
+      type: object
+      properties:
+        scan_id:
+          type: string
+        status:
+          type: string
+        scan_time_elapsed:
+          type: string
+        progress:
+          type: integer
+        failure_reason:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+        total_target:
+          type: integer
+        completed_at:
+          type: string
+        total_scan:
+          type: integer
+        total_template:
+          type: integer
+        name:
+          type: string
+        severity:
+          type: object
+        is_oss:
+          type: boolean
+        is_cloud:
+          type: boolean
+        scan_frequency:
+          type: string
+        schedule_last_run:
+          type: string
+        asset_ids:
+          type: array
+          items:
+            type: string
+        is_rescan:
+          type: boolean
+        public_templates:
+          type: array
+          items:
+            type: string
+        report_config_ids:
+          type: array
+          items:
+            type: string
+        rescan_count:
+          type: integer
+        scan_config_ids:
+          type: array
+          items:
+            type: string
+        template_ids:
+          type: array
+          items:
+            type: string
+        template_urls:
+          type: array
+          items:
+            type: string
+      required:
+        - scan_id
+        - status
+        - scan_time_elapsed
+        - progress
+        - failure_reason
+        - created_at
+        - updated_at
+        - total_target
+        - completed_at
+        - total_scan
+        - total_template
+        - name
+        - is_oss
+        - is_cloud
+    VulnerabilityEvent:
+      title: VulnerabilityEvent
+      type: object
+      properties:
+        curl-command:
+          type: string
+        extracted-results:
+          type: array
+          items:
+            type: string
+        extractor-name:
+          type: string
+        host:
+          type: string
+        info:
+          type: object
+          required:
+            - name
+          properties:
+            classification:
+              type: object
+              properties:
+                cpe:
+                  type: string
+                cve-id:
+                  type: array
+                  items:
+                    type: string
+                cvss-metrics:
+                  type: string
+                cvss-score:
+                  type: number
+                cwe-id:
+                  type: array
+                  items:
+                    type: string
+                epss-percentile:
+                  type: number
+                epss-score:
+                  type: number
+            metadata:
+              type: object
+            author:
+              type: array
+              items:
+                type: string
+            description:
+              type: string
+            impact:
+              type: string
+            name:
+              type: string
+            tags:
+              type: array
+              items:
+                type: string
+            reference:
+              type: array
+              items:
+                type: string
+            remediation:
+              type: string
+            severity:
+              type: string
+        ip:
+          type: string
+        matched-at:
+          type: string
+        matched-line:
+          type: array
+          items:
+            type: integer
+        matcher-name:
+          type: string
+        matcher-status:
+          type: boolean
+        path:
+          type: string
+        request:
+          type: string
+        response:
+          type: string
+        template-id:
+          type: string
+        template-path:
+          type: string
+        timestamp:
+          type: string
+        type:
+          type: string
+      required:
+        - info
+    FiltersItem:
+      title: FilterItem
+      type: object
+      properties:
+        value:
+          type: string
+        count:
+          type: integer
+      required:
+        - value
+        - count
+    ScanStats:
+      title: ScanStats
+      type: object
+      properties:
+        cves:
+          type: integer
+        matched:
+          type: integer
+        not_matched:
+          type: integer
+        severity:
+          type: object
+        total_count:
+          type: integer
+        total_scan:
+          type: integer
+        total_target:
+          type: integer
+        total_template:
+          type: integer
+        vuln_status:
+          type: object
+      required:
+        - cves
+        - matched
+        - not_matched
+        - total_count
+        - total_scan
+        - total_target
+        - total_template
+    VulnerabilityResultsOld:
+      title: VulnerabilityResultsOld
+      type: object
+      properties:
+        scan_id:
+          type: string
+        target:
+          type: string
+        template_encoded:
+          type: string
+        template_url:
+          type: string
+        template_path:
+          type: string
+        template_id:
+          type: string
+        vuln_id:
+          type: string
+        matcher_status:
+          type: boolean
+        created_at:
+          type: string
+        updated_at:
+          type: string
+        event:
+          $ref: '#/components/schemas/VulnerabilityEvent'
+        id:
+          type: string
+        vuln_status:
+          type: string
+      required:
+        - scan_id
+        - target
+        - template_id
+        - vuln_id
+        - matcher_status
+        - created_at
+        - event
+    templateListItem:
+      title: templateListItem
+      type: object
+      properties:
+        created_at:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        shared_publicly:
+          type: boolean
+        updated_at:
+          type: string
+      required:
+        - created_at
+        - id
+        - name
+    PublicTemplateListItem:
+      title: PublicTemplateListItem
+      type: object
+      properties:
+        id:
+          type: string
+        templateURL:
+          type: string
+        name:
+          type: string
+      required:
+        - id
+        - templateURL
+        - name
+    EarlyTemplateListItem:
+      title: EarlyTemplateListItem
+      type: object
+      properties:
+        id:
+          type: string
+        templateURL:
+          type: string
+        name:
+          type: string
+      required:
+        - id
+        - templateURL
+        - name
+    TeamMemberItem:
+      title: TeamMemberItem
+      type: object
+      properties:
+        email:
+          type: string
+        status:
+          type: string
+        invited_at:
+          type: string
+        accepted_at:
+          type: string
+      required:
+        - email
+        - status
+    ScanUsageStatsResponse:
+      title: ScanUsageStatsResponse
+      type: object
+      description: 'Scan Usage Stats '
+      properties:
+        time:
+          type: string
+          format: date-time
+        scan_id:
+          type: string
+        user_id:
+          type: integer
+          format: int64
+        completed_request:
+          type: integer
+          format: int64
+        total_target:
+          type: integer
+          format: int64
+        total_templates:
+          type: integer
+          format: int64
+        total_result:
+          type: integer
+          format: int64
+        severity_breakdown:
+          type: string
+          format: json
+      required:
+        - time
+        - scan_id
+        - user_id
+        - completed_request
+        - total_target
+        - total_templates
+        - total_result
+        - severity_breakdown
+    VulnStatusEnum:
+      title: VulnStatusEnum
+      enum:
+        - open
+        - closed
+        - false_positive
+    ConfigResponse:
+      title: ConfigResponse
+      type: object
+      properties:
+        id:
+          type: string
+        config:
+          type: string
+        config_type:
+          $ref: '#/components/schemas/ConfigTypeEnum'
+        name:
+          type: string
+        read_only:
+          type: boolean
+        global:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+        - id
+        - config
+        - config_type
+        - name
+        - created_at
+        - updated_at
+    ConfigTypeEnum:
+      title: ConfigTypeEnum
+      type: string
+      enum:
+        - scan
+        - reporting
+        - template
+        - alerting
+        - cloudlist
+    EnumerationStats:
+      title: EnumerationStats
+      type: object
+      properties:
+        dns:
+          type: integer
+          format: int64
+        http:
+          type: integer
+          format: int64
+        endpoints:
+          type: integer
+          format: int64
+        ports:
+          type: integer
+          format: int64
+      required:
+        - dns
+        - http
+        - endpoints
+        - ports
+    EnumerateResponse:
+      title: EnumerateResponse
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        status:
+          type: string
+        failure_reason:
+          type: string
+        completed_at:
+          type: string
+          format: date-time
+        enumeration_time:
+          type: string
+          format: duration
+        enumeration_stats:
+          $ref: '#/components/schemas/EnumerationStats'
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        root_domains:
+          type: array
+          items:
+            type: string
+        enrichment_hosts_count:
+          type: integer
+        is_rescan:
+          type: boolean
+        rescan_count:
+          type: integer
+      required:
+        - id
+        - name
+        - status
+        - created_at
+    EnumerationContent:
+      title: EnumerationContent
+      type: object
+      properties:
+        enumeration_id:
+          type: string
+        name:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+      required:
+        - enumeration_id
+        - name
+        - created_at
+    EnumerationIds:
+      title: EnumerationIds
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: array
+          items:
+            type: string
+      required:
+        - id
+        - type
+    EnumerationSchedule:
+      title: EnumerationSchedule
+      type: object
+      required:
+        - enumeration_id
+        - scan_frequency
+        - schedule_last_run
+      properties:
+        enumeration_id:
+          type: string
+        scan_frequency:
+          type: string
+        schedule_last_run:
+          type: string
   securitySchemes:
     X-API-Key:
       name: X-API-Key
@@ -1123,17 +2767,13 @@ components:
             type: object
             properties:
               prompt:
-                type:
-                - string
-                - 'null'
+                type: string
               message:
                 type: string
               template:
-                type:
-                - string
-                - 'null'
+                type: string
             required:
-            - message
+              - message
         application/xml:
           schema:
             type: object
@@ -1151,11 +2791,13 @@ components:
               status:
                 type: boolean
               template_id:
-                type:
-                - string
-                - 'null'
+                type: string
+              template_name:
+                type: string
             required:
-            - message
+              - message
+              - template_id
+              - template_name
     UpdateTemplateResponse:
       description: Example response
       content:
@@ -1168,11 +2810,13 @@ components:
               status:
                 type: boolean
               template_id:
-                type:
-                - string
-                - 'null'
+                type: string
+              template_name:
+                type: string
             required:
-            - message
+              - message
+              - template_id
+              - template_name
     GenerateTemplateResponse:
       description: Example response
       content:
@@ -1181,27 +2825,30 @@ components:
             type: object
             properties:
               template_id:
-                type:
-                - string
-                - 'null'
+                type: string
               message:
                 type: string
               completion:
-                type:
-                - string
-                - 'null'
+                type: string
               name:
-                type:
-                - string
-                - 'null'
+                type: string
             required:
-            - message
+              - message
     ShareTemplateResponse:
       description: Example response
       content:
         application/json:
           schema:
             type: object
+            properties:
+              message:
+                type: string
+              template_id:
+                type: string
+              status:
+                type: boolean
+            required:
+              - message
     GetSharedTemplateResponse:
       description: Example response
       content:
@@ -1210,17 +2857,13 @@ components:
             type: object
             properties:
               template:
-                type:
-                - string
-                - 'null'
+                type: string
               template_name:
-                type:
-                - string
-                - 'null'
+                type: string
               message:
                 type: string
             required:
-            - message
+              - message
     GetUserProfileResponse:
       description: Example response
       content:
@@ -1229,23 +2872,21 @@ components:
             type: object
             properties:
               ai_status:
-                type:
-                - boolean
-                - 'null'
+                type: boolean
               email:
-                type:
-                - string
-                - 'null'
+                type: string
               name:
-                type:
-                - string
-                - 'null'
+                type: string
               message:
                 type: string
               cloud_scans:
                 type: boolean
+              static_scan:
+                type: boolean
+              early_template:
+                type: boolean
             required:
-            - message
+              - message
     DeleteTemplateResponse:
       description: Example response
       content:
@@ -1256,11 +2897,9 @@ components:
               message:
                 type: string
               status:
-                type:
-                - boolean
-                - 'null'
+                type: boolean
             required:
-            - message
+              - message
     GetPublicTemplateList:
       description: Example response
       content:
@@ -1273,17 +2912,10 @@ components:
               data:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                    templateURL:
-                      type: string
-                    name:
-                      type: string
+                  $ref: '#/components/schemas/PublicTemplateListItem'
             required:
-            - version
-            - data
+              - version
+              - data
     GetRetestResultsResponse:
       description: Example response
       content:
@@ -1296,153 +2928,10 @@ components:
               results:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    matcher_status:
-                      type: boolean
-                    vuln_id:
-                      type: string
-                    target:
-                      type: string
-                    template_url:
-                      type: string
-                    created_at:
-                      type: string
-                    updated_at:
-                      type: string
-                    scan_id:
-                      type: string
-                    event:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          template-id:
-                            type: string
-                          Info:
-                            type: object
-                            properties:
-                              name:
-                                type: string
-                              author:
-                                type: array
-                                items:
-                                  type: string
-                              tags:
-                                type: array
-                                items:
-                                  type: string
-                              severity:
-                                type: string
-                              description:
-                                type: string
-                              impact:
-                                type: string
-                              remediation:
-                                type: string
-                              reference:
-                                type: array
-                                items:
-                                  type: string
-                              metadata:
-                                type: object
-                                properties:
-                                  verified:
-                                    type: boolean
-                                  max-request:
-                                    type: integer
-                                  total-request:
-                                    type: integer
-                                  vendor:
-                                    type: string
-                                  product:
-                                    type: string
-                                  framework:
-                                    type: string
-                                  shodan-query:
-                                    type: string
-                                  fofa-query:
-                                    type: string
-                                  censys-query:
-                                    type: string
-                                  publicwww-query:
-                                    type: string
-                                  google-query:
-                                    type: string
-                              classification:
-                                type: object
-                                properties:
-                                  cvss-metrics:
-                                    type: string
-                                  cvss-score:
-                                    type: number
-                                  cve-id:
-                                    type: array
-                                    items:
-                                      type: string
-                                  cwe-id:
-                                    type: array
-                                    items:
-                                      type: string
-                                  epss-score:
-                                    type: number
-                                  epss-percentile:
-                                    type: number
-                                  cpe:
-                                    type: string
-                          type:
-                            type: string
-                          host:
-                            type: string
-                          request:
-                            type: string
-                          response:
-                            type: string
-                          timestamp:
-                            type: string
-                          matcher-status:
-                            type: boolean
-                          matched-line:
-                            type: array
-                            items:
-                              type: integer
-                          ip:
-                            type: string
-                          matched-at:
-                            type: string
-                          curl-command:
-                            type: string
-                          matcher-name:
-                            type: string
-                          extracted-results:
-                            type: string
-                          template-url:
-                            type: string
-                          template-path:
-                            type: string
-                          extractor-name:
-                            type: string
-                          path:
-                            type: string
-                    template_id:
-                      type: string
-                    template_path:
-                      type: string
-                    template_encoded:
-                      type: string
-                    result_type:
-                      type: string
-                  required:
-                  - matcher_status
-                  - vuln_id
-                  - target
-                  - created_at
-                  - scan_id
-                  - event
-                  - result_type
+                  $ref: '#/components/schemas/VulnerabilityResults'
             required:
-            - message
-            - results
+              - message
+              - results
         application/xml:
           schema:
             type: object
@@ -1457,139 +2946,10 @@ components:
               message:
                 type: string
               results:
-                type: object
-                required:
-                - matcher_status
-                - target
-                - event
-                properties:
-                  matcher_status:
-                    type: boolean
-                  vuln_id:
-                    type: string
-                  target:
-                    type: string
-                  template_url:
-                    type: string
-                  created_at:
-                    type: string
-                  updated_at:
-                    type: string
-                  event:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        template-id:
-                          type: string
-                        Info:
-                          type: object
-                          properties:
-                            name:
-                              type: string
-                            author:
-                              type: array
-                              items:
-                                type: string
-                            tags:
-                              type: array
-                              items:
-                                type: string
-                            severity:
-                              type: string
-                            description:
-                              type: string
-                            impact:
-                              type: string
-                            remediation:
-                              type: string
-                            reference:
-                              type: array
-                              items:
-                                type: string
-                            classification:
-                              type: object
-                              properties:
-                                cvss-metrics:
-                                  type: string
-                                cvss-score:
-                                  type: number
-                                cve-id:
-                                  type: array
-                                  items:
-                                    type: string
-                                cwe-id:
-                                  type: array
-                                  items:
-                                    type: string
-                                epss-score:
-                                  type: number
-                                epss-percentile:
-                                  type: number
-                                cpe:
-                                  type: string
-                            metadata:
-                              type: object
-                              properties:
-                                verified:
-                                  type: boolean
-                                max-request:
-                                  type: integer
-                                total-request:
-                                  type: integer
-                                vendor:
-                                  type: string
-                                product:
-                                  type: string
-                                framework:
-                                  type: string
-                                shodan-query:
-                                  type: string
-                                fofa-query:
-                                  type: string
-                                censys-query:
-                                  type: string
-                                publicwww-query:
-                                  type: string
-                                google-query:
-                                  type: string
-                        type:
-                          type: string
-                        host:
-                          type: string
-                        request:
-                          type: string
-                        response:
-                          type: string
-                        timestamp:
-                          type: string
-                        matcher-status:
-                          type: boolean
-                        matched-line:
-                          type: array
-                          items:
-                            type: integer
-                        ip:
-                          type: string
-                        matched-at:
-                          type: string
-                        curl-command:
-                          type: string
-                        matcher-name:
-                          type: string
-                        extracted-results:
-                          type: string
-                        template-url:
-                          type: string
-                        template-path:
-                          type: string
-                        extractor-name:
-                          type: string
-                        path:
-                          type: string
+                $ref: '#/components/schemas/VulnerabilityResults'
             required:
-            - message
-            - results
+              - message
+              - results
     GetScansStatusResponse:
       description: Example response
       content:
@@ -1602,81 +2962,10 @@ components:
               data:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    scan_id:
-                      type: string
-                    status:
-                      type: string
-                    scan_time_elapsed:
-                      type: string
-                    progress:
-                      type: integer
-                    failure_reason:
-                      type: string
-                    created_at:
-                      type: string
-                    total_target:
-                      type: integer
-                    total_scan:
-                      type: integer
-                    severity:
-                      type: object
-                      properties:
-                        info:
-                          type:
-                          - string
-                          - integer
-                        critical:
-                          type:
-                          - integer
-                          - string
-                        medium:
-                          type:
-                          - string
-                          - integer
-                        low:
-                          type:
-                          - string
-                          - integer
-                        high:
-                          type:
-                          - string
-                          - integer
-                        unknown:
-                          type:
-                          - string
-                          - integer
-                    total_template:
-                      type: integer
-                    updated_at:
-                      type: string
-                    name:
-                      type: string
-                    completed_at:
-                      type: string
-                    is_oss:
-                      type: string
-                    is_cloud:
-                      type: string
-                    scan_frequency:
-                      enum:
-                      - daily
-                      - weekly
-                      - monthly
-                    schedule_last_run:
-                      type: string
-                  required:
-                  - scan_id
-                  - status
-                  - progress
-                  - created_at
-                  - total_target
-                  - total_scan
-                  - total_template
-                  - name
+                  $ref: '#/components/schemas/ScanStatusItem'
             required:
-            - data
+              - message
+              - data
         application/xml:
           schema:
             type: object
@@ -1693,7 +2982,7 @@ components:
                     status:
                       type: string
             required:
-            - message
+              - message
     TriggerUserScanResponse:
       description: Example response
       content:
@@ -1706,7 +2995,7 @@ components:
               message:
                 type: string
             required:
-            - message
+              - message
         application/xml:
           schema:
             type: object
@@ -1724,7 +3013,7 @@ components:
               id:
                 type: string
             required:
-            - message
+              - message
         text/html:
           schema:
             type: object
@@ -1734,53 +3023,13 @@ components:
               id:
                 type: string
             required:
-            - message
+              - message
     GetScanDetailsResponse:
       description: Example response
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              message:
-                type: string
-              completed_at:
-                type: string
-              created_at:
-                type: string
-              progress:
-                type: integer
-              scan_id:
-                type: string
-              scan_time_elapsed:
-                type: string
-              status:
-                type: string
-              total_scan:
-                type: integer
-              total_template:
-                type: integer
-              total_target:
-                type: integer
-              is_oss:
-                type: string
-              is_cloud:
-                type: string
-              name:
-                type: string
-              severity:
-                type: object
-              failure_reason:
-                type: string
-            required:
-            - created_at
-            - progress
-            - scan_id
-            - status
-            - total_scan
-            - total_template
-            - total_target
-            - name
+            $ref: '#/components/schemas/ScanStatusItem'
     DeleteScansResponse:
       description: Example response
       content:
@@ -1793,7 +3042,7 @@ components:
               ok:
                 type: boolean
             required:
-            - message
+              - message
     GetScanResultsResponse:
       description: Example response
       content:
@@ -1806,147 +3055,7 @@ components:
               results:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    scan_id:
-                      type: string
-                    target:
-                      type: string
-                    template_encoded:
-                      type: string
-                    template_url:
-                      type: string
-                    template_path:
-                      type: string
-                    template_id:
-                      type: string
-                    vuln_id:
-                      type: string
-                    matcher_status:
-                      type: boolean
-                    created_at:
-                      type: string
-                    updated_at:
-                      type: string
-                    event:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          info:
-                            type: object
-                            properties:
-                              name:
-                                type: string
-                              author:
-                                type: array
-                                items:
-                                  type: array
-                                  items: {}
-                              tags:
-                                type: array
-                                items:
-                                  type: string
-                              severity:
-                                type: string
-                              reference:
-                                type: array
-                                items:
-                                  type: string
-                              description:
-                                type: string
-                              remediation:
-                                type: string
-                              metadata:
-                                type: object
-                                properties:
-                                  vendor:
-                                    type: string
-                                  product:
-                                    type: string
-                                  framework:
-                                    type: string
-                                  shodan-query:
-                                    type: string
-                                  censys-query:
-                                    type: string
-                                  publicwww-query:
-                                    type: string
-                                  google-query:
-                                    type: string
-                                  verified:
-                                    type: boolean
-                                  max-request:
-                                    type: integer
-                                  total-request:
-                                    type: integer
-                              classification:
-                                type: object
-                                properties:
-                                  cpe:
-                                    type: string
-                                  cve-id:
-                                    type: array
-                                    items:
-                                      type: string
-                                  cwe-id:
-                                    type: array
-                                    items:
-                                      type: string
-                                  cvss-score:
-                                    type: number
-                                  epss-score:
-                                    type: number
-                                  cvss-metrics:
-                                    type: string
-                                  epss-percentile:
-                                    type: number
-                          ip:
-                            type: string
-                          host:
-                            type: string
-                          type:
-                            type: string
-                          request:
-                            type: string
-                          response:
-                            type: string
-                          timestamp:
-                            type: string
-                          matched-at:
-                            type: string
-                          template-id:
-                            type: string
-                          matcher-status:
-                            type: boolean
-                          curl-command:
-                            type: string
-                          extracted-results:
-                            type: string
-                          template-url:
-                            type: string
-                          template-path:
-                            type: string
-                          matcher-name:
-                            type: string
-                          extractor-name:
-                            type: string
-                          path:
-                            type: string
-                          matched-line:
-                            type: array
-                            items:
-                              type: integer
-                    result_type:
-                      type: string
-                  required:
-                  - scan_id
-                  - target
-                  - vuln_id
-                  - matcher_status
-                  - created_at
-                  - event
-                  - result_type
+                  $ref: '#/components/schemas/VulnerabilityResults'
               stats:
                 type: object
                 properties:
@@ -1955,7 +3064,8 @@ components:
               filters:
                 type: object
             required:
-            - results
+              - message
+              - results
     PostRetestTemplateResponse:
       description: Example response
       content:
@@ -1966,282 +3076,15 @@ components:
               message:
                 type: string
               results:
-                type: object
-                properties:
-                  matcher_status:
-                    type: boolean
-                  retest_count:
-                    type: integer
-                  vuln_id:
-                    type: string
-                  target:
-                    type: string
-                  template_url:
-                    type: string
-                  created_at:
-                    type: string
-                  updated_at:
-                    type: string
-                  event:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        host:
-                          type: string
-                        Info:
-                          type: object
-                          properties:
-                            name:
-                              type: string
-                            author:
-                              type: array
-                              items:
-                                type: string
-                            tags:
-                              type: array
-                              items:
-                                type: string
-                            severity:
-                              type: string
-                            reference:
-                              type: array
-                              items:
-                                type: string
-                            description:
-                              type: string
-                            remediation:
-                              type: string
-                            impact:
-                              type: string
-                            metadata:
-                              type: object
-                              properties:
-                                vendor:
-                                  type: string
-                                product:
-                                  type: string
-                                max-request:
-                                  type: integer
-                                total-request:
-                                  type: integer
-                                framework:
-                                  type: string
-                                shodan-query:
-                                  type: string
-                                fofa-query:
-                                  type: string
-                                censys-query:
-                                  type: string
-                                publicwww-query:
-                                  type: string
-                                google-query:
-                                  type: string
-                                verified:
-                                  type: boolean
-                            classification:
-                              type: object
-                              properties:
-                                cpe:
-                                  type: string
-                                cve-id:
-                                  type: array
-                                  items:
-                                    type: string
-                                cwe-id:
-                                  type: array
-                                  items:
-                                    type: string
-                                cvss-score:
-                                  type: number
-                                epss-score:
-                                  type: number
-                                cvss-metrics:
-                                  type: string
-                                epss-percentile:
-                                  type: number
-                        type:
-                          type: string
-                        request:
-                          type: string
-                        response:
-                          type: string
-                        timestamp:
-                          type: string
-                        template-id:
-                          type: string
-                        matcher-status:
-                          type: boolean
-                        ip:
-                          type: string
-                        matched-line:
-                          type: array
-                          items:
-                            type: integer
-                        matched-at:
-                          type: string
-                        curl-command:
-                          type: string
-                        matcher-name:
-                          type: string
-                        extracted-results:
-                          type: string
-                        template-url:
-                          type: string
-                        template-path:
-                          type: string
-                        extractor-name:
-                          type: string
-                        path:
-                          type: string
+                $ref: '#/components/schemas/VulnerabilityResults'
+            required:
+              - message
     GetScansVulnIdResponse:
-      description: /scans/vuln/:vuln_id
+      description: '/scans/vuln/:vuln_id'
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              scan_id:
-                type: string
-              target:
-                type: string
-              template_url:
-                type: string
-              vuln_id:
-                type: string
-              matcher_status:
-                type: boolean
-              created_at:
-                type: string
-              updated_at:
-                type: string
-              event:
-                type: object
-                properties:
-                  ip:
-                    type: string
-                  host:
-                    type: string
-                  Info:
-                    type: object
-                    properties:
-                      name:
-                        type: string
-                      author:
-                        type: array
-                        items:
-                          type: string
-                      tags:
-                        type: array
-                        items:
-                          type: string
-                      severity:
-                        type: string
-                      metadata:
-                        type: object
-                        properties:
-                          max-request:
-                            type: integer
-                          vendor:
-                            type: string
-                          product:
-                            type: string
-                          framework:
-                            type: string
-                          shodan-query:
-                            type: string
-                          fofa-query:
-                            type: string
-                          censys-query:
-                            type: string
-                          publicwww-query:
-                            type: string
-                          google-query:
-                            type: string
-                          verified:
-                            type: string
-                          total-request:
-                            type: integer
-                      classification:
-                        type: object
-                        properties:
-                          cpe:
-                            type: string
-                          cve-id:
-                            type: array
-                            items:
-                              type: string
-                          cwe-id:
-                            type: array
-                            items:
-                              type: string
-                          cvss-score:
-                            type: number
-                          epss-score:
-                            type: number
-                          epss-percentile:
-                            type: number
-                          cvss-metrics:
-                            type: string
-                      reference:
-                        type: array
-                        items:
-                          type: string
-                      description:
-                        type: string
-                      remediation:
-                        type: string
-                      impact:
-                        type: string
-                    required:
-                    - name
-                  type:
-                    type: string
-                  request:
-                    type: string
-                  response:
-                    type: string
-                  timestamp:
-                    type: string
-                  matched-at:
-                    type: string
-                  template-id:
-                    type: string
-                  curl-command:
-                    type: string
-                  matcher-status:
-                    type: boolean
-                  matcher-name:
-                    type: string
-                  extracted-results:
-                    type: array
-                    items:
-                      type: string
-                  template-url:
-                    type: string
-                  template-path:
-                    type: string
-                  extractor-name:
-                    type: string
-                  path:
-                    type: string
-                  matched-line:
-                    type: array
-                    items:
-                      type: integer
-                required:
-                - timestamp
-                - template-id
-              template_encoded:
-                type: string
-              template_path:
-                type: string
-            required:
-            - scan_id
-            - target
-            - vuln_id
-            - matcher_status
-            - created_at
+            $ref: '#/components/schemas/VulnerabilityResultsOld'
     ImportScanResponse:
       description: ''
       content:
@@ -2255,8 +3098,8 @@ components:
               message:
                 type: string
             required:
-            - id
-            - message
+              - id
+              - message
     GetAssetsListResponse:
       description: Example response
       content:
@@ -2269,23 +3112,10 @@ components:
               data:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    asset_count:
-                      type: integer
-                    asset_id:
-                      type: string
-                    uploaded_at:
-                      type: string
-                    name:
-                      type: string
-                  required:
-                  - asset_count
-                  - asset_id
-                  - uploaded_at
+                  $ref: '#/components/schemas/AssetListItem'
             required:
-            - message
-            - data
+              - message
+              - data
     UploadAssetResponse:
       description: Example response
       content:
@@ -2301,8 +3131,10 @@ components:
                 type: string
               uploaded_at:
                 type: string
+              name:
+                type: string
             required:
-            - message
+              - message
     GetUserAssetResponse:
       description: Example response
       content:
@@ -2318,8 +3150,10 @@ components:
                 type: string
               uploaded_at:
                 type: string
+              name:
+                type: string
             required:
-            - message
+              - message
     DeleteAssetResponse:
       description: Example response
       content:
@@ -2330,7 +3164,7 @@ components:
               message:
                 type: string
             required:
-            - message
+              - message
     GetUserAPIKeyResponse:
       description: Example response
       content:
@@ -2342,10 +3176,9 @@ components:
                 type: string
               api_key:
                 type: string
-                format: uuid
             required:
-            - message
-            - api_key
+              - message
+              - api_key
     DeleteUserAPIKeyResponse:
       description: Example response
       content:
@@ -2356,7 +3189,7 @@ components:
               message:
                 type: string
             required:
-            - message
+              - message
     GetScanResultsFiltersResponse:
       description: Example response
       content:
@@ -2369,18 +3202,13 @@ components:
               data:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    value:
-                      type: string
-                    count:
-                      type: string
-                  required:
-                  - value
-                  - count
+                  $ref: '#/components/schemas/FiltersItem'
+              new_matched:
+                type: integer
             required:
-            - message
-            - data
+              - message
+              - data
+              - new_matched
     GetScanResultStatsResponse:
       description: Example response
       content:
@@ -2391,26 +3219,9 @@ components:
               message:
                 type: string
               stats:
-                type: object
-                properties:
-                  cves:
-                    type: integer
-                  matched:
-                    type: integer
-                  not_matched:
-                    type: integer
-                  severity:
-                    type: object
-                  total_count:
-                    type: integer
-                  total_target:
-                    type: integer
-                  total_scan:
-                    type: integer
-                  total_template:
-                    type: integer
+                $ref: '#/components/schemas/ScanStats'
             required:
-            - message
+              - message
     SetScanScheduleResponse:
       description: Example response
       content:
@@ -2420,29 +3231,24 @@ components:
             properties:
               message:
                 type: string
+            required:
+              - message
     GetScanScheduleResponse:
       description: Example response
       content:
         application/json:
           schema:
-            type: array
-            items:
-              type: object
-              properties:
-                scan_frequency:
-                  enum:
-                  - every_2_minutes
-                  - daily
-                  - weekly
-                  - monthly
-                scan_id:
-                  type: string
-                schedule_last_run:
-                  type: string
-              required:
-              - scan_frequency
-              - scan_id
-              - schedule_last_run
+            type: object
+            properties:
+              message:
+                type: string
+              schedules:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ScanSchedule'
+            required:
+              - message
+              - schedules
     PatchAssetContentResponse:
       description: Example response
       content:
@@ -2455,7 +3261,7 @@ components:
               update_status:
                 type: string
             required:
-            - message
+              - message
     GetUserTemplateListResponse:
       description: Example response
       content:
@@ -2466,26 +3272,12 @@ components:
               data:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                    id:
-                      type: string
-                    created_at:
-                      type: string
-                    updated_at:
-                      type: string
-                    shared_publicly:
-                      type: boolean
-                  required:
-                  - name
-                  - id
-                  - created_at
+                  $ref: '#/components/schemas/templateListItem'
               message:
                 type: string
             required:
-            - message
+              - data
+              - message
     GetShareStatusResponse:
       description: Example response
       content:
@@ -2500,7 +3292,291 @@ components:
               message:
                 type: string
             required:
-            - message
+              - message
+    DeleteScanScheduleResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+            required:
+              - message
+    PostApiKeyRotateResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              api_key:
+                type: string
+            required:
+              - message
+              - api_key
+    MessageResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+            required:
+              - message
+    PatchUserProfileResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              ai_status:
+                type: boolean
+              scan_status:
+                type: boolean
+              static_scan:
+                type: boolean
+              early_template:
+                type: boolean
+            required:
+              - message
+    PostCreateUserResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              ai_status:
+                type: boolean
+              scan_status:
+                type: boolean
+              static_scan:
+                type: boolean
+              early_template:
+                type: boolean
+              user_id:
+                type: integer
+              name:
+                type: string
+              email:
+                type: string
+              role:
+                type: string
+            required:
+              - message
+    PostRescanVulnResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              results:
+                $ref: '#/components/schemas/VulnerabilityResultsOld'
+            required:
+              - message
+    GetEarlyTempateList:
+      description: Early Template Response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              version:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EarlyTemplateListItem'
+            required:
+              - version
+              - data
+    UpdateTeamResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              message:
+                type: string
+            required:
+              - message
+    GetTeamResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              message:
+                type: string
+            required:
+              - message
+    GetTeamMembersResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              members:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TeamMemberItem'
+            required:
+              - message
+              - members
+    StaticScanIPsResponse:
+      description: ''
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - ips
+            properties:
+              ips:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - ip
+                  properties:
+                    ip:
+                      type: string
+    GetEnumerateIdContents:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EnumerationContent'
+            required:
+              - message
+              - data
+    GetEnumerateIdContentsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              data:
+                $ref: '#/components/schemas/EnumerationContent'
+            required:
+              - message
+              - data
+    GetEnumerationScheduleResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - message
+              - schedules
+            properties:
+              message:
+                type: string
+              schedules:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EnumerationSchedule'
+    VerifyConfigResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - ok
+              - response
+            properties:
+              ok:
+                type: boolean
+              response:
+                type: string
+    ScanStatsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - scan_stats
+              - scan_status
+            properties:
+              scan_stats:
+                type: object
+                x-stoplight:
+                  id: cz2cn0f0j8fnm
+                required:
+                  - total_scan
+                  - total_unique_scan
+                  - total_uploaded_scan
+                  - total_scheduled_scan
+                properties:
+                  total_scan:
+                    type: integer
+                  total_unique_scan:
+                    type: integer
+                  total_uploaded_scan:
+                    type: integer
+                  total_scheduled_scan:
+                    type: integer
+              scan_status:
+                type: object
+                required:
+                  - failed
+                  - finished
+                  - queued
+                  - running
+                  - starting
+                  - stopped
+                  - uploaded
+                properties:
+                  failed:
+                    type: integer
+                  finished:
+                    type: integer
+                  queued:
+                    type: integer
+                  running:
+                    type: integer
+                  starting:
+                    type: integer
+                  stopped:
+                    type: integer
+                  uploaded:
+                    type: integer
   parameters:
     template_id:
       name: template_id
@@ -2530,8 +3606,8 @@ components:
               prompt:
                 type: string
             required:
-            - template
-            - template_id
+              - template
+              - template_id
     CreateTemplateRequest:
       content:
         application/json:
@@ -2549,7 +3625,7 @@ components:
               prompt:
                 type: string
             required:
-            - prompt
+              - prompt
     RetestTemplateRequest:
       content:
         application/json:
@@ -2568,6 +3644,9 @@ components:
                 type: string
               vuln_id:
                 type: string
+            required:
+              - target
+              - vuln_id
     ShareTemplateRequest:
       content:
         application/json:
@@ -2578,6 +3657,9 @@ components:
                 type: string
               is_public:
                 type: boolean
+            required:
+              - template_id
+              - is_public
     TriggerUserScanRequest:
       content:
         application/json:
@@ -2599,61 +3681,59 @@ components:
               private_templates:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                    contents:
-                      type: string
-              scan_id:
-                type: string
+                  $ref: '#/components/schemas/PrivateTemplates'
               name:
                 type: string
               recommended:
                 type: boolean
               all:
                 type: boolean
+              alerting_config_ids:
+                type: array
+                items:
+                  type: string
+              scan_config_ids:
+                type: array
+                items:
+                  type: string
+              reporting_config_ids:
+                type: array
+                items:
+                  type: string
+              early_templates:
+                type: array
+                items:
+                  type: string
+              enumeration_ids:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EnumerationIds'
     SetScanScheduleRequest:
       content:
         application/json:
           schema:
             type: object
             properties:
-              targets:
-                type: array
-                items:
-                  type: string
-              templates:
-                type: array
-                items:
-                  type: string
-              assets:
-                type: array
-                items:
-                  type: string
-              private_templates:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                    contents:
-                      type: string
               scan_id:
                 type: string
               scan_frequency:
-                enum:
-                - daily
-                - monthly
-                - weekly
-              recommended:
-                type: boolean
-              all:
-                type: boolean
+                type: string
             required:
-            - scan_frequency
-      description: ''
+              - scan_id
+              - scan_frequency
+    SetEnumerationScheduleRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - enumeration_id
+              - scan_frequency
+            properties:
+              enumeration_id:
+                type: string
+              scan_frequency:
+                type: string
     UpdateAssetRequest:
       content:
         application/json:
@@ -2663,7 +3743,7 @@ components:
               name:
                 type: string
             required:
-            - name
+              - name
     UpdateScanRequest:
       content:
         application/json:
@@ -2673,7 +3753,7 @@ components:
               name:
                 type: string
             required:
-            - name
+              - name
     PostFeedbackRequest:
       content:
         application/json:
@@ -2683,7 +3763,107 @@ components:
               feedback_text:
                 type: string
             required:
-            - feedback_text
+              - feedback_text
+    PatchUserProfile:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              ai_status:
+                type: boolean
+              scan_status:
+                type: boolean
+              static_scan:
+                type: boolean
+              early_template:
+                type: boolean
+            required:
+              - email
+    CreateTeamRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+            required:
+              - name
+    AddTeamMemberRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+            required:
+              - email
+    DeleteTeamMemberRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+            required:
+              - email
+    InviteTeamMemberRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              invite_code:
+                type: string
+            required:
+              - invite_code
+    AdminAddTeamMemberRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              owner_email:
+                type: string
+              member_email:
+                type: string
+            required:
+              - owner_email
+              - member_email
+    PatchScanVulnsRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              vuln_ids:
+                type: array
+                items:
+                  type: string
+              vuln_status:
+                $ref: '#/components/schemas/VulnStatusEnum'
+              type:
+                type: string
+            required:
+              - vuln_ids
+              - vuln_status
+    VerifyConfigRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - config
+            properties:
+              config:
+                type: string
+              config_type:
+                type: string
 x-internal: false
 security:
-- X-API-Key: []
+  - X-API-Key: []
