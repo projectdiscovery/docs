@@ -10,7 +10,7 @@ In this section we'll walk through the steps you need to run a scan in [Nuclei](
 
 ## Run a Scan
 
-From a terminal window with your Nuclei installation, run a scan.
+To run a scan, from a terminal window with your Nuclei installation, use the `nuclei -target` or `nuclei -u` option to designate a target/host. 
 
 **For example, a command might look like:**
 
@@ -20,7 +20,7 @@ nuclei -target http://honey.scanme.sh -cloud-upload
 
  - This example uses a sample site from ProjectDiscovery (http://honey.scanme.sh) 
  - The `-cloud-upload` flag is required to share results with PDCP
- - You can run this command against any URL you want (where you have the appropriate permissions)
+ - You can run this command against any URL you want (with appropriate permissions)
  - To reduce or narrow the scan results you can select a specific template folder for your scan
     - For example `nuclei -u http://buffer.com -t dns/ -cloud-upload` 
 
@@ -65,8 +65,24 @@ After the scan is complete a URL will display on the command line interface. Vis
 
 Your scan results will also be available in the Scan tab of PDCP with a generic system generated name. You can rename the scan to identify it later.
 
-The scan "results" tab shows the scan results for all scans. 
+After more than one scan "results" tab shows the scan results for all scans in your PDCP environment.
 
 <Warning>
 Nuclei scans connected and uploaded to PDCP are scheduled for automatic cleanup after 30 days. This duration is subject to change as we gauge user feedback and requirements.
 </Warning>
+
+## Features
+
+### Scans
+Scans offer the ability to:
+ - View a list of all scans in your PDCP install. 
+ - View details of an individual scan.
+   - Sort for severity or status, export scan details, change status, search results.
+   
+### Templates
+Templates include our [Template Editor](/cloud/editor/introductin) to write your own custom templates. 
+
+- Experiment with using our [AI Assitance](/cloud/editor/ai) to create custom templates. 
+- Share your custom templates 
+
+Learn more about our [Templates](/templates/introduction).
