@@ -102,6 +102,12 @@
           "pages": ["tools/subfinder/overview", "tools/subfinder/install", "tools/subfinder/usage","tools/subfinder/running"]
         },
         {
+          "group": "dnsx",
+          "icon": "tags",
+          "iconType": "duotone",
+          "pages": ["tools/dnsx/overview", "tools/dnsx/install", "tools/dnsx/usage","tools/dnsx/running"]
+        },
+        {
           "group": "httpx",
           "icon": "browser",
           "iconType": "duotone",
