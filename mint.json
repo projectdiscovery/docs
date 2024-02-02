@@ -102,6 +102,12 @@
           "pages": ["tools/subfinder/overview", "tools/subfinder/install", "tools/subfinder/usage","tools/subfinder/running"]
         },
         {
+          "group": "Cloudlist",
+          "icon": "cloud",
+          "iconType": "duotone",
+          "pages": ["tools/cloudlist/overview", "tools/cloudlist/install", "tools/cloudlist/usage","tools/cloudlist/running"]
+        },
+        {
           "group": "dnsx",
           "icon": "tags",
           "iconType": "duotone",
