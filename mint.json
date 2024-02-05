@@ -11,6 +11,9 @@
   "analytics": {
     "fathom": {
       "siteId": "ICPEDSUC"
+    },
+    "posthog": {
+      "apiKey": "phc_qgncJdQ3xs8FggnVsWkFokoej0Kk12czhKuArgNDMlQ"
     }
   },
   "openapi": "openapi.yaml",
@@ -78,7 +81,11 @@
     },
     {
       "group": "Get Started",
-      "pages": ["getstarted-overview", "getstarted-example", "getstarted-nextsteps"]
+      "pages": [
+        "getstarted-overview",
+        "getstarted-example",
+        "getstarted-nextsteps"
+      ]
     },
     {
       "group": "Tools",
@@ -99,44 +106,74 @@
           "group": "Subfinder",
           "icon": "radar",
           "iconType": "duotone",
-          "pages": ["tools/subfinder/overview", "tools/subfinder/install", "tools/subfinder/usage","tools/subfinder/running"]
+          "pages": [
+            "tools/subfinder/overview",
+            "tools/subfinder/install",
+            "tools/subfinder/usage",
+            "tools/subfinder/running"
+          ]
         },
         {
           "group": "Cloudlist",
           "icon": "cloud",
           "iconType": "duotone",
-          "pages": ["tools/cloudlist/overview", "tools/cloudlist/install", "tools/cloudlist/usage","tools/cloudlist/running"]
+          "pages": [
+            "tools/cloudlist/overview",
+            "tools/cloudlist/install",
+            "tools/cloudlist/usage",
+            "tools/cloudlist/running"
+          ]
         },
         {
           "group": "dnsx",
           "icon": "tags",
           "iconType": "duotone",
-          "pages": ["tools/dnsx/overview", "tools/dnsx/install", "tools/dnsx/usage","tools/dnsx/running"]
+          "pages": [
+            "tools/dnsx/overview",
+            "tools/dnsx/install",
+            "tools/dnsx/usage",
+            "tools/dnsx/running"
+          ]
         },
         {
           "group": "httpx",
           "icon": "browser",
           "iconType": "duotone",
-          "pages": ["tools/httpx/overview", "tools/httpx/install", "tools/httpx/usage", "tools/httpx/running"]
+          "pages": [
+            "tools/httpx/overview",
+            "tools/httpx/install",
+            "tools/httpx/usage",
+            "tools/httpx/running"
+          ]
         },
         {
           "group": "Katana",
           "icon": "sword",
           "iconType": "duotone",
-          "pages": ["tools/katana/overview", "tools/katana/install", "tools/katana/usage","tools/katana/running"]
+          "pages": [
+            "tools/katana/overview",
+            "tools/katana/install",
+            "tools/katana/usage",
+            "tools/katana/running"
+          ]
         },
         {
           "group": "cvemap",
           "icon": "signs-post",
           "iconType": "solid",
-          "pages": ["tools/cvemap/overview", "tools/cvemap/install", "tools/cvemap/usage","tools/cvemap/running"]
+          "pages": [
+            "tools/cvemap/overview",
+            "tools/cvemap/install",
+            "tools/cvemap/usage",
+            "tools/cvemap/running"
+          ]
         }
       ]
     },
     {
       "group": "Templates",
       "pages": [
-        "templates/introduction", 
+        "templates/introduction",
         "templates/structure",
         "templates/faq"
       ]
@@ -239,7 +276,13 @@
     },
     {
       "group": "PDCP Free User Guide",
-      "pages": ["cloud/free/overview", "cloud/free/nuclei-setup", "cloud/free/pdcp-setup", "cloud/free/scan", "cloud/free/advanced"]
+      "pages": [
+        "cloud/free/overview",
+        "cloud/free/nuclei-setup",
+        "cloud/free/pdcp-setup",
+        "cloud/free/scan",
+        "cloud/free/advanced"
+      ]
     },
     {
       "group": "Template Editor",
@@ -346,9 +389,9 @@
     "discord": "https://discord.com/invite/projectdiscovery",
     "linkedin": "https://www.linkedin.com/company/projectdiscovery",
     "youtube": "https://www.youtube.com/@projectdiscovery"
-   },
-   "feedback":{
-      "thumbsRating":true,
-      "suggestEdit":true
-   }
+  },
+  "feedback": {
+    "thumbsRating": true,
+    "suggestEdit": true
+  }
 }
