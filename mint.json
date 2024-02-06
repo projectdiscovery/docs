@@ -125,6 +125,28 @@
           ]
         },
         {
+          "group": "Naabu",
+          "icon": "person-to-portal",
+          "iconType": "duotone",
+          "pages": [
+            "tools/naabu/overview",
+            "tools/naabu/install",
+            "tools/naabu/usage",
+            "tools/naabu/running"
+          ]
+        },
+        {
+          "group": "Katana",
+          "icon": "sword",
+          "iconType": "duotone",
+          "pages": [
+            "tools/katana/overview",
+            "tools/katana/install",
+            "tools/katana/usage",
+            "tools/katana/running"
+          ]
+        },
+        {
           "group": "dnsx",
           "icon": "tags",
           "iconType": "duotone",
@@ -144,17 +166,6 @@
             "tools/httpx/install",
             "tools/httpx/usage",
             "tools/httpx/running"
-          ]
-        },
-        {
-          "group": "Katana",
-          "icon": "sword",
-          "iconType": "duotone",
-          "pages": [
-            "tools/katana/overview",
-            "tools/katana/install",
-            "tools/katana/usage",
-            "tools/katana/running"
           ]
         },
         {
