@@ -1,0 +1,30 @@
+# Interface: IKENonce
+
+[ikev2](/templates/protocols/javascript/modules/ikev2).IKENonce
+
+IKENonce is the IKEv2 Nonce payload
+this implements the IKEPayload interface
+
+**`Example`**
+
+```javascript
+const ikev2 = require('nuclei/ikev2');
+const nonce = new ikev2.IKENonce();
+nonce.NonceData = [1, 2, 3];
+```
+
+## Table of contents
+
+### Properties
+
+- [NonceData](/templates/protocols/javascript/modules/ikev2.IKENonce#noncedata)
+
+## Properties
+
+### NonceData
+
+• `Optional` **NonceData**: `Uint8Array`
+
+#### Defined in
+
+ikev2.ts:103

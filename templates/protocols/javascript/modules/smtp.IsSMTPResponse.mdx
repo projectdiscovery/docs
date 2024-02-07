@@ -1,0 +1,40 @@
+# Interface: IsSMTPResponse
+
+[smtp](/templates/protocols/javascript/modules/smtp).IsSMTPResponse
+
+IsSMTPResponse is the response from the IsSMTP function.
+
+**`Example`**
+
+```javascript
+const smtp = require('nuclei/smtp');
+const isSMTP = smtp.IsSMTP('acme.com', 25);
+log(toJSON(isSMTP));
+```
+
+## Table of contents
+
+### Properties
+
+- [Banner](/templates/protocols/javascript/modules/smtp.IsSMTPResponse#banner)
+- [IsSMTP](/templates/protocols/javascript/modules/smtp.IsSMTPResponse#issmtp)
+
+## Properties
+
+### Banner
+
+• `Optional` **Banner**: `string`
+
+#### Defined in
+
+smtp.ts:189
+
+___
+
+### IsSMTP
+
+• `Optional` **IsSMTP**: `boolean`
+
+#### Defined in
+
+smtp.ts:187

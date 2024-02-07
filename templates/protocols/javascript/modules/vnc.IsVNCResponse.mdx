@@ -1,0 +1,40 @@
+# Interface: IsVNCResponse
+
+[vnc](/templates/protocols/javascript/modules/vnc).IsVNCResponse
+
+IsVNCResponse is the response from the IsVNC function.
+
+**`Example`**
+
+```javascript
+const vnc = require('nuclei/vnc');
+const isVNC = vnc.IsVNC('acme.com', 5900);
+log(toJSON(isVNC));
+```
+
+## Table of contents
+
+### Properties
+
+- [Banner](/templates/protocols/javascript/modules/vnc.IsVNCResponse#banner)
+- [IsVNC](/templates/protocols/javascript/modules/vnc.IsVNCResponse#isvnc)
+
+## Properties
+
+### Banner
+
+• `Optional` **Banner**: `string`
+
+#### Defined in
+
+vnc.ts:49
+
+___
+
+### IsVNC
+
+• `Optional` **IsVNC**: `boolean`
+
+#### Defined in
+
+vnc.ts:47

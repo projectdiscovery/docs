@@ -1,2 +1,4 @@
 .DS_Store
 ./nuclei/
+/static/docsbuilder/node_modules/
+/static/docsbuilder/src/

@@ -1,95 +1,153 @@
-<a name="module_fs"></a>
+# Namespace: fs
 
-## fs
+## Table of contents
 
-* [fs](#module_fs)
-    * [`ListDir(path, itemType)`](#module_fs..ListDir) ⇒ <code>Array.&lt;string&gt;</code>
-    * [`ReadFile(path)`](#module_fs..ReadFile) ⇒ <code>Uint8Array</code>
-    * [`ReadFileAsString(path)`](#module_fs..ReadFileAsString) ⇒ <code>string</code>
-    * [`ReadFilesFromDir(dir)`](#module_fs..ReadFilesFromDir) ⇒ <code>Array.&lt;string&gt;</code>
+### Functions
 
-<a name="module_fs..ListDir"></a>
+- [ListDir](/templates/protocols/javascript/modules/fs#listdir)
+- [ReadFile](/templates/protocols/javascript/modules/fs#readfile)
+- [ReadFileAsString](/templates/protocols/javascript/modules/fs#readfileasstring)
+- [ReadFilesFromDir](/templates/protocols/javascript/modules/fs#readfilesfromdir)
 
-### (fs).ListDir(path, itemType) ⇒ <code>Array.&lt;string&gt;</code>
-ListDir lists all files and directories within a path depending on the itemType provided. itemType can be any one of ['file','dir','all']
+## Functions
 
-**Kind**: inner method of [<code>fs</code>](#module_fs)  
-**Returns**: <code>Array.&lt;string&gt;</code> - - The list of files and directories.  
-**Throws**:
+### ListDir
 
-- <code>error</code> - The error encountered during listing.
+▸ **ListDir**(`path`, `itemType`): `string`[] \| ``null``
 
+ListDir lists itemType values within a directory
+depending on the itemType provided
+itemType can be any one of ['file','dir',”]
 
-| Param | Type | Description |
-| --- | --- | --- |
-| path | <code>string</code> | The path to list files and directories from. |
-| itemType | <code>string</code> | The type of items to list. Can be 'file', 'dir', or 'all'. |
+#### Parameters
 
-**Example**  
-```js
-let m = require('nuclei/fs'); 
-let items = m.ListDir('/tmp', 'all');
+| Name | Type |
+| :------ | :------ |
+| `path` | `string` |
+| `itemType` | `string` |
+
+#### Returns
+
+`string`[] \| ``null``
+
+**`Example`**
+
+```javascript
+const fs = require('nuclei/fs');
+// this will only return files in /tmp directory
+const files = fs.ListDir('/tmp', 'file');
 ```
-<a name="module_fs..ReadFile"></a>
 
-### (fs).ReadFile(path) ⇒ <code>Uint8Array</code>
+**`Example`**
+
+```javascript
+const fs = require('nuclei/fs');
+// this will only return directories in /tmp directory
+const dirs = fs.ListDir('/tmp', 'dir');
+```
+
+**`Example`**
+
+```javascript
+const fs = require('nuclei/fs');
+// when no itemType is provided, it will return both files and directories
+const items = fs.ListDir('/tmp');
+```
+
+#### Defined in
+
+fs.ts:26
+
+___
+
+### ReadFile
+
+▸ **ReadFile**(`path`): `Uint8Array` \| ``null``
+
 ReadFile reads file contents within permitted paths
+and returns content as byte array
 
-**Kind**: inner method of [<code>fs</code>](#module_fs)  
-**Returns**: <code>Uint8Array</code> - - The contents of the file.  
-**Throws**:
+#### Parameters
 
-- <code>error</code> - The error encountered during reading.
+| Name | Type |
+| :------ | :------ |
+| `path` | `string` |
 
+#### Returns
 
-| Param | Type | Description |
-| --- | --- | --- |
-| path | <code>string</code> | The path to the file to read. |
+`Uint8Array` \| ``null``
 
-**Example**  
-```js
-let m = require('nuclei/fs'); 
-let content = m.ReadFile('/tmp/myfile.txt');
+**`Example`**
+
+```javascript
+const fs = require('nuclei/fs');
+// here permitted directories are $HOME/nuclei-templates/*
+const content = fs.ReadFile('helpers/usernames.txt');
 ```
-<a name="module_fs..ReadFileAsString"></a>
 
-### (fs).ReadFileAsString(path) ⇒ <code>string</code>
-ReadFileAsString reads file contents within permitted paths and returns content as string
+#### Defined in
 
-**Kind**: inner method of [<code>fs</code>](#module_fs)  
-**Returns**: <code>string</code> - - The contents of the file as a string.  
-**Throws**:
+fs.ts:42
 
-- <code>error</code> - The error encountered during reading.
+___
 
+### ReadFileAsString
 
-| Param | Type | Description |
-| --- | --- | --- |
-| path | <code>string</code> | The path to the file to read. |
+▸ **ReadFileAsString**(`path`): `string` \| ``null``
 
-**Example**  
-```js
-let m = require('nuclei/fs'); 
-let content = m.ReadFileAsString('/tmp/myfile.txt');
+ReadFileAsString reads file contents within permitted paths
+and returns content as string
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `path` | `string` |
+
+#### Returns
+
+`string` \| ``null``
+
+**`Example`**
+
+```javascript
+const fs = require('nuclei/fs');
+// here permitted directories are $HOME/nuclei-templates/*
+const content = fs.ReadFileAsString('helpers/usernames.txt');
 ```
-<a name="module_fs..ReadFilesFromDir"></a>
 
-### (fs).ReadFilesFromDir(dir) ⇒ <code>Array.&lt;string&gt;</code>
-ReadFilesFromDir reads all files from a directory and returns a array with file contents of all files
+#### Defined in
 
-**Kind**: inner method of [<code>fs</code>](#module_fs)  
-**Returns**: <code>Array.&lt;string&gt;</code> - - The contents of all files in the directory.  
-**Throws**:
+fs.ts:58
 
-- <code>error</code> - The error encountered during reading.
+___
 
+### ReadFilesFromDir
 
-| Param | Type | Description |
-| --- | --- | --- |
-| dir | <code>string</code> | The directory to read files from. |
+▸ **ReadFilesFromDir**(`dir`): `string`[] \| ``null``
 
-**Example**  
-```js
-let m = require('nuclei/fs'); 
-let contentArray = m.ReadFilesFromDir('/tmp');
+ReadFilesFromDir reads all files from a directory
+and returns a string array with file contents of all files
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `dir` | `string` |
+
+#### Returns
+
+`string`[] \| ``null``
+
+**`Example`**
+
+```javascript
+const fs = require('nuclei/fs');
+// here permitted directories are $HOME/nuclei-templates/*
+const contents = fs.ReadFilesFromDir('helpers/ssh-keys');
+log(contents);
 ```
+
+#### Defined in
+
+fs.ts:75

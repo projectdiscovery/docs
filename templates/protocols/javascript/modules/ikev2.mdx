@@ -1,54 +1,103 @@
-<a name="module_ikev2"></a>
+# Namespace: ikev2
 
-## ikev2
+## Table of contents
 
-* [ikev2](#module_ikev2)
-    * [`IKEMessage`](#module_ikev2..IKEMessage)
-        * [`.AppendPayload(payload)`](#module_ikev2..IKEMessage+AppendPayload)
-        * [`.Encode()`](#module_ikev2..IKEMessage+Encode) ⇒ <code>Uint8Array</code>
+### Classes
 
-<a name="module_ikev2..IKEMessage"></a>
+- [IKEMessage](/templates/protocols/javascript/modules/ikev2.IKEMessage)
 
-### (ikev2).IKEMessage
-IKEMessage is the IKEv2 message. IKEv2 implements a limited subset of IKEv2 Protocol, specifically the IKE_NOTIFY and IKE_NONCE payloads and the IKE_SA_INIT exchange.
+### Interfaces
 
-**Kind**: inner class of [<code>ikev2</code>](#module_ikev2)  
+- [IKENonce](/templates/protocols/javascript/modules/ikev2.IKENonce)
+- [IKENotification](/templates/protocols/javascript/modules/ikev2.IKENotification)
 
-* [`IKEMessage`](#module_ikev2..IKEMessage)
-    * [`.AppendPayload(payload)`](#module_ikev2..IKEMessage+AppendPayload)
-    * [`.Encode()`](#module_ikev2..IKEMessage+Encode) ⇒ <code>Uint8Array</code>
+### Variables
 
-<a name="module_ikev2..IKEMessage+AppendPayload"></a>
+- [IKE\_EXCHANGE\_AUTH](/templates/protocols/javascript/modules/ikev2#ike_exchange_auth)
+- [IKE\_EXCHANGE\_CREATE\_CHILD\_SA](/templates/protocols/javascript/modules/ikev2#ike_exchange_create_child_sa)
+- [IKE\_EXCHANGE\_INFORMATIONAL](/templates/protocols/javascript/modules/ikev2#ike_exchange_informational)
+- [IKE\_EXCHANGE\_SA\_INIT](/templates/protocols/javascript/modules/ikev2#ike_exchange_sa_init)
+- [IKE\_FLAGS\_InitiatorBitCheck](/templates/protocols/javascript/modules/ikev2#ike_flags_initiatorbitcheck)
+- [IKE\_NOTIFY\_NO\_PROPOSAL\_CHOSEN](/templates/protocols/javascript/modules/ikev2#ike_notify_no_proposal_chosen)
+- [IKE\_NOTIFY\_USE\_TRANSPORT\_MODE](/templates/protocols/javascript/modules/ikev2#ike_notify_use_transport_mode)
+- [IKE\_VERSION\_2](/templates/protocols/javascript/modules/ikev2#ike_version_2)
 
-#### ikeMessage.AppendPayload(payload)
-AppendPayload appends a payload to the IKE message
+## Variables
 
-**Kind**: instance method of [<code>IKEMessage</code>](#module_ikev2..IKEMessage)  
+### IKE\_EXCHANGE\_AUTH
 
-| Param | Type | Description |
-| --- | --- | --- |
-| payload | <code>object</code> | The payload to append to the IKE message. |
+• `Const` **IKE\_EXCHANGE\_AUTH**: ``35``
 
-**Example**  
-```js
-let m = require('nuclei/ikev2');
-let ike = m.IKEMessage();
-ike.AppendPayload({data: 'test'});
-```
-<a name="module_ikev2..IKEMessage+Encode"></a>
+#### Defined in
 
-#### ikeMessage.Encode() ⇒ <code>Uint8Array</code>
-Encode encodes the final IKE message
+ikev2.ts:4
 
-**Kind**: instance method of [<code>IKEMessage</code>](#module_ikev2..IKEMessage)  
-**Returns**: <code>Uint8Array</code> - - The encoded IKE message.  
-**Throws**:
+___
 
-- <code>error</code> - The error encountered during encoding.
+### IKE\_EXCHANGE\_CREATE\_CHILD\_SA
 
-**Example**  
-```js
-let m = require('nuclei/ikev2');
-let ike = m.IKEMessage();
-let encoded = ike.Encode();
-```
+• `Const` **IKE\_EXCHANGE\_CREATE\_CHILD\_SA**: ``36``
+
+#### Defined in
+
+ikev2.ts:7
+
+___
+
+### IKE\_EXCHANGE\_INFORMATIONAL
+
+• `Const` **IKE\_EXCHANGE\_INFORMATIONAL**: ``37``
+
+#### Defined in
+
+ikev2.ts:10
+
+___
+
+### IKE\_EXCHANGE\_SA\_INIT
+
+• `Const` **IKE\_EXCHANGE\_SA\_INIT**: ``34``
+
+#### Defined in
+
+ikev2.ts:13
+
+___
+
+### IKE\_FLAGS\_InitiatorBitCheck
+
+• `Const` **IKE\_FLAGS\_InitiatorBitCheck**: ``8``
+
+#### Defined in
+
+ikev2.ts:16
+
+___
+
+### IKE\_NOTIFY\_NO\_PROPOSAL\_CHOSEN
+
+• `Const` **IKE\_NOTIFY\_NO\_PROPOSAL\_CHOSEN**: ``14``
+
+#### Defined in
+
+ikev2.ts:19
+
+___
+
+### IKE\_NOTIFY\_USE\_TRANSPORT\_MODE
+
+• `Const` **IKE\_NOTIFY\_USE\_TRANSPORT\_MODE**: ``16391``
+
+#### Defined in
+
+ikev2.ts:22
+
+___
+
+### IKE\_VERSION\_2
+
+• `Const` **IKE\_VERSION\_2**: ``32``
+
+#### Defined in
+
+ikev2.ts:25

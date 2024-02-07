@@ -236,8 +236,6 @@
               "pages": [
                 "templates/protocols/javascript/modules/bytes",
                 "templates/protocols/javascript/modules/fs",
-                "templates/protocols/javascript/modules/global",
-                "templates/protocols/javascript/modules/goconsole",
                 "templates/protocols/javascript/modules/ikev2",
                 "templates/protocols/javascript/modules/kerberos",
                 "templates/protocols/javascript/modules/ldap",

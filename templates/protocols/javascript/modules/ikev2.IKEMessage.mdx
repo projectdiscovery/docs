@@ -1,0 +1,139 @@
+# Class: IKEMessage
+
+[ikev2](/templates/protocols/javascript/modules/ikev2).IKEMessage
+
+IKEMessage is the IKEv2 message
+IKEv2 implements a limited subset of IKEv2 Protocol, specifically
+the IKE_NOTIFY and IKE_NONCE payloads and the IKE_SA_INIT exchange.
+
+## Table of contents
+
+### Constructors
+
+- [constructor](/templates/protocols/javascript/modules/ikev2.IKEMessage#constructor)
+
+### Properties
+
+- [ExchangeType](/templates/protocols/javascript/modules/ikev2.IKEMessage#exchangetype)
+- [Flags](/templates/protocols/javascript/modules/ikev2.IKEMessage#flags)
+- [InitiatorSPI](/templates/protocols/javascript/modules/ikev2.IKEMessage#initiatorspi)
+- [Version](/templates/protocols/javascript/modules/ikev2.IKEMessage#version)
+
+### Methods
+
+- [AppendPayload](/templates/protocols/javascript/modules/ikev2.IKEMessage#appendpayload)
+- [Encode](/templates/protocols/javascript/modules/ikev2.IKEMessage#encode)
+
+## Constructors
+
+### constructor
+
+• **new IKEMessage**(): [`IKEMessage`](/templates/protocols/javascript/modules/ikev2.IKEMessage)
+
+#### Returns
+
+[`IKEMessage`](/templates/protocols/javascript/modules/ikev2.IKEMessage)
+
+#### Defined in
+
+ikev2.ts:52
+
+## Properties
+
+### ExchangeType
+
+• `Optional` **ExchangeType**: `number`
+
+#### Defined in
+
+ikev2.ts:44
+
+___
+
+### Flags
+
+• `Optional` **Flags**: `number`
+
+#### Defined in
+
+ikev2.ts:48
+
+___
+
+### InitiatorSPI
+
+• `Optional` **InitiatorSPI**: `number`
+
+#### Defined in
+
+ikev2.ts:36
+
+___
+
+### Version
+
+• `Optional` **Version**: `number`
+
+#### Defined in
+
+ikev2.ts:40
+
+## Methods
+
+### AppendPayload
+
+▸ **AppendPayload**(`payload`): `void`
+
+AppendPayload appends a payload to the IKE message
+payload can be any of the payloads like IKENotification, IKENonce, etc.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `payload` | `any` |
+
+#### Returns
+
+`void`
+
+**`Example`**
+
+```javascript
+const ikev2 = require('nuclei/ikev2');
+const message = new ikev2.IKEMessage();
+const nonce = new ikev2.IKENonce();
+nonce.NonceData = [1, 2, 3];
+message.AppendPayload(nonce);
+```
+
+#### Defined in
+
+ikev2.ts:65
+
+___
+
+### Encode
+
+▸ **Encode**(): `Uint8Array`
+
+Encode encodes the final IKE message
+
+#### Returns
+
+`Uint8Array`
+
+**`Example`**
+
+```javascript
+const ikev2 = require('nuclei/ikev2');
+const message = new ikev2.IKEMessage();
+const nonce = new ikev2.IKENonce();
+nonce.NonceData = [1, 2, 3];
+message.AppendPayload(nonce);
+log(message.Encode());
+```
+
+#### Defined in
+
+ikev2.ts:82

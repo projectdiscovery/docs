@@ -1,0 +1,115 @@
+# Class: Config
+
+[kerberos](/templates/protocols/javascript/modules/kerberos).Config
+
+Config is extra configuration for the kerberos client
+
+## Table of contents
+
+### Constructors
+
+- [constructor](/templates/protocols/javascript/modules/kerberos.Config#constructor)
+
+### Properties
+
+- [LibDefaults](/templates/protocols/javascript/modules/kerberos.Config#libdefaults)
+- [Realms](/templates/protocols/javascript/modules/kerberos.Config#realms)
+
+### Methods
+
+- [SetIPAddress](/templates/protocols/javascript/modules/kerberos.Config#setipaddress)
+- [SetTimeout](/templates/protocols/javascript/modules/kerberos.Config#settimeout)
+
+## Constructors
+
+### constructor
+
+• **new Config**(): [`Config`](/templates/protocols/javascript/modules/kerberos.Config)
+
+#### Returns
+
+[`Config`](/templates/protocols/javascript/modules/kerberos.Config)
+
+#### Defined in
+
+kerberos.ts:153
+
+## Properties
+
+### LibDefaults
+
+• `Optional` **LibDefaults**: [`LibDefaults`](/templates/protocols/javascript/modules/kerberos.LibDefaults)
+
+#### Defined in
+
+kerberos.ts:227
+
+___
+
+### Realms
+
+• `Optional` **Realms**: [`Realm`](/templates/protocols/javascript/modules/kerberos.Realm)
+
+#### Defined in
+
+kerberos.ts:229
+
+## Methods
+
+### SetIPAddress
+
+▸ **SetIPAddress**(`ip`): [`Config`](/templates/protocols/javascript/modules/kerberos.Config)
+
+SetIPAddress sets the IP address for the kerberos client
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `ip` | `string` |
+
+#### Returns
+
+[`Config`](/templates/protocols/javascript/modules/kerberos.Config)
+
+**`Example`**
+
+```javascript
+const kerberos = require('nuclei/kerberos');
+const cfg = new kerberos.Config();
+cfg.SetIPAddress('10.10.10.1');
+```
+
+#### Defined in
+
+kerberos.ts:163
+
+___
+
+### SetTimeout
+
+▸ **SetTimeout**(`timeout`): [`Config`](/templates/protocols/javascript/modules/kerberos.Config)
+
+SetTimeout sets the RW timeout for the kerberos client
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `timeout` | `number` |
+
+#### Returns
+
+[`Config`](/templates/protocols/javascript/modules/kerberos.Config)
+
+**`Example`**
+
+```javascript
+const kerberos = require('nuclei/kerberos');
+const cfg = new kerberos.Config();
+cfg.SetTimeout(5);
+```
+
+#### Defined in
+
+kerberos.ts:177

@@ -1,0 +1,318 @@
+# Class: NetConn
+
+[net](/templates/protocols/javascript/modules/net).NetConn
+
+NetConn is a connection to a remote host.
+this is returned/create by Open and OpenTLS functions.
+
+**`Example`**
+
+```javascript
+const net = require('nuclei/net');
+const conn = net.Open('tcp', 'acme.com:80');
+```
+
+## Table of contents
+
+### Constructors
+
+- [constructor](/templates/protocols/javascript/modules/net.NetConn#constructor)
+
+### Methods
+
+- [Close](/templates/protocols/javascript/modules/net.NetConn#close)
+- [Recv](/templates/protocols/javascript/modules/net.NetConn#recv)
+- [RecvHex](/templates/protocols/javascript/modules/net.NetConn#recvhex)
+- [RecvPartial](/templates/protocols/javascript/modules/net.NetConn#recvpartial)
+- [RecvString](/templates/protocols/javascript/modules/net.NetConn#recvstring)
+- [Send](/templates/protocols/javascript/modules/net.NetConn#send)
+- [SendArray](/templates/protocols/javascript/modules/net.NetConn#sendarray)
+- [SendHex](/templates/protocols/javascript/modules/net.NetConn#sendhex)
+- [SetTimeout](/templates/protocols/javascript/modules/net.NetConn#settimeout)
+
+## Constructors
+
+### constructor
+
+• **new NetConn**(): [`NetConn`](/templates/protocols/javascript/modules/net.NetConn)
+
+#### Returns
+
+[`NetConn`](/templates/protocols/javascript/modules/net.NetConn)
+
+#### Defined in
+
+net.ts:46
+
+## Methods
+
+### Close
+
+▸ **Close**(): `void`
+
+Close closes the connection.
+
+#### Returns
+
+`void`
+
+**`Example`**
+
+```javascript
+const net = require('nuclei/net');
+const conn = net.Open('tcp', 'acme.com:80');
+conn.Close();
+```
+
+#### Defined in
+
+net.ts:56
+
+___
+
+### Recv
+
+▸ **Recv**(`N`): `Uint8Array`
+
+Recv receives data from the connection with a timeout.
+If N is 0, it will read all data sent by the server with 8MB limit.
+it tries to read until N bytes or timeout is reached.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `N` | `number` |
+
+#### Returns
+
+`Uint8Array`
+
+**`Example`**
+
+```javascript
+const net = require('nuclei/net');
+const conn = net.Open('tcp', 'acme.com:80');
+const data = conn.Recv(1024);
+```
+
+#### Defined in
+
+net.ts:128
+
+___
+
+### RecvHex
+
+▸ **RecvHex**(`N`): `string`
+
+RecvHex receives data from the connection with a timeout
+in hex format.
+If N is 0,it will read all data sent by the server with 8MB limit.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `N` | `number` |
+
+#### Returns
+
+`string`
+
+**`Example`**
+
+```javascript
+const net = require('nuclei/net');
+const conn = net.Open('tcp', 'acme.com:80');
+const data = conn.RecvHex(1024);
+```
+
+#### Defined in
+
+net.ts:177
+
+___
+
+### RecvPartial
+
+▸ **RecvPartial**(`N`): `Uint8Array`
+
+RecvPartial is similar to Recv but it does not perform full read instead
+it creates a buffer of N bytes and returns whatever is returned by the connection
+this is usually used when fingerprinting services to get initial bytes from the server.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `N` | `number` |
+
+#### Returns
+
+`Uint8Array`
+
+**`Example`**
+
+```javascript
+const net = require('nuclei/net');
+const conn = net.Open('tcp', 'acme.com:80');
+const data = conn.RecvPartial(1024);
+log(`Received ${data.length} bytes from the server`)
+```
+
+#### Defined in
+
+net.ts:145
+
+___
+
+### RecvString
+
+▸ **RecvString**(`N`): `string`
+
+RecvString receives data from the connection with a timeout
+output is returned as a string.
+If N is 0, it will read all data sent by the server with 8MB limit.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `N` | `number` |
+
+#### Returns
+
+`string`
+
+**`Example`**
+
+```javascript
+const net = require('nuclei/net');
+const conn = net.Open('tcp', 'acme.com:80');
+const data = conn.RecvString(1024);
+```
+
+#### Defined in
+
+net.ts:161
+
+___
+
+### Send
+
+▸ **Send**(`data`): `void`
+
+Send sends data to the connection with a timeout.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `data` | `string` |
+
+#### Returns
+
+`void`
+
+**`Example`**
+
+```javascript
+const net = require('nuclei/net');
+const conn = net.Open('tcp', 'acme.com:80');
+conn.Send('hello');
+```
+
+#### Defined in
+
+net.ts:112
+
+___
+
+### SendArray
+
+▸ **SendArray**(`data`): `void`
+
+SendArray sends array data to connection
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `data` | `any` |
+
+#### Returns
+
+`void`
+
+**`Example`**
+
+```javascript
+const net = require('nuclei/net');
+const conn = net.Open('tcp', 'acme.com:80');
+conn.SendArray(['hello', 'world']);
+```
+
+#### Defined in
+
+net.ts:84
+
+___
+
+### SendHex
+
+▸ **SendHex**(`data`): `void`
+
+SendHex sends hex data to connection
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `data` | `string` |
+
+#### Returns
+
+`void`
+
+**`Example`**
+
+```javascript
+const net = require('nuclei/net');
+const conn = net.Open('tcp', 'acme.com:80');
+conn.SendHex('68656c6c6f');
+```
+
+#### Defined in
+
+net.ts:98
+
+___
+
+### SetTimeout
+
+▸ **SetTimeout**(`value`): `void`
+
+SetTimeout sets read/write timeout for the connection (in seconds).
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `value` | `number` |
+
+#### Returns
+
+`void`
+
+**`Example`**
+
+```javascript
+const net = require('nuclei/net');
+const conn = net.Open('tcp', 'acme.com:80');
+conn.SetTimeout(10);
+```
+
+#### Defined in
+
+net.ts:70

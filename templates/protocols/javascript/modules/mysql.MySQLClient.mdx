@@ -1,0 +1,274 @@
+# Class: MySQLClient
+
+[mysql](/templates/protocols/javascript/modules/mysql).MySQLClient
+
+MySQLClient is a client for MySQL database.
+Internally client uses go-sql-driver/mysql driver.
+
+**`Example`**
+
+```javascript
+const mysql = require('nuclei/mysql');
+const client = new mysql.Client();
+```
+
+## Table of contents
+
+### Constructors
+
+- [constructor](/templates/protocols/javascript/modules/mysql.MySQLClient#constructor)
+
+### Methods
+
+- [Connect](/templates/protocols/javascript/modules/mysql.MySQLClient#connect)
+- [ConnectWithDSN](/templates/protocols/javascript/modules/mysql.MySQLClient#connectwithdsn)
+- [ExecuteQuery](/templates/protocols/javascript/modules/mysql.MySQLClient#executequery)
+- [ExecuteQueryOnDB](/templates/protocols/javascript/modules/mysql.MySQLClient#executequeryondb)
+- [ExecuteQueryWithOpts](/templates/protocols/javascript/modules/mysql.MySQLClient#executequerywithopts)
+- [FingerprintMySQL](/templates/protocols/javascript/modules/mysql.MySQLClient#fingerprintmysql)
+- [IsMySQL](/templates/protocols/javascript/modules/mysql.MySQLClient#ismysql)
+
+## Constructors
+
+### constructor
+
+• **new MySQLClient**(): [`MySQLClient`](/templates/protocols/javascript/modules/mysql.MySQLClient)
+
+#### Returns
+
+[`MySQLClient`](/templates/protocols/javascript/modules/mysql.MySQLClient)
+
+#### Defined in
+
+mysql.ts:33
+
+## Methods
+
+### Connect
+
+▸ **Connect**(`host`, `port`, `username`): `boolean`
+
+Connect connects to MySQL database using given credentials.
+If connection is successful, it returns true.
+If connection is unsuccessful, it returns false and error.
+The connection is closed after the function returns.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `host` | `string` |
+| `port` | `number` |
+| `username` | `string` |
+
+#### Returns
+
+`boolean`
+
+**`Example`**
+
+```javascript
+const mysql = require('nuclei/mysql');
+const client = new mysql.Client();
+const connected = client.Connect('acme.com', 3306, 'username', 'password');
+```
+
+#### Defined in
+
+mysql.ts:61
+
+___
+
+### ConnectWithDSN
+
+▸ **ConnectWithDSN**(`dsn`): `boolean`
+
+ConnectWithDSN connects to MySQL database using given DSN.
+we override mysql dialer with fastdialer so it respects network policy
+If connection is successful, it returns true.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `dsn` | `string` |
+
+#### Returns
+
+`boolean`
+
+**`Example`**
+
+```javascript
+const mysql = require('nuclei/mysql');
+const client = new mysql.Client();
+const connected = client.ConnectWithDSN('username:password@tcp(acme.com:3306)/');
+```
+
+#### Defined in
+
+mysql.ts:91
+
+___
+
+### ExecuteQuery
+
+▸ **ExecuteQuery**(`host`, `port`, `username`): [`SQLResult`](/templates/protocols/javascript/modules/mysql.SQLResult)
+
+ExecuteQuery connects to Mysql database using given credentials
+and executes a query on the db.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `host` | `string` |
+| `port` | `number` |
+| `username` | `string` |
+
+#### Returns
+
+[`SQLResult`](/templates/protocols/javascript/modules/mysql.SQLResult)
+
+**`Example`**
+
+```javascript
+const mysql = require('nuclei/mysql');
+const result = mysql.ExecuteQuery('acme.com', 3306, 'username', 'password', 'SELECT * FROM users');
+log(to_json(result));
+```
+
+#### Defined in
+
+mysql.ts:124
+
+___
+
+### ExecuteQueryOnDB
+
+▸ **ExecuteQueryOnDB**(`host`, `port`, `username`): [`SQLResult`](/templates/protocols/javascript/modules/mysql.SQLResult)
+
+ExecuteQuery connects to Mysql database using given credentials
+and executes a query on the db.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `host` | `string` |
+| `port` | `number` |
+| `username` | `string` |
+
+#### Returns
+
+[`SQLResult`](/templates/protocols/javascript/modules/mysql.SQLResult)
+
+**`Example`**
+
+```javascript
+const mysql = require('nuclei/mysql');
+const result = mysql.ExecuteQueryOnDB('acme.com', 3306, 'username', 'password', 'dbname', 'SELECT * FROM users');
+log(to_json(result));
+```
+
+#### Defined in
+
+mysql.ts:139
+
+___
+
+### ExecuteQueryWithOpts
+
+▸ **ExecuteQueryWithOpts**(`opts`, `query`): [`SQLResult`](/templates/protocols/javascript/modules/mysql.SQLResult)
+
+ExecuteQueryWithOpts connects to Mysql database using given credentials
+and executes a query on the db.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `opts` | [`MySQLOptions`](/templates/protocols/javascript/modules/mysql.MySQLOptions) |
+| `query` | `string` |
+
+#### Returns
+
+[`SQLResult`](/templates/protocols/javascript/modules/mysql.SQLResult)
+
+**`Example`**
+
+```javascript
+const mysql = require('nuclei/mysql');
+const options = new mysql.MySQLOptions();
+options.Host = 'acme.com';
+options.Port = 3306;
+const result = mysql.ExecuteQueryWithOpts(options, 'SELECT * FROM users');
+log(to_json(result));
+```
+
+#### Defined in
+
+mysql.ts:109
+
+___
+
+### FingerprintMySQL
+
+▸ **FingerprintMySQL**(`host`, `port`): [`MySQLInfo`](/templates/protocols/javascript/modules/mysql.MySQLInfo)
+
+returns MySQLInfo when fingerpint is successful
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `host` | `string` |
+| `port` | `number` |
+
+#### Returns
+
+[`MySQLInfo`](/templates/protocols/javascript/modules/mysql.MySQLInfo)
+
+**`Example`**
+
+```javascript
+const mysql = require('nuclei/mysql');
+const info = mysql.FingerprintMySQL('acme.com', 3306);
+log(to_json(info));
+```
+
+#### Defined in
+
+mysql.ts:75
+
+___
+
+### IsMySQL
+
+▸ **IsMySQL**(`host`, `port`): `boolean`
+
+IsMySQL checks if the given host is running MySQL database.
+If the host is running MySQL database, it returns true.
+If the host is not running MySQL database, it returns false.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `host` | `string` |
+| `port` | `number` |
+
+#### Returns
+
+`boolean`
+
+**`Example`**
+
+```javascript
+const mysql = require('nuclei/mysql');
+const isMySQL = mysql.IsMySQL('acme.com', 3306);
+```
+
+#### Defined in
+
+mysql.ts:44

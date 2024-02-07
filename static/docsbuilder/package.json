@@ -1,0 +1,35 @@
+{
+  "name": "nuclei",
+  "version": "1.0.0",
+  "description": "Nuclei Javascript protocol Modules",
+  "main": "index.js",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": "./index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "docs": "node_modules/typedoc/bin/typedoc --plugin typedoc-plugin-markdown --plugin typedoc-github-wiki-theme  --out docs --publicPath '/templates/protocols/javascript/modules/'  src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/projectdiscovery/nuclei-js-types.git"
+  },
+  "keywords": [
+    "nuclei",
+    "js",
+    "protocol",
+    "types"
+  ],
+  "author": "projectdiscovery",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/projectdiscovery/nuclei-js-types/issues"
+  },
+  "homepage": "https://github.com/projectdiscovery/nuclei-js-types#readme",
+  "devDependencies": {
+    "typedoc": "^0.25.7",
+    "typedoc-github-wiki-theme": "^1.1.0",
+    "typedoc-plugin-markdown": "^3.17.1"
+  }
+}

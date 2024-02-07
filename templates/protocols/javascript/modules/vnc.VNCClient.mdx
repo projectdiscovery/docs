@@ -1,0 +1,69 @@
+# Class: VNCClient
+
+[vnc](/templates/protocols/javascript/modules/vnc).VNCClient
+
+VNCClient is a minimal VNC client for nuclei scripts.
+
+**`Example`**
+
+```javascript
+const vnc = require('nuclei/vnc');
+const client = new vnc.Client();
+```
+
+## Table of contents
+
+### Constructors
+
+- [constructor](/templates/protocols/javascript/modules/vnc.VNCClient#constructor)
+
+### Methods
+
+- [IsVNC](/templates/protocols/javascript/modules/vnc.VNCClient#isvnc)
+
+## Constructors
+
+### constructor
+
+• **new VNCClient**(): [`VNCClient`](/templates/protocols/javascript/modules/vnc.VNCClient)
+
+#### Returns
+
+[`VNCClient`](/templates/protocols/javascript/modules/vnc.VNCClient)
+
+#### Defined in
+
+vnc.ts:15
+
+## Methods
+
+### IsVNC
+
+▸ **IsVNC**(`host`, `port`): [`IsVNCResponse`](/templates/protocols/javascript/modules/vnc.IsVNCResponse)
+
+IsVNC checks if a host is running a VNC server.
+It returns a boolean indicating if the host is running a VNC server
+and the banner of the VNC server.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `host` | `string` |
+| `port` | `number` |
+
+#### Returns
+
+[`IsVNCResponse`](/templates/protocols/javascript/modules/vnc.IsVNCResponse)
+
+**`Example`**
+
+```javascript
+const vnc = require('nuclei/vnc');
+const isVNC = vnc.IsVNC('acme.com', 5900);
+log(toJSON(isVNC));
+```
+
+#### Defined in
+
+vnc.ts:27

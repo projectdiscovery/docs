@@ -1,45 +1,166 @@
-<a name="module_kerberos"></a>
+# Namespace: kerberos
 
-## kerberos
+## Table of contents
 
-* [kerberos](#module_kerberos)
-    * [`KerberosClient`](#module_kerberos..KerberosClient)
-        * [`.EnumerateUser(domain, controller, username)`](#module_kerberos..KerberosClient+EnumerateUser) ⇒ <code>EnumerateUserResponse</code>
-    * [`EnumerateUserResponse`](#module_kerberos..EnumerateUserResponse) : <code>object</code>
+### Classes
 
-<a name="module_kerberos..KerberosClient"></a>
+- [Client](/templates/protocols/javascript/modules/kerberos.Client)
+- [Config](/templates/protocols/javascript/modules/kerberos.Config)
 
-### (kerberos).KerberosClient
-KerberosClient is a kerberos client
+### Interfaces
 
-**Kind**: inner class of [<code>kerberos</code>](#module_kerberos)  
-<a name="module_kerberos..KerberosClient+EnumerateUser"></a>
+- [AuthorizationDataEntry](/templates/protocols/javascript/modules/kerberos.AuthorizationDataEntry)
+- [BitString](/templates/protocols/javascript/modules/kerberos.BitString)
+- [EncTicketPart](/templates/protocols/javascript/modules/kerberos.EncTicketPart)
+- [EncryptedData](/templates/protocols/javascript/modules/kerberos.EncryptedData)
+- [EncryptionKey](/templates/protocols/javascript/modules/kerberos.EncryptionKey)
+- [EnumerateUserResponse](/templates/protocols/javascript/modules/kerberos.EnumerateUserResponse)
+- [HostAddress](/templates/protocols/javascript/modules/kerberos.HostAddress)
+- [LibDefaults](/templates/protocols/javascript/modules/kerberos.LibDefaults)
+- [PrincipalName](/templates/protocols/javascript/modules/kerberos.PrincipalName)
+- [Realm](/templates/protocols/javascript/modules/kerberos.Realm)
+- [TGS](/templates/protocols/javascript/modules/kerberos.TGS)
+- [Ticket](/templates/protocols/javascript/modules/kerberos.Ticket)
+- [TransitedEncoding](/templates/protocols/javascript/modules/kerberos.TransitedEncoding)
 
-#### kerberosClient.EnumerateUser(domain, controller, username) ⇒ <code>EnumerateUserResponse</code>
-EnumerateUser returns true if the user exists in the domain. If the user is not found, false is returned. If the user is found, true is returned. Optionally, the AS-REP hash is also returned if discovered.
+### Functions
 
-**Kind**: instance method of [<code>KerberosClient</code>](#module_kerberos..KerberosClient)  
-**Returns**: <code>EnumerateUserResponse</code> - - The response of the enumeration.  
-**Throws**:
+- [ASRepToHashcat](/templates/protocols/javascript/modules/kerberos#asreptohashcat)
+- [CheckKrbError](/templates/protocols/javascript/modules/kerberos#checkkrberror)
+- [NewKerberosClientFromString](/templates/protocols/javascript/modules/kerberos#newkerberosclientfromstring)
+- [SendToKDC](/templates/protocols/javascript/modules/kerberos#sendtokdc)
+- [TGStoHashcat](/templates/protocols/javascript/modules/kerberos#tgstohashcat)
 
-- <code>error</code> - The error encountered during enumeration.
+## Functions
 
+### ASRepToHashcat
 
-| Param | Type | Description |
-| --- | --- | --- |
-| domain | <code>string</code> | The domain to check. |
-| controller | <code>string</code> | The controller to use. |
-| username | <code>string</code> | The username to check. |
+▸ **ASRepToHashcat**(`asrep`): `string` \| ``null``
 
-**Example**  
-```js
-let m = require('nuclei/kerberos');
-let c = m.KerberosClient();
-let response = c.EnumerateUser('domain', 'controller', 'username');
+ASRepToHashcat converts an AS-REP message to a hashcat format
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `asrep` | `any` |
+
+#### Returns
+
+`string` \| ``null``
+
+#### Defined in
+
+kerberos.ts:6
+
+___
+
+### CheckKrbError
+
+▸ **CheckKrbError**(`b`): `Uint8Array` \| ``null``
+
+CheckKrbError checks if the response bytes from the KDC are a KRBError.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `b` | `Uint8Array` |
+
+#### Returns
+
+`Uint8Array` \| ``null``
+
+#### Defined in
+
+kerberos.ts:15
+
+___
+
+### NewKerberosClientFromString
+
+▸ **NewKerberosClientFromString**(`cfg`): [`Client`](/templates/protocols/javascript/modules/kerberos.Client) \| ``null``
+
+NewKerberosClientFromString creates a new kerberos client from a string
+by parsing krb5.conf
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `cfg` | `string` |
+
+#### Returns
+
+[`Client`](/templates/protocols/javascript/modules/kerberos.Client) \| ``null``
+
+**`Example`**
+
+```javascript
+const kerberos = require('nuclei/kerberos');
+const client = kerberos.NewKerberosClientFromString(`
+[libdefaults]
+default_realm = ACME.COM
+dns_lookup_kdc = true
+`);
 ```
-<a name="module_kerberos..EnumerateUserResponse"></a>
 
-### (kerberos).EnumerateUserResponse : <code>object</code>
-EnumerateUserResponse is the response object from the EnumerateUser method.
+#### Defined in
 
-**Kind**: inner typedef of [<code>kerberos</code>](#module_kerberos)  
+kerberos.ts:34
+
+___
+
+### SendToKDC
+
+▸ **SendToKDC**(`kclient`, `msg`): `string` \| ``null``
+
+sendtokdc.go deals with actual sending and receiving responses from KDC
+SendToKDC sends a message to the KDC and returns the response.
+It first tries to send the message over TCP, and if that fails, it falls back to UDP.(and vice versa)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `kclient` | [`Client`](/templates/protocols/javascript/modules/kerberos.Client) |
+| `msg` | `string` |
+
+#### Returns
+
+`string` \| ``null``
+
+**`Example`**
+
+```javascript
+const kerberos = require('nuclei/kerberos');
+const client = new kerberos.Client('acme.com');
+const response = kerberos.SendToKDC(client, 'message');
+```
+
+#### Defined in
+
+kerberos.ts:51
+
+___
+
+### TGStoHashcat
+
+▸ **TGStoHashcat**(`tgs`, `username`): `string` \| ``null``
+
+TGStoHashcat converts a TGS to a hashcat format.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `tgs` | `any` |
+| `username` | `string` |
+
+#### Returns
+
+`string` \| ``null``
+
+#### Defined in
+
+kerberos.ts:60

@@ -1,0 +1,243 @@
+# Class: SSHClient
+
+[ssh](/templates/protocols/javascript/modules/ssh).SSHClient
+
+SSHClient is a client for SSH servers.
+Internally client uses github.com/zmap/zgrab2/lib/ssh driver.
+
+**`Example`**
+
+```javascript
+const ssh = require('nuclei/ssh');
+const client = new ssh.Client();
+```
+
+## Table of contents
+
+### Constructors
+
+- [constructor](/templates/protocols/javascript/modules/ssh.SSHClient#constructor)
+
+### Methods
+
+- [Close](/templates/protocols/javascript/modules/ssh.SSHClient#close)
+- [Connect](/templates/protocols/javascript/modules/ssh.SSHClient#connect)
+- [ConnectSSHInfoMode](/templates/protocols/javascript/modules/ssh.SSHClient#connectsshinfomode)
+- [ConnectWithKey](/templates/protocols/javascript/modules/ssh.SSHClient#connectwithkey)
+- [Run](/templates/protocols/javascript/modules/ssh.SSHClient#run)
+- [SetTimeout](/templates/protocols/javascript/modules/ssh.SSHClient#settimeout)
+
+## Constructors
+
+### constructor
+
+• **new SSHClient**(): [`SSHClient`](/templates/protocols/javascript/modules/ssh.SSHClient)
+
+#### Returns
+
+[`SSHClient`](/templates/protocols/javascript/modules/ssh.SSHClient)
+
+#### Defined in
+
+ssh.ts:16
+
+## Methods
+
+### Close
+
+▸ **Close**(): `boolean`
+
+Close closes the SSH connection and destroys the client
+Returns the success state and error. If error is not nil,
+state will be false
+
+#### Returns
+
+`boolean`
+
+**`Example`**
+
+```javascript
+const ssh = require('nuclei/ssh');
+const client = new ssh.Client();
+client.Connect('acme.com', 22, 'username', 'password');
+const closed = client.Close();
+```
+
+#### Defined in
+
+ssh.ts:118
+
+___
+
+### Connect
+
+▸ **Connect**(`host`, `port`, `username`): `boolean`
+
+Connect tries to connect to provided host and port
+with provided username and password with ssh.
+Returns state of connection and error. If error is not nil,
+state will be false
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `host` | `string` |
+| `port` | `number` |
+| `username` | `string` |
+
+#### Returns
+
+`boolean`
+
+**`Example`**
+
+```javascript
+const ssh = require('nuclei/ssh');
+const client = new ssh.Client();
+const connected = client.Connect('acme.com', 22, 'username', 'password');
+```
+
+#### Defined in
+
+ssh.ts:43
+
+___
+
+### ConnectSSHInfoMode
+
+▸ **ConnectSSHInfoMode**(`host`, `port`): [`HandshakeLog`](/templates/protocols/javascript/modules/ssh.HandshakeLog)
+
+ConnectSSHInfoMode tries to connect to provided host and port
+with provided host and port
+Returns HandshakeLog and error. If error is not nil,
+state will be false
+HandshakeLog is a struct that contains information about the
+ssh connection
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `host` | `string` |
+| `port` | `number` |
+
+#### Returns
+
+[`HandshakeLog`](/templates/protocols/javascript/modules/ssh.HandshakeLog)
+
+**`Example`**
+
+```javascript
+const ssh = require('nuclei/ssh');
+const client = new ssh.Client();
+const info = client.ConnectSSHInfoMode('acme.com', 22);
+log(to_json(info));
+```
+
+#### Defined in
+
+ssh.ts:81
+
+___
+
+### ConnectWithKey
+
+▸ **ConnectWithKey**(`host`, `port`, `username`): `boolean`
+
+ConnectWithKey tries to connect to provided host and port
+with provided username and private_key.
+Returns state of connection and error. If error is not nil,
+state will be false
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `host` | `string` |
+| `port` | `number` |
+| `username` | `string` |
+
+#### Returns
+
+`boolean`
+
+**`Example`**
+
+```javascript
+const ssh = require('nuclei/ssh');
+const client = new ssh.Client();
+const privateKey = `-----BEGIN RSA PRIVATE KEY----- ...`;
+const connected = client.ConnectWithKey('acme.com', 22, 'username', privateKey);
+```
+
+#### Defined in
+
+ssh.ts:61
+
+___
+
+### Run
+
+▸ **Run**(`cmd`): `string`
+
+Run tries to open a new SSH session, then tries to execute
+the provided command in said session
+Returns string and error. If error is not nil,
+state will be false
+The string contains the command output
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `cmd` | `string` |
+
+#### Returns
+
+`string`
+
+**`Example`**
+
+```javascript
+const ssh = require('nuclei/ssh');
+const client = new ssh.Client();
+client.Connect('acme.com', 22, 'username', 'password');
+const output = client.Run('id');
+log(output);
+```
+
+#### Defined in
+
+ssh.ts:101
+
+___
+
+### SetTimeout
+
+▸ **SetTimeout**(`sec`): `void`
+
+SetTimeout sets the timeout for the SSH connection in seconds
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `sec` | `number` |
+
+#### Returns
+
+`void`
+
+**`Example`**
+
+```javascript
+const ssh = require('nuclei/ssh');
+const client = new ssh.Client();
+client.SetTimeout(10);
+```
+
+#### Defined in
+
+ssh.ts:26

@@ -1,0 +1,104 @@
+# Class: RDPClient
+
+[rdp](/templates/protocols/javascript/modules/rdp).RDPClient
+
+RDPClient is a minimal RDP client for nuclei scripts.
+
+**`Example`**
+
+```javascript
+const rdp = require('nuclei/rdp');
+const client = new rdp.Client();
+```
+
+## Table of contents
+
+### Constructors
+
+- [constructor](/templates/protocols/javascript/modules/rdp.RDPClient#constructor)
+
+### Methods
+
+- [CheckRDPAuth](/templates/protocols/javascript/modules/rdp.RDPClient#checkrdpauth)
+- [IsRDP](/templates/protocols/javascript/modules/rdp.RDPClient#isrdp)
+
+## Constructors
+
+### constructor
+
+• **new RDPClient**(): [`RDPClient`](/templates/protocols/javascript/modules/rdp.RDPClient)
+
+#### Returns
+
+[`RDPClient`](/templates/protocols/javascript/modules/rdp.RDPClient)
+
+#### Defined in
+
+rdp.ts:15
+
+## Methods
+
+### CheckRDPAuth
+
+▸ **CheckRDPAuth**(`host`, `port`): [`CheckRDPAuthResponse`](/templates/protocols/javascript/modules/rdp.CheckRDPAuthResponse)
+
+CheckRDPAuth checks if the given host and port are running rdp server
+with authentication and returns their metadata.
+If connection is successful, it returns true.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `host` | `string` |
+| `port` | `number` |
+
+#### Returns
+
+[`CheckRDPAuthResponse`](/templates/protocols/javascript/modules/rdp.CheckRDPAuthResponse)
+
+**`Example`**
+
+```javascript
+const rdp = require('nuclei/rdp');
+const checkRDPAuth = rdp.CheckRDPAuth('acme.com', 3389);
+log(toJSON(checkRDPAuth));
+```
+
+#### Defined in
+
+rdp.ts:44
+
+___
+
+### IsRDP
+
+▸ **IsRDP**(`host`, `port`): [`IsRDPResponse`](/templates/protocols/javascript/modules/rdp.IsRDPResponse)
+
+IsRDP checks if the given host and port are running rdp server.
+If connection is successful, it returns true.
+If connection is unsuccessful, it returns false and error.
+The Name of the OS is also returned if the connection is successful.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `host` | `string` |
+| `port` | `number` |
+
+#### Returns
+
+[`IsRDPResponse`](/templates/protocols/javascript/modules/rdp.IsRDPResponse)
+
+**`Example`**
+
+```javascript
+const rdp = require('nuclei/rdp');
+const isRDP = rdp.IsRDP('acme.com', 3389);
+log(toJSON(isRDP));
+```
+
+#### Defined in
+
+rdp.ts:28

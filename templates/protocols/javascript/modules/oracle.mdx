@@ -1,44 +1,11 @@
-<a name="module_oracle"></a>
+# Namespace: oracle
 
-## oracle
+## Table of contents
 
-* [oracle](#module_oracle)
-    * [`OracleClient`](#module_oracle..OracleClient)
-        * [`.IsOracle(host, port)`](#module_oracle..OracleClient+IsOracle) ⇒ <code>IsOracleResponse</code>
-    * [`IsOracleResponse`](#module_oracle..IsOracleResponse) : <code>object</code>
+### Classes
 
-<a name="module_oracle..OracleClient"></a>
+- [OracleClient](/templates/protocols/javascript/modules/oracle.OracleClient)
 
-### (oracle).OracleClient
-OracleClient is a minimal Oracle client for nuclei scripts.
+### Interfaces
 
-**Kind**: inner class of [<code>oracle</code>](#module_oracle)  
-<a name="module_oracle..OracleClient+IsOracle"></a>
-
-#### oracleClient.IsOracle(host, port) ⇒ <code>IsOracleResponse</code>
-IsOracle checks if a host is running an Oracle server.
-
-**Kind**: instance method of [<code>OracleClient</code>](#module_oracle..OracleClient)  
-**Returns**: <code>IsOracleResponse</code> - - The response from the Oracle server.  
-**Throws**:
-
-- <code>error</code> - The error encountered during the check.
-
-
-| Param | Type | Description |
-| --- | --- | --- |
-| host | <code>string</code> | The host to check. |
-| port | <code>int</code> | The port to check. |
-
-**Example**  
-```js
-let m = require('nuclei/oracle');
-let c = m.OracleClient();
-let response = c.IsOracle('localhost', 1521);
-```
-<a name="module_oracle..IsOracleResponse"></a>
-
-### (oracle).IsOracleResponse : <code>object</code>
-IsOracleResponse is an object containing the response from the Oracle server.
-
-**Kind**: inner typedef of [<code>oracle</code>](#module_oracle)  
+- [IsOracleResponse](/templates/protocols/javascript/modules/oracle.IsOracleResponse)

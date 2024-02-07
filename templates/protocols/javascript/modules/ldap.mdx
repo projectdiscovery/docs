@@ -1,73 +1,539 @@
-<a name="module_ldap"></a>
+# Namespace: ldap
 
-## ldap
+## Table of contents
 
-* [ldap](#module_ldap)
-    * [`LdapClient`](#module_ldap..LdapClient)
-        * [`.CollectLdapMetadata(domain, controller)`](#module_ldap..LdapClient+CollectLdapMetadata) ⇒ <code>LDAPMetadata</code>
-        * [`.IsLdap(host, port)`](#module_ldap..LdapClient+IsLdap) ⇒ <code>boolean</code>
-    * [`LDAPMetadata`](#module_ldap..LDAPMetadata) : <code>object</code>
+### Classes
 
-<a name="module_ldap..LdapClient"></a>
+- [Client](/templates/protocols/javascript/modules/ldap.Client)
 
-### (ldap).LdapClient
-LdapClient is a client for ldap protocol in golang. It is a wrapper around the standard library ldap package.
+### Interfaces
 
-**Kind**: inner class of [<code>ldap</code>](#module_ldap)  
+- [ADObject](/templates/protocols/javascript/modules/ldap.ADObject)
+- [Config](/templates/protocols/javascript/modules/ldap.Config)
+- [Entry](/templates/protocols/javascript/modules/ldap.Entry)
+- [EntryAttribute](/templates/protocols/javascript/modules/ldap.EntryAttribute)
+- [Metadata](/templates/protocols/javascript/modules/ldap.Metadata)
+- [SearchResult](/templates/protocols/javascript/modules/ldap.SearchResult)
 
-* [`LdapClient`](#module_ldap..LdapClient)
-    * [`.CollectLdapMetadata(domain, controller)`](#module_ldap..LdapClient+CollectLdapMetadata) ⇒ <code>LDAPMetadata</code>
-    * [`.IsLdap(host, port)`](#module_ldap..LdapClient+IsLdap) ⇒ <code>boolean</code>
+### Variables
 
-<a name="module_ldap..LdapClient+CollectLdapMetadata"></a>
+- [FilterAccountDisabled](/templates/protocols/javascript/modules/ldap#filteraccountdisabled)
+- [FilterAccountEnabled](/templates/protocols/javascript/modules/ldap#filteraccountenabled)
+- [FilterCanSendEncryptedPassword](/templates/protocols/javascript/modules/ldap#filtercansendencryptedpassword)
+- [FilterDontExpirePassword](/templates/protocols/javascript/modules/ldap#filterdontexpirepassword)
+- [FilterDontRequirePreauth](/templates/protocols/javascript/modules/ldap#filterdontrequirepreauth)
+- [FilterHasServicePrincipalName](/templates/protocols/javascript/modules/ldap#filterhasserviceprincipalname)
+- [FilterHomedirRequired](/templates/protocols/javascript/modules/ldap#filterhomedirrequired)
+- [FilterInterdomainTrustAccount](/templates/protocols/javascript/modules/ldap#filterinterdomaintrustaccount)
+- [FilterIsAdmin](/templates/protocols/javascript/modules/ldap#filterisadmin)
+- [FilterIsComputer](/templates/protocols/javascript/modules/ldap#filteriscomputer)
+- [FilterIsDuplicateAccount](/templates/protocols/javascript/modules/ldap#filterisduplicateaccount)
+- [FilterIsGroup](/templates/protocols/javascript/modules/ldap#filterisgroup)
+- [FilterIsNormalAccount](/templates/protocols/javascript/modules/ldap#filterisnormalaccount)
+- [FilterIsPerson](/templates/protocols/javascript/modules/ldap#filterisperson)
+- [FilterLockout](/templates/protocols/javascript/modules/ldap#filterlockout)
+- [FilterLogonScript](/templates/protocols/javascript/modules/ldap#filterlogonscript)
+- [FilterMnsLogonAccount](/templates/protocols/javascript/modules/ldap#filtermnslogonaccount)
+- [FilterNotDelegated](/templates/protocols/javascript/modules/ldap#filternotdelegated)
+- [FilterPartialSecretsAccount](/templates/protocols/javascript/modules/ldap#filterpartialsecretsaccount)
+- [FilterPasswordCantChange](/templates/protocols/javascript/modules/ldap#filterpasswordcantchange)
+- [FilterPasswordExpired](/templates/protocols/javascript/modules/ldap#filterpasswordexpired)
+- [FilterPasswordNotRequired](/templates/protocols/javascript/modules/ldap#filterpasswordnotrequired)
+- [FilterServerTrustAccount](/templates/protocols/javascript/modules/ldap#filterservertrustaccount)
+- [FilterSmartCardRequired](/templates/protocols/javascript/modules/ldap#filtersmartcardrequired)
+- [FilterTrustedForDelegation](/templates/protocols/javascript/modules/ldap#filtertrustedfordelegation)
+- [FilterTrustedToAuthForDelegation](/templates/protocols/javascript/modules/ldap#filtertrustedtoauthfordelegation)
+- [FilterUseDesKeyOnly](/templates/protocols/javascript/modules/ldap#filterusedeskeyonly)
+- [FilterWorkstationTrustAccount](/templates/protocols/javascript/modules/ldap#filterworkstationtrustaccount)
 
-#### ldapClient.CollectLdapMetadata(domain, controller) ⇒ <code>LDAPMetadata</code>
-CollectLdapMetadata collects metadata from ldap server.
+### Functions
 
-**Kind**: instance method of [<code>LdapClient</code>](#module_ldap..LdapClient)  
-**Returns**: <code>LDAPMetadata</code> - - The metadata from ldap server.  
-**Throws**:
+- [DecodeADTimestamp](/templates/protocols/javascript/modules/ldap#decodeadtimestamp)
+- [DecodeSID](/templates/protocols/javascript/modules/ldap#decodesid)
+- [DecodeZuluTimestamp](/templates/protocols/javascript/modules/ldap#decodezulutimestamp)
+- [JoinFilters](/templates/protocols/javascript/modules/ldap#joinfilters)
+- [NegativeFilter](/templates/protocols/javascript/modules/ldap#negativefilter)
 
-- <code>error</code> - The error encountered during metadata collection.
+## Variables
 
+### FilterAccountDisabled
 
-| Param | Type | Description |
-| --- | --- | --- |
-| domain | <code>string</code> | The domain to collect metadata from. |
-| controller | <code>string</code> | The controller to collect metadata from. |
+• `Const` **FilterAccountDisabled**: ``"(userAccountControl:1.2.840.113556.1.4.803:=2)"``
 
-**Example**  
-```js
-let m = require('nuclei/ldap');
-let c = m.LdapClient();
-let metadata = c.CollectLdapMetadata('example.com', 'controller1');
+The user account is disabled.
+
+#### Defined in
+
+ldap.ts:4
+
+___
+
+### FilterAccountEnabled
+
+• `Const` **FilterAccountEnabled**: ``"(!(userAccountControl:1.2.840.113556.1.4.803:=2))"``
+
+The user account is enabled.
+
+#### Defined in
+
+ldap.ts:7
+
+___
+
+### FilterCanSendEncryptedPassword
+
+• `Const` **FilterCanSendEncryptedPassword**: ``"(userAccountControl:1.2.840.113556.1.4.803:=128)"``
+
+The user can send an encrypted password.
+
+#### Defined in
+
+ldap.ts:10
+
+___
+
+### FilterDontExpirePassword
+
+• `Const` **FilterDontExpirePassword**: ``"(userAccountControl:1.2.840.113556.1.4.803:=65536)"``
+
+Represents the password, which should never expire on the account.
+
+#### Defined in
+
+ldap.ts:13
+
+___
+
+### FilterDontRequirePreauth
+
+• `Const` **FilterDontRequirePreauth**: ``"(userAccountControl:1.2.840.113556.1.4.803:=4194304)"``
+
+This account doesn't require Kerberos pre-authentication for logging on.
+
+#### Defined in
+
+ldap.ts:16
+
+___
+
+### FilterHasServicePrincipalName
+
+• `Const` **FilterHasServicePrincipalName**: ``"(servicePrincipalName=*)"``
+
+The object has a service principal name.
+
+#### Defined in
+
+ldap.ts:19
+
+___
+
+### FilterHomedirRequired
+
+• `Const` **FilterHomedirRequired**: ``"(userAccountControl:1.2.840.113556.1.4.803:=8)"``
+
+The home folder is required.
+
+#### Defined in
+
+ldap.ts:22
+
+___
+
+### FilterInterdomainTrustAccount
+
+• `Const` **FilterInterdomainTrustAccount**: ``"(userAccountControl:1.2.840.113556.1.4.803:=2048)"``
+
+It's a permit to trust an account for a system domain that trusts other domains.
+
+#### Defined in
+
+ldap.ts:25
+
+___
+
+### FilterIsAdmin
+
+• `Const` **FilterIsAdmin**: ``"(adminCount=1)"``
+
+The object is an admin.
+
+#### Defined in
+
+ldap.ts:28
+
+___
+
+### FilterIsComputer
+
+• `Const` **FilterIsComputer**: ``"(objectCategory=computer)"``
+
+The object is a computer.
+
+#### Defined in
+
+ldap.ts:31
+
+___
+
+### FilterIsDuplicateAccount
+
+• `Const` **FilterIsDuplicateAccount**: ``"(userAccountControl:1.2.840.113556.1.4.803:=256)"``
+
+It's an account for users whose primary account is in another domain.
+
+#### Defined in
+
+ldap.ts:34
+
+___
+
+### FilterIsGroup
+
+• `Const` **FilterIsGroup**: ``"(objectCategory=group)"``
+
+The object is a group.
+
+#### Defined in
+
+ldap.ts:37
+
+___
+
+### FilterIsNormalAccount
+
+• `Const` **FilterIsNormalAccount**: ``"(userAccountControl:1.2.840.113556.1.4.803:=512)"``
+
+It's a default account type that represents a typical user.
+
+#### Defined in
+
+ldap.ts:40
+
+___
+
+### FilterIsPerson
+
+• `Const` **FilterIsPerson**: ``"(objectCategory=person)"``
+
+The object is a person.
+
+#### Defined in
+
+ldap.ts:43
+
+___
+
+### FilterLockout
+
+• `Const` **FilterLockout**: ``"(userAccountControl:1.2.840.113556.1.4.803:=16)"``
+
+The user is locked out.
+
+#### Defined in
+
+ldap.ts:46
+
+___
+
+### FilterLogonScript
+
+• `Const` **FilterLogonScript**: ``"(userAccountControl:1.2.840.113556.1.4.803:=1)"``
+
+The logon script will be run.
+
+#### Defined in
+
+ldap.ts:49
+
+___
+
+### FilterMnsLogonAccount
+
+• `Const` **FilterMnsLogonAccount**: ``"(userAccountControl:1.2.840.113556.1.4.803:=131072)"``
+
+It's an MNS logon account.
+
+#### Defined in
+
+ldap.ts:52
+
+___
+
+### FilterNotDelegated
+
+• `Const` **FilterNotDelegated**: ``"(userAccountControl:1.2.840.113556.1.4.803:=1048576)"``
+
+When this flag is set, the security context of the user isn't delegated to a service even if the service account is set as trusted for Kerberos delegation.
+
+#### Defined in
+
+ldap.ts:55
+
+___
+
+### FilterPartialSecretsAccount
+
+• `Const` **FilterPartialSecretsAccount**: ``"(userAccountControl:1.2.840.113556.1.4.803:=67108864)"``
+
+The account is a read-only domain controller (RODC).
+
+#### Defined in
+
+ldap.ts:58
+
+___
+
+### FilterPasswordCantChange
+
+• `Const` **FilterPasswordCantChange**: ``"(userAccountControl:1.2.840.113556.1.4.803:=64)"``
+
+The user can't change the password.
+
+#### Defined in
+
+ldap.ts:61
+
+___
+
+### FilterPasswordExpired
+
+• `Const` **FilterPasswordExpired**: ``"(userAccountControl:1.2.840.113556.1.4.803:=8388608)"``
+
+The user's password has expired.
+
+#### Defined in
+
+ldap.ts:64
+
+___
+
+### FilterPasswordNotRequired
+
+• `Const` **FilterPasswordNotRequired**: ``"(userAccountControl:1.2.840.113556.1.4.803:=32)"``
+
+No password is required.
+
+#### Defined in
+
+ldap.ts:67
+
+___
+
+### FilterServerTrustAccount
+
+• `Const` **FilterServerTrustAccount**: ``"(userAccountControl:1.2.840.113556.1.4.803:=8192)"``
+
+It's a computer account for a domain controller that is a member of this domain.
+
+#### Defined in
+
+ldap.ts:70
+
+___
+
+### FilterSmartCardRequired
+
+• `Const` **FilterSmartCardRequired**: ``"(userAccountControl:1.2.840.113556.1.4.803:=262144)"``
+
+When this flag is set, it forces the user to log on by using a smart card.
+
+#### Defined in
+
+ldap.ts:73
+
+___
+
+### FilterTrustedForDelegation
+
+• `Const` **FilterTrustedForDelegation**: ``"(userAccountControl:1.2.840.113556.1.4.803:=524288)"``
+
+When this flag is set, the service account (the user or computer account) under which a service runs is trusted for Kerberos delegation.
+
+#### Defined in
+
+ldap.ts:76
+
+___
+
+### FilterTrustedToAuthForDelegation
+
+• `Const` **FilterTrustedToAuthForDelegation**: ``"(userAccountControl:1.2.840.113556.1.4.803:=16777216)"``
+
+The account is enabled for delegation.
+
+#### Defined in
+
+ldap.ts:79
+
+___
+
+### FilterUseDesKeyOnly
+
+• `Const` **FilterUseDesKeyOnly**: ``"(userAccountControl:1.2.840.113556.1.4.803:=2097152)"``
+
+Restrict this principal to use only Data Encryption Standard (DES) encryption types for keys.
+
+#### Defined in
+
+ldap.ts:82
+
+___
+
+### FilterWorkstationTrustAccount
+
+• `Const` **FilterWorkstationTrustAccount**: ``"(userAccountControl:1.2.840.113556.1.4.803:=4096)"``
+
+It's a computer account for a computer that is running old Windows builds.
+
+#### Defined in
+
+ldap.ts:85
+
+## Functions
+
+### DecodeADTimestamp
+
+▸ **DecodeADTimestamp**(`timestamp`): `string`
+
+DecodeADTimestamp decodes an Active Directory timestamp
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `timestamp` | `string` |
+
+#### Returns
+
+`string`
+
+**`Example`**
+
+```javascript
+const ldap = require('nuclei/ldap');
+const timestamp = ldap.DecodeADTimestamp('132036744000000000');
+log(timestamp);
 ```
-<a name="module_ldap..LdapClient+IsLdap"></a>
 
-#### ldapClient.IsLdap(host, port) ⇒ <code>boolean</code>
-IsLdap checks if the given host and port are running ldap server.
+#### Defined in
 
-**Kind**: instance method of [<code>LdapClient</code>](#module_ldap..LdapClient)  
-**Returns**: <code>boolean</code> - - Whether the given host and port are running ldap server.  
-**Throws**:
+ldap.ts:96
 
-- <code>error</code> - The error encountered during the check.
+___
 
+### DecodeSID
 
-| Param | Type | Description |
-| --- | --- | --- |
-| host | <code>string</code> | The host to check. |
-| port | <code>int</code> | The port to check. |
+▸ **DecodeSID**(`s`): `string`
 
-**Example**  
-```js
-let m = require('nuclei/ldap');
-let c = m.LdapClient();
-let isLdap = c.IsLdap('localhost', 389);
+DecodeSID decodes a SID string
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `s` | `string` |
+
+#### Returns
+
+`string`
+
+**`Example`**
+
+```javascript
+const ldap = require('nuclei/ldap');
+const sid = ldap.DecodeSID('S-1-5-21-3623811015-3361044348-30300820-1013');
+log(sid);
 ```
-<a name="module_ldap..LDAPMetadata"></a>
 
-### (ldap).LDAPMetadata : <code>object</code>
-LDAPMetadata is an object containing metadata from ldap server.
+#### Defined in
 
-**Kind**: inner typedef of [<code>ldap</code>](#module_ldap)  
+ldap.ts:111
+
+___
+
+### DecodeZuluTimestamp
+
+▸ **DecodeZuluTimestamp**(`timestamp`): `string`
+
+DecodeZuluTimestamp decodes a Zulu timestamp
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `timestamp` | `string` |
+
+#### Returns
+
+`string`
+
+**`Example`**
+
+```javascript
+const ldap = require('nuclei/ldap');
+const timestamp = ldap.DecodeZuluTimestamp('2021-08-25T10:00:00Z');
+log(timestamp);
+```
+
+#### Defined in
+
+ldap.ts:126
+
+___
+
+### JoinFilters
+
+▸ **JoinFilters**(`filters`): `string`
+
+JoinFilters joins multiple filters into a single filter
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `filters` | `any` |
+
+#### Returns
+
+`string`
+
+**`Example`**
+
+```javascript
+const ldap = require('nuclei/ldap');
+const filter = ldap.JoinFilters(ldap.FilterIsPerson, ldap.FilterAccountEnabled);
+```
+
+#### Defined in
+
+ldap.ts:140
+
+___
+
+### NegativeFilter
+
+▸ **NegativeFilter**(`filter`): `string`
+
+NegativeFilter returns a negative filter for a given filter
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `filter` | `string` |
+
+#### Returns
+
+`string`
+
+**`Example`**
+
+```javascript
+const ldap = require('nuclei/ldap');
+const filter = ldap.NegativeFilter(ldap.FilterIsPerson);
+```
+
+#### Defined in
+
+ldap.ts:154

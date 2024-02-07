@@ -1,44 +1,11 @@
-<a name="module_vnc"></a>
+# Namespace: vnc
 
-## vnc
+## Table of contents
 
-* [vnc](#module_vnc)
-    * [`VNCClient`](#module_vnc..VNCClient)
-        * [`.IsVNC(host, port)`](#module_vnc..VNCClient+IsVNC) ⇒ <code>IsVNCResponse</code>
-    * [`IsVNCResponse`](#module_vnc..IsVNCResponse) : <code>object</code>
+### Classes
 
-<a name="module_vnc..VNCClient"></a>
+- [VNCClient](/templates/protocols/javascript/modules/vnc.VNCClient)
 
-### (vnc).VNCClient
-VNCClient is a minimal VNC client for nuclei scripts.
+### Interfaces
 
-**Kind**: inner class of [<code>vnc</code>](#module_vnc)  
-<a name="module_vnc..VNCClient+IsVNC"></a>
-
-#### vncClient.IsVNC(host, port) ⇒ <code>IsVNCResponse</code>
-IsVNC checks if a host is running a VNC server.
-
-**Kind**: instance method of [<code>VNCClient</code>](#module_vnc..VNCClient)  
-**Returns**: <code>IsVNCResponse</code> - - The response indicating if the host is running a VNC server and the banner of the VNC server.  
-**Throws**:
-
-- <code>error</code> - The error encountered during the check.
-
-
-| Param | Type | Description |
-| --- | --- | --- |
-| host | <code>string</code> | The host to check. |
-| port | <code>number</code> | The port to check. |
-
-**Example**  
-```js
-let m = require('nuclei/vnc');
-let c = m.VNCClient();
-let response = c.IsVNC('localhost', 5900);
-```
-<a name="module_vnc..IsVNCResponse"></a>
-
-### (vnc).IsVNCResponse : <code>object</code>
-IsVNCResponse is an object containing the response of the IsVNC method.
-
-**Kind**: inner typedef of [<code>vnc</code>](#module_vnc)  
+- [IsVNCResponse](/templates/protocols/javascript/modules/vnc.IsVNCResponse)
