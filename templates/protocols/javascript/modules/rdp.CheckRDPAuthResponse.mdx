@@ -1,0 +1,41 @@
+# Interface: CheckRDPAuthResponse
+
+[rdp](/templates/protocols/javascript/modules/rdp).CheckRDPAuthResponse
+
+CheckRDPAuthResponse is the response from the CheckRDPAuth function.
+this is returned by CheckRDPAuth function.
+
+**`Example`**
+
+```javascript
+const rdp = require('nuclei/rdp');
+const checkRDPAuth = rdp.CheckRDPAuth('acme.com', 3389);
+log(toJSON(checkRDPAuth));
+```
+
+## Table of contents
+
+### Properties
+
+- [Auth](/templates/protocols/javascript/modules/rdp.CheckRDPAuthResponse#auth)
+- [PluginInfo](/templates/protocols/javascript/modules/rdp.CheckRDPAuthResponse#plugininfo)
+
+## Properties
+
+### Auth
+
+• `Optional` **Auth**: `boolean`
+
+#### Defined in
+
+rdp.ts:67
+
+___
+
+### PluginInfo
+
+• `Optional` **PluginInfo**: [`ServiceRDP`](/templates/protocols/javascript/modules/rdp.ServiceRDP)
+
+#### Defined in
+
+rdp.ts:65

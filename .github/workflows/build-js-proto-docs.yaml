@@ -1,4 +1,4 @@
-name: Build JS Protocol Docs
+name: Build JS Proto Modules Docs
 
 on:
   schedule:
@@ -16,11 +16,14 @@ jobs:
       - name: Setup Node Environment
         uses: actions/setup-node@v4.0.0
     
-      - name: Install jsdoc-to-markdown
-        run: npm install -g jsdoc-to-markdown
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.21.x
 
       - name: Build JS Proto Docs
-        run: ./bin/jsdocs.sh
+        run: ./generate.sh
+        working-directory: static/docsbuilder
 
       - name: Commit results to Github
         run: |

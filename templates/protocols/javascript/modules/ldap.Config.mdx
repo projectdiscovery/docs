@@ -1,0 +1,55 @@
+# Interface: Config
+
+[ldap](/templates/protocols/javascript/modules/ldap).Config
+
+Config is extra configuration for the ldap client
+
+**`Example`**
+
+```javascript
+const ldap = require('nuclei/ldap');
+const cfg = new ldap.Config();
+cfg.Timeout = 10;
+cfg.ServerName = 'ldap.internal.acme.com';
+cfg.Upgrade = true; // upgrade to tls
+```
+
+## Table of contents
+
+### Properties
+
+- [ServerName](/templates/protocols/javascript/modules/ldap.Config#servername)
+- [Timeout](/templates/protocols/javascript/modules/ldap.Config#timeout)
+- [Upgrade](/templates/protocols/javascript/modules/ldap.Config#upgrade)
+
+## Properties
+
+### ServerName
+
+• `Optional` **ServerName**: `string`
+
+#### Defined in
+
+ldap.ts:513
+
+___
+
+### Timeout
+
+• `Optional` **Timeout**: `number`
+
+Timeout is the timeout for the ldap client in seconds
+
+#### Defined in
+
+ldap.ts:511
+
+___
+
+### Upgrade
+
+• `Optional` **Upgrade**: `boolean`
+
+#### Defined in
+
+ldap.ts:515

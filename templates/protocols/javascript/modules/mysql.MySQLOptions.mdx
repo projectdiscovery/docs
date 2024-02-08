@@ -1,0 +1,108 @@
+# Interface: MySQLOptions
+
+[mysql](/templates/protocols/javascript/modules/mysql).MySQLOptions
+
+MySQLOptions defines the data source name (DSN) options required to connect to a MySQL database.
+along with other options like Timeout etc
+
+**`Example`**
+
+```javascript
+const mysql = require('nuclei/mysql');
+const options = new mysql.MySQLOptions();
+options.Host = 'acme.com';
+options.Port = 3306;
+```
+
+## Table of contents
+
+### Properties
+
+- [DbName](/templates/protocols/javascript/modules/mysql.MySQLOptions#dbname)
+- [Host](/templates/protocols/javascript/modules/mysql.MySQLOptions#host)
+- [Password](/templates/protocols/javascript/modules/mysql.MySQLOptions#password)
+- [Port](/templates/protocols/javascript/modules/mysql.MySQLOptions#port)
+- [Protocol](/templates/protocols/javascript/modules/mysql.MySQLOptions#protocol)
+- [RawQuery](/templates/protocols/javascript/modules/mysql.MySQLOptions#rawquery)
+- [Timeout](/templates/protocols/javascript/modules/mysql.MySQLOptions#timeout)
+- [Username](/templates/protocols/javascript/modules/mysql.MySQLOptions#username)
+
+## Properties
+
+### DbName
+
+• `Optional` **DbName**: `string`
+
+#### Defined in
+
+mysql.ts:198
+
+___
+
+### Host
+
+• `Optional` **Host**: `string`
+
+#### Defined in
+
+mysql.ts:188
+
+___
+
+### Password
+
+• `Optional` **Password**: `string`
+
+#### Defined in
+
+mysql.ts:196
+
+___
+
+### Port
+
+• `Optional` **Port**: `number`
+
+#### Defined in
+
+mysql.ts:190
+
+___
+
+### Protocol
+
+• `Optional` **Protocol**: `string`
+
+#### Defined in
+
+mysql.ts:192
+
+___
+
+### RawQuery
+
+• `Optional` **RawQuery**: `string`
+
+#### Defined in
+
+mysql.ts:200
+
+___
+
+### Timeout
+
+• `Optional` **Timeout**: `number`
+
+#### Defined in
+
+mysql.ts:202
+
+___
+
+### Username
+
+• `Optional` **Username**: `string`
+
+#### Defined in
+
+mysql.ts:194

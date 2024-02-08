@@ -1,0 +1,193 @@
+# Class: Client
+
+[kerberos](/templates/protocols/javascript/modules/kerberos).Client
+
+Known Issues:
+Hardcoded timeout in gokrb5 library
+TGT / Session Handling not exposed
+Client is kerberos client
+
+**`Example`**
+
+```javascript
+const kerberos = require('nuclei/kerberos');
+// if controller is empty a dns lookup for default kdc server will be performed
+const client = new kerberos.Client('acme.com', 'kdc.acme.com');
+```
+
+## Table of contents
+
+### Constructors
+
+- [constructor](/templates/protocols/javascript/modules/kerberos.Client#constructor)
+
+### Properties
+
+- [Krb5Config](/templates/protocols/javascript/modules/kerberos.Client#krb5config)
+- [Realm](/templates/protocols/javascript/modules/kerberos.Client#realm)
+- [controller](/templates/protocols/javascript/modules/kerberos.Client#controller)
+- [domain](/templates/protocols/javascript/modules/kerberos.Client#domain)
+
+### Methods
+
+- [EnumerateUser](/templates/protocols/javascript/modules/kerberos.Client#enumerateuser)
+- [GetServiceTicket](/templates/protocols/javascript/modules/kerberos.Client#getserviceticket)
+- [SetConfig](/templates/protocols/javascript/modules/kerberos.Client#setconfig)
+
+## Constructors
+
+### constructor
+
+• **new Client**(`domain`, `controller?`): [`Client`](/templates/protocols/javascript/modules/kerberos.Client)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `domain` | `string` |
+| `controller?` | `string` |
+
+#### Returns
+
+[`Client`](/templates/protocols/javascript/modules/kerberos.Client)
+
+#### Defined in
+
+kerberos.ts:90
+
+## Properties
+
+### Krb5Config
+
+• `Optional` **Krb5Config**: [`Config`](/templates/protocols/javascript/modules/kerberos.Config)
+
+#### Defined in
+
+kerberos.ts:82
+
+___
+
+### Realm
+
+• `Optional` **Realm**: `string`
+
+#### Defined in
+
+kerberos.ts:86
+
+___
+
+### controller
+
+• `Optional` **controller**: `string`
+
+#### Defined in
+
+kerberos.ts:90
+
+___
+
+### domain
+
+• **domain**: `string`
+
+#### Defined in
+
+kerberos.ts:90
+
+## Methods
+
+### EnumerateUser
+
+▸ **EnumerateUser**(`username`): [`EnumerateUserResponse`](/templates/protocols/javascript/modules/kerberos.EnumerateUserResponse)
+
+EnumerateUser and attempt to get AS-REP hash by disabling PA-FX-FAST
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `username` | `string` |
+
+#### Returns
+
+[`EnumerateUserResponse`](/templates/protocols/javascript/modules/kerberos.EnumerateUserResponse)
+
+**`Example`**
+
+```javascript
+const kerberos = require('nuclei/kerberos');
+const client = new kerberos.Client('acme.com', 'kdc.acme.com');
+const resp = client.EnumerateUser('pdtm');
+log(resp);
+```
+
+#### Defined in
+
+kerberos.ts:122
+
+___
+
+### GetServiceTicket
+
+▸ **GetServiceTicket**(`User`): [`TGS`](/templates/protocols/javascript/modules/kerberos.TGS)
+
+GetServiceTicket returns a TGS for a given user, password and SPN
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `User` | `string` |
+
+#### Returns
+
+[`TGS`](/templates/protocols/javascript/modules/kerberos.TGS)
+
+**`Example`**
+
+```javascript
+const kerberos = require('nuclei/kerberos');
+const client = new kerberos.Client('acme.com', 'kdc.acme.com');
+const resp = client.GetServiceTicket('pdtm', 'password', 'HOST/CLIENT1');
+log(resp);
+```
+
+#### Defined in
+
+kerberos.ts:137
+
+___
+
+### SetConfig
+
+▸ **SetConfig**(`cfg`): `void`
+
+SetConfig sets additional config for the kerberos client
+Note: as of now ip and timeout overrides are only supported
+in EnumerateUser due to fastdialer but can be extended to other methods currently
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `cfg` | [`Config`](/templates/protocols/javascript/modules/kerberos.Config) |
+
+#### Returns
+
+`void`
+
+**`Example`**
+
+```javascript
+const kerberos = require('nuclei/kerberos');
+const client = new kerberos.Client('acme.com', 'kdc.acme.com');
+const cfg = new kerberos.Config();
+cfg.SetIPAddress('192.168.100.22');
+cfg.SetTimeout(5);
+client.SetConfig(cfg);
+```
+
+#### Defined in
+
+kerberos.ts:107

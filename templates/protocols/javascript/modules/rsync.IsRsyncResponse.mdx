@@ -1,0 +1,41 @@
+# Interface: IsRsyncResponse
+
+[rsync](/templates/protocols/javascript/modules/rsync).IsRsyncResponse
+
+IsRsyncResponse is the response from the IsRsync function.
+this is returned by IsRsync function.
+
+**`Example`**
+
+```javascript
+const rsync = require('nuclei/rsync');
+const isRsync = rsync.IsRsync('acme.com', 873);
+log(toJSON(isRsync));
+```
+
+## Table of contents
+
+### Properties
+
+- [Banner](/templates/protocols/javascript/modules/rsync.IsRsyncResponse#banner)
+- [IsRsync](/templates/protocols/javascript/modules/rsync.IsRsyncResponse#isrsync)
+
+## Properties
+
+### Banner
+
+• `Optional` **Banner**: `string`
+
+#### Defined in
+
+rsync.ts:48
+
+___
+
+### IsRsync
+
+• `Optional` **IsRsync**: `boolean`
+
+#### Defined in
+
+rsync.ts:46

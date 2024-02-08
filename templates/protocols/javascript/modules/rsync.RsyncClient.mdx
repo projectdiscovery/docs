@@ -1,0 +1,67 @@
+# Class: RsyncClient
+
+[rsync](/templates/protocols/javascript/modules/rsync).RsyncClient
+
+RsyncClient is a minimal Rsync client for nuclei scripts.
+
+**`Example`**
+
+```javascript
+const rsync = require('nuclei/rsync');
+const client = new rsync.Client();
+```
+
+## Table of contents
+
+### Constructors
+
+- [constructor](/templates/protocols/javascript/modules/rsync.RsyncClient#constructor)
+
+### Methods
+
+- [IsRsync](/templates/protocols/javascript/modules/rsync.RsyncClient#isrsync)
+
+## Constructors
+
+### constructor
+
+• **new RsyncClient**(): [`RsyncClient`](/templates/protocols/javascript/modules/rsync.RsyncClient)
+
+#### Returns
+
+[`RsyncClient`](/templates/protocols/javascript/modules/rsync.RsyncClient)
+
+#### Defined in
+
+rsync.ts:15
+
+## Methods
+
+### IsRsync
+
+▸ **IsRsync**(`host`, `port`): [`IsRsyncResponse`](/templates/protocols/javascript/modules/rsync.IsRsyncResponse)
+
+IsRsync checks if a host is running a Rsync server.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `host` | `string` |
+| `port` | `number` |
+
+#### Returns
+
+[`IsRsyncResponse`](/templates/protocols/javascript/modules/rsync.IsRsyncResponse)
+
+**`Example`**
+
+```javascript
+const rsync = require('nuclei/rsync');
+const isRsync = rsync.IsRsync('acme.com', 873);
+log(toJSON(isRsync));
+```
+
+#### Defined in
+
+rsync.ts:25

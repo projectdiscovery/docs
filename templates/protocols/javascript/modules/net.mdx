@@ -1,240 +1,72 @@
-<a name="module_net"></a>
+# Namespace: net
 
-## net
+## Table of contents
 
-* [net](#module_net)
-    * [`NetConn`](#module_net..NetConn)
-        * [`.Close()`](#module_net..NetConn+Close)
-        * [`.Recv([N])`](#module_net..NetConn+Recv) ⇒ <code>Uint8Array</code>
-        * [`.RecvHex([N])`](#module_net..NetConn+RecvHex) ⇒ <code>string</code>
-        * [`.RecvString([N])`](#module_net..NetConn+RecvString) ⇒ <code>string</code>
-        * [`.Send(data)`](#module_net..NetConn+Send)
-        * [`.SendArray(data)`](#module_net..NetConn+SendArray)
-        * [`.SendHex(data)`](#module_net..NetConn+SendHex)
-        * [`.SetTimeout(value)`](#module_net..NetConn+SetTimeout)
-    * [`Open(protocol, address)`](#module_net..Open) ⇒ <code>NetConn</code>
-    * [`OpenTLS(protocol, address)`](#module_net..OpenTLS) ⇒ <code>NetConn</code>
+### Classes
 
-<a name="module_net..NetConn"></a>
+- [NetConn](/templates/protocols/javascript/modules/net.NetConn)
 
-### (net).NetConn
-NetConn is a connection to a remote host.
+### Functions
 
-**Kind**: inner class of [<code>net</code>](#module_net)  
+- [Open](/templates/protocols/javascript/modules/net#open)
+- [OpenTLS](/templates/protocols/javascript/modules/net#opentls)
 
-* [`NetConn`](#module_net..NetConn)
-    * [`.Close()`](#module_net..NetConn+Close)
-    * [`.Recv([N])`](#module_net..NetConn+Recv) ⇒ <code>Uint8Array</code>
-    * [`.RecvHex([N])`](#module_net..NetConn+RecvHex) ⇒ <code>string</code>
-    * [`.RecvString([N])`](#module_net..NetConn+RecvString) ⇒ <code>string</code>
-    * [`.Send(data)`](#module_net..NetConn+Send)
-    * [`.SendArray(data)`](#module_net..NetConn+SendArray)
-    * [`.SendHex(data)`](#module_net..NetConn+SendHex)
-    * [`.SetTimeout(value)`](#module_net..NetConn+SetTimeout)
+## Functions
 
-<a name="module_net..NetConn+Close"></a>
+### Open
 
-#### netConn.Close()
-Close closes the connection.
+▸ **Open**(`protocol`): [`NetConn`](/templates/protocols/javascript/modules/net.NetConn) \| ``null``
 
-**Kind**: instance method of [<code>NetConn</code>](#module_net..NetConn)  
-**Throws**:
+Open opens a new connection to the address with a timeout.
+supported protocols: tcp, udp
 
-- <code>error</code> - The error encountered during connection closing.
+#### Parameters
 
-**Example**  
-```js
-let m = require('nuclei/net');
-let c = m.Open('tcp', 'localhost:8080');
-c.Close();
+| Name | Type |
+| :------ | :------ |
+| `protocol` | `string` |
+
+#### Returns
+
+[`NetConn`](/templates/protocols/javascript/modules/net.NetConn) \| ``null``
+
+**`Example`**
+
+```javascript
+const net = require('nuclei/net');
+const conn = net.Open('tcp', 'acme.com:80');
 ```
-<a name="module_net..NetConn+Recv"></a>
 
-#### netConn.Recv([N]) ⇒ <code>Uint8Array</code>
-Recv receives data from the connection with a timeout. If N is 0, it will read all available data.
+#### Defined in
 
-**Kind**: instance method of [<code>NetConn</code>](#module_net..NetConn)  
-**Returns**: <code>Uint8Array</code> - - The received data in an array.  
-**Throws**:
+net.ts:12
 
-- <code>error</code> - The error encountered during data receiving.
+___
 
+### OpenTLS
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| [N] | <code>number</code> | <code>0</code> | The number of bytes to receive. |
+▸ **OpenTLS**(`protocol`): [`NetConn`](/templates/protocols/javascript/modules/net.NetConn) \| ``null``
 
-**Example**  
-```js
-let m = require('nuclei/net');
-let c = m.Open('tcp', 'localhost:8080');
-let data = c.Recv(1024);
+Open opens a new connection to the address with a timeout.
+supported protocols: tcp, udp
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `protocol` | `string` |
+
+#### Returns
+
+[`NetConn`](/templates/protocols/javascript/modules/net.NetConn) \| ``null``
+
+**`Example`**
+
+```javascript
+const net = require('nuclei/net');
+const conn = net.OpenTLS('tcp', 'acme.com:443');
 ```
-<a name="module_net..NetConn+RecvHex"></a>
 
-#### netConn.RecvHex([N]) ⇒ <code>string</code>
-RecvHex receives data from the connection with a timeout in hex format. If N is 0, it will read all available data.
+#### Defined in
 
-**Kind**: instance method of [<code>NetConn</code>](#module_net..NetConn)  
-**Returns**: <code>string</code> - - The received data in hex format.  
-**Throws**:
-
-- <code>error</code> - The error encountered during data receiving.
-
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| [N] | <code>number</code> | <code>0</code> | The number of bytes to receive. |
-
-**Example**  
-```js
-let m = require('nuclei/net');
-let c = m.Open('tcp', 'localhost:8080');
-let data = c.RecvHex(1024);
-```
-<a name="module_net..NetConn+RecvString"></a>
-
-#### netConn.RecvString([N]) ⇒ <code>string</code>
-RecvString receives data from the connection with a timeout. Output is returned as a string. If N is 0, it will read all available data.
-
-**Kind**: instance method of [<code>NetConn</code>](#module_net..NetConn)  
-**Returns**: <code>string</code> - - The received data as a string.  
-**Throws**:
-
-- <code>error</code> - The error encountered during data receiving.
-
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| [N] | <code>number</code> | <code>0</code> | The number of bytes to receive. |
-
-**Example**  
-```js
-let m = require('nuclei/net');
-let c = m.Open('tcp', 'localhost:8080');
-let data = c.RecvString(1024);
-```
-<a name="module_net..NetConn+Send"></a>
-
-#### netConn.Send(data)
-Send sends data to the connection with a timeout.
-
-**Kind**: instance method of [<code>NetConn</code>](#module_net..NetConn)  
-**Throws**:
-
-- <code>error</code> - The error encountered during data sending.
-
-
-| Param | Type | Description |
-| --- | --- | --- |
-| data | <code>Uint8Array</code> | The data to send. |
-
-**Example**  
-```js
-let m = require('nuclei/net');
-let c = m.Open('tcp', 'localhost:8080');
-c.Send(new Uint8Array([1, 2, 3]));
-```
-<a name="module_net..NetConn+SendArray"></a>
-
-#### netConn.SendArray(data)
-SendArray sends array data to connection.
-
-**Kind**: instance method of [<code>NetConn</code>](#module_net..NetConn)  
-**Throws**:
-
-- <code>error</code> - The error encountered during data sending.
-
-
-| Param | Type | Description |
-| --- | --- | --- |
-| data | <code>Uint8Array</code> | The array data to send. |
-
-**Example**  
-```js
-let m = require('nuclei/net');
-let c = m.Open('tcp', 'localhost:8080');
-c.SendArray(new Uint8Array([1, 2, 3]));
-```
-<a name="module_net..NetConn+SendHex"></a>
-
-#### netConn.SendHex(data)
-SendHex sends hex data to connection.
-
-**Kind**: instance method of [<code>NetConn</code>](#module_net..NetConn)  
-**Throws**:
-
-- <code>error</code> - The error encountered during data sending.
-
-
-| Param | Type | Description |
-| --- | --- | --- |
-| data | <code>string</code> | The hex data to send. |
-
-**Example**  
-```js
-let m = require('nuclei/net');
-let c = m.Open('tcp', 'localhost:8080');
-c.SendHex('0x123');
-```
-<a name="module_net..NetConn+SetTimeout"></a>
-
-#### netConn.SetTimeout(value)
-SetTimeout sets read/write timeout for the connection (in seconds).
-
-**Kind**: instance method of [<code>NetConn</code>](#module_net..NetConn)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| value | <code>number</code> | The timeout value in seconds. |
-
-**Example**  
-```js
-let m = require('nuclei/net');
-let c = m.Open('tcp', 'localhost:8080');
-c.SetTimeout(5);
-```
-<a name="module_net..Open"></a>
-
-### (net).Open(protocol, address) ⇒ <code>NetConn</code>
-Open opens a new connection to the address with a timeout. Supported protocols: tcp, udp.
-
-**Kind**: inner method of [<code>net</code>](#module_net)  
-**Returns**: <code>NetConn</code> - - The NetConn object representing the connection.  
-**Throws**:
-
-- <code>error</code> - The error encountered during connection opening.
-
-
-| Param | Type | Description |
-| --- | --- | --- |
-| protocol | <code>string</code> | The protocol to use. |
-| address | <code>string</code> | The address to connect to. |
-
-**Example**  
-```js
-let m = require('nuclei/net'); 
-let conn = m.Open('tcp', 'localhost:8080');
-```
-<a name="module_net..OpenTLS"></a>
-
-### (net).OpenTLS(protocol, address) ⇒ <code>NetConn</code>
-OpenTLS opens a new connection to the address with a timeout. Supported protocols: tcp, udp.
-
-**Kind**: inner method of [<code>net</code>](#module_net)  
-**Returns**: <code>NetConn</code> - - The NetConn object representing the connection.  
-**Throws**:
-
-- <code>error</code> - The error encountered during connection opening.
-
-
-| Param | Type | Description |
-| --- | --- | --- |
-| protocol | <code>string</code> | The protocol to use. |
-| address | <code>string</code> | The address to connect to. |
-
-**Example**  
-```js
-let m = require('nuclei/net'); 
-let conn = m.OpenTLS('tcp', 'localhost:8080');
-```
+net.ts:27

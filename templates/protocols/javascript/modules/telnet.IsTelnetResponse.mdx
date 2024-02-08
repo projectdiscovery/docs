@@ -1,0 +1,41 @@
+# Interface: IsTelnetResponse
+
+[telnet](/templates/protocols/javascript/modules/telnet).IsTelnetResponse
+
+IsTelnetResponse is the response from the IsTelnet function.
+this is returned by IsTelnet function.
+
+**`Example`**
+
+```javascript
+const telnet = require('nuclei/telnet');
+const isTelnet = telnet.IsTelnet('acme.com', 23);
+log(toJSON(isTelnet));
+```
+
+## Table of contents
+
+### Properties
+
+- [Banner](/templates/protocols/javascript/modules/telnet.IsTelnetResponse#banner)
+- [IsTelnet](/templates/protocols/javascript/modules/telnet.IsTelnetResponse#istelnet)
+
+## Properties
+
+### Banner
+
+• `Optional` **Banner**: `string`
+
+#### Defined in
+
+telnet.ts:48
+
+___
+
+### IsTelnet
+
+• `Optional` **IsTelnet**: `boolean`
+
+#### Defined in
+
+telnet.ts:46

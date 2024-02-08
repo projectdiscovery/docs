@@ -1,0 +1,42 @@
+# Interface: IKENotification
+
+[ikev2](/templates/protocols/javascript/modules/ikev2).IKENotification
+
+IKEv2Notify is the IKEv2 Notification payload
+this implements the IKEPayload interface
+
+**`Example`**
+
+```javascript
+const ikev2 = require('nuclei/ikev2');
+const notify = new ikev2.IKENotification();
+notify.NotifyMessageType = ikev2.IKE_NOTIFY_NO_PROPOSAL_CHOSEN;
+notify.NotificationData = [1, 2, 3];
+```
+
+## Table of contents
+
+### Properties
+
+- [NotificationData](/templates/protocols/javascript/modules/ikev2.IKENotification#notificationdata)
+- [NotifyMessageType](/templates/protocols/javascript/modules/ikev2.IKENotification#notifymessagetype)
+
+## Properties
+
+### NotificationData
+
+• `Optional` **NotificationData**: `Uint8Array`
+
+#### Defined in
+
+ikev2.ts:123
+
+___
+
+### NotifyMessageType
+
+• `Optional` **NotifyMessageType**: `number`
+
+#### Defined in
+
+ikev2.ts:121

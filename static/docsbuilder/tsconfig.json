@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+      // "outDir": "./", // Output directory for all emitted files
+      // "declaration": true, // Generates corresponding '.d.ts' file
+      // "declarationDir": "./", // Output directory for declaration files
+      "rootDir": "./src", // Specifies the root directory of input files
+      // ... other options like "module", "target", etc.
+    },
+    "include": [
+      "src/**/*.ts" // Include all TypeScript files in the src folder
+    ],
+    "exclude": [
+      "node_modules", // Exclude the node_modules folder
+      "**/*.test.ts" // Exclude test files
+    ]
+  }

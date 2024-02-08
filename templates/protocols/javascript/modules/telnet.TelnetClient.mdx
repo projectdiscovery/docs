@@ -1,0 +1,67 @@
+# Class: TelnetClient
+
+[telnet](/templates/protocols/javascript/modules/telnet).TelnetClient
+
+TelnetClient is a minimal Telnet client for nuclei scripts.
+
+**`Example`**
+
+```javascript
+const telnet = require('nuclei/telnet');
+const client = new telnet.Client();
+```
+
+## Table of contents
+
+### Constructors
+
+- [constructor](/templates/protocols/javascript/modules/telnet.TelnetClient#constructor)
+
+### Methods
+
+- [IsTelnet](/templates/protocols/javascript/modules/telnet.TelnetClient#istelnet)
+
+## Constructors
+
+### constructor
+
+• **new TelnetClient**(): [`TelnetClient`](/templates/protocols/javascript/modules/telnet.TelnetClient)
+
+#### Returns
+
+[`TelnetClient`](/templates/protocols/javascript/modules/telnet.TelnetClient)
+
+#### Defined in
+
+telnet.ts:15
+
+## Methods
+
+### IsTelnet
+
+▸ **IsTelnet**(`host`, `port`): [`IsTelnetResponse`](/templates/protocols/javascript/modules/telnet.IsTelnetResponse)
+
+IsTelnet checks if a host is running a Telnet server.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `host` | `string` |
+| `port` | `number` |
+
+#### Returns
+
+[`IsTelnetResponse`](/templates/protocols/javascript/modules/telnet.IsTelnetResponse)
+
+**`Example`**
+
+```javascript
+const telnet = require('nuclei/telnet');
+const isTelnet = telnet.IsTelnet('acme.com', 23);
+log(toJSON(isTelnet));
+```
+
+#### Defined in
+
+telnet.ts:25

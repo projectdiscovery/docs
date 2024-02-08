@@ -1,0 +1,268 @@
+# Class: Buffer
+
+[bytes](/templates/protocols/javascript/modules/bytes).Buffer
+
+Buffer is a bytes/Uint8Array type in javascript
+
+**`Example`**
+
+```javascript
+const bytes = require('nuclei/bytes');
+const bytes = new bytes.Buffer();
+```
+
+**`Example`**
+
+```javascript
+const bytes = require('nuclei/bytes');
+// optionally it can accept existing byte/Uint8Array as input
+const bytes = new bytes.Buffer([1, 2, 3]);
+```
+
+## Table of contents
+
+### Constructors
+
+- [constructor](/templates/protocols/javascript/modules/bytes.Buffer#constructor)
+
+### Methods
+
+- [Bytes](/templates/protocols/javascript/modules/bytes.Buffer#bytes)
+- [Hex](/templates/protocols/javascript/modules/bytes.Buffer#hex)
+- [Hexdump](/templates/protocols/javascript/modules/bytes.Buffer#hexdump)
+- [Len](/templates/protocols/javascript/modules/bytes.Buffer#len)
+- [Pack](/templates/protocols/javascript/modules/bytes.Buffer#pack)
+- [String](/templates/protocols/javascript/modules/bytes.Buffer#string)
+- [Write](/templates/protocols/javascript/modules/bytes.Buffer#write)
+- [WriteString](/templates/protocols/javascript/modules/bytes.Buffer#writestring)
+
+## Constructors
+
+### constructor
+
+• **new Buffer**(): [`Buffer`](/templates/protocols/javascript/modules/bytes.Buffer)
+
+#### Returns
+
+[`Buffer`](/templates/protocols/javascript/modules/bytes.Buffer)
+
+#### Defined in
+
+bytes.ts:21
+
+## Methods
+
+### Bytes
+
+▸ **Bytes**(): `Uint8Array`
+
+Bytes returns the byte representation of the buffer.
+
+#### Returns
+
+`Uint8Array`
+
+**`Example`**
+
+```javascript
+const bytes = require('nuclei/bytes');
+const buffer = new bytes.Buffer();
+buffer.WriteString('hello');
+log(buffer.Bytes());
+```
+
+#### Defined in
+
+bytes.ts:60
+
+___
+
+### Hex
+
+▸ **Hex**(): `string`
+
+Hex returns the hex representation of the buffer.
+
+#### Returns
+
+`string`
+
+**`Example`**
+
+```javascript
+const bytes = require('nuclei/bytes');
+const buffer = new bytes.Buffer();
+buffer.WriteString('hello');
+log(buffer.Hex());
+```
+
+#### Defined in
+
+bytes.ts:105
+
+___
+
+### Hexdump
+
+▸ **Hexdump**(): `string`
+
+Hexdump returns the hexdump representation of the buffer.
+
+#### Returns
+
+`string`
+
+**`Example`**
+
+```javascript
+const bytes = require('nuclei/bytes');
+const buffer = new bytes.Buffer();
+buffer.WriteString('hello');
+log(buffer.Hexdump());
+```
+
+#### Defined in
+
+bytes.ts:120
+
+___
+
+### Len
+
+▸ **Len**(): `number`
+
+Len returns the length of the buffer.
+
+#### Returns
+
+`number`
+
+**`Example`**
+
+```javascript
+const bytes = require('nuclei/bytes');
+const buffer = new bytes.Buffer();
+buffer.WriteString('hello');
+log(buffer.Len());
+```
+
+#### Defined in
+
+bytes.ts:90
+
+___
+
+### Pack
+
+▸ **Pack**(`formatStr`, `msg`): `void`
+
+Pack uses structs.Pack and packs given data and appends it to the buffer.
+it packs the data according to the given format.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `formatStr` | `string` |
+| `msg` | `any` |
+
+#### Returns
+
+`void`
+
+**`Example`**
+
+```javascript
+const bytes = require('nuclei/bytes');
+const buffer = new bytes.Buffer();
+buffer.Pack('I', 123);
+```
+
+#### Defined in
+
+bytes.ts:135
+
+___
+
+### String
+
+▸ **String**(): `string`
+
+String returns the string representation of the buffer.
+
+#### Returns
+
+`string`
+
+**`Example`**
+
+```javascript
+const bytes = require('nuclei/bytes');
+const buffer = new bytes.Buffer();
+buffer.WriteString('hello');
+log(buffer.String());
+```
+
+#### Defined in
+
+bytes.ts:75
+
+___
+
+### Write
+
+▸ **Write**(`data`): [`Buffer`](/templates/protocols/javascript/modules/bytes.Buffer)
+
+Write appends the given data to the buffer.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `data` | `Uint8Array` |
+
+#### Returns
+
+[`Buffer`](/templates/protocols/javascript/modules/bytes.Buffer)
+
+**`Example`**
+
+```javascript
+const bytes = require('nuclei/bytes');
+const buffer = new bytes.Buffer();
+buffer.Write([1, 2, 3]);
+```
+
+#### Defined in
+
+bytes.ts:31
+
+___
+
+### WriteString
+
+▸ **WriteString**(`data`): [`Buffer`](/templates/protocols/javascript/modules/bytes.Buffer)
+
+WriteString appends the given string data to the buffer.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `data` | `string` |
+
+#### Returns
+
+[`Buffer`](/templates/protocols/javascript/modules/bytes.Buffer)
+
+**`Example`**
+
+```javascript
+const bytes = require('nuclei/bytes');
+const buffer = new bytes.Buffer();
+buffer.WriteString('hello');
+```
+
+#### Defined in
+
+bytes.ts:45

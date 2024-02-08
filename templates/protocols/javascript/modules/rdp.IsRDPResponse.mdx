@@ -1,0 +1,41 @@
+# Interface: IsRDPResponse
+
+[rdp](/templates/protocols/javascript/modules/rdp).IsRDPResponse
+
+IsRDPResponse is the response from the IsRDP function.
+this is returned by IsRDP function.
+
+**`Example`**
+
+```javascript
+const rdp = require('nuclei/rdp');
+const isRDP = rdp.IsRDP('acme.com', 3389);
+log(toJSON(isRDP));
+```
+
+## Table of contents
+
+### Properties
+
+- [IsRDP](/templates/protocols/javascript/modules/rdp.IsRDPResponse#isrdp)
+- [OS](/templates/protocols/javascript/modules/rdp.IsRDPResponse#os)
+
+## Properties
+
+### IsRDP
+
+• `Optional` **IsRDP**: `boolean`
+
+#### Defined in
+
+rdp.ts:84
+
+___
+
+### OS
+
+• `Optional` **OS**: `string`
+
+#### Defined in
+
+rdp.ts:86

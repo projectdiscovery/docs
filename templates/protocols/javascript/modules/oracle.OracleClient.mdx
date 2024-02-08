@@ -1,0 +1,67 @@
+# Class: OracleClient
+
+[oracle](/templates/protocols/javascript/modules/oracle).OracleClient
+
+OracleClient is a minimal Oracle client for nuclei scripts.
+
+**`Example`**
+
+```javascript
+const oracle = require('nuclei/oracle');
+const client = new oracle.Client();
+```
+
+## Table of contents
+
+### Constructors
+
+- [constructor](/templates/protocols/javascript/modules/oracle.OracleClient#constructor)
+
+### Methods
+
+- [IsOracle](/templates/protocols/javascript/modules/oracle.OracleClient#isoracle)
+
+## Constructors
+
+### constructor
+
+• **new OracleClient**(): [`OracleClient`](/templates/protocols/javascript/modules/oracle.OracleClient)
+
+#### Returns
+
+[`OracleClient`](/templates/protocols/javascript/modules/oracle.OracleClient)
+
+#### Defined in
+
+oracle.ts:15
+
+## Methods
+
+### IsOracle
+
+▸ **IsOracle**(`host`, `port`): [`IsOracleResponse`](/templates/protocols/javascript/modules/oracle.IsOracleResponse)
+
+IsOracle checks if a host is running an Oracle server
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `host` | `string` |
+| `port` | `number` |
+
+#### Returns
+
+[`IsOracleResponse`](/templates/protocols/javascript/modules/oracle.IsOracleResponse)
+
+**`Example`**
+
+```javascript
+const oracle = require('nuclei/oracle');
+const isOracle = oracle.IsOracle('acme.com', 1521);
+log(toJSON(isOracle));
+```
+
+#### Defined in
+
+oracle.ts:25

@@ -1,44 +1,11 @@
-<a name="module_pop3"></a>
+# Namespace: pop3
 
-## pop3
+## Table of contents
 
-* [pop3](#module_pop3)
-    * [`Pop3Client`](#module_pop3..Pop3Client)
-        * [`.IsPOP3(host, port)`](#module_pop3..Pop3Client+IsPOP3) ⇒ <code>IsPOP3Response</code>
-    * [`IsPOP3Response`](#module_pop3..IsPOP3Response) : <code>object</code>
+### Classes
 
-<a name="module_pop3..Pop3Client"></a>
+- [Pop3Client](/templates/protocols/javascript/modules/pop3.Pop3Client)
 
-### (pop3).Pop3Client
-Pop3Client is a minimal POP3 client for nuclei scripts
+### Interfaces
 
-**Kind**: inner class of [<code>pop3</code>](#module_pop3)  
-<a name="module_pop3..Pop3Client+IsPOP3"></a>
-
-#### pop3Client.IsPOP3(host, port) ⇒ <code>IsPOP3Response</code>
-IsPOP3 checks if a host is running a POP3 server
-
-**Kind**: instance method of [<code>Pop3Client</code>](#module_pop3..Pop3Client)  
-**Returns**: <code>IsPOP3Response</code> - - The response of the check.  
-**Throws**:
-
-- <code>error</code> - The error encountered during the check.
-
-
-| Param | Type | Description |
-| --- | --- | --- |
-| host | <code>string</code> | The host to check. |
-| port | <code>number</code> | The port to check. |
-
-**Example**  
-```js
-let m = require('nuclei/pop3');
-let c = m.Pop3Client();
-let response = c.IsPOP3('localhost', 110);
-```
-<a name="module_pop3..IsPOP3Response"></a>
-
-### (pop3).IsPOP3Response : <code>object</code>
-IsPOP3Response is an object containing the response of the IsPOP3 check.
-
-**Kind**: inner typedef of [<code>pop3</code>](#module_pop3)  
+- [IsPOP3Response](/templates/protocols/javascript/modules/pop3.IsPOP3Response)

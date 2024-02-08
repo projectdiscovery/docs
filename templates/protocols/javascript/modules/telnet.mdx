@@ -1,44 +1,11 @@
-<a name="module_telnet"></a>
+# Namespace: telnet
 
-## telnet
+## Table of contents
 
-* [telnet](#module_telnet)
-    * [`TelnetClient`](#module_telnet..TelnetClient)
-        * [`.IsTelnet(host, port)`](#module_telnet..TelnetClient+IsTelnet) ⇒ <code>IsTelnetResponse</code>
-    * [`IsTelnetResponse`](#module_telnet..IsTelnetResponse) : <code>object</code>
+### Classes
 
-<a name="module_telnet..TelnetClient"></a>
+- [TelnetClient](/templates/protocols/javascript/modules/telnet.TelnetClient)
 
-### (telnet).TelnetClient
-TelnetClient is a minimal Telnet client for nuclei scripts
+### Interfaces
 
-**Kind**: inner class of [<code>telnet</code>](#module_telnet)  
-<a name="module_telnet..TelnetClient+IsTelnet"></a>
-
-#### telnetClient.IsTelnet(host, port) ⇒ <code>IsTelnetResponse</code>
-IsTelnet checks if a host is running a Telnet server
-
-**Kind**: instance method of [<code>TelnetClient</code>](#module_telnet..TelnetClient)  
-**Returns**: <code>IsTelnetResponse</code> - - The response of the IsTelnet check.  
-**Throws**:
-
-- <code>error</code> - The error encountered during the IsTelnet check.
-
-
-| Param | Type | Description |
-| --- | --- | --- |
-| host | <code>string</code> | The host to check for Telnet server. |
-| port | <code>int</code> | The port to check for Telnet server. |
-
-**Example**  
-```js
-let m = require('nuclei/telnet');
-let c = m.TelnetClient();
-let response = c.IsTelnet('localhost', 23);
-```
-<a name="module_telnet..IsTelnetResponse"></a>
-
-### (telnet).IsTelnetResponse : <code>object</code>
-IsTelnetResponse is an object containing the response of the IsTelnet check.
-
-**Kind**: inner typedef of [<code>telnet</code>](#module_telnet)  
+- [IsTelnetResponse](/templates/protocols/javascript/modules/telnet.IsTelnetResponse)

@@ -1,0 +1,220 @@
+# Class: SMTPMessage
+
+[smtp](/templates/protocols/javascript/modules/smtp).SMTPMessage
+
+SMTPMessage is a message to be sent over SMTP
+
+**`Example`**
+
+```javascript
+const smtp = require('nuclei/smtp');
+const message = new smtp.SMTPMessage();
+message.From('xyz@projectdiscovery.io');
+```
+
+## Table of contents
+
+### Constructors
+
+- [constructor](/templates/protocols/javascript/modules/smtp.SMTPMessage#constructor)
+
+### Methods
+
+- [Auth](/templates/protocols/javascript/modules/smtp.SMTPMessage#auth)
+- [Body](/templates/protocols/javascript/modules/smtp.SMTPMessage#body)
+- [From](/templates/protocols/javascript/modules/smtp.SMTPMessage#from)
+- [String](/templates/protocols/javascript/modules/smtp.SMTPMessage#string)
+- [Subject](/templates/protocols/javascript/modules/smtp.SMTPMessage#subject)
+- [To](/templates/protocols/javascript/modules/smtp.SMTPMessage#to)
+
+## Constructors
+
+### constructor
+
+• **new SMTPMessage**(): [`SMTPMessage`](/templates/protocols/javascript/modules/smtp.SMTPMessage)
+
+#### Returns
+
+[`SMTPMessage`](/templates/protocols/javascript/modules/smtp.SMTPMessage)
+
+#### Defined in
+
+smtp.ts:83
+
+## Methods
+
+### Auth
+
+▸ **Auth**(`username`): [`SMTPMessage`](/templates/protocols/javascript/modules/smtp.SMTPMessage)
+
+Auth when called authenticates using username and password before sending the message
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `username` | `string` |
+
+#### Returns
+
+[`SMTPMessage`](/templates/protocols/javascript/modules/smtp.SMTPMessage)
+
+**`Example`**
+
+```javascript
+const smtp = require('nuclei/smtp');
+const message = new smtp.SMTPMessage();
+message.Auth('username', 'password');
+```
+
+#### Defined in
+
+smtp.ts:149
+
+___
+
+### Body
+
+▸ **Body**(`msg`): [`SMTPMessage`](/templates/protocols/javascript/modules/smtp.SMTPMessage)
+
+Body adds the message body to the message
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `msg` | `Uint8Array` |
+
+#### Returns
+
+[`SMTPMessage`](/templates/protocols/javascript/modules/smtp.SMTPMessage)
+
+**`Example`**
+
+```javascript
+const smtp = require('nuclei/smtp');
+const message = new smtp.SMTPMessage();
+message.Body('hello');
+```
+
+#### Defined in
+
+smtp.ts:135
+
+___
+
+### From
+
+▸ **From**(`email`): [`SMTPMessage`](/templates/protocols/javascript/modules/smtp.SMTPMessage)
+
+From adds the from field to the message
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `email` | `string` |
+
+#### Returns
+
+[`SMTPMessage`](/templates/protocols/javascript/modules/smtp.SMTPMessage)
+
+**`Example`**
+
+```javascript
+const smtp = require('nuclei/smtp');
+const message = new smtp.SMTPMessage();
+message.From('xyz@projectdiscovery.io');
+```
+
+#### Defined in
+
+smtp.ts:93
+
+___
+
+### String
+
+▸ **String**(): `string`
+
+String returns the string representation of the message
+
+#### Returns
+
+`string`
+
+**`Example`**
+
+```javascript
+const smtp = require('nuclei/smtp');
+const message = new smtp.SMTPMessage();
+message.From('xyz@projectdiscovery.io');
+message.To('xyz2@projectdiscoveyr.io');
+message.Subject('hello');
+message.Body('hello');
+log(message.String());
+```
+
+#### Defined in
+
+smtp.ts:167
+
+___
+
+### Subject
+
+▸ **Subject**(`sub`): [`SMTPMessage`](/templates/protocols/javascript/modules/smtp.SMTPMessage)
+
+Subject adds the subject field to the message
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `sub` | `string` |
+
+#### Returns
+
+[`SMTPMessage`](/templates/protocols/javascript/modules/smtp.SMTPMessage)
+
+**`Example`**
+
+```javascript
+const smtp = require('nuclei/smtp');
+const message = new smtp.SMTPMessage();
+message.Subject('hello');
+```
+
+#### Defined in
+
+smtp.ts:121
+
+___
+
+### To
+
+▸ **To**(`email`): [`SMTPMessage`](/templates/protocols/javascript/modules/smtp.SMTPMessage)
+
+To adds the to field to the message
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `email` | `string` |
+
+#### Returns
+
+[`SMTPMessage`](/templates/protocols/javascript/modules/smtp.SMTPMessage)
+
+**`Example`**
+
+```javascript
+const smtp = require('nuclei/smtp');
+const message = new smtp.SMTPMessage();
+message.To('xyz@projectdiscovery.io');
+```
+
+#### Defined in
+
+smtp.ts:107
