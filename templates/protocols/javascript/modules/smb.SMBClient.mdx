@@ -1,6 +1,6 @@
 # Class: SMBClient
 
-[smb](/templates/protocols/javascript/modules/smb).SMBClient
+[smb](/templates/protocols/javascript/modules/smb.md).SMBClient
 
 SMBClient is a client for SMB servers.
 Internally client uses github.com/zmap/zgrab2/lib/smb/smb driver.
@@ -17,24 +17,24 @@ const client = new smb.Client();
 
 ### Constructors
 
-- [constructor](/templates/protocols/javascript/modules/smb.SMBClient#constructor)
+- [constructor](/templates/protocols/javascript/modules/smb.SMBClient.md#constructor)
 
 ### Methods
 
-- [ConnectSMBInfoMode](/templates/protocols/javascript/modules/smb.SMBClient#connectsmbinfomode)
-- [DetectSMBGhost](/templates/protocols/javascript/modules/smb.SMBClient#detectsmbghost)
-- [ListSMBv2Metadata](/templates/protocols/javascript/modules/smb.SMBClient#listsmbv2metadata)
-- [ListShares](/templates/protocols/javascript/modules/smb.SMBClient#listshares)
+- [ConnectSMBInfoMode](/templates/protocols/javascript/modules/smb.SMBClient.md#connectsmbinfomode)
+- [DetectSMBGhost](/templates/protocols/javascript/modules/smb.SMBClient.md#detectsmbghost)
+- [ListSMBv2Metadata](/templates/protocols/javascript/modules/smb.SMBClient.md#listsmbv2metadata)
+- [ListShares](/templates/protocols/javascript/modules/smb.SMBClient.md#listshares)
 
 ## Constructors
 
 ### constructor
 
-• **new SMBClient**(): [`SMBClient`](/templates/protocols/javascript/modules/smb.SMBClient)
+• **new SMBClient**(): [`SMBClient`](/templates/protocols/javascript/modules/smb.SMBClient.md)
 
 #### Returns
 
-[`SMBClient`](/templates/protocols/javascript/modules/smb.SMBClient)
+[`SMBClient`](/templates/protocols/javascript/modules/smb.SMBClient.md)
 
 #### Defined in
 
@@ -44,7 +44,7 @@ smb.ts:17
 
 ### ConnectSMBInfoMode
 
-▸ **ConnectSMBInfoMode**(`host`, `port`): [`SMBLog`](/templates/protocols/javascript/modules/smb.SMBLog)
+▸ **ConnectSMBInfoMode**(`host`, `port`): [`SMBLog`](/templates/protocols/javascript/modules/smb.SMBLog.md)
 
 ConnectSMBInfoMode tries to connect to provided host and port
 and discovery SMB information
@@ -60,7 +60,7 @@ state will be false
 
 #### Returns
 
-[`SMBLog`](/templates/protocols/javascript/modules/smb.SMBLog)
+[`SMBLog`](/templates/protocols/javascript/modules/smb.SMBLog.md)
 
 **`Example`**
 
@@ -111,7 +111,7 @@ ___
 
 ### ListSMBv2Metadata
 
-▸ **ListSMBv2Metadata**(`host`, `port`): [`ServiceSMB`](/templates/protocols/javascript/modules/smb.ServiceSMB)
+▸ **ListSMBv2Metadata**(`host`, `port`): [`ServiceSMB`](/templates/protocols/javascript/modules/smb.ServiceSMB.md)
 
 ListSMBv2Metadata tries to connect to provided host and port
 and list SMBv2 metadata.
@@ -127,7 +127,7 @@ state will be false
 
 #### Returns
 
-[`ServiceSMB`](/templates/protocols/javascript/modules/smb.ServiceSMB)
+[`ServiceSMB`](/templates/protocols/javascript/modules/smb.ServiceSMB.md)
 
 **`Example`**
 

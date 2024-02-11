@@ -1,6 +1,6 @@
 # Class: SMTPClient
 
-[smtp](/templates/protocols/javascript/modules/smtp).SMTPClient
+[smtp](/templates/protocols/javascript/modules/smtp.md).SMTPClient
 
 SMTPClient is a minimal SMTP client for nuclei scripts.
 
@@ -15,23 +15,23 @@ const client = new smtp.Client();
 
 ### Constructors
 
-- [constructor](/templates/protocols/javascript/modules/smtp.SMTPClient#constructor)
+- [constructor](/templates/protocols/javascript/modules/smtp.SMTPClient.md#constructor)
 
 ### Methods
 
-- [IsOpenRelay](/templates/protocols/javascript/modules/smtp.SMTPClient#isopenrelay)
-- [IsSMTP](/templates/protocols/javascript/modules/smtp.SMTPClient#issmtp)
-- [SendMail](/templates/protocols/javascript/modules/smtp.SMTPClient#sendmail)
+- [IsOpenRelay](/templates/protocols/javascript/modules/smtp.SMTPClient.md#isopenrelay)
+- [IsSMTP](/templates/protocols/javascript/modules/smtp.SMTPClient.md#issmtp)
+- [SendMail](/templates/protocols/javascript/modules/smtp.SMTPClient.md#sendmail)
 
 ## Constructors
 
 ### constructor
 
-• **new SMTPClient**(): [`SMTPClient`](/templates/protocols/javascript/modules/smtp.SMTPClient)
+• **new SMTPClient**(): [`SMTPClient`](/templates/protocols/javascript/modules/smtp.SMTPClient.md)
 
 #### Returns
 
-[`SMTPClient`](/templates/protocols/javascript/modules/smtp.SMTPClient)
+[`SMTPClient`](/templates/protocols/javascript/modules/smtp.SMTPClient.md)
 
 #### Defined in
 
@@ -51,7 +51,7 @@ IsOpenRelay checks if a host is an open relay.
 | :------ | :------ |
 | `host` | `string` |
 | `port` | `number` |
-| `msg` | [`SMTPMessage`](/templates/protocols/javascript/modules/smtp.SMTPMessage) |
+| `msg` | [`SMTPMessage`](/templates/protocols/javascript/modules/smtp.SMTPMessage.md) |
 
 #### Returns
 
@@ -77,7 +77,7 @@ ___
 
 ### IsSMTP
 
-▸ **IsSMTP**(`host`, `port`): [`IsSMTPResponse`](/templates/protocols/javascript/modules/smtp.IsSMTPResponse)
+▸ **IsSMTP**(`host`, `port`): [`IsSMTPResponse`](/templates/protocols/javascript/modules/smtp.IsSMTPResponse.md)
 
 IsSMTP checks if a host is running a SMTP server.
 
@@ -90,7 +90,7 @@ IsSMTP checks if a host is running a SMTP server.
 
 #### Returns
 
-[`IsSMTPResponse`](/templates/protocols/javascript/modules/smtp.IsSMTPResponse)
+[`IsSMTPResponse`](/templates/protocols/javascript/modules/smtp.IsSMTPResponse.md)
 
 **`Example`**
 
@@ -118,7 +118,7 @@ SendMail sends an email using the SMTP protocol.
 | :------ | :------ |
 | `host` | `string` |
 | `port` | `string` |
-| `msg` | [`SMTPMessage`](/templates/protocols/javascript/modules/smtp.SMTPMessage) |
+| `msg` | [`SMTPMessage`](/templates/protocols/javascript/modules/smtp.SMTPMessage.md) |
 
 #### Returns
 

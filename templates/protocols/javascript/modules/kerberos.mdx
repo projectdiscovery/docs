@@ -4,32 +4,32 @@
 
 ### Classes
 
-- [Client](/templates/protocols/javascript/modules/kerberos.Client)
-- [Config](/templates/protocols/javascript/modules/kerberos.Config)
+- [Client](/templates/protocols/javascript/modules/kerberos.Client.md)
+- [Config](/templates/protocols/javascript/modules/kerberos.Config.md)
 
 ### Interfaces
 
-- [AuthorizationDataEntry](/templates/protocols/javascript/modules/kerberos.AuthorizationDataEntry)
-- [BitString](/templates/protocols/javascript/modules/kerberos.BitString)
-- [EncTicketPart](/templates/protocols/javascript/modules/kerberos.EncTicketPart)
-- [EncryptedData](/templates/protocols/javascript/modules/kerberos.EncryptedData)
-- [EncryptionKey](/templates/protocols/javascript/modules/kerberos.EncryptionKey)
-- [EnumerateUserResponse](/templates/protocols/javascript/modules/kerberos.EnumerateUserResponse)
-- [HostAddress](/templates/protocols/javascript/modules/kerberos.HostAddress)
-- [LibDefaults](/templates/protocols/javascript/modules/kerberos.LibDefaults)
-- [PrincipalName](/templates/protocols/javascript/modules/kerberos.PrincipalName)
-- [Realm](/templates/protocols/javascript/modules/kerberos.Realm)
-- [TGS](/templates/protocols/javascript/modules/kerberos.TGS)
-- [Ticket](/templates/protocols/javascript/modules/kerberos.Ticket)
-- [TransitedEncoding](/templates/protocols/javascript/modules/kerberos.TransitedEncoding)
+- [AuthorizationDataEntry](/templates/protocols/javascript/modules/kerberos.AuthorizationDataEntry.md)
+- [BitString](/templates/protocols/javascript/modules/kerberos.BitString.md)
+- [EncTicketPart](/templates/protocols/javascript/modules/kerberos.EncTicketPart.md)
+- [EncryptedData](/templates/protocols/javascript/modules/kerberos.EncryptedData.md)
+- [EncryptionKey](/templates/protocols/javascript/modules/kerberos.EncryptionKey.md)
+- [EnumerateUserResponse](/templates/protocols/javascript/modules/kerberos.EnumerateUserResponse.md)
+- [HostAddress](/templates/protocols/javascript/modules/kerberos.HostAddress.md)
+- [LibDefaults](/templates/protocols/javascript/modules/kerberos.LibDefaults.md)
+- [PrincipalName](/templates/protocols/javascript/modules/kerberos.PrincipalName.md)
+- [Realm](/templates/protocols/javascript/modules/kerberos.Realm.md)
+- [TGS](/templates/protocols/javascript/modules/kerberos.TGS.md)
+- [Ticket](/templates/protocols/javascript/modules/kerberos.Ticket.md)
+- [TransitedEncoding](/templates/protocols/javascript/modules/kerberos.TransitedEncoding.md)
 
 ### Functions
 
-- [ASRepToHashcat](/templates/protocols/javascript/modules/kerberos#asreptohashcat)
-- [CheckKrbError](/templates/protocols/javascript/modules/kerberos#checkkrberror)
-- [NewKerberosClientFromString](/templates/protocols/javascript/modules/kerberos#newkerberosclientfromstring)
-- [SendToKDC](/templates/protocols/javascript/modules/kerberos#sendtokdc)
-- [TGStoHashcat](/templates/protocols/javascript/modules/kerberos#tgstohashcat)
+- [ASRepToHashcat](/templates/protocols/javascript/modules/kerberos.md#asreptohashcat)
+- [CheckKrbError](/templates/protocols/javascript/modules/kerberos.md#checkkrberror)
+- [NewKerberosClientFromString](/templates/protocols/javascript/modules/kerberos.md#newkerberosclientfromstring)
+- [SendToKDC](/templates/protocols/javascript/modules/kerberos.md#sendtokdc)
+- [TGStoHashcat](/templates/protocols/javascript/modules/kerberos.md#tgstohashcat)
 
 ## Functions
 
@@ -79,7 +79,7 @@ ___
 
 ### NewKerberosClientFromString
 
-▸ **NewKerberosClientFromString**(`cfg`): [`Client`](/templates/protocols/javascript/modules/kerberos.Client) \| ``null``
+▸ **NewKerberosClientFromString**(`cfg`): [`Client`](/templates/protocols/javascript/modules/kerberos.Client.md) \| ``null``
 
 NewKerberosClientFromString creates a new kerberos client from a string
 by parsing krb5.conf
@@ -92,7 +92,7 @@ by parsing krb5.conf
 
 #### Returns
 
-[`Client`](/templates/protocols/javascript/modules/kerberos.Client) \| ``null``
+[`Client`](/templates/protocols/javascript/modules/kerberos.Client.md) \| ``null``
 
 **`Example`**
 
@@ -123,7 +123,7 @@ It first tries to send the message over TCP, and if that fails, it falls back to
 
 | Name | Type |
 | :------ | :------ |
-| `kclient` | [`Client`](/templates/protocols/javascript/modules/kerberos.Client) |
+| `kclient` | [`Client`](/templates/protocols/javascript/modules/kerberos.Client.md) |
 | `msg` | `string` |
 
 #### Returns

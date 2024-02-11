@@ -1,6 +1,6 @@
 # Class: Client
 
-[ldap](/templates/protocols/javascript/modules/ldap).Client
+[ldap](/templates/protocols/javascript/modules/ldap.md).Client
 
 Client is a client for ldap protocol in nuclei
 
@@ -27,43 +27,43 @@ const client = new ldap.Client('ldap://ldap.example.com', 'acme.com', cfg);
 
 ### Constructors
 
-- [constructor](/templates/protocols/javascript/modules/ldap.Client#constructor)
+- [constructor](/templates/protocols/javascript/modules/ldap.Client.md#constructor)
 
 ### Properties
 
-- [BaseDN](/templates/protocols/javascript/modules/ldap.Client#basedn)
-- [Host](/templates/protocols/javascript/modules/ldap.Client#host)
-- [Port](/templates/protocols/javascript/modules/ldap.Client#port)
-- [Realm](/templates/protocols/javascript/modules/ldap.Client#realm)
-- [config](/templates/protocols/javascript/modules/ldap.Client#config)
-- [ldapUrl](/templates/protocols/javascript/modules/ldap.Client#ldapurl)
-- [realm](/templates/protocols/javascript/modules/ldap.Client#realm-1)
+- [BaseDN](/templates/protocols/javascript/modules/ldap.Client.md#basedn)
+- [Host](/templates/protocols/javascript/modules/ldap.Client.md#host)
+- [Port](/templates/protocols/javascript/modules/ldap.Client.md#port)
+- [Realm](/templates/protocols/javascript/modules/ldap.Client.md#realm)
+- [config](/templates/protocols/javascript/modules/ldap.Client.md#config)
+- [ldapUrl](/templates/protocols/javascript/modules/ldap.Client.md#ldapurl)
+- [realm](/templates/protocols/javascript/modules/ldap.Client.md#realm-1)
 
 ### Methods
 
-- [AdvancedSearch](/templates/protocols/javascript/modules/ldap.Client#advancedsearch)
-- [Authenticate](/templates/protocols/javascript/modules/ldap.Client#authenticate)
-- [AuthenticateWithNTLMHash](/templates/protocols/javascript/modules/ldap.Client#authenticatewithntlmhash)
-- [Close](/templates/protocols/javascript/modules/ldap.Client#close)
-- [CollectMetadata](/templates/protocols/javascript/modules/ldap.Client#collectmetadata)
-- [FindADObjects](/templates/protocols/javascript/modules/ldap.Client#findadobjects)
-- [GetADActiveUsers](/templates/protocols/javascript/modules/ldap.Client#getadactiveusers)
-- [GetADAdmins](/templates/protocols/javascript/modules/ldap.Client#getadadmins)
-- [GetADDCList](/templates/protocols/javascript/modules/ldap.Client#getaddclist)
-- [GetADDomainSID](/templates/protocols/javascript/modules/ldap.Client#getaddomainsid)
-- [GetADGroups](/templates/protocols/javascript/modules/ldap.Client#getadgroups)
-- [GetADUserKerberoastable](/templates/protocols/javascript/modules/ldap.Client#getaduserkerberoastable)
-- [GetADUserTrustedForDelegation](/templates/protocols/javascript/modules/ldap.Client#getadusertrustedfordelegation)
-- [GetADUserWithNeverExpiringPasswords](/templates/protocols/javascript/modules/ldap.Client#getaduserwithneverexpiringpasswords)
-- [GetADUserWithPasswordNotRequired](/templates/protocols/javascript/modules/ldap.Client#getaduserwithpasswordnotrequired)
-- [GetADUsers](/templates/protocols/javascript/modules/ldap.Client#getadusers)
-- [Search](/templates/protocols/javascript/modules/ldap.Client#search)
+- [AdvancedSearch](/templates/protocols/javascript/modules/ldap.Client.md#advancedsearch)
+- [Authenticate](/templates/protocols/javascript/modules/ldap.Client.md#authenticate)
+- [AuthenticateWithNTLMHash](/templates/protocols/javascript/modules/ldap.Client.md#authenticatewithntlmhash)
+- [Close](/templates/protocols/javascript/modules/ldap.Client.md#close)
+- [CollectMetadata](/templates/protocols/javascript/modules/ldap.Client.md#collectmetadata)
+- [FindADObjects](/templates/protocols/javascript/modules/ldap.Client.md#findadobjects)
+- [GetADActiveUsers](/templates/protocols/javascript/modules/ldap.Client.md#getadactiveusers)
+- [GetADAdmins](/templates/protocols/javascript/modules/ldap.Client.md#getadadmins)
+- [GetADDCList](/templates/protocols/javascript/modules/ldap.Client.md#getaddclist)
+- [GetADDomainSID](/templates/protocols/javascript/modules/ldap.Client.md#getaddomainsid)
+- [GetADGroups](/templates/protocols/javascript/modules/ldap.Client.md#getadgroups)
+- [GetADUserKerberoastable](/templates/protocols/javascript/modules/ldap.Client.md#getaduserkerberoastable)
+- [GetADUserTrustedForDelegation](/templates/protocols/javascript/modules/ldap.Client.md#getadusertrustedfordelegation)
+- [GetADUserWithNeverExpiringPasswords](/templates/protocols/javascript/modules/ldap.Client.md#getaduserwithneverexpiringpasswords)
+- [GetADUserWithPasswordNotRequired](/templates/protocols/javascript/modules/ldap.Client.md#getaduserwithpasswordnotrequired)
+- [GetADUsers](/templates/protocols/javascript/modules/ldap.Client.md#getadusers)
+- [Search](/templates/protocols/javascript/modules/ldap.Client.md#search)
 
 ## Constructors
 
 ### constructor
 
-• **new Client**(`ldapUrl`, `realm`, `config?`): [`Client`](/templates/protocols/javascript/modules/ldap.Client)
+• **new Client**(`ldapUrl`, `realm`, `config?`): [`Client`](/templates/protocols/javascript/modules/ldap.Client.md)
 
 #### Parameters
 
@@ -71,11 +71,11 @@ const client = new ldap.Client('ldap://ldap.example.com', 'acme.com', cfg);
 | :------ | :------ |
 | `ldapUrl` | `string` |
 | `realm` | `string` |
-| `config?` | [`Config`](/templates/protocols/javascript/modules/ldap.Config) |
+| `config?` | [`Config`](/templates/protocols/javascript/modules/ldap.Config.md) |
 
 #### Returns
 
-[`Client`](/templates/protocols/javascript/modules/ldap.Client)
+[`Client`](/templates/protocols/javascript/modules/ldap.Client.md)
 
 #### Defined in
 
@@ -125,7 +125,7 @@ ___
 
 ### config
 
-• `Optional` **config**: [`Config`](/templates/protocols/javascript/modules/ldap.Config)
+• `Optional` **config**: [`Config`](/templates/protocols/javascript/modules/ldap.Config.md)
 
 #### Defined in
 
@@ -155,7 +155,7 @@ ldap.ts:198
 
 ### AdvancedSearch
 
-▸ **AdvancedSearch**(`Scope`, `TypesOnly`, `Filter`, `Attributes`, `Controls`): [`SearchResult`](/templates/protocols/javascript/modules/ldap.SearchResult)
+▸ **AdvancedSearch**(`Scope`, `TypesOnly`, `Filter`, `Attributes`, `Controls`): [`SearchResult`](/templates/protocols/javascript/modules/ldap.SearchResult.md)
 
 AdvancedSearch accepts all values of search request type and return Ldap Entry
 its up to user to handle the response
@@ -172,7 +172,7 @@ its up to user to handle the response
 
 #### Returns
 
-[`SearchResult`](/templates/protocols/javascript/modules/ldap.SearchResult)
+[`SearchResult`](/templates/protocols/javascript/modules/ldap.SearchResult.md)
 
 **`Example`**
 
@@ -275,13 +275,13 @@ ___
 
 ### CollectMetadata
 
-▸ **CollectMetadata**(): [`Metadata`](/templates/protocols/javascript/modules/ldap.Metadata)
+▸ **CollectMetadata**(): [`Metadata`](/templates/protocols/javascript/modules/ldap.Metadata.md)
 
 CollectLdapMetadata collects metadata from ldap server.
 
 #### Returns
 
-[`Metadata`](/templates/protocols/javascript/modules/ldap.Metadata)
+[`Metadata`](/templates/protocols/javascript/modules/ldap.Metadata.md)
 
 **`Example`**
 
@@ -300,7 +300,7 @@ ___
 
 ### FindADObjects
 
-▸ **FindADObjects**(`filter`): [`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+▸ **FindADObjects**(`filter`): [`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject.md)[]
 
 FindADObjects finds AD objects based on a filter
 and returns them as a list of ADObject
@@ -313,7 +313,7 @@ and returns them as a list of ADObject
 
 #### Returns
 
-[`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+[`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject.md)[]
 
 **`Example`**
 
@@ -332,14 +332,14 @@ ___
 
 ### GetADActiveUsers
 
-▸ **GetADActiveUsers**(): [`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+▸ **GetADActiveUsers**(): [`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject.md)[]
 
 GetADActiveUsers returns all AD users
 using FilterIsPerson and FilterAccountEnabled filter query
 
 #### Returns
 
-[`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+[`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject.md)[]
 
 **`Example`**
 
@@ -358,14 +358,14 @@ ___
 
 ### GetADAdmins
 
-▸ **GetADAdmins**(): [`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+▸ **GetADAdmins**(): [`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject.md)[]
 
 GetADAdmins returns all AD admins
 using FilterIsPerson, FilterAccountEnabled and FilterIsAdmin filter query
 
 #### Returns
 
-[`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+[`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject.md)[]
 
 **`Example`**
 
@@ -384,14 +384,14 @@ ___
 
 ### GetADDCList
 
-▸ **GetADDCList**(): [`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+▸ **GetADDCList**(): [`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject.md)[]
 
 GetADDCList returns all AD domain controllers
 using FilterIsComputer, FilterAccountEnabled and FilterServerTrustAccount filter query
 
 #### Returns
 
-[`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+[`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject.md)[]
 
 **`Example`**
 
@@ -435,14 +435,14 @@ ___
 
 ### GetADGroups
 
-▸ **GetADGroups**(): [`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+▸ **GetADGroups**(): [`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject.md)[]
 
 GetADGroups returns all AD groups
 using FilterIsGroup filter query
 
 #### Returns
 
-[`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+[`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject.md)[]
 
 **`Example`**
 
@@ -461,14 +461,14 @@ ___
 
 ### GetADUserKerberoastable
 
-▸ **GetADUserKerberoastable**(): [`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+▸ **GetADUserKerberoastable**(): [`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject.md)[]
 
 GetADUserKerberoastable returns all AD users that are kerberoastable
 using FilterIsPerson, FilterAccountEnabled and FilterHasServicePrincipalName filter query
 
 #### Returns
 
-[`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+[`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject.md)[]
 
 **`Example`**
 
@@ -487,14 +487,14 @@ ___
 
 ### GetADUserTrustedForDelegation
 
-▸ **GetADUserTrustedForDelegation**(): [`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+▸ **GetADUserTrustedForDelegation**(): [`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject.md)[]
 
 GetADUserTrustedForDelegation returns all AD users that are trusted for delegation
 using FilterIsPerson and FilterTrustedForDelegation filter query
 
 #### Returns
 
-[`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+[`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject.md)[]
 
 **`Example`**
 
@@ -513,14 +513,14 @@ ___
 
 ### GetADUserWithNeverExpiringPasswords
 
-▸ **GetADUserWithNeverExpiringPasswords**(): [`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+▸ **GetADUserWithNeverExpiringPasswords**(): [`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject.md)[]
 
 GetAdUserWithNeverExpiringPasswords returns all AD users
 using FilterIsPerson and FilterDontExpirePassword filter query
 
 #### Returns
 
-[`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+[`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject.md)[]
 
 **`Example`**
 
@@ -539,14 +539,14 @@ ___
 
 ### GetADUserWithPasswordNotRequired
 
-▸ **GetADUserWithPasswordNotRequired**(): [`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+▸ **GetADUserWithPasswordNotRequired**(): [`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject.md)[]
 
 GetADUserWithPasswordNotRequired returns all AD users that do not require a password
 using FilterIsPerson and FilterPasswordNotRequired filter query
 
 #### Returns
 
-[`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+[`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject.md)[]
 
 **`Example`**
 
@@ -565,14 +565,14 @@ ___
 
 ### GetADUsers
 
-▸ **GetADUsers**(): [`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+▸ **GetADUsers**(): [`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject.md)[]
 
 GetADUsers returns all AD users
 using FilterIsPerson filter query
 
 #### Returns
 
-[`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+[`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject.md)[]
 
 **`Example`**
 
