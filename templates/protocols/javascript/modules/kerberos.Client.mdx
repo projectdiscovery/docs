@@ -1,6 +1,6 @@
 # Class: Client
 
-[kerberos](/templates/protocols/javascript/modules/kerberos.md).Client
+[kerberos](/templates/protocols/javascript/modules/kerberos).Client
 
 Known Issues:
 Hardcoded timeout in gokrb5 library
@@ -19,26 +19,26 @@ const client = new kerberos.Client('acme.com', 'kdc.acme.com');
 
 ### Constructors
 
-- [constructor](/templates/protocols/javascript/modules/kerberos.Client.md#constructor)
+- [constructor](/templates/protocols/javascript/modules/kerberos.Client#constructor)
 
 ### Properties
 
-- [Krb5Config](/templates/protocols/javascript/modules/kerberos.Client.md#krb5config)
-- [Realm](/templates/protocols/javascript/modules/kerberos.Client.md#realm)
-- [controller](/templates/protocols/javascript/modules/kerberos.Client.md#controller)
-- [domain](/templates/protocols/javascript/modules/kerberos.Client.md#domain)
+- [Krb5Config](/templates/protocols/javascript/modules/kerberos.Client#krb5config)
+- [Realm](/templates/protocols/javascript/modules/kerberos.Client#realm)
+- [controller](/templates/protocols/javascript/modules/kerberos.Client#controller)
+- [domain](/templates/protocols/javascript/modules/kerberos.Client#domain)
 
 ### Methods
 
-- [EnumerateUser](/templates/protocols/javascript/modules/kerberos.Client.md#enumerateuser)
-- [GetServiceTicket](/templates/protocols/javascript/modules/kerberos.Client.md#getserviceticket)
-- [SetConfig](/templates/protocols/javascript/modules/kerberos.Client.md#setconfig)
+- [EnumerateUser](/templates/protocols/javascript/modules/kerberos.Client#enumerateuser)
+- [GetServiceTicket](/templates/protocols/javascript/modules/kerberos.Client#getserviceticket)
+- [SetConfig](/templates/protocols/javascript/modules/kerberos.Client#setconfig)
 
 ## Constructors
 
 ### constructor
 
-• **new Client**(`domain`, `controller?`): [`Client`](/templates/protocols/javascript/modules/kerberos.Client.md)
+• **new Client**(`domain`, `controller?`): [`Client`](/templates/protocols/javascript/modules/kerberos.Client)
 
 #### Parameters
 
@@ -49,7 +49,7 @@ const client = new kerberos.Client('acme.com', 'kdc.acme.com');
 
 #### Returns
 
-[`Client`](/templates/protocols/javascript/modules/kerberos.Client.md)
+[`Client`](/templates/protocols/javascript/modules/kerberos.Client)
 
 #### Defined in
 
@@ -59,7 +59,7 @@ kerberos.ts:90
 
 ### Krb5Config
 
-• `Optional` **Krb5Config**: [`Config`](/templates/protocols/javascript/modules/kerberos.Config.md)
+• `Optional` **Krb5Config**: [`Config`](/templates/protocols/javascript/modules/kerberos.Config)
 
 #### Defined in
 
@@ -99,7 +99,7 @@ kerberos.ts:90
 
 ### EnumerateUser
 
-▸ **EnumerateUser**(`username`): [`EnumerateUserResponse`](/templates/protocols/javascript/modules/kerberos.EnumerateUserResponse.md)
+▸ **EnumerateUser**(`username`): [`EnumerateUserResponse`](/templates/protocols/javascript/modules/kerberos.EnumerateUserResponse)
 
 EnumerateUser and attempt to get AS-REP hash by disabling PA-FX-FAST
 
@@ -111,7 +111,7 @@ EnumerateUser and attempt to get AS-REP hash by disabling PA-FX-FAST
 
 #### Returns
 
-[`EnumerateUserResponse`](/templates/protocols/javascript/modules/kerberos.EnumerateUserResponse.md)
+[`EnumerateUserResponse`](/templates/protocols/javascript/modules/kerberos.EnumerateUserResponse)
 
 **`Example`**
 
@@ -130,7 +130,7 @@ ___
 
 ### GetServiceTicket
 
-▸ **GetServiceTicket**(`User`): [`TGS`](/templates/protocols/javascript/modules/kerberos.TGS.md)
+▸ **GetServiceTicket**(`User`): [`TGS`](/templates/protocols/javascript/modules/kerberos.TGS)
 
 GetServiceTicket returns a TGS for a given user, password and SPN
 
@@ -142,7 +142,7 @@ GetServiceTicket returns a TGS for a given user, password and SPN
 
 #### Returns
 
-[`TGS`](/templates/protocols/javascript/modules/kerberos.TGS.md)
+[`TGS`](/templates/protocols/javascript/modules/kerberos.TGS)
 
 **`Example`**
 
@@ -171,7 +171,7 @@ in EnumerateUser due to fastdialer but can be extended to other methods currentl
 
 | Name | Type |
 | :------ | :------ |
-| `cfg` | [`Config`](/templates/protocols/javascript/modules/kerberos.Config.md) |
+| `cfg` | [`Config`](/templates/protocols/javascript/modules/kerberos.Config) |
 
 #### Returns
 

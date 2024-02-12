@@ -1,6 +1,6 @@
 # Class: MySQLClient
 
-[mysql](/templates/protocols/javascript/modules/mysql.md).MySQLClient
+[mysql](/templates/protocols/javascript/modules/mysql).MySQLClient
 
 MySQLClient is a client for MySQL database.
 Internally client uses go-sql-driver/mysql driver.
@@ -16,27 +16,27 @@ const client = new mysql.Client();
 
 ### Constructors
 
-- [constructor](/templates/protocols/javascript/modules/mysql.MySQLClient.md#constructor)
+- [constructor](/templates/protocols/javascript/modules/mysql.MySQLClient#constructor)
 
 ### Methods
 
-- [Connect](/templates/protocols/javascript/modules/mysql.MySQLClient.md#connect)
-- [ConnectWithDSN](/templates/protocols/javascript/modules/mysql.MySQLClient.md#connectwithdsn)
-- [ExecuteQuery](/templates/protocols/javascript/modules/mysql.MySQLClient.md#executequery)
-- [ExecuteQueryOnDB](/templates/protocols/javascript/modules/mysql.MySQLClient.md#executequeryondb)
-- [ExecuteQueryWithOpts](/templates/protocols/javascript/modules/mysql.MySQLClient.md#executequerywithopts)
-- [FingerprintMySQL](/templates/protocols/javascript/modules/mysql.MySQLClient.md#fingerprintmysql)
-- [IsMySQL](/templates/protocols/javascript/modules/mysql.MySQLClient.md#ismysql)
+- [Connect](/templates/protocols/javascript/modules/mysql.MySQLClient#connect)
+- [ConnectWithDSN](/templates/protocols/javascript/modules/mysql.MySQLClient#connectwithdsn)
+- [ExecuteQuery](/templates/protocols/javascript/modules/mysql.MySQLClient#executequery)
+- [ExecuteQueryOnDB](/templates/protocols/javascript/modules/mysql.MySQLClient#executequeryondb)
+- [ExecuteQueryWithOpts](/templates/protocols/javascript/modules/mysql.MySQLClient#executequerywithopts)
+- [FingerprintMySQL](/templates/protocols/javascript/modules/mysql.MySQLClient#fingerprintmysql)
+- [IsMySQL](/templates/protocols/javascript/modules/mysql.MySQLClient#ismysql)
 
 ## Constructors
 
 ### constructor
 
-• **new MySQLClient**(): [`MySQLClient`](/templates/protocols/javascript/modules/mysql.MySQLClient.md)
+• **new MySQLClient**(): [`MySQLClient`](/templates/protocols/javascript/modules/mysql.MySQLClient)
 
 #### Returns
 
-[`MySQLClient`](/templates/protocols/javascript/modules/mysql.MySQLClient.md)
+[`MySQLClient`](/templates/protocols/javascript/modules/mysql.MySQLClient)
 
 #### Defined in
 
@@ -113,7 +113,7 @@ ___
 
 ### ExecuteQuery
 
-▸ **ExecuteQuery**(`host`, `port`, `username`): [`SQLResult`](/templates/protocols/javascript/modules/mysql.SQLResult.md)
+▸ **ExecuteQuery**(`host`, `port`, `username`): [`SQLResult`](/templates/protocols/javascript/modules/mysql.SQLResult)
 
 ExecuteQuery connects to Mysql database using given credentials
 and executes a query on the db.
@@ -128,7 +128,7 @@ and executes a query on the db.
 
 #### Returns
 
-[`SQLResult`](/templates/protocols/javascript/modules/mysql.SQLResult.md)
+[`SQLResult`](/templates/protocols/javascript/modules/mysql.SQLResult)
 
 **`Example`**
 
@@ -146,7 +146,7 @@ ___
 
 ### ExecuteQueryOnDB
 
-▸ **ExecuteQueryOnDB**(`host`, `port`, `username`): [`SQLResult`](/templates/protocols/javascript/modules/mysql.SQLResult.md)
+▸ **ExecuteQueryOnDB**(`host`, `port`, `username`): [`SQLResult`](/templates/protocols/javascript/modules/mysql.SQLResult)
 
 ExecuteQuery connects to Mysql database using given credentials
 and executes a query on the db.
@@ -161,7 +161,7 @@ and executes a query on the db.
 
 #### Returns
 
-[`SQLResult`](/templates/protocols/javascript/modules/mysql.SQLResult.md)
+[`SQLResult`](/templates/protocols/javascript/modules/mysql.SQLResult)
 
 **`Example`**
 
@@ -179,7 +179,7 @@ ___
 
 ### ExecuteQueryWithOpts
 
-▸ **ExecuteQueryWithOpts**(`opts`, `query`): [`SQLResult`](/templates/protocols/javascript/modules/mysql.SQLResult.md)
+▸ **ExecuteQueryWithOpts**(`opts`, `query`): [`SQLResult`](/templates/protocols/javascript/modules/mysql.SQLResult)
 
 ExecuteQueryWithOpts connects to Mysql database using given credentials
 and executes a query on the db.
@@ -188,12 +188,12 @@ and executes a query on the db.
 
 | Name | Type |
 | :------ | :------ |
-| `opts` | [`MySQLOptions`](/templates/protocols/javascript/modules/mysql.MySQLOptions.md) |
+| `opts` | [`MySQLOptions`](/templates/protocols/javascript/modules/mysql.MySQLOptions) |
 | `query` | `string` |
 
 #### Returns
 
-[`SQLResult`](/templates/protocols/javascript/modules/mysql.SQLResult.md)
+[`SQLResult`](/templates/protocols/javascript/modules/mysql.SQLResult)
 
 **`Example`**
 
@@ -214,7 +214,7 @@ ___
 
 ### FingerprintMySQL
 
-▸ **FingerprintMySQL**(`host`, `port`): [`MySQLInfo`](/templates/protocols/javascript/modules/mysql.MySQLInfo.md)
+▸ **FingerprintMySQL**(`host`, `port`): [`MySQLInfo`](/templates/protocols/javascript/modules/mysql.MySQLInfo)
 
 returns MySQLInfo when fingerpint is successful
 
@@ -227,7 +227,7 @@ returns MySQLInfo when fingerpint is successful
 
 #### Returns
 
-[`MySQLInfo`](/templates/protocols/javascript/modules/mysql.MySQLInfo.md)
+[`MySQLInfo`](/templates/protocols/javascript/modules/mysql.MySQLInfo)
 
 **`Example`**
 
