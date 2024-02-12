@@ -42,7 +42,7 @@ for file in *.md; do mv "$file" "${file%.md}.mdx"; done
 
 # remove .md in links
 printf "\n\e[32m[*] Remove .md in links ...\e[0m\n"
-sed -i '' 's/\.md//g' *.mdx
+sed -i 's/\.md//g' *.mdx
 
 # move to appropriate directory
 cd ../../.. #project root
