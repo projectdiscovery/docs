@@ -189,7 +189,18 @@
             "tools/subfinder/usage",
             "tools/subfinder/running"
           ]
-        } 
+        },
+        {
+          "group": "uncover",
+          "icon": "telescope",
+          "iconType": "duotone",
+          "pages": [
+            "tools/uncover/overview",
+            "tools/uncover/install",
+            "tools/uncover/usage",
+            "tools/uncover/running"
+          ]
+        }  
       ]
     },
     {
