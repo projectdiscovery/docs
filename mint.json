@@ -92,6 +92,17 @@
       "pages": [
         "tools/index",
         {
+          "group": "AlterX",
+          "icon": "cloud-word",
+          "iconType": "duotone",
+          "pages": [
+            "tools/alterx/overview",
+            "tools/alterx/install",
+            "tools/alterx/usage",
+            "tools/alterx/running"
+          ]
+        },
+        {
           "group": "Chaos",
           "icon": "globe",
           "iconType": "duotone",
