@@ -191,6 +191,17 @@
           ]
         },
         {
+          "group": "Notify",
+          "icon": "bell",
+          "iconType": "duotone",
+          "pages": [
+            "tools/notify/overview",
+            "tools/notify/install",
+            "tools/notify/usage",
+            "tools/notify/running"
+          ]
+        },
+        {
           "group": "Nuclei",
           "icon": "atom",
           "iconType": "regular",
