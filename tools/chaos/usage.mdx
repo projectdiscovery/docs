@@ -1,0 +1,26 @@
+---
+title: Chaos Usage
+description: "Learn Chaos usage including flags and filters"
+sidebarTitle: Usage
+---
+
+## Access help
+
+Use `chaos -h` to display all of the help options.
+
+## Chaos options
+
+| Flag                       | Description                              | Example                                                    |
+|----------------------------|------------------------------------------|------------------------------------------------------------|
+| `-d`                       | Domain to find subdomains for            | `chaos -d uber.com`                                        |
+| `-count`                   | Show statistics for the specified domain | `chaos -d uber.com -count`                                 |
+| `-o`                       | File to write output to (optional)       | `chaos -d uber.com -o uber.txt`                            |
+| `-json`                    | Print output as json                     | `chaos -d uber.com -json`                                  |
+| `-key`                     | Chaos key for API                        | `chaos -key API_KEY`                                       |
+| `-dL`                      | File with list of domains (optional)     | `chaos -dL domains.txt`                                    |
+| `-silent`                  | Make the output silent                   | `chaos -d uber.com -silent`                                |
+| `-version`                 | Print current version of chaos client    | `chaos -version`                                           |
+| `-verbose`                 | Show verbose output                      | `chaos -verbose`                                           |
+| `-update`                  | updates to latest version                | `chaos -up`                                                | 
+| `-disable-update-check`    | disables automatic update check          | `chaos -duc`                                               |
+

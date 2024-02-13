@@ -92,6 +92,17 @@
       "pages": [
         "tools/index",
         {
+          "group": "Chaos",
+          "icon": "globe",
+          "iconType": "duotone",
+          "pages": [
+            "tools/chaos/overview",
+            "tools/chaos/install",
+            "tools/chaos/usage",
+            "tools/chaos/running"
+          ]
+        },
+        {
           "group": "Cloudlist",
           "icon": "cloud",
           "iconType": "duotone",
