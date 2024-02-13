@@ -158,6 +158,17 @@
           ]
         },
         {
+          "group": "Interactsh",
+          "icon": "whistle",
+          "iconType": "duotone",
+          "pages": [
+            "tools/interactsh/overview",
+            "tools/interactsh/install",
+            "tools/interactsh/usage",
+            "tools/interactsh/running"
+          ]
+        },
+        {
           "group": "Katana",
           "icon": "sword",
           "iconType": "duotone",
