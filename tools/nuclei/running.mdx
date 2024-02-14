@@ -619,57 +619,6 @@ nuclei -tags cve -uncover
 
 We can update the nuclei configuration file to include these tags for all scans.
 
-## **Large scans** using Nuclei
-
-Nuclei fully utilises resources to optimise scanning speed. However, when scanning **thousands**, if not **millions, of targets**, scanning using default parameter values is bound to cause some performance issues ex: low RPS, Slow Scans, Process Killed, High RAM consumption, etc. this is due to limited resources and network I/O. Hence following parameters need to be tuned based on system configuration and targets.
-
-For enterprises dealing with large-scale scanning, optimizing Nuclei can be a burdensome task, especially when scans change frequently. That's where [Nuclei Enterprise](https://nuclei.sh/enterprise) comes in. With its managed offering and dedicated support, Nuclei Enterprise minimizes the burden of optimizing Nuclei on large scans, making it an ideal choice for enterprise-level scanning needs.
-
-
-| Flag          | Short | Description                                               |
-| ------------- | ----- | --------------------------------------------------------- |
-| scan-strategy | -ss   | Scan Strategy to Use (auto/host-spray/template-spray)     |
-| bulk-size     | -bs   | Max Number of targets to scan in parallel                 |
-| concurrency   | -c    | Max Number of templates to use in parallel while scanning |
-| stream        | -     | stream mode - start elaborating without sorting the input |
-
-<Note>
-  These are common parameters that need to be tuned. Apart from these
-  `-rate-limit`, `-retries`, `-timeout`, `-max-host-error` also need to be tuned
-  based on targets that are being scanned
-</Note>
-
-### Which Scan Strategy to Use?
-
-**scan-strategy** option can have three possible values
-
-- `host-spray` : All templates are iterated over each target.
-- `template-spray` : Each template is iterated over all targets.
-- `auto`(Default) : Placeholder of `template-spray` for now.
-
-User should select **Scan Strategy** based on number of targets and Each strategy has its own pros & cons.
-
-- When targets < 1000, `template-spray` should be used. This strategy is slightly faster than `host-spray` but uses more RAM and does not optimally reuse connections.
-- When targets > 1000, `host-spray` should be used. This strategy uses less RAM than `template-spray` and reuses HTTP connections along with some minor improvements and these are crucial when mass scanning.
-
-### Concurrency & Bulk-Size
-
-Whatever the `scan-strategy` is `-concurrency` and `-bulk-size` are crucial for tuning any type of scan. While tuning these parameters following points should be noted.
-
-**If `scan-strategy` is template-spray**
-
-- `-concurrency` < `bulk-size` (Ex: `-concurrency 10 -bulk-size 200`)
-
-**If `scan-strategy` is host-spray**
-
-- `-concurrency` > `bulk-size` (Ex: `-concurrency 200 -bulk-size 10`)
-
-<Tip> `-concurrency` x `-bulk-size` \<\= 2500 (depending on system config) </Tip>
-
-### Stream
-
-This option should only be enabled if targets > 10k . This skips any type of sorting or preprocessing on target list.
-
 ## Nuclei **Config**
 
 > Since release of [v2.3.2](https://blog.projectdiscovery.io/nuclei-v2-3-0-release/) nuclei uses [goflags](https://github.com/projectdiscovery/goflags) for clean CLI experience and long/short formatted flags.

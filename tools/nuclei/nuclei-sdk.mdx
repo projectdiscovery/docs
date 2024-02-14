@@ -6,7 +6,7 @@ sidebarTitle: 'Go SDK'
 
 ## Nuclei SDK
 
-Nuclei is primarily built as a CLI tool and all optimizations / options are done in regards to that. To address increased usage of Nuclei from Go code, we introduced a revamped Go SDK of nuclei in [v3.0.0](https://blog.projectdiscovery.io/nuclei-v3-featurefusion/#sdk-4-all-revamped-go-sdk)
+Nuclei is primarily built as a CLI tool and all optimizations / options are done in regards to that. To address increased usage of Nuclei from Go code, we introduced a revamped Go SDK of Nuclei in [v3.0.0](https://blog.projectdiscovery.io/nuclei-v3-featurefusion/#sdk-4-all-revamped-go-sdk)
 
 That being said, CLI is still the primary way to use nuclei. More documentation and API reference along with examples on using Nuclei as library is available at [pkg.go.dev](https://pkg.go.dev/github.com/projectdiscovery/nuclei/v3@v3.1.10/lib#section-readme)
 
@@ -32,9 +32,9 @@ Optimal and Resource efficient usage of Nuclei SDK requires thorough understandi
 - Prefer `host-spray` strategy when possible
 - Donot constraint GC (Garbage Collection) by setting low memory limits if possible. Nuclei(just like go standard http library) focuses on reusing memory than freeing it and allocating it again. This is why Nuclei like other go tools does not have high fluctuation in memory usage and either increases or decreases memory usage gradually
 - Properly adjust `-c` , `-bs` and `-rl` flags after understanding requirement and capabilities of your own system as well as targets you are scanning
-- Although nuclei can handle any number of targets when configured properly but it is recommended to batch targets (based on target/system capabilities)
+- Although Nuclei can handle any number of targets when configured properly but it is recommended to batch targets (based on target/system capabilities)
 - Using Nuclei from SDK provides more control in terms of customization regarding what to run and how to run, hence it is recommended to use a proper chunking strategy that takes all factors into account
-- Since SDK still in active development, it is advised to look into internals of nuclei especially `tmplexec` and `core` package to understand execution flow, this will give more granular insights into how to optimize nuclei for your use case
+- Since SDK still in active development, it is advised to look into internals of Nuclei especially `tmplexec` and `core` package to understand execution flow, this will give more granular insights into how to optimize Nuclei for your use case
 
 
 ### Reporting Issues
