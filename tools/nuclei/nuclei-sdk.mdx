@@ -1,0 +1,56 @@
+---
+title: 'Nuclei SDK'
+description: "Documentation related to Nuclei SDK"
+sidebarTitle: 'Go SDK'
+---
+
+## Nuclei SDK
+
+Nuclei is primarily built as a CLI tool and all optimizations / options are done in regards to that. To address increased usage of Nuclei from Go code, we introduced a revamped Go SDK of nuclei in [v3.0.0](https://blog.projectdiscovery.io/nuclei-v3-featurefusion/#sdk-4-all-revamped-go-sdk)
+
+That being said, CLI is still the primary way to use nuclei. More documentation and API reference along with examples on using Nuclei as library is available at [pkg.go.dev](https://pkg.go.dev/github.com/projectdiscovery/nuclei/v3@v3.1.10/lib#section-readme)
+
+> **Note**:
+>
+> Nuclei in general is still in active development hence expect breaking changes in the SDK as well, we will try to keep the documentation updated with the latest changes.
+> 
+> Running Nuclei as a service may pose security risks. It's recommended to use with caution and additional security measures.
+
+
+### Nuclei Version
+
+Nuclei does not support a LTS version or a stable version since Nuclei and Nuclei-templates combined function as a single unit and Nuclei Engine will evolve to meet requirements and features needed for writing templates. Hence, its always recommended to use the latest version of Nuclei SDK
+
+
+## Nuclei Performance and Optimization
+
+Optimal and Resource efficient usage of Nuclei SDK requires thorough understanding of [How Nuclei Consumes Resources](/tools/nuclei/mass-scanning-cli#understanding-how-nuclei-consumes-resources) and optimization based on multiple factors please refer to [mass-scanning](/tools/nuclei/mass-scanning-cli) for more details on the same.
+
+
+### General Suggestions for Optimal Usage
+
+- Prefer `host-spray` strategy when possible
+- Donot constraint GC (Garbage Collection) by setting low memory limits if possible. Nuclei(just like go standard http library) focuses on reusing memory than freeing it and allocating it again. This is why Nuclei like other go tools does not have high fluctuation in memory usage and either increases or decreases memory usage gradually
+- Properly adjust `-c` , `-bs` and `-rl` flags after understanding requirement and capabilities of your own system as well as targets you are scanning
+- Although nuclei can handle any number of targets when configured properly but it is recommended to batch targets (based on target/system capabilities)
+- Using Nuclei from SDK provides more control in terms of customization regarding what to run and how to run, hence it is recommended to use a proper chunking strategy that takes all factors into account
+- Since SDK still in active development, it is advised to look into internals of nuclei especially `tmplexec` and `core` package to understand execution flow, this will give more granular insights into how to optimize nuclei for your use case
+
+
+### Reporting Issues
+
+After Understanding all factors and optimization techniques mentioned in above linked documentation, if you are still facing performance issues like crash, memory leak etc then please report this issue  with below details:
+
+- Nuclei Version (if not latest please try with latest version before reporting)
+- Target/Input Count
+- Template Count
+- Values of all flags mentioned in [mass-scanning](/tools/nuclei/mass-scanning-cli) documentation or actual code snippet containing the same
+- Observed Memory Usage
+- Type of Handler used (NucleiEngine or ThreadSafeNucleiEngine)
+- Any other relevant details 
+
+For memory leak issues, debug profiles using [pprof](https://go.dev/blog/pprof) are required to properly diagnose the issue.
+
+
+
+
