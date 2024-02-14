@@ -209,6 +209,7 @@
             "tools/nuclei/overview",
             "tools/nuclei/install",
             "tools/nuclei/running",
+            "tools/nuclei/mass-scanning-cli",
             "tools/nuclei/faq"
           ]
         },
