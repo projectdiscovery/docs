@@ -23,6 +23,20 @@ sidebarTitle: "Install"
    go install github.com/projectdiscovery/katana/cmd/katana@latest
     ```
   </Tab>
+    <Tab title="Ubuntu">
+    For running Ubuntu we recommend installing the following prerequisits
+
+    ```sh
+    sudo apt update
+    sudo snap refresh
+    sudo apt install zip curl wget git
+    sudo snap install golang --classic
+    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
+    sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+    sudo apt update 
+    sudo apt install google-chrome-stable
+    ```
+  </Tab>
   <Tab title="Binary">
     ```bash
     https://github.com/projectdiscovery/katana/releases
