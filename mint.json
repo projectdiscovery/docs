@@ -213,6 +213,17 @@
           ]
         },
         {
+          "group": "PDTM",
+          "icon": "toolbox",
+          "iconType": "regular",
+          "pages": [
+            "tools/pdtm/overview",
+            "tools/pdtm/install",
+            "tools/pdtm/usage",
+            "tools/pdtm/running"
+          ]
+        },
+        {
           "group": "Subfinder",
           "icon": "radar",
           "iconType": "duotone",
