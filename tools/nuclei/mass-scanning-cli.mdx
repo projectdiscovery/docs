@@ -134,6 +134,25 @@ In general, here are some recommendations to optimize Nuclei for mass scanning:
     Note: This flag directly affects the speed and memory usage of Nuclei since it keeps unresponsive hosts in memory and retries them.
 
 
+## Reporting Performance Issues
+
+Unlike other type of issues, Performance Issue require more information and a different kind of information to debug and fix this issue. Hence it is recommended to report performance issues with following information:
+
+
+- Nuclei Version (if not latest then try with latest version)
+- System Information (OS, Memory, CPU)
+- Target Count and Template Count
+- Above mentioned flags and options used especially -c, -bs, -rl, -ss
+- Any other flags and options used
+
+
+Above information will help in understanding if the issue is due to misconfiguration or due to a bug in nuclei. If Issue is of a more complex nature like memory leak then application profiles need to be collected and shared in the issue description
+
+Profiling can be enabled in nuclei using `PPROF=1` environment variable and also accepts addition option `PPROF_TIME=10s` using these two env variables will enable profiling and snapshot of cpu profile and memory profile will be collected and store in appropriate directories every 10 seconds(PPROF_TIME). For addition options about profiling refer to [nuclei-pprof](https://github.com/projectdiscovery/utils/tree/main/pprof).
+
+A good example of reporting performance issue like memory leak is [#4552](https://github.com/projectdiscovery/nuclei/issues/4552) .
+
+
 ## Maximize Your Nuclei Experience with PDCP
 
 Building a Nuclei automation or running recurrent scans on more than 100 targets can be a challenging task without understanding Nuclei and experimenting with the flags and options.
@@ -146,4 +165,3 @@ One additional option is to consider evaluating ProjectDiscovery Cloud Platform 
 PDCP includes many other helpful features for vulnerability scanning and ASM like Dashboard, Integrations, Reporting, Recurring Scans and much more
 
 For more information on PDCP, Visit [PDCP](https://docs.projectdiscovery.io/cloud/introduction)
-
