@@ -1,17 +1,18 @@
 ---
-title: 'Mass Scanning with Nuclei CLI'
-description: "Documentation related to Running Nuclei on More than 100 targets"
+title: 'Mass Scanning with Nuclei'
+description: "Running Nuclei through the CLI on hundreds of targets"
 sidebarTitle: 'Mass Scanning'
 ---
 
 ## What is **Mass Scanning?**
 
-Mass scanning in context of Nuclei means running Nuclei CLI on more than 100 targets. While Nuclei works out of the box for running scans on any number of targets, It is recommended to have a basic understanding of the resource requirements for running nuclei and how to properly adjust flags and options to avoid overutilization of resources and to get the best performance.
+Mass scanning in the context of Nuclei means running the Nuclei CLI on more than 100 targets. While Nuclei works out-of-the-box for running scans on any number of targets -  we recommend learning more to understand 
+the resource requirements for running Nuclei in different scenarios and how to properly adjust flags and options to avoid overutilization of resources and to get the best performance.
 
 
 ## Overutilization of Resources
 
-If flags and available options are not properly configured, nuclei can overutilize resources and can cause following issues:
+If flags and available options are not properly configured, Nuclei can overutilize resources and can cause following issues:
 
 - OOM Killed by the system
 
@@ -22,7 +23,7 @@ If flags and available options are not properly configured, nuclei can overutili
 
 ## Understanding How Nuclei Consumes Resources
 
-Nuclei is a highly concurrent tool that has major Network I/O due to nature of the tool. Hence There is a direct correlation between concurrency and Memory Usage
+Nuclei is a highly concurrent tool that has major Network I/O due to nature of the tool. There is a direct correlation between concurrency and memory usage. 
 
 **max-requests**
 
@@ -103,46 +104,46 @@ Nuclei is a highly concurrent tool that has major Network I/O due to nature of t
 
 
 
-## Summary & Recommendations for Optimizing Resource Usage
+## Recommendations for Optimizing Resource Usage
 
-Currently, There is no out-of-the-box solution to optimize nuclei automatically for mass scanning, only proper understanding of flags and options can help in optimizing nuclei for mass scanning.
+Currently, here is no out-of-the-box solution to optimize Nuclei automatically for mass scanning. Understanding the proper use of flags and options can help in optimizing Nuclei for mass scanning.
 
-In general, following are some recommendations to optimize nuclei for mass scanning:
+In general, here are some recommendations to optimize Nuclei for mass scanning:
 
 - Prefer `host-spray` strategy when possible
-- Donot constraint GC (Garbage Collection) by setting low memory limits if possible. Nuclei(just like go standard http library) focuses on reusing memory than freeing it and allocating it again. This is why Nuclei like other go tools does not have high fluctuation in memory usage and either increases or decreases memory usage gradually
+- Donot constraint GC (Garbage Collection) by setting low memory limits if possible. Nuclei(just like go standard http library) focuses on reusing memory than freeing it and allocating it again. This is why Nuclei like other Go tools does not have high fluctuation in memory usage and either increases or decreases memory usage gradually
 - Properly adjust `-c` , `-bs` and `-rl` flags after understanding requirement and capabilities of your own system as well as targets you are scanning
-- Although nuclei can handle any number of targets when configured properly but it is recommended to batch targets (based on target/system capabilities)
+- Although Nuclei can handle any number of targets we recommended batching targets based on targets or system capabilities
 
 
-## Feature based Optimizations for Mass Scanning
+## Feature-based Optimizations for Mass Scanning
 
 - **-timeout**
-    Timeout controls the maximum time nuclei should wait for a response (current default is 10 sec for http 6 * -timout value for code protocol)
-    Again this flag depends on the targets you are running nuclei on and the network conditions. Setting low value might cause false negatives and setting high value might cause high memory usage and slow down the scanning process
+    Timeout controls the maximum time Nuclei should wait for a response (current default is 10 sec for http 6 * -timout value for code protocol)
+    This flag depends on your targets and the network conditions. Setting a low value might cause false negatives and setting a high value might cause high memory usage and slow down the scanning process.
 
 - **-retries**
-    Retries controls the maximum number of retries nuclei should do for a request (current default is 1)
-    This flag is useful when you are scanning targets with unstable network conditions. Setting high value might cause high memory usage and slow down the scanning process
+    Retries controls the maximum number of retries Nuclei should attempt for a request (current default is 1)
+    This flag is useful when you are scanning targets with unstable network conditions. Setting a high value might cause high memory usage and slow down the scanning process.
 
 - **-mhe or -max-host-error**
-    This flag controls the maximum number of (network type) errors to allow per host before kicking out that unresponsive host from the scan (current default is 30)
+    This flag controls the maximum number of (network type) errors to allow per host before removing the unresponsive host from the scan (current default is 30)
 
 - **-nmhe or -no-max-host-error**
-    This flag disables the behavior of kicking out unresponsive hosts from the scan when they reach maximum number of errors (current default is 30)
-    Note: This flag directly affects speed and memory usage of nuclei since it keeps unresponsive hosts in memory and retries them
+    This flag disables the behavior of removing unresponsive hosts from the scan when they reach maximum number of errors (current default is 30)
+    Note: This flag directly affects the speed and memory usage of Nuclei since it keeps unresponsive hosts in memory and retries them.
 
 
 ## Maximize Your Nuclei Experience with PDCP
 
-Building a Nuclei Automation or running recurrent scans on more than 100 targets can be a challenging task without proper and continued understanding of nuclei or experimenting with flags and options
+Building a Nuclei automation or running recurrent scans on more than 100 targets can be a challenging task without understanding Nuclei and experimenting with the flags and options.
 
-This is where [PDCP](https://cloud.projectdiscovery.io) comes into play its a Managed service to Vulnerability Scanning and ASM With Nuclei and other projectdiscovery tools, Neverthless to say in context of Nuclei 
+One additional option is to consider evaluating ProjectDiscovery Cloud Platform or [PDCP](https://cloud.projectdiscovery.io). As a managed service it offers:
 
 - All Scaling and Optimizations is abstracted
-- Scans are distributed and Requests are approriately chunked in a manner to Scale without False Negatives 
+- Scans are distributed and requests are approriately chunked in a manner to Scale without False Negatives 
 
-This is strictly speaking in context of Nuclei Mass Scanning but PDCP includes many other need to have features for Vulnerability Scanning and ASM like Dashboard, Integrations, Reporting, Recurring Scans and much more
+PDCP includes many other helpful features for vulnerability scanning and ASM like Dashboard, Integrations, Reporting, Recurring Scans and much more
 
 For more information on PDCP, Visit [PDCP](https://docs.projectdiscovery.io/cloud/introduction)
 
