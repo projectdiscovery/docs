@@ -111,7 +111,7 @@ Currently, here is no out-of-the-box solution to optimize Nuclei automatically f
 In general, here are some recommendations to optimize Nuclei for mass scanning:
 
 - Prefer `host-spray` strategy when possible
-- Donot constraint GC (Garbage Collection) by setting low memory limits if possible. Nuclei(just like go standard http library) focuses on reusing memory than freeing it and allocating it again. This is why Nuclei like other Go tools does not have high fluctuation in memory usage and either increases or decreases memory usage gradually
+- Do not constraint GC (Garbage Collection) by setting low memory limits if possible. Nuclei (just like go standard http library) focuses on reusing memory than freeing it and allocating it again. This is why Nuclei like other Go tools does not have high fluctuation in memory usage and either increases or decreases memory usage gradually
 - Properly adjust `-c` , `-bs` and `-rl` flags after understanding requirement and capabilities of your own system as well as targets you are scanning
 - Although Nuclei can handle any number of targets we recommended batching targets based on targets or system capabilities
 
