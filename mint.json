@@ -368,7 +368,8 @@
         "cloud/editor/introduction",
         "cloud/editor/ai",
         "cloud/editor/share",
-        "cloud/editor/shortcuts"
+        "cloud/editor/shortcuts",
+        "cloud/editor/recommended"
       ]
     },
     {
