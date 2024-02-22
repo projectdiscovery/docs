@@ -373,12 +373,12 @@
         "pages": [
            "cloud/editor/ai",
            "cloud/editor/share",
-           "cloud/editor/shortcuts",
-           "cloud/editor/recommended"
+           "cloud/editor/shortcuts"
           ]
-        }
+        },
+        "cloud/editor/recommended"
       ]
-    },
+    }, 
     {
       "group": "Scanning",
       "pages": ["cloud/scanning/introduction"]
