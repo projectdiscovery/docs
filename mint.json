@@ -367,7 +367,7 @@
       "pages": ["cloud/assets/overview", "cloud/assets/FAQ"]
     },
     {
-      "group": "Template Editor",
+      "group": "Templates & Editor",
       "pages": [
         "cloud/editor/introduction",
         "cloud/editor/ai",
