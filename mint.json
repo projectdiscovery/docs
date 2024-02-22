@@ -363,6 +363,10 @@
        ]
     },
     {
+      "group": "Assets",
+      "pages": ["cloud/assets/overview", "cloud/assets/FAQ"]
+    },
+    {
       "group": "Template Editor",
       "pages": [
         "cloud/editor/introduction",
