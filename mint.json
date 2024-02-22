@@ -364,16 +364,18 @@
     },
     {
       "group": "Assets",
-      "pages": ["cloud/assets/overview", "cloud/assets/FAQ"]
-    },
-    {
-      "group": "Templates & Editor",
       "pages": [
-        "cloud/editor/introduction",
-        "cloud/editor/ai",
-        "cloud/editor/share",
-        "cloud/editor/shortcuts",
-        "cloud/editor/recommended"
+        "cloud/assets/overview", 
+        "cloud/assets/FAQ"]
+    },
+       {
+        "group": "Templates & Editor",
+        "pages": [
+           "cloud/editor/introduction",
+           "cloud/editor/ai",
+           "cloud/editor/share",
+           "cloud/editor/shortcuts",
+           "cloud/editor/recommended"
       ]
     },
     {
