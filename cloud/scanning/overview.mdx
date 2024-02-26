@@ -16,7 +16,8 @@ Features include:
 - Viewing active vulnerabilities
 - Scheduling scans
 - Exporting scan details 
-- Determine active CVEs
+- Determining active CVEs
+- Rescanning
 
 ## Getting Started
 
@@ -27,17 +28,18 @@ Before you get started with scanning you will need two things:
 
 **Assets**
 
-Assets can be uploaded individually or through a .TXT file, or added through the Asset Discovery option. Refer to our [Assets documentation](/cloud/assets/overview) for details on adding Assets if you have not. 
+Assets can be uploaded individually or through a .TXT file, or added through Asset Discovery. Refer to our [Assets documentation](/cloud/assets/overview) for details on adding Assets if you have not. 
 
 **Templates**
-PDCP includes our large community-curated library of public templates. You can use all of those templates, our subset of [recommended templates](/cloud/editor/recommended), a custom selection of templates, or add your own. 
+
+PDCP includes our large community-curated library of public templates. You can use all of those templates, our subset of [recommended templates](/cloud/editor/recommended), a specific selection of templates, or you can create or add your own custom templates.
 
  - Check out the main [Nuclei templates](templates/introduction) section to learn more about templates or, 
  - Review the [Templates & Editor](/cloud/editor/overview) section for more information on using templates and the editor within PDCP
 
 ## Creating Scans
 
-Scans can be connected through an existing Nuclei setup, or through PDCP directly. Select the assets you want to scan, select your template options as desired, and finalize other options to create a scan.
+Scans can be connected through an existing Nuclei setup, or directly created through PDCP. Select the assets you want to scan, choose your templates, and select your scan options as desired to create a scan.
 
 - Check out [Getting Started with PDCP Free](/cloud/free/overview) for details on connecting an existing Nuclei scan to PDCP to explore some of the features mentioned here.
 
@@ -48,8 +50,8 @@ Existing scans are located in the main Scans section of your PDCP environment. Y
 
 ### Scan details (Viewing)
 Selecting an individual scan opens a scan detail page that includes:
- - Summary information (Total vulnerabilities, Active CVEs, Total assets, etc.) 
- - Filtering options for the displayed vulnerabilities (Status, Severity, Host information, templates, etc) 
+ - Summary information (Total vulnerabilities, Active CVEs, Total assets) 
+ - Filtering options for the displayed vulnerabilities (Status, Severity, Host information, templates) 
  - All vulnerabilities identified by the scan with corresponding severities
 
 ### Scan details (Actions) 
@@ -57,11 +59,11 @@ The scan detail page also includes capabilities for:
  - Rescanning 
  - Exporting
  - Retesting individual vulnerabilities
- - Status management for vulnerabilities (open, close, mark as a false positive) 
+ - Status management for vulnerabilities (open, closed, mark as a false positive) 
 
 ### Vulnerability details 
 Selecting an individual vulnerability shows details including:
  - The location (URL) where the vulnerability was identified 
  - The template used to identify the vulnerability
- - Vulnerability details including status, timestamp, IP address, etc. 
+ - Vulnerability details including status, timestamp, IP address
 
