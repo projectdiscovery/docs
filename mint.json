@@ -367,7 +367,7 @@
       "pages": ["cloud/assets/overview", "cloud/assets/faq"]
     }, 
     { "group": "Templates & Editor",
-      "pages": ["cloud/editor/introduction",
+      "pages": ["cloud/editor/overview",
        {
         "group": "Editor",
         "pages": [
@@ -381,7 +381,7 @@
     }, 
     {
       "group": "Scanning",
-      "pages": ["cloud/scanning/introduction"]
+      "pages": ["cloud/scanning/overview"]
     },
     {
       "group": "API Reference",
