@@ -9,7 +9,7 @@ Internally client uses github.com/zmap/zgrab2/lib/ssh driver.
 
 ```javascript
 const ssh = require('nuclei/ssh');
-const client = new ssh.Client();
+const client = new ssh.SSHClient();
 ```
 
 ## Table of contents
@@ -59,7 +59,7 @@ state will be false
 
 ```javascript
 const ssh = require('nuclei/ssh');
-const client = new ssh.Client();
+const client = new ssh.SSHClient();
 client.Connect('acme.com', 22, 'username', 'password');
 const closed = client.Close();
 ```
@@ -95,7 +95,7 @@ state will be false
 
 ```javascript
 const ssh = require('nuclei/ssh');
-const client = new ssh.Client();
+const client = new ssh.SSHClient();
 const connected = client.Connect('acme.com', 22, 'username', 'password');
 ```
 
@@ -131,7 +131,7 @@ ssh connection
 
 ```javascript
 const ssh = require('nuclei/ssh');
-const client = new ssh.Client();
+const client = new ssh.SSHClient();
 const info = client.ConnectSSHInfoMode('acme.com', 22);
 log(to_json(info));
 ```
@@ -167,7 +167,7 @@ state will be false
 
 ```javascript
 const ssh = require('nuclei/ssh');
-const client = new ssh.Client();
+const client = new ssh.SSHClient();
 const privateKey = `-----BEGIN RSA PRIVATE KEY----- ...`;
 const connected = client.ConnectWithKey('acme.com', 22, 'username', privateKey);
 ```
@@ -202,7 +202,7 @@ The string contains the command output
 
 ```javascript
 const ssh = require('nuclei/ssh');
-const client = new ssh.Client();
+const client = new ssh.SSHClient();
 client.Connect('acme.com', 22, 'username', 'password');
 const output = client.Run('id');
 log(output);
@@ -234,7 +234,7 @@ SetTimeout sets the timeout for the SSH connection in seconds
 
 ```javascript
 const ssh = require('nuclei/ssh');
-const client = new ssh.Client();
+const client = new ssh.SSHClient();
 client.SetTimeout(10);
 ```
 

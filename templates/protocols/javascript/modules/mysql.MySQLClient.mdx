@@ -9,7 +9,7 @@ Internally client uses go-sql-driver/mysql driver.
 
 ```javascript
 const mysql = require('nuclei/mysql');
-const client = new mysql.Client();
+const client = new mysql.MySQLClient;
 ```
 
 ## Table of contents
@@ -69,7 +69,7 @@ The connection is closed after the function returns.
 
 ```javascript
 const mysql = require('nuclei/mysql');
-const client = new mysql.Client();
+const client = new mysql.MySQLClient;
 const connected = client.Connect('acme.com', 3306, 'username', 'password');
 ```
 
@@ -101,7 +101,7 @@ If connection is successful, it returns true.
 
 ```javascript
 const mysql = require('nuclei/mysql');
-const client = new mysql.Client();
+const client = new mysql.MySQLClient;
 const connected = client.ConnectWithDSN('username:password@tcp(acme.com:3306)/');
 ```
 

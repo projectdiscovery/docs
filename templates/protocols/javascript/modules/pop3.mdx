@@ -2,10 +2,41 @@
 
 ## Table of contents
 
-### Classes
-
-- [Pop3Client](/templates/protocols/javascript/modules/pop3.Pop3Client)
-
 ### Interfaces
 
 - [IsPOP3Response](/templates/protocols/javascript/modules/pop3.IsPOP3Response)
+
+### Functions
+
+- [IsPOP3](/templates/protocols/javascript/modules/pop3#ispop3)
+
+## Functions
+
+### IsPOP3
+
+▸ **IsPOP3**(`host`, `port`): [`IsPOP3Response`](/templates/protocols/javascript/modules/pop3.IsPOP3Response) \| ``null``
+
+IsPOP3 checks if a host is running a POP3 server.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `host` | `string` |
+| `port` | `number` |
+
+#### Returns
+
+[`IsPOP3Response`](/templates/protocols/javascript/modules/pop3.IsPOP3Response) \| ``null``
+
+**`Example`**
+
+```javascript
+const pop3 = require('nuclei/pop3');
+const isPOP3 = pop3.IsPOP3('acme.com', 110);
+log(toJSON(isPOP3));
+```
+
+#### Defined in
+
+pop3.ts:12

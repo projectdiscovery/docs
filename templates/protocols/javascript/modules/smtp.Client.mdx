@@ -1,0 +1,166 @@
+# Class: Client
+
+[smtp](/templates/protocols/javascript/modules/smtp).Client
+
+Client is a minimal SMTP client for nuclei scripts.
+
+**`Example`**
+
+```javascript
+const smtp = require('nuclei/smtp');
+const client = new smtp.Client('acme.com', 25);
+```
+
+## Table of contents
+
+### Constructors
+
+- [constructor](/templates/protocols/javascript/modules/smtp.Client#constructor)
+
+### Properties
+
+- [host](/templates/protocols/javascript/modules/smtp.Client#host)
+- [port](/templates/protocols/javascript/modules/smtp.Client#port)
+
+### Methods
+
+- [IsOpenRelay](/templates/protocols/javascript/modules/smtp.Client#isopenrelay)
+- [IsSMTP](/templates/protocols/javascript/modules/smtp.Client#issmtp)
+- [SendMail](/templates/protocols/javascript/modules/smtp.Client#sendmail)
+
+## Constructors
+
+### constructor
+
+• **new Client**(`host`, `port`): [`Client`](/templates/protocols/javascript/modules/smtp.Client)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `host` | `string` |
+| `port` | `string` |
+
+#### Returns
+
+[`Client`](/templates/protocols/javascript/modules/smtp.Client)
+
+#### Defined in
+
+smtp.ts:15
+
+## Properties
+
+### host
+
+• **host**: `string`
+
+#### Defined in
+
+smtp.ts:15
+
+___
+
+### port
+
+• **port**: `string`
+
+#### Defined in
+
+smtp.ts:15
+
+## Methods
+
+### IsOpenRelay
+
+▸ **IsOpenRelay**(`msg`): `boolean`
+
+IsOpenRelay checks if a host is an open relay.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `msg` | [`SMTPMessage`](/templates/protocols/javascript/modules/smtp.SMTPMessage) |
+
+#### Returns
+
+`boolean`
+
+**`Example`**
+
+```javascript
+const smtp = require('nuclei/smtp');
+const message = new smtp.SMTPMessage();
+message.From('xyz@projectdiscovery.io');
+message.To('xyz2@projectdiscoveyr.io');
+message.Subject('hello');
+message.Body('hello');
+const client = new smtp.Client('acme.com', 25);
+const isRelay = client.IsOpenRelay(message);
+```
+
+#### Defined in
+
+smtp.ts:47
+
+___
+
+### IsSMTP
+
+▸ **IsSMTP**(): [`SMTPResponse`](/templates/protocols/javascript/modules/smtp.SMTPResponse)
+
+IsSMTP checks if a host is running a SMTP server.
+
+#### Returns
+
+[`SMTPResponse`](/templates/protocols/javascript/modules/smtp.SMTPResponse)
+
+**`Example`**
+
+```javascript
+const smtp = require('nuclei/smtp');
+const client = new smtp.Client('acme.com', 25);
+const isSMTP = client.IsSMTP();
+log(isSMTP)
+```
+
+#### Defined in
+
+smtp.ts:28
+
+___
+
+### SendMail
+
+▸ **SendMail**(`msg`): `boolean`
+
+SendMail sends an email using the SMTP protocol.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `msg` | [`SMTPMessage`](/templates/protocols/javascript/modules/smtp.SMTPMessage) |
+
+#### Returns
+
+`boolean`
+
+**`Example`**
+
+```javascript
+const smtp = require('nuclei/smtp');
+const message = new smtp.SMTPMessage();
+message.From('xyz@projectdiscovery.io');
+message.To('xyz2@projectdiscoveyr.io');
+message.Subject('hello');
+message.Body('hello');
+const client = new smtp.Client('acme.com', 25);
+const isSent = client.SendMail(message);
+log(isSent)
+```
+
+#### Defined in
+
+smtp.ts:67

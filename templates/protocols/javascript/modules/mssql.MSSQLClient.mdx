@@ -9,7 +9,7 @@ Internally client uses denisenkom/go-mssqldb driver.
 
 ```javascript
 const mssql = require('nuclei/mssql');
-const client = new mssql.Client();
+const client = new mssql.MSSQLClient;
 ```
 
 ## Table of contents
@@ -65,7 +65,7 @@ The connection is closed after the function returns.
 
 ```javascript
 const mssql = require('nuclei/mssql');
-const client = new mssql.Client();
+const client = new mssql.MSSQLClient;
 const connected = client.Connect('acme.com', 1433, 'username', 'password');
 ```
 
@@ -100,7 +100,7 @@ The connection is closed after the function returns.
 
 ```javascript
 const mssql = require('nuclei/mssql');
-const client = new mssql.Client();
+const client = new mssql.MSSQLClient;
 const connected = client.ConnectWithDB('acme.com', 1433, 'username', 'password', 'master');
 ```
 

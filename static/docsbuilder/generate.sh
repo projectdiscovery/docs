@@ -2,7 +2,7 @@ printf "\n\e[32m[*] Updating Nuclei Javascript Modules ...\e[0m\n"
 # clone nuclei
 git clone https://github.com/projectdiscovery/nuclei.git
 # branch
-export BRANCH=issue-4248-ts-docs
+export BRANCH=dev
 
 # change directory
 cd nuclei 

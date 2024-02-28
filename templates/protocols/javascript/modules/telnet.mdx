@@ -2,10 +2,41 @@
 
 ## Table of contents
 
-### Classes
-
-- [TelnetClient](/templates/protocols/javascript/modules/telnet.TelnetClient)
-
 ### Interfaces
 
 - [IsTelnetResponse](/templates/protocols/javascript/modules/telnet.IsTelnetResponse)
+
+### Functions
+
+- [IsTelnet](/templates/protocols/javascript/modules/telnet#istelnet)
+
+## Functions
+
+### IsTelnet
+
+▸ **IsTelnet**(`host`, `port`): [`IsTelnetResponse`](/templates/protocols/javascript/modules/telnet.IsTelnetResponse) \| ``null``
+
+IsTelnet checks if a host is running a Telnet server.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `host` | `string` |
+| `port` | `number` |
+
+#### Returns
+
+[`IsTelnetResponse`](/templates/protocols/javascript/modules/telnet.IsTelnetResponse) \| ``null``
+
+**`Example`**
+
+```javascript
+const telnet = require('nuclei/telnet');
+const isTelnet = telnet.IsTelnet('acme.com', 23);
+log(toJSON(isTelnet));
+```
+
+#### Defined in
+
+telnet.ts:12

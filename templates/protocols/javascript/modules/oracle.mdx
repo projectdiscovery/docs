@@ -2,10 +2,41 @@
 
 ## Table of contents
 
-### Classes
-
-- [OracleClient](/templates/protocols/javascript/modules/oracle.OracleClient)
-
 ### Interfaces
 
 - [IsOracleResponse](/templates/protocols/javascript/modules/oracle.IsOracleResponse)
+
+### Functions
+
+- [IsOracle](/templates/protocols/javascript/modules/oracle#isoracle)
+
+## Functions
+
+### IsOracle
+
+▸ **IsOracle**(`host`, `port`): [`IsOracleResponse`](/templates/protocols/javascript/modules/oracle.IsOracleResponse) \| ``null``
+
+IsOracle checks if a host is running an Oracle server
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `host` | `string` |
+| `port` | `number` |
+
+#### Returns
+
+[`IsOracleResponse`](/templates/protocols/javascript/modules/oracle.IsOracleResponse) \| ``null``
+
+**`Example`**
+
+```javascript
+const oracle = require('nuclei/oracle');
+const isOracle = oracle.IsOracle('acme.com', 1521);
+log(toJSON(isOracle));
+```
+
+#### Defined in
+
+oracle.ts:12

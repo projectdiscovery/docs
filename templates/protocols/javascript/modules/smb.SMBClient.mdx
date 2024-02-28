@@ -10,7 +10,7 @@ github.com/projectdiscovery/go-smb2 driver
 
 ```javascript
 const smb = require('nuclei/smb');
-const client = new smb.Client();
+const client = new smb.SMBClient();
 ```
 
 ## Table of contents
@@ -66,7 +66,7 @@ state will be false
 
 ```javascript
 const smb = require('nuclei/smb');
-const client = new smb.Client();
+const client = new smb.SMBClient();
 const info = client.ConnectSMBInfoMode('acme.com', 445);
 log(to_json(info));
 ```
@@ -133,7 +133,7 @@ state will be false
 
 ```javascript
 const smb = require('nuclei/smb');
-const client = new smb.Client();
+const client = new smb.SMBClient();
 const metadata = client.ListSMBv2Metadata('acme.com', 445);
 log(to_json(metadata));
 ```
@@ -169,7 +169,7 @@ can be used by providing empty password.
 
 ```javascript
 const smb = require('nuclei/smb');
-const client = new smb.Client();
+const client = new smb.SMBClient();
 const shares = client.ListShares('acme.com', 445, 'username', 'password');
 	for (const share of shares) {
 		  log(share);
