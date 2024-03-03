@@ -22,8 +22,10 @@ const conn = net.Open('tcp', 'acme.com:80');
 
 - [Close](/templates/protocols/javascript/modules/net.NetConn#close)
 - [Recv](/templates/protocols/javascript/modules/net.NetConn#recv)
+- [RecvFull](/templates/protocols/javascript/modules/net.NetConn#recvfull)
+- [RecvFullHex](/templates/protocols/javascript/modules/net.NetConn#recvfullhex)
+- [RecvFullString](/templates/protocols/javascript/modules/net.NetConn#recvfullstring)
 - [RecvHex](/templates/protocols/javascript/modules/net.NetConn#recvhex)
-- [RecvPartial](/templates/protocols/javascript/modules/net.NetConn#recvpartial)
 - [RecvString](/templates/protocols/javascript/modules/net.NetConn#recvstring)
 - [Send](/templates/protocols/javascript/modules/net.NetConn#send)
 - [SendArray](/templates/protocols/javascript/modules/net.NetConn#sendarray)
@@ -74,7 +76,41 @@ ___
 
 ▸ **Recv**(`N`): `Uint8Array`
 
-Recv receives data from the connection with a timeout.
+Recv is similar to RecvFull but does not guarantee full read instead
+it creates a buffer of N bytes and returns whatever is returned by the connection
+for reading headers or initial bytes from the server this is usually used.
+for reading a fixed number of already known bytes (ex: body based on content-length) use RecvFull.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `N` | `number` |
+
+#### Returns
+
+`Uint8Array`
+
+**`Example`**
+
+```javascript
+const net = require('nuclei/net');
+const conn = net.Open('tcp', 'acme.com:80');
+const data = conn.Recv(1024);
+log(`Received ${data.length} bytes from the server`)
+```
+
+#### Defined in
+
+net.ts:146
+
+___
+
+### RecvFull
+
+▸ **RecvFull**(`N`): `Uint8Array`
+
+RecvFull receives data from the connection with a timeout.
 If N is 0, it will read all data sent by the server with 8MB limit.
 it tries to read until N bytes or timeout is reached.
 
@@ -93,7 +129,7 @@ it tries to read until N bytes or timeout is reached.
 ```javascript
 const net = require('nuclei/net');
 const conn = net.Open('tcp', 'acme.com:80');
-const data = conn.Recv(1024);
+const data = conn.RecvFull(1024);
 ```
 
 #### Defined in
@@ -102,13 +138,79 @@ net.ts:128
 
 ___
 
+### RecvFullHex
+
+▸ **RecvFullHex**(`N`): `string`
+
+RecvFullHex receives data from the connection with a timeout
+in hex format.
+If N is 0,it will read all data sent by the server with 8MB limit.
+until N bytes or timeout is reached.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `N` | `number` |
+
+#### Returns
+
+`string`
+
+**`Example`**
+
+```javascript
+const net = require('nuclei/net');
+const conn = net.Open('tcp', 'acme.com:80');
+const data = conn.RecvFullHex(1024);
+```
+
+#### Defined in
+
+net.ts:196
+
+___
+
+### RecvFullString
+
+▸ **RecvFullString**(`N`): `string`
+
+RecvFullString receives data from the connection with a timeout
+output is returned as a string.
+If N is 0, it will read all data sent by the server with 8MB limit.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `N` | `number` |
+
+#### Returns
+
+`string`
+
+**`Example`**
+
+```javascript
+const net = require('nuclei/net');
+const conn = net.Open('tcp', 'acme.com:80');
+const data = conn.RecvFullString(1024);
+```
+
+#### Defined in
+
+net.ts:162
+
+___
+
 ### RecvHex
 
 ▸ **RecvHex**(`N`): `string`
 
-RecvHex receives data from the connection with a timeout
-in hex format.
-If N is 0,it will read all data sent by the server with 8MB limit.
+RecvHex is similar to RecvFullHex but does not guarantee full read instead
+it creates a buffer of N bytes and returns whatever is returned by the connection
+for reading headers or initial bytes from the server this is usually used.
+for reading a fixed number of already known bytes (ex: body based on content-length) use RecvFull.
 
 #### Parameters
 
@@ -130,40 +232,7 @@ const data = conn.RecvHex(1024);
 
 #### Defined in
 
-net.ts:177
-
-___
-
-### RecvPartial
-
-▸ **RecvPartial**(`N`): `Uint8Array`
-
-RecvPartial is similar to Recv but it does not perform full read instead
-it creates a buffer of N bytes and returns whatever is returned by the connection
-this is usually used when fingerprinting services to get initial bytes from the server.
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `N` | `number` |
-
-#### Returns
-
-`Uint8Array`
-
-**`Example`**
-
-```javascript
-const net = require('nuclei/net');
-const conn = net.Open('tcp', 'acme.com:80');
-const data = conn.RecvPartial(1024);
-log(`Received ${data.length} bytes from the server`)
-```
-
-#### Defined in
-
-net.ts:145
+net.ts:213
 
 ___
 
@@ -171,9 +240,10 @@ ___
 
 ▸ **RecvString**(`N`): `string`
 
-RecvString receives data from the connection with a timeout
-output is returned as a string.
-If N is 0, it will read all data sent by the server with 8MB limit.
+RecvString is similar to RecvFullString but does not guarantee full read, instead
+it creates a buffer of N bytes and returns whatever is returned by the connection
+for reading headers or initial bytes from the server this is usually used.
+for reading a fixed number of already known bytes (ex: body based on content-length) use RecvFullString.
 
 #### Parameters
 
@@ -195,7 +265,7 @@ const data = conn.RecvString(1024);
 
 #### Defined in
 
-net.ts:161
+net.ts:179
 
 ___
 
