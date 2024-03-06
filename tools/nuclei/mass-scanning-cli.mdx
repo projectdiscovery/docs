@@ -41,7 +41,7 @@ Nuclei is a highly concurrent tool that has major Network I/O due to nature of t
 
     2. Number of Requests to send in parallel per template
 
-        Ex: Some template have `payloads` field in template and usually sends multiple requests. This concurreny per template is controlled by `threads: 10` value in template
+        Ex: Some template have `payloads` field in template and usually sends multiple requests. This concurrency per template is controlled by `threads: 10` value in template
 
         But if `threads` is not defined or missing (since it is optional), then nuclei will use `-c` value to decide concurrency of requests per template
 
