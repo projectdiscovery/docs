@@ -92,8 +92,7 @@ cloudlist -silent | httpx -silent | nuclei -t cves/
 
 The default provider config file should be located at `$HOME/.config/cloudlist/provider-config.yaml` and has the following contents as an example. In order to run this tool, the keys need to updated in the config file for the desired providers.
 
-<details>
-<summary>Example Provider Config</summary>
+## Example Provider Config
 
 ```yaml
 - provider: do # provider is the name of the provider
@@ -246,19 +245,6 @@ The default provider config file should be located at `$HOME/.config/cloudlist/p
 
 ```
 
-</details>
-
-# Contribution
-
-Please check [PROVIDERS.md](https://github.com/projectdiscovery/cloudlist/blob/main/PROVIDERS.md) and [DESIGN.md](https://github.com/projectdiscovery/cloudlist/blob/main/DESIGN.md) to include support for new cloud providers in Cloudlist.
-
-
-- Fork this project
-- Create your feature branch (`git checkout -b new-provider`)
-- Commit your changes (`git commit -am 'Added new cloud provider'`)
-- Push to the branch (`git push origin new-provider`)
-- Create new Pull Request
-
 # Cloudlist as a library
 
 It's possible to use the library directly in your go programs. The following code snippets outline how to list assets from all or given cloud provider.
@@ -293,14 +279,3 @@ func main() {
   }
 }
 ```
-
-## Acknowledgments
-
-Thank you for inspiration
-
-* [Smogcloud](https://github.com/BishopFox/smogcloud)
-* [Cloudmapper](https://github.com/duo-labs/cloudmapper)
-
-## License
-
-cloudlist is made with 🖤 by the [projectdiscovery](https://projectdiscovery.io) team and licensed under [MIT](https://github.com/projectdiscovery/cloudlist/blob/main/LICENSE.md)
