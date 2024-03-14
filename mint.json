@@ -209,8 +209,9 @@
             "tools/nuclei/overview",
             "tools/nuclei/install",
             "tools/nuclei/running",
-            "tools/nuclei/mass-scanning-cli",
             "tools/nuclei/input-formats",
+            "tools/nuclei/authenticated-scans",
+            "tools/nuclei/mass-scanning-cli",
             "tools/nuclei/nuclei-sdk",
             "tools/nuclei/faq"
           ]
