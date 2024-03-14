@@ -36,40 +36,39 @@ For example, to only execute template on POST request with some body, you can us
 </Tip>
 
 
-
-#### Part
+### Part
 
 Part specifies what part of the request should be fuzzed based on the specified rules. Available options for this parameter are - 
 
-1. **query** (`default`) - fuzz query parameters for URL
+**query** (`default`) - fuzz query parameters for URL
 
 ```yaml
 fuzzing:
   - part: query # fuzz parameters in URL query
 ```
 
-2. **path** - fuzz path parameters for requests
+**path** - fuzz path parameters for requests
 
 ```yaml
 fuzzing:
   - part: path # fuzz path parameters
 ```
 
-3. **header** - fuzz header parameters for requests
+**header** - fuzz header parameters for requests
 
 ```yaml
 fuzzing:
   - part: header # fuzz headers
 ```
 
-4. **cookie** - fuzz cookie parameters for requests
+**cookie** - fuzz cookie parameters for requests
 
 ```yaml
 fuzzing:
   - part: cookie # fuzz cookies
 ```
 
-5. **body** - fuzz body parameters for requests
+**body** - fuzz body parameters for requests
 
 ```yaml
 fuzzing:
@@ -77,8 +76,7 @@ fuzzing:
 ```
 
 
-
-#### Type
+### Type
 
 Type specifies the type of replacement to perform for the fuzzing rule value. Available options for this parameter are - 
 
@@ -95,7 +93,7 @@ fuzzing:
 ```
 
 
-#### Key-Value Abstraction
+### Key-Value Abstraction
 
 In a HTTP request, there are various parts like query, path, headers, cookies, and body and each part has different in various formats. For example, the query part is a key-value pair, the path part is a list of values, the body part can be a JSON, XML, or form-data.
 
@@ -162,9 +160,7 @@ Connection: close
 
 This abstraction really levels up the game since you only need to write a single rule for the Body, and it will be applied to all formats. For example, if you check for SQLi in body values, a single rule will work on all formats, i.e., JSON, XML, Form, Multipart-FormData, etc.
 
-
-
-#### Mode
+### Mode
 
 Mode specifies the mode in which to perform the replacements. Available modes are - 
 
@@ -180,7 +176,7 @@ fuzzing:
 
 > **Note**: default values are set/used when other options are not defined.
 
-#### Component Data Filtering
+### Component Data Filtering
 
 Multiple filters are supported to restrict the scope of fuzzing to only interesting parameter keys and values. Nuclei HTTP Fuzzing engine converts request parts into Keys and Values which then can be filtered by their related options.
 
@@ -230,7 +226,7 @@ fuzzing:
       - "https?://.*"
 ```
 
-#### Fuzz
+### Fuzz
 
 Fuzz specifies the values to replace with a `type` for a parameter. It supports payloads, DSL functions, etc and allows users to fully utilize the existing nuclei feature-set for fuzzing purposes.
 
@@ -285,7 +281,7 @@ http:
           - "{{reflection}}"
 ```
 
-#### Example **Fuzzing** template
+## Example **Fuzzing** template
 
 An example sample template for fuzzing XSS vulnerabilities is provided below.
 
