@@ -117,6 +117,64 @@ http:
           - 307
 ```
 
+## Basic Path Based SQLi
+
+A example template to discover path-based SQLi issues.
+
+```yaml
+http:
+    # filter to determine if the template should be executed
+  - filters:
+      - type: dsl
+        dsl:
+          - 'method == "POST"'       # only run if method is POST
+          - 'contains(path,"reset")' # only run if path contains reset word
+        condition: and
+    # fuzzing rules
+    fuzzing:
+      - part: header # This rule will be applied to the header
+        type: replace # replace the type of rule (i.e., existing values will be replaced with payload)
+        mode: multiple # multiple mode (i.e., all existing values will be replaced/used at once)
+        fuzz:
+          X-Forwarded-For: "{{domain}}"  # here {{domain}} is attacker-controlled server
+          X-Forwarded-Host: "{{domain}}"
+          Forwarded: "{{domain}}"
+          X-Real-IP: "{{domain}}"
+          X-Original-URL: "{{domain}}"
+          X-Rewrite-URL: "{{domain}}"
+          Host: "{{domain}}"
+```
+
+
+## Basic Host Header Injection
+
+A simple template to discover host header injection issues.
+
+```yaml
+http:
+    # filter to determine if the template should be executed
+  - filters:
+      - type: dsl
+        dsl:
+          - 'method == "POST"'       # only run if method is POST
+          - 'contains(path,"reset")' # only run if path contains reset word
+        condition: and
+    # fuzzing rules
+    fuzzing:
+      - part: header # This rule will be applied to the header
+        type: replace # replace the type of rule (i.e., existing values will be replaced with payload)
+        mode: multiple # multiple mode (i.e., all existing values will be replaced/used at once)
+        fuzz:
+          X-Forwarded-For: "{{domain}}"  # here {{domain}} is attacker-controlled server
+          X-Forwarded-Host: "{{domain}}"
+          Forwarded: "{{domain}}"
+          X-Real-IP: "{{domain}}"
+          X-Original-URL: "{{domain}}"
+          X-Rewrite-URL: "{{domain}}"
+          Host: "{{domain}}"
+```
+
+
 ## Blind SSRF OOB Detection
 
 A simple template to detect Blind SSRF in known-parameters using interactsh with HTTP fuzzing.

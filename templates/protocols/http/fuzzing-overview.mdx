@@ -4,7 +4,38 @@ description: "Learn about fuzzing HTTP requests with Nuclei"
 sidebarTitle: "Overview"
 ---
 
-Nuclei supports fuzzing of HTTP requests based on rules defined in the `fuzzing` section of the HTTP request. This allows creating templates for generic Web Application vulnerabilities like SQLi, SSRF, CMDi, etc without any information of the target like a classic web fuzzer.
+Nuclei supports fuzzing of HTTP requests based on rules defined in the `fuzzing` section of the HTTP request. This allows creating templates for generic Web Application vulnerabilities like SQLi, SSRF, CMDi, etc without any information of the target like a classic web fuzzer. We call this concept as **Fuzzing for Unknown Vulnerabilities**.
+
+## Filters
+
+More often than not, we want to only attempt fuzzing on those requests where it makes sense. For example,
+
+- Fuzz Body When Body is Present
+- Ignore PreFlight and CONNECT requests
+
+and so on. With Nuclei v3.2.0 we have introduced a new `filters` section which contains conditions when the template should be executed.
+
+Filters can be considered a twin of [matchers](/templates/reference/matchers) in nuclei. They support all matcher types, including DSL, and the only difference is that this serves a different purpose.
+
+For example, to only execute template on POST request with some body, you can use the following filter.
+
+```yaml
+- filters:
+    - type: dsl
+      dsl:
+        - method == POST
+        - len(body) > 0
+      condition: and
+```
+
+<Note>Currently, Only request data like header, host, input, method, path, etc is available, but soon, response data will be available once the support for loading the response along with the request is added. </Note>
+
+
+<Tip>
+ When writing/executing a template, you can use the -v -svd flags to see all variables available in filters before applying the filter.
+</Tip>
+
+
 
 #### Part
 
@@ -17,7 +48,35 @@ fuzzing:
   - part: query # fuzz parameters in URL query
 ```
 
-Support will be added for `path`,`header`,`body`,`cookie`, etc parts soon.
+2. **path** - fuzz path parameters for requests
+
+```yaml
+fuzzing:
+  - part: path # fuzz path parameters
+```
+
+3. **header** - fuzz header parameters for requests
+
+```yaml
+fuzzing:
+  - part: header # fuzz headers
+```
+
+4. **cookie** - fuzz cookie parameters for requests
+
+```yaml
+fuzzing:
+  - part: cookie # fuzz cookies
+```
+
+5. **body** - fuzz body parameters for requests
+
+```yaml
+fuzzing:
+  - part: body # fuzz parameters in body
+```
+
+
 
 #### Type
 
@@ -27,12 +86,83 @@ Type specifies the type of replacement to perform for the fuzzing rule value. Av
 2. **prefix** - prefix the value with payload
 3. **postfix** - postfix the value with payload
 4. **infix** - infix the value with payload (place in between)
+5. **replace-regex** - replace the value with payload using regex
 
 ```yaml
 fuzzing:
   - part: query
     type: postfix # Fuzz query and postfix payload to params
 ```
+
+
+#### Key-Value Abstraction
+
+In a HTTP request, there are various parts like query, path, headers, cookies, and body and each part has different in various formats. For example, the query part is a key-value pair, the path part is a list of values, the body part can be a JSON, XML, or form-data.
+
+To effectively abstract these parts and allow them to be fuzzed, Nuclei exposes these values as `key` and `value` pairs. This allows users to fuzz based on the key or value of the request part.
+
+For example, Below sample HTTP request can be abstracted as key-value pairs as shown below.
+
+```http
+POST /reset-password?token=x0x0x0&source=app HTTP/1.1
+Host: 127.0.0.1:8082
+User-Agent: Go-http-client/1.1
+Cookie: PHPSESSID=1234567890
+Content-Length: 23
+Content-Type: application/json
+Accept-Encoding: gzip
+Connection: close
+
+{"password":"12345678"}
+```
+
+- **`part: Query`**
+
+| key    | value  |
+| ------ | ------ |
+| token  | x0x0x0 |
+| source | app    |
+
+- **`part: Path`**
+
+| key   | value           |
+| ----- | --------------- |
+| value | /reset-password |
+
+- **`part: Header`**
+
+| key             | value              |
+| --------------- | ------------------ |
+| Host            | 127.0.0.1:8082     |
+| User-Agent      | Go-http-client/1.1 |
+| Content-Length  | 23                 |
+| Content-Type    | application/json   |
+| Accept-Encoding | gzip               |
+| Connection      | close              |
+
+- **`part: Cookie`**
+
+| key       | value      |
+| --------- | ---------- |
+| PHPSESSID | 1234567890 |
+
+- **`part: Body`**
+
+| key      | value    |
+| -------- | -------- |
+| password | 12345678 |
+
+
+**Note:** XML, JSON, Form, Multipart-FormData will be in kv format, but if the Body is binary or in any other format, the entire Body will be represented as a single key-value pair with key as `value` and value as the entire Body.
+
+| key   | value                            |
+| ----- | -------------------------------- |
+| value | "\\x08\\x96\\x01\\x12\\x07\\x74" |
+
+
+This abstraction really levels up the game since you only need to write a single rule for the Body, and it will be applied to all formats. For example, if you check for SQLi in body values, a single rule will work on all formats, i.e., JSON, XML, Form, Multipart-FormData, etc.
+
+
 
 #### Mode
 
@@ -50,7 +180,7 @@ fuzzing:
 
 > **Note**: default values are set/used when other options are not defined.
 
-#### Filters
+#### Component Data Filtering
 
 Multiple filters are supported to restrict the scope of fuzzing to only interesting parameter keys and values. Nuclei HTTP Fuzzing engine converts request parts into Keys and Values which then can be filtered by their related options.
 
