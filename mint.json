@@ -273,7 +273,13 @@
               "group": "HTTP Fuzzing",
               "pages": [
                 "templates/protocols/http/fuzzing-overview",
-                "templates/protocols/http/fuzzing-examples",
+                "templates/protocols/http/fuzzing-examples"
+
+              ]
+            },
+            {
+              "group": "HTTP Payloads",
+              "pages": [
                 "templates/protocols/http/http-payloads",
                 "templates/protocols/http/http-payloads-examples"
               ]
@@ -282,6 +288,7 @@
               "group": "Advanced HTTP",
               "pages": [
                 "templates/protocols/http/unsafe-http",
+                "templates/protocols/http/value-sharing",
                 "templates/protocols/http/connection-tampering",
                 "templates/protocols/http/request-tampering",
                 "templates/protocols/http/race-conditions"
