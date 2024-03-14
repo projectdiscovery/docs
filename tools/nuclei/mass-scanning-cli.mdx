@@ -65,6 +65,10 @@ Nuclei is a highly concurrent tool that has major Network I/O due to nature of t
 
     Default value of this flag is 120 and is tested to be optimal with minimal resource utilization (Note: Nuclei by default reuses javascript runtimes to avoid overhead of creating new runtimes for each request)
 
+- **-pc or -payload-concurrency**
+
+    (Introduced in v3.2.0) This flag controls maximum number of payloads to run in parallel for each template. This flag is only applicable to templates with `payloads` field and does not have `threads` field set, default of this flag is 25 and can be updated as per requirement
+
 - **-rl or -rate-limit**
 
     This flag controls the global rate limit of http requests in nuclei and its default value is 150 requests per second.
