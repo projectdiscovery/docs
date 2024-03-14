@@ -3,3 +3,39 @@ title: 'Supported Input Formats'
 description: "Learn about various input formats supported by nuclei and how to use them"
 sidebarTitle: 'Input Formats'
 ---
+
+Input Formats supported by nuclei can be grouped into two categories:
+
+- **List Type**: Input formats that can be specified as a list of items (ex: URLs, IPs, CIDRs, ASN, etc.)
+
+- **Http Request Type**: Input formats that contain info of complete HTTP request and that cannot be expressed as a list of items (ex: OpenAPI Schema, Proxify Traffic Logs, etc.)
+
+
+### List Type Formats
+
+List type formats can be specified in the following ways:
+
+1. **`-u` flag**:
+
+     Comma Seperated list of values (ex: `-u scanme.sh,127.0.0.1,AS1337,192.168.1.0/24`) 
+
+2. **`-l` flag**:
+
+     File containing list of values (ex: `-l urls.txt`)
+
+3. **via stdin (or pipe)**:
+
+     List of values can be passed via stdin (ex: `cat urls.txt | nuclei`) or piped from other tools (ex: `mytool | nuclei`)
+
+
+Following are the list type formats supported by nuclei:
+
+- **URLS**: A URL like `https://projectdiscover.io`
+
+- **IPs**: Ipv4 or Ipv6 address like `127.0.0.1` or `2001:0db8:85a3:0000:0000:8a2e:0370:7334`
+
+- **CIDRs**: CIDR range like `192.168.1.0/24`
+
+- **ASNs**: Autonomous System Number like `AS1337`
+
+- **Domains**: Domain or Subdomain name like `projectdiscovery.io`

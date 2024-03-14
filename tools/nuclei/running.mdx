@@ -14,7 +14,7 @@ Nuclei templates offer two primary execution methods:
 
 ### Supported Input Formats
 
-Nuclei supports various input formats to run template against, including urls, hosts, ips, cidrs, openapi, swagger, proxify, burpsuite exported data and more. To learn more on using input specify options, you can refer [nuclei input formats](/tools/nuclei/input-formats).
+Nuclei supports various input formats to run template against, including urls, hosts, ips, cidrs, asn, openapi, swagger, proxify, burpsuite exported data and more. To learn more on using input specify options, you can refer [nuclei input formats](/tools/nuclei/input-formats).
 
 These inputs can be given to nuclei using `-l` and `-input-mode` flags.
 
@@ -23,7 +23,7 @@ These inputs can be given to nuclei using `-l` and `-input-mode` flags.
   -im, -input-mode string       mode of input file (list, burp, jsonl, yaml, openapi, swagger) (default "list")
 ```
 
-  Executing nuclei against a list of inputs (urls, hosts, ips, cidrs) is as simple as running the following command:
+  Executing nuclei against a list of inputs (urls, hosts, ips, cidrs, asn) is as simple as running the following command:
 
 ```bash
   nuclei -l targets.txt
