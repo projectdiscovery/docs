@@ -1,13 +1,20 @@
 ---
 title: "HTTP Payloads"
-description: "Learn about using HTTP payloads with Nuclei"
+description: "Learn about bruteforcing HTTP requests using payloads with Nuclei"
 ---
 
 ## Overview
 
-Nuclei engine supports payloads module that allow to run various type of payloads in multiple format, It's possible to define placeholders with simple keywords (or using brackets `{{helper_function(variable)}}` in case mutator functions are needed), and perform **batteringram**, **pitchfork** and **clusterbomb** attacks. The wordlist for these attacks needs to be defined during the request definition under the Payload field, with a name matching the keyword, Nuclei supports both file based and in template wordlist support and Finally all DSL functionalities are fully available and supported, and can be used to manipulate the final values.
+Nuclei engine supports brute forcing any value/component of HTTP Requests using payloads module, that allows to run various type of payloads in multiple format, It's possible to define placeholders with simple keywords (or using brackets `{{helper_function(variable)}}` in case mutator functions are needed), and perform **batteringram**, **pitchfork** and **clusterbomb** attacks. 
+
+The **wordlist** for these attacks needs to be defined during the request definition under the Payload field, with a name matching the keyword, Nuclei supports both file based and in template wordlist support and Finally all DSL functionalities are fully available and supported, and can be used to manipulate the final values.
 
 Payloads are defined using variable name and can be referenced in the request in between `{{ }}` marker.
+
+### Difference between **HTTP Payloads** and **HTTP Fuzzing**
+
+While both may sound similar, the major difference between  **Fuzzing** and **Payloads/BruteForce** is that Fuzzing is a superset of Payloads/BruteForce and has extra features related to finding Unknown Vulnerabilities while Payloads is just plain brute forcing of values with a given attack type and set of payloads.
+
 
 ## Examples 
 
