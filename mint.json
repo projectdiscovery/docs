@@ -390,7 +390,7 @@
     }, 
     {
       "group": "Scanning",
-      "pages": ["cloud/scanning/overview"]
+      "pages": ["cloud/scanning/overview", "cloud/scanning/faq"]
     },
     {
       "group": "API Reference",
