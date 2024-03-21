@@ -165,7 +165,9 @@
             "tools/interactsh/overview",
             "tools/interactsh/install",
             "tools/interactsh/usage",
-            "tools/interactsh/running"
+            "tools/interactsh/running",
+            "tools/interactsh/integrations",
+            "tools/interactsh/server"
           ]
         },
         {
