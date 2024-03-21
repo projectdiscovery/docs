@@ -198,6 +198,7 @@
             "tools/notify/overview",
             "tools/notify/install",
             "tools/notify/usage",
+            "tools/notify/provider-config",
             "tools/notify/running"
           ]
         },
