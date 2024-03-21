@@ -135,7 +135,7 @@ Using the `token` flag, `interactsh-client` can connect to a self-hosted Interac
 interactsh-client -server hackwithautomation.com -token XXX
 ```
 
-### Using with Notify
+## Using with Notify
 
 If you are away from your terminal, you may use [notify](https://github.com/projectdiscovery/notify) to send a real-time interaction notification to any supported platform.
 
@@ -176,9 +176,34 @@ docker run projectdiscovery/interactsh-client:latest
 [INF] c59e3crp82ke7bcnedq0cfjqdpeyyyyyn.oast.pro
 ```
 
-## Burp Suite Extension
+## Integrations
+
+### Burp Suite Extension
 See [integrations](/tools/interactsh/integrations) for more details on the [interactsh-collaborator](https://github.com/wdahlenburg/interactsh-collaborator).
 
-## ZAP Add-On
+### ZAP Add-On
 See [integrations](/tools/interactsh/integrations) for more details on using interactsh with ZAP.
 
+### Use as library
+
+The [examples](https://github.com/projectdiscovery/interactsh/tree/main/examples) show using the interactsh client library to get external interactions for a generated URL by making a http request to the URL.
+
+### Nuclei - OAST
+
+[Nuclei](https://github.com/projectdiscovery/nuclei) vulnerability scanner utilize **Interactsh** for automated payload generation and detection of out of band based security vulnerabilities.
+
+See [Nuclei + Interactsh](https://blog.projectdiscovery.io/nuclei-interactsh-integration/) Integration blog and [guide document](https://nuclei.projectdiscovery.io/templating-guide/interactsh/) for more information.
+
+## Cloud Metadata
+
+Interactsh server supports DNS records for cloud metadata services, which is useful for testing SSRF-related vulnerabilities.
+
+Currently supported metadata services:
+
+- [AWS](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html)
+- [Alibaba](https://www.alibabacloud.com/blog/alibaba-cloud-ecs-metadata-user-data-and-dynamic-data_594351)
+
+Example:
+
+* **aws.interact.sh** points to 169.254.169.254
+* **alibaba.interact.sh** points to 100.100.100.200
