@@ -1,0 +1,34 @@
+# severity of the template Schema
+
+```txt
+https://template#/$defs/Info/properties/severity
+```
+
+Seriousness of the implications of the template
+
+| Abstract            | Extensible | Status         | Identifiable            | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                             |
+| :------------------ | :--------- | :------------- | :---------------------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------- |
+| Can be instantiated | No         | Unknown status | Unknown identifiability | Forbidden         | Allowed               | none                | [nuclei-schema.schema.json\*](../out/nuclei-schema.schema.json "open original schema") |
+
+## severity Type
+
+`string` ([severity of the template](nuclei-schema-defs-severity-of-the-template))
+
+## severity Constraints
+
+**enum**: the value of this property must be equal to one of the following values:
+
+| Value        | Explanation |
+| :----------- | :---------- |
+| `"info"`     |             |
+| `"low"`      |             |
+| `"medium"`   |             |
+| `"high"`     |             |
+| `"critical"` |             |
+| `"unknown"`  |             |
+
+## severity Examples
+
+```json
+"info"
+```

@@ -1,0 +1,2937 @@
+# Untitled schema Schema
+
+```txt
+https://template
+```
+
+
+
+| Abstract            | Extensible | Status         | Identifiable            | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                           |
+| :------------------ | :--------- | :------------- | :---------------------- | :---------------- | :-------------------- | :------------------ | :----------------------------------------------------------------------------------- |
+| Can be instantiated | No         | Unknown status | Unknown identifiability | Forbidden         | Allowed               | none                | [nuclei-schema.schema.json](../out/nuclei-schema.schema.json "open original schema") |
+
+## Untitled schema Type
+
+unknown
+
+# Untitled schema Definitions
+
+## Definitions group AttackTypeHolder
+
+Reference this group by using
+
+```json
+{"$ref":"https://template#/$defs/AttackTypeHolder"}
+```
+
+| Property        | Type      | Required | Nullable       | Defined by                                                                                                                             |
+| :-------------- | :-------- | :------- | :------------- | :------------------------------------------------------------------------------------------------------------------------------------- |
+| [Value](#value) | `integer` | Required | cannot be null | [Untitled schema](nuclei-schema-defs-attacktypeholder-properties-value "https://template#/$defs/AttackTypeHolder/properties/Value") |
+
+### Value
+
+
+
+`Value`
+
+* is required
+
+* Type: `integer`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-attacktypeholder-properties-value "https://template#/$defs/AttackTypeHolder/properties/Value")
+
+#### Value Type
+
+`integer`
+
+## Definitions group Classification
+
+Reference this group by using
+
+```json
+{"$ref":"https://template#/$defs/Classification"}
+```
+
+| Property                            | Type     | Required | Nullable       | Defined by                                                                                                                                                              |
+| :---------------------------------- | :------- | :------- | :------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [cve-id](#cve-id)                   | Merged   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-stringorslice "https://template#/$defs/Classification/properties/cve-id")                                                       |
+| [cwe-id](#cwe-id)                   | Merged   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-stringorslice "https://template#/$defs/Classification/properties/cwe-id")                                                       |
+| [cvss-metrics](#cvss-metrics)       | `string` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-classification-properties-cvss-metrics-for-the-template "https://template#/$defs/Classification/properties/cvss-metrics")       |
+| [cvss-score](#cvss-score)           | `number` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-classification-properties-cvss-score-for-the-template "https://template#/$defs/Classification/properties/cvss-score")           |
+| [epss-score](#epss-score)           | `number` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-classification-properties-epss-score-for-the-template "https://template#/$defs/Classification/properties/epss-score")           |
+| [epss-percentile](#epss-percentile) | `number` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-classification-properties-epss-percentile-for-the-template "https://template#/$defs/Classification/properties/epss-percentile") |
+| [cpe](#cpe)                         | `string` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-classification-properties-cpe-for-the-template "https://template#/$defs/Classification/properties/cpe")                         |
+
+### cve-id
+
+CVE IDs for the template
+
+`cve-id`
+
+* is optional
+
+* Type: merged type ([cve ids for the template](nuclei-schema-defs-stringorslice))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-stringorslice "https://template#/$defs/Classification/properties/cve-id")
+
+#### cve-id Type
+
+merged type ([cve ids for the template](nuclei-schema-defs-stringorslice))
+
+one (and only one) of
+
+* [Untitled string in undefined](nuclei-schema-defs-stringorslice-oneof-0 "check type definition")
+
+* [Untitled array in undefined](nuclei-schema-defs-stringorslice-oneof-1 "check type definition")
+
+### cwe-id
+
+CWE IDs for the template
+
+`cwe-id`
+
+* is optional
+
+* Type: merged type ([cwe ids for the template](nuclei-schema-defs-stringorslice))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-stringorslice "https://template#/$defs/Classification/properties/cwe-id")
+
+#### cwe-id Type
+
+merged type ([cwe ids for the template](nuclei-schema-defs-stringorslice))
+
+one (and only one) of
+
+* [Untitled string in undefined](nuclei-schema-defs-stringorslice-oneof-0 "check type definition")
+
+* [Untitled array in undefined](nuclei-schema-defs-stringorslice-oneof-1 "check type definition")
+
+### cvss-metrics
+
+CVSS Metrics for the template
+
+`cvss-metrics`
+
+* is optional
+
+* Type: `string` ([cvss metrics for the template](nuclei-schema-defs-classification-properties-cvss-metrics-for-the-template))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-classification-properties-cvss-metrics-for-the-template "https://template#/$defs/Classification/properties/cvss-metrics")
+
+#### cvss-metrics Type
+
+`string` ([cvss metrics for the template](nuclei-schema-defs-classification-properties-cvss-metrics-for-the-template))
+
+#### cvss-metrics Examples
+
+```json
+"3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+```
+
+### cvss-score
+
+CVSS Score for the template
+
+`cvss-score`
+
+* is optional
+
+* Type: `number` ([cvss score for the template](nuclei-schema-defs-classification-properties-cvss-score-for-the-template))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-classification-properties-cvss-score-for-the-template "https://template#/$defs/Classification/properties/cvss-score")
+
+#### cvss-score Type
+
+`number` ([cvss score for the template](nuclei-schema-defs-classification-properties-cvss-score-for-the-template))
+
+#### cvss-score Examples
+
+```json
+9.8
+```
+
+### epss-score
+
+EPSS Score for the template
+
+`epss-score`
+
+* is optional
+
+* Type: `number` ([epss score for the template](nuclei-schema-defs-classification-properties-epss-score-for-the-template))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-classification-properties-epss-score-for-the-template "https://template#/$defs/Classification/properties/epss-score")
+
+#### epss-score Type
+
+`number` ([epss score for the template](nuclei-schema-defs-classification-properties-epss-score-for-the-template))
+
+#### epss-score Examples
+
+```json
+0.42509
+```
+
+### epss-percentile
+
+EPSS Percentile for the template
+
+`epss-percentile`
+
+* is optional
+
+* Type: `number` ([epss percentile for the template](nuclei-schema-defs-classification-properties-epss-percentile-for-the-template))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-classification-properties-epss-percentile-for-the-template "https://template#/$defs/Classification/properties/epss-percentile")
+
+#### epss-percentile Type
+
+`number` ([epss percentile for the template](nuclei-schema-defs-classification-properties-epss-percentile-for-the-template))
+
+#### epss-percentile Examples
+
+```json
+0.42509
+```
+
+### cpe
+
+CPE for the template
+
+`cpe`
+
+* is optional
+
+* Type: `string` ([cpe for the template](nuclei-schema-defs-classification-properties-cpe-for-the-template))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-classification-properties-cpe-for-the-template "https://template#/$defs/Classification/properties/cpe")
+
+#### cpe Type
+
+`string` ([cpe for the template](nuclei-schema-defs-classification-properties-cpe-for-the-template))
+
+#### cpe Examples
+
+```json
+"cpe:/a:vendor:product:version"
+```
+
+## Definitions group Extractor
+
+Reference this group by using
+
+```json
+{"$ref":"https://template#/$defs/Extractor"}
+```
+
+| Property                              | Type      | Required | Nullable       | Defined by                                                                                                                                                           |
+| :------------------------------------ | :-------- | :------- | :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [name](#name)                         | `string`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-extractor-properties-name-of-the-extractor "https://template#/$defs/Extractor/properties/name")                              |
+| [type](#type)                         | `object`  | Required | cannot be null | [Untitled schema](nuclei-schema-defs-extractortypeholder "https://template#/$defs/Extractor/properties/type")                                                     |
+| [regex](#regex)                       | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-extractor-properties-regex-to-extract-from-part "https://template#/$defs/Extractor/properties/regex")                        |
+| [group](#group)                       | `integer` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-extractor-properties-group-to-extract-from-regex "https://template#/$defs/Extractor/properties/group")                       |
+| [kval](#kval)                         | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-extractor-properties-kval-pairs-to-extract-from-response "https://template#/$defs/Extractor/properties/kval")                |
+| [json](#json)                         | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-extractor-properties-json-jq-expressions-to-extract-data "https://template#/$defs/Extractor/properties/json")                |
+| [xpath](#xpath)                       | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-extractor-properties-html-xpath-expressions-to-extract-data "https://template#/$defs/Extractor/properties/xpath")            |
+| [attribute](#attribute)               | `string`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-extractor-properties-optional-attribute-to-extract-from-xpath "https://template#/$defs/Extractor/properties/attribute")      |
+| [dsl](#dsl)                           | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-extractor-properties-dsl-expressions-to-extract "https://template#/$defs/Extractor/properties/dsl")                          |
+| [part](#part)                         | `string`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-extractor-properties-part-of-response-to-extract-data-from "https://template#/$defs/Extractor/properties/part")              |
+| [internal](#internal)                 | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-extractor-properties-mark-extracted-value-for-internal-variable-use "https://template#/$defs/Extractor/properties/internal") |
+| [case-insensitive](#case-insensitive) | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-extractor-properties-use-case-insensitive-extract "https://template#/$defs/Extractor/properties/case-insensitive")           |
+
+### name
+
+Name of the extractor
+
+`name`
+
+* is optional
+
+* Type: `string` ([name of the extractor](nuclei-schema-defs-extractor-properties-name-of-the-extractor))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-extractor-properties-name-of-the-extractor "https://template#/$defs/Extractor/properties/name")
+
+#### name Type
+
+`string` ([name of the extractor](nuclei-schema-defs-extractor-properties-name-of-the-extractor))
+
+### type
+
+
+
+`type`
+
+* is required
+
+* Type: `object` ([Details](nuclei-schema-defs-extractortypeholder))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-extractortypeholder "https://template#/$defs/Extractor/properties/type")
+
+#### type Type
+
+`object` ([Details](nuclei-schema-defs-extractortypeholder))
+
+### regex
+
+Regex to extract from part
+
+`regex`
+
+* is optional
+
+* Type: `string[]`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-extractor-properties-regex-to-extract-from-part "https://template#/$defs/Extractor/properties/regex")
+
+#### regex Type
+
+`string[]`
+
+### group
+
+Group to extract from regex
+
+`group`
+
+* is optional
+
+* Type: `integer` ([group to extract from regex](nuclei-schema-defs-extractor-properties-group-to-extract-from-regex))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-extractor-properties-group-to-extract-from-regex "https://template#/$defs/Extractor/properties/group")
+
+#### group Type
+
+`integer` ([group to extract from regex](nuclei-schema-defs-extractor-properties-group-to-extract-from-regex))
+
+### kval
+
+Kval pairs to extract from response
+
+`kval`
+
+* is optional
+
+* Type: `string[]`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-extractor-properties-kval-pairs-to-extract-from-response "https://template#/$defs/Extractor/properties/kval")
+
+#### kval Type
+
+`string[]`
+
+### json
+
+JSON JQ expressions to evaluate from response part
+
+`json`
+
+* is optional
+
+* Type: `string[]`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-extractor-properties-json-jq-expressions-to-extract-data "https://template#/$defs/Extractor/properties/json")
+
+#### json Type
+
+`string[]`
+
+### xpath
+
+XPath allows using xpath expressions to extract items from html response
+
+`xpath`
+
+* is optional
+
+* Type: `string[]`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-extractor-properties-html-xpath-expressions-to-extract-data "https://template#/$defs/Extractor/properties/xpath")
+
+#### xpath Type
+
+`string[]`
+
+### attribute
+
+Optional attribute to extract from response XPath
+
+`attribute`
+
+* is optional
+
+* Type: `string` ([optional attribute to extract from xpath](nuclei-schema-defs-extractor-properties-optional-attribute-to-extract-from-xpath))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-extractor-properties-optional-attribute-to-extract-from-xpath "https://template#/$defs/Extractor/properties/attribute")
+
+#### attribute Type
+
+`string` ([optional attribute to extract from xpath](nuclei-schema-defs-extractor-properties-optional-attribute-to-extract-from-xpath))
+
+### dsl
+
+Optional attribute to extract from response dsl
+
+`dsl`
+
+* is optional
+
+* Type: `string[]`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-extractor-properties-dsl-expressions-to-extract "https://template#/$defs/Extractor/properties/dsl")
+
+#### dsl Type
+
+`string[]`
+
+### part
+
+Part of the request response to extract data from
+
+`part`
+
+* is optional
+
+* Type: `string` ([part of response to extract data from](nuclei-schema-defs-extractor-properties-part-of-response-to-extract-data-from))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-extractor-properties-part-of-response-to-extract-data-from "https://template#/$defs/Extractor/properties/part")
+
+#### part Type
+
+`string` ([part of response to extract data from](nuclei-schema-defs-extractor-properties-part-of-response-to-extract-data-from))
+
+### internal
+
+Internal when set to true will allow using the value extracted in the next request for some protocols
+
+`internal`
+
+* is optional
+
+* Type: `boolean` ([mark extracted value for internal variable use](nuclei-schema-defs-extractor-properties-mark-extracted-value-for-internal-variable-use))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-extractor-properties-mark-extracted-value-for-internal-variable-use "https://template#/$defs/Extractor/properties/internal")
+
+#### internal Type
+
+`boolean` ([mark extracted value for internal variable use](nuclei-schema-defs-extractor-properties-mark-extracted-value-for-internal-variable-use))
+
+### case-insensitive
+
+use case insensitive extract
+
+`case-insensitive`
+
+* is optional
+
+* Type: `boolean` ([use case insensitive extract](nuclei-schema-defs-extractor-properties-use-case-insensitive-extract))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-extractor-properties-use-case-insensitive-extract "https://template#/$defs/Extractor/properties/case-insensitive")
+
+#### case-insensitive Type
+
+`boolean` ([use case insensitive extract](nuclei-schema-defs-extractor-properties-use-case-insensitive-extract))
+
+## Definitions group ExtractorTypeHolder
+
+Reference this group by using
+
+```json
+{"$ref":"https://template#/$defs/ExtractorTypeHolder"}
+```
+
+| Property                        | Type      | Required | Nullable       | Defined by                                                                                                                                                   |
+| :------------------------------ | :-------- | :------- | :------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [ExtractorType](#extractortype) | `integer` | Required | cannot be null | [Untitled schema](nuclei-schema-defs-extractortypeholder-properties-extractortype "https://template#/$defs/ExtractorTypeHolder/properties/ExtractorType") |
+
+### ExtractorType
+
+
+
+`ExtractorType`
+
+* is required
+
+* Type: `integer`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-extractortypeholder-properties-extractortype "https://template#/$defs/ExtractorTypeHolder/properties/ExtractorType")
+
+#### ExtractorType Type
+
+`integer`
+
+## Definitions group HTTPMethodTypeHolder
+
+Reference this group by using
+
+```json
+{"$ref":"https://template#/$defs/HTTPMethodTypeHolder"}
+```
+
+| Property                  | Type      | Required | Nullable       | Defined by                                                                                                                                               |
+| :------------------------ | :-------- | :------- | :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [MethodType](#methodtype) | `integer` | Required | cannot be null | [Untitled schema](nuclei-schema-defs-httpmethodtypeholder-properties-methodtype "https://template#/$defs/HTTPMethodTypeHolder/properties/MethodType") |
+
+### MethodType
+
+
+
+`MethodType`
+
+* is required
+
+* Type: `integer`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-httpmethodtypeholder-properties-methodtype "https://template#/$defs/HTTPMethodTypeHolder/properties/MethodType")
+
+#### MethodType Type
+
+`integer`
+
+## Definitions group Holder
+
+Reference this group by using
+
+```json
+{"$ref":"https://template#/$defs/Holder"}
+```
+
+| Property | Type | Required | Nullable | Defined by |
+| :------- | :--- | :------- | :------- | :--------- |
+
+## Definitions group Info
+
+Reference this group by using
+
+```json
+{"$ref":"https://template#/$defs/Info"}
+```
+
+| Property                          | Type     | Required | Nullable       | Defined by                                                                                                                                        |
+| :-------------------------------- | :------- | :------- | :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------ |
+| [name](#name-1)                   | `string` | Required | cannot be null | [Untitled schema](nuclei-schema-defs-info-properties-name-of-the-template "https://template#/$defs/Info/properties/name")                      |
+| [author](#author)                 | Merged   | Required | cannot be null | [Untitled schema](nuclei-schema-defs-info-properties-author-of-the-template "https://template#/$defs/Info/properties/author")                  |
+| [tags](#tags)                     | Merged   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-info-properties-tags-of-the-template "https://template#/$defs/Info/properties/tags")                      |
+| [description](#description)       | `string` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-info-properties-description-of-the-template "https://template#/$defs/Info/properties/description")        |
+| [impact](#impact)                 | `string` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-info-properties-impact-of-the-template "https://template#/$defs/Info/properties/impact")                  |
+| [reference](#reference)           | Merged   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-stringorslice "https://template#/$defs/Info/properties/reference")                                        |
+| [severity](#severity)             | `string` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-info-properties-severity-of-the-template "https://template#/$defs/Info/properties/severity")              |
+| [metadata](#metadata)             | `object` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-info-properties-additional-metadata-for-the-template "https://template#/$defs/Info/properties/metadata")  |
+| [classification](#classification) | `object` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-classification "https://template#/$defs/Info/properties/classification")                                  |
+| [remediation](#remediation)       | `string` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-info-properties-remediation-steps-for-the-template "https://template#/$defs/Info/properties/remediation") |
+
+### name
+
+Name should be good short summary that identifies what the template does
+
+`name`
+
+* is required
+
+* Type: `string` ([name of the template](nuclei-schema-defs-info-properties-name-of-the-template))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-info-properties-name-of-the-template "https://template#/$defs/Info/properties/name")
+
+#### name Type
+
+`string` ([name of the template](nuclei-schema-defs-info-properties-name-of-the-template))
+
+#### name Examples
+
+```json
+"Nagios Default Credentials Check"
+```
+
+```json
+"example-template"
+```
+
+```json
+"TeamCity - Authentication Bypass"
+```
+
+### author
+
+Author is the author of the template
+
+`author`
+
+* is required
+
+* Type: merged type ([author of the template](nuclei-schema-defs-info-properties-author-of-the-template))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-info-properties-author-of-the-template "https://template#/$defs/Info/properties/author")
+
+#### author Type
+
+merged type ([author of the template](nuclei-schema-defs-info-properties-author-of-the-template))
+
+one (and only one) of
+
+* [Untitled string in undefined](nuclei-schema-defs-info-properties-author-of-the-template-oneof-0 "check type definition")
+
+* [Untitled array in undefined](nuclei-schema-defs-info-properties-author-of-the-template-oneof-1 "check type definition")
+
+### tags
+
+Any tags for the template
+
+`tags`
+
+* is optional
+
+* Type: merged type ([tags of the template](nuclei-schema-defs-info-properties-tags-of-the-template))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-info-properties-tags-of-the-template "https://template#/$defs/Info/properties/tags")
+
+#### tags Type
+
+merged type ([tags of the template](nuclei-schema-defs-info-properties-tags-of-the-template))
+
+one (and only one) of
+
+* [Untitled string in undefined](nuclei-schema-defs-info-properties-tags-of-the-template-oneof-0 "check type definition")
+
+* [Untitled array in undefined](nuclei-schema-defs-info-properties-tags-of-the-template-oneof-1 "check type definition")
+
+### description
+
+Description of the template.
+You can go in-depth here on what the template actually does.
+Example:
+Apache Log4j2 <=2.14.1 JNDI features used in configuration, log messages, and parameters do not protect against attacker controlled LDAP and other JNDI related endpoints. An attacker who can control log messages or log message parameters can execute arbitrary code loaded from LDAP servers when message lookup substitution is enabled.
+
+`description`
+
+* is optional
+
+* Type: `string` ([description of the template](nuclei-schema-defs-info-properties-description-of-the-template))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-info-properties-description-of-the-template "https://template#/$defs/Info/properties/description")
+
+#### description Type
+
+`string` ([description of the template](nuclei-schema-defs-info-properties-description-of-the-template))
+
+#### description Examples
+
+```json
+"Bower is a package manager which stores package information in the bower.json file"
+```
+
+```json
+"Example description of the template"
+```
+
+### impact
+
+Impact of the template.
+You can go in-depth here on impact of the template.
+Example:
+Successful exploitation of this vulnerability can lead to remote code execution, potentially compromising the affected system.
+
+`impact`
+
+* is optional
+
+* Type: `string` ([impact of the template](nuclei-schema-defs-info-properties-impact-of-the-template))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-info-properties-impact-of-the-template "https://template#/$defs/Info/properties/impact")
+
+#### impact Type
+
+`string` ([impact of the template](nuclei-schema-defs-info-properties-impact-of-the-template))
+
+#### impact Examples
+
+```json
+"Successful exploitation of this vulnerability could allow an attacker to execute arbitrary SQL queries"
+```
+
+```json
+"Impact of the template"
+```
+
+### reference
+
+References for the template.
+This should contain links relevant to the template.
+Example:
+<https://logging.apache.org/log4j/2.x/security.html>
+<https://nvd.nist.gov/vuln/detail/CVE-2021-44228>
+
+`reference`
+
+* is optional
+
+* Type: `array` ([references for the template](nuclei-schema-defs-stringorslice))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-stringorslice "https://template#/$defs/Info/properties/reference")
+
+#### reference Type
+
+`array` ([references for the template](nuclei-schema-defs-stringorslice))
+
+one (and only one) of
+
+* [Untitled string in undefined](nuclei-schema-defs-stringorslice-oneof-0 "check type definition")
+
+* [Untitled array in undefined](nuclei-schema-defs-stringorslice-oneof-1 "check type definition")
+
+#### reference Examples
+
+```json
+"\n\t- https://example.com"
+```
+
+### severity
+
+Seriousness of the implications of the template
+
+`severity`
+
+* is optional
+
+* Type: `string` ([severity of the template](nuclei-schema-defs-info-properties-severity-of-the-template))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-info-properties-severity-of-the-template "https://template#/$defs/Info/properties/severity")
+
+#### severity Type
+
+`string` ([severity of the template](nuclei-schema-defs-info-properties-severity-of-the-template))
+
+#### severity Constraints
+
+**enum**: the value of this property must be equal to one of the following values:
+
+| Value        | Explanation |
+| :----------- | :---------- |
+| `"info"`     |             |
+| `"low"`      |             |
+| `"medium"`   |             |
+| `"high"`     |             |
+| `"critical"` |             |
+| `"unknown"`  |             |
+
+#### severity Examples
+
+```json
+"info"
+```
+
+### metadata
+
+Optional metadata for the template.
+this could be any useful metadata like Vendor, Product, Version, etc.
+Note - This is autogenerated and updated regularly for templates merged in projectdiscovery/nuclei-templates repository.
+Example:
+
+```yaml
+Vendor: Apache
+Product: Log4j2
+Version: <=2.14.1
+```
+
+`metadata`
+
+* is optional
+
+* Type: `object` ([additional metadata for the template](nuclei-schema-defs-info-properties-additional-metadata-for-the-template))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-info-properties-additional-metadata-for-the-template "https://template#/$defs/Info/properties/metadata")
+
+#### metadata Type
+
+`object` ([additional metadata for the template](nuclei-schema-defs-info-properties-additional-metadata-for-the-template))
+
+#### metadata Examples
+
+```json
+"\n\tmax-request: 1"
+```
+
+```json
+"\n\tmax-request: 2\n\tvendor: apache\n\tproduct: log4j2"
+```
+
+### classification
+
+Classification contains classification information about the template.
+This could be any classification information like CWE, CVE, EPSS etc.
+Note - This is autogenerated and updated regularly for CVE templates merged in projectdiscovery/nuclei-templates repository.
+Example:
+
+```yaml
+cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H
+cvss-score: 10
+cve-id: CVE-2021-44228
+cwe-id: CWE-20,CWE-917
+epss-score: 0.97453
+epss-percentile: 0.99942
+cpe: cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*
+```
+
+`classification`
+
+* is optional
+
+* Type: `object` ([classification info for the template](nuclei-schema-defs-classification))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-classification "https://template#/$defs/Info/properties/classification")
+
+#### classification Type
+
+`object` ([classification info for the template](nuclei-schema-defs-classification))
+
+#### classification Examples
+
+```json
+"\n\tcvss-metrics: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H\n\tcvss-score: 10\n\tcve-id: CVE-2021-44228"
+```
+
+```json
+"\n\tcwe-id: CWE-20,CWE-917"
+```
+
+### remediation
+
+In-depth explanation on how to fix the issues found by the template
+
+`remediation`
+
+* is optional
+
+* Type: `string` ([remediation steps for the template](nuclei-schema-defs-info-properties-remediation-steps-for-the-template))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-info-properties-remediation-steps-for-the-template "https://template#/$defs/Info/properties/remediation")
+
+#### remediation Type
+
+`string` ([remediation steps for the template](nuclei-schema-defs-info-properties-remediation-steps-for-the-template))
+
+#### remediation Examples
+
+```json
+"Change the default administrative username and password of Apache ActiveMQ by editing the file jetty-realm.properties"
+```
+
+## Definitions group Matcher
+
+Reference this group by using
+
+```json
+{"$ref":"https://template#/$defs/Matcher"}
+```
+
+| Property                                | Type      | Required | Nullable       | Defined by                                                                                                                                             |
+| :-------------------------------------- | :-------- | :------- | :------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [type](#type-1)                         | `object`  | Required | cannot be null | [Untitled schema](nuclei-schema-defs-matchertypeholder "https://template#/$defs/Matcher/properties/type")                                           |
+| [condition](#condition)                 | `string`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-matcher-properties-condition-between-matcher-variables "https://template#/$defs/Matcher/properties/condition") |
+| [part](#part-1)                         | `string`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-matcher-properties-part-of-response-to-match "https://template#/$defs/Matcher/properties/part")                |
+| [negative](#negative)                   | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-matcher-properties-negative-specifies-if-match-reversed "https://template#/$defs/Matcher/properties/negative") |
+| [name](#name-2)                         | `string`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-matcher-properties-name-of-the-matcher "https://template#/$defs/Matcher/properties/name")                      |
+| [status](#status)                       | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-matcher-properties-status-to-match "https://template#/$defs/Matcher/properties/status")                        |
+| [size](#size)                           | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-matcher-properties-acceptable-size-for-response "https://template#/$defs/Matcher/properties/size")             |
+| [words](#words)                         | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-matcher-properties-words-to-match-in-response "https://template#/$defs/Matcher/properties/words")              |
+| [regex](#regex-1)                       | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-matcher-properties-regex-to-match-in-response "https://template#/$defs/Matcher/properties/regex")              |
+| [binary](#binary)                       | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-matcher-properties-binary-patterns-to-match-in-response "https://template#/$defs/Matcher/properties/binary")   |
+| [dsl](#dsl-1)                           | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-matcher-properties-dsl-expressions-to-match-in-response "https://template#/$defs/Matcher/properties/dsl")      |
+| [xpath](#xpath-1)                       | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-matcher-properties-xpath-queries-to-match-in-response "https://template#/$defs/Matcher/properties/xpath")      |
+| [encoding](#encoding)                   | `string`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-matcher-properties-encoding-for-word-field "https://template#/$defs/Matcher/properties/encoding")              |
+| [case-insensitive](#case-insensitive-1) | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-matcher-properties-use-case-insensitive-match "https://template#/$defs/Matcher/properties/case-insensitive")   |
+| [match-all](#match-all)                 | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-matcher-properties-match-all-values "https://template#/$defs/Matcher/properties/match-all")                    |
+| [internal](#internal-1)                 | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-matcher-properties-hide-matcher-from-output "https://template#/$defs/Matcher/properties/internal")             |
+
+### type
+
+Type of the matcher
+
+`type`
+
+* is required
+
+* Type: `object` ([type of matcher](nuclei-schema-defs-matchertypeholder))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-matchertypeholder "https://template#/$defs/Matcher/properties/type")
+
+#### type Type
+
+`object` ([type of matcher](nuclei-schema-defs-matchertypeholder))
+
+### condition
+
+Condition between the matcher variables
+
+`condition`
+
+* is optional
+
+* Type: `string` ([condition between matcher variables](nuclei-schema-defs-matcher-properties-condition-between-matcher-variables))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-matcher-properties-condition-between-matcher-variables "https://template#/$defs/Matcher/properties/condition")
+
+#### condition Type
+
+`string` ([condition between matcher variables](nuclei-schema-defs-matcher-properties-condition-between-matcher-variables))
+
+#### condition Constraints
+
+**enum**: the value of this property must be equal to one of the following values:
+
+| Value   | Explanation |
+| :------ | :---------- |
+| `"and"` |             |
+| `"or"`  |             |
+
+### part
+
+Part of response to match data from
+
+`part`
+
+* is optional
+
+* Type: `string` ([part of response to match](nuclei-schema-defs-matcher-properties-part-of-response-to-match))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-matcher-properties-part-of-response-to-match "https://template#/$defs/Matcher/properties/part")
+
+#### part Type
+
+`string` ([part of response to match](nuclei-schema-defs-matcher-properties-part-of-response-to-match))
+
+### negative
+
+Negative specifies if the match should be reversed. It will only match if the condition is not true
+
+`negative`
+
+* is optional
+
+* Type: `boolean` ([negative specifies if match reversed](nuclei-schema-defs-matcher-properties-negative-specifies-if-match-reversed))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-matcher-properties-negative-specifies-if-match-reversed "https://template#/$defs/Matcher/properties/negative")
+
+#### negative Type
+
+`boolean` ([negative specifies if match reversed](nuclei-schema-defs-matcher-properties-negative-specifies-if-match-reversed))
+
+### name
+
+Name of the matcher
+
+`name`
+
+* is optional
+
+* Type: `string` ([name of the matcher](nuclei-schema-defs-matcher-properties-name-of-the-matcher))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-matcher-properties-name-of-the-matcher "https://template#/$defs/Matcher/properties/name")
+
+#### name Type
+
+`string` ([name of the matcher](nuclei-schema-defs-matcher-properties-name-of-the-matcher))
+
+### status
+
+Status to match for the response
+
+`status`
+
+* is optional
+
+* Type: `integer[]`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-matcher-properties-status-to-match "https://template#/$defs/Matcher/properties/status")
+
+#### status Type
+
+`integer[]`
+
+### size
+
+Size is the acceptable size for the response
+
+`size`
+
+* is optional
+
+* Type: `integer[]`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-matcher-properties-acceptable-size-for-response "https://template#/$defs/Matcher/properties/size")
+
+#### size Type
+
+`integer[]`
+
+### words
+
+Words contains word patterns required to be present in the response part
+
+`words`
+
+* is optional
+
+* Type: `string[]`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-matcher-properties-words-to-match-in-response "https://template#/$defs/Matcher/properties/words")
+
+#### words Type
+
+`string[]`
+
+### regex
+
+Regex contains regex patterns required to be present in the response part
+
+`regex`
+
+* is optional
+
+* Type: `string[]`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-matcher-properties-regex-to-match-in-response "https://template#/$defs/Matcher/properties/regex")
+
+#### regex Type
+
+`string[]`
+
+### binary
+
+Binary are the binary patterns required to be present in the response part
+
+`binary`
+
+* is optional
+
+* Type: `string[]`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-matcher-properties-binary-patterns-to-match-in-response "https://template#/$defs/Matcher/properties/binary")
+
+#### binary Type
+
+`string[]`
+
+### dsl
+
+DSL are the dsl expressions that will be evaluated as part of nuclei matching rules
+
+`dsl`
+
+* is optional
+
+* Type: `string[]`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-matcher-properties-dsl-expressions-to-match-in-response "https://template#/$defs/Matcher/properties/dsl")
+
+#### dsl Type
+
+`string[]`
+
+### xpath
+
+xpath are the XPath queries that will be evaluated against the response part of nuclei matching rules
+
+`xpath`
+
+* is optional
+
+* Type: `string[]`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-matcher-properties-xpath-queries-to-match-in-response "https://template#/$defs/Matcher/properties/xpath")
+
+#### xpath Type
+
+`string[]`
+
+### encoding
+
+Optional encoding for the word fields
+
+`encoding`
+
+* is optional
+
+* Type: `string` ([encoding for word field](nuclei-schema-defs-matcher-properties-encoding-for-word-field))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-matcher-properties-encoding-for-word-field "https://template#/$defs/Matcher/properties/encoding")
+
+#### encoding Type
+
+`string` ([encoding for word field](nuclei-schema-defs-matcher-properties-encoding-for-word-field))
+
+#### encoding Constraints
+
+**enum**: the value of this property must be equal to one of the following values:
+
+| Value   | Explanation |
+| :------ | :---------- |
+| `"hex"` |             |
+
+### case-insensitive
+
+use case insensitive match
+
+`case-insensitive`
+
+* is optional
+
+* Type: `boolean` ([use case insensitive match](nuclei-schema-defs-matcher-properties-use-case-insensitive-match))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-matcher-properties-use-case-insensitive-match "https://template#/$defs/Matcher/properties/case-insensitive")
+
+#### case-insensitive Type
+
+`boolean` ([use case insensitive match](nuclei-schema-defs-matcher-properties-use-case-insensitive-match))
+
+### match-all
+
+match all matcher values ignoring condition
+
+`match-all`
+
+* is optional
+
+* Type: `boolean` ([match all values](nuclei-schema-defs-matcher-properties-match-all-values))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-matcher-properties-match-all-values "https://template#/$defs/Matcher/properties/match-all")
+
+#### match-all Type
+
+`boolean` ([match all values](nuclei-schema-defs-matcher-properties-match-all-values))
+
+### internal
+
+hide matcher from output
+
+`internal`
+
+* is optional
+
+* Type: `boolean` ([hide matcher from output](nuclei-schema-defs-matcher-properties-hide-matcher-from-output))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-matcher-properties-hide-matcher-from-output "https://template#/$defs/Matcher/properties/internal")
+
+#### internal Type
+
+`boolean` ([hide matcher from output](nuclei-schema-defs-matcher-properties-hide-matcher-from-output))
+
+## Definitions group MatcherTypeHolder
+
+Reference this group by using
+
+```json
+{"$ref":"https://template#/$defs/MatcherTypeHolder"}
+```
+
+| Property                    | Type      | Required | Nullable       | Defined by                                                                                                                                           |
+| :-------------------------- | :-------- | :------- | :------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [MatcherType](#matchertype) | `integer` | Required | cannot be null | [Untitled schema](nuclei-schema-defs-matchertypeholder-properties-matchertype "https://template#/$defs/MatcherTypeHolder/properties/MatcherType") |
+
+### MatcherType
+
+
+
+`MatcherType`
+
+* is required
+
+* Type: `integer`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-matchertypeholder-properties-matchertype "https://template#/$defs/MatcherTypeHolder/properties/MatcherType")
+
+#### MatcherType Type
+
+`integer`
+
+## Definitions group OrderedMap\[string,string]
+
+Reference this group by using
+
+```json
+{"$ref":"https://template#/$defs/OrderedMap[string,string]"}
+```
+
+| Property | Type | Required | Nullable | Defined by |
+| :------- | :--- | :------- | :------- | :--------- |
+
+## Definitions group Request
+
+Reference this group by using
+
+```json
+{"$ref":"https://template#/$defs/Request"}
+```
+
+| Property                                                              | Type      | Required | Nullable       | Defined by                                                                                                                                                                                      |
+| :-------------------------------------------------------------------- | :-------- | :------- | :------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [matchers](#matchers)                                                 | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-matchers-to-run-on-response "https://template#/$defs/Request/properties/matchers")                                                   |
+| [extractors](#extractors)                                             | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-extractors-to-run-on-response "https://template#/$defs/Request/properties/extractors")                                               |
+| [matchers-condition](#matchers-condition)                             | `string`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-condition-between-the-matchers "https://template#/$defs/Request/properties/matchers-condition")                                      |
+| [path](#path)                                                         | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-paths-for-the-http-request "https://template#/$defs/Request/properties/path")                                                        |
+| [raw](#raw)                                                           | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-raw "https://template#/$defs/Request/properties/raw")                                                                                |
+| [id](#id)                                                             | `string`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-id-for-the-http-request "https://template#/$defs/Request/properties/id")                                                             |
+| [name](#name-3)                                                       | `string`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-name-for-the-http-request "https://template#/$defs/Request/properties/name")                                                         |
+| [attack](#attack)                                                     | `object`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-attacktypeholder "https://template#/$defs/Request/properties/attack")                                                                                   |
+| [method](#method)                                                     | `object`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-httpmethodtypeholder "https://template#/$defs/Request/properties/method")                                                                               |
+| [body](#body)                                                         | `string`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-body-is-the-http-request-body "https://template#/$defs/Request/properties/body")                                                     |
+| [payloads](#payloads)                                                 | `object`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-payloads-for-the-http-request "https://template#/$defs/Request/properties/payloads")                                                 |
+| [headers](#headers)                                                   | `object`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-headers-to-send-with-the-http-request "https://template#/$defs/Request/properties/headers")                                          |
+| [race\_count](#race_count)                                            | `integer` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-number-of-times-to-repeat-request-in-race-condition "https://template#/$defs/Request/properties/race_count")                         |
+| [max-redirects](#max-redirects)                                       | `integer` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-maximum-number-of-redirects-to-follow "https://template#/$defs/Request/properties/max-redirects")                                    |
+| [pipeline-concurrent-connections](#pipeline-concurrent-connections)   | `integer` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-number-of-pipelining-connections "https://template#/$defs/Request/properties/pipeline-concurrent-connections")                       |
+| [pipeline-requests-per-connection](#pipeline-requests-per-connection) | `integer` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-number-of-requests-to-send-per-pipelining-connections "https://template#/$defs/Request/properties/pipeline-requests-per-connection") |
+| [threads](#threads)                                                   | `integer` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-threads-for-sending-requests "https://template#/$defs/Request/properties/threads")                                                   |
+| [max-size](#max-size)                                                 | `integer` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-maximum-http-response-body-size "https://template#/$defs/Request/properties/max-size")                                               |
+| [fuzzing](#fuzzing)                                                   | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-fuzzin-rules-for-http-fuzzing "https://template#/$defs/Request/properties/fuzzing")                                                  |
+| [self-contained](#self-contained)                                     | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-self-contained "https://template#/$defs/Request/properties/self-contained")                                                          |
+| [signature](#signature)                                               | `object`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-signaturetypeholder "https://template#/$defs/Request/properties/signature")                                                                             |
+| [cookie-reuse](#cookie-reuse)                                         | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-optional-cookie-reuse-enable "https://template#/$defs/Request/properties/cookie-reuse")                                              |
+| [disable-cookie](#disable-cookie)                                     | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-optional-disable-cookie-reuse "https://template#/$defs/Request/properties/disable-cookie")                                           |
+| [read-all](#read-all)                                                 | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-force-read-all-body "https://template#/$defs/Request/properties/read-all")                                                           |
+| [redirects](#redirects)                                               | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-follow-http-redirects "https://template#/$defs/Request/properties/redirects")                                                        |
+| [host-redirects](#host-redirects)                                     | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-follow-same-host-http-redirects "https://template#/$defs/Request/properties/host-redirects")                                         |
+| [pipeline](#pipeline)                                                 | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-perform-http-11-pipelining "https://template#/$defs/Request/properties/pipeline")                                                    |
+| [unsafe](#unsafe)                                                     | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-use-rawhttp-non-strict-rfc-client "https://template#/$defs/Request/properties/unsafe")                                               |
+| [race](#race)                                                         | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-perform-race-http-request-coordination-attack "https://template#/$defs/Request/properties/race")                                     |
+| [req-condition](#req-condition)                                       | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-preserve-request-history "https://template#/$defs/Request/properties/req-condition")                                                 |
+| [stop-at-first-match](#stop-at-first-match)                           | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-stop-at-first-match "https://template#/$defs/Request/properties/stop-at-first-match")                                                |
+| [skip-variables-check](#skip-variables-check)                         | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-skip-variable-checks "https://template#/$defs/Request/properties/skip-variables-check")                                              |
+| [iterate-all](#iterate-all)                                           | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-iterate-all-the-values "https://template#/$defs/Request/properties/iterate-all")                                                     |
+| [digest-username](#digest-username)                                   | `string`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-specifies-the-username-for-digest-authentication "https://template#/$defs/Request/properties/digest-username")                       |
+| [digest-password](#digest-password)                                   | `string`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-specifies-the-password-for-digest-authentication "https://template#/$defs/Request/properties/digest-password")                       |
+| [disable-path-automerge](#disable-path-automerge)                     | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-disable-auto-merging-of-path "https://template#/$defs/Request/properties/disable-path-automerge")                                    |
+| [filter](#filter)                                                     | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-filter-for-fuzzing "https://template#/$defs/Request/properties/filter")                                                              |
+| [filter-condition](#filter-condition)                                 | `string`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-condition-between-the-filters "https://template#/$defs/Request/properties/filter-condition")                                         |
+
+### matchers
+
+Detection mechanism to identify whether the request was successful by doing pattern matching
+
+`matchers`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-matcher))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-matchers-to-run-on-response "https://template#/$defs/Request/properties/matchers")
+
+#### matchers Type
+
+`object[]` ([Details](nuclei-schema-defs-matcher))
+
+### extractors
+
+Extractors contains the extraction mechanism for the request to identify and extract parts of the response
+
+`extractors`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-extractor))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-extractors-to-run-on-response "https://template#/$defs/Request/properties/extractors")
+
+#### extractors Type
+
+`object[]` ([Details](nuclei-schema-defs-extractor))
+
+### matchers-condition
+
+Conditions between the matchers
+
+`matchers-condition`
+
+* is optional
+
+* Type: `string` ([condition between the matchers](nuclei-schema-defs-request-properties-condition-between-the-matchers))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-condition-between-the-matchers "https://template#/$defs/Request/properties/matchers-condition")
+
+#### matchers-condition Type
+
+`string` ([condition between the matchers](nuclei-schema-defs-request-properties-condition-between-the-matchers))
+
+#### matchers-condition Constraints
+
+**enum**: the value of this property must be equal to one of the following values:
+
+| Value   | Explanation |
+| :------ | :---------- |
+| `"and"` |             |
+| `"or"`  |             |
+
+### path
+
+Path(s) to send http requests to
+
+`path`
+
+* is optional
+
+* Type: `string[]`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-paths-for-the-http-request "https://template#/$defs/Request/properties/path")
+
+#### path Type
+
+`string[]`
+
+### raw
+
+HTTP Requests in Raw Format
+
+`raw`
+
+* is optional
+
+* Type: `string[]`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-raw "https://template#/$defs/Request/properties/raw")
+
+#### raw Type
+
+`string[]`
+
+### id
+
+ID for the HTTP Request
+
+`id`
+
+* is optional
+
+* Type: `string` ([id for the http request](nuclei-schema-defs-request-properties-id-for-the-http-request))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-id-for-the-http-request "https://template#/$defs/Request/properties/id")
+
+#### id Type
+
+`string` ([id for the http request](nuclei-schema-defs-request-properties-id-for-the-http-request))
+
+### name
+
+Optional name for the HTTP Request
+
+`name`
+
+* is optional
+
+* Type: `string` ([name for the http request](nuclei-schema-defs-request-properties-name-for-the-http-request))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-name-for-the-http-request "https://template#/$defs/Request/properties/name")
+
+#### name Type
+
+`string` ([name for the http request](nuclei-schema-defs-request-properties-name-for-the-http-request))
+
+### attack
+
+Attack is the type of payload combinations to perform
+
+`attack`
+
+* is optional
+
+* Type: `object` ([attack is the payload combination](nuclei-schema-defs-attacktypeholder))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-attacktypeholder "https://template#/$defs/Request/properties/attack")
+
+#### attack Type
+
+`object` ([attack is the payload combination](nuclei-schema-defs-attacktypeholder))
+
+### method
+
+Method is the HTTP Request Method
+
+`method`
+
+* is optional
+
+* Type: `object` ([method is the http request method](nuclei-schema-defs-httpmethodtypeholder))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-httpmethodtypeholder "https://template#/$defs/Request/properties/method")
+
+#### method Type
+
+`object` ([method is the http request method](nuclei-schema-defs-httpmethodtypeholder))
+
+### body
+
+Body is an optional parameter which contains HTTP Request body
+
+`body`
+
+* is optional
+
+* Type: `string` ([body is the http request body](nuclei-schema-defs-request-properties-body-is-the-http-request-body))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-body-is-the-http-request-body "https://template#/$defs/Request/properties/body")
+
+#### body Type
+
+`string` ([body is the http request body](nuclei-schema-defs-request-properties-body-is-the-http-request-body))
+
+### payloads
+
+Payloads contains any payloads for the current request
+
+`payloads`
+
+* is optional
+
+* Type: `object` ([payloads for the http request](nuclei-schema-defs-request-properties-payloads-for-the-http-request))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-payloads-for-the-http-request "https://template#/$defs/Request/properties/payloads")
+
+#### payloads Type
+
+`object` ([payloads for the http request](nuclei-schema-defs-request-properties-payloads-for-the-http-request))
+
+### headers
+
+Headers contains HTTP Headers to send with the request
+
+`headers`
+
+* is optional
+
+* Type: `object` ([headers to send with the http request](nuclei-schema-defs-request-properties-headers-to-send-with-the-http-request))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-headers-to-send-with-the-http-request "https://template#/$defs/Request/properties/headers")
+
+#### headers Type
+
+`object` ([headers to send with the http request](nuclei-schema-defs-request-properties-headers-to-send-with-the-http-request))
+
+### race\_count
+
+Number of times to send a request in Race Condition Attack
+
+`race_count`
+
+* is optional
+
+* Type: `integer` ([number of times to repeat request in race condition](nuclei-schema-defs-request-properties-number-of-times-to-repeat-request-in-race-condition))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-number-of-times-to-repeat-request-in-race-condition "https://template#/$defs/Request/properties/race_count")
+
+#### race\_count Type
+
+`integer` ([number of times to repeat request in race condition](nuclei-schema-defs-request-properties-number-of-times-to-repeat-request-in-race-condition))
+
+### max-redirects
+
+Maximum number of redirects that should be followed
+
+`max-redirects`
+
+* is optional
+
+* Type: `integer` ([maximum number of redirects to follow](nuclei-schema-defs-request-properties-maximum-number-of-redirects-to-follow))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-maximum-number-of-redirects-to-follow "https://template#/$defs/Request/properties/max-redirects")
+
+#### max-redirects Type
+
+`integer` ([maximum number of redirects to follow](nuclei-schema-defs-request-properties-maximum-number-of-redirects-to-follow))
+
+### pipeline-concurrent-connections
+
+Number of connections to create during pipelining
+
+`pipeline-concurrent-connections`
+
+* is optional
+
+* Type: `integer` ([number of pipelining connections](nuclei-schema-defs-request-properties-number-of-pipelining-connections))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-number-of-pipelining-connections "https://template#/$defs/Request/properties/pipeline-concurrent-connections")
+
+#### pipeline-concurrent-connections Type
+
+`integer` ([number of pipelining connections](nuclei-schema-defs-request-properties-number-of-pipelining-connections))
+
+### pipeline-requests-per-connection
+
+Number of requests to send per connection when pipelining
+
+`pipeline-requests-per-connection`
+
+* is optional
+
+* Type: `integer` ([number of requests to send per pipelining connections](nuclei-schema-defs-request-properties-number-of-requests-to-send-per-pipelining-connections))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-number-of-requests-to-send-per-pipelining-connections "https://template#/$defs/Request/properties/pipeline-requests-per-connection")
+
+#### pipeline-requests-per-connection Type
+
+`integer` ([number of requests to send per pipelining connections](nuclei-schema-defs-request-properties-number-of-requests-to-send-per-pipelining-connections))
+
+### threads
+
+Threads specifies number of threads to use sending requests. This enables Connection Pooling
+
+`threads`
+
+* is optional
+
+* Type: `integer` ([threads for sending requests](nuclei-schema-defs-request-properties-threads-for-sending-requests))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-threads-for-sending-requests "https://template#/$defs/Request/properties/threads")
+
+#### threads Type
+
+`integer` ([threads for sending requests](nuclei-schema-defs-request-properties-threads-for-sending-requests))
+
+### max-size
+
+Maximum size of http response body to read in bytes
+
+`max-size`
+
+* is optional
+
+* Type: `integer` ([maximum http response body size](nuclei-schema-defs-request-properties-maximum-http-response-body-size))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-maximum-http-response-body-size "https://template#/$defs/Request/properties/max-size")
+
+#### max-size Type
+
+`integer` ([maximum http response body size](nuclei-schema-defs-request-properties-maximum-http-response-body-size))
+
+### fuzzing
+
+Fuzzing describes rule schema to fuzz http requests
+
+`fuzzing`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-rule))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-fuzzin-rules-for-http-fuzzing "https://template#/$defs/Request/properties/fuzzing")
+
+#### fuzzing Type
+
+`object[]` ([Details](nuclei-schema-defs-rule))
+
+### self-contained
+
+
+
+`self-contained`
+
+* is optional
+
+* Type: `boolean`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-self-contained "https://template#/$defs/Request/properties/self-contained")
+
+#### self-contained Type
+
+`boolean`
+
+### signature
+
+Signature is the HTTP Request signature Method
+
+`signature`
+
+* is optional
+
+* Type: `object` ([signature is the http request signature method](nuclei-schema-defs-signaturetypeholder))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-signaturetypeholder "https://template#/$defs/Request/properties/signature")
+
+#### signature Type
+
+`object` ([signature is the http request signature method](nuclei-schema-defs-signaturetypeholder))
+
+### cookie-reuse
+
+Optional setting that enables cookie reuse
+
+`cookie-reuse`
+
+* is optional
+
+* Type: `boolean` ([optional cookie reuse enable](nuclei-schema-defs-request-properties-optional-cookie-reuse-enable))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-optional-cookie-reuse-enable "https://template#/$defs/Request/properties/cookie-reuse")
+
+#### cookie-reuse Type
+
+`boolean` ([optional cookie reuse enable](nuclei-schema-defs-request-properties-optional-cookie-reuse-enable))
+
+### disable-cookie
+
+Optional setting that disables cookie reuse
+
+`disable-cookie`
+
+* is optional
+
+* Type: `boolean` ([optional disable cookie reuse](nuclei-schema-defs-request-properties-optional-disable-cookie-reuse))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-optional-disable-cookie-reuse "https://template#/$defs/Request/properties/disable-cookie")
+
+#### disable-cookie Type
+
+`boolean` ([optional disable cookie reuse](nuclei-schema-defs-request-properties-optional-disable-cookie-reuse))
+
+### read-all
+
+Enables force reading of entire unsafe http request body
+
+`read-all`
+
+* is optional
+
+* Type: `boolean` ([force read all body](nuclei-schema-defs-request-properties-force-read-all-body))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-force-read-all-body "https://template#/$defs/Request/properties/read-all")
+
+#### read-all Type
+
+`boolean` ([force read all body](nuclei-schema-defs-request-properties-force-read-all-body))
+
+### redirects
+
+Specifies whether redirects should be followed by the HTTP Client
+
+`redirects`
+
+* is optional
+
+* Type: `boolean` ([follow http redirects](nuclei-schema-defs-request-properties-follow-http-redirects))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-follow-http-redirects "https://template#/$defs/Request/properties/redirects")
+
+#### redirects Type
+
+`boolean` ([follow http redirects](nuclei-schema-defs-request-properties-follow-http-redirects))
+
+### host-redirects
+
+Specifies whether redirects to the same host should be followed by the HTTP Client
+
+`host-redirects`
+
+* is optional
+
+* Type: `boolean` ([follow same host http redirects](nuclei-schema-defs-request-properties-follow-same-host-http-redirects))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-follow-same-host-http-redirects "https://template#/$defs/Request/properties/host-redirects")
+
+#### host-redirects Type
+
+`boolean` ([follow same host http redirects](nuclei-schema-defs-request-properties-follow-same-host-http-redirects))
+
+### pipeline
+
+Pipeline defines if the attack should be performed with HTTP 1.1 Pipelining
+
+`pipeline`
+
+* is optional
+
+* Type: `boolean` ([perform HTTP 1.1 pipelining](nuclei-schema-defs-request-properties-perform-http-11-pipelining))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-perform-http-11-pipelining "https://template#/$defs/Request/properties/pipeline")
+
+#### pipeline Type
+
+`boolean` ([perform HTTP 1.1 pipelining](nuclei-schema-defs-request-properties-perform-http-11-pipelining))
+
+### unsafe
+
+Unsafe specifies whether to use rawhttp engine for sending Non RFC-Compliant requests
+
+`unsafe`
+
+* is optional
+
+* Type: `boolean` ([use rawhttp non-strict-rfc client](nuclei-schema-defs-request-properties-use-rawhttp-non-strict-rfc-client))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-use-rawhttp-non-strict-rfc-client "https://template#/$defs/Request/properties/unsafe")
+
+#### unsafe Type
+
+`boolean` ([use rawhttp non-strict-rfc client](nuclei-schema-defs-request-properties-use-rawhttp-non-strict-rfc-client))
+
+### race
+
+Race determines if all the request have to be attempted at the same time (Race Condition)
+
+`race`
+
+* is optional
+
+* Type: `boolean` ([perform race-http request coordination attack](nuclei-schema-defs-request-properties-perform-race-http-request-coordination-attack))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-perform-race-http-request-coordination-attack "https://template#/$defs/Request/properties/race")
+
+#### race Type
+
+`boolean` ([perform race-http request coordination attack](nuclei-schema-defs-request-properties-perform-race-http-request-coordination-attack))
+
+### req-condition
+
+Automatically assigns numbers to requests and preserves their history
+
+`req-condition`
+
+* is optional
+
+* Type: `boolean` ([preserve request history](nuclei-schema-defs-request-properties-preserve-request-history))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-preserve-request-history "https://template#/$defs/Request/properties/req-condition")
+
+#### req-condition Type
+
+`boolean` ([preserve request history](nuclei-schema-defs-request-properties-preserve-request-history))
+
+### stop-at-first-match
+
+Stop the execution after a match is found
+
+`stop-at-first-match`
+
+* is optional
+
+* Type: `boolean` ([stop at first match](nuclei-schema-defs-request-properties-stop-at-first-match))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-stop-at-first-match "https://template#/$defs/Request/properties/stop-at-first-match")
+
+#### stop-at-first-match Type
+
+`boolean` ([stop at first match](nuclei-schema-defs-request-properties-stop-at-first-match))
+
+### skip-variables-check
+
+Skips the check for unresolved variables in request
+
+`skip-variables-check`
+
+* is optional
+
+* Type: `boolean` ([skip variable checks](nuclei-schema-defs-request-properties-skip-variable-checks))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-skip-variable-checks "https://template#/$defs/Request/properties/skip-variables-check")
+
+#### skip-variables-check Type
+
+`boolean` ([skip variable checks](nuclei-schema-defs-request-properties-skip-variable-checks))
+
+### iterate-all
+
+Iterates all the values extracted from internal extractors
+
+`iterate-all`
+
+* is optional
+
+* Type: `boolean` ([iterate all the values](nuclei-schema-defs-request-properties-iterate-all-the-values))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-iterate-all-the-values "https://template#/$defs/Request/properties/iterate-all")
+
+#### iterate-all Type
+
+`boolean` ([iterate all the values](nuclei-schema-defs-request-properties-iterate-all-the-values))
+
+### digest-username
+
+Optional parameter which specifies the username for digest auth
+
+`digest-username`
+
+* is optional
+
+* Type: `string` ([specifies the username for digest authentication](nuclei-schema-defs-request-properties-specifies-the-username-for-digest-authentication))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-specifies-the-username-for-digest-authentication "https://template#/$defs/Request/properties/digest-username")
+
+#### digest-username Type
+
+`string` ([specifies the username for digest authentication](nuclei-schema-defs-request-properties-specifies-the-username-for-digest-authentication))
+
+### digest-password
+
+Optional parameter which specifies the password for digest auth
+
+`digest-password`
+
+* is optional
+
+* Type: `string` ([specifies the password for digest authentication](nuclei-schema-defs-request-properties-specifies-the-password-for-digest-authentication))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-specifies-the-password-for-digest-authentication "https://template#/$defs/Request/properties/digest-password")
+
+#### digest-password Type
+
+`string` ([specifies the password for digest authentication](nuclei-schema-defs-request-properties-specifies-the-password-for-digest-authentication))
+
+### disable-path-automerge
+
+Disable merging target url path with raw request path
+
+`disable-path-automerge`
+
+* is optional
+
+* Type: `boolean` ([disable auto merging of path](nuclei-schema-defs-request-properties-disable-auto-merging-of-path))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-disable-auto-merging-of-path "https://template#/$defs/Request/properties/disable-path-automerge")
+
+#### disable-path-automerge Type
+
+`boolean` ([disable auto merging of path](nuclei-schema-defs-request-properties-disable-auto-merging-of-path))
+
+### filter
+
+Filter is matcher-like field to check if fuzzing should be performed on this request or not
+
+`filter`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-matcher))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-filter-for-fuzzing "https://template#/$defs/Request/properties/filter")
+
+#### filter Type
+
+`object[]` ([Details](nuclei-schema-defs-matcher))
+
+### filter-condition
+
+Conditions between the filters
+
+`filter-condition`
+
+* is optional
+
+* Type: `string` ([condition between the filters](nuclei-schema-defs-request-properties-condition-between-the-filters))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-condition-between-the-filters "https://template#/$defs/Request/properties/filter-condition")
+
+#### filter-condition Type
+
+`string` ([condition between the filters](nuclei-schema-defs-request-properties-condition-between-the-filters))
+
+#### filter-condition Constraints
+
+**enum**: the value of this property must be equal to one of the following values:
+
+| Value   | Explanation |
+| :------ | :---------- |
+| `"and"` |             |
+| `"or"`  |             |
+
+## Definitions group Rule
+
+Reference this group by using
+
+```json
+{"$ref":"https://template#/$defs/Rule"}
+```
+
+| Property                        | Type     | Required | Nullable       | Defined by                                                                                                                             |
+| :------------------------------ | :------- | :------- | :------------- | :------------------------------------------------------------------------------------------------------------------------------------- |
+| [type](#type-2)                 | `string` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-rule-properties-type-of-rule "https://template#/$defs/Rule/properties/type")                   |
+| [part](#part-2)                 | `string` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-rule-properties-part-of-rule "https://template#/$defs/Rule/properties/part")                   |
+| [mode](#mode)                   | `string` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-rule-properties-mode-of-rule "https://template#/$defs/Rule/properties/mode")                   |
+| [keys](#keys)                   | `array`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-rule-properties-keys-of-parameters-to-fuzz "https://template#/$defs/Rule/properties/keys")     |
+| [keys-regex](#keys-regex)       | `array`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-rule-properties-keys-regex-to-fuzz "https://template#/$defs/Rule/properties/keys-regex")       |
+| [values](#values)               | `array`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-rule-properties-values-regex-to-fuzz "https://template#/$defs/Rule/properties/values")         |
+| [fuzz](#fuzz)                   | `object` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-sliceormapslice "https://template#/$defs/Rule/properties/fuzz")                                |
+| [replace-regex](#replace-regex) | `string` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-rule-properties-replace-regex-of-rule "https://template#/$defs/Rule/properties/replace-regex") |
+
+### type
+
+Type of fuzzing rule to perform
+
+`type`
+
+* is optional
+
+* Type: `string` ([type of rule](nuclei-schema-defs-rule-properties-type-of-rule))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-rule-properties-type-of-rule "https://template#/$defs/Rule/properties/type")
+
+#### type Type
+
+`string` ([type of rule](nuclei-schema-defs-rule-properties-type-of-rule))
+
+#### type Constraints
+
+**enum**: the value of this property must be equal to one of the following values:
+
+| Value             | Explanation |
+| :---------------- | :---------- |
+| `"replace"`       |             |
+| `"prefix"`        |             |
+| `"postfix"`       |             |
+| `"infix"`         |             |
+| `"replace-regex"` |             |
+
+### part
+
+Part of request rule to fuzz
+
+`part`
+
+* is optional
+
+* Type: `string` ([part of rule](nuclei-schema-defs-rule-properties-part-of-rule))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-rule-properties-part-of-rule "https://template#/$defs/Rule/properties/part")
+
+#### part Type
+
+`string` ([part of rule](nuclei-schema-defs-rule-properties-part-of-rule))
+
+#### part Constraints
+
+**enum**: the value of this property must be equal to one of the following values:
+
+| Value       | Explanation |
+| :---------- | :---------- |
+| `"query"`   |             |
+| `"header"`  |             |
+| `"path"`    |             |
+| `"body"`    |             |
+| `"cookie"`  |             |
+| `"request"` |             |
+
+### mode
+
+Mode of request rule to fuzz
+
+`mode`
+
+* is optional
+
+* Type: `string` ([mode of rule](nuclei-schema-defs-rule-properties-mode-of-rule))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-rule-properties-mode-of-rule "https://template#/$defs/Rule/properties/mode")
+
+#### mode Type
+
+`string` ([mode of rule](nuclei-schema-defs-rule-properties-mode-of-rule))
+
+#### mode Constraints
+
+**enum**: the value of this property must be equal to one of the following values:
+
+| Value        | Explanation |
+| :----------- | :---------- |
+| `"single"`   |             |
+| `"multiple"` |             |
+
+### keys
+
+Keys of parameters to fuzz
+
+`keys`
+
+* is optional
+
+* Type: `string[]`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-rule-properties-keys-of-parameters-to-fuzz "https://template#/$defs/Rule/properties/keys")
+
+#### keys Type
+
+`string[]`
+
+### keys-regex
+
+Regex of parameter keys to fuzz
+
+`keys-regex`
+
+* is optional
+
+* Type: `string[]`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-rule-properties-keys-regex-to-fuzz "https://template#/$defs/Rule/properties/keys-regex")
+
+#### keys-regex Type
+
+`string[]`
+
+### values
+
+Regex of parameter values to fuzz
+
+`values`
+
+* is optional
+
+* Type: `string[]`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-rule-properties-values-regex-to-fuzz "https://template#/$defs/Rule/properties/values")
+
+#### values Type
+
+`string[]`
+
+### fuzz
+
+Payloads to perform fuzzing substitutions with
+
+`fuzz`
+
+* is optional
+
+* Type: `object` ([payloads of fuzz rule](nuclei-schema-defs-sliceormapslice))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-sliceormapslice "https://template#/$defs/Rule/properties/fuzz")
+
+#### fuzz Type
+
+`object` ([payloads of fuzz rule](nuclei-schema-defs-sliceormapslice))
+
+### replace-regex
+
+Regex for regex-replace rule type
+
+`replace-regex`
+
+* is optional
+
+* Type: `string` ([replace regex of rule](nuclei-schema-defs-rule-properties-replace-regex-of-rule))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-rule-properties-replace-regex-of-rule "https://template#/$defs/Rule/properties/replace-regex")
+
+#### replace-regex Type
+
+`string` ([replace regex of rule](nuclei-schema-defs-rule-properties-replace-regex-of-rule))
+
+## Definitions group SignatureTypeHolder
+
+Reference this group by using
+
+```json
+{"$ref":"https://template#/$defs/SignatureTypeHolder"}
+```
+
+| Property          | Type      | Required | Nullable       | Defined by                                                                                                                                   |
+| :---------------- | :-------- | :------- | :------------- | :------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Value](#value-1) | `integer` | Required | cannot be null | [Untitled schema](nuclei-schema-defs-signaturetypeholder-properties-value "https://template#/$defs/SignatureTypeHolder/properties/Value") |
+
+### Value
+
+
+
+`Value`
+
+* is required
+
+* Type: `integer`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-signaturetypeholder-properties-value "https://template#/$defs/SignatureTypeHolder/properties/Value")
+
+#### Value Type
+
+`integer`
+
+## Definitions group SliceOrMapSlice
+
+Reference this group by using
+
+```json
+{"$ref":"https://template#/$defs/SliceOrMapSlice"}
+```
+
+| Property          | Type     | Required | Nullable       | Defined by                                                                                                                           |
+| :---------------- | :------- | :------- | :------------- | :----------------------------------------------------------------------------------------------------------------------------------- |
+| [Value](#value-2) | `array`  | Required | cannot be null | [Untitled schema](nuclei-schema-defs-sliceormapslice-properties-value "https://template#/$defs/SliceOrMapSlice/properties/Value") |
+| [KV](#kv)         | `object` | Required | cannot be null | [Untitled schema](nuclei-schema-defs-orderedmapstringstring "https://template#/$defs/SliceOrMapSlice/properties/KV")              |
+
+### Value
+
+
+
+`Value`
+
+* is required
+
+* Type: `string[]`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-sliceormapslice-properties-value "https://template#/$defs/SliceOrMapSlice/properties/Value")
+
+#### Value Type
+
+`string[]`
+
+### KV
+
+
+
+`KV`
+
+* is required
+
+* Type: `object` ([Details](nuclei-schema-defs-orderedmapstringstring))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-orderedmapstringstring "https://template#/$defs/SliceOrMapSlice/properties/KV")
+
+#### KV Type
+
+`object` ([Details](nuclei-schema-defs-orderedmapstringstring))
+
+## Definitions group StringOrSlice
+
+Reference this group by using
+
+```json
+{"$ref":"https://template#/$defs/StringOrSlice"}
+```
+
+| Property | Type | Required | Nullable | Defined by |
+| :------- | :--- | :------- | :------- | :--------- |
+
+## Definitions group Template
+
+Reference this group by using
+
+```json
+{"$ref":"https://template#/$defs/Template"}
+```
+
+| Property                                      | Type      | Required | Nullable       | Defined by                                                                                                                                                |
+| :-------------------------------------------- | :-------- | :------- | :------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [id](#id-1)                                   | `string`  | Required | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-id-of-the-template "https://template#/$defs/Template/properties/id")                          |
+| [info](#info)                                 | `object`  | Required | cannot be null | [Untitled schema](nuclei-schema-defs-info "https://template#/$defs/Template/properties/info")                                                          |
+| [flow](#flow)                                 | `string`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-template-execution-flow-in-js "https://template#/$defs/Template/properties/flow")             |
+| [requests](#requests)                         | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-http-requests-to-make "https://template#/$defs/Template/properties/requests")                 |
+| [http](#http)                                 | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-http-requests-to-make-1 "https://template#/$defs/Template/properties/http")                   |
+| [dns](#dns)                                   | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-dns-requests-to-make "https://template#/$defs/Template/properties/dns")                       |
+| [file](#file)                                 | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-file-requests-to-make "https://template#/$defs/Template/properties/file")                     |
+| [network](#network)                           | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-network-requests-to-make "https://template#/$defs/Template/properties/network")               |
+| [tcp](#tcp)                                   | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-networktcp-requests-to-make "https://template#/$defs/Template/properties/tcp")                |
+| [headless](#headless)                         | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-headless-requests-to-make "https://template#/$defs/Template/properties/headless")             |
+| [ssl](#ssl)                                   | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-ssl-requests-to-make "https://template#/$defs/Template/properties/ssl")                       |
+| [websocket](#websocket)                       | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-websocket-requests-to-make "https://template#/$defs/Template/properties/websocket")           |
+| [whois](#whois)                               | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-whois-requests-to-make "https://template#/$defs/Template/properties/whois")                   |
+| [code](#code)                                 | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-code-snippets-to-make "https://template#/$defs/Template/properties/code")                     |
+| [javascript](#javascript)                     | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-javascript-requests-to-make "https://template#/$defs/Template/properties/javascript")         |
+| [workflows](#workflows)                       | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-list-of-workflows-to-execute "https://template#/$defs/Template/properties/workflows")         |
+| [self-contained](#self-contained-1)           | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-mark-requests-as-self-contained "https://template#/$defs/Template/properties/self-contained") |
+| [stop-at-first-match](#stop-at-first-match-1) | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-stop-at-first-match "https://template#/$defs/Template/properties/stop-at-first-match")        |
+| [signature](#signature-1)                     | `object`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-signaturetypeholder "https://template#/$defs/Template/properties/signature")                                      |
+| [variables](#variables)                       | `object`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-variables-for-the-http-request "https://template#/$defs/Template/properties/variables")       |
+| [constants](#constants)                       | `object`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-constant-for-the-template "https://template#/$defs/Template/properties/constants")            |
+
+### id
+
+ID is the unique id for the template.
+
+### Good IDs
+
+A good ID uniquely identifies what the requests in the template
+are doing. Let's say you have a template that identifies a git-config
+file on the webservers, a good name would be `git-config-exposure`. Another
+example name is `azure-apps-nxdomain-takeover`
+
+`id`
+
+* is required
+
+* Type: `string` ([id of the template](nuclei-schema-defs-template-properties-id-of-the-template))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-id-of-the-template "https://template#/$defs/Template/properties/id")
+
+#### id Type
+
+`string` ([id of the template](nuclei-schema-defs-template-properties-id-of-the-template))
+
+#### id Constraints
+
+**pattern**: the string must match the following regular expression:&#x20;
+
+```regexp
+^([a-zA-Z0-9]+[-_])*[a-zA-Z0-9]+$
+```
+
+[try pattern](https://regexr.com/?expression=%5E\(%5Ba-zA-Z0-9%5D%2B%5B-_%5D\)*%5Ba-zA-Z0-9%5D%2B%24 "try regular expression with regexr.com")
+
+#### id Examples
+
+```json
+"example-id"
+```
+
+```json
+"git-config-exposure"
+```
+
+```json
+"azure-apps-nxdomain-takeover"
+```
+
+```json
+"cve-2021-19520"
+```
+
+### info
+
+Info contains the required metadata information about the template
+It is meant to provide basic but necessary info like name, author , severity
+along with many other fields like metadata, classification etc
+Note: -
+For a template to be valid name,author,severity of `info` section must be set
+
+`info`
+
+* is required
+
+* Type: `object` ([info for the template](nuclei-schema-defs-info))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-info "https://template#/$defs/Template/properties/info")
+
+#### info Type
+
+`object` ([info for the template](nuclei-schema-defs-info))
+
+#### info Examples
+
+```json
+"\n\tname: Example Template\n\tauthor: pdteam\n\tseverity: info\n\tdescription: This is an example template"
+```
+
+```json
+"\n\tname: example-template\n\tauthor: pdteam\n\tseverity: unknown\n\tdescription: Example description of the template\n\timpact: Impact of the template\n\treference: \n\t  - https://example.com\n\tmetadata: \n\t  max-request: 1\n\ttags: http"
+```
+
+### flow
+
+Flow describes how multiple request-blocks/protocols should be combined together and executed
+It is a javascript code where each protocol is a function and all request-blocks are indexed by their corresponding index in request array
+Example:
+flow: http(1) && http(2)
+means that second http request will be executed only if first http request is successful (aka matched)
+
+`flow`
+
+* is optional
+
+* Type: `string` ([template execution flow in js](nuclei-schema-defs-template-properties-template-execution-flow-in-js))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-template-execution-flow-in-js "https://template#/$defs/Template/properties/flow")
+
+#### flow Type
+
+`string` ([template execution flow in js](nuclei-schema-defs-template-properties-template-execution-flow-in-js))
+
+#### flow Examples
+
+```json
+"'flow: http(0) && http(1)'"
+```
+
+```json
+"http(1) && http(2)"
+```
+
+```json
+" | # example-vhost-enum\n\tssl(); // ->  execute all ssl protocol requests\n\tdns(); // ->  execute all dns protocol requests\n\tfor (let got of template.domains) { // ->  iterate over 'domains' array variable\n\t\tset('vhost', got); // ->  set 'vhost' variable to current domain\n\t\thttp(); // ->  execute all http protocol requests\n\t}\n"
+```
+
+### requests
+
+HTTP requests to make for the template
+
+`requests`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-request))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-http-requests-to-make "https://template#/$defs/Template/properties/requests")
+
+#### requests Type
+
+`object[]` ([Details](nuclei-schema-defs-request))
+
+### http
+
+HTTP requests to make for the template
+
+`http`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-request))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-http-requests-to-make-1 "https://template#/$defs/Template/properties/http")
+
+#### http Type
+
+`object[]` ([Details](nuclei-schema-defs-request))
+
+### dns
+
+DNS requests to make for the template
+
+`dns`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-request))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-dns-requests-to-make "https://template#/$defs/Template/properties/dns")
+
+#### dns Type
+
+`object[]` ([Details](nuclei-schema-defs-request))
+
+### file
+
+File requests to make for the template
+
+`file`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-request))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-file-requests-to-make "https://template#/$defs/Template/properties/file")
+
+#### file Type
+
+`object[]` ([Details](nuclei-schema-defs-request))
+
+### network
+
+Network requests to make for the template
+
+`network`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-request))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-network-requests-to-make "https://template#/$defs/Template/properties/network")
+
+#### network Type
+
+`object[]` ([Details](nuclei-schema-defs-request))
+
+### tcp
+
+Network requests to make for the template
+
+`tcp`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-request))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-networktcp-requests-to-make "https://template#/$defs/Template/properties/tcp")
+
+#### tcp Type
+
+`object[]` ([Details](nuclei-schema-defs-request))
+
+### headless
+
+Headless requests to make for the template
+
+`headless`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-request))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-headless-requests-to-make "https://template#/$defs/Template/properties/headless")
+
+#### headless Type
+
+`object[]` ([Details](nuclei-schema-defs-request))
+
+### ssl
+
+SSL requests to make for the template
+
+`ssl`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-request))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-ssl-requests-to-make "https://template#/$defs/Template/properties/ssl")
+
+#### ssl Type
+
+`object[]` ([Details](nuclei-schema-defs-request))
+
+### websocket
+
+Websocket requests to make for the template
+
+`websocket`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-request))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-websocket-requests-to-make "https://template#/$defs/Template/properties/websocket")
+
+#### websocket Type
+
+`object[]` ([Details](nuclei-schema-defs-request))
+
+### whois
+
+WHOIS requests to make for the template
+
+`whois`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-request))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-whois-requests-to-make "https://template#/$defs/Template/properties/whois")
+
+#### whois Type
+
+`object[]` ([Details](nuclei-schema-defs-request))
+
+### code
+
+Code snippets
+
+`code`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-request))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-code-snippets-to-make "https://template#/$defs/Template/properties/code")
+
+#### code Type
+
+`object[]` ([Details](nuclei-schema-defs-request))
+
+### javascript
+
+Javascript requests to make for the template
+
+`javascript`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-request))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-javascript-requests-to-make "https://template#/$defs/Template/properties/javascript")
+
+#### javascript Type
+
+`object[]` ([Details](nuclei-schema-defs-request))
+
+### workflows
+
+List of workflows to execute for template
+
+`workflows`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-workflowtemplate))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-list-of-workflows-to-execute "https://template#/$defs/Template/properties/workflows")
+
+#### workflows Type
+
+`object[]` ([Details](nuclei-schema-defs-workflowtemplate))
+
+### self-contained
+
+Self-contained marks all requests in this template as independent of input which means input/target is not required for execution of template
+but other variables defined in template need to be explicitly set using -V flag
+Default value is false
+Note: self-contained templates only run once regardless of how many targets where provided to nuclei
+Example:
+
+```yaml
+self-contained: true
+```
+
+Full example template of self-contained is available at <https://cloud.projectdiscovery.io/public/aws-app-enum>
+
+`self-contained`
+
+* is optional
+
+* Type: `boolean` ([mark requests as self-contained](nuclei-schema-defs-template-properties-mark-requests-as-self-contained))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-mark-requests-as-self-contained "https://template#/$defs/Template/properties/self-contained")
+
+#### self-contained Type
+
+`boolean` ([mark requests as self-contained](nuclei-schema-defs-template-properties-mark-requests-as-self-contained))
+
+#### self-contained Examples
+
+```json
+true
+```
+
+### stop-at-first-match
+
+stop-at-first-match stops the execution of template as soon as first match/result was found in a template given that template was sending multiple requests
+this is required in case of default-login , brute-force and even detection templates where multiple requests are sent from template but we want to exit as soon as first match/result was found
+Example:
+
+```yaml
+stop-at-first-match: true
+```
+
+Full example template of stop-at-first-match is available at <https://cloud.projectdiscovery.io/public/bitbucket-public-repository>
+
+`stop-at-first-match`
+
+* is optional
+
+* Type: `boolean` ([stop at first match](nuclei-schema-defs-template-properties-stop-at-first-match))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-stop-at-first-match "https://template#/$defs/Template/properties/stop-at-first-match")
+
+#### stop-at-first-match Type
+
+`boolean` ([stop at first match](nuclei-schema-defs-template-properties-stop-at-first-match))
+
+#### stop-at-first-match Examples
+
+```json
+true
+```
+
+### signature
+
+Signature is the HTTP Request signature Method
+
+`signature`
+
+* is optional
+
+* Type: `object` ([signature is the http request signature method](nuclei-schema-defs-signaturetypeholder))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-signaturetypeholder "https://template#/$defs/Template/properties/signature")
+
+#### signature Type
+
+`object` ([signature is the http request signature method](nuclei-schema-defs-signaturetypeholder))
+
+### variables
+
+Variables are the global variables that once defined here can be used anywhere in the template
+Variables are evaluated in the order they are defined so one variable can be referenced in another variable
+Variables are evaluated before sending every requests so one can reference any variables that are available at runtime and they will be evaluate and used when referenced
+Example:
+
+```yaml
+variables:
+  oast: {{interact-sh}}
+  payload: "{{base64(oast)}}"
+```
+
+Full example template of variables is available at <https://cloud.projectdiscovery.io/public/screenshot>
+Note: -
+These variables can be overridden by -V flag at runtime if needed
+
+`variables`
+
+* is optional
+
+* Type: `object` ([variables for the http request](nuclei-schema-defs-template-properties-variables-for-the-http-request))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-variables-for-the-http-request "https://template#/$defs/Template/properties/variables")
+
+#### variables Type
+
+`object` ([variables for the http request](nuclei-schema-defs-template-properties-variables-for-the-http-request))
+
+#### variables Examples
+
+```json
+"\n\tdomain: \"{{FQDN}}\"\n\temail: pdteam@{{domain}}"
+```
+
+```json
+"\n\toast: \"{{interact-sh}}\"\n\tpayload: \"{{base64(oast)}}\""
+```
+
+### constants
+
+Constants are the global constants that once defined here can be used anywhere in the template
+It can be used in same way as variables but only difference is that constants cannot be overridden by -V flag at runtime
+Example:
+
+```yaml
+constants:
+  exploit: 'x0x0x0x0x0x0x
+```
+
+`constants`
+
+* is optional
+
+* Type: `object` ([constant for the template](nuclei-schema-defs-template-properties-constant-for-the-template))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-constant-for-the-template "https://template#/$defs/Template/properties/constants")
+
+#### constants Type
+
+`object` ([constant for the template](nuclei-schema-defs-template-properties-constant-for-the-template))
+
+#### constants Examples
+
+```json
+"\n\texploit: 'x0x0x0x0x0x0x"
+```
+
+## Definitions group Variable
+
+Reference this group by using
+
+```json
+{"$ref":"https://template#/$defs/Variable"}
+```
+
+| Property | Type | Required | Nullable | Defined by |
+| :------- | :--- | :------- | :------- | :--------- |
+
+## Definitions group WorkflowTemplate
+
+Reference this group by using
+
+```json
+{"$ref":"https://template#/$defs/WorkflowTemplate"}
+```
+
+| Property                      | Type     | Required | Nullable       | Defined by                                                                                                                                                                |
+| :---------------------------- | :------- | :------- | :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| [template](#template)         | `string` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-workflowtemplate-properties-templatedirectory-to-execute "https://template#/$defs/WorkflowTemplate/properties/template")          |
+| [tags](#tags-1)               | Merged   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-stringorslice "https://template#/$defs/WorkflowTemplate/properties/tags")                                                         |
+| [matchers](#matchers-1)       | `array`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-workflowtemplate-properties-name-based-template-result-matchers "https://template#/$defs/WorkflowTemplate/properties/matchers")   |
+| [subtemplates](#subtemplates) | `array`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-workflowtemplate-properties-subtemplate-based-result-matchers "https://template#/$defs/WorkflowTemplate/properties/subtemplates") |
+
+### template
+
+Template or directory to execute as part of workflow
+
+`template`
+
+* is optional
+
+* Type: `string` ([template/directory to execute](nuclei-schema-defs-workflowtemplate-properties-templatedirectory-to-execute))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-workflowtemplate-properties-templatedirectory-to-execute "https://template#/$defs/WorkflowTemplate/properties/template")
+
+#### template Type
+
+`string` ([template/directory to execute](nuclei-schema-defs-workflowtemplate-properties-templatedirectory-to-execute))
+
+### tags
+
+Tags to run template based on
+
+`tags`
+
+* is optional
+
+* Type: merged type ([tags to execute](nuclei-schema-defs-stringorslice))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-stringorslice "https://template#/$defs/WorkflowTemplate/properties/tags")
+
+#### tags Type
+
+merged type ([tags to execute](nuclei-schema-defs-stringorslice))
+
+one (and only one) of
+
+* [Untitled string in undefined](nuclei-schema-defs-stringorslice-oneof-0 "check type definition")
+
+* [Untitled array in undefined](nuclei-schema-defs-stringorslice-oneof-1 "check type definition")
+
+### matchers
+
+Matchers perform name based matching to run subtemplates for a workflow
+
+`matchers`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-matcher))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-workflowtemplate-properties-name-based-template-result-matchers "https://template#/$defs/WorkflowTemplate/properties/matchers")
+
+#### matchers Type
+
+`object[]` ([Details](nuclei-schema-defs-matcher))
+
+### subtemplates
+
+Subtemplates are ran if the template field Template matches
+
+`subtemplates`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-workflowtemplate))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-workflowtemplate-properties-subtemplate-based-result-matchers "https://template#/$defs/WorkflowTemplate/properties/subtemplates")
+
+#### subtemplates Type
+
+`object[]` ([Details](nuclei-schema-defs-workflowtemplate))

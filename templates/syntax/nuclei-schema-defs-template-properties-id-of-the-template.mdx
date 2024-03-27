@@ -1,0 +1,50 @@
+# id of the template Schema
+
+```txt
+https://template#/$defs/Template/properties/id
+```
+
+ID is the unique id for the template.
+
+### Good IDs
+
+A good ID uniquely identifies what the requests in the template
+are doing. Let's say you have a template that identifies a git-config
+file on the webservers, a good name would be `git-config-exposure`. Another
+example name is `azure-apps-nxdomain-takeover`
+
+| Abstract            | Extensible | Status         | Identifiable            | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                             |
+| :------------------ | :--------- | :------------- | :---------------------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------- |
+| Can be instantiated | No         | Unknown status | Unknown identifiability | Forbidden         | Allowed               | none                | [nuclei-schema.schema.json\*](../out/nuclei-schema.schema.json "open original schema") |
+
+## id Type
+
+`string` ([id of the template](nuclei-schema-defs-template-properties-id-of-the-template))
+
+## id Constraints
+
+**pattern**: the string must match the following regular expression:&#x20;
+
+```regexp
+^([a-zA-Z0-9]+[-_])*[a-zA-Z0-9]+$
+```
+
+[try pattern](https://regexr.com/?expression=%5E\(%5Ba-zA-Z0-9%5D%2B%5B-_%5D\)*%5Ba-zA-Z0-9%5D%2B%24 "try regular expression with regexr.com")
+
+## id Examples
+
+```json
+"example-id"
+```
+
+```json
+"git-config-exposure"
+```
+
+```json
+"azure-apps-nxdomain-takeover"
+```
+
+```json
+"cve-2021-19520"
+```
