@@ -1,13 +1,12 @@
 printf "\n\e[32m[*] Updating Nuclei Javascript Modules ...\e[0m\n"
-# clone nuclei
-git clone https://github.com/projectdiscovery/nuclei.git
+
 # branch
 export BRANCH=dev
 
+# clone nuclei
+git clone -b $BRANCH https://github.com/projectdiscovery/nuclei.git
 # change directory
 cd nuclei 
-# checkout to branch
-git checkout $BRANCH
 
 # generate documentation
 printf "\n\e[32m[*] Generating Typescript Files ...\e[0m\n"

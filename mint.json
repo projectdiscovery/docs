@@ -348,6 +348,7 @@
         "templates/reference/extractors",
         "templates/reference/variables",
         "templates/reference/helper-functions",
+        "templates/reference/js-helper-functions",
         "templates/reference/preprocessors",
         "templates/reference/template-signing",
         "templates/reference/oob-testing"
