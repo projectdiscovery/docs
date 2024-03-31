@@ -26,6 +26,14 @@ iconType: "solid"
 | Export | Converts a given value to a string and is appended to output of script | `Export(value any)` |
 | ExportAs | Exports given value with specified key and makes it available in DSL and response | `ExportAs(key string,value any)` |
 
+## Template Flow
+
+| Name | Description | Signatures |
+|------|-------------|------------|
+| log | Logs a given object/message to stdout (only for debugging purposes) | `log(obj any) any` |
+| iterate | Normalizes and Iterates over all arguments (can be a string,array,null etc) and returns an array of objects\nNote: If the object type is unknown(i.e could be a string or array) iterate should be used and it will always return an array of strings | `iterate(...any) []any` |
+| Dedupe | De-duplicates given values and returns a new array of unique values | `new Dedupe()` |
+
 ## Code Protocol
 
 | Name | Description | Signatures |
