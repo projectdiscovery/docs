@@ -121,7 +121,7 @@ Pattern field can be used to customize name / extension of temporary file while 
 
 adding `pattern: "*.ps1"` will make sure that name of temporary file given pattern.
 
-## Example
+## Examples
 
 Below is a example code template where we are executing a powershell script while customizing behaviour of execution policy and setting pattern to `*.ps1`
 
@@ -155,6 +155,34 @@ code:
         words:
           - "hello from input"
 # digest: 4a0a00473045022100eb01da6b97893e7868c584f330a0cd52df9bddac005860bb8595ba5b8aed58c9022050043feac68d69045cf320cba9298a2eb2e792ea4720d045d01e803de1943e7d:4a3eb6b4988d95847d4203be25ed1d46
+```
+
+This code example shows a basic response based on DSL.
+
+```yaml
+id: code-template
+
+
+info:
+  name: example code template
+  author: pdteam
+  severity: info
+
+
+self-contained: true
+code:
+  - engine:
+      - py
+      - python3
+    source: |
+      print("Hello World")
+
+    extractors:
+      - type: dsl
+        dsl:
+          - response
+# digest: 4a0a0047304502204576db451ff35ea9a13c107b07a6d74f99fd9a78f5c2316cc3dece411e7d5a2b022100a36db96f2a56492147ca3e7de3c4d36b8e1361076a70924061790003958c4ef3:c40a3a04977cdbf9dca31c1002ea8279
+
 ```
 
 ## Running Code Templates
