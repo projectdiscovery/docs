@@ -72,7 +72,7 @@ Subfinder is available immediately after installation, however the following ser
 [BeVigil](https://bevigil.com/osint-api), [BinaryEdge](https://binaryedge.io), [BufferOver](https://tls.bufferover.run), [C99](https://api.c99.nl/), [Censys](https://censys.io), [CertSpotter](https://sslmate.com/certspotter/api/), [Chaos](https://chaos.projectdiscovery.io), 
 [Chinaz](http://my.chinaz.com/ChinazAPI/DataCenter/MyDataApi), [DNSDB](https://api.dnsdb.info), [Fofa](https://fofa.info/static_pages/api_help), [FullHunt](https://fullhunt.io), [GitHub](https://github.com), [Intelx](https://intelx.io), 
 [PassiveTotal](http://passivetotal.org), [quake](https://quake.360.cn), [Robtex](https://www.robtex.com/api/), [SecurityTrails](http://securitytrails.com), [Shodan](https://shodan.io), [ThreatBook](https://x.threatbook.cn/en), 
-[VirusTotal](https://www.virustotal.com), [WhoisXML API](https://whoisxmlapi.com/), [ZoomEye](https://www.zoomeye.org), [ZoomEye API](https://api.zoomeye.org), 
+[VirusTotal](https://www.virustotal.com), [WhoisXML API](https://whoisxmlapi.com/), ZoomEye API [china](https://api.zoomeye.org) - [worldwide](https://api.zoomeye.hk), 
 [dnsrepo](https://dnsrepo.noc.org), [Hunter](https://hunter.qianxin.com/), [Facebook](https://developers.facebook.com), [BuiltWith](https://api.builtwith.com/domain-api)
 
 You can also use the `subfinder -ls` command to display all the available sources.
@@ -104,7 +104,7 @@ github:
   - ghp_lkyJGU3jv1xmwk4SDXavrLDJ4dl2pSJMzj4X
   - ghp_gkUuhkIYdQPj13ifH4KA3cXRn8JD2lqir2d4
 zoomeyeapi:
-  - 4f73021d-ff95-4f53-937f-83d6db719eec
+  - zoomeye.hk:4f73021d-ff95-4f53-937f-83d6db719eec
 quake:
   - 0cb9030c-0a40-48a3-b8c4-fca28e466ba3
 facebook:
@@ -116,3 +116,10 @@ intelx:
 
 ## RedHunt Lab Attack Surface Recon API
 RedHunt Labs's [Attack Surface Recon API](https://devportal.redhuntlabs.com/) has different API endpoints depending on the user's subscription. Make sure to add the appropriate endpoint before running any scans.
+
+## ZoomEye API
+
+Before conducting any scans, please ensure you are using the correct host to comply with geographical access restrictions of the ZoomEye API:
+
+- **zoomeye.org** is exclusively for users within China.
+- **zoomeye.hk** is for users outside China.
