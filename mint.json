@@ -381,7 +381,7 @@
     }, 
     {
       "group": "Scanning",
-      "pages": ["cloud/scanning/overview", "cloud/scanning/faq"]
+      "pages": ["cloud/scanning/overview", "cloud/scanning/faq", "cloud/scanning/nuclei-scan"]
     },
     {
       "group": "API Reference",
