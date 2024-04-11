@@ -121,6 +121,7 @@
             "tools/cloudlist/overview",
             "tools/cloudlist/install",
             "tools/cloudlist/usage",
+            "tools/cloudlist/providers",
             "tools/cloudlist/running"
           ]
         },

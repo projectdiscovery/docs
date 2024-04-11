@@ -50,43 +50,7 @@ cloudlist -silent | httpx -silent | nuclei -t cves/
 ```
 
 # Supported providers
-
-- AWS (Amazon web services)
-  - EC2
-  - Route53
-  - S3
-- GCP (Google Cloud Platform)
-  - Cloud DNS
-  - GKE
-- DO (DigitalOcean)
-  - Instances
-- SCW (Scaleway)
-  - Instances
-- Fastly
-  - Services
-- Heroku
-  - Applications
-- Linode
-  - Instances
-- Azure
-  - Virtual Machines
-- Namecheap
-  - Domain List
-- Alibaba Cloud
-  - ECS Instances
-- Cloudflare
-  - DNS
-- Hashistack
-  - Nomad
-  - Consul
-  - Terraform
-- Hetzner Cloud
-  - Instances
-- Openstack
-  - Instances
-- Kubernetes
-  - Services
-  - Ingresses
+For a full list of supported cloud providers, see [Cloud Providers](/tools/cloudlist/providers).
 
 # Configuration file
 
@@ -224,15 +188,15 @@ The default provider config file should be located at `$HOME/.config/cloudlist/p
 - provider: openstack # provider is the name of the provider
  # id is the name of the provider id
  id: staging
- # identity_endpoint is Openstack identity endpoint used to authenticate
+ # identity_endpoint is OpenStack identity endpoint used to authenticate
  identity_endpoint: $OS_IDENTITY_ENDPOINT
- # domain_name is Openstack domain name used to authenticate
+ # domain_name is OpenStack domain name used to authenticate
  domain_name: $OS_DOMAIN_NAME
- # tenant_name is Openstack project name
+ # tenant_name is OpenStack project name
  tenant_name: $OS_TENANT_NAME
- # username is Openstack username used to authenticate
+ # username is OpenStack username used to authenticate
  username: $OS_USERNAME
- # password is Openstack password used to authenticate
+ # password is OpenStack password used to authenticate
  password: $OS_PASSWORD
 
 - provider: kubernetes # provider is the name of the provider
