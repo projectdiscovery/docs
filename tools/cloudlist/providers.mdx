@@ -16,6 +16,7 @@ Supported AWS Assets:
   - [S3](https://aws.amazon.com/s3/)
 
 **Example Config**:
+Amazon Web Services can be integrated by using the following configuration block.
 
 ```yaml
 - provider: aws # provider is the name of the provider
@@ -29,6 +30,15 @@ Supported AWS Assets:
   aws_session_token: $AWS_SESSION_TOKEN
 ```
 
+`aws_access_key` and `aws_secret_key` can be generated in the IAM console. We recommend creating a new IAM user with `Read Only` permissions and providing the access token for the user.
+
+Scopes Required: Read EC2, Route53, S3
+
+References:
+1. https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_iam_read-only-console.html
+2. https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html
+3. https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html
+
 ### GCP (Google Cloud Platform)
 
 Supported GCP Assets:
@@ -36,6 +46,8 @@ Supported GCP Assets:
   - GKE
 
 **Example Config:**
+
+Google Cloud Platform can be integrated by using the following configuration block.
 
 ```yaml
 - provider: gcp # provider is the name of the provider
@@ -45,12 +57,23 @@ Supported GCP Assets:
   gcp_service_account_key: '{xxxxxxxxxxxxx}'
 ```
 
+
+`gcp_service_account_key` can be retrieved by creating a new service account. To do so, create service account with Read Only access to `cloudresourcemanager` and `dns` scopes in IAM. Next, generate a new account key for the Service Account by following steps in Reference 2. This should give you a json which can be pasted in a single line in the `gcp_service_account_key`.
+
+Scopes Required: Cloud DNS, GKE
+
+References: 
+1. https://cloud.google.com/iam/docs/service-account-overview
+
+
 ### Azure
 
 Supported Azure Assets:
   - Virtual Machines
 
 **Example Config:**
+
+Microsoft Azure can be integrated by using the following configuration block.
 
 ```yaml
 - provider: azure # provider is the name of the provider
@@ -68,12 +91,24 @@ Supported Azure Assets:
   use_cli_auth: true
 ```
 
+`tenant_id`, `client_id`, `client_secret` can be obtained/generated from   `All services` > `Azure Active Directory` > `App registrations`
+`subscription_id` can be retrieved from  `All services` > `Subscriptions`
+
+To use cli auth set `use_cli_auth` value to `true` and run `az login` in the terminal
+
+References:
+1. https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli
+2. https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest#az_ad_sp_create_for_rbac
+3. https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli
+
 ### Alibaba Cloud
 
 Suppoted Alibaba Cloud Assets:
   - ECS Instances
 
 **Example Config:**
+
+Alibaba Cloud can be integrated by using the following configuration block.
 
 ```yaml
 - provider: alibaba # provider is the name of the provider
@@ -87,6 +122,12 @@ Suppoted Alibaba Cloud Assets:
   alibaba_access_key_secret: $ALIBABA_ACCESS_KEY_SECRET
 ```
 
+Alibaba Cloud Access Key ID and Secret can be created by visiting https://ram.console.aliyun.com/manage/ak
+
+References:
+1. https://www.alibabacloud.com/help/faq-detail/142101.htm
+2. https://www.alibabacloud.com/help/doc-detail/53045.htm
+
 ##  VPS & PaaS Hosting Providers
 
 ### DO (DigitalOcean)
@@ -96,6 +137,8 @@ Supported DigitalOcean Assets:
 
 **Example Config:**
 
+Digitalocean can be integrated by using the following configuration block.
+
 ```yaml
 - provider: do # provider is the name of the provider
   # id is the name defined by user for filtering (optional)
@@ -104,12 +147,19 @@ Supported DigitalOcean Assets:
   digitalocean_token: $DIGITALOCEAN_TOKEN
 ```
 
+`digitalocean_token` can be generated from the Digitalocean Control Panel. We recommend only giving Read Access to the token.
+
+References:
+1. https://www.digitalocean.com/docs/apis-clis/api/create-personal-access-token/
+
 ### SCW (Scaleway)
 
 Supported Scaleway Assets:
   - Instances
 
 **Example Config:**
+
+Scaleway can be integrated by using the following configuration block.
 
 ```yaml
 - provider: scw # provider is the name of the provider
@@ -119,12 +169,19 @@ Supported Scaleway Assets:
   scaleway_access_token: $SCALEWAY_ACCESS_TOKEN
 ```
 
+`scaleway_access_key` and `scaleway_access_token` can be generated from the Credentials Options in scaleway console.
+
+References - 
+1. https://www.scaleway.com/en/docs/generate-api-keys/
+
 ### Heroku
 
 Supported Heroku Assets:
   - Applications
 
 **Example Config:**
+
+Heroku can be integrated by using the following configuration block.
 
 ```yaml
 - provider: heroku # provider is the name of the provider
@@ -134,12 +191,31 @@ Supported Heroku Assets:
   heroku_api_token: $HEROKU_API_TOKEN
 ```
 
+`heroku_api_token` can be generated from https://dashboard.heroku.com/account/applications/authorizations/new
+
+It can also be created with the Heroku CLI by running:
+```bash
+$ heroku authorizations:create -d "brief description of token"
+Creating OAuth Authorization... done
+Client:      <none>
+ID:          a6e98151-f242-4592-b107-25fbac5ab410
+Description: brief description of token
+Scope:       global
+Token:       cf0e05d9-4eca-4948-a012-b9xxxxxxxxxx
+Updated at:  Fri Jun 16 2021 13:26:56 GMT-0700 (PDT) (less than a minute ago)
+```
+
+References:
+1. https://devcenter.heroku.com/articles/platform-api-quickstart#authentication
+
 ### Linode
 
 Supported Linode Assets:
   - Instances
 
 **Example Config:**
+
+Linode can be integrated by using the following configuration block.
 
 ```yaml
 - provider: linode # provider is the name of the provider
@@ -148,6 +224,11 @@ Supported Linode Assets:
   # linode_personal_access_token is the personal access token for linode account
   linode_personal_access_token: $LINODE_PERSONAL_ACCESS_TOKEN
 ```
+
+`linode_personal_access_token` can be created from https://cloud.linode.com/id/tokens. Minimum scope needed is `Read Only` for `Linodes` resource.
+
+References: 
+1. https://www.linode.com/docs/guides/getting-started-with-the-linode-api/#get-an-access-token
 
 ## CDN & DNS Management
 
@@ -158,13 +239,22 @@ Supported Fastly Assets:
 
 **Example Config:**
 
+Fastly can be integrated by using the following configuration block.
+
 ```yaml
-- provider: linode # provider is the name of the provider
-  # id is the name defined by user for filtering (optional)
-  id: staging
-  # linode_personal_access_token is the personal access token for linode account
-  linode_personal_access_token: $LINODE_PERSONAL_ACCESS_TOKEN
+- # provider is the name of the provider
+ provider: fastly
+ # id is the name defined by user for filtering (optional)
+ id: staging
+ # fastly_api_key is the personal API token for fastly account
+ fastly_api_key: $FASTLY_API_KEY
 ```
+
+`fastly_api_key` can be generated from https://manage.fastly.com/account/personal/tokens
+
+References - 
+1. https://docs.fastly.com/en/guides/using-api-tokens#creating-api-tokens
+
 
 ### Namecheap
 
@@ -172,6 +262,8 @@ Supported Namecheap Assets:
   - Domain List
 
 **Example Config:**
+
+Namecheap can be integrated by using the following configuration block.
 
 ```yaml
 - provider: namecheap # provider is the name of the provider
@@ -183,12 +275,24 @@ Supported Namecheap Assets:
   namecheap_user_name: $NAMECHEAP_USER_NAME
 ```
 
+Namecheap API Access can be enabled by visiting https://ap.www.namecheap.com/settings/tools/apiaccess/ and then:
+- Toggle ON API Access switch
+- Add your public IP to Whitelistted IPs 
+
+
+References: 
+1. https://www.namecheap.com/support/api/intro/
+    - Enabling API Access
+    - Whitelisting IP
+
 ### Cloudflare
 
 Supported Cloudflare Assets:
   - DNS
 
 **Example Config:**
+
+Cloudflare can be integrated by using the following configuration block.
 
 ```yaml
 - provider: cloudflare # provider is the name of the provider
@@ -200,12 +304,19 @@ Supported Cloudflare Assets:
   api_token: $CF_API_TOKEN
 ```
 
+`api_key` can be generated from Cloudflare API Key manager. It needs to be Global API Key due to limitation of cloudflare new API tokens.
+
+References: 
+1. https://developers.cloudflare.com/api/keys
+
 ### Hetzner Cloud
 
 Supported Hetzner Cloud Assets:
   - Instances
 
 **Example Config:**
+
+Hetzner Cloud can be integrated by using the following configuration block.
 
 ```yaml
 - provider: hetzner # provider is the name of the provider
@@ -214,6 +325,9 @@ Supported Hetzner Cloud Assets:
   # auth_token is the is the hetzner authentication token
   auth_token: $HETZNER_AUTH_TOKEN
 ```
+
+References:
+1. https://docs.hetzner.cloud/#authentication
 
 ## Infrastructure Automation & Management
 
@@ -225,6 +339,8 @@ Supported Kubernetes Assets:
 
 **Example Config:**
 
+To integrate Kubernetes, utilize the configuration block outlined below. This block allows you to specify Kubernetes connection details either through a file path or directly by providing the encoded kubeconfig content. If both kubeconfig_file and kubeconfig_encoded are specified, the kubeconfig_encoded will take precedence.
+
 ```yaml
 - provider: kubernetes # provider is the name of the provider
   # id is the name of the provider id
@@ -235,11 +351,19 @@ Supported Kubernetes Assets:
   context: <context-name>
 ```
 
+References:
+1. https://www.redhat.com/sysadmin/kubeconfig
+2. https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html
+3. https://learn.microsoft.com/en-us/azure/aks/control-kubeconfig-access#get-and-verify-the-configuration-information
+4. https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl#store_info
+
 ### Hashicorp Tools
 
 With Cloudlist you can get assets from nomad, consul and terraform. Cloudlist can query Nomad and Consul directly, and will use the Terraform state file to list Terraform created assets.
 
 #### Nomad
+
+Hashicorp Nomad can be integrated by using the following configuration block.
 
 **Example Config:**
 
@@ -258,8 +382,15 @@ With Cloudlist you can get assets from nomad, consul and terraform. Cloudlist ca
   # nomad_http_auth is the nomad http auth value
   # nomad_http_auth: <nomad-http-auth-value>
 ```
+
+Specifying https in the `nomad_url` automatically turns SSL to on. All the fields are optional except the `nomad_url`.
+
+References:
+1. https://www.nomadproject.io/api-docs
   
 #### Consul
+
+Hashicorp Consul can be integrated by using the following configuration block.
 
 **Example Config:**
 
@@ -279,9 +410,16 @@ With Cloudlist you can get assets from nomad, consul and terraform. Cloudlist ca
   # consul_http_auth: <consul-http-auth-value>
 ```
 
+Specifying https in the `consul_url` automatically turns SSL to on. All the fields are optional except the `consul_url`.
+
+References:
+1. https://www.consul.io/api-docs
+
 #### Terraform
 
 **Example Config:**
+
+Terraform can be integrated by using the following configuration block.
 
 ```yaml
 - provider: terraform # provider is the name of the provider
