@@ -52,6 +52,7 @@ const client = new ldap.Client('ldap://ldap.example.com', 'acme.com', cfg);
 - [GetADDCList](/templates/protocols/javascript/modules/ldap.Client#getaddclist)
 - [GetADDomainSID](/templates/protocols/javascript/modules/ldap.Client#getaddomainsid)
 - [GetADGroups](/templates/protocols/javascript/modules/ldap.Client#getadgroups)
+- [GetADUserAsRepRoastable](/templates/protocols/javascript/modules/ldap.Client#getaduserasreproastable)
 - [GetADUserKerberoastable](/templates/protocols/javascript/modules/ldap.Client#getaduserkerberoastable)
 - [GetADUserTrustedForDelegation](/templates/protocols/javascript/modules/ldap.Client#getadusertrustedfordelegation)
 - [GetADUserWithNeverExpiringPasswords](/templates/protocols/javascript/modules/ldap.Client#getaduserwithneverexpiringpasswords)
@@ -184,7 +185,7 @@ const results = client.AdvancedSearch(ldap.ScopeWholeSubtree, ldap.NeverDerefAli
 
 #### Defined in
 
-ldap.ts:430
+ldap.ts:446
 
 ___
 
@@ -215,7 +216,7 @@ client.Authenticate('user', 'password');
 
 #### Defined in
 
-ldap.ts:386
+ldap.ts:402
 
 ___
 
@@ -245,7 +246,7 @@ client.AuthenticateWithNTLMHash('pdtm', 'hash');
 
 #### Defined in
 
-ldap.ts:400
+ldap.ts:416
 
 ___
 
@@ -269,7 +270,7 @@ client.Close();
 
 #### Defined in
 
-ldap.ts:459
+ldap.ts:475
 
 ___
 
@@ -294,7 +295,7 @@ log(to_json(metadata));
 
 #### Defined in
 
-ldap.ts:445
+ldap.ts:461
 
 ___
 
@@ -429,7 +430,7 @@ log(domainSID);
 
 #### Defined in
 
-ldap.ts:371
+ldap.ts:387
 
 ___
 
@@ -456,6 +457,32 @@ log(to_json(groups));
 #### Defined in
 
 ldap.ts:308
+
+___
+
+### GetADUserAsRepRoastable
+
+▸ **GetADUserAsRepRoastable**(): [`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+
+GetADUserAsRepRoastable returns all AD users that are AsRepRoastable
+using FilterIsPerson, and FilterDontRequirePreauth filter query
+
+#### Returns
+
+[`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+
+**`Example`**
+
+```javascript
+const ldap = require('nuclei/ldap');
+const client = new ldap.Client('ldap://ldap.example.com', 'acme.com');
+const AsRepRoastable = client.GetADUserAsRepRoastable();
+log(to_json(AsRepRoastable));
+```
+
+#### Defined in
+
+ldap.ts:372
 
 ___
 
@@ -617,4 +644,4 @@ const results = client.Search('(objectClass=*)', 'cn', 'mail');
 
 #### Defined in
 
-ldap.ts:415
+ldap.ts:431
