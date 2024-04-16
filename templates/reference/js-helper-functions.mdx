@@ -1,0 +1,64 @@
+---
+title: "Javascript Helper Functions"
+description: "Available JS Helper Functions that can be used in global js runtime & protocol specific helpers."
+icon: "function"
+iconType: "solid"
+---
+
+
+## Javascript Runtime
+
+| Name | Description | Signatures |
+|------|-------------|------------|
+| atob | Base64 decodes a given string | `atob(string) string` |
+| btoa | Base64 encodes a given string | `bota(string) string` |
+| to_json | Converts a given object to JSON | `to_json(any) object` |
+| dump_json | Prints a given object as JSON in console | `dump_json(any)` |
+| to_array | Sets/Updates objects prototype to array to enable Array.XXX functions | `to_array(any) array` |
+| hex_to_ascii | Converts a given hex string to ascii | `hex_to_ascii(string) string` |
+| Rand | Rand returns a random byte slice of length n | `Rand(n int) []byte` |
+| RandInt | RandInt returns a random int | `RandInt() int` |
+| log | log prints given input to stdout with [JS] prefix for debugging purposes  | `log(msg string)`, `log(msg map[string]interface{})` |
+| getNetworkPort | getNetworkPort registers defaultPort and returns defaultPort if it is a colliding port with other protocols | `getNetworkPort(port string, defaultPort string) string` |
+| isPortOpen | isPortOpen checks if given port is open on host. timeout is optional and defaults to 5 seconds | `isPortOpen(host string, port string, [timeout int]) bool` |
+| ToBytes | ToBytes converts given input to byte slice | `ToBytes(...interface{}) []byte` |
+| ToString | ToString converts given input to string | `ToString(...interface{}) string` |
+| Export | Converts a given value to a string and is appended to output of script | `Export(value any)` |
+| ExportAs | Exports given value with specified key and makes it available in DSL and response | `ExportAs(key string,value any)` |
+
+## Template Flow
+
+| Name | Description | Signatures |
+|------|-------------|------------|
+| log | Logs a given object/message to stdout (only for debugging purposes) | `log(obj any) any` |
+| iterate | Normalizes and Iterates over all arguments (can be a string,array,null etc) and returns an array of objects\nNote: If the object type is unknown(i.e could be a string or array) iterate should be used and it will always return an array of strings | `iterate(...any) []any` |
+| Dedupe | De-duplicates given values and returns a new array of unique values | `new Dedupe()` |
+
+## Code Protocol
+
+| Name | Description | Signatures |
+|------|-------------|------------|
+| OS | OS returns the current OS | `OS() string` |
+| IsLinux | IsLinux checks if the current OS is Linux | `IsLinux() bool` |
+| IsWindows | IsWindows checks if the current OS is Windows | `IsWindows() bool` |
+| IsOSX | IsOSX checks if the current OS is OSX | `IsOSX() bool` |
+| IsAndroid | IsAndroid checks if the current OS is Android | `IsAndroid() bool` |
+| IsIOS | IsIOS checks if the current OS is IOS | `IsIOS() bool` |
+| IsJS | IsJS checks if the current OS is JS | `IsJS() bool` |
+| IsFreeBSD | IsFreeBSD checks if the current OS is FreeBSD | `IsFreeBSD() bool` |
+| IsOpenBSD | IsOpenBSD checks if the current OS is OpenBSD | `IsOpenBSD() bool` |
+| IsSolaris | IsSolaris checks if the current OS is Solaris | `IsSolaris() bool` |
+| Arch | Arch returns the current architecture | `Arch() string` |
+| Is386 | Is386 checks if the current architecture is 386 | `Is386() bool` |
+| IsAmd64 | IsAmd64 checks if the current architecture is Amd64 | `IsAmd64() bool` |
+| IsARM | IsArm checks if the current architecture is Arm | `IsARM() bool` |
+| IsARM64 | IsArm64 checks if the current architecture is Arm64 | `IsARM64() bool` |
+| IsWasm | IsWasm checks if the current architecture is Wasm | `IsWasm() bool` |
+
+## JavaScript Protocol
+
+| Name | Description | Signatures |
+|------|-------------|------------|
+| set | set variable from init code. this function is available in init code block only | `set(string, interface{})` |
+| updatePayload | update/override any payload from init code. this function is available in init code block only | `updatePayload(string, interface{})` |
+
