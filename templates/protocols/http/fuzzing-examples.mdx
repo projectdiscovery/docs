@@ -21,18 +21,22 @@ variables:
   result: "{{to_number(first)*to_number(second)}}"
 
 http:
-  - method: GET
-    path:
-      - "{{BaseURL}}"
+  - pre-condition:
+      - type: dsl
+        dsl:
+          - 'method == "GET"'       # only run on GET URLs
+
     payloads:
       reflection:
         - '{{concat("{{", "§first§*§second§", "}}")}}'
+
     fuzzing:
       - part: query
         type: postfix
         mode: multiple
         fuzz:
           - "{{reflection}}"
+
     matchers:
       - type: word
         part: body
@@ -52,12 +56,15 @@ info:
   severity: low
 
 http:
-  - method: GET
-    path:
-      - "{{BaseURL}}"
+  - pre-condition:
+      - type: dsl
+        dsl:
+          - 'method == "GET"'       # only run on GET URLs
+
     payloads:
       reflection:
         - "6842'\"><9967"
+
     stop-at-first-match: true
     fuzzing:
       - part: query
@@ -65,12 +72,14 @@ http:
         mode: single
         fuzz:
           - "{{reflection}}"
+
     matchers-condition: and
     matchers:
       - type: word
         part: body
         words:
           - "{{reflection}}"
+
       - type: word
         part: header
         words:
@@ -90,12 +99,15 @@ info:
   severity: low
 
 http:
-  - method: GET
-    path:
-      - "{{BaseURL}}"
+  - pre-condition:
+      - type: dsl
+        dsl:
+          - 'method == "GET"'       # only run on GET URLs
+
     payloads:
       redirect:
         - "https://example.com"
+
     fuzzing:
       - part: query
         type: replace
@@ -104,12 +116,14 @@ http:
           - "redirect.*"
         fuzz:
           - "{{redirect}}"
+
     matchers-condition: and
     matchers:
       - type: word
         part: header
         words:
           - "{{redirect}}"
+
       - type: status
         status:
           - 301
@@ -123,13 +137,14 @@ A example template to discover path-based SQLi issues.
 
 ```yaml
 http:
-    # filter to determine if the template should be executed
-  - filters:
+    # pre-condition to determine if the template should be executed
+  - pre-condition:
       - type: dsl
         dsl:
           - 'method == "POST"'       # only run if method is POST
           - 'contains(path,"reset")' # only run if path contains reset word
         condition: and
+
     # fuzzing rules
     fuzzing:
       - part: header # This rule will be applied to the header
@@ -152,13 +167,14 @@ A simple template to discover host header injection issues.
 
 ```yaml
 http:
-    # filter to determine if the template should be executed
-  - filters:
+    # pre-condition to determine if the template should be executed
+  - pre-condition:
       - type: dsl
         dsl:
           - 'method == "POST"'       # only run if method is POST
           - 'contains(path,"reset")' # only run if path contains reset word
         condition: and
+
     # fuzzing rules
     fuzzing:
       - part: header # This rule will be applied to the header
@@ -188,12 +204,15 @@ info:
   severity: low
 
 http:
-  - method: GET
-    path:
-      - "{{BaseURL}}"
+  - pre-condition:
+      - type: dsl
+        dsl:
+          - 'method == "GET"'       # only run on GET URLs
+
     payloads:
       redirect:
         - "{{interactsh-url}}"
+
     fuzzing:
       - part: query
         type: replace
@@ -229,7 +248,7 @@ http:
           - "open"
         fuzz:
           - "https://{{redirect}}"
-    matchers-condition: and
+
     matchers:
       - type: word
         part: interactsh_protocol  # Confirms the DNS Interaction

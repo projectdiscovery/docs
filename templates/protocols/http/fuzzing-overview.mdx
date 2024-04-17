@@ -6,21 +6,21 @@ sidebarTitle: "Overview"
 
 Nuclei supports fuzzing of HTTP requests based on rules defined in the `fuzzing` section of the HTTP request. This allows creating templates for generic Web Application vulnerabilities like SQLi, SSRF, CMDi, etc without any information of the target like a classic web fuzzer. We call this concept as **Fuzzing for Unknown Vulnerabilities**.
 
-## Filters
+## pre-condition
 
 More often than not, we want to only attempt fuzzing on those requests where it makes sense. For example,
 
 - Fuzz Body When Body is Present
 - Ignore PreFlight and CONNECT requests
 
-and so on. With Nuclei v3.2.0 we have introduced a new `filters` section which contains conditions when the template should be executed.
+and so on. With Nuclei v3.2.4 we have introduced a new `pre-condition` section which contains conditions when the fuzzing template should be executed.
 
-Filters can be considered a twin of [matchers](/templates/reference/matchers) in nuclei. They support all matcher types, including DSL, and the only difference is that this serves a different purpose.
+pre-condition can be considered a twin of [matchers](/templates/reference/matchers) in nuclei. They support all matcher types, including DSL, and the only difference is that this serves a different purpose.
 
 For example, to only execute template on POST request with some body, you can use the following filter.
 
 ```yaml
-- filters:
+- pre-condition:
     - type: dsl
       dsl:
         - method == POST
@@ -294,12 +294,14 @@ info:
   severity: low
 
 http:
-  - method: GET
-    path:
-      - "{{BaseURL}}"
+  - pre-condition:
+      - type: dsl
+        dsl:
+          - 'method == "GET"'       # only run if method is POST
     payloads:
       reflection:
         - "6842'\"><9967"
+
     stop-at-first-match: true
     fuzzing:
       - part: query
@@ -307,12 +309,14 @@ http:
         mode: single
         fuzz:
           - "{{reflection}}"
+
     matchers-condition: and
     matchers:
       - type: word
         part: body
         words:
           - "{{reflection}}"
+
       - type: word
         part: header
         words:
