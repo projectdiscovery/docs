@@ -7,23 +7,49 @@ sidebarTitle: "Overview"
 ## Overview
 Assets are any hosts added to ProjectDiscovery Cloud Platform (PDCP) for scanning. Hosts can be a URL, an IP address, or a CIDR range. 
 
-The Assets page is available from the top navigation. Assets are currently divided between Uploads, Discovery, and Cloud Integrations.
+The Assets page is available from the top navigation. Assets can be added through Uploads, Discovery, and Cloud Integrations.
 
 ![Assets](/images/platform/assets.png)
 
-Each page supports search, refresh, and lists the added assets available to browse. Once you've added assets to PDCP through any of the available methods 
+Each Asset subpage supports search, refresh, and lists the added assets available to browse. Once you've added assets to PDCP through any of the available methods 
 they are available to include in scans you want to create.
 
 
-## Adding Assets
+## FAQ
 
-PDCP currently supports adding assets with three options: upload, asset discovery, and  cloud integration. 
+### General
+**Is there a limitation on how many Assets I can add?**
 
+There is no overall storage limit for Assets. Each individual upload of Assets cannot exceed 50,000 items.
 
-### Upload
+**What kind of Assets are supported?**
 
-Assets are uploaded individually or through a .TXT file. 
+Assets or hosts can be a URL, an IP address, or a CIDR range. 
 
-### Asset Discovery
+**Can everyone in my team see all the Assets that were added to my environment?**
 
-Assets are added through domains, IP address, or CIDR. PDCP automatically enumerates the related assets. 
+Yes, all assets in your environment are shared across your team.
+
+### Assets and Scans
+
+**Can I exempt specific assets from a scan?**
+
+Building a new scan requires you to choose assets as part of the scan configuration, so yes, scans will apply to whatever assets you include in the scan. 
+
+### Adding and Modifying Assets
+
+**What's the difference between uploading Assets, Asset Discovery, and adding assets via the cloud?**
+
+ - Upload allows you to choose a list of individual assets to add as a list or TXT file.
+
+ - Asset Discovery allows uses a range or domain and enumerates associated subdomains. Each subdomain identified is added as individual asset.
+
+ - Cloud Integrations connect your cloud service provider and import any assets identified. 
+
+**Can I edit existing Assets?** 
+
+Yes! Assets that are added to PDCP can be renamed.
+
+**Can I delete Assets?**
+
+You can delete any assets, however assets that are included in a scan will generate an error.

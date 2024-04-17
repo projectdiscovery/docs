@@ -365,7 +365,7 @@
     },
     {
       "group": "Assets",
-      "pages": ["cloud/assets/overview", "cloud/assets/faq"]
+      "pages": ["cloud/assets/overview", "cloud/assets/adding-assets"]
     }, 
     { "group": "Templates & Editor",
       "pages": ["cloud/editor/overview", "cloud/editor/faq",
