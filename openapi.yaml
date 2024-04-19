@@ -14,18 +14,22 @@ servers:
 paths:
   /v1/scans:
     get:
-      summary: Get Scans Status
+      summary: Get Scan List
       tags:
         - scans
       responses:
         '200':
           $ref: '#/components/responses/GetScansStatusResponse'
         '400':
-          $ref: '#/components/responses/GetScansStatusResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '401':
-          $ref: '#/components/responses/GetScansStatusResponse'
+          $ref: '#/components/responses/ErrorResponse'
+        '499':
+          $ref: '#/components/responses/ErrorResponse'
         '500':
-          $ref: '#/components/responses/GetScansStatusResponse'
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
       operationId: get-v1-scans
       description: Get user scans status
       security:
@@ -50,7 +54,18 @@ paths:
             type: string
           in: query
           name: status
-          description: 'filter by status (failed, finished, queued, running, starting, uploaded)'
+          description: 'filter by status (failed, finished, queued, running, starting, uploaded, scheduled)'
+        - schema:
+            type: string
+          in: query
+          name: sort_asc
+          description: 'comma separated ascending sorting e.g sort_asc=created_at,severity'
+        - schema:
+            type: string
+          in: query
+          name: sort_desc
+          description: 'comma separated descending sorting e.g sort_desc=created_at,severity'
+      x-internal: false
     post:
       summary: Create Scan
       tags:
@@ -60,11 +75,13 @@ paths:
         '200':
           $ref: '#/components/responses/TriggerUserScanResponse'
         '400':
-          $ref: '#/components/responses/TriggerUserScanResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '401':
-          $ref: '#/components/responses/TriggerUserScanResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '500':
-          $ref: '#/components/responses/TriggerUserScanResponse'
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
       description: Trigger a scan
       security:
         - X-API-Key: []
@@ -79,20 +96,26 @@ paths:
         in: path
         required: true
     get:
-      summary: Get Scan by ID
+      summary: Get Scan
       tags:
         - scans
       responses:
         '200':
           $ref: '#/components/responses/GetScanDetailsResponse'
         '400':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '401':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '499':
+          $ref: '#/components/responses/ErrorResponse'
         '500':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
       operationId: get-v1-scans-scan_id
-      description: Get details of a scan
+      description: Get details of a scan by scan ID
       security:
         - X-API-Key: []
     delete:
@@ -103,10 +126,14 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/DeleteScansResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
         '401':
-          $ref: '#/components/responses/DeleteScansResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '500':
-          $ref: '#/components/responses/DeleteTemplateResponse'
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
       description: Delete a scan using scanId
       security:
         - X-API-Key: []
@@ -119,30 +146,206 @@ paths:
         '200':
           $ref: '#/components/responses/MessageResponse'
         '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      description: Update scan metadata
+      security:
+        - X-API-Key: []
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateScanRequest'
+  /v1/scans/import:
+    post:
+      summary: Import OSS Scan
+      tags:
+        - scans
+      operationId: post-v1-scans-import
+      responses:
+        '200':
+          $ref: '#/components/responses/ImportScanResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      description: Import scan details
+      security:
+        - X-API-Key: []
+      requestBody:
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+  /v1/admin/scan/token:
+    post:
+      tags:
+        - internal
+      summary: Set Scan token for user
+      operationId: post-v1-admin-scan-token
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
           $ref: '#/components/responses/MessageResponse'
         '401':
           $ref: '#/components/responses/MessageResponse'
         '500':
           $ref: '#/components/responses/MessageResponse'
-      description: ''
       security:
         - X-API-Key: []
       requestBody:
-        $ref: '#/components/requestBodies/UpdateScanRequest'
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - base_token
+                - extra_token
+                - email
+              properties:
+                base_token:
+                  type: number
+                extra_token:
+                  type: number
+                email:
+                  type: string
+                  description: Comma separated emails
+                validity_months:
+                  type: integer
+                  minimum: 1
+                  maximum: 12
+                  default: 12
+      x-internal: true
+    parameters: []
+    get:
+      summary: Get Token Usage (admin)
+      tags:
+        - internal
+      responses:
+        '200':
+          $ref: '#/components/responses/GetScansTokenResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      operationId: get-v1-admin-scan-token
+      description: Get token usage for given user
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: user_id
+          description: user id to get scan token usage for
+          required: true
+  '/v1/scans/{scan_id}/stop':
+    parameters:
+      - schema:
+          type: string
+        name: scan_id
+        in: path
+        required: true
+    post:
+      summary: Stop Scan
+      tags:
+        - scans
+      operationId: post-v1-scans-scan_id-stop
+      responses:
+        '200':
+          $ref: '#/components/responses/DeleteScansResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+        - X-API-Key: []
+      description: 'Stop a running scan, not applied in any other state.'
+  '/v1/scans/{scan_id}/rescan':
+    parameters:
+      - schema:
+          type: string
+        name: scan_id
+        in: path
+        required: true
+    post:
+      summary: Rescan scan
+      tags:
+        - scans
+      operationId: post-v1-scans-scan_id-rescan
+      responses:
+        '200':
+          $ref: '#/components/responses/TriggerUserScanResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+        - X-API-Key: []
+      description: Re-run a existing scan
+  '/v1/scans/vuln/{vuln_id}':
+    get:
+      summary: Get Scan Vulnerability
+      tags:
+        - results
+      responses:
+        '200':
+          $ref: '#/components/responses/GetScansVulnIdResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: 'get-v1-scans-vuln-:vulnId'
+      description: 'Get scan result vulnerability by ID '
+      security:
+        - X-API-Key: []
+    parameters:
+      - schema:
+          type: string
+        name: vuln_id
+        in: path
+        required: true
+        description: vulnerability ID
   '/v1/scans/result/{scanId}':
     get:
-      summary: Get Result by scanID
+      summary: Get Scan Results
       tags:
         - results
       responses:
         '200':
           $ref: '#/components/responses/GetScanResultsResponse'
         '400':
-          $ref: '#/components/responses/GetScanResultsResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '401':
-          $ref: '#/components/responses/GetScanResultsResponse'
+          $ref: '#/components/responses/ErrorResponse'
+        '499':
+          $ref: '#/components/responses/ErrorResponse'
         '500':
-          $ref: '#/components/responses/GetScanResultsResponse'
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
       operationId: 'get-v1-scans-result-:scanId'
       description: get results of specific scan by id
       security:
@@ -188,6 +391,16 @@ paths:
           in: query
           name: vuln_status
           description: 'comma separated vuln_status e.g vuln_status=open,fixed'
+        - schema:
+            type: string
+          in: query
+          name: sort_asc
+          description: 'comma separated ascending sorting e.g sort_asc=created_at,severity'
+        - schema:
+            type: string
+          in: query
+          name: sort_desc
+          description: 'comma separated descending sorting e.g sort_desc=created_at,severity'
     parameters:
       - schema:
           type: string
@@ -197,18 +410,22 @@ paths:
         description: scan specific results (by scanId)
   /v1/scans/results:
     get:
-      summary: Get Results
+      summary: Get All Results
       tags:
         - results
       responses:
         '200':
           $ref: '#/components/responses/GetScanResultsResponse'
         '400':
-          $ref: '#/components/responses/GetScanResultsResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '401':
-          $ref: '#/components/responses/GetScanResultsResponse'
+          $ref: '#/components/responses/ErrorResponse'
+        '499':
+          $ref: '#/components/responses/ErrorResponse'
         '500':
-          $ref: '#/components/responses/GetScanResultsResponse'
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
       operationId: get-v1-results
       description: Get scans results of a user
       parameters:
@@ -252,330 +469,94 @@ paths:
           in: query
           name: vuln_status
           description: 'comma separated vuln_status e.g vuln_status=open,fixed'
+        - schema:
+            type: string
+          in: query
+          name: tags
+          description: 'comma separated tags e.g tags=xss,cve'
+        - schema:
+            type: string
+          in: query
+          name: sort_asc
+          description: 'comma separated ascending sorting e.g sort_asc=created_at,severity'
+        - schema:
+            type: string
+          in: query
+          name: sort_desc
+          description: 'comma separated descending sorting e.g sort_desc=created_at,severity'
+        - in: query
+          name: labels
+          schema:
+            type: string
+          description: 'filter by comma separated labels e.g labels=p1,p2'
       security:
         - X-API-Key: []
     parameters: []
-  /v1/retest:
+  /v1/scans/stats:
     get:
-      summary: Get Retest Results
+      summary: Get All Scan Stats
       tags:
-        - retest
+        - scans
       responses:
         '200':
-          $ref: '#/components/responses/GetRetestResultsResponse'
+          $ref: '#/components/responses/ScanStatsResponse'
         '401':
-          $ref: '#/components/responses/GetRetestResultsResponse'
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '499':
+          $ref: '#/components/responses/ErrorResponse'
         '500':
-          $ref: '#/components/responses/GetRetestResultsResponse'
-      operationId: get-v1-retest
-      description: Get user retest results
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-scans-stats
+      parameters: []
       security:
         - X-API-Key: []
-      parameters:
-        - schema:
-            type: integer
-          in: query
-          name: offset
-          description: number of results to skip
-          required: true
-        - schema:
-            type: integer
-          in: query
-          name: limit
-          description: number of results
-          required: true
-    post:
-      summary: Create Retest Scan
-      tags:
-        - retest
-      operationId: post-v1-retest
-      responses:
-        '200':
-          $ref: '#/components/responses/PostRetestTemplateResponse'
-        '400':
-          $ref: '#/components/responses/PostRetestTemplateResponse'
-        '401':
-          $ref: '#/components/responses/PostRetestTemplateResponse'
-        '500':
-          $ref: '#/components/responses/PostRetestTemplateResponse'
-      description: Trigger a retest scan
-      security:
-        - X-API-Key: []
-      requestBody:
-        $ref: '#/components/requestBodies/RetestTemplateRequest'
-    parameters: []
-  '/v1/scans/vuln/{vuln_id}':
-    get:
-      summary: Get Vulnerability by ID
-      tags:
-        - results
-      responses:
-        '200':
-          $ref: '#/components/responses/GetScansVulnIdResponse'
-        '400':
-          $ref: '#/components/responses/MessageResponse'
-        '401':
-          $ref: '#/components/responses/MessageResponse'
-        '500':
-          $ref: '#/components/responses/MessageResponse'
-      operationId: 'get-v1-scans-vuln-:vulnId'
-      description: ''
-      security:
-        - X-API-Key: []
+      description: Get all scans statistics for a user
+  '/v1/scans/{vuln_id}/retest':
     parameters:
       - schema:
           type: string
         name: vuln_id
         in: path
         required: true
-        description: vulnerability ID
-  /v1/scans/import:
     post:
-      summary: Import OSS Scan
+      summary: Retest vulnerability
       tags:
         - scans
-      operationId: post-v1-scans-import
+      operationId: post-v1-scans-vuln_id-retest
       responses:
         '200':
-          $ref: '#/components/responses/ImportScanResponse'
+          $ref: '#/components/responses/PostRescanVulnResponse'
         '400':
-          $ref: '#/components/responses/ImportScanResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '401':
-          $ref: '#/components/responses/ImportScanResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '500':
-          $ref: '#/components/responses/ImportScanResponse'
-      description: Import scan details
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
       security:
         - X-API-Key: []
-      requestBody:
-        content:
-          application/octet-stream:
-            schema:
-              type: string
-              format: binary
-  /v1/assets:
-    get:
-      summary: Get Asset list
-      tags:
-        - assets
-      responses:
-        '200':
-          $ref: '#/components/responses/GetAssetsListResponse'
-        '401':
-          $ref: '#/components/responses/GetAssetsListResponse'
-        '500':
-          $ref: '#/components/responses/GetAssetsListResponse'
-      operationId: get-v1-assets
-      description: ''
-      security:
-        - X-API-Key: []
-      parameters:
-        - schema:
-            type: integer
-          in: query
-          name: offset
-          description: number of assets to skip
-        - schema:
-            type: integer
-          in: query
-          name: limit
-          description: number of assets to fetch
-        - schema:
-            type: string
-          in: query
-          name: search
-          description: search term for asset list
-    post:
-      summary: Upload Asset
-      tags:
-        - assets
-      operationId: post-v1-assets
-      responses:
-        '200':
-          $ref: '#/components/responses/UploadAssetResponse'
-        '401':
-          $ref: '#/components/responses/UploadAssetResponse'
-        '500':
-          $ref: '#/components/responses/UploadAssetResponse'
-      security:
-        - X-API-Key: []
-      requestBody:
-        content:
-          application/octet-stream:
-            schema:
-              type: string
-              format: binary
-      parameters:
-        - schema:
-            type: string
-          in: query
-          name: name
-          description: name of asset
-      description: ''
-  '/v1/assets/{asset_Id}':
-    parameters:
-      - schema:
-          type: string
-        name: asset_Id
-        in: path
-        required: true
-    get:
-      summary: Get Asset Info
-      tags:
-        - assets
-      responses:
-        '200':
-          $ref: '#/components/responses/GetUserAssetResponse'
-        '401':
-          $ref: '#/components/responses/GetUserAssetResponse'
-        '500':
-          $ref: '#/components/responses/GetUserAssetResponse'
-      operationId: get-v1-assets-assetId
-      security:
-        - X-API-Key: []
-    delete:
-      summary: Delete Asset
-      tags:
-        - assets
-      operationId: delete-v1-assets-asset_Id
-      responses:
-        '200':
-          $ref: '#/components/responses/DeleteAssetResponse'
-        '401':
-          $ref: '#/components/responses/DeleteAssetResponse'
-        '500':
-          $ref: '#/components/responses/DeleteAssetResponse'
-      security:
-        - X-API-Key: []
-    patch:
-      summary: Update Asset Metadata
-      tags:
-        - assets
-      operationId: patch-v1-assets-asset_Id
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                required:
-                  - message
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                required:
-                  - message
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                required:
-                  - message
-      security:
-        - X-API-Key: []
-      requestBody:
-        $ref: '#/components/requestBodies/UpdateAssetRequest'
-  '/v1/assets/{asset_id}/contents':
-    get:
-      summary: Get Asset Content
-      tags:
-        - assets
-      responses:
-        '200':
-          description: OK
-          content:
-            application/octet-stream:
-              schema:
-                type: string
-                format: binary
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                required:
-                  - message
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                type: object
-                x-examples:
-                  Example 1:
-                    message: |
-                      {"message":"could not get asset metadata: could not get asset: no rows in result set","status":500}
-                properties:
-                  message:
-                    type: string
-                required:
-                  - message
-      operationId: get-v1-assets-id-contents
-      security:
-        - X-API-Key: []
-    parameters:
-      - schema:
-          type: string
-        name: asset_id
-        in: path
-        required: true
-    patch:
-      summary: Update Asset Content
-      tags:
-        - assets
-      operationId: patch-v1-assets-asset_id-contents
-      responses:
-        '200':
-          $ref: '#/components/responses/PatchAssetContentResponse'
-        '400':
-          $ref: '#/components/responses/PatchAssetContentResponse'
-        '500':
-          $ref: '#/components/responses/PatchAssetContentResponse'
-      requestBody:
-        content:
-          application/octet-stream:
-            schema:
-              type: string
-              format: binary
-      security:
-        - X-API-Key: []
-      parameters:
-        - schema:
-            type: string
-          in: query
-          name: update_type
-          description: 'use options like: type, replace '
+      description: Retest a scan vulnerability
   /v1/scans/results/filters:
     get:
-      summary: Results Filters
+      summary: Get Scans Result Filters
       tags:
         - results
       responses:
         '200':
           $ref: '#/components/responses/GetScanResultsFiltersResponse'
         '401':
-          $ref: '#/components/responses/GetScanResultsFiltersResponse'
+          $ref: '#/components/responses/ErrorResponse'
+        '499':
+          $ref: '#/components/responses/ErrorResponse'
         '500':
-          $ref: '#/components/responses/GetScanResultsFiltersResponse'
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
       operationId: get-v1-scans-results-filters
       description: Get users scan-result filters
       security:
@@ -632,18 +613,59 @@ paths:
           in: query
           name: vuln_status
           description: 'comma separated vuln_status e.g vuln_status=open,fixed'
+        - schema:
+            type: string
+          in: query
+          name: sort_asc
+          description: 'comma separated ascending sorting e.g sort_asc=created_at,severity'
+        - schema:
+            type: string
+          in: query
+          name: sort_desc
+          description: 'comma separated descending sorting e.g sort_desc=created_at,severity'
+        - schema:
+            type: string
+          in: query
+          name: tags
+          description: 'comma separated tags e.g tags=xss,cve'
+        - schema:
+            type: string
+          in: query
+          name: not_hosts
+          description: 'comma separated hosts that should not be returned e.g. not_hosts=https://example.com,https://x.com'
+        - schema:
+            type: string
+          in: query
+          name: not_severity
+          description: 'comma separated severity that should not be returned e.g. not_severity=info,high'
+        - schema:
+            type: string
+          in: query
+          name: not_templates
+          description: 'comma separated templates that should not be returned e.g. not_templates=tech-detect,azure-takeover'
+        - in: query
+          name: labels
+          schema:
+            type: string
+          description: 'filter by comma separated labels e.g labels=p1,p2'
   /v1/scans/results/stats:
     get:
-      summary: Results Stats
+      summary: Get Results Stats
       tags:
         - results
       responses:
         '200':
           $ref: '#/components/responses/GetScanResultStatsResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
         '401':
-          $ref: '#/components/responses/GetScanResultStatsResponse'
+          $ref: '#/components/responses/ErrorResponse'
+        '499':
+          $ref: '#/components/responses/ErrorResponse'
         '500':
-          $ref: '#/components/responses/GetScanResultStatsResponse'
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
       operationId: get-v1-scans-results-stats
       description: Get user scan results stats
       security:
@@ -694,6 +716,31 @@ paths:
           in: query
           name: vuln_status
           description: 'comma separated vuln_status e.g vuln_status=open,fixed'
+        - schema:
+            type: string
+          in: query
+          name: tags
+          description: 'comma separated tags e.g tags=xss,cve'
+        - schema:
+            type: string
+          in: query
+          name: not_hosts
+          description: 'comma separated hosts that should not be returned e.g. not_hosts=https://example.com,https://x.com'
+        - schema:
+            type: string
+          in: query
+          name: not_severity
+          description: 'comma separated severity that should not be returned e.g. not_severity=info,high'
+        - schema:
+            type: string
+          in: query
+          name: not_templates
+          description: 'comma separated templates that should not be returned e.g. not_templates=tech-detect,azure-takeover'
+        - in: query
+          name: labels
+          schema:
+            type: string
+          description: 'filter by comma separated labels e.g labels=p1,p2'
   /v1/scans/schedule:
     get:
       summary: Get Scan Schedules
@@ -703,38 +750,11 @@ paths:
         '200':
           $ref: '#/components/responses/GetScanScheduleResponse'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                required:
-                  - message
+          $ref: '#/components/responses/GetScanScheduleResponse'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                required:
-                  - message
+          $ref: '#/components/responses/SetScanScheduleResponse'
         '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                required:
-                  - message
+          $ref: '#/components/responses/SetScanScheduleResponse'
       operationId: get-v1-scans-schedule
       description: Get scan schedules for a user
       security:
@@ -782,9 +802,272 @@ paths:
       security:
         - X-API-Key: []
       description: Delete scan schedule for a user
+  /v1/retest:
+    get:
+      summary: Get All Retest
+      tags:
+        - retests
+      responses:
+        '200':
+          $ref: '#/components/responses/GetRetestResultsResponse'
+        '401':
+          $ref: '#/components/responses/GetRetestResultsResponse'
+        '500':
+          $ref: '#/components/responses/GetRetestResultsResponse'
+      operationId: get-v1-retest
+      description: Get user retest results
+      security:
+        - X-API-Key: []
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: offset
+          description: number of results to skip
+          required: true
+        - schema:
+            type: integer
+          in: query
+          name: limit
+          description: number of results
+          required: true
+    post:
+      summary: Create Retest
+      tags:
+        - retests
+      operationId: post-v1-retest
+      responses:
+        '200':
+          $ref: '#/components/responses/PostRetestTemplateResponse'
+        '400':
+          $ref: '#/components/responses/PostRetestTemplateResponse'
+        '401':
+          $ref: '#/components/responses/PostRetestTemplateResponse'
+        '500':
+          $ref: '#/components/responses/PostRetestTemplateResponse'
+      description: Trigger a retest scan
+      security:
+        - X-API-Key: []
+      requestBody:
+        $ref: '#/components/requestBodies/RetestTemplateRequest'
+    parameters: []
+  '/v1/retest/{vuln_id}':
+    get:
+      summary: Get Retest Vulnerability
+      tags:
+        - retests
+      responses:
+        '200':
+          $ref: '#/components/responses/GetSingleRetestResultResponse'
+        '400':
+          $ref: '#/components/responses/GetSingleRetestResultResponse'
+        '401':
+          $ref: '#/components/responses/GetSingleRetestResultResponse'
+        '500':
+          $ref: '#/components/responses/GetSingleRetestResultResponse'
+      operationId: get-v1-retest-vuln_id
+      security:
+        - X-API-Key: []
+      description: Get retest vulnerability (retests from editor)
+    parameters:
+      - schema:
+          type: string
+        name: vuln_id
+        in: path
+        required: true
+  /v1/assets:
+    get:
+      summary: Get Asset List
+      tags:
+        - assets
+      responses:
+        '200':
+          $ref: '#/components/responses/GetAssetsListResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-assets
+      description: Get user asset list
+      security:
+        - X-API-Key: []
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: offset
+          description: number of assets to skip
+        - schema:
+            type: integer
+          in: query
+          name: limit
+          description: number of assets to fetch
+        - schema:
+            type: string
+          in: query
+          name: search
+          description: search term for asset list
+    post:
+      summary: Upload Asset
+      tags:
+        - assets
+      operationId: post-v1-assets
+      responses:
+        '200':
+          $ref: '#/components/responses/UploadAssetResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+        - X-API-Key: []
+      requestBody:
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: name
+          description: name of asset
+      description: Manually upload user assets (uploaded to manual enumeration)
+  '/v1/assets/{asset_Id}':
+    parameters:
+      - schema:
+          type: string
+        name: asset_Id
+        in: path
+        required: true
+    get:
+      summary: Get Asset Metadata
+      tags:
+        - assets
+      responses:
+        '200':
+          $ref: '#/components/responses/GetUserAssetResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-assets-assetId
+      security:
+        - X-API-Key: []
+      description: Get asset metadata
+    delete:
+      summary: Delete Asset
+      tags:
+        - assets
+      operationId: delete-v1-assets-asset_Id
+      responses:
+        '200':
+          $ref: '#/components/responses/DeleteAssetResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+        - X-API-Key: []
+      description: Delete asset by ID
+    patch:
+      summary: Update Asset Metadata
+      tags:
+        - assets
+      operationId: patch-v1-assets-asset_Id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+        - X-API-Key: []
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateAssetRequest'
+      description: Update asset metadata
+  '/v1/assets/{asset_id}/contents':
+    get:
+      summary: Get Asset Content
+      tags:
+        - assets
+      responses:
+        '200':
+          description: OK
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-assets-id-contents
+      security:
+        - X-API-Key: []
+      description: Get user asset content
+    parameters:
+      - schema:
+          type: string
+        name: asset_id
+        in: path
+        required: true
+    patch:
+      summary: Update Asset Content
+      tags:
+        - assets
+      operationId: patch-v1-assets-asset_id-contents
+      responses:
+        '200':
+          $ref: '#/components/responses/PatchAssetContentResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      requestBody:
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+      security:
+        - X-API-Key: []
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: update_type
+          description: 'use options like: type, replace '
+      description: Update existing asset content
   /v1/user/feedback:
     post:
-      summary: Add feedback
+      summary: Create Feedback
       tags:
         - users
       operationId: post-v1-user-feedback
@@ -801,16 +1084,16 @@ paths:
                 required:
                   - message
         '401':
-          description: Unauthorized
+          description: Shared Response
           content:
             application/json:
               schema:
                 type: object
+                required:
+                  - message
                 properties:
                   message:
                     type: string
-                required:
-                  - message
         '500':
           description: Internal Server Error
           content:
@@ -826,6 +1109,26 @@ paths:
         - X-API-Key: []
       requestBody:
         $ref: '#/components/requestBodies/PostFeedbackRequest'
+      description: Add user feedback
+  /v1/user/delete/code:
+    parameters: []
+    post:
+      summary: Email user deletion verification code
+      tags:
+        - users
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      operationId: post-v1-user-delete-code
+      security:
+        - X-API-Key: []
+      description: generate and email user deletion verification code
   /v1/user:
     get:
       summary: Get User Profile
@@ -841,6 +1144,33 @@ paths:
       operationId: get-v1-user
       security:
         - X-API-Key: []
+      description: Get user profile and permissions
+    delete:
+      summary: Delete user from system along with all data
+      tags:
+        - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+              required:
+                - code
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      operationId: delete-v1-user
+      security:
+        - X-API-Key: []
   /v1/user/apikey:
     get:
       summary: Get API Key
@@ -851,11 +1181,14 @@ paths:
           $ref: '#/components/responses/GetUserAPIKeyResponse'
         '401':
           $ref: '#/components/responses/GetUserAPIKeyResponse'
+        '404':
+          $ref: '#/components/responses/GetUserAPIKeyResponse'
         '500':
           $ref: '#/components/responses/GetUserAPIKeyResponse'
       operationId: get-v1-user-apikey
       security:
         - X-API-Key: []
+      description: Get user api-key
     post:
       summary: Create API Key
       tags:
@@ -870,6 +1203,7 @@ paths:
           $ref: '#/components/responses/GetUserAPIKeyResponse'
       security:
         - X-API-Key: []
+      description: 'Create user api-key, this won''t create a new api-key if it already exists.'
     delete:
       summary: Delete API Key
       tags:
@@ -884,6 +1218,7 @@ paths:
           $ref: '#/components/responses/DeleteUserAPIKeyResponse'
       security:
         - X-API-Key: []
+      description: Delete user api-key
   /v1/user/apikey/rotate:
     post:
       summary: Rotate API Key
@@ -899,6 +1234,7 @@ paths:
           $ref: '#/components/responses/PostApiKeyRotateResponse'
       security:
         - X-API-Key: []
+      description: Rotate user api-key
   /v1/template/public:
     get:
       summary: Get Public Template List
@@ -912,7 +1248,7 @@ paths:
         '500':
           $ref: '#/components/responses/GetPublicTemplateList'
       operationId: get-v1-template-public
-      description: ''
+      description: Get public-template list
   /v1/template/early:
     get:
       summary: Get Early Template List
@@ -928,13 +1264,13 @@ paths:
         '500':
           $ref: '#/components/responses/MessageResponse'
       operationId: get-v1-early-templates
-      description: ''
+      description: Get pdcp early template lists
       security:
         - X-API-Key: []
     parameters: []
   '/v1/template/early/{id}':
     get:
-      summary: Get Early Template file content
+      summary: Get Early Template
       tags:
         - templates
       responses:
@@ -953,7 +1289,7 @@ paths:
         '500':
           $ref: '#/components/responses/MessageResponse'
       operationId: get-v1-early-templates-id
-      description: ''
+      description: Get early template text
       security:
         - X-API-Key: []
     parameters:
@@ -964,7 +1300,7 @@ paths:
         required: true
   /v1/template/public/*:
     get:
-      summary: Get Public Template Data
+      summary: Get Public Template
       tags:
         - templates
       responses:
@@ -976,6 +1312,7 @@ paths:
               schema:
                 type: string
       operationId: get-v1-template-public-path
+      description: Get public template text using path
   /v1/template:
     get:
       summary: Get Template List
@@ -991,6 +1328,7 @@ paths:
       operationId: get-v1-templates
       security:
         - X-API-Key: []
+      description: Get user private(my) templates
     parameters: []
     post:
       summary: Create Template
@@ -1020,6 +1358,7 @@ paths:
                   type: string
               required:
                 - template
+      description: Create a private template
     patch:
       summary: Update Template
       tags:
@@ -1038,6 +1377,7 @@ paths:
         - X-API-Key: []
       requestBody:
         $ref: '#/components/requestBodies/UpdateTemplateRequest'
+      description: 'Update existing private template '
   '/v1/template/{template_id}':
     parameters:
       - schema:
@@ -1047,7 +1387,7 @@ paths:
         required: true
         description: 'unique Id of template '
     get:
-      summary: Get Template Data
+      summary: Get Template
       tags:
         - templates
       responses:
@@ -1057,11 +1397,14 @@ paths:
           $ref: '#/components/responses/GetTemplateResponse'
         '401':
           $ref: '#/components/responses/GetTemplateResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
         '500':
           $ref: '#/components/responses/GetTemplateResponse'
       operationId: get-v1-template-t_id
       security:
         - X-API-Key: []
+      description: Get private template text using ID
     delete:
       summary: Delete Template
       tags:
@@ -1078,6 +1421,7 @@ paths:
           $ref: '#/components/responses/DeleteTemplateResponse'
       security:
         - X-API-Key: []
+      description: Delete private template using ID
   /v1/template/ai:
     post:
       summary: Generate AI Template
@@ -1099,6 +1443,7 @@ paths:
         $ref: '#/components/requestBodies/GenerateTemplateRequest'
       security:
         - X-API-Key: []
+      description: Generate a private template with AI Engine
   /v1/template/share:
     get:
       summary: Get Share Status
@@ -1131,6 +1476,7 @@ paths:
           name: user_name
           description: user name of logged in user
           required: true
+      description: Get template sahred status (shared-with-link)
     post:
       summary: Share Template
       tags:
@@ -1151,6 +1497,7 @@ paths:
         - X-API-Key: []
       requestBody:
         $ref: '#/components/requestBodies/ShareTemplateRequest'
+      description: Share a private template (shared-with-link)
   '/v1/template/share/{template_id}':
     parameters:
       - schema:
@@ -1182,33 +1529,13 @@ paths:
           name: user_name
           description: user name of template owner
           required: true
-  '/v1/retest/{vuln_id}':
-    parameters:
-      - schema:
-          type: string
-        name: vuln_id
-        in: path
-        required: true
-    get:
-      summary: Get Retest Vulnerability
-      tags:
-        - retest
-      responses:
-        '200':
-          $ref: '#/components/responses/GetSingleRetestResultResponse'
-        '400':
-          $ref: '#/components/responses/GetSingleRetestResultResponse'
-        '401':
-          $ref: '#/components/responses/GetSingleRetestResultResponse'
-        '500':
-          $ref: '#/components/responses/GetSingleRetestResultResponse'
-      operationId: get-v1-retest-vuln_id
-      security:
-        - X-API-Key: []
+      description: Get a shared template text
   /v1/admin/user/profile:
     patch:
       summary: Patch User Profile
       operationId: patch-v1-admin-user-profile
+      tags:
+        - internal
       responses:
         '200':
           $ref: '#/components/responses/PatchUserProfileResponse'
@@ -1218,10 +1545,15 @@ paths:
           $ref: '#/components/responses/PatchUserProfileResponse'
       requestBody:
         $ref: '#/components/requestBodies/PatchUserProfile'
+      security:
+        - X-API-Key: []
+      description: (ADMIN) Patch a user profile
   /v1/admin/users:
     post:
       summary: Create New User
       operationId: post-v1-admin-users
+      tags:
+        - internal
       responses:
         '200':
           $ref: '#/components/responses/PostCreateUserResponse'
@@ -1253,79 +1585,13 @@ paths:
                   type: boolean
               required:
                 - email
-  '/v1/scans/{scan_id}/stop':
-    parameters:
-      - schema:
-          type: string
-        name: scan_id
-        in: path
-        required: true
-    post:
-      summary: Stop Scan
-      tags:
-        - scans
-      operationId: post-v1-scans-scan_id-stop
-      responses:
-        '200':
-          $ref: '#/components/responses/DeleteScansResponse'
-        '400':
-          $ref: '#/components/responses/DeleteScansResponse'
-        '401':
-          $ref: '#/components/responses/DeleteScansResponse'
-        '500':
-          $ref: '#/components/responses/DeleteScansResponse'
-      security:
-        - X-API-Key: []
-  '/v1/scans/{scan_id}/rescan':
-    parameters:
-      - schema:
-          type: string
-        name: scan_id
-        in: path
-        required: true
-    post:
-      summary: Rescan by scan_id
-      tags:
-        - scans
-      operationId: post-v1-scans-scan_id-rescan
-      responses:
-        '200':
-          $ref: '#/components/responses/TriggerUserScanResponse'
-        '400':
-          $ref: '#/components/responses/TriggerUserScanResponse'
-        '401':
-          $ref: '#/components/responses/TriggerUserScanResponse'
-        '500':
-          $ref: '#/components/responses/TriggerUserScanResponse'
-      security:
-        - X-API-Key: []
-  '/v1/scans/{vuln_id}/retest':
-    parameters:
-      - schema:
-          type: string
-        name: vuln_id
-        in: path
-        required: true
-    post:
-      summary: Retest vulnerability
-      tags:
-        - scans
-      operationId: post-v1-scans-vuln_id-retest
-      responses:
-        '200':
-          $ref: '#/components/responses/PostRescanVulnResponse'
-        '400':
-          $ref: '#/components/responses/PostRescanVulnResponse'
-        '401':
-          $ref: '#/components/responses/PostRescanVulnResponse'
-        '500':
-          $ref: '#/components/responses/PostRescanVulnResponse'
-      security:
-        - X-API-Key: []
+      description: (ADMIN) Create a new user
   /v1/user/team:
     get:
       summary: Get Team
       operationId: get-v1-user-team
+      tags:
+        - internal
       responses:
         '200':
           $ref: '#/components/responses/GetTeamResponse'
@@ -1337,9 +1603,11 @@ paths:
           $ref: '#/components/responses/GetTeamResponse'
       security:
         - X-API-Key: []
+      description: Get a team metadata
     post:
       summary: Create Team
-      tags: []
+      tags:
+        - internal
       responses:
         '200':
           $ref: '#/components/responses/MessageResponse'
@@ -1354,9 +1622,12 @@ paths:
         $ref: '#/components/requestBodies/CreateTeamRequest'
       security:
         - X-API-Key: []
+      description: 'Create a new team '
     patch:
       summary: Update Team
       operationId: patch-v1-user-team
+      tags:
+        - internal
       responses:
         '200':
           $ref: '#/components/responses/UpdateTeamResponse'
@@ -1372,10 +1643,29 @@ paths:
         - X-API-Key: []
       requestBody:
         $ref: '#/components/requestBodies/CreateTeamRequest'
+      description: Update a existing team
+    delete:
+      summary: Delete Team
+      tags:
+        - internal
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      operationId: delete-v1-user-team
+      security:
+        - X-API-Key: []
+      description: Delete team (require 0 members)
   /v1/user/team/member:
     get:
-      summary: Get Team
-      tags: []
+      summary: Get Team Members
+      tags:
+        - internal
       responses:
         '200':
           $ref: '#/components/responses/GetTeamMembersResponse'
@@ -1388,9 +1678,12 @@ paths:
       operationId: get-v1-user-team-member
       security:
         - X-API-Key: []
+      description: Get team member list
     post:
-      summary: Add Member
+      summary: Add Team Member
       operationId: post-v1-user-team-member
+      tags:
+        - internal
       responses:
         '200':
           $ref: '#/components/responses/MessageResponse'
@@ -1406,9 +1699,12 @@ paths:
         - X-API-Key: []
       requestBody:
         $ref: '#/components/requestBodies/AddTeamMemberRequest'
+      description: Invite a new team member
     delete:
-      summary: Delete Member
+      summary: Delete Team Member
       operationId: delete-v1-user-team-member
+      tags:
+        - internal
       responses:
         '200':
           $ref: '#/components/responses/MessageResponse'
@@ -1424,9 +1720,12 @@ paths:
         - X-API-Key: []
       requestBody:
         $ref: '#/components/requestBodies/DeleteTeamMemberRequest'
+      description: Delete a team member using member email
     patch:
-      summary: Update Member
+      summary: Update Team Member
       operationId: patch-v1-user-team-member
+      tags:
+        - internal
       responses:
         '200':
           $ref: '#/components/responses/MessageResponse'
@@ -1438,30 +1737,15 @@ paths:
           $ref: '#/components/responses/MessageResponse'
         '500':
           $ref: '#/components/responses/MessageResponse'
-      security:
-        - X-API-Key: []
       requestBody:
         $ref: '#/components/requestBodies/InviteTeamMemberRequest'
-  /v1/scans/scan_ips:
-    get:
-      summary: Get static scan IPs
-      tags: []
-      responses:
-        '200':
-          $ref: '#/components/responses/StaticScanIPsResponse'
-        '400':
-          $ref: '#/components/responses/MessageResponse'
-        '401':
-          $ref: '#/components/responses/MessageResponse'
-        '403':
-          $ref: '#/components/responses/MessageResponse'
-        '500':
-          $ref: '#/components/responses/MessageResponse'
-      operationId: get-v1-scans-scan_ips
+      description: Accept team invite
   /v1/admin/team/member:
     post:
-      summary: Add Team Member
+      summary: Add Team Member (Admin)
       operationId: post-v1-admin-team-member
+      tags:
+        - internal
       responses:
         '200':
           $ref: '#/components/responses/MessageResponse'
@@ -1477,6 +1761,29 @@ paths:
         - X-API-Key: []
       requestBody:
         $ref: '#/components/requestBodies/AdminAddTeamMemberRequest'
+      description: (ADMIN) Invite a new team member
+  /v1/scans/scan_ips:
+    get:
+      summary: Get Scan IPs
+      tags:
+        - scans
+      responses:
+        '200':
+          $ref: '#/components/responses/StaticScanIPsResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-scans-scan_ips
+      security:
+        - X-API-Key: []
+      description: Get user static scan IPs list
   '/v1/scans/{scan_id}/import':
     parameters:
       - schema:
@@ -1485,17 +1792,21 @@ paths:
         in: path
         required: true
     patch:
-      summary: Import more results to a given scan
+      summary: Update Imported Scan
       operationId: patch-v1-scans-scan_id-import
+      tags:
+        - scans
       responses:
         '200':
           $ref: '#/components/responses/MessageResponse'
         '401':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '403':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '500':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
       description: Import more results to a given scan
       requestBody:
         content:
@@ -1503,58 +1814,8 @@ paths:
             schema:
               type: string
               format: binary
-  /v1/scans/stats:
-    get:
-      summary: Get scan statistics for a user
-      tags: []
-      responses:
-        '200':
-          $ref: '#/components/responses/ScanStatsResponse'
-        '401':
-          $ref: '#/components/responses/MessageResponse'
-        '403':
-          $ref: '#/components/responses/MessageResponse'
-        '500':
-          $ref: '#/components/responses/MessageResponse'
-      operationId: get-v1-scans-stats
-      parameters: []
-  '/v1/scans/{scan_id}/stats':
-    parameters:
-      - schema:
-          type: string
-        name: scan_id
-        in: path
-        required: true
-    get:
-      summary: Get scan statistics for a given scan
-      tags: []
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ScanUsageStatsResponse'
-        '401':
-          $ref: '#/components/responses/MessageResponse'
-        '403':
-          $ref: '#/components/responses/MessageResponse'
-        '500':
-          $ref: '#/components/responses/MessageResponse'
-      operationId: get-v1-scans-scan_id-stats
-      parameters:
-        - schema:
-            type: integer
-          in: query
-          name: offset
-          description: The number of items to skip before starting to collect the result set
-        - schema:
-            type: integer
-          in: query
-          name: limit
-          description: The numbers of items to return
+      security:
+        - X-API-Key: []
   '/v1/scans/{scan_id}/export':
     parameters:
       - schema:
@@ -1563,8 +1824,9 @@ paths:
         in: path
         required: true
     get:
-      summary: Export scan
-      tags: []
+      summary: Export Scan
+      tags:
+        - scans
       responses:
         '200':
           description: OK
@@ -1573,11 +1835,13 @@ paths:
               schema:
                 type: string
         '401':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '403':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '500':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
       operationId: get-v1-scans-scan_id-export
       parameters:
         - schema:
@@ -1585,9 +1849,72 @@ paths:
             enum:
               - json
               - csv
+              - pdf
           in: query
           name: type
-          description: 'json, csv (default json)'
+          description: 'json, csv, pdf (default json)'
+      security:
+        - X-API-Key: []
+      description: Export scan results
+    post:
+      summary: Export Filtered Scan
+      tags:
+        - scans
+      responses:
+        '200':
+          description: OK
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: post-v1-scans-scan_id-export
+      parameters:
+        - schema:
+            type: string
+            enum:
+              - json
+              - csv
+              - pdf
+          in: query
+          name: type
+          description: 'json, csv, pdf (default json)'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ids:
+                  type: array
+                  items:
+                    type: string
+                vuln_status:
+                  type: string
+                severity:
+                  type: array
+                  items:
+                    type: string
+                host:
+                  type: array
+                  items:
+                    type: string
+                template:
+                  type: array
+                  items:
+                    type: string
+                search:
+                  type: string
+      security:
+        - X-API-Key: []
+      description: Export filtered scan results
   '/v1/scans/vuln/{vuln_id}/export':
     parameters:
       - schema:
@@ -1596,8 +1923,9 @@ paths:
         in: path
         required: true
     get:
-      summary: Export Vulnerability
-      tags: []
+      summary: Export Scan Vulnerability
+      tags:
+        - scans
       responses:
         '200':
           description: OK
@@ -1606,11 +1934,13 @@ paths:
               schema:
                 type: string
         '401':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '403':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '500':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
       operationId: get-v1-scans-vuln-vuln_id-export
       parameters:
         - schema:
@@ -1621,25 +1951,79 @@ paths:
           in: query
           name: type
           description: 'json, csv (default json)'
+      security:
+        - X-API-Key: []
+      description: Export a specific scan vulnerability
   /v1/scans/vulns:
     patch:
       summary: Update Vulnerability Status
       operationId: patch-v1-scans-vulns
+      tags:
+        - scans
       responses:
         '200':
           $ref: '#/components/responses/MessageResponse'
         '400':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '401':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '500':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
       requestBody:
         $ref: '#/components/requestBodies/PatchScanVulnsRequest'
+      security:
+        - X-API-Key: []
+      description: Batch update vulnerability status
+    delete:
+      summary: Delete Scan Vulnerability
+      operationId: delete-v1-scans-vulns
+      tags:
+        - scans
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      requestBody:
+        $ref: '#/components/requestBodies/DeleteVulnsRequest'
+      security:
+        - X-API-Key: []
+      description: Batch Delete scan vulnerability
+  /v1/scans/vulns/labels:
+    patch:
+      summary: Update Vulnerability Labels
+      operationId: patch-v1-scans-vulns-labels
+      tags:
+        - scans
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      requestBody:
+        $ref: '#/components/requestBodies/PatchScanVulnsLabelsRequest'
+      security:
+        - X-API-Key: []
+      description: Batch update vulnerability labels
   /v1/scans/config:
     get:
-      summary: Get scan configs
-      tags: []
+      summary: Get Configs List
+      tags:
+        - configurations
       responses:
         '200':
           description: OK
@@ -1650,13 +2034,15 @@ paths:
                 items:
                   $ref: '#/components/schemas/ConfigResponse'
         '400':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '401':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '403':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '500':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
       operationId: get-v1-scans-config
       parameters:
         - schema:
@@ -1685,20 +2071,27 @@ paths:
           in: query
           description: The number of items to skip before starting to collect the result set
           name: offset
+      security:
+        - X-API-Key: []
+      description: Get user scan configurations list
     post:
-      summary: Add scan config
+      summary: Add Config
       operationId: post-v1-scans-config
+      tags:
+        - configurations
       responses:
         '200':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/PostScanConfigResponse'
         '400':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '401':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '403':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '500':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
       requestBody:
         content:
           application/json:
@@ -1716,6 +2109,9 @@ paths:
               required:
                 - config
                 - name
+      security:
+        - X-API-Key: []
+      description: Add a new scan configuration
   '/v1/scans/config/{config_id}':
     parameters:
       - schema:
@@ -1724,8 +2120,9 @@ paths:
         in: path
         required: true
     get:
-      summary: Get scan config by ID
-      tags: []
+      summary: Get Config
+      tags:
+        - configurations
       responses:
         '200':
           description: OK
@@ -1734,28 +2131,37 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConfigResponse'
         '400':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '401':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '403':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '500':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
       operationId: get-v1-scans-config-config_id
+      security:
+        - X-API-Key: []
+      description: Get a scan configuration
     patch:
-      summary: Update a config
+      summary: Update Config
       operationId: patch-v1-scans-config-config_id
+      tags:
+        - configurations
       responses:
         '200':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/PostScanConfigResponse'
         '400':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '401':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '403':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '500':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
       requestBody:
         content:
           application/json:
@@ -1768,24 +2174,130 @@ paths:
                   type: string
                 global:
                   type: boolean
+      security:
+        - X-API-Key: []
+      description: Update existing scan configuration
     delete:
-      summary: Delete a config
+      summary: Delete Config
       operationId: delete-v1-scans-config-config_id
+      tags:
+        - configurations
       responses:
         '200':
           $ref: '#/components/responses/MessageResponse'
         '400':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '401':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '403':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '500':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+        - X-API-Key: []
+      description: Delete scan configuration
+  /v1/scans/config/verify:
+    post:
+      summary: Verify Config
+      tags:
+        - configurations
+      responses:
+        '200':
+          $ref: '#/components/responses/VerifyConfigResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: post-v1-scans-config-verify
+      requestBody:
+        $ref: '#/components/requestBodies/VerifyConfigRequest'
+      security:
+        - X-API-Key: []
+      description: Verify scan configuration
+  '/v1/scans/{scan_id}/config':
+    parameters:
+      - schema:
+          type: string
+        name: scan_id
+        in: path
+        required: true
+    get:
+      summary: Get Scan Config
+      tags:
+        - scans
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanConfig'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-scans-id-config
+      security:
+        - X-API-Key: []
+      description: 'Get scan metadata config '
+    patch:
+      summary: Update Scan Config
+      operationId: patch-scans-id-config
+      tags:
+        - scans
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScanConfigUpdateItem'
+      security:
+        - X-API-Key: []
+      description: Update scan metadata config
+      parameters:
+        - schema:
+            type: string
+            enum:
+              - append
+              - replace
+            default: append
+          in: query
+          name: update_type
+          description: 'Update type: append or replace'
   /v1/payment/stripe/checkout_session:
     post:
-      summary: start checkout session for stripe
+      summary: Create Subscription Checkout
       operationId: post-v1-payment-stripe-checkout_session
+      tags:
+        - internal
       responses:
         '200':
           description: OK
@@ -1801,36 +2313,11 @@ paths:
                 required:
                   - message
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                required:
-                  - message
+          $ref: '#/components/responses/MessageResponse'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                required:
-                  - message
+          $ref: '#/components/responses/MessageResponse'
         '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+          $ref: '#/components/responses/MessageResponse'
       security:
         - X-API-Key: []
       requestBody:
@@ -1843,11 +2330,13 @@ paths:
                   type: string
               required:
                 - period
+      description: Create a new payment checkout
     parameters: []
   /v1/user/subscription:
     get:
-      summary: Your GET endpoint
-      tags: []
+      summary: Get Subscription Status
+      tags:
+        - users
       responses:
         '200':
           description: OK
@@ -1888,27 +2377,25 @@ paths:
       operationId: get-v1-user-subscription
       security:
         - X-API-Key: []
+      description: Get user subscription status
   /v1/asset/enumerate:
     get:
-      summary: List enumeration sources
-      tags: []
+      summary: Get Enumeration List
+      tags:
+        - enumerations
       responses:
         '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/EnumerateResponse'
+          $ref: '#/components/responses/EnumerateResponse'
         '400':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '401':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '403':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '500':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
       operationId: get-v1-asset-enumerate
       parameters:
         - schema:
@@ -1925,9 +2412,19 @@ paths:
             type: string
           in: query
           name: search
+          description: search keyword in enumeration list
+        - schema:
+            type: string
+          in: query
+          name: enum_type
+          description: types of enumeration list (comma seperated)
+      security:
+        - X-API-Key: []
+      description: Get enumeration list
     post:
-      summary: Add new enumeration task
-      tags: []
+      summary: Create Enumeration
+      tags:
+        - enumerations
       responses:
         '200':
           description: OK
@@ -1941,13 +2438,15 @@ paths:
                 required:
                   - id
         '400':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '401':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '403':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '500':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
       operationId: post-v1-asset-enumerate
       requestBody:
         content:
@@ -1978,6 +2477,11 @@ paths:
                       - port_scan
                       - http_probe
                       - endpoint_crawling
+                enumeration_ports:
+                  type: string
+      security:
+        - X-API-Key: []
+      description: 'Create a new enumeration '
   '/v1/asset/enumerate/{enumerate_id}':
     parameters:
       - schema:
@@ -1986,34 +2490,43 @@ paths:
         in: path
         required: true
     get:
-      summary: Get Enumeration task
-      tags: []
+      summary: Get Enumeration
+      tags:
+        - enumerations
       responses:
         '200':
           $ref: '#/components/responses/GetEnumerateIdContentsResponse'
         '400':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '401':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '403':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '500':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
       operationId: get-v1-asset-enumerate-enumerate_id
+      security:
+        - X-API-Key: []
+      description: Get enumeration by enumerate_id
     patch:
       summary: Update Enumeration
-      tags: []
+      tags:
+        - enumerations
       responses:
         '200':
           $ref: '#/components/responses/MessageResponse'
         '400':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '401':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '403':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '500':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
       operationId: patch-v1-asset-enumerate-enumerate_id
       requestBody:
         content:
@@ -2023,6 +2536,28 @@ paths:
               properties:
                 name:
                   type: string
+      security:
+        - X-API-Key: []
+      description: Update enumeration by enumerate_id
+    delete:
+      summary: Delete Enumeration
+      tags:
+        - enumerations
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: delete-v1-asset-enumerate-enumerate_id
+      security:
+        - X-API-Key: []
+      description: Delete enumeration by enumerate_id
   '/v1/asset/enumerate/{enumerate_id}/contents':
     parameters:
       - schema:
@@ -2031,29 +2566,33 @@ paths:
         in: path
         required: true
     get:
-      summary: Get enumeration contents
-      tags: []
+      summary: Get Enumeration Contents
+      tags:
+        - enumerations
       responses:
         '200':
           $ref: '#/components/responses/GetEnumerateIdContents'
         '400':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '401':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '403':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '500':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
       operationId: get-v1-asset-enumerate-enumerate_id-contents
       parameters:
         - schema:
             type: string
-            default: dns
+            default: hosts
             enum:
-              - dns
               - ports
               - endpoints
               - http
+              - hosts
+              - all
           in: query
           name: type
           required: true
@@ -2075,6 +2614,40 @@ paths:
           name: search
           in: query
           description: Search on the content name
+        - schema:
+            type: string
+          in: query
+          name: labels
+          description: Filter by comma separated labels, e.g-> labels=p1,p2
+      security:
+        - X-API-Key: []
+      description: Get enumeration content by enumerate_id
+  '/v1/asset/enumerate/{enumerate_id}/stop':
+    parameters:
+      - schema:
+          type: string
+        name: enumerate_id
+        in: path
+        required: true
+    post:
+      summary: Stop Enumeration
+      tags:
+        - enumerations
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: post-v1-asset-enumerate-enumerate_id-stop
+      security:
+        - X-API-Key: []
+      description: Stop a running enumeration
   '/v1/asset/enumerate/{enumerate_id}/rescan':
     parameters:
       - schema:
@@ -2085,6 +2658,8 @@ paths:
     post:
       summary: Rescan Enumeration
       operationId: post-v1-asset-enumerate-enumerate_id-rescan
+      tags:
+        - enumerations
       responses:
         '200':
           description: OK
@@ -2098,19 +2673,85 @@ paths:
                 required:
                   - id
         '400':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '401':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '403':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
         '500':
-          $ref: '#/components/responses/MessageResponse'
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
       security:
         - X-API-Key: []
+      description: Re-run a existing enumeration
+  '/v1/asset/enumerate/{enum_id}/export':
+    parameters:
+      - schema:
+          type: string
+        name: enum_id
+        in: path
+        required: true
+    get:
+      summary: Export Enumeration
+      tags:
+        - enumerations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-enumerate-id-export
+      parameters:
+        - schema:
+            type: string
+            enum:
+              - hosts
+              - ports
+              - endpoints
+              - http
+              - all
+            default: hosts
+          in: query
+          name: type
+          required: true
+        - schema:
+            type: string
+            default: raw
+            enum:
+              - raw
+              - json
+              - csv
+          in: query
+          name: format
+        - schema:
+            type: string
+          in: query
+          name: search
+          description: Search by string
+        - schema:
+            type: string
+          in: query
+          name: labels
+          description: Filter by comma separated labels, e.g-> labels=p1,p2
+      security:
+        - X-API-Key: []
+      description: Export enumeration content
   /v1/enumeration/schedule:
     get:
       summary: Get Enumeration Schedules
-      tags: []
+      tags:
+        - enumerations
       responses:
         '200':
           $ref: '#/components/responses/GetEnumerationScheduleResponse'
@@ -2121,9 +2762,14 @@ paths:
         '500':
           $ref: '#/components/responses/MessageResponse'
       operationId: get-v1-enumeration-schedule
+      security:
+        - X-API-Key: []
+      description: Get enumeration re-scan schedule
     post:
       summary: Set Enumeration Schedule
       operationId: post-v1-enumeration-schedule
+      tags:
+        - enumerations
       responses:
         '200':
           $ref: '#/components/responses/MessageResponse'
@@ -2135,9 +2781,14 @@ paths:
           $ref: '#/components/responses/MessageResponse'
       requestBody:
         $ref: '#/components/requestBodies/SetEnumerationScheduleRequest'
+      security:
+        - X-API-Key: []
+      description: Set enumeration re-scan frequency
     delete:
       summary: Delete Enumeration Schedule
       operationId: delete-v1-enumeration-schedule
+      tags:
+        - enumerations
       responses:
         '200':
           $ref: '#/components/responses/MessageResponse'
@@ -2154,22 +2805,1102 @@ paths:
           name: enumeration_id
           description: enumeration_id of the schedule to be deleted
           required: true
-  /v1/scans/config/verify:
-    post:
-      summary: Verify config
-      tags: []
+      security:
+        - X-API-Key: []
+      description: Delete a re-scan schedule
+  /v1/scans/history:
+    get:
+      summary: Get All Scans History
+      tags:
+        - scans
       responses:
         '200':
-          $ref: '#/components/responses/VerifyConfigResponse'
+          $ref: '#/components/responses/GetScansHistoryResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-scans-history
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: offset
+          description: number of rows to skip
+        - schema:
+            type: integer
+          in: query
+          name: limit
+          description: number of rows to get
+        - schema:
+            type: string
+            format: date
+          in: query
+          name: start_date
+          description: start date from which you want to get history
+        - schema:
+            type: string
+            format: date
+          in: query
+          name: end_date
+          description: end date till which you want to get history
+        - schema:
+            type: string
+            enum:
+              - current_month
+              - last_month
+              - last_3_months
+              - last_6_months
+              - last_12_months
+              - all_time
+          in: query
+          name: time_range
+          description: time range to get history
+      security:
+        - X-API-Key: []
+      description: Get user scan history details
+  '/v1/scans/{scanId}/history':
+    parameters:
+      - schema:
+          type: string
+        name: scanId
+        in: path
+        required: true
+    get:
+      summary: Get Scan History
+      tags:
+        - scans
+      responses:
+        '200':
+          $ref: '#/components/responses/GetScansHistoryResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-scans-scanId-history
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: offset
+          description: number of rows to skip
+        - schema:
+            type: integer
+          in: query
+          name: limit
+          description: number of rows to get
+        - schema:
+            type: string
+            format: date
+          in: query
+          name: start_date
+          description: start date from which you want to get history
+        - schema:
+            type: string
+            format: date
+          in: query
+          name: end_date
+          description: end date till which you want to get history
+        - schema:
+            type: string
+            enum:
+              - current_month
+              - last_month
+              - last_3_months
+              - last_6_months
+              - last_12_months
+              - all_time
+          in: query
+          name: time_range
+          description: time range to get history
+      security:
+        - X-API-Key: []
+      description: Get scan history detial by scanId
+  '/v1/integration/{name}':
+    get:
+      summary: Get Integration
+      tags:
+        - internal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+                  key:
+                    type: string
+                  connection_id:
+                    type: string
+                  integration_id:
+                    type: string
+                  fetching_status:
+                    type: boolean
+                required:
+                  - status
+                  - message
+                  - key
+                  - connection_id
+                  - integration_id
+                  - fetching_status
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+      operationId: get-v1-integration
+      security:
+        - X-API-Key: []
+      description: Get integration list
+    post:
+      summary: Create Integration
+      operationId: post-v1-integration
+      tags:
+        - internal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+                  key:
+                    type: string
+                  connection_id:
+                    type: string
+                  integration_id:
+                    type: string
+                  fetching_status:
+                    type: boolean
+                required:
+                  - status
+                  - key
+                  - connection_id
+                  - integration_id
+                  - fetching_status
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  '':
+                    type: string
+      security:
+        - X-API-Key: []
+      description: Add Integration
+    parameters:
+      - schema:
+          type: string
+        name: name
+        in: path
+        required: true
+    patch:
+      summary: Verify Integration
+      operationId: patch-v1-integration
+      tags:
+        - internal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+      security:
+        - X-API-Key: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                connection_id:
+                  type: string
+              required:
+                - connection_id
+      description: Verify connection_id
+    delete:
+      summary: Delete Integration
+      tags:
+        - internal
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+      operationId: delete-v1-integration
+      security:
+        - X-API-Key: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                connection_id:
+                  type: string
+              required:
+                - connection_id
+      description: Deleted integration
+  '/v1/integration/{name}/all':
+    parameters:
+      - schema:
+          type: string
+        name: name
+        in: path
+        required: true
+    get:
+      summary: Get All Integrations
+      tags:
+        - internal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/IntegrationListItems'
+                required:
+                  - data
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      operationId: get-v1-integration-name-all
+      security:
+        - X-API-Key: []
+      description: Get integration list
+  /v1/template/contribute:
+    post:
+      summary: Contribute to Public Templates
+      operationId: post-v1-template-contribute
+      tags:
+        - internal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pr:
+                    type: string
+                required:
+                  - pr
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      security:
+        - X-API-Key: []
+      requestBody:
+        $ref: '#/components/requestBodies/CreateContributeRequest'
+      description: Contribute template to nuclei-templates
+    parameters: []
+  '/v1/integration/{name}/profile':
+    get:
+      summary: Get Integration User Profile
+      tags:
+        - internal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  email:
+                    type: string
+                  login:
+                    type: string
+                required:
+                  - name
+                  - email
+                  - login
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      operationId: get-v1-integration-name-profile
+      x-internal: false
+      security:
+        - X-API-Key: []
+      description: Get user integration profile data
+    parameters:
+      - schema:
+          type: string
+        name: name
+        in: path
+        required: true
+  /v1/template/github:
+    get:
+      summary: Get Github Template List
+      tags:
+        - templates
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/GithubTemplateListItem'
+                required:
+                  - data
         '400':
           $ref: '#/components/responses/MessageResponse'
         '401':
           $ref: '#/components/responses/MessageResponse'
         '500':
           $ref: '#/components/responses/MessageResponse'
-      operationId: post-v1-scans-config-verify
+      operationId: get-v1-github-templates
+      security:
+        - X-API-Key: []
+      description: List of all user's github templates
+    parameters: []
+  '/v1/template/github/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Get Github Template
+      tags:
+        - templates
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      operationId: get-v1-github-templates-id
       requestBody:
-        $ref: '#/components/requestBodies/VerifyConfigRequest'
+        content: {}
+      parameters: []
+      security:
+        - X-API-Key: []
+      description: Get github template text
+  /v1/template/leaderboard:
+    get:
+      summary: Get Leaderboard
+      tags:
+        - internal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TemplateLeaderboard'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      operationId: get-v1-template-leaderboard
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: from
+          description: define result number to return from
+        - schema:
+            type: integer
+          in: query
+          name: size
+          description: define number of results to return
+        - schema:
+            type: string
+          in: query
+          name: q
+          description: query string to match against all response value
+        - schema:
+            type: string
+          in: query
+          description: define specific field to query
+          name: fq
+        - schema:
+            type: string
+          in: query
+          description: define specific field to return
+          name: fl
+        - schema:
+            type: string
+          in: query
+          description: sort response value based on given key
+          name: sort_by
+        - schema:
+            type: string
+          in: query
+          name: sort_dir
+          description: sort direction for given key
+        - schema:
+            type: string
+          in: query
+          description: 'return data for specified year '
+          name: year
+        - schema:
+            type: string
+          in: query
+          description: 'return data for specified quarter(q1, q2, q3, q4) + year'
+          name: quarter
+        - schema:
+            type: string
+          in: query
+          name: month
+          description: ' return data for specified month + year'
+      description: Get public templates leaderboard list
+  /v1/template/stats:
+    get:
+      summary: Get Public Template Stats
+      tags:
+        - templates
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TemplateStats'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      operationId: get-v1-template-stats
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: from
+          description: define result number to return from
+        - schema:
+            type: integer
+          in: query
+          name: size
+          description: define number of results to return
+        - schema:
+            type: string
+          in: query
+          name: q
+          description: query string to match against all response value
+        - schema:
+            type: string
+          in: query
+          description: define specific field to query
+          name: fq
+        - schema:
+            type: string
+          in: query
+          description: define specific field to return
+          name: fl
+        - schema:
+            type: string
+          in: query
+          description: sort response value based on given key
+          name: sort_by
+        - schema:
+            type: string
+          in: query
+          name: sort_dir
+          description: sort direction for given key
+      security:
+        - X-API-Key: []
+      description: Get public template statistics
+  '/v1/scans/{scan_id}/error_log/download':
+    parameters:
+      - schema:
+          type: string
+        name: scan_id
+        in: path
+        required: true
+    get:
+      summary: Download elogs of given scan id
+      tags:
+        - elog
+      responses:
+        '200':
+          description: OK
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-scans-id-elog-download
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: host
+          description: target to search in log
+        - schema:
+            type: string
+          in: query
+          name: template
+          description: template to search in log
+        - schema:
+            type: string
+          in: query
+          name: matched
+          description: status to search in log
+        - schema:
+            type: string
+            format: date-time
+          in: query
+          name: time
+          description: time to filter the logs
+        - schema:
+            type: string
+          in: query
+          name: search
+          description: 'string to search in error, target and template'
+        - schema:
+            type: string
+          in: query
+          name: error
+          description: error to search in log
+  '/v1/scans/{scan_id}/scan_log/download':
+    parameters:
+      - schema:
+          type: string
+        name: scan_id
+        in: path
+        required: true
+    get:
+      summary: Download scan log of given scan id
+      tags:
+        - scan_log
+      responses:
+        '200':
+          description: OK
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-scans-id-scan-log-download
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: host
+          description: target to search in log
+        - schema:
+            type: string
+          in: query
+          name: template
+          description: template to search in log
+        - schema:
+            type: string
+          in: query
+          name: matched
+          description: status to search in log
+        - schema:
+            type: string
+            format: date-time
+          in: query
+          name: time
+          description: time to filter the logs
+        - schema:
+            type: string
+          in: query
+          name: search
+          description: 'string to search in error, target and template'
+  '/v1/scans/{scan_id}/error_log':
+    parameters:
+      - schema:
+          type: string
+        name: scan_id
+        in: path
+        required: true
+    get:
+      summary: Get elogs of given scan id
+      tags:
+        - elog
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - logs
+                  - next_page_token
+                properties:
+                  logs:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ScanLogResp'
+                  next_page_token:
+                    type: string
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-scans-id-elog
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: host
+          description: target to search in log
+        - schema:
+            type: string
+          in: query
+          name: template
+          description: template to search in log
+        - schema:
+            type: string
+          in: query
+          name: matched
+          description: status to search in log
+        - schema:
+            type: string
+            format: date-time
+          in: query
+          name: time
+          description: time to filter the logs
+        - schema:
+            type: string
+          in: query
+          name: search
+          description: 'string to search in error, target and template'
+        - schema:
+            type: string
+          in: query
+          name: error
+          description: error to search in log
+        - schema:
+            type: string
+          in: query
+          name: next_page_token
+          description: next page token
+  '/v1/scans/{scan_id}/scan_log':
+    parameters:
+      - schema:
+          type: string
+        name: scan_id
+        in: path
+        required: true
+    get:
+      summary: Get scan log of given scan id
+      tags:
+        - scan_log
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - logs
+                  - next_page_token
+                properties:
+                  logs:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ScanLogResp'
+                  next_page_token:
+                    type: string
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-scans-id-scan-log
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: host
+          description: target to search in log
+        - schema:
+            type: string
+          in: query
+          name: template
+          description: template to search in log
+        - schema:
+            type: string
+          in: query
+          name: matched
+          description: status to search in log
+        - schema:
+            type: string
+            format: date-time
+          in: query
+          name: time
+          description: time to filter the logs
+        - schema:
+            type: string
+          in: query
+          name: search
+          description: 'string to search in error, target and template'
+        - schema:
+            type: string
+          in: query
+          name: next_page_token
+  '/v1/scans/vulns/{vuln_id}/ticket':
+    parameters:
+      - schema:
+          type: string
+        name: vuln_id
+        in: path
+        required: true
+    post:
+      summary: Create vulns export to tracker
+      tags:
+        - scans
+      responses:
+        '200':
+          $ref: '#/components/responses/VulnsTrackerExportResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: post-vulns-id-ticket
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: reporting_config_id
+      security:
+        - X-API-Key: []
+      description: Create vulns export to tracker
+  /v1/scans/config/exclude:
+    get:
+      summary: Get excluded templates
+      tags:
+        - configurations
+      responses:
+        '200':
+          $ref: '#/components/responses/ExcludedTemplateResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-scans-config-exclude
+      parameters: []
+      security:
+        - X-API-Key: []
+      description: Get excluded templates
+    post:
+      summary: Add excluded templates
+      operationId: post-scans-config-exclude
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      tags:
+        - configurations
+      parameters: []
+      requestBody:
+        $ref: '#/components/requestBodies/ExcludeConfigRequest'
+      security:
+        - X-API-Key: []
+      description: Add excluded templates
+    delete:
+      summary: Delete excluded template ids
+      operationId: delete-scans-config-exclude
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      tags:
+        - configurations
+      parameters: []
+      requestBody:
+        $ref: '#/components/requestBodies/DeleteExcludedConfigRequest'
+      security:
+        - X-API-Key: []
+      description: Delete excluded template ids
+    parameters: []
+  /v1/scans/token:
+    get:
+      summary: Get Scans Token
+      description: Get user scan token usage details
+      tags:
+        - scans
+      responses:
+        '200':
+          $ref: '#/components/responses/GetScansTokenResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      operationId: get-v1-scans-token
+  '/v1/asset/{asset_id}':
+    parameters:
+      - schema:
+          type: string
+        name: asset_id
+        in: path
+        required: true
+    get:
+      summary: Get enumerated asset details
+      tags:
+        - assets
+      responses:
+        '200':
+          $ref: '#/components/responses/GetAssetResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-asset-id
+      parameters:
+        - schema:
+            type: string
+            enum:
+              - hosts
+              - ports
+              - endpoints
+              - http
+            x-go-type-name: EnumerationContentType
+          in: query
+          name: type
+          description: type of asset
+          required: true
+    delete:
+      summary: Delete enumerated asset
+      tags:
+        - assets
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: delete-v1-asset-asset_id
+      parameters:
+        - schema:
+            type: string
+            enum:
+              - hosts
+              - ports
+              - endpoints
+              - http
+            x-go-type: EnumerationContentType
+          in: query
+          name: type
+          description: type of asset
+          required: true
+    patch:
+      summary: Update asset details
+      tags:
+        - assets
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: patch-v1-asset-asset_id
+      parameters:
+        - schema:
+            type: string
+            enum:
+              - hosts
+              - ports
+              - endpoints
+              - http
+            x-go-type: EnumerationContentType
+          in: query
+          name: type
+          description: type of asset
+          required: true
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateEnumeratedAssetRequest'
+  '/v1/asset/enumerate/{enumerate_id}/stats':
+    parameters:
+      - schema:
+          type: string
+        name: enumerate_id
+        in: path
+        required: true
+    get:
+      summary: Get enumeration stats
+      tags:
+        - enumerations
+      responses:
+        '200':
+          $ref: '#/components/responses/EnumerationStatsResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-asset-enumerate-enumerate_id-stats
 components:
   schemas:
     VulnerabilityResults:
@@ -2203,6 +3934,12 @@ components:
           type: string
         vuln_status:
           type: string
+        vuln_hash:
+          type: string
+        labels:
+          type: array
+          items:
+            type: string
       required:
         - matcher_status
         - vuln_id
@@ -2212,6 +3949,7 @@ components:
         - event
         - template_id
         - result_type
+        - vuln_hash
     PrivateTemplates:
       title: PrivateTemplates
       type: object
@@ -2243,6 +3981,11 @@ components:
     ScanSchedule:
       title: ScanSchedule
       type: object
+      required:
+        - scan_frequency
+        - scan_id
+        - schedule_last_run
+        - schedule_next_run
       properties:
         scan_frequency:
           type: string
@@ -2250,13 +3993,40 @@ components:
           type: string
         schedule_last_run:
           type: string
-      required:
-        - scan_frequency
-        - scan_id
-        - schedule_last_run
+        schedule_next_run:
+          type: string
+        start_time:
+          type: string
+          format: time
+        hourly_frequency:
+          type: integer
+        custom_weekdays:
+          type: array
+          description: |-
+            Array of integer denoting the weekdays on which the scan is supposed to run.
+            0-6 denoting Sunday-Saturday.
+          items:
+            type: integer
+            minimum: 0
+            maximum: 6
     ScanStatusItem:
       title: ScanStatusItem
       type: object
+      required:
+        - scan_id
+        - status
+        - scan_time_elapsed
+        - progress
+        - failure_reason
+        - created_at
+        - updated_at
+        - total_target
+        - completed_at
+        - total_scan
+        - total_template
+        - name
+        - is_oss
+        - is_cloud
       properties:
         scan_id:
           type: string
@@ -2288,10 +4058,6 @@ components:
           type: boolean
         is_cloud:
           type: boolean
-        scan_frequency:
-          type: string
-        schedule_last_run:
-          type: string
         asset_ids:
           type: array
           items:
@@ -2320,21 +4086,8 @@ components:
           type: array
           items:
             type: string
-      required:
-        - scan_id
-        - status
-        - scan_time_elapsed
-        - progress
-        - failure_reason
-        - created_at
-        - updated_at
-        - total_target
-        - completed_at
-        - total_scan
-        - total_template
-        - name
-        - is_oss
-        - is_cloud
+        schedule:
+          $ref: '#/components/schemas/ScanSchedule'
     VulnerabilityEvent:
       title: VulnerabilityEvent
       type: object
@@ -2433,6 +4186,10 @@ components:
       properties:
         value:
           type: string
+        name:
+          type: string
+        severity:
+          type: string
         count:
           type: integer
       required:
@@ -2471,6 +4228,14 @@ components:
     VulnerabilityResultsOld:
       title: VulnerabilityResultsOld
       type: object
+      required:
+        - scan_id
+        - target
+        - template_id
+        - vuln_id
+        - matcher_status
+        - created_at
+        - event
       properties:
         scan_id:
           type: string
@@ -2498,14 +4263,8 @@ components:
           type: string
         vuln_status:
           type: string
-      required:
-        - scan_id
-        - target
-        - template_id
-        - vuln_id
-        - matcher_status
-        - created_at
-        - event
+        vuln_hash:
+          type: string
     templateListItem:
       title: templateListItem
       type: object
@@ -2610,6 +4369,7 @@ components:
         - open
         - closed
         - false_positive
+        - fixed
     ConfigResponse:
       title: ConfigResponse
       type: object
@@ -2626,6 +4386,8 @@ components:
           type: boolean
         global:
           type: boolean
+        provider_name:
+          type: string
         created_at:
           type: string
           format: date-time
@@ -2651,8 +4413,14 @@ components:
     EnumerationStats:
       title: EnumerationStats
       type: object
+      required:
+        - hosts
+        - http
+        - endpoints
+        - ports
+        - total_assets
       properties:
-        dns:
+        hosts:
           type: integer
           format: int64
         http:
@@ -2664,14 +4432,17 @@ components:
         ports:
           type: integer
           format: int64
-      required:
-        - dns
-        - http
-        - endpoints
-        - ports
-    EnumerateResponse:
-      title: EnumerateResponse
+        total_assets:
+          type: integer
+          format: int64
+    EnumerateData:
+      title: EnumerateData
       type: object
+      required:
+        - id
+        - name
+        - status
+        - created_at
       properties:
         id:
           type: string
@@ -2687,6 +4458,8 @@ components:
         enumeration_time:
           type: string
           format: duration
+        enumeration_type:
+          type: string
         enumeration_stats:
           $ref: '#/components/schemas/EnumerationStats'
         created_at:
@@ -2705,14 +4478,25 @@ components:
           type: boolean
         rescan_count:
           type: integer
-      required:
-        - id
-        - name
-        - status
-        - created_at
+        cloudlist_config_ids:
+          type: array
+          items:
+            type: string
+        cloudlist_provider_name:
+          type: string
+        enumeration_time_elapsed:
+          type: string
+        schedule:
+          $ref: '#/components/schemas/EnumerationSchedule'
     EnumerationContent:
       title: EnumerationContent
       type: object
+      required:
+        - enumeration_id
+        - name
+        - created_at
+        - id
+        - is_new
       properties:
         enumeration_id:
           type: string
@@ -2722,10 +4506,49 @@ components:
           type: string
         updated_at:
           type: string
-      required:
-        - enumeration_id
-        - name
-        - created_at
+        id:
+          type: integer
+          format: int64
+        labels:
+          type: array
+          items:
+            type: string
+        a:
+          type: array
+          items:
+            type: string
+        cname:
+          type: array
+          items:
+            type: string
+        host:
+          type: string
+        port:
+          type: integer
+        ip:
+          type: string
+        status_code:
+          type: integer
+        content_length:
+          type: integer
+        title:
+          type: string
+        technologies:
+          type: array
+          items:
+            type: string
+        webserver:
+          type: string
+        method:
+          type: string
+        source:
+          type: string
+        is_new:
+          type: boolean
+        type:
+          type: string
+        asset_hash:
+          type: string
     EnumerationIds:
       title: EnumerationIds
       type: object
@@ -2746,6 +4569,7 @@ components:
         - enumeration_id
         - scan_frequency
         - schedule_last_run
+        - schedule_next_run
       properties:
         enumeration_id:
           type: string
@@ -2753,6 +4577,596 @@ components:
           type: string
         schedule_last_run:
           type: string
+        schedule_next_run:
+          type: string
+        start_time:
+          type: string
+          format: time
+        hourly_frequency:
+          type: integer
+        custom_weekdays:
+          type: array
+          description: |-
+            Array of integer denoting the weekdays on which the scan is supposed to run.
+            0-6 denoting Sunday-Saturday.
+          items:
+            type: integer
+            minimum: 0
+            maximum: 6
+    ScansHistoryItems:
+      title: ScansHistoryItems
+      type: object
+      properties:
+        completed_request:
+          type: integer
+        name:
+          type: string
+        scan_id:
+          type: string
+        scan_time:
+          type: string
+        severity:
+          type: object
+        status:
+          type: string
+        time:
+          type: string
+        total_request:
+          type: integer
+        total_result:
+          type: integer
+        total_target:
+          type: integer
+        total_templates:
+          type: integer
+    GithubTemplateListItem:
+      title: GithubTemplateListItem
+      type: object
+      properties:
+        id:
+          type: string
+        templateURL:
+          type: string
+        name:
+          type: string
+      required:
+        - id
+        - templateURL
+        - name
+    IntegrationListItems:
+      title: GithubTemplateListItem
+      type: object
+      properties:
+        connection_id:
+          type: string
+        integration_id:
+          type: string
+        status:
+          type: string
+        identifier:
+          type: string
+        org_name:
+          type: string
+        account_type:
+          type: string
+        handle:
+          type: string
+      required:
+        - connection_id
+        - integration_id
+        - status
+        - identifier
+        - org_name
+        - account_type
+        - handle
+    TemplateStats:
+      type: object
+      x-examples:
+        Example 1:
+          date: '2024-02-03T08:40:19.911720715Z'
+          statistics:
+            authors:
+              0h1in9e: 1
+              0ri2n: 13
+              0ut0fb4nd: 1
+              0w4ys: 3
+            classification:
+              total: 4772
+              cvss-metrics: 4650
+              cvss-score: 2999
+              cve-id: 2349
+              cwe-id: 4679
+            description: 6665
+            directory:
+              total: 0
+            name: 7810
+            references: 5369
+            remediation: 2231
+            severity:
+              total: 7810
+              critical: 947
+              high: 1563
+              medium: 1457
+              low: 257
+              info: 3551
+              unknown: 35
+            tags:
+              '360': 1
+              '3600': 1
+              '''rpcms''': 1
+            total: 7810
+            type:
+              total: 7810
+              http: 7005
+              dns: 21
+              network: 134
+              file: 312
+              ssl: 27
+              websocket: 0
+              workflow: 191
+              headless: 16
+          template-version: main
+      properties:
+        date:
+          type: string
+        statistics:
+          type: object
+          properties:
+            authors:
+              type: object
+            classification:
+              type: object
+              properties:
+                total:
+                  type: integer
+                cvss-metrics:
+                  type: integer
+                cvss-score:
+                  type: integer
+                cve-id:
+                  type: integer
+                cwe-id:
+                  type: integer
+            description:
+              type: integer
+            directory:
+              type: object
+              properties:
+                total:
+                  type: integer
+            name:
+              type: integer
+            references:
+              type: integer
+            remediation:
+              type: integer
+            severity:
+              type: object
+              properties:
+                total:
+                  type: integer
+                critical:
+                  type: integer
+                high:
+                  type: integer
+                medium:
+                  type: integer
+                low:
+                  type: integer
+                info:
+                  type: integer
+                unknown:
+                  type: integer
+            tags:
+              type: object
+            total:
+              type: integer
+            type:
+              type: object
+              properties:
+                total:
+                  type: integer
+                http:
+                  type: integer
+                dns:
+                  type: integer
+                network:
+                  type: integer
+                file:
+                  type: integer
+                ssl:
+                  type: integer
+                websocket:
+                  type: integer
+                workflow:
+                  type: integer
+                headless:
+                  type: integer
+        template-version:
+          type: string
+    TemplateLeaderboard:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              author:
+                type: string
+              category:
+                type: object
+                properties:
+                  cloud:
+                    type: integer
+                  cve:
+                    type: integer
+                  fuzz:
+                    type: integer
+                  kve:
+                    type: integer
+              links:
+                type: object
+                properties:
+                  email:
+                    type: string
+                  github:
+                    type: string
+                  linkedin:
+                    type: string
+                  twitter:
+                    type: string
+                  website:
+                    type: string
+              points:
+                type: integer
+              protocol:
+                type: object
+                properties:
+                  dns:
+                    type: integer
+                  file:
+                    type: integer
+                  headless:
+                    type: integer
+                  http:
+                    type: integer
+                  ssl:
+                    type: integer
+                  tcp:
+                    type: integer
+              rank:
+                type: integer
+              severity:
+                type: object
+                properties:
+                  critical:
+                    type: integer
+                  high:
+                    type: integer
+                  info:
+                    type: integer
+                  low:
+                    type: integer
+                  medium:
+                    type: integer
+                  unknown:
+                    type: integer
+              templates:
+                type: integer
+        date:
+          type: string
+        result:
+          type: integer
+        total:
+          type: integer
+      x-examples:
+        Example 1:
+          data:
+            - author: dhiyaneshdk
+              category:
+                cloud: 0
+                cve: 154
+                fuzz: 1
+                kve: 34
+              links:
+                email: ''
+                github: ''
+                linkedin: ''
+                twitter: ''
+                website: ''
+              points: 26065
+              protocol:
+                dns: 0
+                file: 85
+                headless: 1
+                http: 1044
+                ssl: 0
+                tcp: 1
+              rank: 1
+              severity:
+                critical: 90
+                high: 195
+                info: 592
+                low: 89
+                medium: 161
+                unknown: 12
+              templates: 1139
+            - author: naglis
+              category:
+                cloud: 0
+                cve: 0
+                fuzz: 0
+                kve: 0
+              links:
+                email: ''
+                github: ''
+                linkedin: ''
+                twitter: ''
+                website: ''
+              points: 10
+              protocol:
+                dns: 0
+                file: 1
+                headless: 0
+                http: 0
+                ssl: 0
+                tcp: 0
+              rank: 792
+              severity:
+                critical: 0
+                high: 0
+                info: 1
+                low: 0
+                medium: 0
+                unknown: 0
+              templates: 1
+          date: all_time
+          result: 794
+          total: 794
+    EnumerationIDTypes:
+      title: EnumerationIDTypes
+      type: object
+      properties:
+        id:
+          type: string
+        types:
+          type: array
+          items:
+            enum:
+              - hosts
+              - ports
+              - http
+              - endpoints
+      required:
+        - id
+        - types
+    EnumerationIDTypesDetail:
+      title: EnumerationIDTypesDetail
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        total_assets:
+          type: integer
+        enumeration_type:
+          type: string
+        cloudlist_provider_name:
+          type: string
+        types:
+          type: array
+          items:
+            enum:
+              - hosts
+              - ports
+              - http
+              - endpoints
+      required:
+        - id
+        - types
+        - name
+        - enumeration_type
+    ScanConfigItem:
+      title: ScanConfigItem
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        provider_name:
+          type: string
+        config_type:
+          type: string
+      required:
+        - id
+        - name
+        - config_type
+    ScanConfig:
+      title: ScanConfig
+      type: object
+      properties:
+        targets:
+          type: array
+          items:
+            type: string
+        assets_lists:
+          type: array
+          items:
+            type: string
+        public_templates:
+          type: array
+          items:
+            type: string
+        early_templates:
+          type: array
+          items:
+            type: string
+        template_urls:
+          type: array
+          items:
+            type: string
+        template_ids:
+          type: array
+          items:
+            type: string
+        scan_config_ids:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScanConfigItem'
+        report_config_ids:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScanConfigItem'
+        alerting_config_ids:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScanConfigItem'
+        enumeration_ids:
+          type: array
+          items:
+            $ref: '#/components/schemas/EnumerationIDTypesDetail'
+    ScanConfigUpdateItem:
+      title: ScanConfigUpdateItem
+      type: object
+      properties:
+        targets:
+          type: array
+          items:
+            type: string
+        assets_lists:
+          type: array
+          items:
+            type: string
+        public_templates:
+          type: array
+          items:
+            type: string
+        early_templates:
+          type: array
+          items:
+            type: string
+        template_urls:
+          type: array
+          items:
+            type: string
+        template_ids:
+          type: array
+          items:
+            type: string
+        scan_config_ids:
+          type: array
+          items:
+            type: string
+        report_config_ids:
+          type: array
+          items:
+            type: string
+        alerting_config_ids:
+          type: array
+          items:
+            type: string
+        enumeration_ids:
+          type: array
+          items:
+            $ref: '#/components/schemas/EnumerationIDTypes'
+    ScanLogResp:
+      title: ScanLogResp
+      type: object
+      required:
+        - target
+        - template_id
+        - matched
+        - timestamp
+      properties:
+        target:
+          type: string
+        template_id:
+          type: string
+        matched:
+          type: boolean
+        error:
+          type: string
+        timestamp:
+          type: string
+    SchedulerFrequency:
+      title: SchedulerFrequency
+      type: string
+      enum:
+        - hourly
+        - daily
+        - weekly
+        - monthly
+        - custom
+      description: Allowed frequencies for the scheduler
+    ExcludedTemplate:
+      title: ExcludedTemplate
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        value:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+        - id
+        - value
+        - created_at
+        - updated_at
+    EnumerationCounts:
+      description: Example response
+      title: EnumerationCounts
+      type: object
+      properties:
+        total_enumeration:
+          type: integer
+          format: int64
+        total_unique_enumeration:
+          type: integer
+          format: int64
+        total_uploaded_enumeration:
+          type: integer
+          format: int64
+        total_discovery_enumeration:
+          type: integer
+          format: int64
+        total_cloud_enumeration:
+          type: integer
+          format: int64
+    AssetStats:
+      description: Example response
+      title: AssetStats
+      type: object
+      properties:
+        hosts:
+          type: integer
+          format: int64
+        http:
+          type: integer
+          format: int64
+        endpoints:
+          type: integer
+          format: int64
+        ports:
+          type: integer
+          format: int64
+        total_assets:
+          type: integer
+          format: int64
+      required:
+        - hosts
+        - http
+        - endpoints
+        - ports
+        - total_assets
   securitySchemes:
     X-API-Key:
       name: X-API-Key
@@ -2765,6 +5179,8 @@ components:
         application/json:
           schema:
             type: object
+            required:
+              - message
             properties:
               prompt:
                 type: string
@@ -2772,8 +5188,8 @@ components:
                 type: string
               template:
                 type: string
-            required:
-              - message
+              is_public:
+                type: boolean
         application/xml:
           schema:
             type: object
@@ -2870,6 +5286,8 @@ components:
         application/json:
           schema:
             type: object
+            required:
+              - message
             properties:
               ai_status:
                 type: boolean
@@ -2885,8 +5303,14 @@ components:
                 type: boolean
               early_template:
                 type: boolean
-            required:
-              - message
+              team_name:
+                type: string
+              is_team_owner:
+                type: boolean
+              is_read_only:
+                type: boolean
+              team_owner_name:
+                type: string
     DeleteTemplateResponse:
       description: Example response
       content:
@@ -2957,6 +5381,14 @@ components:
           schema:
             type: object
             properties:
+              current_page:
+                type: integer
+              result_count:
+                type: integer
+              total_results:
+                type: integer
+              total_pages:
+                type: integer
               message:
                 type: string
               data:
@@ -2965,24 +5397,11 @@ components:
                   $ref: '#/components/schemas/ScanStatusItem'
             required:
               - message
+              - current_page
+              - result_count
+              - total_results
+              - total_pages
               - data
-        application/xml:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-              data:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                    status:
-                      type: string
-            required:
-              - message
     TriggerUserScanResponse:
       description: Example response
       content:
@@ -3049,10 +5468,25 @@ components:
         application/json:
           schema:
             type: object
+            required:
+              - current_page
+              - result_count
+              - total_results
+              - total_pages
+              - message
+              - data
             properties:
+              current_page:
+                type: integer
+              result_count:
+                type: integer
+              total_results:
+                type: integer
+              total_pages:
+                type: integer
               message:
                 type: string
-              results:
+              data:
                 type: array
                 items:
                   $ref: '#/components/schemas/VulnerabilityResults'
@@ -3063,9 +5497,6 @@ components:
                     type: integer
               filters:
                 type: object
-            required:
-              - message
-              - results
     PostRetestTemplateResponse:
       description: Example response
       content:
@@ -3196,19 +5627,31 @@ components:
         application/json:
           schema:
             type: object
+            required:
+              - message
+              - current_page
+              - result_count
+              - total_results
+              - total_pages
+              - data
+              - new_matched
             properties:
               message:
                 type: string
+              current_page:
+                type: integer
+              result_count:
+                type: integer
+              total_results:
+                type: integer
+              total_pages:
+                type: integer
               data:
                 type: array
                 items:
                   $ref: '#/components/schemas/FiltersItem'
               new_matched:
                 type: integer
-            required:
-              - message
-              - data
-              - new_matched
     GetScanResultStatsResponse:
       description: Example response
       content:
@@ -3471,6 +5914,14 @@ components:
           schema:
             type: object
             properties:
+              current_page:
+                type: integer
+              result_count:
+                type: integer
+              total_results:
+                type: integer
+              total_pages:
+                type: integer
               message:
                 type: string
               data:
@@ -3479,6 +5930,10 @@ components:
                   $ref: '#/components/schemas/EnumerationContent'
             required:
               - message
+              - current_page
+              - result_count
+              - total_results
+              - total_pages
               - data
     GetEnumerateIdContentsResponse:
       description: Example response
@@ -3486,14 +5941,14 @@ components:
         application/json:
           schema:
             type: object
+            required:
+              - message
+              - data
             properties:
               message:
                 type: string
               data:
-                $ref: '#/components/schemas/EnumerationContent'
-            required:
-              - message
-              - data
+                $ref: '#/components/schemas/EnumerateData'
     GetEnumerationScheduleResponse:
       description: Example response
       content:
@@ -3536,8 +5991,6 @@ components:
             properties:
               scan_stats:
                 type: object
-                x-stoplight:
-                  id: cz2cn0f0j8fnm
                 required:
                   - total_scan
                   - total_unique_scan
@@ -3577,6 +6030,223 @@ components:
                     type: integer
                   uploaded:
                     type: integer
+    GetScansHistoryResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - current_page
+              - result_count
+              - total_results
+              - total_pages
+              - message
+              - data
+            properties:
+              message:
+                type: string
+              current_page:
+                type: integer
+              result_count:
+                type: integer
+              total_results:
+                type: integer
+              total_pages:
+                type: integer
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ScansHistoryItems'
+              total_completed_request:
+                type: integer
+              total_scan_run:
+                type: integer
+              total_unique_scan_run:
+                type: integer
+    EnumerateResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - current_page
+              - result_count
+              - total_results
+              - total_pages
+              - data
+            properties:
+              current_page:
+                type: integer
+              result_count:
+                type: integer
+              total_results:
+                type: integer
+              total_pages:
+                type: integer
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EnumerateData'
+    PostScanConfigResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - message
+            properties:
+              id:
+                type: string
+              message:
+                type: string
+    ErrorResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - message
+            properties:
+              message:
+                type: string
+              kind:
+                type: string
+              code:
+                type: string
+              error:
+                type: string
+              error_id:
+                type: string
+              param:
+                type: string
+              status:
+                type: integer
+    VulnsTrackerExportResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - ok
+              - vuln_id
+              - reporting_config_id
+              - reporting_config_name
+              - ticket_url
+              - ticket_id
+              - tracker_name
+            properties:
+              ok:
+                type: boolean
+              vuln_id:
+                type: string
+              reporting_config_id:
+                type: string
+              reporting_config_name:
+                type: string
+              ticket_url:
+                type: string
+              ticket_id:
+                type: string
+              tracker_name:
+                type: string
+    ExcludedTemplateResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ExcludedTemplate'
+    GetScansTokenResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - scan_tokens
+              - used_scan_token
+              - remaining_scan_token
+              - is_scannable
+              - start_date
+              - end_date
+            properties:
+              scan_tokens:
+                type: integer
+                format: int64
+              used_scan_token:
+                type: integer
+                format: int64
+              remaining_scan_token:
+                type: integer
+                format: int64
+              is_scannable:
+                type: boolean
+              start_date:
+                type: string
+                format: date-time
+              end_date:
+                type: string
+                format: date-time
+    GetAssetResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - id
+              - enumeration_id
+              - name
+              - created_at
+              - updated_at
+            properties:
+              id:
+                type: integer
+                format: int64
+              enumeration_id:
+                type: string
+              name:
+                type: string
+              created_at:
+                type: string
+              updated_at:
+                type: string
+              status_code:
+                type: string
+              technologies:
+                type: array
+                items:
+                  type: string
+              webserver:
+                type: string
+              request:
+                type: string
+              response:
+                type: string
+    EnumerationStatsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - asset_stats
+            properties:
+              asset_stats:
+                $ref: '#/components/schemas/AssetStats'
+              enumeration_stats:
+                $ref: '#/components/schemas/EnumerationCounts'
   parameters:
     template_id:
       name: template_id
@@ -3631,6 +6301,8 @@ components:
         application/json:
           schema:
             type: object
+            required:
+              - target
             properties:
               template_encoded:
                 type: string
@@ -3644,9 +6316,6 @@ components:
                 type: string
               vuln_id:
                 type: string
-            required:
-              - target
-              - vuln_id
     ShareTemplateRequest:
       content:
         application/json:
@@ -3704,23 +6373,51 @@ components:
                 type: array
                 items:
                   type: string
+              exclude_targets:
+                type: array
+                items:
+                  type: string
               enumeration_ids:
                 type: array
                 items:
                   $ref: '#/components/schemas/EnumerationIds'
+              schedule_only:
+                type: boolean
+              disable_global_alert_config:
+                type: boolean
+              disable_global_report_config:
+                type: boolean
+              disable_global_scan_config:
+                type: boolean
     SetScanScheduleRequest:
       content:
         application/json:
           schema:
             type: object
+            required:
+              - scan_id
+              - scan_frequency
             properties:
               scan_id:
                 type: string
               scan_frequency:
+                $ref: '#/components/schemas/SchedulerFrequency'
+              start_time:
                 type: string
-            required:
-              - scan_id
-              - scan_frequency
+                format: time
+              hourly_frequency:
+                type: integer
+                minimum: 1
+                maximum: 24
+              custom_weekdays:
+                type: array
+                description: |-
+                  0-6 denoting Sunday-Saturday.
+                  It accepts an array of weekday
+                items:
+                  type: integer
+                  minimum: 0
+                  maximum: 6
     SetEnumerationScheduleRequest:
       content:
         application/json:
@@ -3733,7 +6430,23 @@ components:
               enumeration_id:
                 type: string
               scan_frequency:
+                $ref: '#/components/schemas/SchedulerFrequency'
+              start_time:
                 type: string
+                format: time
+              hourly_frequency:
+                type: integer
+                minimum: 1
+                maximum: 24
+              custom_weekdays:
+                type: array
+                description: |-
+                  0-6 denoting Sunday-Saturday.
+                  It accepts an array of weekday
+                items:
+                  type: integer
+                  minimum: 0
+                  maximum: 6
     UpdateAssetRequest:
       content:
         application/json:
@@ -3840,6 +6553,8 @@ components:
         application/json:
           schema:
             type: object
+            required:
+              - vuln_status
             properties:
               vuln_ids:
                 type: array
@@ -3849,9 +6564,40 @@ components:
                 $ref: '#/components/schemas/VulnStatusEnum'
               type:
                 type: string
+              scan_id:
+                type: string
+              severity:
+                type: array
+                items:
+                  type: string
+              host:
+                type: array
+                items:
+                  type: string
+              template:
+                type: array
+                items:
+                  type: string
+              search:
+                type: string
+    PatchScanVulnsLabelsRequest:
+      content:
+        application/json:
+          schema:
+            type: object
             required:
-              - vuln_ids
-              - vuln_status
+              - ids
+            properties:
+              ids:
+                type: array
+                items:
+                  type: string
+              type:
+                type: string
+              labels:
+                type: array
+                items:
+                  type: string
     VerifyConfigRequest:
       content:
         application/json:
@@ -3863,6 +6609,92 @@ components:
               config:
                 type: string
               config_type:
+                type: string
+    DeleteVulnsRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              ids:
+                type: array
+                items:
+                  type: string
+              type:
+                type: string
+              vuln_status:
+                type: array
+                items:
+                  type: string
+              scan_id:
+                type: string
+              severity:
+                type: array
+                items:
+                  type: string
+              host:
+                type: array
+                items:
+                  type: string
+              template:
+                type: array
+                items:
+                  type: string
+              search:
+                type: string
+    CreateContributeRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              name:
+                type: string
+              template:
+                type: string
+              anonymous:
+                type: boolean
+            required:
+              - template
+              - anonymous
+    ExcludeConfigRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - values
+            properties:
+              values:
+                type: array
+                items:
+                  type: string
+    DeleteExcludedConfigRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - ids
+            properties:
+              ids:
+                type: array
+                items:
+                  type: integer
+                  format: int64
+    UpdateEnumeratedAssetRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              labels:
+                type: array
+                items:
+                  type: string
+              name:
                 type: string
 x-internal: false
 security:
