@@ -393,74 +393,143 @@
           "pages": [
             "api-reference/assets/get-asset-list",
             "api-reference/assets/upload-asset",
-            "api-reference/assets/get-asset-info",
-            "api-reference/assets/delete-asset",
-            "api-reference/assets/update-asset-metadata",
             "api-reference/assets/get-asset-content",
+            "api-reference/assets/delete-asset",
+            "api-reference/assets/delete-enumerated-asset",
+            "api-reference/assets/get-asset-metadata",
+            "api-reference/assets/update-asset-metadata",
             "api-reference/assets/update-asset-content"
           ]
         },
-
+        {
+          "group": "Auto Discovery",
+          "pages": [
+            "api-reference/enumerations/create-enumeration",
+            "api-reference/enumerations/get-enumeration",
+            "api-reference/enumerations/update-enumeration",
+            "api-reference/enumerations/delete-enumeration",
+            "api-reference/enumerations/get-enumeration-list",
+            "api-reference/enumerations/export-enumeration",
+            "api-reference/enumerations/rescan-enumeration",
+            "api-reference/enumerations/stop-enumeration",
+            "api-reference/enumerations/get-enumeration-contents",
+            "api-reference/enumerations/get-enumeration-schedules",
+            "api-reference/enumerations/set-enumeration-schedule",
+            "api-reference/enumerations/delete-enumeration-schedule",
+            "api-reference/enumerations/get-enumeration-stats"
+          ]
+        },
         {
           "group": "Templates",
           "pages": [
-            "api-reference/templates/get-public-template-list",
-            "api-reference/templates/get-public-template-data",
-            "api-reference/templates/get-template-list",
             "api-reference/templates/create-template",
-            "api-reference/templates/update-template",
-            "api-reference/templates/get-template-data",
-            "api-reference/templates/delete-template",
             "api-reference/templates/generate-ai-template",
-            "api-reference/templates/get-share-status",
+            "api-reference/templates/get-template",
+            "api-reference/templates/update-template",
+            "api-reference/templates/delete-template",
+            "api-reference/templates/get-template-list",
+            "api-reference/templates/get-public-template-list",
+            "api-reference/templates/get-public-template-stats",
+            "api-reference/templates/get-public-template",
+            "api-reference/templates/get-early-template-list",
+            "api-reference/templates/get-early-template",
+            "api-reference/templates/get-github-template-list",
+            "api-reference/templates/get-github-template",
             "api-reference/templates/share-template",
+            "api-reference/templates/get-share-status",
             "api-reference/templates/get-shared-template"
           ]
         },
         {
           "group": "Scans",
           "pages": [
-            "api-reference/scans/get-scans-status",
+            "api-reference/scans/get-scan-list",
             "api-reference/scans/create-scan",
-            "api-reference/scans/get-scan-by-id",
+            "api-reference/scans/get-scan",
+            "api-reference/scans/get-scan-ips",
+            "api-reference/scans/get-scans-token",
             "api-reference/scans/delete-scan",
             "api-reference/scans/update-scan",
             "api-reference/scans/stop-scan",
-            "api-reference/scans/rescan-by-id",
+            "api-reference/scans/rescan-scan",
             "api-reference/scans/import-oss-scan",
-            "api-reference/scans/results-filters",
+            "api-reference/scans/update-imported-scan",
             "api-reference/scans/get-scan-schedules",
             "api-reference/scans/set-scan-schedule",
-            "api-reference/scans/delete-scan-schedule"
+            "api-reference/scans/delete-scan-schedule",
+            "api-reference/scans/get-all-scan-stats",
+            "api-reference/scans/get-all-scans-history",
+            "api-reference/scans/get-scan-history",
+            "api-reference/scans/get-scan-config",
+            "api-reference/scans/update-scan-config",
+            "api-reference/scans/retest-vulnerability",
+            "api-reference/scans/delete-scan-vulnerability",
+            "api-reference/scans/export-scan-vulnerability",
+            "api-reference/scans/export-filtered-scan",
+            "api-reference/scans/export-scan",
+            "api-reference/scans/create-vulns-export-to-tracker",
+            "api-reference/scans/update-vulnerability-labels",
+            "api-reference/scans/update-vulnerability-status"
+          ]
+        },
+        {
+          "group": "Configurations",
+          "pages": [
+            "api-reference/configurations/get-config",
+            "api-reference/configurations/get-configs-list",
+            "api-reference/configurations/add-config",
+            "api-reference/configurations/update-config",
+            "api-reference/configurations/delete-config",
+            "api-reference/configurations/verify-config",
+            "api-reference/configurations/get-excluded-templates",
+            "api-reference/configurations/add-excluded-templates",
+            "api-reference/configurations/delete-excluded-template-ids"
           ]
         },
         {
           "group": "Results",
           "pages": [
-            "api-reference/results/get-result-by-scanid",
-            "api-reference/results/get-results",
-            "api-reference/results/get-vulnerability-by-id",
-            "api-reference/results/retest-vulnerability",
-            "api-reference/results/results-stats"
+            "api-reference/results/get-scan-results",
+            "api-reference/results/get-all-results",
+            "api-reference/results/get-scan-vulnerability",
+            "api-reference/results/get-scans-result-filters",
+            "api-reference/results/get-results-stats"
           ]
         },
         {
-          "group": "Retest",
+          "group": "Retests",
           "pages": [
-            "api-reference/retest/get-retest-results",
-            "api-reference/retest/create-retest-scan",
-            "api-reference/retest/get-retest-vulnerability"
+            "api-reference/retests/get-all-retest",
+            "api-reference/retests/create-retest",
+            "api-reference/retests/get-retest-vulnerability"
+          ]
+        },
+        {
+          "group": "Scan Logs",
+          "pages": [
+            "api-reference/scan_log/get-scan-log-of-given-scan-id",
+            "api-reference/scan_log/download-scan-log-of-given-scan-id"
+          ]
+        },
+        {
+          "group": "Error Logs",
+          "pages": [
+            "api-reference/elog/get-elogs-of-given-scan-id",
+            "api-reference/elog/download-elogs-of-given-scan-id"
           ]
         },
         {
           "group": "Users",
           "pages": [
-            "api-reference/users/get-user-profile",
             "api-reference/users/create-api-key",
             "api-reference/users/get-api-key",
-            "api-reference/users/delete-api-key",
             "api-reference/users/rotate-api-key",
-            "api-reference/users/add-feedback"
+            "api-reference/users/delete-api-key",
+            "api-reference/users/get-user-profile",
+            "api-reference/users/get-subscription-status",
+            "api-reference/users/create-feedback",
+            "api-reference/users/delete-user-from-system-along-with-all-data",
+            "api-reference/users/email-user-deletion-verification-code"
           ]
         }
       ]
