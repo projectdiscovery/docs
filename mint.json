@@ -361,7 +361,7 @@
     },
     {
       "group": "ProjectDiscovery Cloud Platform",
-      "pages": ["cloud/introduction", "cloud/features",]
+      "pages": ["cloud/introduction", "cloud/features"]
     },
     {
       "group": "Assets",
