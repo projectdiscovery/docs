@@ -26,7 +26,7 @@ Before you get started with scanning you will need two things:
 
 **Assets**
 
-Assets can be added in several ways. Refer to the [Assets documentation](/cloud/assets/overview) for details on adding your Assets through upload, asset discovery, or cloud integrations.
+Assets can be added in several ways. Refer to the [Assets documentation](/cloud/assets/overview) for details on adding your Assets through upload, discovery, or cloud integrations.
 
 **Templates**
 
@@ -35,33 +35,61 @@ PDCP includes our large community-curated library of public Nuclei templates. Yo
  - Check out the main [Nuclei templates](templates/introduction) section to learn more about templates or, 
  - Review the [Templates & Editor](/cloud/editor/overview) section for more information on using templates and the editor within PDCP
 
-## Creating Scans
 
-Scans can be connected through an existing Nuclei setup, or directly created through PDCP. Select the assets you want to scan, choose your templates, and select your scan options as desired to create a scan.
+## FAQ
 
-- Check out [Getting Started with PDCP Free](/cloud/free/overview) for details on connecting an existing Nuclei scan to PDCP to explore some of the features mentioned here.
+### Scanning Basics
 
-## Reviewing Scan Results (Vulnerabilities) 
+**What do I need to do before I can run a scan in PDCP?**
 
-### Find a scan
-Existing scans are located in the main Scans section of your PDCP environment. You can scroll through the list or use search to locate a specific scan. You can also filter based on the scan status to narrow the scope of displayed scans. 
+You will need to add assets and identify your templates. From the Scan page, select “Create Scan” to get started. 
 
-### Scan details (Viewing)
-Selecting an individual scan opens a scan detail page that includes:
- - Summary information (Total vulnerabilities, Active CVEs, Total assets) 
- - Filtering options for the displayed vulnerabilities (Status, Severity, Host information, templates) 
- - All vulnerabilities identified by the scan with corresponding severities
+**What are the differences between running Nuclei versus running a scan on PDCP?**
 
-### Scan details (Actions) 
-The scan detail page also includes capabilities for:
- - Rescanning 
- - Exporting
- - Retesting individual vulnerabilities
- - Status management for vulnerabilities (open, closed, mark as a false positive) 
+Scanning with PDCP differs from Nuclei in several ways. The main differences are the use of a different interactsh server along with distributed and faster scanning. 
 
-### Vulnerability details 
-Selecting an individual vulnerability shows details including:
- - The location (URL) where the vulnerability was identified 
- - The template used to identify the vulnerability
- - Vulnerability details including status, timestamp, IP address
+In addition, some scanning capabilities that are part of Nuclei are not included in PDCP (this is mainly due to security concerns). 
+If you have specific questions on support and future capabilities feel free to reach out to us with questions. 
 
+Capabilities that are offered in Nuclei that are not currently supported in PDCP include:
+
+ - file templates
+ - headless templates
+ - code templates
+ - workflows
+ - templates using a local wordlist
+
+ **How do I run a scan/upload existing scan results from Nuclei?**
+
+Scans can be run in Nuclei and connected to PDCP or you can run a scan directly in PDCP from the Scans page. 
+
+Scan results form Nuclei can be connected to ProjectDiscovery Cloud Platform
+ - Check out the [Connect Nuclei](https://docs.projectdiscovery.io/cloud/free/scan) page for details.
+
+### Vulnerabilities
+
+**My scan results in PDCP are different from my Nuclei results. What happened?**
+
+There are a number of possibilities for this, let’s look at some of the most likely causes. 
+
+If you have _more results_ in your scan from Nuclei than from PDCP, potential causes include:
+ - Scanning with templates that are not enabled in PDCP
+ - Scanning an internal host that not accessible to PDCP
+ - A potential PDCP bug
+
+If you have _fewer results_ in your scan from Nuclei than from PDCP, potential causes include:
+ - Use of dynamic IPs versus local static IPs that were blocked from the target URL for scanning
+ - Use of a different interactsh server (PDCP), public servers (Nuclei) may be blocked using WAFs
+
+**What happens if duplicate scan results are uploaded?**
+
+If a user uploads the same scan results - by uploading scan results from Nuclei to update an existing scan using the named scan ID -  PDCP discards duplicate data so the original results will remain. 
+
+Otherwise any scan information from Nuclei that is uploaded creates a new scan result page in PDCP. 
+
+**What are the scan statuses and what do they mean?**
+
+ - Stopped - This status indicates that a user has stopped the scan either in PDCP or via the API. Note: Scans in “starting” cannot be stopped. 
+ - Failed -  This status indicates that a scan has failed. Click on the icon on the scan list or result page to view error details for the failed scan. 
+ - Starting - Indicates that the scan is initializing.
+ - Running - Indicates the scan is in progress.
