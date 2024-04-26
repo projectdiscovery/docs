@@ -72,7 +72,7 @@ We are working on an on-prem version of our Cloud Platform. Get in touch with us
 
  <Accordion title="What is a scan?">
 
- A scan is a single evaluation for vulnerabilities (i.e., a scan powered by the Nuclei engine) of a single asset using any number of Nuclei templates. 
+ A scan is a single evaluation for vulnerabilities (i.e., a scan powered by the Nuclei engine) of a single asset (an IP, URL, Domain) using any number of Nuclei templates.
 
  Learn more about our [Nuclei templates](/templates/introduction) and our Cloud Platform [template editor](/cloud/editor/overview).
 
@@ -82,11 +82,10 @@ We are working on an on-prem version of our Cloud Platform. Get in touch with us
 
  A single scan token provides one scan. Tokens are offered in a subscription model and can be revised at any time (increased or decreased in subscription). 
 
- </Accordion>
-
-  <Accordion title="What is an asset?">
-
- An asset is a single target - IP, URL, or Domain. For example, blog.website.com is a single asset. 
+ - Tokens are withdrawn from an account after a scan has been initiated. 
+ - If you cancel a scan within the first 2 minutes, tokens are refunded to your account.
+ - Tokens are refunded for any scans that fail to complete.  
+ - Unused tokens do not roll over from month to month.
 
  </Accordion>
 
@@ -95,19 +94,6 @@ We are working on an on-prem version of our Cloud Platform. Get in touch with us
  If you have an existing ProjectDiscovery Cloud Platform account, you can subscribe under Settings --> Billing to purchase scan tokens.
 
     - For new users, visit https://cloud.projectdiscovery.io/ to sign up. 
-
- </Accordion>
-
- <Accordion title="How are scan tokens consumed?">
- Tokens are withdrawn from an account after a scan has been initiated. 1 scan uses one token. 
-
- If you cancel a scan within the first 2 minutes, tokens are refunded to your account. Tokens are also refunded for any scans that fail to complete.  
-
- </Accordion>
-
- <Accordion title="Do tokens roll over from month to month?">
-
- No, tokens do not automatically roll over from month to month. 
 
  </Accordion>
 
