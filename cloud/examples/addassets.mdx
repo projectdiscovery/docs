@@ -6,10 +6,66 @@ sidebarTitle: "What is exposed?"
 
 ## Summary 
 
-Review this example walking through a key workflow, to get started with identifying what you need to protect. What part of your tech stack is exposed to the internet?
+Review this example to walk through the steps you need to get started with identifying the assets you want to protect.
 
-This example identifies the important steps for your organization to figure the range of assets that you manage that need to be protected. 
+In this use case we identify the important steps for your organization to determine the range of assets that you manage that need to be protected. 
 
-A lot of organizations may already have visibility into their technical stack or inventory, in that case we offer an easy way to upload assets within the platform or with this API endpoint. 
+For organizations that have visibility into their technical stack or inventory, you can easily upload a list of assets to the Cloud platform or use this [API endpoint.](https://docs.projectdiscovery.io/api-reference/assets/upload-asset )
 
-This allow users to append any new assets they get in their inventory to our platform for vulnerability scannin
+For users that do not have a full list of assets we have two options:
+
+- **Discovery (early Beta)** - This is the simplest approach for a quick understanding of your exposed assets. Discovery is supported by multiple open source ProjectDiscovery tools to find subdomains, ports, and endpoints that are exposed on the internet. 
+
+   - *Note: We are actively building this feature. Discovery will continue to expand and improve to reflect the robust scope found in our open source tools.*
+
+- **Cloud Integration** - This feature supports numerous cloud service providers (AWS,GCP, Azure, CloudFlare, Fastly, and others). Once integration is configured the Cloud Platform polls the configured cloud service provider to continuously update
+for any changes made by your team.
+
+<img height="300" src="/images/platform/cloudintegrations.png" />
+
+## Steps to add assets
+
+You have two different options to add assets aside from upload.
+
+### Add a Cloud Integration
+
+<Steps>
+  <Step title="Open Assets">
+    Navigate to https://cloud.projectdiscovery.io/assets
+  </Step>
+  <Step title="Select your option to Add">
+    Choose **Cloud Integrations** from the subsections at the top and **Connect New**.
+  </Step>
+  <Step title="Choose a cloud provider">
+    Select from the options for cloud service providers and provide the configuration details.
+  </Step>
+  <Step title="Verify config">
+    Select **Verify** to complete the configuration and get the Cloud Platform started on discovering your assets.
+  </Step>
+</Steps>
+
+### Add Discovery
+
+<Steps>
+  <Step title="Open Assets">
+    Navigate to https://cloud.projectdiscovery.io/assets
+  </Step>
+  <Step title="Select your option to Add">
+    Choose **Discovery** from the subsections at the top and **Auto Discovery**.
+  </Step>
+  <Step title="Provide your Asset details">
+    Name your Assets and provide the domains, IPs, or CIDR ranges you want to enumerate. Select the discovery settings you 
+    want to apply and the frequency.
+  </Step>
+  <Step title="Create config">
+    Select **Create** to complete the configuration and get the Cloud Platform started on discovering your assets.
+  </Step>
+</Steps>
+
+## What's Next? 
+
+Now that you've defined the Assets you want the Cloud Platform to identify you can move on to building your scans and evaluating any discovered vulnerabilities. 
+
+- Review [scanning basics](/cloud/scanning/overview)
+- Explore [continuous scanning](/cloud/examples/continuousscan)
+- Set up [custom automation](/cloud/examples/customautomation)
