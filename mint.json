@@ -382,7 +382,7 @@
     }, 
     {
       "group": "Scanning",
-      "pages": ["cloud/scanning/overview", "cloud/scanning/nuclei-scan"]
+      "pages": ["cloud/scanning/overview", "cloud/scanning/nuclei-scan", "cloud/scanning/createscans"]
     },
     {
       "group": "API Reference",
