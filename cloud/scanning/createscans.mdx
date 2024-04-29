@@ -11,22 +11,22 @@ On Scans, the three sections (sub-tabs) offer Scans, Results, and Configurations
 
   - **Scans** -  view all of the scans you, or your team created.
   - **Results** - a summary of all scan results in a unified view.
-  - **Configurations** - explore integrations for alerting and ticketing, scan settings, and template options. (Check out the Scan Integrations page for more.) 
+  - **Configurations** - explore integrations for alerting and ticketing, scan settings, and template options. (Check out the [Integrations page](/cloud/scanning/integrations) for more.) 
 
-<Info> For hands-on examples of key workflows for scanning check out our [Use Cases.](/cloud/usecases) </Info>
 
 ## Scans
 The Scans tab provides a summary of your scan data and displays a list of all of your created scans. These results can be explored using search and filtering.
 
 The Scans section also includes the Create Scan and Connect to local Nuclei options.
 
+<Info> For hands-on examples of key workflows for scanning check out our [Use Cases.](/cloud/usecases) </Info>
 
 ### Creating a Scan
 From the Scans tab (or the main dashboard), select **Create New Scan** to open the scan creation workflow.
 
-<img height="300" src="/images/platform/createscans.png" />
+<img height="300" src="/images/platform/createscan.png" />
 
-For advanced scan configurations, check out the [docs for integrations](/cloud/scanning/integrations) we support for tools like Jira, Slack, and more. 
+For advanced scan configurations, check out [integrations](/cloud/scanning/integrations) we support for tools like Jira, Slack, and more. 
 
 <Steps>
   <Step title="Select Assets">
@@ -46,7 +46,7 @@ For advanced scan configurations, check out the [docs for integrations](/cloud/s
   </Step>
 </Steps>
 
-<Tip> Want to connect your existing Nuclei scan? Check [out our documentation](/cloud/scanning/nuclei-scan) on those steps here. </Tip>
+<Info> Want to connect your existing Nuclei scan? Check our [our documentation](/cloud/scanning/nuclei-scan) on those steps here. </Info>
 
 ## Results (Vulnerabilities) 
 
@@ -54,12 +54,14 @@ For advanced scan configurations, check out the [docs for integrations](/cloud/s
 The main **Results** section of Scans displays the summarized results of all the scans in your environment. 
 Your results can be explored and refined through the categories (Vulnerabilities, Info, Affected Assets) or through filtering (Status, Severity, Host)
 
-<img height="300" src="/images/platform/filterscans.png" />
+<img height="200" src="/images/platform/filterscans.png" />
 
 ### Individual Scans
 To view the results of an individual scan, select that scan from the Scans page by clicking on the name. This displays the results of that scan and includes categories (Vulnerabilities, Info, Affected Assets) or filtering (Status, Severity, Host) to explore the details of the individual scan. 
 
 Select the **Logs** tab to view scanning logs with information around time, assets, detection template, and match results. The Logs also include error information to assist with any troubleshooting. 
+
+<img height="200" src="/images/platform/ind-scan.png" />
 
 ### Vulnerabilities
 From the results view (all or individual) selecting a vulnerability expands to show you the complete details including the template(s), assets, and detection information. From the results page you can:
@@ -73,11 +75,9 @@ Click on the individual vulnerability to review detailed information, including 
 
 ### Configurations
 
-Configurations is where all of our great scanning-based integrations are housed. The Configurations section includes individual pages for each category outlined below:
+Configurations is where all of our great [scanning-based integrations](/cloud/scanning/integrations) are housed. The Configurations section includes individual pages for each category outlined below:
 
  - **Alerting** - currently supports integrations with Slack, MS Teams, Email, and Custom Webhooks. These great features can connect the scanning data with your teams through automation. 
  - **Ticketing** - currently supports integrations for Jira, GitHub, and GitLab. Use these integrations to create something as simple as an email notification, or integrate with Jira to create tickets based on your scan results. 
  - **Scan** -  configure custom http headers, template variables, and custom interactsh server for your scans.
  - **Template** - review our built in template configurations or create a new template configuration with template filters to include or exclude based on severity, tags, protocol, and template ID
-
-<Tip> Check out our documentation on Scan Integrations for details on setting up these integrations. </Tip>
