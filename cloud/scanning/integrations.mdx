@@ -1,0 +1,100 @@
+---
+title: "Scan Integrations"
+description: "A high-level user guide around integrations for scanning including alerts and ticketing"
+sidebarTitle: "Integrations"
+---
+
+## Summary
+
+ProjectDiscovery Cloud Platform (PDCP) includes integrations for several third-party tools with different user goals in mind. This includes tools that can keep your team up to date with real time alerts like email or Slack. 
+
+PDCP can also help automate the remediation process with direct integration to ticketing systems like Jira and GitHub.
+
+Visit [Scans --> Configurations](https://cloud.projectdiscovery.io/scans/configs) to access the integrations outlined below. 
+
+<Info> Check out our [Scans and Vulnerabilities docs](/cloud/scanning/createscans) for high-level information on creating a scan and reviewing your vulnerabilities. </Info>
+
+## Alerting Integrations
+
+Alerting integrations offer support for notifications as part of scanning and include Slack, Microsoft Teams, Email, and custom Webhooks. 
+
+<img height="300" src="/images/platform/scanintegrations.png" />
+
+### Slack
+
+PDCP supports scan notifications through Slack. To enable Slack notifications provide a name for your Configuration, a webhook, and an optional username. 
+
+Choose from the list of **Events** (Scan Started, Scan Finished, Scan Failed) to specify what notifications are generated. Events are all select by default 
+
+ - Refer to Slack's [documentation on creating webhooks](https://api.slack.com/messaging/webhooks) for additional details. 
+
+ ### MS Teams
+
+PDCP supports notifications through Microsoft Teams. To enable notifications, provide a name for your Configuration and a corresponding webhook.
+
+Choose from the list of **Events** (Scan Started, Scan Finished, Scan Failed)  to specify what notifications are generated.
+
+- Refer to [Microsoft’s documentation on creating webhooks](https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook?tabs=newteams%2Cdotnet) for additional details.
+
+### Email
+
+PDCP supports notifications via Email. To enable email notifications for completed scans simply add the desired email addresses.
+
+Check out a sample email below.
+
+<img height="300" src="/images/platform/scanemail.png" />
+
+### Webhook
+
+PDCP supports notifications via custom Webhook. This functionality supports posting events from any user-defined endpoint based on your environment and system requirements. 
+ 
+To enable webhook notifications for completed scans provide a config name, webhook URL, and the required authentication details. 
+
+For example, you could send a custom webhook to an internal alerting system:
+
+`https://example.com/hook/alert`
+
+## Ticketing
+
+The integrations under Ticketing offer support for ticketing functionality as part of scanning and include Jira, GitHub, and GitLab. 
+
+<img height="300" src="/images/platform/scansticketing.png" />
+
+### Jira
+
+PDCP provides integration support for Jira that includes creating new tickets when vulnerabilities are found. 
+
+Provide a name for the configuration, the Jira instance URL , the Account ID, the Email, and the associated API token. 
+
+Details on creating an API token are available [in the Jira documentation here.](https://support.atlassian.com/atlassian-account/docs/manage-api-tokens-for-your-atlassian-account/)
+
+### GitHub
+
+PDCP provides integration support for GitHub to support the creation of new tickets when vulnerabilities are found. 
+
+Provide a name for the configuration, the Organization or username, Project name, Issue Assignee, Token, and Issue Label. The Issue Label determines when a ticket is created. (For example, if critical severity is selected, any issues with a critical severity will create a ticket.)  
+
+ - The severity as label option adds a template result severity to any issues created. 
+ - Deduplicate posts any new results as comments on existing issues instead of creating new issues for the same result. 
+
+Details on setting up access in GitHub are available here. 
+
+### GitLab
+
+ProjectDiscovery Cloud Platform provides integration support for GitLab to support the creation of new tickets when vulnerabilities are found. Provide your GitLab username, Project name, Project Access Token and a GitLab Issue label. The Issue Label determines when a ticket is created. 
+(For example, if critical severity is selected, any issues with a critical severity will create a ticket.)  
+
+ - The severity as label option adds a template result severity to any GitLab issues created. 
+ - Deduplicate posts any new results as comments on existing issues instead of creating new issues for the same result. 
+
+ Refer to GitLab’s documentation for details on [configuring a Project Access token.](https://docs.gitlab.com/ee/user/project/settings/project_access_tokens.html#create-a-project-access-token) 
+
+## Scan Configs
+Use scan configurations to implement custom http headers, template variables, and custom interactsh server for your scans.
+
+
+## Template Configs
+
+Review our built in template configurations or create a new template configuration with template filters to include or exclude based on severity, tags, protocol, and template ID.
+
+Learn more about our [Template Editor!](/cloud/editor/overview)
