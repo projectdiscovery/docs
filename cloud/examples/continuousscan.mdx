@@ -5,3 +5,50 @@ sidebarTitle: "Continuous Scanning"
 ---
 
 ## Summary 
+
+Review this example to walk through the steps you need te set up a continuous scan. PDCP scanning focuses on providing speed and accuracy around the 
+vulnerabilities we identify. We want to ensure that you results are not filled with noise and help focus on the exploitable vulnerabilities that reflect the greatest risk. 
+
+To set up continuous scanning you will need:
+
+- The assets you care about. Refer to our user guide on [What is exposed?](/cloud/examples/addassets) to add your assets.
+- Creating a scan schedule to check for recent changes that may reflect new vulnerabilities.
+- Send notifications to your preferred channels (Ticketing or Alerts!) *By default, these alerts are sent to email.*
+  - Check out the [Scan Integrations](/cloud/scanning/integrations)for details.
+
+With these things set, the Cloud Platform can continuously run scans for you.
+
+## Create a Continuous Scan
+
+Follow the steps outlined below to create a new continuous scan. 
+
+ - *Note: To include an alert or ticket creation as part of the scan you will need to 
+have configured an integration. You can add an integration during the scan set up steps below or update an existing or previously created scan to add the integration.* 
+
+
+<Steps>
+  <Step title="Open Scans">
+    Navigate to https://cloud.projectdiscovery.io/scans and select **Create New Scan** to open the workflow to create a new scan. 
+  </Step>
+  <Step title="Choose Assets and templates">
+    Select (or add) the assets you want to include in your scheduled scan. Click **Next** and select the templates you want to use for this scan.
+  </Step>
+  <Step title="Scan Frequency">
+    Give the scan a name and select your scan frequency to configure how often you want this scan to run. 
+
+     - *You have to set up a schedule to enable a continuous scan.*
+  </Step>
+  <Step title="Integrations">
+    Select **Integrate** to choose an existing Integration, or configure the new integration you want to use with this scan. 
+    
+    - *You can also **Update** this scan after it is created to add the Integration.*
+  </Step>  
+
+</Steps>
+
+## What's Next?
+
+Once your scan has completed successfully for the first time you will see the scan results on the main **Results** tab as part of your full results. 
+Select the individual scan you just created from the **Scans** page to see the results for the individual scan. 
+
+Explore these results to learn more about any vulnerabilities we identified and the details around the timing, templates, severity and more. 
