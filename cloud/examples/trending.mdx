@@ -6,10 +6,10 @@ sidebarTitle: "Trending vulnerabilities"
 
 ## Summary 
 
-Say you hear about [a popular attack](https://techcrunch.com/2024/02/26/researchers-say-easy-to-exploit-security-bugs-in-connectwise-remote-access-software-now-under-mass-attack/) on the news.
-You obviously want to see if your organization is at risk or impacted by this vulnerability. 
+When you hear about [a popular attack](https://techcrunch.com/2024/02/26/researchers-say-easy-to-exploit-security-bugs-in-connectwise-remote-access-software-now-under-mass-attack/) on the news
+you obviously want to see if your organization is at risk for the vulnerability. 
 
-Review this example to see the steps to take to quickly set up a scan for a trending vulnerability. 
+ In this example you will quickly set up a scan to search across your infrastructure for a trending vulnerability. 
 
 ## Scan for a vulnerability
 
@@ -17,14 +17,14 @@ Review this example to see the steps to take to quickly set up a scan for a tren
 
 <Steps>
   <Step title="Search for the vulnerability">
-    Navigate to https://cloud.projectdiscovery.io/templates. Click on the sidebar to expand the view and search for the vulnerability `CVE-2024-1709`.
+    Navigate to https://cloud.projectdiscovery.io/templates. Click on the sidebar to expand the view and search for the trending vulnerability `CVE-2024-1709`.
   </Step>
   <Step title="Select the template">
-    Your search found the [applicable template.](https://cloud.projectdiscovery.io/public/CVE-2024-1709). Click to view those details under **Target**.
+    Your search found the [appropriate template.](https://cloud.projectdiscovery.io/public/CVE-2024-1709). Open it to view the template details under **Target**.
   </Step>
   <Step title="Choose assets">
     Click on **Target list** and then **Add more** to choose the assets you want to scan.
-     - For example, use the assets you added in the [earlier use case.](/cloud/examples/addassets)
+     - Add new assets, select existing assets, or use the assets you added in the [earlier example.](/cloud/examples/addassets)
   </Step>
   <Step title="Start your scan">
     Click **Scan now** to initiate a new scan.
@@ -35,7 +35,11 @@ Review this example to see the steps to take to quickly set up a scan for a tren
 
 ## What's Next?
 
-Once your scan has completed successfully you can see the results on the main **Results** tab as part of your total system results, or 
+Once your scan has completed review the details under the main **Results** tab as part of your total system results, or 
 select the individual scan to explore the specific scan and learn if your environment is impacted by this trending vulnerability! 
 
-Maybe you want to export those results to share with your wider organization or update this scan to recur on a weekly basis!
+As a next step you could:
+
+- Update the scan to recur on a weekly basis
+- Export those results to share with your organization
+- Add a notification to your scan to alert your team on Slack or Microsoft Teams
