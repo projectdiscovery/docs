@@ -1,12 +1,12 @@
 ---
 title: "What is exposed?"
-description: "What part of your tech stack is exposed to the internet?"
+description: "Add Assets to identify where your tech stack is exposed to the internet?"
 sidebarTitle: "What is exposed?"
 ---
 
 ## Summary 
 
-Walk through the steps you need to get started with identifying the assets you want to protect.
+Walk through the steps you need to identify the assets in your environment that you want to protect.
 
 For organizations that have visibility into their technical stack or inventory, you can easily upload a list of assets to the Cloud platform or use this [API endpoint.](https://docs.projectdiscovery.io/api-reference/assets/upload-asset )
 
@@ -23,7 +23,7 @@ for any changes made by your team.
 
 ## Add Assets
 
-You have two different options to add assets aside from upload.
+In addition to upload, you have two other options to add assets. You can configure a Cloud Integration, or use Discovery. 
 
 ### Add a Cloud Integration
 
@@ -31,11 +31,11 @@ You have two different options to add assets aside from upload.
   <Step title="Open Assets">
     Navigate to https://cloud.projectdiscovery.io/assets
   </Step>
-  <Step title="Select your option to Add">
+  <Step title="Select to Add">
     Choose **Cloud Integrations** from the subsections at the top and **Connect New**.
   </Step>
   <Step title="Choose a cloud provider">
-    Select from the options for cloud service providers and provide the configuration details.
+    Select from the available cloud service providers and provide the configuration details.
   </Step>
   <Step title="Verify config">
     Select **Verify** to complete the configuration and get the Cloud Platform started on discovering your assets.
@@ -48,24 +48,24 @@ You have two different options to add assets aside from upload.
   <Step title="Open Assets">
     Navigate to https://cloud.projectdiscovery.io/assets
   </Step>
-  <Step title="Select your option to Add">
-    Choose **Discovery** from the subsections at the top and **Auto Discovery**.
+  <Step title="Select to Add">
+    Choose **Discovery** from the sections at the top and select **Auto Discovery**.
   </Step>
   <Step title="Provide your Asset details">
     Name your Assets and provide the domains, IPs, or CIDR ranges you want to enumerate. Select the discovery settings you 
-    want to apply and the frequency.
+    want to apply and the frequency to check for newly added assets.
   </Step>
   <Step title="Create config">
     Select **Create** to complete the configuration and get the Cloud Platform started on discovering your assets.
   </Step>
 </Steps>
 
-After adding your assets to PDCP you're ready to start scanning. Using Cloud Integration or Discovery has set you up to ensure that the assets you added are maintained and up to date for scanning. 
+With a Cloud Integration or Discovery, you are now setup to ensure that the assets you added are maintained and up to date for scanning.  
 
 
 ## What's Next? 
 
-Now that you've defined the Assets you want the Cloud Platform to identify you can move on to building your scans and evaluating any discovered vulnerabilities. 
+Now that you've defined the Assets you want to include on the Cloud Platform you can move on to building your scans to detect vulnerabilities. 
 
 - Review [scanning basics](/cloud/scanning/overview)
 - Explore [continuous scanning](/cloud/examples/continuousscan)
