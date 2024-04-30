@@ -6,17 +6,18 @@ sidebarTitle: "Integrations"
 
 ## Summary
 
-ProjectDiscovery Cloud Platform (PDCP) includes integrations for several third-party tools with different user goals in mind. This includes tools that can keep your team up to date with real time alerts like email or Slack. 
+ProjectDiscovery Cloud Platform (PDCP) includes integrations for several third-party tools with different user goals in mind. 
+This includes tools that can keep your team up to date with real time alerts from applications like Slack, Microsoft Teams, and more.
 
 PDCP can also help automate the remediation process with direct integration to ticketing systems like Jira and GitHub.
 
-Visit [Scans --> Configurations](https://cloud.projectdiscovery.io/scans/configs) to access the integrations outlined below. 
+Visit the [Scans --> Configurations](https://cloud.projectdiscovery.io/scans/configs) section of PDCP to explore and configure your integrations.
 
-<Info> Check out our [Scans and Vulnerabilities docs](/cloud/scanning/createscans) for high-level information on creating a scan and reviewing your vulnerabilities. </Info>
+<Info> Check out our [Scans and Vulnerabilities](/cloud/scanning/createscans) documentation for high-level information on creating a scan and reviewing your vulnerabilities. </Info>
 
 ## Alerting Integrations
 
-Alerting integrations offer support for notifications as part of scanning and include Slack, Microsoft Teams, Email, and custom Webhooks. 
+Alerting integrations support notifications as part of scanning and include Slack, Microsoft Teams, Email, and custom Webhooks. 
 
 <img height="300" src="/images/platform/scanintegrations.png" />
 
@@ -24,9 +25,9 @@ Alerting integrations offer support for notifications as part of scanning and in
 
 PDCP supports scan notifications through Slack. To enable Slack notifications provide a name for your Configuration, a webhook, and an optional username. 
 
-Choose from the list of **Events** (Scan Started, Scan Finished, Scan Failed) to specify what notifications are generated. Events are all select by default 
+Choose from the list of **Events** (Scan Started, Scan Finished, Scan Failed) to specify what notifications are generated. All Events are selected by default 
 
- - Refer to Slack's [documentation on creating webhooks](https://api.slack.com/messaging/webhooks) for additional details. 
+ - Refer to Slack's [documentation on creating webhooks](https://api.slack.com/messaging/webhooks) for configuration details. 
 
  ### MS Teams
 
@@ -34,11 +35,11 @@ PDCP supports notifications through Microsoft Teams. To enable notifications, pr
 
 Choose from the list of **Events** (Scan Started, Scan Finished, Scan Failed)  to specify what notifications are generated.
 
-- Refer to [Microsoft’s documentation on creating webhooks](https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook?tabs=newteams%2Cdotnet) for additional details.
+- Refer to [Microsoft’s documentation on creating webhooks](https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook?tabs=newteams%2Cdotnet) for configuration details.
 
 ### Email
 
-PDCP supports notifications via Email. To enable email notifications for completed scans simply add the desired email addresses.
+PDCP supports notifications via Email. To enable email notifications for completed scans simply add your recipient email addresses.
 
 Check out a sample email below.
 
@@ -50,13 +51,13 @@ PDCP supports notifications via custom Webhook. This functionality supports post
  
 To enable webhook notifications for completed scans provide a config name, webhook URL, and the required authentication details. 
 
-For example, you could send a custom webhook to an internal alerting system:
+For example, send a custom webhook to an internal alerting system in this format:
 
 `https://example.com/hook/alert`
 
 ## Ticketing
 
-The integrations under Ticketing offer support for ticketing functionality as part of scanning and include Jira, GitHub, and GitLab. 
+The integrations under Ticketing support ticketing functionality as part of scanning and include support for Jira, GitHub, and GitLab. 
 
 <img height="300" src="/images/platform/scansticketing.png" />
 
@@ -74,10 +75,10 @@ PDCP provides integration support for GitHub to support the creation of new tick
 
 Provide a name for the configuration, the Organization or username, Project name, Issue Assignee, Token, and Issue Label. The Issue Label determines when a ticket is created. (For example, if critical severity is selected, any issues with a critical severity will create a ticket.)  
 
- - The severity as label option adds a template result severity to any issues created. 
+ - The severity as label option adds a template result severity to any GitHub issues created. 
  - Deduplicate posts any new results as comments on existing issues instead of creating new issues for the same result. 
 
-Details on setting up access in GitHub are available here. 
+Details on setting up access in GitHub [are available here.](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) 
 
 ### GitLab
 
