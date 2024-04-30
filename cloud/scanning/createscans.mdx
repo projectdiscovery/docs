@@ -5,44 +5,44 @@ sidebarTitle: "Scans and Vulnerabilities"
 ---
 
 Scans are at the heart of the ProjectDiscovery Cloud Platform (PDCP). 
-After adding assets select the templates you want to use, and complete the scan details to start checking your tech stack for exploitable vulnerabilities.
+After [adding assets](/cloud/assets/adding-assets), select the templates you want to use, and complete the scan details to start checking your tech stack for exploitable vulnerabilities.
 
-On Scans, the three sections (sub-tabs) offer Scans, Results, and Configurations.
+On Scans, the three sections (sub-tabs) are Scans, Results, and Configurations.
 
   - **Scans** -  view all of the scans you, or your team created.
   - **Results** - a summary of all scan results in a unified view.
-  - **Configurations** - explore integrations for alerting and ticketing, scan settings, and template options. (Check out the [Integrations page](/cloud/scanning/integrations) for more.) 
+  - **Configurations** - explore integrations for alerting and ticketing, scan settings, and template options. (Check out the [Integrations page](/cloud/scanning/integrations) for details.) 
 
 ## Scans
 The Scans tab provides a summary of your scan data and displays a list of all of your created scans. These results can be explored using search and filtering.
 
-The Scans section also includes the Create Scan and Connect to local Nuclei options.
+The Scans section also includes the **Create Scan** and **Connect to local Nuclei** options.
 
 <img height="200" src="/images/platform/scanpage.png" />
 
-<Info> For hands-on examples of key workflows for scanning check out our [Use Cases.](/cloud/usecases) </Info>
+<Info> For examples of common scanning workflows check out our [Use Cases.](/cloud/usecases) </Info>
 
 ### Creating a Scan
-From the Scans tab (or the main dashboard), select **Create New Scan** to open the scan creation workflow.
+From the Scans tab select **Create New Scan** to open the creation workflow.
 
 <img height="200" src="/images/platform/createscan.png" />
 
-For advanced scan configurations, check out [integrations](/cloud/scanning/integrations) we support for tools like Jira, Slack, and more. 
+For advanced scan configurations, check out [Integrations](/cloud/scanning/integrations) we support for Jira, Slack, and more. 
 
 <Steps>
   <Step title="Select Assets">
-    Select from existing Assets or upload new assets.
+    Select from existing Assets or add new assets.
   </Step>
   <Step title="Choose your templates">
     Choose the templates you want to use for scanning.
-    - Template Profiles (groups of templates for a specific goal)
-    - Custom Templates (either from Nuclei template library or any custom templates you’ve created and added to the Cloud Platform)
+    - Template Profiles (groups of templates for a specific category)
+    - Custom Templates (from the full Nuclei template library or any custom templates)
   </Step>
   <Step title="Finalize configuration">
-    Provide a name, select a scan frequency, and finalize any additional configurations (integrations, configurations, or variables).
+    Provide a name, select a scan frequency, and complete any additional configurations (integrations, configurations, or variables).
   </Step>
   <Step title="Create your scan">
-    Click **Create Scan** to finalize and start this new scan. Your new scan will be added to the Scans page with an in-progress status until it completes and provides the results of the scan with any vulnerabilities. 
+    Click **Create Scan** to start your new scan. This scan will be added to the Scans page with an in-progress status until it completes and provides the results of the scan with any vulnerabilities. 
 
   </Step>
 </Steps>
@@ -53,6 +53,7 @@ For advanced scan configurations, check out [integrations](/cloud/scanning/integ
 
 ### All Scans
 The main **Results** section of Scans displays the summarized results of all the scans in your environment. 
+
 Your results can be explored and refined through the categories (Vulnerabilities, Info, Affected Assets) or through filtering (Status, Severity, Host)
 
 <img height="200" src="/images/platform/filterscans.png" />
@@ -68,15 +69,17 @@ Select the **Logs** tab to view scanning logs with information around time, asse
 From the results view (all or individual) selecting a vulnerability expands to show you the complete details including the template(s), assets, and detection information. From the results page you can:
 
  - Export your vulnerabilities (JSON, CSV, PDF)
- - Modify the status of the vulnerability (false positives/closed)
+ - Modify the status of the vulnerabilities (false positives/closed)
  - Retest individual vulnerabilities
- - Review the template used to identify the vulnerability
+ - Review the template used to identify vulnerabilities
 
 Click on the individual vulnerability to review detailed information, including remediation recommendations.
 
+<img height="200" src="/images/platform/vulndetails.png" />
+
 ### Configurations
 
-Configurations is where all of our great [scanning-based integrations](/cloud/scanning/integrations) are housed. The Configurations section includes individual pages for each category outlined below:
+Configurations is where all of our [scanning-based integrations](/cloud/scanning/integrations) are available. The Configurations section includes individual pages for each category outlined below:
 
  - **Alerting** - currently supports integrations with Slack, MS Teams, Email, and Custom Webhooks. These great features can connect the scanning data with your teams through automation. 
  - **Ticketing** - currently supports integrations for Jira, GitHub, and GitLab. Use these integrations to create something as simple as an email notification, or integrate with Jira to create tickets based on your scan results. 
