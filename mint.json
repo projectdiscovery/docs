@@ -361,7 +361,11 @@
     },
     {
       "group": "ProjectDiscovery Cloud Platform",
-      "pages": ["cloud/introduction", "cloud/features", "cloud/general-faq"]
+      "pages": ["cloud/introduction", "cloud/features", "cloud/general-faq", "cloud/usecases"]
+    },
+    {
+      "group": "Use Cases",
+      "pages": ["cloud/examples/addassets", "cloud/examples/continuousscan", "cloud/examples/customautomation", "cloud/examples/trending"]
     },
     {
       "group": "Assets",
