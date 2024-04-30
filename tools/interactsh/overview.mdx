@@ -3,7 +3,7 @@ title: Interactsh Overview
 description: "A tool for detecting out-of-band vulnerabilities"
 sidebarTitle: Overview
 ---
-**Interactsh** is an open-source tool for detecting out-of-band (OOB) vulnerabilities that may not be detected with conventional tools or methods. By generating dynamic URLs, which when requested by the target, trigger a callback that can be used to identify a vulnerability.
+**Interactsh** is an open-source tool developed by ProjectDiscovery for detecting [out-of-band (OOB) vulnerabilities](https://portswigger.net/burp/application-security-testing/oast). These are vulnerabilities that may not be identified using conventional tools or methods. Interactsh operates by generating dynamic URLs. When these URLs are requested by a target, they trigger a callback. This callback can then be monitored and analyzed to identify potential vulnerabilities in the target. 
 
 Check out [our blog introducing Interactsh](https://blog.projectdiscovery.io/interactsh-release/) and [view the repo here](https://github.com/projectdiscovery/interactsh).
 
@@ -22,6 +22,22 @@ Check out [our blog introducing Interactsh](https://blog.projectdiscovery.io/int
 - Customizable Index / File hosting **(self-hosted)**
 - Customizable Payload Length **(self-hosted)**
 - Custom SSL Certificate **(self-hosted)**
+
+## Client & Server
+The Interactsh tool comprises two main components: [`interachsh-cleint`](/tools/interactsh/running) and [`interachsh-server`](/tools/interactsh/server). Each plays a critical role in the process of detecting out-of-band vulnerabilities, but they operate in distinct manners and serve different purposes.
+
+### Interactsh Server
+* Function: Captures and records callbacks from interaction URLs.
+* Deployment: Hosted publicly to receive requests from tested systems.
+* Use Case: Ideal for those hosting their instance for privacy or control.
+
+ProjectDiscovery maintains a number of [publically accessable interactsh servers](/tools/interactsh/running#projectdiscovery-interachsh-servers) that you can use in order to only run the client for your specific use case. Alternatively, you can [self host your own interactsh server](/tools/interactsh/running#self-hosted-interactsh-server) if you want it to run on your custom domain or you need more control over the server side interactions.
+
+### Interactsh Client
+* Function: Generates URLs for testing, retrieves interaction logs from the server.
+* Deployment: Runs locally for managing URLs and analyzing captured data.
+* Use Case: Used by testers to create and analyze tests for out-of-band vulnerabilities.
+
 
 ## Support 
 Questions about using Interactsh? Issues working through installation? Cool story or use case you want to share? Get in touch! 
