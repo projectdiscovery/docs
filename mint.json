@@ -80,12 +80,16 @@
       "pages": ["introduction", "documentation-nav", "overview"]
     },
     {
-      "group": "Get Started",
+      "group": "New to Open Source?",
       "pages": [
         "getstarted-overview",
         "getstarted-example",
         "getstarted-nextsteps"
       ]
+    },
+    {
+      "group": "ProjectDiscovery Cloud Platform",
+      "pages": ["cloudplatform"]
     },
     {
       "group": "Tools",
