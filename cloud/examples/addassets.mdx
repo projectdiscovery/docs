@@ -12,18 +12,16 @@ For organizations that have visibility into their technical stack or inventory, 
 
 For users that do not have a full list of assets we have two options:
 
-- **Discovery (early Beta)** - This is the simplest approach for a quick understanding of your exposed assets. Discovery is supported by multiple open source ProjectDiscovery tools to find subdomains, ports, and endpoints that are exposed on the internet. 
+- **Add Assets with Auto Discovery** - This is the simplest approach for a quick understanding of your exposed assets. Auto Discovery is supported by multiple open source ProjectDiscovery tools to find subdomains, ports, and endpoints that are exposed on the internet. 
 
    - *Note: We are actively building this feature. Discovery will continue to expand and improve to reflect the robust scope found in our open source tools.*
 
-- **Cloud Integration** - This feature supports numerous cloud service providers (AWS,GCP, Azure, CloudFlare, Fastly, and others). Once integration is configured the Cloud Platform polls the configured cloud service provider to continuously update
+- **Integrate Cloud Services** - This feature supports numerous cloud service providers (AWS,GCP, Azure, CloudFlare, Fastly, and others). Once integration is configured the Cloud Platform polls the configured cloud service provider to continuously update
 for any changes made by your team.
 
 <img height="300" src="/images/platform/cloudintegrations.png" />
 
-## Add Assets
-
-In addition to upload, you have two other options to add assets. You can configure a Cloud Integration, or use Discovery. 
+## Add Assets for 
 
 ### Add a Cloud Integration
 
@@ -32,35 +30,36 @@ In addition to upload, you have two other options to add assets. You can configu
     Navigate to https://cloud.projectdiscovery.io/assets
   </Step>
   <Step title="Select to Add">
-    Choose **Cloud Integrations** from the subsections at the top and **Connect New**.
+    Choose **Integrate Cloud Services** to show the full list of supported cloud services providers. 
   </Step>
   <Step title="Choose a cloud provider">
-    Select from the available cloud service providers and provide the configuration details.
+    Select from the available cloud service providers, click **Connect** and provide the configuration details.
   </Step>
   <Step title="Verify config">
     Select **Verify** to complete the configuration and get the Cloud Platform started on discovering your assets.
   </Step>
 </Steps>
 
-### Add Discovery
+### Add New Assets with Auto Discovery
 
 <Steps>
   <Step title="Open Assets">
     Navigate to https://cloud.projectdiscovery.io/assets
   </Step>
   <Step title="Select to Add">
-    Choose **Discovery** from the sections at the top and select **Auto Discovery**.
+    Choose **Add New Assets** to open the asset workflow. 
   </Step>
   <Step title="Provide your Asset details">
-    Name your Assets and provide the domains, IPs, or CIDR ranges you want to enumerate. Select the discovery settings you 
-    want to apply and the frequency to check for newly added assets.
+   Add your Assets as root domains, IPs, or CIDR ranges you want to enumerate.
+     - You can add up to 50,000 individual hosts or 50 root domains.
+     - Click the **Advanced** tab to manually update the Auto Discovery Settings, and select a schedule.
   </Step>
   <Step title="Create config">
-    Select **Create** to complete the configuration and get the Cloud Platform started on discovering your assets.
+    Select **Add Assets** to complete the configuration and get the Cloud Platform started on discovering your assets.
   </Step>
 </Steps>
 
-With a Cloud Integration or Discovery, you are now setup to ensure that the assets you added are maintained and up to date for scanning.  
+With a Cloud Integration or Assets including Auto Discovery, you are now set up to ensure that the assets you added are maintained and up to date for scanning.  
 
 
 ## What's Next? 
