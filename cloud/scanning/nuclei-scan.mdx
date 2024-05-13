@@ -8,6 +8,17 @@ sidebarTitle: "Connect Nuclei"
 
 In this section we'll walk through the steps you need to run a scan in [Nuclei](/tools/nuclei/overview) and connect your scan to ProjectDiscovery Cloud Platform (PDCP). 
 
+## Set up your API Key
+
+To connect your existing Nuclei results to PDCP you will need to create a free API Key 
+
+
+    1.  Visit https://cloud.projectdiscovery.io 
+    2. Open the setting menu from the top right and select "API Key" to create your API Key
+    <img class="block" src="/images/pdcp-api-key.png" alt="PDCP API Key" />
+    3.  Use the `nuclei -auth` command, and enter your API key when prompted.
+
+
 ## Run a Scan
 
 To run a scan, from a terminal window with your Nuclei installation, use the `nuclei -target` or `nuclei -u` option to designate a target/host. 
