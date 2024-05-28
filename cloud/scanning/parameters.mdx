@@ -1,0 +1,121 @@
+---
+title: "Adding Parameters"
+description: "A walkthrough of adding additional parameters to PDCP scan configuration"
+sidebarTitle: "Adding Parameters"
+---
+
+## Summary
+Some Nuclei templates, to adapt to running in ProjectDiscovery Cloud Platform (PDCP), may require additional parameters. 
+A common example is Nuclei templates that need parameters like username and password to authenticate.
+
+This page provides a common example to show you the steps required to set up scan parameters.
+Using the scan configuration you can take advantage of these types of Nuclei templates within PDCP. 
+
+## Authentication Example 
+
+In this example we’re going to look at a Nuclei template that requires WordPress authentication. 
+
+WordPress authentication is required for over 150 different Nuclei templates, and in each of these the templates can't be executed without configuring additional parameters. 
+
+For example:
+
+```yaml
+
+id: CVE-2023-1890
+
+info:
+  name: Tablesome < 1.0.9 - Cross-Site Scripting
+  author: r3Y3r53
+  severity: medium
+  description: |
+    Tablesome before 1.0.9 is susceptible to cross-site scripting via the tab parameter due to insufficient input sanitization and output escaping. An attacker can inject arbitrary script in the browser of an unsuspecting user in the context of the affected site. This can allow the attacker to steal cookie-based authentication credentials and launch other attacks.
+  impact: |
+    Successful exploitation of this vulnerability could lead to the execution of arbitrary JavaScript code in the context of the victim's browser, potentially leading to session hijacking, defacement, or theft of sensitive information.
+  remediation: Fixed in version 1.0.9.
+  reference:
+    - https://wpscan.com/vulnerability/8ef64490-30cd-4e07-9b7c-64f551944f3d
+    - https://wordpress.org/plugins/tablesome/
+    - https://nvd.nist.gov/vuln/detail/CVE-2023-1890
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N
+    cvss-score: 6.1
+    cve-id: CVE-2023-1890
+    cwe-id: CWE-79
+    epss-score: 0.00203
+    epss-percentile: 0.57653
+    cpe: cpe:2.3:a:pauple:tablesome:*:*:*:*:*:wordpress:*:*
+  metadata:
+    verified: true
+    max-request: 2
+    vendor: pauple
+    product: tablesome
+    framework: wordpress
+  tags: cve2023,cve,wpscan,wp,wp-plugin,wordpress,authenticated,xss,tablesome,pauple
+
+http:
+  - raw:
+      - |
+        POST /wp-login.php HTTP/1.1
+        Host: {{Hostname}}
+        Content-Type: application/x-www-form-urlencoded
+
+        log={{username}}&pwd={{password}}&wp-submit=Log+In
+      - |
+        GET /wp-admin/edit.php?post_type=tablesome_cpt&a%22%3e%3cscript%3ealert`document.domain`%3c%2fscript%3e HTTP/1.1
+        Host: {{Hostname}}
+
+    matchers:
+      - type: dsl
+        dsl:
+          - 'status_code_2 == 200'
+          - 'contains(content_type_2, "text/html")'
+          - 'contains(body_2, "<script>alert`document_domain`</script>")'
+          - 'contains(body_2, "tablesome")'
+        condition: and
+
+```
+
+In the first request there are two variables that are not defined in the template. 
+Users are expected to pass the values of these variables `{{username}}` and `{{password}}`. 
+
+```
+   POST /wp-login.php HTTP/1.1
+        Host: {{Hostname}}
+        Content-Type: application/x-www-form-urlencoded
+
+        log={{username}}&pwd={{password}}&wp-submit=Log+In
+```
+
+In Nuclei from the CLI you would simply run the following command:
+
+`nuclei -id CVE-2023-1890 -var username=admin -var password=password123 -target https://example.com`
+
+However, PDCP requires some additional configuration to include these parameters in a scan. 
+
+## Variable Configuration in PDCP
+
+To configure these required scan parameters in PDCP you can create a Scan Configuration to pass these variables along in any scans you create. 
+You can choose to enable this configuration for all scans by default, or apply the configuration manually when you set up a new scan. 
+
+Complete these steps to set up an username and password parameters for a scan that includes WordPress authentication within the Nuclei templates. 
+
+<Steps>
+  <Step title="Navigate to Scans">
+    Select Configurations. Next select **Scans** and **New Config**.
+  </Step>
+  <Step title="Complete Scan configuration">
+    - Enter WP Login as the configuration name
+    - Under Template variables enter **key** with the desired username and **value** with the corresponding password
+    - Update Enable for all scans based on your preferences. _Keeping it selected (default) will pass the new variables for any templates that has these variables defined._ 
+  </Step>
+  <Step title="Complete your config">
+    Select **Create** to create the new scan configuration. 
+  </Step>
+</Steps>
+
+## What's Next? 
+Now that you have created a new scan configuration if set to “Enable for all scans” will appear as a configuration for any new scans you create. If this is not enabled you will be able to choose to apply this for any new scans you create.
+
+Otherwise, create a new scan and select any WordPress templates you want to include. You can also create a custom template profile to define a specific group of WP templates.
+
+
