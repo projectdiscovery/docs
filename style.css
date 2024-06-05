@@ -1,0 +1,14 @@
+nav ul li:nth-child(2) a {
+    display: block;
+    padding: 8px;
+    line-height: 18px;
+    border-radius: 8px;
+    background: #6366f1;
+    border: 1px solid #7e7fff;
+    transition: all 0.3s ease;
+}
+
+nav ul li:nth-child(2) a:hover {
+    background: #4d4fc4;
+    color: white !important;
+}
