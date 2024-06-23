@@ -1050,10 +1050,11 @@ local files such as those used for input lists or templates. To resolve this, th
 mapped to the local filesystem to allow access to these files.
 
 ### Basic Usage
-This example runs a Nuclei container against `google.com`, prints the results to JSON and removes the container once it
+This example creates an alias for containerized Nuclei, runs it against `google.com`, prints the results to JSON and removes the container once it
 has completed:
 ```sh
-docker run --rm projectdiscovery/nuclei -u google.com -jsonl
+alias nuclei="docker run --rm projectdiscovery/nuclei"
+nuclei -u google.com -jsonl
 ```
 
 ### Using Volumes
