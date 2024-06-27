@@ -1,0 +1,138 @@
+---
+title: "Generate Alerts in Slack"
+description: "Keep your team informed of important vulnerabilities in Slack"
+sidebarTitle: "Generate Alerts in Slack"
+---
+
+## Summary
+
+One of the most common security workflows focuses on making sure your team has visibility into potential exploits. Discovering an exploitable vulnerability is only one part of the process. 
+The next critical step is to alert your team so they can take action to triage and work towards remediation.
+
+In this example, we'll walk through setting up ProjectDiscovery Cloud Platform (PDCP) to establish this important workflow. You will add assets, configure a Slack integration, and initiate a scan. 
+This will ensure that your team can quickly review scan results, and act on any information the scan reveals to defend your infrastructure.
+
+## What You'll Do 
+In this walkthrough we're going to go step-by-step through the entire process and complete the following actions:
+
+- Add Assets 
+- Configure Slack 
+- Configure ProjectDiscovery Cloud Platform for Slack alerts
+- Start a scan to test your new alert
+
+## Add your Assets
+
+In this example we're going to stick with the simplest path and add assets to your PDCP environment by uploading a .TXT file with the domains you want to include for scanning. 
+
+If you already have assets in ProjectDiscovery Cloud Platform, you can skip ahead to Connecting Slack. For for other Asset upload options check out the docs on [Adding Assets.](/cloud/assets/adding-assets)
+
+
+<Steps>
+  <Step title="Add New Assets">
+    Navigate to the [Assets tab](https://cloud.projectdiscovery.io/assets) and select **Add New Assets**. 
+  </Step>
+  <Step title="Choose Scope">
+    On the Scope tab, use the **Upload files** option to add your .TXT file of domains.
+  </Step>
+  <Step title="Set your config options">
+    Select your preferred configuration options:
+     - Auto Discovery is enabled by default, select the toggle to disable if desired.
+     - If you choose to leave Auto Discovery enabled, select your desired frequency.
+     - Navigate to the Advanced tab to modify individual discovery settings for subdomains, open ports, etc.
+  </Step>
+  <Step title="Complete your setup">
+    Select **Add Assets** to complete the setup. 
+  </Step>  
+
+</Steps>
+
+Next, you will need to connect your ProjectDiscovery Cloud Platform to the Slack channel where you want to receive alerts. 
+
+## Connecting Slack
+
+After adding your assets, you will need to connect your ProjectDiscovery Cloud Platform environment to your Slack. 
+There are two parts to this, configuring your Slack environment, and configuring ProjectDiscovery Cloud Platform with your Slack details. 
+
+### Slack Setup
+
+Need help? Refer to [Slack's documentation](https://api.slack.com/messaging/webhooks) on webhooks for additional details. 
+
+<Steps>
+  <Step title="Create a Slack app">
+    From your Slack environment, use [this link](https://api.slack.com/messaging/webhooks) to open the steps for creating an incoming webhook.
+    
+    Under the first step 1. Create a Slack app, click the **Create your Slack app** button
+  </Step>
+  <Step title="Add your app details">
+    - Choose **From Scratch**
+    - Provide your Slack App with a Name
+    - Pick your workspace
+    - Select **Create app**
+  </Step>
+  <Step title="Incoming Webhooks">
+    Under **Building Apps for Slack** select the Incoming Webhooks option 
+    <img height="300" src="/images/platform/slackconfig1.png" />
+  </Step>
+  <Step title="Enable Webhooks">
+    Toggle the option to **Activate Incoming Webhooks** and once enabled select the **Add New Webhook to Workspace** option.
+     - Select a channel to configure for the Webhook integration.
+     - Once you've identified a channel, Slack sends a test message to let you know there is a new integration.
+  </Step>    
+  <Step title="Save the URL">
+    Copy the Webhook URL you generated and save this information to add to your ProjectDiscovery Cloud Platform integration settings. 
+  </Step>  
+
+</Steps>
+
+### PDCP Setup for Slack
+
+*Before getting started with this part of the setup ensure that you have completed the configuration required in Slack and have your Webhook URL and Username details available.* 
+
+<Steps>
+  <Step title="Set up your Slack Integration">
+  Navigate to **Scans → Configurations**. Select Alerting and then **Connect** under the option for Slack. 
+  </Step>
+  <Step title="Add Config to Slack">
+    - Provide a name for your Slack configuration
+    - Provide the webhook you created in Slack for PDCP
+    - *Optional* Provide a username for your Slack configuration 
+  </Step>
+  <Step title="Select Events">
+   Select the Events you would like to trigger notifications from ProjectDiscovery Cloud Platform to your Slack channel. 
+  </Step>
+  <Step title="Finalize your integration">
+   Select **Verify** to finalize your configuration. 
+  </Step>    
+ 
+</Steps>
+
+Now that your configuration is set up, create a scan and verify your alert in Slack.   
+
+## Create a Scan with Alert
+
+The final step is to create a scan, verify that your Slack integration is set up correctly, and check for the alert to the Slack channel you configured. 
+
+<Steps>
+  <Step title="Create a new scan">
+  From the Scans tab select **Create New Scan** to open the creation workflow. 
+  </Step>
+  <Step title="Complete Scan Details">
+  - Select from the Assets we added in the first step. 
+  - Choose the templates or template profile you want to use for scanning. *For this example we suggest keeping the Recommended template profile.*
+  </Step>
+  <Step title="Finalize your config">
+   Provide a name, select a scan frequency, and complete any additional configurations (integrations, configurations, or variables).
+  </Step>
+  <Step title="Finish creating">
+   Click **Create Scan** to start your new scan. This scan will be added to the Scans page with an in-progress status until it completes and provides the results of the scan with any vulnerabilities.
+  </Step>    
+  <Step title="Check for Alerts">
+   Check your Slack channel to verify that your alert is working as expected! You should see something similar to the image here.
+   <img height="300" src="/images/platform/slackalert.png" />
+  </Step> 
+</Steps>
+
+## What's Next? 
+This example walks through integrating with Slack to alert your team about Scans. If you're interested in other options ProjectDiscovery Cloud Platform also supports alert workflows for Microsoft Teams, Email, and custom webhooks. 
+
+For even more integrations, check out our other Use Cases.
