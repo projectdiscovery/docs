@@ -367,7 +367,11 @@
     },
     {
       "group": "ProjectDiscovery Cloud Platform",
-      "pages": ["cloud/introduction", "cloud/features", "cloud/general-faq", "cloud/usecases", "cloud/admin"]
+      "pages": ["cloud/introduction", "cloud/features", "cloud/usecases"]
+    },
+    {
+      "group": "General Admin",
+      "pages": ["cloud/general-faq","cloud/admin"]
     },
     {
       "group": "Assets",
