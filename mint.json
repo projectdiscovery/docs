@@ -370,10 +370,6 @@
       "pages": ["cloud/introduction", "cloud/features", "cloud/general-faq", "cloud/usecases", "cloud/admin"]
     },
     {
-      "group": "Use Cases",
-      "pages": ["cloud/examples/addassets", "cloud/examples/continuousscan", "cloud/examples/customautomation", "cloud/examples/trending", "cloud/examples/slackalert"]
-    },
-    {
       "group": "Assets",
       "pages": ["cloud/assets/overview", "cloud/assets/adding-assets"]
     }, 
@@ -393,6 +389,10 @@
     {
       "group": "Scanning",
       "pages": ["cloud/scanning/overview", "cloud/scanning/nuclei-scan", "cloud/scanning/createscans", "cloud/scanning/integrations", "cloud/scanning/parameters"]
+    },
+    {
+      "group": "Use Cases",
+      "pages": ["cloud/examples/addassets", "cloud/examples/continuousscan", "cloud/examples/customautomation", "cloud/examples/trending", "cloud/examples/slackalert"]
     },
     {
       "group": "API Reference",
