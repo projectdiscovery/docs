@@ -371,7 +371,7 @@
     },
     {
       "group": "Use Cases",
-      "pages": ["cloud/examples/addassets", "cloud/examples/continuousscan", "cloud/examples/customautomation", "cloud/examples/trending"]
+      "pages": ["cloud/examples/addassets", "cloud/examples/continuousscan", "cloud/examples/customautomation", "cloud/examples/trending", "cloud/examples/slackalert"]
     },
     {
       "group": "Assets",

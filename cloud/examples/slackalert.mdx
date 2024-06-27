@@ -9,8 +9,7 @@ sidebarTitle: "Generate Alerts in Slack"
 One of the most common security workflows focuses on making sure your team has visibility into potential exploits. Discovering an exploitable vulnerability is only one part of the process. 
 The next critical step is to alert your team so they can take action to triage and work towards remediation.
 
-In this example, we'll walk through setting up ProjectDiscovery Cloud Platform (PDCP) to establish this important workflow. You will add assets, configure a Slack integration, and initiate a scan. 
-This will ensure that your team can quickly review scan results, and act on any information the scan reveals to defend your infrastructure.
+In this example, we'll walk through setting up ProjectDiscovery Cloud Platform (PDCP) to establish this important workflow to ensure that your team can act on any information the scan reveals to defend your infrastructure.
 
 ## What You'll Do 
 In this walkthrough we're going to go step-by-step through the entire process and complete the following actions:
@@ -22,7 +21,7 @@ In this walkthrough we're going to go step-by-step through the entire process an
 
 ## Add your Assets
 
-In this example we're going to stick with the simplest path and add assets to your PDCP environment by uploading a .TXT file with the domains you want to include for scanning. 
+For this example we're going to stick with the simplest path and add assets to your PDCP environment by uploading a .TXT file with the domains you want to include for scanning. 
 
 If you already have assets in ProjectDiscovery Cloud Platform, you can skip ahead to Connecting Slack. For for other Asset upload options check out the docs on [Adding Assets.](/cloud/assets/adding-assets)
 
@@ -34,9 +33,9 @@ If you already have assets in ProjectDiscovery Cloud Platform, you can skip ahea
   <Step title="Choose Scope">
     On the Scope tab, use the **Upload files** option to add your .TXT file of domains.
   </Step>
-  <Step title="Set your config options">
+  <Step title="Select Options">
     Select your preferred configuration options:
-     - Auto Discovery is enabled by default, select the toggle to disable if desired.
+     - Auto Discovery is enabled by default, toggle to disable if desired.
      - If you choose to leave Auto Discovery enabled, select your desired frequency.
      - Navigate to the Advanced tab to modify individual discovery settings for subdomains, open ports, etc.
   </Step>
@@ -79,7 +78,7 @@ Need help? Refer to [Slack's documentation](https://api.slack.com/messaging/webh
      - Once you've identified a channel, Slack sends a test message to let you know there is a new integration.
   </Step>    
   <Step title="Save the URL">
-    Copy the Webhook URL you generated and save this information to add to your ProjectDiscovery Cloud Platform integration settings. 
+    Copy the **Webhook URL** you generated and save this information to add to your ProjectDiscovery Cloud Platform integration settings. 
   </Step>  
 
 </Steps>
@@ -95,10 +94,10 @@ Need help? Refer to [Slack's documentation](https://api.slack.com/messaging/webh
   <Step title="Add Config to Slack">
     - Provide a name for your Slack configuration
     - Provide the webhook you created in Slack for PDCP
-    - *Optional* Provide a username for your Slack configuration 
+    - Provide a username for your Slack configuration (*Optional*)
   </Step>
   <Step title="Select Events">
-   Select the Events you would like to trigger notifications from ProjectDiscovery Cloud Platform to your Slack channel. 
+   Select the Events that you want to trigger notifications from ProjectDiscovery Cloud Platform to your Slack channel. 
   </Step>
   <Step title="Finalize your integration">
    Select **Verify** to finalize your configuration. 
