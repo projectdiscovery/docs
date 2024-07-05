@@ -421,7 +421,8 @@
             "cloud/examples/continuousscan",
             "cloud/examples/customautomation",
             "cloud/examples/trending",
-            "cloud/examples/slackalert"
+            "cloud/examples/slackalert",
+            "cloud/examples/connectjira"
           ]
         }
       ]
