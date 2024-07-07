@@ -10,14 +10,6 @@ iconType: "solid"
 
 | Name | Description | Signatures |
 |------|-------------|------------|
-| Export | Converts a given value to a string and is appended to output of script | `Export(value any)` |
-| ExportAs | Exports given value with specified key and makes it available in DSL and response | `ExportAs(key string,value any)` |
-| atob | Base64 decodes a given string | `atob(string) string` |
-| btoa | Base64 encodes a given string | `bota(string) string` |
-| to_json | Converts a given object to JSON | `to_json(any) object` |
-| dump_json | Prints a given object as JSON in console | `dump_json(any)` |
-| to_array | Sets/Updates objects prototype to array to enable Array.XXX functions | `to_array(any) array` |
-| hex_to_ascii | Converts a given hex string to ascii | `hex_to_ascii(string) string` |
 | Rand | Rand returns a random byte slice of length n | `Rand(n int) []byte` |
 | RandInt | RandInt returns a random int | `RandInt() int` |
 | log | log prints given input to stdout with [JS] prefix for debugging purposes  | `log(msg string)`, `log(msg map[string]interface{})` |
@@ -25,6 +17,14 @@ iconType: "solid"
 | isPortOpen | isPortOpen checks if given port is open on host. timeout is optional and defaults to 5 seconds | `isPortOpen(host string, port string, [timeout int]) bool` |
 | ToBytes | ToBytes converts given input to byte slice | `ToBytes(...interface{}) []byte` |
 | ToString | ToString converts given input to string | `ToString(...interface{}) string` |
+| atob | Base64 decodes a given string | `atob(string) string` |
+| btoa | Base64 encodes a given string | `bota(string) string` |
+| to_json | Converts a given object to JSON | `to_json(any) object` |
+| dump_json | Prints a given object as JSON in console | `dump_json(any)` |
+| to_array | Sets/Updates objects prototype to array to enable Array.XXX functions | `to_array(any) array` |
+| hex_to_ascii | Converts a given hex string to ascii | `hex_to_ascii(string) string` |
+| Export | Converts a given value to a string and is appended to output of script | `Export(value any)` |
+| ExportAs | Exports given value with specified key and makes it available in DSL and response | `ExportAs(key string,value any)` |
 
 ## Template Flow
 
