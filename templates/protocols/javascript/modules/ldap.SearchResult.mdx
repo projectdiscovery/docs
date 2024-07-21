@@ -2,24 +2,47 @@
 
 [ldap](/templates/protocols/javascript/modules/ldap).SearchResult
 
-SearchResult Interface
+SearchResult contains search result of any / all ldap search request
+
+**`Example`**
+
+```javascript
+const ldap = require('nuclei/ldap');
+const client = new ldap.Client('ldap://ldap.example.com', 'acme.com');
+const results = client.Search('(objectinterface=*)', 'cn', 'mail');
+```
 
 ## Table of contents
 
 ### Properties
 
+- [Controls](/templates/protocols/javascript/modules/ldap.SearchResult#controls)
 - [Entries](/templates/protocols/javascript/modules/ldap.SearchResult#entries)
 - [Referrals](/templates/protocols/javascript/modules/ldap.SearchResult#referrals)
 
 ## Properties
 
-### Entries
+### Controls
 
-• `Optional` **Entries**: [`Entry`](/templates/protocols/javascript/modules/ldap.Entry)
+• `Optional` **Controls**: `string`[]
+
+Controls contains list of controls
 
 #### Defined in
 
-ldap.ts:593
+ldap.ts:739
+
+___
+
+### Entries
+
+• `Optional` **Entries**: [`LdapEntry`](/templates/protocols/javascript/modules/ldap.LdapEntry)[]
+
+Entries contains list of entries
+
+#### Defined in
+
+ldap.ts:745
 
 ___
 
@@ -27,6 +50,8 @@ ___
 
 • `Optional` **Referrals**: `string`[]
 
+Referrals contains list of referrals
+
 #### Defined in
 
-ldap.ts:591
+ldap.ts:733

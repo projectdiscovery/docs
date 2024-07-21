@@ -301,7 +301,7 @@ ___
 
 ### FindADObjects
 
-▸ **FindADObjects**(`filter`): [`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+▸ **FindADObjects**(`filter`): [`SearchResult`](/templates/protocols/javascript/modules/ldap.SearchResult)
 
 FindADObjects finds AD objects based on a filter
 and returns them as a list of ADObject
@@ -314,7 +314,7 @@ and returns them as a list of ADObject
 
 #### Returns
 
-[`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+[`SearchResult`](/templates/protocols/javascript/modules/ldap.SearchResult)
 
 **`Example`**
 
@@ -333,14 +333,14 @@ ___
 
 ### GetADActiveUsers
 
-▸ **GetADActiveUsers**(): [`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+▸ **GetADActiveUsers**(): [`SearchResult`](/templates/protocols/javascript/modules/ldap.SearchResult)
 
 GetADActiveUsers returns all AD users
 using FilterIsPerson and FilterAccountEnabled filter query
 
 #### Returns
 
-[`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+[`SearchResult`](/templates/protocols/javascript/modules/ldap.SearchResult)
 
 **`Example`**
 
@@ -359,14 +359,14 @@ ___
 
 ### GetADAdmins
 
-▸ **GetADAdmins**(): [`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+▸ **GetADAdmins**(): [`SearchResult`](/templates/protocols/javascript/modules/ldap.SearchResult)
 
 GetADAdmins returns all AD admins
 using FilterIsPerson, FilterAccountEnabled and FilterIsAdmin filter query
 
 #### Returns
 
-[`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+[`SearchResult`](/templates/protocols/javascript/modules/ldap.SearchResult)
 
 **`Example`**
 
@@ -385,14 +385,14 @@ ___
 
 ### GetADDCList
 
-▸ **GetADDCList**(): [`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+▸ **GetADDCList**(): [`SearchResult`](/templates/protocols/javascript/modules/ldap.SearchResult)
 
 GetADDCList returns all AD domain controllers
 using FilterIsComputer, FilterAccountEnabled and FilterServerTrustAccount filter query
 
 #### Returns
 
-[`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+[`SearchResult`](/templates/protocols/javascript/modules/ldap.SearchResult)
 
 **`Example`**
 
@@ -436,14 +436,14 @@ ___
 
 ### GetADGroups
 
-▸ **GetADGroups**(): [`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+▸ **GetADGroups**(): [`SearchResult`](/templates/protocols/javascript/modules/ldap.SearchResult)
 
 GetADGroups returns all AD groups
 using FilterIsGroup filter query
 
 #### Returns
 
-[`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+[`SearchResult`](/templates/protocols/javascript/modules/ldap.SearchResult)
 
 **`Example`**
 
@@ -462,14 +462,14 @@ ___
 
 ### GetADUserAsRepRoastable
 
-▸ **GetADUserAsRepRoastable**(): [`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+▸ **GetADUserAsRepRoastable**(): [`SearchResult`](/templates/protocols/javascript/modules/ldap.SearchResult)
 
 GetADUserAsRepRoastable returns all AD users that are AsRepRoastable
 using FilterIsPerson, and FilterDontRequirePreauth filter query
 
 #### Returns
 
-[`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+[`SearchResult`](/templates/protocols/javascript/modules/ldap.SearchResult)
 
 **`Example`**
 
@@ -488,14 +488,14 @@ ___
 
 ### GetADUserKerberoastable
 
-▸ **GetADUserKerberoastable**(): [`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+▸ **GetADUserKerberoastable**(): [`SearchResult`](/templates/protocols/javascript/modules/ldap.SearchResult)
 
 GetADUserKerberoastable returns all AD users that are kerberoastable
 using FilterIsPerson, FilterAccountEnabled and FilterHasServicePrincipalName filter query
 
 #### Returns
 
-[`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+[`SearchResult`](/templates/protocols/javascript/modules/ldap.SearchResult)
 
 **`Example`**
 
@@ -514,14 +514,14 @@ ___
 
 ### GetADUserTrustedForDelegation
 
-▸ **GetADUserTrustedForDelegation**(): [`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+▸ **GetADUserTrustedForDelegation**(): [`SearchResult`](/templates/protocols/javascript/modules/ldap.SearchResult)
 
 GetADUserTrustedForDelegation returns all AD users that are trusted for delegation
 using FilterIsPerson and FilterTrustedForDelegation filter query
 
 #### Returns
 
-[`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+[`SearchResult`](/templates/protocols/javascript/modules/ldap.SearchResult)
 
 **`Example`**
 
@@ -540,14 +540,14 @@ ___
 
 ### GetADUserWithNeverExpiringPasswords
 
-▸ **GetADUserWithNeverExpiringPasswords**(): [`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+▸ **GetADUserWithNeverExpiringPasswords**(): [`SearchResult`](/templates/protocols/javascript/modules/ldap.SearchResult)
 
 GetAdUserWithNeverExpiringPasswords returns all AD users
 using FilterIsPerson and FilterDontExpirePassword filter query
 
 #### Returns
 
-[`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+[`SearchResult`](/templates/protocols/javascript/modules/ldap.SearchResult)
 
 **`Example`**
 
@@ -566,14 +566,14 @@ ___
 
 ### GetADUserWithPasswordNotRequired
 
-▸ **GetADUserWithPasswordNotRequired**(): [`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+▸ **GetADUserWithPasswordNotRequired**(): [`SearchResult`](/templates/protocols/javascript/modules/ldap.SearchResult)
 
 GetADUserWithPasswordNotRequired returns all AD users that do not require a password
 using FilterIsPerson and FilterPasswordNotRequired filter query
 
 #### Returns
 
-[`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+[`SearchResult`](/templates/protocols/javascript/modules/ldap.SearchResult)
 
 **`Example`**
 
@@ -592,14 +592,14 @@ ___
 
 ### GetADUsers
 
-▸ **GetADUsers**(): [`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+▸ **GetADUsers**(): [`SearchResult`](/templates/protocols/javascript/modules/ldap.SearchResult)
 
 GetADUsers returns all AD users
 using FilterIsPerson filter query
 
 #### Returns
 
-[`ADObject`](/templates/protocols/javascript/modules/ldap.ADObject)[]
+[`SearchResult`](/templates/protocols/javascript/modules/ldap.SearchResult)
 
 **`Example`**
 
@@ -618,7 +618,7 @@ ___
 
 ### Search
 
-▸ **Search**(`filter`, `attributes`): `Record`\<`string`, `string`[]\>[]
+▸ **Search**(`filter`, `attributes`): [`SearchResult`](/templates/protocols/javascript/modules/ldap.SearchResult)
 
 Search accepts whatever filter and returns a list of maps having provided attributes
 as keys and associated values mirroring the ones returned by ldap
@@ -632,7 +632,7 @@ as keys and associated values mirroring the ones returned by ldap
 
 #### Returns
 
-`Record`\<`string`, `string`[]\>[]
+[`SearchResult`](/templates/protocols/javascript/modules/ldap.SearchResult)
 
 **`Example`**
 
