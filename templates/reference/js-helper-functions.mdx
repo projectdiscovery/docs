@@ -20,7 +20,8 @@ iconType: "solid"
 | RandInt | RandInt returns a random int | `RandInt() int` |
 | log | log prints given input to stdout with [JS] prefix for debugging purposes  | `log(msg string)`, `log(msg map[string]interface{})` |
 | getNetworkPort | getNetworkPort registers defaultPort and returns defaultPort if it is a colliding port with other protocols | `getNetworkPort(port string, defaultPort string) string` |
-| isPortOpen | isPortOpen checks if given port is open on host. timeout is optional and defaults to 5 seconds | `isPortOpen(host string, port string, [timeout int]) bool` |
+| isPortOpen | isPortOpen checks if given TCP port is open on host. timeout is optional and defaults to 5 seconds | `isPortOpen(host string, port string, [timeout int]) bool` |
+| isUDPPortOpen | isUDPPortOpen checks if the given UDP port is open on the host. Timeout is optional and defaults to 5 seconds. | `isUDPPortOpen(host string, port string, [timeout int]) bool` |
 | ToBytes | ToBytes converts given input to byte slice | `ToBytes(...interface{}) []byte` |
 | ToString | ToString converts given input to string | `ToString(...interface{}) string` |
 | Export | Converts a given value to a string and is appended to output of script | `Export(value any)` |
