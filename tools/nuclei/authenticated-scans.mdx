@@ -189,6 +189,20 @@ username: test
 password: test
 ```
 
+### `overwrite`
+
+This field allows users to specify whether the secret file should override hardcoded values in templates. By setting this field to `true`, the secret file will replace any existing hardcoded values. If set to `false`, the hardcoded values will remain unchanged, providing more control over how templates are managed and customized. Default is `false`.
+
+Example:
+
+```yaml
+type: basicauth
+domains:
+  - scanme.sh
+username: test
+password: test
+```
+
 ### `params`
 
 Params is a list of key-value pairs that are used to specify the query parameters for the request. This field can only be used with `type: query`.
