@@ -196,11 +196,11 @@ This field allows users to specify whether the secret file should override hardc
 Example:
 
 ```yaml
-type: basicauth
+type: bearertoken
 domains:
   - scanme.sh
-username: test
-password: test
+overwrite: true
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IlJlcGxhY2VkIiwiaWF0IjoxNTE2MjM5MDIyfQ.ickqPvP5iRdOJ56zMhALhT9JS502gY8hgTDBb07xaNY
 ```
 
 ### `params`
@@ -248,6 +248,8 @@ headers:
   - key: x-pdcp-key
     value: <api-key-here>
 ```
+
+Please note that the header keys are case-sensitive and non-canonicalized, so make sure to use the exact case and format needed.
 
 ### `cookies`
 
