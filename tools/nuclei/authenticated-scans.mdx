@@ -189,6 +189,20 @@ username: test
 password: test
 ```
 
+### `overwrite`
+
+This field allows users to specify whether the secret file should override hardcoded values in templates. By setting this field to `true`, the secret file will replace any existing hardcoded values. If set to `false`, the hardcoded values will remain unchanged, providing more control over how templates are managed and customized. Default is `false`.
+
+Example:
+
+```yaml
+type: bearertoken
+domains:
+  - scanme.sh
+overwrite: true
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IlJlcGxhY2VkIiwiaWF0IjoxNTE2MjM5MDIyfQ.ickqPvP5iRdOJ56zMhALhT9JS502gY8hgTDBb07xaNY
+```
+
 ### `params`
 
 Params is a list of key-value pairs that are used to specify the query parameters for the request. This field can only be used with `type: query`.
@@ -234,6 +248,8 @@ headers:
   - key: x-pdcp-key
     value: <api-key-here>
 ```
+
+Please note that the header keys are case-sensitive and non-canonicalized, so make sure to use the exact case and format needed.
 
 ### `cookies`
 
