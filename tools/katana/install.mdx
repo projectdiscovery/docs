@@ -53,10 +53,23 @@ sidebarTitle: "Install"
 ## Installation Notes
   - Katana requires the latest version of [**Go**](https://go.dev/doc/install)
   - Add the Go bin path to the system paths. On OSX or Linux, in your terminal use
-  
+  <!-- commit message: on my linux distro with bash shell: this command expanded variables and I had errors, but I fixedd this by fixing in the option below -->
   ```
   echo export $PATH=$PATH:$HOME/go/bin >> $home/.bashrc
   source $home/.bashrc
   ```
+ 
+  If you have some errors - you can try this option for bash:
+  ```
+  echo "export PATH=\$PATH:\$HOME/go/bin" >> ~/.bashrc 
+  source ~/.bashrc
+  ```
+
+  Option for fish shell:
+  ```
+  echo "set -x PATH \$PATH \$HOME/go/bin" >> ~/.config/fish/config.fish
+  source ~/.config/fish/config.fish
+  ```
+  
   - To add the Go bin path in Windows, [click this link for instructions.](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/)
   - The binary will be located in `$home/go/bin/katana`  
