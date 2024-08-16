@@ -19,6 +19,26 @@ To connect your existing Nuclei results to PDCP you will need to create a free A
     3.  Use the `nuclei -auth` command, and enter your API key when prompted.
 
 
+## Configure Team (Optional)
+
+If you want to upload the scan results to a team workspace instead of your personal workspace, you can configure the Team ID. You can use either the CLI option or the environment variable, depending on your preference.
+
+- **Obtain Team ID:**
+  - To obtain your Team ID, navigate to [https://cloud.projectdiscovery.io/settings/team](https://cloud.projectdiscovery.io/settings/team) and copy the Team ID from the top right section.
+
+  ![image](https://github.com/user-attachments/assets/76a9f102-1626-4c87-8d9e-37c30417f19e)
+
+
+- **CLI Option:**
+  - Use the `-tid` or `-team-id` option to specify the team ID.
+  - Example: `nuclei -tid XXXXXX -cloud-upload`
+
+- **ENV Variable:**
+  - Set the `PDCP_TEAM_ID` environment variable to your team ID.
+  - Example: `export PDCP_TEAM_ID=XXXXX`
+
+Either of these options is sufficient to configure the Team ID.
+
 ## Run a Scan
 
 To run a scan, from a terminal window with your Nuclei installation, use the `nuclei -target` or `nuclei -u` option to designate a target/host. 
@@ -33,7 +53,7 @@ nuclei -target http://honey.scanme.sh -cloud-upload
  - The `-cloud-upload` flag is required to share results with PDCP
  - You can run this command against any URL you want (with appropriate permissions)
  - To reduce or narrow the scan results you can select a specific template folder for your scan
-    - For example `nuclei -u http://buffer.com -t dns/ -cloud-upload` 
+ - For example `nuclei -u http://buffer.com -t dns/ -cloud-upload` 
 
 **And the output of your command (scan) would be:**
 
