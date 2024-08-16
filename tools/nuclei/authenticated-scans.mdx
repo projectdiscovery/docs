@@ -63,6 +63,29 @@ Since authentication can be done in multiple ways, for example, using 3rd party 
     - **Hashicorp Vault**
     - **AWS Secrets Manager**
 
+### Skipping Secret File
+
+<Note>This feature is available in Nuclei **v3.3.1**.</Note>
+
+If you provide a secret file to the Nuclei engine, it will automatically configure authentication or authorization for each request in the executed templates. In case you want to skip the secret configuration from the secret file and instead use hardcoded secrets or variables in specific templates, you can use the `skip-secret-file` _(bool)_ option. By setting this property to **true**, Nuclei will not apply the secrets to each request in that templates.
+
+**Example**
+
+```yaml
+variables:
+  username: foo
+  password: bar
+
+requests:
+  - raw:
+      - |
+        GET /some-restricted-page HTTP/1.1
+        Host: {{Hostname}}
+        Accept: application/json
+        Authorization: Basic {{base64(concat(username, ":", password))}}
+
+    skip-secret-file: true
+```
 
 ## Secret File Formats
 
