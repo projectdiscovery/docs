@@ -606,17 +606,36 @@ nuclei -l urls.txt -t cves/ -etags sqli,rce
   configuration](/tools/nuclei/running#nuclei-config) file.
 </Warning>
 
-To overwrite [nuclei-ignore](https://github.com/projectdiscovery/nuclei-templates/blob/master/.nuclei-ignore), Nuclei engine supports `-include-tags`, `-include-templates` flag.
+To prioritize certain templates or tags over the [.nuclei-ignore](https://github.com/projectdiscovery/nuclei-templates/blob/master/.nuclei-ignore) file or denylist, you must use the `-include-templates` or `-include-tags` flags. This will ensure that the specified templates or tags take precedence over any `.nuclei-ignore` or denylist entries.
 
 <Note>
 Example of running blocked templates
 
-```
+```bash
 nuclei -l urls.txt -include-tags iot,misc,fuzz
 ```
 
 </Note>
 
+<Note>
+Example of executing a specific template that is in the denylist
+
+Say that you have custom templates globbed (`*`) in the denylist on the Nuclei configuration file.
+
+```yaml
+# ...
+
+exclude-templates:
+  - 'custom/**/*.yaml'
+```
+
+But you just want to execute a specific template.
+
+```bash
+nuclei -l urls.txt -include-templates custom/specific-template.yaml
+```
+
+</Note>
 
 
 ### List Template Path
@@ -716,8 +735,11 @@ author: geeknik,pikpikcu,dhiyaneshdk
 severity: critical,high,medium
 
 # Template Allowlist
-include-tags: dos,fuzz # Tag based inclusion (allows overwriting nuclei-ignore list)
-include-templates: # Template based inclusion (allows overwriting nuclei-ignore list)
+# 
+# Note: This will take precedence over the .nuclei-ignore file and denylist
+# entries (exclude-tags or exclude-templates list).
+include-tags: dos,fuzz # Tag based inclusion
+include-templates: # Template based inclusion
   - vulnerabilities/xxx
   - misconfiguration/xxxx
 
