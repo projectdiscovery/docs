@@ -76,7 +76,7 @@ variables:
   username: foo
   password: bar
 
-requests:
+http:
   - raw:
       - |
         GET /some-restricted-page HTTP/1.1
@@ -296,7 +296,7 @@ info:
     WordPress Login template to use in workflows for authenticated wordpress testing.
   tags: wordpress,login
 
-requests:
+http:
   - raw:
       - |
         POST /wp-login.php HTTP/1.1
