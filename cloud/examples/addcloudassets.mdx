@@ -1,0 +1,81 @@
+---
+title: "Add Assets from your Cloud"
+description: "Add Cloud Assets with Asset Discovery to track new resources"
+sidebarTitle: "Add Cloud Assets"
+---
+
+## Summary
+
+For many organizations it's challenging to keep track of new assets across your cloud infrastructure. 
+In this example, we will walk through setting up ProjectDiscovery Cloud Platform (PDCP) to add assets from a Cloud Service Provider (AWS) with asset discovery enabled, 
+to ensure that as your infrastructure changes, your attack surface scanning can remain up to date. 
+
+### What you'll do
+
+In this walkthrough we're going to go step-by-step through the process and complete the following actions:
+
+- Collecting the data you need from your Cloud Service Provider 
+- Adding those details to PDCP to bring in your assets from the Cloud Provider
+
+For this example we're going to walk through collecting the details you need from Amazon Web Services. Stay tuned for details on the other Cloud Service Providers we support 
+
+## Collect your AWS details
+
+<Note> Make sure you have the appropriate access in AWS for gathering the requirements for this example. You will be creating and collecting your AWS Access Key and AWS Secret Key for the target resources. </Note>
+
+### Prerequisites
+- **Important note**: The identity (role) used to create the required AWS Key must have read-only access to the target resource(s)
+  - For information on creating AWS Keys - [refer to the AWS Managing Key documentation.](https://docs.aws.amazon.com/kms/latest/developerguide/create-keys.html)
+
+- As a best practice, we recommend creating a new identity/role to use exclusively with ProjectDiscovery Cloud Platform. 
+
+- The AWS Session Token is not a mandatory requirement, however if your organization uses Session policies, these are typically implemented for more granular permission management. 
+  - Refer to [AWS documentation on Session Policies.](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
+
+### Steps in AWS
+In this example we' re going to assume that you want to create a new user for PDCP to monitor a specific S3 bucket for assets to add to for scanning.
+
+1. Log in to your [AWS Management Console.](https://aws.amazon.com/console/)
+
+2. Navigate to IAM (Identity and Access Management), and select **IAM** from the services menu.
+
+3. Select **Users** from navigation and **Create User**.
+   - Provide the user with a name that will make it easy to identify in PDCP
+   - Enable access to the AWS Management Console (_Optional_)
+ 
+4. **Assign permissions** to the new user.
+   - This user will require **read only access** to the resources that you need to scan.
+   - We recommend that you implement the AWS read-only policies that provide access to EC2, Route53, and S3. This ensures that new resources added to the target services will be available to PDCP Asset discovered. 
+   - For example in S3 the following policy should be selected and applied.
+   - Specific permissions like “s3:Get*” and “s3:List*” ensure that as new resources are added to the target S3 Bucket they will be brought into ProjectDiscovery for inclusion in any scans you create.
+
+<img height="300" src="/images/platform/awspermissions.png" />
+
+
+5. From the view of the user you just created, navigate to the Security Credentials tab, scroll down to Access Keys and select **Create access key**.
+
+6. Select **Third-party service** and accept the confirmation. 
+
+7. A new access key will be generated. **Save the Access Key ID and Secret Access Key in a safe place to add those details to PDCP.**
+
+
+<Info> If you have specific requirements based on your organization's security policies we're happy to help. Reach out to us through support@projectdiscovery.io. </Info>
+
+
+## Add your Assets
+Now that you have collected the required information from AWS, you can provide these details in ProjectDiscovery Cloud Platform.
+
+1. Navigate to the **Assets tab** and select **Connect Cloud Services**.
+2. On the Connect Cloud Services tab, navigate to AWS and select **Connect**
+3. Complete the required details:
+   - Add the Connection Name
+   - Add the AWS Access Key
+   - Add the AWS Secret Key
+   - Optionally add the Session Token
+
+4. Select **Verify** to complete the connection. 
+
+## What's Next? 
+
+After setting up a connection to Cloud Services use your newly imported assets to [create a scan](/cloud/scanning/createscans).
+

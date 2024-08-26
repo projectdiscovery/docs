@@ -422,7 +422,8 @@
             "cloud/examples/customautomation",
             "cloud/examples/trending",
             "cloud/examples/slackalert",
-            "cloud/examples/connectjira"
+            "cloud/examples/connectjira",
+            "cloud/examples/addcloudassets"
           ]
         }
       ]
