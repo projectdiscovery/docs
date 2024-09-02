@@ -170,6 +170,29 @@ action: waitload
 
 Nuclei's `waitload` action waits for DOM to load, and window.onload event to be received after which we wait for the page to become idle for 1 seconds. 
 
+### waitdialog
+
+WaitDialog will wait for a JavaScript dialog (`alert`, `confirm`, `prompt`, or `onbeforeunload`) to be initialized and then automatically accept it.
+
+```yaml
+action: waitdialog
+name: alert
+args:
+  max-duration: 5s # (Optional. Default 10s.)
+```
+
+This action is useful for detecting triggered XSS payloads with a high level of accuracy and a low rate of false positives.
+
+<Note>
+  The `name` property MUST be explicitly defined to ensure the output variable is available for later use by `matchers` or `extractors` wihtin your template. See the example [here](/templates/protocols/headless-examples#xss-detection).
+</Note>
+
+**Output variables:**
+
+* **NAME** _(boolean)_, indicator of JavaScript dialog triggered.
+* **NAME_type** _(string)_, dialog type (`alert`, `confirm`, `prompt`, or `onbeforeunload`).
+* **NAME_message** _(string)_, displayed message dialog.
+
 ### getresource
 
 GetResource returns the src attribute for an element.
@@ -331,17 +354,18 @@ Valid `part` values supported by **Headless** protocol for Matchers / Extractor 
 | `<out_names>`     | Action names with stored values |
 | raw / body / data | Final DOM response from browser |
 
-## Example Headless Template
+## Example Headless Templates
 
 An example headless template to automatically login into DVWA is provided below - 
 
-
 ```yaml
 id: dvwa-headless-automatic-login
+
 info:
   name: DVWA Headless Automatic Login
   author: pdteam
   severity: high
+
 headless:
   - steps:
       - args:
