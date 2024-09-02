@@ -287,8 +287,102 @@ https://www.hackerone.com
 https://resources.hackerone.com
 https://api.hackerone.com
 https://support.hackerone.com
-
 ```
+
+## UI Dashboard (PDCP Integration)
+
+#### Configure API Key
+
+To upload your assets to PDCP you will need to create a free API Key 
+
+- **Obtain API Key:**
+
+  - Visit https://cloud.projectdiscovery.io 
+  - Open the setting menu from the top right and select "API Key" to create your API Key
+    <img class="block" src="/images/pdcp-api-key.png" alt="PDCP API Key" />
+  - Use the `httpx -auth` command, and enter your API key when prompted.
+
+#### Configure Team (Optional)
+
+If you want to upload the asset results to a team workspace instead of your personal workspace, you can configure the Team ID. You can use either the CLI option or the environment variable, depending on your preference.
+
+- **Obtain Team ID:**
+  - To obtain your Team ID, navigate to [https://cloud.projectdiscovery.io/settings/team](https://cloud.projectdiscovery.io/settings/team) and copy the Team ID from the top right section.
+
+  ![image](https://github.com/user-attachments/assets/76a9f102-1626-4c87-8d9e-37c30417f19e)
+
+
+- **CLI Option:**
+  - Use the `-tid` or `-team-id` option to specify the team ID.
+  - Example: `nuclei -tid XXXXXX -dashboard`
+
+- **ENV Variable:**
+  - Set the `PDCP_TEAM_ID` environment variable to your team ID.
+  - Example: `export PDCP_TEAM_ID=XXXXX`
+
+Either of these options is sufficient to configure the Team ID.
+
+#### Run httpx with UI Dashboard
+
+To run `httpx` and upload the results to the UI Dashboard:
+
+```console
+$ chaos -d hackerone.com | httpx -dashboard
+
+    __    __  __       _  __
+   / /_  / /_/ /_____ | |/ /
+  / __ \/ __/ __/ __ \|   /
+ / / / / /_/ /_/ /_/ /   |
+/_/ /_/\__/\__/ .___/_/|_|
+             /_/
+
+        projectdiscovery.io
+
+[INF] Current httpx version v1.6.6 (latest)
+[INF] To view results on UI dashboard, visit https://cloud.projectdiscovery.io/assets upon completion.
+http://a.ns.hackerone.com
+https://www.hackerone.com
+http://b.ns.hackerone.com
+https://api.hackerone.com
+https://mta-sts.forwarding.hackerone.com
+https://docs.hackerone.com
+https://support.hackerone.com
+https://mta-sts.hackerone.com
+https://gslink.hackerone.com
+[INF] Found 10 results, View found results in dashboard : https://cloud.projectdiscovery.io/assets/cqd56lebh6us73bi22pg
+```
+
+![image](https://blog.projectdiscovery.io/content/images/size/w1600/2024/08/image.png)
+
+#### Uploading to an Existing Asset Group
+
+To upload new assets to an existing asset group:
+
+```console
+$ chaos -d hackerone.com | httpx -dashboard -aid existing-asset-id
+```
+
+#### Setting an Asset Group Name
+
+To set a custom asset group name:
+
+```console
+$ chaos -d hackerone.com | httpx -dashboard -aname "Custom Asset Group"
+```
+
+### Additional upload options
+
+- `-pd, -dashboard`: Enable uploading of `httpx` results to the ProjectDiscovery Cloud (PDCP) UI Dashboard.
+- `-aid, -asset-id string`: Upload new assets to an existing asset ID (optional).
+- `-aname, -asset-name string`: Set the asset group name (optional).
+- `-pdu, -dashboard-upload string`: Upload `httpx` output file (jsonl) to the ProjectDiscovery Cloud (PDCP) UI Dashboard.
+
+### Environment Variables
+
+- `export ENABLE_CLOUD_UPLOAD=true`: Enable dashboard upload by default.
+- `export DISABLE_CLOUD_UPLOAD_WARN=true`: Disable dashboard warning.
+- `export PDCP_TEAM_ID=XXXXX`: Set the team ID for the ProjectDiscovery Cloud Platform.
+
 ## Expanded Examples
 
 ### Using httpx as a library
@@ -353,3 +447,4 @@ https://example.com [Example Domain This domain is for use in illustrative examp
 httpx -u https://example.com -silent -body-preview=200 -strip=html
 https://example.com [Example Domain This domain is for use in illustrative examples in documents. You may use this domain in literature without prior coordination or asking for permission. More information...]
 ```
+
