@@ -32,7 +32,7 @@ id: prototype-pollution-check
 
 info:
   name: Prototype Pollution Check
-  author: pd-team
+  author: pdteam
   severity: medium
   reference: https://github.com/msrkp/PPScan
 
@@ -135,7 +135,7 @@ id: dvwa-xss-verification
 
 info:
   name: DVWA Reflected XSS Verification
-  author: pd-team
+  author: pdteam
   severity: info
 
 headless:
@@ -190,6 +190,34 @@ headless:
           - "found"
 ```
 
+## XSS Detection
+
+This template detects triggered XSS payloads by using the [waitdialog](/templates/protocols/headless#waitdialog) action.
+
+```yaml
+headless:
+  - steps:
+      - action: navigate
+        args:
+          url: "{{BaseURL}}/search?text=foo{{url_encode('\\\"><script>alert(3+4)</script>')}}"
+
+      - action: waitdialog
+        name: reflected_text_query
+        args:
+          max-duration: 10s
+
+    matchers:
+      - type: dsl
+        dsl:
+          - reflected_text_query == true
+
+    extractors:
+      - type: dsl
+        dsl:
+          - reflected_text_query_type # Output: "alert"
+          - reflected_text_query_message # Output: "7"
+```
+
 ## DOM XSS Detection
 
 This template performs detection of DOM-XSS for `window.name` source by hooking common sinks such as `eval`, `innerHTML` and `document.write`.
@@ -199,7 +227,7 @@ id: window-name-domxss
 
 info:
   name: window.name DOM XSS
-  author: pd-team
+  author: pdteam
   severity: medium
 
 headless:
