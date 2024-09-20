@@ -57,13 +57,13 @@ For example, send a custom webhook to an internal alerting system in this format
 
 ## Ticketing
 
-The integrations under Ticketing support ticketing functionality as part of scanning and include support for Jira, GitHub, and GitLab. 
+The integrations under Ticketing support ticketing functionality as part of scanning and include support for Jira, GitHub, GitLab, and Linear. 
 
 <img height="300" src="/images/platform/scansticketing.png" />
 
 ### Jira
 
-PDCP provides integration support for Jira that includes creating new tickets when vulnerabilities are found. 
+PDCP provides integration support for Jira to create new tickets when vulnerabilities are found. 
 
 Provide a name for the configuration, the Jira instance URL , the Account ID, the Email, and the associated API token. 
 
@@ -71,7 +71,7 @@ Details on creating an API token are available [in the Jira documentation here.]
 
 ### GitHub
 
-PDCP provides integration support for GitHub to support the creation of new tickets when vulnerabilities are found. 
+PDCP provides integration support for GitHub to create new tickets when vulnerabilities are found.
 
 Provide a name for the configuration, the Organization or username, Project name, Issue Assignee, Token, and Issue Label. The Issue Label determines when a ticket is created. (For example, if critical severity is selected, any issues with a critical severity will create a ticket.)  
 
@@ -82,13 +82,38 @@ Details on setting up access in GitHub [are available here.](https://docs.github
 
 ### GitLab
 
-ProjectDiscovery Cloud Platform provides integration support for GitLab to support the creation of new tickets when vulnerabilities are found. Provide your GitLab username, Project name, Project Access Token and a GitLab Issue label. The Issue Label determines when a ticket is created. 
+ProjectDiscovery Cloud Platform provides integration support for GitLab to create new tickets when vulnerabilities are found. 
+
+Provide your GitLab username, Project name, Project Access Token and a GitLab Issue label. The Issue Label determines when a ticket is created. 
 (For example, if critical severity is selected, any issues with a critical severity will create a ticket.)  
 
  - The severity as label option adds a template result severity to any GitLab issues created. 
  - Deduplicate posts any new results as comments on existing issues instead of creating new issues for the same result. 
 
  Refer to GitLab’s documentation for details on [configuring a Project Access token.](https://docs.gitlab.com/ee/user/project/settings/project_access_tokens.html#create-a-project-access-token) 
+
+### Linear
+
+ProjectDiscovery Cloud Platform provides integration support for Linear to create new tickets when vulnerabilities are found.
+
+Provide your Linear API Key, Linear Team ID, and Linear Open State ID to set up the integration. Here are the specific steps to access or generate each parameter from your Linear workspace.
+
+ - To generate your **Linear API Key**, navigate to Linear > Profile Icon > Preferences > API > Personal API keys > Create new API key. Or, navigate to linear.app/[workspace name]/settings/api.
+ - To retrieve your **Linear Team ID**, you can use the following cURL command 
+```bash
+curl -X POST https://api.linear.app/graphql \
+  -H "Content-Type: application/json" \
+  -H "Authorization: YOUR_API_KEY" \
+  -d '{"query":"query { teams { nodes { id name } } }"}'
+```
+ - To retrieve your **Linear Open State ID**, you can use the following cURL command 
+```bash
+curl -X POST https://api.linear.app/graphql \
+  -H "Content-Type: application/json" \
+  -H "Authorization: YOUR_API_KEY" \
+  -d '{"query":"query { workflowStates { nodes { id name } } }"}'
+```
+Refer to Linear's [documentation](https://developers.linear.app/docs/graphql/working-with-the-graphql-api) for details on their API.
 
 ## Scan Configs
 Use scan configurations to implement custom http headers, template variables, and custom interactsh server for your scans.
