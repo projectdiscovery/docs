@@ -100,8 +100,8 @@ paths:
         - scans
     delete:
       operationId: delete-v1-scans
-      summary: Delete Scan in bulk
-      description: Delete scans using scan ids
+      summary: Delete Bulk Scans
+      description: Delete multiple scans using scan ids
       parameters:
         - name: X-Team-Id
           in: header

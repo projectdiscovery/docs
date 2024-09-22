@@ -448,62 +448,6 @@
       "pages": [
         "api-reference/introduction",
         {
-          "group": "Scans",
-          "pages": [
-            "api-reference/scans/get-scan-list",
-            "api-reference/scans/create-scan",
-            "api-reference/scans/delete-scan-in-bulk",
-            "api-reference/scans/get-scan",
-            "api-reference/scans/delete-scan",
-            "api-reference/scans/update-scan",
-            "api-reference/scans/import-oss-scan",
-            "api-reference/scans/stop-scan",
-            "api-reference/scans/rescan-scan",
-            "api-reference/scans/get-all-scan-stats",
-            "api-reference/scans/retest-vulnerability",
-            "api-reference/scans/get-scan-schedules",
-            "api-reference/scans/set-scan-schedule",
-            "api-reference/scans/delete-scan-schedule",
-            "api-reference/scans/get-scan-ips",
-            "api-reference/scans/update-imported-scan",
-            "api-reference/scans/export-scan",
-            "api-reference/scans/export-filtered-scan",
-            "api-reference/scans/export-scan-vulnerability",
-            "api-reference/scans/delete-scan-vulnerability",
-            "api-reference/scans/update-vulnerability-status",
-            "api-reference/scans/update-vulnerability-labels",
-            "api-reference/scans/get-scan-config",
-            "api-reference/scans/update-scan-config",
-            "api-reference/scans/get-all-scans-history",
-            "api-reference/scans/get-scan-history",
-            "api-reference/scans/create-vulns-export-to-tracker",
-            "api-reference/scans/get-scans-token"
-          ]
-        },
-        {
-          "group": "Results",
-          "pages": [
-            "api-reference/results/get-scan-vulnerability",
-            "api-reference/results/get-scan-results",
-            "api-reference/results/get-all-results",
-            "api-reference/results/get-scans-result-filters",
-            "api-reference/results/get-results-stats"
-          ]
-        },
-        {
-          "group": "Configurations",
-          "pages": [
-            "api-reference/configurations/get-configs-list",
-            "api-reference/configurations/add-config",
-            "api-reference/configurations/get-config",
-            "api-reference/configurations/delete-config",
-            "api-reference/configurations/update-config",
-            "api-reference/configurations/get-excluded-templates",
-            "api-reference/configurations/add-excluded-templates",
-            "api-reference/configurations/delete-excluded-template-ids"
-          ]
-        },
-        {
           "group": "Assets",
           "pages": [
             "api-reference/enumerations/get-enumeration-list",
@@ -556,13 +500,59 @@
           ]
         },
         {
-          "group": "Users",
+          "group": "Scans",
           "pages": [
-            "api-reference/users/get-user-profile",
-            "api-reference/users/get-api-key",
-            "api-reference/users/create-api-key",
-            "api-reference/users/delete-api-key",
-            "api-reference/users/rotate-api-key"
+            "api-reference/scans/get-scan-list",
+            "api-reference/scans/create-scan",
+            "api-reference/scans/get-scan",
+            "api-reference/scans/delete-scan",
+            "api-reference/scans/delete-scan-in-bulk",
+            "api-reference/scans/update-scan",
+            "api-reference/scans/import-oss-scan",
+            "api-reference/scans/stop-scan",
+            "api-reference/scans/rescan-scan",
+            "api-reference/scans/get-all-scan-stats",
+            "api-reference/scans/retest-vulnerability",
+            "api-reference/scans/get-scan-schedules",
+            "api-reference/scans/set-scan-schedule",
+            "api-reference/scans/delete-scan-schedule",
+            "api-reference/scans/get-scan-ips",
+            "api-reference/scans/update-imported-scan",
+            "api-reference/scans/export-scan",
+            "api-reference/scans/export-filtered-scan",
+            "api-reference/scans/export-scan-vulnerability",
+            "api-reference/scans/delete-scan-vulnerability",
+            "api-reference/scans/update-vulnerability-status",
+            "api-reference/scans/update-vulnerability-labels",
+            "api-reference/scans/get-scan-config",
+            "api-reference/scans/update-scan-config",
+            "api-reference/scans/get-all-scans-history",
+            "api-reference/scans/get-scan-history",
+            "api-reference/scans/create-vulns-export-to-tracker",
+            "api-reference/scans/get-scans-token"
+          ]
+        },
+        {
+          "group": "Configurations",
+          "pages": [
+            "api-reference/configurations/get-configs-list",
+            "api-reference/configurations/add-config",
+            "api-reference/configurations/get-config",
+            "api-reference/configurations/delete-config",
+            "api-reference/configurations/update-config",
+            "api-reference/configurations/get-excluded-templates",
+            "api-reference/configurations/add-excluded-templates",
+            "api-reference/configurations/delete-excluded-template-ids"
+          ]
+        },
+        {
+          "group": "Results",
+          "pages": [
+            "api-reference/results/get-scan-vulnerability",
+            "api-reference/results/get-scan-results",
+            "api-reference/results/get-all-results",
+            "api-reference/results/get-scans-result-filters",
+            "api-reference/results/get-results-stats"
           ]
         },
         {
@@ -571,6 +561,16 @@
             "api-reference/elog/get-elogs-of-given-scan-id",
             "api-reference/scan_log/get-scan-log-of-given-scan-id",
             "api-reference/get-audit-logs-for-team"
+          ]
+        },
+        {
+          "group": "Users",
+          "pages": [
+            "api-reference/users/get-user-profile",
+            "api-reference/users/get-api-key",
+            "api-reference/users/create-api-key",
+            "api-reference/users/delete-api-key",
+            "api-reference/users/rotate-api-key"
           ]
         },
         {
