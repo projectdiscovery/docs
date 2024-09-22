@@ -1787,7 +1787,7 @@ paths:
     get:
       operationId: get-v1-scans-scan_ips
       summary: Get Scan IPs
-      description: Get user static scan IPs list
+      description: Get list of static IPs used for scan
       parameters:
         - name: X-Team-Id
           in: header
