@@ -160,15 +160,55 @@ args:
   value: /root/test/payload.txt
 ```
 
+### waitfcp
+
+WaitFCP waits for the first piece of meaningful content, such as text or an image, indicating that the page is becoming useful.
+
+```yaml
+action: waitfcp
+```
+
+### waitfmp
+
+WaitFMP waits for the First Meaningful Paint event, allowing users to proceed when content is visually ready.
+
+```yaml
+action: waitfmp
+```
+
+### waitdom
+
+WaitDOM waits for the `DOMContentLoaded` event, indicating that the HTML has been loaded and parsed, but without waiting for stylesheets, images, and subframes to finish loading.
+
+```yaml
+action: waitdom
+```
+
 ### waitload
 
-WaitLoads waits for a page to finish loading and get in Idle state.
+WaitLoad waits the entire page, including dependent resources like stylesheets and images, has been fully loaded.
 
 ```yaml
 action: waitload
 ```
 
-Nuclei's `waitload` action waits for DOM to load, and window.onload event to be received after which we wait for the page to become idle for 1 seconds. 
+### waitidle
+
+WaitIdle waits until the page completely stopped making network requests and reaches a network idle state, indicating that all resources have been loaded.
+
+```yaml
+action: waitidle
+```
+
+### waitstable
+
+WaitStable waits until the page is stable for *N* duration *(default is `1s`)*.
+
+```yaml
+action: waitstable
+args:
+  duration: 5s
+```
 
 ### waitdialog
 
