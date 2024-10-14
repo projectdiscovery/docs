@@ -1,7 +1,7 @@
 ---
-title: 'Example Walkthrough'
-description: 'Follow the steps below to setup and try out Nuclei'
-sidebarTitle: 'Example Walkthrough'
+title: 'Nuclei Setup Example'
+description: 'Learn how to install Nuclei and start scanning for vulnerabilities.'
+sidebarTitle: 'Examples'
 icon: "play"
 ---
 
@@ -9,66 +9,57 @@ icon: "play"
 
 ### Install Go
 
-ProjectDiscovery runs on any operating system that supports Go, but this example uses Linux. 
+ProjectDiscovery runs on any OS that supports Go.
 
-For instructions on installing Go for an OS besides Linux [check out this post on our blog](https://blog.projectdiscovery.io/getting-started-with-projectdiscovery-in-linux-and-windows/) 
-or refer to the installation instructions [available through the Go website](https://go.dev/doc/install).
+<Tip>This example uses Linux, but [this blog post](https://blog.projectdiscovery.io/getting-started-with-projectdiscovery-in-linux-and-windows/) provides instructions for other OSs. You can also refer to [Go's installation guide](https://go.dev/doc/install).</Tip>
 
 <Steps>
   <Step title="Get the latest version">
   Download and install [the latest version of Go](https://go.dev/doc/install).
   </Step> 
   <Step title="Verify the version">
-  After downloading and installing run `go version` to verify that you are running the latest version (_v 1.21 at the time of writing_) 
+  Run `go version` to confirm installation (_v 1.21 at the time of writing_)
   </Step>
 </Steps>
 
-### Update your $PATH
+### Update your `$PATH`
 
-PATH is an environment variable on UNIX systems to define which directories contain executable programs. 
-The variable is set within the config file for your particular shell.
+The `$PATH` variable defines directories with executable programs. You need to add the `go/bin` directory (where ProjectDiscovery binaries reside) to `$PATH` manually.
 
-To run Nuclei the folder where it resides needs to be in the PATH. ProjectDiscovery binaries are stored in the go/bin directory which is usually in the home directory. 
-
-_Note: This folder is not automatically added to your PATH. Refer to the steps below to update it manually._
+<Note>This folder is not automatically added to your `$PATH`. Refer to the steps below to update it manually.</Note>
 
 <Steps>
   <Step title="Verify your GOPATH">
-    To verify your GOPATH Run `go env | grep GOPATH` in your terminal and copy the output path. 
-    You may need to add a `/bin` to the end of this path for it to work correctly. 
+    Run `go env | grep GOPATH` and copy the output path. Append `/bin` to it if needed.
   </Step>
   <Step title="Open your shell config file">
-    Open the shell config file for your shell in an editor (this example refers to nano). The command is `nano ~/.zshrc` for zsh or `nano ~/.bashrc` for bash. 
-    
-    At the bottom of the file, add `export PATH=”$PATH:insert/go/path/here/bin”`, replacing `insert/go/path/here` with the GOPATH from Step 1.
+      Edit your shell config (e.g., `nano ~/.zshrc` for zsh or `nano ~/.bashrc` for bash). Add `export PATH="$PATH:/your/go/path/bin"` at the end.
   </Step>
   <Step title="Reset your terminal">
-    Run `source ~/.zshrc` or `source~/.bashrc` to reset your terminal and reload it with the new config added. 
-    You can also just close your terminal and open it again for this to take effect.
+      Run `source ~/.zshrc` or `source ~/.bashrc`, or restart your terminal.
   </Step>
   <Step title="Verify your updated PATH">
-    Your PATH should be updated. 
-    Type `$PATH` to check that the go binary directory is added to the end.
+      Run `echo $PATH` to confirm the Go binary directory is included.
   </Step>
 </Steps>
 
 ### Install Nuclei
 
-Before we jump into the installation here's a quick high-level overview of what Nuclei and templates are all about!
+<Info>A quick overview of Nuclei and its templates before installation.</Info>
 
 **What is Nuclei?**
 
-Nuclei is a community-powered vulnerability scanner that uses templates to identify vulnerabilities in your assets. 
+> Nuclei is a community-powered vulnerability scanner that uses templates to identify vulnerabilities in your assets.
 As an open-source tool, it has the benefit of a huge community of users and contributors who have helped to create a vast library of templates. 
 
 Templates, are YAML files used to define what is scanned by Nuclei. The template library includes many options and customizations, and supports any templates you create to meet your requirements.
 
 <Steps>
   <Step title="Install Nuclei with Go">
-    From your terminal run the following command `go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest`
+      Run `go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest` in your terminal.
   </Step>
   <Step title="Confirm installation">
-    To confirm installation, on your terminal run `nuclei -h` to see the list of options and flags available.
+      Run `nuclei -h` to see available options and flags.
   </Step>
 </Steps>
 
@@ -76,8 +67,8 @@ Templates, are YAML files used to define what is scanned by Nuclei. The template
 
 ```java
 user@Sample ~ % nuclei -h
-Nuclei is a fast, template based vulnerability scanner focusing
-on extensive configurability, massive extensibility and ease of use.
+Nuclei is a fast, template based vulnerability scanner focused
+on configurability, extensibility and ease of use.
 
 Usage:
   nuclei [flags]
@@ -87,7 +78,7 @@ TARGET:
    -u, -target string[]       target URLs/hosts to scan
    -l, -list string           path to file containing a list of target URLs/hosts to scan (one per line)
    -resume string             resume scan using resume.cfg (clustering will be disabled)
-   -sa, -scan-all-ips         scan all the IP's associated with dns record
+   -sa, -scan-all-ips         scan all the IP's associated with DNS record
    -iv, -ip-version string[]  IP version to scan of hostname (4,6) - (default 4)
 
 TEMPLATES:
@@ -106,12 +97,12 @@ TEMPLATES:
 
 ## Run a Scan
 
-In this example we're going to run a scan with a testing host that we use to detect weak template matchers with sample vulnerabilities and sample results. 
+Let's run a scan against a test host to showcase Nuclei’s behavior.
 
-We'll be using the test URL(`http://honey.scanme.sh/`) to demonstrate the expected scan behavior and walk you through some results. 
+> We'll be using the test URL(`http://honey.scanme.sh/`) to demonstrate the expected scan behavior and walk you through some results.
 
 ### Scan your host
-To scan your target host, on your terminal, run `nuclei -u http://honey.scanme.sh/`. 
+Run `nuclei -u http://honey.scanme.sh/` to scan the target host with all available templates.
 
 _The -u option specifies the target you want to scan with all available templates._ 
 
@@ -164,7 +155,7 @@ The fields are as follows:
  - `[CN: scanme]` - This output also includes an [extracted value](https://docs.projectdiscovery.io/templates/reference/extractors), which is not typically in all templates but does show an example of some of the other types of output you might see. 
 
 
-So, for each line of output from our scan the data format is as follows:
+So, each line of output follows this structure:
 `[template-id]` `[protocol]` `[severity]` `output (impacted host, etc)`
 
 
@@ -176,6 +167,4 @@ So, for each line of output from our scan the data format is as follows:
 [tikiwiki-reflected-xss] [http] [high] http://honey.scanme.sh/tiki-5.2/tiki-edit_wiki_section.php?type=%22%3E%3Cscript%3Ealert(31337)%3C/script%3E
 ```
 
-## What's Next
-
-Take a look at the ["What's Next"](/getstarted-nextsteps) section for suggestions on what to explore next.
+<Check>Take a look at the ["Next Steps"](/getstarted-nextsteps) section for suggestions on what to explore next.</Check>
