@@ -1,6 +1,5 @@
 ---
 title: "Introducing ProjectDiscovery Cloud Platform"
-description: "A cloud-hosted product for attack surface visibility and vulnerability scanning"
 sidebarTitle: "Introduction"
 ---
 
@@ -8,8 +7,8 @@ sidebarTitle: "Introduction"
 
 ## What is ProjectDiscovery Cloud Platform? 
 
-[ProjectDiscovery Cloud Platform (PDCP)](cloud.projectdiscovery.io) is a cloud-hosted security platform designed to provide continuous visibility across your external attack surface by detecting exploitable vulnerabilities and misconfigurations. 
-It is built to solve a variety of use cases, and scale to support the key workflows application security teams need to secure their infrastructure.
+[ProjectDiscovery Cloud Platform (PDCP)](cloud.projectdiscovery.io) is a cloud-hosted security platform engineered to detect exploitable vulnerabilities and misconfigurations across your internal and external infrastructure at scale with zero false positives.  
+Powered by a global open-source community of over 100,000 security professionals, PDCP is built with our most popular tools like Nuclei to bring next-generation reconnaissance, vulnerability detection, and remediation automation to the modern security team.  
 
  <iframe
   width="560"
@@ -22,43 +21,49 @@ It is built to solve a variety of use cases, and scale to support the key workfl
 ></iframe>
 
 If you're new to ProjectDiscovery: 
- - [Learn more about us and our mission here](https://projectdiscovery.io/)
- - Check out some [product features](/cloud/features)
- - New to our products? Check out a hands on example of [our popular open source tool, Nuclei](/getstarted-overview)
+ - Get started with a [free PDCP account](cloud.projectdiscovery.io)
+ - Learn about the [key benefits](/cloud/features) of Cloud
+ - New to Nuclei? Check out a hands on example of [our popular open source tool Nuclei](/getstarted-overview)
  - Explore more of our [open source tools](/tools/index)
 
 ## How are we different?
 
 The security space is crowded with tools. Attack surface management, vulnerability management, exploit monitoring - what solutions do you need? 
 
-As concerns around security rise, organizations are increasingly 
-shifting their attention to managing these risks. How are you supposed to choose when there are so many options and how can you differentiate one option from the next? 
+As concerns around security rise, organizations are increasingly shifting their attention to managing these risks.
 
 Let's get into the details and learn more about _why_ ProjectDiscovery Cloud Platform is different. 
 
-### Addressing vulnerabilities at scale
+### Zero noise
 
-You need tools that can keep pace with the evolving range of technologies and the continuously shifting landscape of vulnerabilities. 
-Our cloud platform can rapidly scan and verify a trending vulnerability across your entire tech stack. Save time and prioritize your resources 
-around the vulnerabilities that matter the most. 
+Eliminate false positives with our modern vulnerability scanning engine, powered by Nuclei and [Nuclei templates](https://github.com/projectdiscovery/nuclei-templates). 
+Each template replicates the specific actions a hacker would take to validate an exploit with clear matcher logic. 
+This stands in contrast to traditional scanners that often rely on **version-based** checks that frequently generate false positives.
+Our accuracy saves security teams hours of wasted triaging effort and enables teams to focus their efforts on remediating the vulnerabilities that matter. 
 
-### A source of truth
+### More Transparency
 
-The scope of vulnerabilities means that the quantity false positives (noise), is endless. More than a simple 
-annoyance, false positives are a costly distraction from real threats. Accuracy is game changing and critical to effective vulnerability management. 
+Nuclei templates offer clear visibility into how vulnerabilities are detected with logical mathers and easy-to-follow YAML syntax. These templates carry comprehensive information about each vulnerability including descriptions, severity, reference links and remediation steps. PDCP also comes with fast and easy workflows to retest findings or replicate results. Learn more about our [Nuclei templates](https://docs.projectdiscovery.io/templates/introduction). 
 
-Our Nuclei templates carry comprehensive information about each vulnerability. They include descriptions, remediation steps, severity, and the inner workings of test. 
-This transparency allows security engineers to easily triage, collaborate, and validate findings, while developers reproduce and verify fixes. 
+### Full Customization
 
-### Custom automation
+No two organizations are identical, and neither are their security needs. Modern security teams need to full control over their scanning workflows to get the most out of their vulnerability management program. PDCP provides users with the flexibility and customization to decide what assets to scan and which Nuclei templates to run including custom schedules, headers, and even alerts and ticketing automation. 
 
-No two organizations are identical, and neither are their security needs. Modern security teams need to automate vulnerability detection specific to their organization and tech stack. 
-Our open template language (YAML) allows flexibility and customizations so you can easily convert your internal vulnerability knowledge and findings (e.g. pen-test, bug bounty reports) into automation.
-Use your custom Nuclei templates to easily scan other similarly affected tech stacks and any associated regressions.
+### Community Powered
 
-### Community support
+Unlike traditional proprietary security companies, ProjectDiscovery began as an open-source company and today we leverage the expertise of over 100,000 security professionals worldwide to build great security tooling. When a new CVE like Log4J emerges, community contributions to our Nuclei Templates project are often available [within hours of a public proof of concept (PoC)](https://blog.projectdiscovery.io/the-power-of-nuclei-templates-a-universal-language-of-vulnerabilities/).
+PDCP's Nuclei template detection library today includes over 9,000 templates contributed from our community, every single one of which is reviewed by our internal team for quality and accuracy. 
+As one ProjectDiscovery customer puts it, “When we work with ProjectDiscovery, we work with the best hackers in the world.”
 
-It's a constant challenge to keep up with the increasing number of attack vectors and vulnerabilities. 
-Maintaining a vast database is beyond the capabilities of any single vendor. That's why, at ProjectDiscovery, we set a high value on a community-driven collaboration on exploitable vulnerabilities.
+### A Detection Platform for All Security Risks
 
+Not all security risks are publicly documented CVEs found in the National Vulnerability Database (NVD). In addition to covering the most common CVEs and misconfigurations, our Nuclei templates also detect exposed panels, default logins, leaked credentials, and many other security risks. Also, with our [AI Template Editor](https://docs.projectdiscovery.io/cloud/editor/ai), you can easily generate custom Nuclei templates to convert bug bounty reports, internal pentest findings, and other vulnerabilities into automatable security checks to run regularly against your infrastructure. Read about how [if you’re not writing custom Nuclei templates, you’re missing out](https://blog.projectdiscovery.io/if-youre-not-writing-custom-nuclei-templates-youre-missing-out/).
+
+### Powerful Reconnaissance
+
+Vulnerability results are only as good as the scope of the vulnerability scan. PDCP's asset discovery and reconnaissance workflow leverages over 6 different open source tools to provide comprehensive enumeration of your external perimeter. Try our discovery capabilities by entering your domain [here](projectdiscovery.io).
+
+### Enterprise Integrations and Capabilities
+
+ProjectDiscovery Cloud Platform includes a host of enterprise capabilities and integrations to automate your workflows within your organization. Our integrations include 2-way ticketing sync to initiate retests from your ticketing platform of choice, alerting in your favorite messenging app like Slack or via email, and connections to your cloud providers to import current hosts for scanning. PDCP also enables users to whitelist scan traffic by IP, enforce rate limiting, scan internal CI/CD pipelines, export executive reports on findings and risk posture, and meet compliance frameworks like SOC2, PCI, HIPAA. We also include enterprise features like SSO SAML, role-based access control, and audit logs in our platform. 
 
