@@ -231,3 +231,47 @@ http:
           - '!contains(body, "Incorrect parameters")'
         condition: and
 ```
+
+### Global Matchers
+
+Global matchers are essentially `matchers` that apply globally across all result events from other templates. This makes them super useful for things like passive detection, fingerprinting, spotting errors, WAF detection, identifying unusual behaviors, or even catching secrets and information leaks. By setting `global-matchers` to **true**, you're enabling the template to automatically match events triggered by other templates without having to configure them individually.
+
+<Note>
+* Global matchers only work with [HTTP-protocol-based](/templates/protocols/http) templates.
+* When global matchers are enabled, no requests defined in the template will be sent.
+* This feature is not limited to `matchers`; you can also define `extractors` in a global matchers template.
+</Note>
+
+Let's look at a quick example of how this works:
+
+```yaml
+# http-template-with-global-matchers.yaml
+http:
+  - global-matchers: true
+    matchers-condition: or
+    matchers:
+      - type: regex
+        name: Asymmetric Private Key
+        regex:
+          - '-----BEGIN ((EC|PGP|DSA|RSA|OPENSSH) )?PRIVATE KEY( BLOCK)?-----'
+        part: body
+
+      - type: regex
+        name: Slack Webhook
+        regex:
+          - >-
+            https://hooks.slack.com/services/T[a-zA-Z0-9_]{8,10}/B[a-zA-Z0-9_]{8,12}/[a-zA-Z0-9_]{23,24}
+        part: body
+```
+
+In this example, we're using a template that has `global-matchers` set to **true**. It looks for specific patterns, like an asymmetric private key or a Slack webhook, across all HTTP requests. Now, when you run this template along with others, the global matcher will automatically check for those patterns in all result events. You don't have to set up individual matchers in every single template for it to work.
+
+To run it, use a command like this:
+
+```console
+> nuclei -u http://example.com -t http-template-with-global-matchers.yaml -t http-template-1.yaml -t http-template-2.yaml -silent
+[http-template-with-global-matchers:Asymmetric Private Key] http://example.com/request-from-http-template-1
+[http-template-with-global-matchers:Slack Webhook] http://example.com/request-from-http-template-2
+```
+
+In this case, the global matchers are looking for an asymmetric private key and a Slack webhook. As you can see in the output, it found a match in requests from the other templates, even though the matching logic was only defined once in the global matchers template. This makes it really efficient for detecting patterns across multiple requests without duplicating code in every single template.
