@@ -234,7 +234,7 @@ http:
 
 ### Global Matchers
 
-Global matchers are essentially `matchers` that apply globally across all result events from other templates. This makes them super useful for things like passive detection, fingerprinting, spotting errors, WAF detection, identifying unusual behaviors, or even catching secrets and information leaks. By setting `global-matchers` to **true**, you're enabling the template to automatically match events triggered by other templates without having to configure them individually.
+Global matchers are essentially `matchers` that apply globally across all HTTP responses received from running other templates. This makes them super useful for things like passive detection, fingerprinting, spotting errors, WAF detection, identifying unusual behaviors, or even catching secrets and information leaks. By setting `global-matchers` to **true**, you're enabling the template to automatically match events triggered by other templates without having to configure them individually.
 
 <Note>
 * Global matchers only work with [HTTP-protocol-based](/templates/protocols/http) templates.
@@ -264,7 +264,7 @@ http:
         part: body
 ```
 
-In this example, we're using a template that has `global-matchers` set to **true**. It looks for specific patterns, like an asymmetric private key or a Slack webhook, across all HTTP requests. Now, when you run this template along with others, the global matcher will automatically check for those patterns in all result events. You don't have to set up individual matchers in every single template for it to work.
+In this example, we're using a template that has `global-matchers` set to **true**. It looks for specific patterns, like an asymmetric private key or a Slack webhook, across all HTTP requests. Now, when you run this template along with others, the global matcher will automatically check for those patterns in all HTTP responses. You don't have to set up individual matchers in every single template for it to work.
 
 To run it, use a command like this:
 
