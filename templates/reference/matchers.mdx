@@ -251,13 +251,13 @@ http:
     matchers-condition: or
     matchers:
       - type: regex
-        name: Asymmetric Private Key
+        name: asymmetric_private_key
         regex:
           - '-----BEGIN ((EC|PGP|DSA|RSA|OPENSSH) )?PRIVATE KEY( BLOCK)?-----'
         part: body
 
       - type: regex
-        name: Slack Webhook
+        name: slack_webhook
         regex:
           - >-
             https://hooks.slack.com/services/T[a-zA-Z0-9_]{8,10}/B[a-zA-Z0-9_]{8,12}/[a-zA-Z0-9_]{23,24}
@@ -270,8 +270,8 @@ To run it, use a command like this:
 
 ```console
 > nuclei -u http://example.com -t http-template-with-global-matchers.yaml -t http-template-1.yaml -t http-template-2.yaml -silent
-[http-template-with-global-matchers:Asymmetric Private Key] http://example.com/request-from-http-template-1
-[http-template-with-global-matchers:Slack Webhook] http://example.com/request-from-http-template-2
+[http-template-with-global-matchers:asymmetric_private_key] http://example.com/request-from-http-template-1
+[http-template-with-global-matchers:slack_webhook] http://example.com/request-from-http-template-2
 ```
 
 In this case, the global matchers are looking for an asymmetric private key and a Slack webhook. As you can see in the output, it found a match in requests from the other templates, even though the matching logic was only defined once in the global matchers template. This makes it really efficient for detecting patterns across multiple requests without duplicating code in every single template.
