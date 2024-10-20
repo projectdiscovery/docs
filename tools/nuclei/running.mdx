@@ -856,9 +856,9 @@ Nuclei OSS results uploaded to the cloud platform are scheduled for automatic cl
 
 Nuclei comes with reporting module support with the release of v2.3.0 supporting GitHub, GitLab, and Jira integration, this allows nuclei engine to create automatic tickets on the supported platform based on found results.
 
-| Platform    | GitHub | GitLab | Jira | Markdown | SARIF | Elasticsearch | Splunk HEC |
-|-------------|:------:|:------:|:----:|:--------:|:-----:|:-------------:|:----------:|
-| Support     |   ✔    |   ✔    |  ✔   |    ✔     |   ✔   |       ✔       |     ✔      |
+| Platform    | GitHub | GitLab | Jira | Markdown | SARIF | Elasticsearch | Splunk HEC | MongoDB |
+|-------------|:------:|:------:|:----:|:--------:|:-----:|:-------------:|:----------:|:-------:|
+| Support     |   ✔    |   ✔    |  ✔   |    ✔     |   ✔   |       ✔       |     ✔      |     ✔   |
 
 
 `-rc, -report-config` flag can be used to provide a config file to read configuration details of the platform to integrate. Here is an [example config file](https://github.com/projectdiscovery/nuclei/blob/main/cmd/nuclei/issue-tracker-config.yaml) for all supported platforms.
@@ -975,6 +975,22 @@ jira:
       freeform: $CVSSMetrics
     customfield_00003:
       freeform: $CVSSScore
+```
+
+To write results to a MongoDB database collection, update the config file with the connection information.
+
+```yaml
+mongodb:
+  # the connection string to the MongoDB database
+  # (e.g., mongodb://root:example@localhost:27017/nuclei?ssl=false&authSource=admin)
+  connection-string: ""
+  # the name of the collection to store the issues
+  collection-name: ""
+  # excludes the Request and Response from the results (helps with filesize)
+  omit-raw: false
+  # determines the number of results to be kept in memory before writing it to the database or 0 to
+  # persist all in memory and write all results at the end (default)
+  batch-size: 0
 ```
 
 **Running nuclei with reporting module:**
