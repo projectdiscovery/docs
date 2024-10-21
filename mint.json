@@ -445,6 +445,7 @@
             "cloud/examples/continuousscan",
             "cloud/examples/customautomation",
             "cloud/examples/trending",
+            "cloud/examples/vulnerability-regressions",
             "cloud/examples/slackalert",
             "cloud/examples/connectjira",
             "cloud/examples/addcloudassets"
