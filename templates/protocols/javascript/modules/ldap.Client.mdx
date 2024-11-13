@@ -191,7 +191,7 @@ ___
 
 ### Authenticate
 
-▸ **Authenticate**(`username`): `void`
+▸ **Authenticate**(`username`): `boolean`
 
 Authenticate authenticates with the ldap server using the given username and password
 performs NTLMBind first and then Bind/UnauthenticatedBind if NTLMBind fails
@@ -204,7 +204,7 @@ performs NTLMBind first and then Bind/UnauthenticatedBind if NTLMBind fails
 
 #### Returns
 
-`void`
+`boolean`
 
 **`Example`**
 
@@ -222,7 +222,7 @@ ___
 
 ### AuthenticateWithNTLMHash
 
-▸ **AuthenticateWithNTLMHash**(`username`): `void`
+▸ **AuthenticateWithNTLMHash**(`username`): `boolean`
 
 AuthenticateWithNTLMHash authenticates with the ldap server using the given username and NTLM hash
 
@@ -234,7 +234,7 @@ AuthenticateWithNTLMHash authenticates with the ldap server using the given user
 
 #### Returns
 
-`void`
+`boolean`
 
 **`Example`**
 

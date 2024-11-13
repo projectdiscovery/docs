@@ -5,21 +5,22 @@ sidebarTitle: "Overview"
 ---
 
 ## Overview
-Assets are any hosts added to ProjectDiscovery Cloud Platform (PDCP) for scanning. Hosts can be a URL, an IP address, or a CIDR range. 
+In the ProjectDiscovery Cloud Platform (PDCP), an asset is any host or target for vulnerability scanning. An asset is defined as the combination of a host (subdomain or IP address) and a specific port.
 
-The Assets page is available from the top navigation. Assets can be added through **Add New Assets** or **Integrate Cloud Services**.
+Assets can be discovered via Auto-Discovery from a root domain or specified IP/CIDR range. Note: IP and CIDR range discovery and enrichment are only available on Pro and Enterprise plans.
+
+Assets can also be imported through our cloud integrations or direct upload through a .txt file. 
+
+Once assets are added to PDCP, they can be selected as targets in a vulnerability scan.
 
 ![Assets](/images/platform/assetspage.png)
-
-The Asset pages supports search, refresh, and lists the added assets available to browse. Once you've added assets to PDCP they are available to include in scans you want to create.
-
 
 ## FAQ
 
 ### General
-**Is there a limitation on how many Assets I can add?**
+**Is there a limitation to how many root domains I can run auto-discovery on?**
 
-There is no overall storage limit for Assets. Each individual upload of Assets cannot exceed 50,000 items or 50 root domains.
+The Free tier supports up to 10 root domain discoveries per month, while Pro supports 100 domains per month and Enterprise offers custom limits. 
 
 **What kind of Assets are supported?**
 
