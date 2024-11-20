@@ -46,7 +46,55 @@ Amazon Web Services can be integrated by using the following configuration block
 
 `aws_access_key` and `aws_secret_key` can be generated in the IAM console. We recommend creating a new IAM user with `Read Only` permissions and providing the access token for the user.
 
-Scopes Required: Read EC2, Route53, S3
+Scopes Required: 
+
+The following scopes can directly be provided to the IAM user.
+
+```
+EC2 - AmazonEC2ReadOnlyAccess
+Route53 - AmazonRoute53ReadOnlyAccess
+S3 - AmazonS3ReadOnlyAccess
+Lambda - AWSLambda_ReadOnlyAccess
+ELB - ElasticLoadBalancingReadOnly
+Cloudfront - CloudFrontReadOnlyAccess
+```
+
+To also support other services, a custom policy document is provided which can directly be copy-pasted to the role to allow correct and minimal permissions.
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "RequiredReadPermissions",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DescribeInstances",
+                "ec2:DescribeRegions",
+                "route53:ListHostedZones",
+                "route53:ListResourceRecordSets",
+                "s3:ListAllMyBuckets",
+                "lambda:ListFunctions",
+                "elasticloadbalancing:DescribeLoadBalancers",
+                "elasticloadbalancing:DescribeTargetGroups",
+                "elasticloadbalancing:DescribeTargetHealth",
+                "cloudfront:ListDistributions",
+                "ecs:ListClusters",
+                "ecs:ListServices",
+                "ecs:ListTasks",
+                "ecs:DescribeTasks",
+                "ecs:DescribeContainerInstances",
+                "eks:ListClusters",
+                "eks:DescribeCluster",
+                "apigateway:GET",
+                "lightsail:GetInstances",
+                "lightsail:GetRegions"
+            ],
+            "Resource": "*"
+        }
+    ]
+} 
+```
 
 __References:__
 1. https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_iam_read-only-console.html
