@@ -6,7 +6,7 @@ sidebarTitle: "Overview"
 
 Nuclei supports fuzzing of HTTP requests based on rules defined in the `fuzzing` section of the HTTP request. This allows creating templates for generic Web Application vulnerabilities like SQLi, SSRF, CMDi, etc without any information of the target like a classic web fuzzer. We call this concept as **Fuzzing for Unknown Vulnerabilities**.
 
-## pre-condition
+### pre-condition
 
 More often than not, we want to only attempt fuzzing on those requests where it makes sense. For example,
 
@@ -75,6 +75,26 @@ fuzzing:
   - part: body # fuzz parameters in body
 ```
 
+#### Special Part
+
+**request** - fuzz the entire request (all parts mentioned above)
+
+```yaml
+fuzzing:
+  - part: request # fuzz entire request
+```
+
+#### Multiple selective parts
+
+Multiple parts can be selected for fuzzing by defining a `parts` field which is the plural of above allowing selected multiple parts to be fuzzed.
+
+```yaml
+fuzzing:
+  - parts:
+      - query
+      - body
+      - header
+```
 
 ### Type
 
@@ -281,7 +301,58 @@ http:
           - "{{reflection}}"
 ```
 
-## Example **Fuzzing** template
+### Analyzer
+
+Analyzers is a new concept introduced in nuclei fuzzing which allow the engine to make additional verification requests based on a certain logic to verify the vulnerability. 
+
+#### time_delay
+
+The `time_delay` analyzer verifies that the response time of the request is controllable by the fuzzed payload. It uses a Linear Regression algorithm ported from ZAP with alternating requests to determine the server time is actually controllable rather than just noise. You can configure it like so
+
+```yaml
+# Create a new time delay analyzer
+analyzer:
+  name: time_delay
+  # Optionally, you can define parameters for the
+  # analyzer like below.
+  # 
+  # the defaults are good enough for most use cases. 
+  parameters:
+    sleep_duration: 10 # sleep for 10 seconds (default: 5)
+    requests_limit: 6 # make 6 verification requests (default: 4)
+    time_correlation_error_range: 0.30 # error range for time correlation (default: 0.15)
+    time_slope_error_range: 0.40 # error range for time slope (default: 0.30)
+```
+
+The following dynamic placeholders are available in payloads with `time_delay` analyzer.
+
+- `[SLEEPTIME]` - The sleep time in seconds for the time delay analyzer.
+- `[INFERENCE]` - The inference condition (%d=%d) for the time delay analyzer.
+
+These values are substituted at runtime with the actual values for the analyzer. The following is how a usual verification process looks.
+
+1. Send the request with the payload to the target with 5 second delay. 
+2. If the response time is less than 5, do nothing.
+3. Send the request to the analyzer which queues ith with 5 seconds delay.
+4. Next a 1 second delay
+5. Next a 5 second delay
+6. Finally, the last 1 second delay.
+
+If the response time is controllable, the analyzer will report the vulnerability.
+
+Matching for the analyzer matches is pretty straightforward as well. Simiar to interactsh, you can use `part: analyzer` to match the analyzer response.
+
+```yaml
+matchers:
+  - type: word
+    part: analyzer
+    words:
+      - "true"
+```
+
+Optionally, you can also extract the `analyzer_details` from the analyzer for matches.
+
+### Example **Fuzzing** template
 
 An example sample template for fuzzing XSS vulnerabilities is provided below.
 
