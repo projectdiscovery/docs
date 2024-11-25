@@ -7,35 +7,38 @@ sidebarTitle: "Integrations"
 ## Summary
 
 ProjectDiscovery Cloud supports integration with various third-party services to enhance your security workflow. These integrations enable:
-- Cloud asset discovery and management
-- Real-time alerting through communication platforms
-- Automated vulnerability tracking through ticketing systems
-- Custom webhook integrations for workflow automation
+
+* Cloud asset discovery and management
+
+* Real-time alerting through communication platforms
+
+* Automated vulnerability tracking through ticketing systems
+
+* Custom webhook integrations for workflow automation
 
 Configure your integrations through the [Configurations](https://cloud.projectdiscovery.io/configs) interface.
 
 ## Notification Integrations
 
-Alerting integrations support notifications as part of scanning and include Slack, Microsoft Teams, Email, and custom Webhooks. 
+Alerting integrations support notifications as part of scanning and include Slack, Microsoft Teams, Email, and custom Webhooks. Navigate to [Scans → Configurations → Alerting](https://cloud.projectdiscovery.io/scans/configs) to configure your alerts.
 
 <img height="300" src="/images/platform/scanintegrations.png" />
 
 ### Slack
 
-ProjectDiscovery Cloud supports scan notifications through Slack. To enable Slack notifications provide a name for your Configuration, a webhook, and an optional username. 
+ProjectDiscovery Cloud supports scan notifications through Slack. To enable Slack notifications provide a name for your Configuration, a webhook, and an optional username.
 
-Choose from the list of **Events** (Scan Started, Scan Finished, Scan Failed) to specify what notifications are generated. All Events are selected by default 
+Choose from the list of **Events** (Scan Started, Scan Finished, Scan Failed) to specify what notifications are generated. All Events are selected by default
 
- - Refer to Slack's [documentation on creating webhooks](https://api.slack.com/messaging/webhooks) for configuration details. 
+* Refer to Slack's [documentation on creating webhooks](https://api.slack.com/messaging/webhooks) for configuration details.
 
- 
 ### MS Teams
 
 ProjectDiscovery Cloud supports notifications through Microsoft Teams. To enable notifications, provide a name for your Configuration and a corresponding webhook.
 
 Choose from the list of **Events** (Scan Started, Scan Finished, Scan Failed)  to specify what notifications are generated.
 
-- Refer to [Microsoft’s documentation on creating webhooks](https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook?tabs=newteams%2Cdotnet) for configuration details.
+* Refer to [Microsoft’s documentation on creating webhooks](https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook?tabs=newteams%2Cdotnet) for configuration details.
 
 ### Email
 
@@ -50,26 +53,30 @@ Check out a sample email below.
 ProjectDiscovery Cloud supports custom webhook notifications, allowing you to post events to any HTTP endpoint that matches your infrastructure requirements.
 
 To implement webhook notifications, provide:
-- Configuration name
-- Webhook URL
-- Authentication parameters (if required)
+
+* Configuration name
+
+* Webhook URL
+
+* Authentication parameters (if required)
 
 Example endpoint format:
+
 ```
 https://your-domain.com/api/security/alerts
 ```
 
 ## Ticketing Integrations
 
-The integrations under Ticketing support ticketing functionality as part of scanning and include support for Jira, GitHub, GitLab, and Linear. 
+The integrations under Ticketing support ticketing functionality as part of scanning and include support for Jira, GitHub, GitLab, and Linear. Navigate to [Scans → Configurations → Ticketing](https://cloud.projectdiscovery.io/scans/configs?type=reporting) to configure your ticketing tools.
 
 <img height="300" src="/images/platform/scansticketing.png" />
 
 ### Jira
 
-ProjectDiscovery Cloud Platform provides integration support for Jira to create new tickets when vulnerabilities are found. 
+ProjectDiscovery Cloud Platform provides integration support for Jira to create new tickets when vulnerabilities are found.
 
-Provide a name for the configuration, the Jira instance URL , the Account ID, the Email, and the associated API token. 
+Provide a name for the configuration, the Jira instance URL , the Account ID, the Email, and the associated API token.
 
 Details on creating an API token are available [in the Jira documentation here.](https://support.atlassian.com/atlassian-account/docs/manage-api-tokens-for-your-atlassian-account/)
 
@@ -77,40 +84,47 @@ Details on creating an API token are available [in the Jira documentation here.]
 
 ProjectDiscovery Cloud provides integration support for GitHub to create new tickets when vulnerabilities are found.
 
-Provide a name for the configuration, the Organization or username, Project name, Issue Assignee, Token, and Issue Label. The Issue Label determines when a ticket is created. (For example, if critical severity is selected, any issues with a critical severity will create a ticket.)  
+Provide a name for the configuration, the Organization or username, Project name, Issue Assignee, Token, and Issue Label. The Issue Label determines when a ticket is created. (For example, if critical severity is selected, any issues with a critical severity will create a ticket.)
 
- - The severity as label option adds a template result severity to any GitHub issues created. 
- - Deduplicate posts any new results as comments on existing issues instead of creating new issues for the same result. 
+* The severity as label option adds a template result severity to any GitHub issues created.
 
-Details on setting up access in GitHub [are available here.](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) 
+* Deduplicate posts any new results as comments on existing issues instead of creating new issues for the same result.
+
+Details on setting up access in GitHub [are available here.](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
 
 ### GitLab
 
-ProjectDiscovery Cloud Platform provides integration support for GitLab to create new tickets when vulnerabilities are found. 
+ProjectDiscovery Cloud Platform provides integration support for GitLab to create new tickets when vulnerabilities are found.
 
-Provide your GitLab username, Project name, Project Access Token and a GitLab Issue label. The Issue Label determines when a ticket is created. 
-(For example, if critical severity is selected, any issues with a critical severity will create a ticket.)  
+Provide your GitLab username, Project name, Project Access Token and a GitLab Issue label. The Issue Label determines when a ticket is created.
+(For example, if critical severity is selected, any issues with a critical severity will create a ticket.)
 
- - The severity as label option adds a template result severity to any GitLab issues created. 
- - Deduplicate posts any new results as comments on existing issues instead of creating new issues for the same result. 
+* The severity as label option adds a template result severity to any GitLab issues created.
 
- Refer to GitLab’s documentation for details on [configuring a Project Access token.](https://docs.gitlab.com/ee/user/project/settings/project_access_tokens.html#create-a-project-access-token) 
+* Deduplicate posts any new results as comments on existing issues instead of creating new issues for the same result.
+
+Refer to GitLab’s documentation for details on [configuring a Project Access token.](https://docs.gitlab.com/ee/user/project/settings/project_access_tokens.html#create-a-project-access-token)
 
 ### Linear
 
 ProjectDiscovery Cloud integrates with Linear for automated issue tracking. The integration requires the following API parameters:
 
 1. Linear API Key
+
 2. Linear Team ID
+
 3. Linear Open State ID
 
 To retrieve these parameters:
 
 1. **API Key Generation**:
-   - Path: Linear > Settings > API > Personal API keys
-   - Direct URL: linear.app/[workspace]/settings/api
+
+   * Path: Linear > Settings > API > Personal API keys
+
+   * Direct URL: linear.app/\[workspace]/settings/api
 
 2. **Team ID Retrieval**:
+
 ```graphql
 query {
   teams {
@@ -122,7 +136,8 @@ query {
 }
 ```
 
-3. **Open State ID Retrieval**:
+1. **Open State ID Retrieval**:
+
 ```graphql
 query {
   workflowStates {
@@ -140,23 +155,33 @@ For detailed API documentation, refer to the [Linear API Documentation](https://
 
 ProjectDiscovery Cloud leverages our open-source [Cloudlist](https://github.com/projectdiscovery/cloudlist) technology to provide comprehensive cloud asset discovery and management through a simple web interface.
 
-
 ### Major Cloud Services
 
 #### AWS (Amazon Web Services)
 
 Supported AWS Services:
-  - [EC2](https://aws.amazon.com/ec2/)
-  - [Route53](https://aws.amazon.com/route53/)
-  - [S3](https://aws.amazon.com/s3/)
-  - [Cloudfront](https://aws.amazon.com/cloudfront/)
-  - [ECS](https://aws.amazon.com/ecs/)
-  - [EKS](https://aws.amazon.com/eks/)
-  - [ELB](https://aws.amazon.com/elasticloadbalancing/)
-  - [ELBv2](https://aws.amazon.com/elasticloadbalancing/)
-  - [Lambda](https://aws.amazon.com/lambda/)
-  - [Lightsail](https://aws.amazon.com/lightsail/)
-  - [Apigateway](https://aws.amazon.com/api-gateway/)
+
+* [EC2](https://aws.amazon.com/ec2/)
+
+* [Route53](https://aws.amazon.com/route53/)
+
+* [S3](https://aws.amazon.com/s3/)
+
+* [Cloudfront](https://aws.amazon.com/cloudfront/)
+
+* [ECS](https://aws.amazon.com/ecs/)
+
+* [EKS](https://aws.amazon.com/eks/)
+
+* [ELB](https://aws.amazon.com/elasticloadbalancing/)
+
+* [ELBv2](https://aws.amazon.com/elasticloadbalancing/)
+
+* [Lambda](https://aws.amazon.com/lambda/)
+
+* [Lightsail](https://aws.amazon.com/lightsail/)
+
+* [Apigateway](https://aws.amazon.com/api-gateway/)
 
 **Example Config**:
 Amazon Web Services can be integrated by using the following configuration block.
@@ -181,7 +206,7 @@ Amazon Web Services can be integrated by using the following configuration block
 
 `aws_access_key` and `aws_secret_key` can be generated in the IAM console. We recommend creating a new IAM user with `Read Only` permissions and providing the access token for the user.
 
-Scopes Required: 
+Scopes Required:
 
 The following scopes can directly be provided to the IAM user.
 
@@ -231,25 +256,35 @@ To also support other services, a custom policy document is provided which can d
 } 
 ```
 
-__References:__
-1. https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_iam_read-only-console.html
-2. https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html
-3. https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html
+**References:**
 
-- Aws Assume Role:
+1. [https://docs.aws.amazon.com/IAM/latest/UserGuide/reference\_policies\_examples\_iam\_read-only-console.html](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_iam_read-only-console.html)
 
-  - https://docs.aws.amazon.com/sdkref/latest/guide/feature-assume-role-credentials.html
-  - https://docs.logrhythm.com/OCbeats/docs/aws-cross-account-access-using-sts-assume-role
+2. [https://docs.aws.amazon.com/IAM/latest/UserGuide/id\_credentials\_access-keys.html](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html)
+
+3. [https://docs.aws.amazon.com/IAM/latest/UserGuide/id\_credentials\_temp\_request.html](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html)
+
+* Aws Assume Role:
+
+  * [https://docs.aws.amazon.com/sdkref/latest/guide/feature-assume-role-credentials.html](https://docs.aws.amazon.com/sdkref/latest/guide/feature-assume-role-credentials.html)
+
+  * [https://docs.logrhythm.com/OCbeats/docs/aws-cross-account-access-using-sts-assume-role](https://docs.logrhythm.com/OCbeats/docs/aws-cross-account-access-using-sts-assume-role)
 
 #### Google Cloud Platform (GCP)
 
 Supported GCP Services:
-  - [Cloud DNS](https://cloud.google.com/dns)
-  - [Kubernetes Engine](https://cloud.google.com/kubernetes-engine)
-  - [Compute Engine](https://cloud.google.com/products/compute)
-  - [Bucket](https://cloud.google.com/storage)
-  - [Cloud Functions](https://cloud.google.com/functions)
-  - [Cloud Run](https://cloud.google.com/run)
+
+* [Cloud DNS](https://cloud.google.com/dns)
+
+* [Kubernetes Engine](https://cloud.google.com/kubernetes-engine)
+
+* [Compute Engine](https://cloud.google.com/products/compute)
+
+* [Bucket](https://cloud.google.com/storage)
+
+* [Cloud Functions](https://cloud.google.com/functions)
+
+* [Cloud Run](https://cloud.google.com/run)
 
 **Example Config:**
 
@@ -263,19 +298,19 @@ Google Cloud Platform can be integrated by using the following configuration blo
   gcp_service_account_key: '{xxxxxxxxxxxxx}'
 ```
 
-
 `gcp_service_account_key` can be retrieved by creating a new service account. To do so, create service account with Read Only access to `cloudresourcemanager` and `dns` scopes in IAM. Next, generate a new account key for the Service Account by following steps in Reference 2. This should give you a json which can be pasted in a single line in the `gcp_service_account_key`.
 
 Scopes Required: Cloud DNS, GKE
 
-References: 
-1. https://cloud.google.com/iam/docs/service-account-overview
+References:
 
+1. [https://cloud.google.com/iam/docs/service-account-overview](https://cloud.google.com/iam/docs/service-account-overview)
 
 #### Azure
 
 Supported Azure Services:
-  - Virtual Machines
+
+* Virtual Machines
 
 **Example Config:**
 
@@ -303,14 +338,18 @@ Microsoft Azure can be integrated by using the following configuration block.
 To use cli auth set `use_cli_auth` value to `true` and run `az login` in the terminal
 
 References:
-1. https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli
-2. https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest#az_ad_sp_create_for_rbac
-3. https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli
+
+1. [https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli](https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli)
+
+2. [https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest#az\_ad\_sp\_create\_for\_rbac](https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest#az_ad_sp_create_for_rbac)
+
+3. [https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli](https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli)
 
 #### Alibaba Cloud
 
 Suppoted Alibaba Cloud Services:
-  - ECS Instances
+
+* ECS Instances
 
 **Example Config:**
 
@@ -328,66 +367,86 @@ Alibaba Cloud can be integrated by using the following configuration block.
   alibaba_access_key_secret: $ALIBABA_ACCESS_KEY_SECRET
 ```
 
-Alibaba Cloud Access Key ID and Secret can be created by visiting https://ram.console.aliyun.com/manage/ak
+Alibaba Cloud Access Key ID and Secret can be created by visiting [https://ram.console.aliyun.com/manage/ak](https://ram.console.aliyun.com/manage/ak)
 
 References:
-1. https://www.alibabacloud.com/help/faq-detail/142101.htm
-2. https://www.alibabacloud.com/help/doc-detail/53045.htm
+
+1. [https://www.alibabacloud.com/help/faq-detail/142101.htm](https://www.alibabacloud.com/help/faq-detail/142101.htm)
+
+2. [https://www.alibabacloud.com/help/doc-detail/53045.htm](https://www.alibabacloud.com/help/doc-detail/53045.htm)
 
 ## Infrastructure & Platform Services
 
 #### Kubernetes
 
 Support for:
-- Services
-- Ingresses
-- Cross-cloud cluster discovery
+
+* Services
+
+* Ingresses
+
+* Cross-cloud cluster discovery
 
 Navigate to [Assets → Connect Cloud Services → Kubernetes](https://cloud.projectdiscovery.io/assets/configure) to configure your cluster access.
 
 #### Hashicorp Stack
 
 Support for:
-- Terraform state file parsing
-- Nomad services
-- Consul services
+
+* Terraform state file parsing
+
+* Nomad services
+
+* Consul services
 
 ### CDN & DNS Providers
 
 Configure these providers through [Assets → Connect Cloud Services](https://cloud.projectdiscovery.io/assets/configure):
 
-- **Cloudflare**: DNS and CDN assets
-- **Fastly**: CDN endpoints
-- **Namecheap**: Domain management
+* **Cloudflare**: DNS and CDN assets
+
+* **Fastly**: CDN endpoints
+
+* **Namecheap**: Domain management
 
 ### VPS & PaaS Providers
 
 Access these providers through [Assets → Connect Cloud Services](https://cloud.projectdiscovery.io/assets/configure):
 
-- **DigitalOcean**: Droplets and managed services
-- **Scaleway**: Instances and managed services
-- **Heroku**: Applications and add-ons
-- **Linode**: Compute instances
-- **Hetzner Cloud**: Cloud servers
+* **DigitalOcean**: Droplets and managed services
+
+* **Scaleway**: Instances and managed services
+
+* **Heroku**: Applications and add-ons
+
+* **Linode**: Compute instances
+
+* **Hetzner Cloud**: Cloud servers
 
 ## Scan Configurations
 
 Configure custom HTTP headers, template variables, and interactsh server settings to customize your scan behavior. Access these settings at [Scans → Configurations → Scan Settings](https://cloud.projectdiscovery.io/scans/configs?type=scan).
 
 You can configure:
-- Custom HTTP headers for scan requests
-- Template variables for scan customization
-- Interactsh server settings for OOB testing
+
+* Custom HTTP headers for scan requests
+
+* Template variables for scan customization
+
+* Interactsh server settings for OOB testing
 
 ## Template Configurations
 
 Access pre-configured templates or create custom configurations with filtered rules based on:
-- Severity levels
-- Tags
-- Protocol types
-- Template IDs
+
+* Severity levels
+
+* Tags
+
+* Protocol types
+
+* Template IDs
 
 Configure these settings at [Scans → Configurations → Template Profiles](https://cloud.projectdiscovery.io/scans/configs?type=template).
 
 Want to write your custom templates? Learn more in our [Template Editor](/cloud/editor/overview) documentation.
-
