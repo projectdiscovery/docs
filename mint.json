@@ -388,6 +388,7 @@
         "cloud/introduction",
         "cloud/features",
         "cloud/usecases",
+        "cloud/integrations",
         {
           "group": "General Admin",
           "icon": "square-question",
