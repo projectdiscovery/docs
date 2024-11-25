@@ -386,8 +386,7 @@
       "group": "ProjectDiscovery Cloud Platform",
       "pages": [
         "cloud/introduction",
-        "cloud/features",
-        "cloud/usecases",
+        "cloud/ossvscloud",
         "cloud/integrations",
         {
           "group": "General Admin",
