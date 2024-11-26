@@ -47,12 +47,33 @@ Naabu will soon be integrated directly into ProjectDiscovery's internal vulnerab
 
 This approach lets you run Nuclei locally and upload results to ProjectDiscovery Cloud Platform (ProjectDiscovery).
 
-### Setup
+### Set up your API Key
 
-1. Configure API authentication:
-```bash
-nuclei -auth
-```
+To connect your existing Nuclei results to PDCP you will need to create a free API Key:
+
+1. Visit https://cloud.projectdiscovery.io 
+2. Open the setting menu from the top right and select "API Key" to create your API Key
+<img class="block" src="/images/pdcp-api-key.png" alt="PDCP API Key" />
+3. Use the `nuclei -auth` command, and enter your API key when prompted.
+
+### Configure Team (Optional)
+
+If you want to upload the scan results to a team workspace instead of your personal workspace, you can configure the Team ID using either method:
+
+- **Obtain Team ID:**
+  - Navigate to [https://cloud.projectdiscovery.io/settings/team](https://cloud.projectdiscovery.io/settings/team)
+  - Copy the Team ID from the top right section
+  ![image](https://github.com/user-attachments/assets/76a9f102-1626-4c87-8d9e-37c30417f19e)
+
+- **CLI Option:**
+  ```bash
+  nuclei -tid XXXXXX -cloud-upload
+  ```
+
+- **ENV Variable:**
+  ```bash
+  export PDCP_TEAM_ID=XXXXX
+  ```
 
 2. Run your scan with the upload flag:
 ```bash
