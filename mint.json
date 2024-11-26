@@ -389,21 +389,23 @@
         "cloud/ossvscloud",
         "cloud/integrations",
         {
-          "group": "General Admin",
-          "icon": "square-question",
-          "iconType": "regular",
-          "pages": [
-            "cloud/general-faq",
-            "cloud/admin"
-          ]
-        },
-        {
           "group": "Assets",
           "icon": "bullseye",
           "iconType": "regular",
           "pages": [
             "cloud/assets/overview",
             "cloud/assets/adding-assets"
+          ]
+        },
+        {
+          "group": "Vulnerability Scanning",
+          "icon": "radar",
+          "iconType": "regular",
+          "pages": [
+            "cloud/scanning/overview",
+            "cloud/scanning/external-scan",
+            "cloud/scanning/internal-scan",
+            "cloud/scanning/parameters"
           ]
         },
         {
@@ -425,30 +427,12 @@
           ]
         },
         {
-          "group": "Scanning",
-          "icon": "radar",
+          "group": "General Admin",
+          "icon": "square-question",
           "iconType": "regular",
           "pages": [
-            "cloud/scanning/overview",
-            "cloud/scanning/nuclei-scan",
-            "cloud/scanning/createscans",
-            "cloud/scanning/integrations",
-            "cloud/scanning/parameters"
-          ]
-        },
-        {
-          "group": "Use Cases",
-          "icon": "users",
-          "iconType": "solid",
-          "pages": [
-            "cloud/examples/addassets",
-            "cloud/examples/continuousscan",
-            "cloud/examples/customautomation",
-            "cloud/examples/trending",
-            "cloud/examples/vulnerability-regressions",
-            "cloud/examples/slackalert",
-            "cloud/examples/connectjira",
-            "cloud/examples/addcloudassets"
+            "cloud/general-faq",
+            "cloud/admin"
           ]
         }
       ]

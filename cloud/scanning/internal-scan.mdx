@@ -1,0 +1,173 @@
+---
+title: "Internal Network Vulnerability Scanning"
+sidebarTitle: "Internal Scanning"
+---
+
+Internal network security is critical yet often overlooked. Once attackers gain initial access through configuration drift, phishing, or compromised credentials, they can rapidly expand their foothold by exploiting internal vulnerabilities. This lateral movement can lead to devastating breaches, making internal vulnerability scanning as crucial as external assessments.
+
+ProjectDiscovery offers two distinct approaches for internal network vulnerability scanning, each designed to fit different organizational needs while maintaining our core focus on exploitability and accurate detection.
+
+<CardGroup cols={2}>
+  <Card title="Local Scanning & Upload" icon="upload">
+    Run Nuclei locally and upload results to PDCP. Ideal for teams with existing scanning workflows or specific network restrictions.
+  </Card>
+  <Card title="Cloud-Managed Scanning" icon="cloud" color="blue">
+    Use TunnelX for remote scan triggering through PDCP UI. Perfect for large networks and centralized security management.
+  </Card>
+</CardGroup>
+
+<Note>
+Internal scanning helps identify misconfigurations, unpatched systems, and security gaps that could be exploited for lateral movement before attackers can leverage them.
+</Note>
+
+## Port Discovery with Naabu
+
+Before running vulnerability scans, it's recommended to first identify open ports in your internal network using [Naabu](https://github.com/projectdiscovery/naabu) - a fast and reliable port scanner. This ensures comprehensive vulnerability scanning coverage.
+
+```bash
+# Scan entire internal subnet and save results
+naabu -host 192.168.1.1/24 -o internal_ports.txt
+
+# Scan specific port ranges
+naabu -host 192.168.1.1/24 -p 80,443,8000-9000 -o internal_ports.txt
+
+# Faster scanning with increased rate
+naabu -host 192.168.1.1/24 -rate 1000 -o internal_ports.txt
+```
+
+<Note>
+The discovered ports can be used as input for vulnerability scanning to ensure thorough coverage of all exposed services. Learn more about Naabu's capabilities in our [detailed documentation](/tools/naabu/overview).
+</Note>
+
+<Info>
+Naabu will soon be integrated directly into ProjectDiscovery's internal vulnerability scanning capabilities. Contact our [sales team](https://projectdiscovery.io/request-demo) to be notified when this feature becomes available.
+</Info>
+
+## Method 1: Local Scanning & Upload
+
+This approach lets you run Nuclei locally and upload results to ProjectDiscovery Cloud Platform (ProjectDiscovery).
+
+### Setup
+
+1. Configure API authentication:
+```bash
+nuclei -auth
+```
+
+2. Run your scan with the upload flag:
+```bash
+# Single target
+nuclei -u http://internal-target -cloud-upload
+
+# Multiple targets
+nuclei -l internal-hosts.txt -cloud-upload
+
+# With specific templates
+nuclei -u http://internal-target -t misconfiguration/ -cloud-upload
+```
+
+<Note>
+This method is ideal when you want to maintain complete control over scan execution or integrate with existing automation scripts.
+</Note>
+
+## Method 2: Cloud-Managed Scanning (Recommended)
+
+[TunnelX](https://github.com/projectdiscovery/tunnelx) is our open-source tunneling solution, purpose-built by ProjectDiscovery to enable secure internal scanning. It establishes isolated SOCKS5 proxies that let you trigger scans directly from the ProjectDiscovery interface while ensuring your internal infrastructure remains protected and unexposed.
+
+<Note>
+Cloud-managed internal scanning with TunnelX is an Enterprise-exclusive feature. Free and Pro users can still perform internal scans using the local scanning method described above.
+</Note>
+
+### Install TunnelX
+
+Choose your preferred installation method:
+
+<CodeGroup>
+```bash Docker (Recommended)
+# Pull and run the official image
+docker run --network host -d \
+  -e ProjectDiscovery_API_KEY="your_api_key" \
+  projectdiscovery/tunnelx:latest
+
+# Or build locally
+docker build -t tunnelx https://github.com/projectdiscovery/tunnelx.git
+docker run --network host -d -e ProjectDiscovery_API_KEY="your_api_key" tunnelx
+```
+
+```bash Go Installation
+# Install using go install
+go install github.com/projectdiscovery/tunnelx@latest
+
+# Set your API key and run
+export ProjectDiscovery_API_KEY="your_api_key"
+tunnelx
+```
+
+```bash Source
+# Clone and run from source
+git clone https://github.com/projectdiscovery/tunnelx.git
+cd tunnelx
+export ProjectDiscovery_API_KEY="your_api_key"
+go run .
+```
+</CodeGroup>
+
+### Managing Multiple Networks
+
+TunnelX allows you to create separate tunnels for different internal networks:
+
+```bash
+# Run tunnels with custom names for different networks
+tunnelx -auth <api_key> -name prod-network
+tunnelx -auth <api_key> -name staging-network
+
+# Run in background
+nohup tunnelx -auth <api_key> & # Linux/MacOS
+start /B tunnelx -auth <api_key> # Windows
+```
+
+<Note>
+After successful connection, you'll see your network appear as a selectable option in the network dropdown menu on the ProjectDiscovery Scans page.
+</Note>
+
+<CardGroup cols={2}>
+  <Card title="Exploitability Focus" icon="bullseye">
+    Every vulnerability includes proof of concept, eliminating false positives common in traditional scanners.
+  </Card>
+  <Card title="Multiple Networks" icon="network-wired">
+    Scan different internal networks by running multiple TunnelX instances with unique names.
+  </Card>
+  <Card title="Secure Isolation" icon="lock">
+    Each tunnel creates an isolated SOCKS5 proxy, ensuring network traffic remains protected.
+  </Card>
+  <Card title="Centralized Management" icon="gauge">
+    Monitor and manage all internal scans from a single ProjectDiscovery dashboard.
+  </Card>
+</CardGroup>
+
+## Choosing Your Approach
+
+<CardGroup cols={2}>
+  <Card title="Use Local Scanning When:" icon="list-check">
+    - You need complete control over scan execution
+    - You have existing automation scripts
+    - Network policies restrict external connections
+    - You want to run scans on-demand
+  </Card>
+  <Card title="Use Cloud-Managed When:" icon="list-check">
+    - Managing large internal networks
+    - Need centralized scan management
+    - Want automated recurring scans
+    - Require multi-team collaboration
+  </Card>
+</CardGroup>
+
+<Warning>
+Always ensure you have proper authorization before scanning internal networks. Follow your organization's security policies and compliance requirements.
+</Warning>
+
+## Next Steps
+
+- Learn how to [create custom templates](/cloud/editor/introduction) for internal assets
+- Set up [automated scanning workflows](/cloud/automation/introduction)
+- Explore [AI-assisted template generation](/cloud/editor/ai) for your specific use cases

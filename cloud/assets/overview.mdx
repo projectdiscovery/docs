@@ -1,55 +1,80 @@
 ---
-title: "ProjectDiscovery Cloud Platform Assets"
-description: "A high-level overview of the PDCP Asset functionality"
+title: "Asset Discovery and Management"
 sidebarTitle: "Overview"
 ---
 
-## Overview
-In the ProjectDiscovery Cloud Platform (PDCP), an asset is any host or target for vulnerability scanning. An asset is defined as the combination of a host (subdomain or IP address) and a specific port.
+Attack Surface Management (ASM) is the continuous discovery, inventory, classification, and monitoring of your external-facing and internal assets. These assets include any internet-facing systems, cloud resources, or services that could potentially be accessed by attackers.
 
-Assets can be discovered via Auto-Discovery from a root domain or specified IP/CIDR range. Note: IP and CIDR range discovery and enrichment are only available on Pro and Enterprise plans.
+<CardGroup cols={3}>
+  <Card 
+    title="Asset Discovery" 
+    icon="magnifying-glass"
+    href="/cloud/assets/adding-assets#asset-discovery">
+    Automated discovery and monitoring from root domains
+  </Card>
+  <Card 
+    title="Cloud Services" 
+    icon="cloud"
+    href="/cloud/integrations#cloud-asset-discovery">
+    Multi-cloud asset discovery and integration
+  </Card>
+  <Card 
+    title="API Integration" 
+    icon="code"
+    href="https://docs.projectdiscovery.io/api-reference/enumerations/create-enumeration">
+    Programmatic asset management via REST API
+  </Card>
+</CardGroup>
 
-Assets can also be imported through our cloud integrations or direct upload through a .txt file. 
+## Our Approach
 
-Once assets are added to PDCP, they can be selected as targets in a vulnerability scan.
+ProjectDiscovery combines battle-tested open-source tools with cloud-native capabilities:
 
-![Assets](/images/platform/assetspage.png)
+<CardGroup cols={2}>
+  <Card title="Open Source Foundation" icon="github">
+    ✓ [Subfinder](https://github.com/projectdiscovery/subfinder) for subdomain discovery
 
-## FAQ
+    ✓ [Naabu](https://github.com/projectdiscovery/naabu) for port scanning
 
-### General
-**Is there a limitation to how many root domains I can run auto-discovery on?**
+    ✓ [Httpx](https://github.com/projectdiscovery/httpx) for HTTP probing
 
-The Free tier supports up to 10 root domain discoveries per month, while Pro supports 100 domains per month and Enterprise offers custom limits. 
+    ✓ [Cloudlist](https://github.com/projectdiscovery/cloudlist) for cloud assets
 
-**What kind of Assets are supported?**
+    ✓ [TLSx](https://github.com/projectdiscovery/tlsx) for certificate analysis
 
-Assets or hosts can be a URL, an IP address, a root domain, or a CIDR range. 
+    ✓ [Uncover](https://github.com/projectdiscovery/uncover) for exposed asset search
+  </Card>
+  <Card title="Cloud Platform Features" icon="cloud">
+    ✓ Advanced subdomain enumeration
 
-**Can everyone in my team see all the Assets that were added to my environment?**
+    ✓ Port scanning (1-65535)
 
-Yes, all assets in your environment are shared across your team.
+    ✓ Deep technology fingerprinting
 
-### Assets and Scans
+    ✓ Cloud asset discovery
 
-**Can I exempt specific assets from a scan?**
+    ✓ ASN-based discovery
 
-Building a new scan requires you to choose assets as part of the scan configuration, so yes, scans will apply to whatever assets you include in the scan. 
+    ✓ Certificate chain analysis
 
-### Adding and Modifying Assets
+  </Card>
+</CardGroup>
 
-**What's the difference between Add Assets, cloud integration?**
+## Getting Started
 
- - Add allows you to choose a list of individual assets or root domains to add as a list or TXT file.
-   
-   - Enabling **Auto Discovery** automatically enumerates associated subdomains and open ports. Each subdomain or unique path identified is added as individual asset.
+Choose your preferred method to start building your asset inventory:
 
- - Cloud Integrations connect your cloud service provider and import any assets identified. 
+<Steps>
+  1. **Asset Discovery**
+     Start with root domains and let our platform discover your assets automatically. [Learn more →](/cloud/assets/adding-assets#asset-discovery)
 
-**Can I edit existing Assets?** 
+  2. **Cloud Integration**
+     Connect your cloud providers for automated asset sync. [View providers →](/cloud/integrations#cloud-asset-discovery)
 
-Yes! Assets that are added to PDCP can be renamed.
+  3. **API Integration**
+     Programmatically manage assets using our REST API. [API docs →](https://docs.projectdiscovery.io/api-reference/enumerations/create-enumeration)
+</Steps>
 
-**Can I delete Assets?**
-
-You can delete any assets, however assets that are included in a scan will generate an error.
+<Note>
+Need help getting started? Contact our [support team](mailto:support@projectdiscovery.io) or join our [Discord community](https://discord.gg/projectdiscovery).
+</Note>

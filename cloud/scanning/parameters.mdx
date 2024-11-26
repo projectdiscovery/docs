@@ -1,15 +1,15 @@
 ---
 title: "Adding Parameters"
-description: "A walkthrough of adding additional parameters to PDCP scan configuration"
+description: "A walkthrough of adding additional parameters to ProjectDiscovery scan configuration"
 sidebarTitle: "Adding Parameters"
 ---
 
 ## Summary
-Some Nuclei templates, to adapt to running in ProjectDiscovery Cloud Platform (PDCP), may require additional parameters. 
+Some Nuclei templates, to adapt to running in ProjectDiscovery Cloud Platform, may require additional parameters. 
 A common example is Nuclei templates that need parameters like username and password to authenticate.
 
 This page provides a common example to show you the steps required to set up scan parameters.
-Using the scan configuration you can take advantage of these types of Nuclei templates within PDCP. 
+Using the scan configuration you can take advantage of these types of Nuclei templates within ProjectDiscovery. 
 
 ## Authentication Example 
 
@@ -90,11 +90,11 @@ In Nuclei from the CLI you would simply run the following command:
 
 `nuclei -id CVE-2023-1890 -var username=admin -var password=password123 -target https://example.com`
 
-However, PDCP requires some additional configuration to include these parameters in a scan. 
+However, ProjectDiscovery requires some additional configuration to include these parameters in a scan. 
 
-## Variable Configuration in PDCP
+## Variable Configuration in ProjectDiscovery
 
-To configure these required scan parameters in PDCP you can create a Scan Configuration to pass these variables along in any scans you create. 
+To configure these required scan parameters in ProjectDiscovery you can create a Scan Configuration to pass these variables along in any scans you create. 
 You can choose to enable this configuration for all scans by default, or apply the configuration manually when you set up a new scan. 
 
 Complete these steps to set up an username and password parameters for a scan that includes WordPress authentication within the Nuclei templates. 

@@ -1,96 +1,68 @@
 ---
-title: "PDCP Scanning Overview"
-description: "Learn more about PDCP scanning features and capabilities"
+title: "ProjectDiscovery Vulnerability Scanning Overview"
 sidebarTitle: "Overview"
 ---
 
-## Key Features
+ProjectDiscovery revolutionizes vulnerability scanning by adopting an attacker's mindset, empowering you to identify both external and internal-facing assets with a sharp focus on exploitability. Unlike traditional scanners that often generate false positives and offer limited customization, ProjectDiscovery delivers precise and actionable insights tailored to your unique security landscape.
 
-Scans are at the heart of the ProjectDiscovery Cloud Platform (PDCP). Upload Assets to your environment, select the templates you want to use, and configure a scan to check for exploitable vulnerabilities. 
+<CardGroup cols={2}>
+  <Card title="Validate Exploitability" icon="check-double">
+    Conduct real exploitation attempts to ensure vulnerabilities are genuine threats.
+  </Card>
+  <Card title="Detect Misconfigurations" icon="shield-exclamation">
+    Uncover security gaps beyond standard CVE matching for comprehensive coverage.
+  </Card>
+  <Card title="Get Proof of Concept" icon="microscope">
+    Receive clear evidence for each vulnerability, facilitating effective remediation.
+  </Card>
+  <Card title="Custom Vulnerability Detection" icon="code">
+    Write your own detection methods using our template language to identify unique security issues specific to your infrastructure.
+  </Card>
+</CardGroup>
 
-Features include:
-- Connecting existing Nuclei scans
-- Creating new scans 
-- Viewing active vulnerabilities
-- Real-Time vulnerability scan
-- Scheduling scans
-- Exporting scan details 
-- Determining active CVEs
-- Rescanning
+<CardGroup cols={2}>
+  <Card title="AI Vulnerability Templates" icon="robot">
+    Automatically generate vulnerability scanning templates from pentest findings and bug bounty reports.
+  </Card>
+  <Card title="Continuous Retesting" icon="rotate">
+    Validate fixes during remediation within your existing ticketing systems.
+  </Card>
+  <Card title="Cross-Infrastructure Correlation" icon="network-wired">
+    Identify similar vulnerabilities across diverse assets to ensure comprehensive coverage.
+  </Card>
+  <Card title="Regression Testing" icon="arrow-rotate-left">
+    Prevent the recurrence of vulnerabilities by continuously monitoring fixed vulnerabilities and CI/CD.
+  </Card>
+</CardGroup>
 
 ## Getting Started
 
-Before you get started with scanning you will need two things: 
+To initiate your first scan with ProjectDiscovery, follow these steps:
 
-- To add your Assets
-- To select the templates you want to use
+1. **Add Assets** - Upload assets directly or [add them through our interface](/cloud/assets/adding-assets).
+2. **Select Templates** - Choose from:
+   - Our curated set of [recommended templates](/cloud/editor/recommended).
+   - The full community template library.
+   - Your own custom templates tailored to your specific needs.
 
-**Assets**
+## Scanning Capabilities
 
-Assets can be added in several ways. Refer to the [Assets documentation](/cloud/assets/overview) for details on adding your Assets through upload, discovery, or cloud integrations.
+ProjectDiscovery offers versatile scanning approaches designed for thorough security assessments:
 
-**Templates**
-
-PDCP includes our large community-curated library of public Nuclei templates. You can use all of those templates, our subset of [recommended templates](/cloud/editor/recommended), a specific selection of templates, or you can create or add your own custom templates.
-
- - Check out the main [Nuclei templates](templates/introduction) section to learn more about templates or, 
- - Review the [Templates & Editor](/cloud/editor/overview) section for more information on using templates and the editor within PDCP
-
-
-## FAQ
-
-### Scanning Basics
-
-**What do I need to do before I can run a scan in PDCP?**
-
-You will need to add assets and identify your templates. From the Scan page, select “Create Scan” to get started. 
-
-**What are the differences between running Nuclei versus running a scan on PDCP?**
-
-Scanning with PDCP differs from Nuclei in several ways. The main differences are the use of a different interactsh server along with distributed and faster scanning. 
-
-In addition, some scanning capabilities that are part of Nuclei are not included in PDCP (this is mainly due to security concerns). 
-If you have specific questions on support and future capabilities feel free to reach out to us with questions. 
-
-Capabilities that are offered in Nuclei that are not currently supported in PDCP include:
-
- - file templates
- - headless templates
- - code templates
- - workflows
- - templates using a local wordlist
-
- **How do I run a scan/upload existing scan results from Nuclei?**
-
-Scans can be run in Nuclei and connected to PDCP or you can run a scan directly in PDCP from the Scans page. 
-
-Scan results form Nuclei can be connected to ProjectDiscovery Cloud Platform
- - Check out the [Connect Nuclei](https://docs.projectdiscovery.io/cloud/free/scan) page for details.
-
-### Vulnerabilities
-
-**My scan results in PDCP are different from my Nuclei results. What happened?**
-
-There are a number of possibilities for this, let’s look at some of the most likely causes. 
-
-If you have _more results_ in your scan from Nuclei than from PDCP, potential causes include:
- - Scanning with templates that are not enabled in PDCP
- - Scanning an internal host that not accessible to PDCP
- - A potential PDCP bug
-
-If you have _fewer results_ in your scan from Nuclei than from PDCP, potential causes include:
- - Use of dynamic IPs versus local static IPs that were blocked from the target URL for scanning
- - Use of a different interactsh server (PDCP), public servers (Nuclei) may be blocked using WAFs
-
-**What happens if duplicate scan results are uploaded?**
-
-If a user uploads the same scan results - by uploading scan results from Nuclei to update an existing scan using the named scan ID -  PDCP discards duplicate data so the original results will remain. 
-
-Otherwise any scan information from Nuclei that is uploaded creates a new scan result page in PDCP. 
-
-**What are the scan statuses and what do they mean?**
-
- - Stopped - This status indicates that a user has stopped the scan either in PDCP or via the API. Note: Scans in “starting” cannot be stopped. 
- - Failed -  This status indicates that a scan has failed. Click on the icon on the scan list or result page to view error details for the failed scan. 
- - Starting - Indicates that the scan is initializing.
- - Running - Indicates the scan is in progress.
+<CardGroup cols={3}>
+  <Card title="Real-Time Scanning" icon="bolt">
+    - Automatic template scanning
+    - Immediate vulnerability detection
+    - Stay ahead of threats
+  </Card>
+  <Card title="Scheduled Scans" icon="calendar">
+    - Regular security checks
+    - Customizable frequencies
+    - Automated reporting
+  </Card>
+  <Card title="Custom Automation" icon="gears">
+    - Internal vulnerability templates
+    - Cross-infrastructure monitoring
+    - Automated retesting within ticketing workflows
+  </Card>
+</CardGroup>
