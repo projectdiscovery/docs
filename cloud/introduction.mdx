@@ -1,6 +1,7 @@
 ---
 title: "Introducing ProjectDiscovery Cloud Platform"
 sidebarTitle: "Introduction"
+icon: "book-open"
 ---
 
 <Tip>
@@ -9,14 +10,31 @@ Sign up for [ProjectDiscovery Cloud Platform](https://cloud.projectdiscovery.io/
 Have a complex company use case? Get [Enterprise grade assistance](https://projectdiscovery.io/request-demo)
 </Tip> 
 
-## What is ProjectDiscovery Cloud Platform? 
+ProjectDiscovery Cloud Platform combines real-world attack detection with comprehensive vulnerability management. By leveraging our battle-tested open-source security tools used by over 100,000 security professionals worldwide, our platform helps organizations focus on what matters most - truly exploitable security risks.
 
-ProjectDiscovery Cloud Platform combines real-world attack detection with comprehensive vulnerability management. By leveraging our battle-tested open-source security tools used by over 100,000 security professionals worldwide, our platform helps organizations focus on what matters most - truly exploitable security risks:
+While traditional VM tools focus on CVE matching and version scanning, ProjectDiscovery Cloud takes an attacker's perspective:
 
-- **Detect Real Threats**: Stay ahead of trending internet attacks with community-powered security templates
-- **Validate Exploitability**: Focus only on vulnerabilities that attackers can actually exploit
-- **Streamline Security**: Transform traditional vulnerability management into a risk-based program
-- **Accelerate Response**: Quickly validate and remediate exploitable threats with clear proof of concepts
+<CardGroup cols={2}>
+  <Card title="Actual Exploitability" icon="check-double">
+    Validate vulnerabilities through real exploitation attempts instead of version checks
+  </Card>
+
+  <Card title="Beyond CVEs" icon="shield-exclamation">
+    Detect exploitable misconfigurations and security gaps that traditional scanners miss
+  </Card>
+
+  <Card title="Proof of Concept" icon="microscope">
+    Every finding includes clear evidence and reproduction steps
+  </Card>
+
+  <Card title="AI-Powered Detection" icon="robot">
+    Write custom vulnerability detections with AI assistance and knowledge sharing
+  </Card>
+
+  <Card title="Community-Powered" icon="users">
+    Leverage our global open-source community to rapidly detect emerging threats
+  </Card>
+</CardGroup>
 
 Our platform uniquely combines Vulnerability Management, Attack Surface Management, and Continuous Threat Exposure Management into a single, exploitability-focused solution with zero setup overhead - helping you manage security risks the way attackers see them, right from day one.
 
@@ -30,43 +48,41 @@ Our platform uniquely combines Vulnerability Management, Attack Surface Manageme
   allowfullscreen
 ></iframe>
 
-## Why ProjectDiscovery Cloud Platform?
 
-### Beyond Traditional Vulnerability Management
+## Getting Started
 
-While traditional VM tools focus on CVE matching and version scanning, ProjectDiscovery Cloud takes an attacker's perspective by:
-- Validating actual exploitability instead of relying on version checks
-- Detecting misconfigurations and security gaps beyond CVEs
-- Providing clear proof of concept for each finding
-- Enabling custom security checks for your unique attack surface
+<CardGroup cols={2}>
+  <Card 
+    title="Asset Discovery & Management" 
+    icon="radar"
+    href="/cloud/assets/overview">
+    Continuous discovery and monitoring of your attack surface across multi-cloud environments, domains, and infrastructure. Powered by our battle-tested open-source tools and cloud-native capabilities for comprehensive asset visibility.
+  </Card>
 
-### Continuous Asset Discovery
+  <Card 
+    title="External Vulnerability Scanning" 
+    icon="globe"
+    href="/cloud/scanning/createscans">
+    Automated and precise external scanning with zero false positives. Every finding includes proof of concept and clear remediation steps. Supports both automated continuous monitoring and targeted assessments.
+  </Card>
 
-ProjectDiscovery Cloud provides comprehensive visibility across your entire attack surface:
-- Multi-cloud asset discovery powered by our Cloudlist technology
-- Infrastructure and platform service monitoring
-- Continuous DNS and subdomain enumeration
-- Application and API endpoint discovery
+  <Card 
+    title="Internal Network Scanning" 
+    icon="network-wired"
+    href="/cloud/scanning/nuclei-scan">
+    Secure internal vulnerability assessment through local scanning or cloud-managed TunnelX. Identify critical internal vulnerabilities before attackers can exploit them for lateral movement.
+  </Card>
 
-### Zero False Positives
-
-Our modern vulnerability detection engine powered by Nuclei ensures:
-- Every finding is validated through actual exploitation attempts
-- Clear proof of concept with each vulnerability
-- Custom templates that match your security requirements
-- Rapid detection of new threats through our community
-
-### Complete Transparency
-
-Unlike black-box security tools, ProjectDiscovery Cloud provides:
-- Full visibility into detection methods through Nuclei templates
-- Custom template creation for your specific needs
-- Clear remediation steps for each finding
-- Integration with your existing security workflow
+  <Card 
+    title="Integrations" 
+    icon="puzzle-piece"
+    href="/cloud/integrations">
+    Seamless integration with your security stack including Slack, Teams, JIRA, GitHub, and custom webhooks. Automate vulnerability management and streamline your security operations.
+  </Card>
+</CardGroup>
 
 If you're new to ProjectDiscovery: 
  - Get started with a [free ProjectDiscovery Cloud account](cloud.projectdiscovery.io)
- - Learn about the [key benefits](/cloud/features) of Cloud
  - Explore our [open source tools](/tools/index)
  - Join our [Discord community](https://discord.com/invite/projectdiscovery)
 
