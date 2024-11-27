@@ -269,9 +269,13 @@ In this example, we're using a template that has `global-matchers` set to **true
 To run it, use a command like this:
 
 ```console
-> nuclei -u http://example.com -t http-template-with-global-matchers.yaml -t http-template-1.yaml -t http-template-2.yaml -silent
+> nuclei -egm -u http://example.com -t http-template-with-global-matchers.yaml -t http-template-1.yaml -t http-template-2.yaml -silent
 [http-template-with-global-matchers:asymmetric_private_key] http://example.com/request-from-http-template-1
 [http-template-with-global-matchers:slack_webhook] http://example.com/request-from-http-template-2
 ```
+
+<Warning>
+  Global matchers are NOT applied by default. You need to explicitly enable them using the `-enable-global-matchers`/`-egm` flag or programmatically via [`nuclei.EnableGlobalMatchersTemplates`](https://pkg.go.dev/github.com/projectdiscovery/nuclei/v3/lib#EnableGlobalMatchersTemplates) if you're working with the Nuclei SDK.
+</Warning>
 
 In this case, the global matchers are looking for an asymmetric private key and a Slack webhook. As you can see in the output, it found a match in requests from the other templates, even though the matching logic was only defined once in the global matchers template. This makes it really efficient for detecting patterns across multiple requests without duplicating code in every single template.
