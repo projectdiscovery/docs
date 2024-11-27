@@ -183,6 +183,18 @@ echo 51.83.59.99/24 | uncover
 51.83.59.3:993
 ```
 
+
+### [Awesome Search Queries Integration](https://github.com/projectdiscovery/awesome-search-queries)
+
+The `-asq, -awesome-search-queries` flag allows you to use predefined awesome search queries to discover exposed assets on the internet. This feature leverages a curated list of queries that are known to yield interesting results. To use this feature, simply specify the `-asq` flag followed by the desired query. For example, to search for exposed Jira instances, you can use:
+
+```console
+uncover -asq jira -silent
+
+....
+```
+
+
 ### Field Format
 
 `-f, -field` flag can be used to indicate which fields to return, currently, `ip`, `port`, and `host` are supported and can be used to return desired fields.
