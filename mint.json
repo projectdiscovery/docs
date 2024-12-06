@@ -101,7 +101,7 @@
       ]
     },
     {
-      "group": "ProjectDiscovery Cloud Platform",
+      "group": "Cloud Platform",
       "pages": [
         "cloudplatform"
       ]
@@ -383,7 +383,7 @@
       ]
     },
     {
-      "group": "ProjectDiscovery Cloud Platform",
+      "group": "Cloud Platform",
       "pages": [
         "cloud/introduction",
         "cloud/ossvscloud",
