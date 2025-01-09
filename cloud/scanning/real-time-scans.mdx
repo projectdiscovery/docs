@@ -3,20 +3,17 @@ title: "Real-Time Vulnerability Scanning"
 sidebarTitle: "Real-Time Scans"
 ---
 
-Real-time vulnerability scanning enables continuous security assessment of your infrastructure as new vulnerabilities are discovered and new nuclei templates are released. This proactive approach ensures that your assets are automatically checked against the latest security threats without manual intervention.
+Real-time scanning keeps your infrastructure protected against emerging threats by instantly scanning your assets when new security vulnerabilities are discovered. Our community-powered nuclei templates repository acts as a central hub for the latest security findings – from zero-days and 1-day exploits to newly disclosed CVEs being actively exploited in the wild.
 
-## Features
+Security researchers and engineers worldwide contribute templates as soon as new vulnerabilities trend on the internet, often within hours of disclosure. When these templates are merged into our repository, your assets are automatically scanned without waiting for scheduled runs. This rapid response is crucial for protecting against active exploitation campaigns, especially during the critical window between vulnerability disclosure and patch availability.
 
-<CardGroup cols={2}>
-  <Card title="Immediate Scanning" icon="bolt">
-    Automatically scan your infrastructure as soon as new nuclei templates are published.
-  </Card>
-  <Card title="Asset Selection" icon="filter">
-    Choose between scanning all assets or a custom subset of your infrastructure.
-  </Card>
-</CardGroup>
+Think of it as a security-focused CI pipeline – continuously monitoring, automatically triggering, and instantly protecting your infrastructure against emerging threats.
 
 ## Configuration Options
+
+<Frame>
+  <img src="/images/real-time-scans-config.png" alt="Real-time scanning configuration options" />
+</Frame>
 
 ### Asset Coverage
 
@@ -27,21 +24,13 @@ You can configure real-time scanning for:
 
 ### Setting Up Real-Time Scans
 
-1. Navigate to the Real-Time Scanning section in your dashboard
-2. Choose your preferred asset coverage:
+1. Visit the [ProjectDiscovery Cloud Dashboard](https://cloud.projectdiscovery.io/)
+2. Navigate to the Real-Time Scanning section directly from the dashboard home
+3. Choose your preferred asset coverage:
    - Toggle "All Assets" for complete coverage
    - Select "Custom Assets" to specify target assets
-3. Save your configuration
+4. Save your configuration
 
-## Monitoring and Alerts
-
-Real-time scan results are:
-- Immediately visible in your dashboard
-- Integrated with your configured notification channels
-- Available in detailed reports for analysis
-
-## Best Practices
-
-- Start with a subset of critical assets to optimize scanning performance
-- Configure appropriate notification settings to stay informed of critical findings
-- Regularly review and update your asset selection based on your security priorities
+<Note>
+  Real-time scanning is a feature available with our Enterprise plan.
+</Note>

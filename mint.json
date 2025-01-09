@@ -405,7 +405,8 @@
             "cloud/scanning/overview",
             "cloud/scanning/external-scan",
             "cloud/scanning/internal-scan",
-            "cloud/scanning/parameters"
+            "cloud/scanning/parameters",
+            "cloud/scanning/real-time-scans"
           ]
         },
         {
