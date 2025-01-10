@@ -1,41 +1,73 @@
 ---
-title: "Real-Time Vulnerability Scanning"
+title: "Real-Time Autoscan for Trending Exploits"
 sidebarTitle: "Real-Time Scanning"
 ---
 
-Real-time scanning keeps your infrastructure protected against emerging threats by instantly scanning your assets when new security vulnerabilities are discovered. Our community-powered nuclei templates repository acts as a central hub for the latest security findings – from zero-days and 1-day exploits to newly disclosed CVEs being actively exploited in the wild.
+Real-time scanning keeps your infrastructure protected against emerging threats by instantly scanning your assets when new Nuclei templates added to ProjectDiscovery. These threats may range from zero-days and 1-day exploits to newly disclosed CVEs being actively exploited in the wild.
 
-Security researchers and engineers worldwide contribute templates as soon as new vulnerabilities trend on the internet, often within hours of disclosure. When these templates are merged into our repository, your assets are automatically scanned without waiting for scheduled runs. This rapid response is crucial for protecting against active exploitation campaigns, especially during the critical window between vulnerability disclosure and patch availability.
+Security researchers and engineers worldwide contribute Nuclei templates as soon as new vulnerabilities trend on the internet, often within hours of disclosure. When these templates are merged into our repository, your assets are automatically scanned without waiting for scheduled runs. This rapid response is crucial for protecting against active exploitation campaigns, especially during the critical window between vulnerability disclosure and patch availability.
 
 Think of it as a security-focused CI pipeline – continuously monitoring, automatically triggering, and instantly protecting your infrastructure against emerging threats.
 
-## Configuration Options
-
-<Frame>
-  <img src="/images/real-time-scans-config.png" alt="Real-time scanning configuration options" />
-</Frame>
-
-### Asset Coverage
-
-You can configure real-time scanning for:
-
-* **All Assets**: Every asset in your infrastructure will be automatically scanned when new templates are released.
-
-* **Custom Assets**: Select specific assets or asset groups for real-time scanning, allowing you to prioritize critical infrastructure.
+## Setup and Configuration Options
 
 ### Setting Up Real-Time Scans
+
+![](/image.png)
+
+All Enterprise accounts are automatically enrolled in Real-time Autoscan. To check if Real-time Autoscan is enabled for your account:
 
 1. Visit the [ProjectDiscovery Cloud Dashboard](https://cloud.projectdiscovery.io/)
 
 2. Navigate to the Real-Time Scanning section directly from the dashboard home
 
-3. Choose your preferred asset coverage:
+3. Check if "Real-time Autoscan" is toggled on
 
-   * Toggle "All Assets" for complete coverage
+### Custom Asset Selection
 
-   * Select "Custom Assets" to specify target assets
+<Frame>
+  ![Real-time scanning configuration options](/images/real-time-scans-config.png)
+</Frame>
 
-4. Save your configuration
+By default, every asset added to ProjectDiscovery will be automatically scanned when new Nuclei templates are released.
+
+Real-time Autoscan can also be configured to scan a subset of your assets by taking the following steps:
+
+1. Visit the [ProjectDiscovery Cloud Dashboard](https://cloud.projectdiscovery.io/)
+
+2. Navigate to the Real-Time Scanning section directly from the dashboard home
+
+3. Click on the gear icon next to the toggle
+
+4. Select **Custom Assets**
+
+5. Select the asset groups you wish to include in Real-time Autoscan
+
+6. Click on **Update**
+
+## Reviewing Scan Results
+
+![](/Screenshot2025-01-09at3.31.10PM.png)
+
+Real-time Autoscan results are grouped as a separate scan titled **"Early Templates Autoscan"** under the **Scans** tab. This scan updates automatically whenever a new Nuclei template is merged, scanning your assets with the latest template.
+
+Detected vulnerabilities will appear as open results within the scan. These results will remain open even if the scan is later updated with a newly merged Nuclei template.
+
+To view the most recent template used in the scan:
+
+1. Click the three dots menu to the right of the scan.
+
+2. Select **Update**&#x20;
+
+3. Click on the tab **Set templates**.
+
+4. Expand the folder labeled **"Early Templates"**.
+
+## Alerting&#x20;
+
+![](/Screenshot2025-01-09at3.57.03PM.png)
+
+By default, only newly detected vulnerabilities will generate email or message alert. However, on occasion, we may merge a trending exploit that warrants a notification even if no vulnerable hosts are detected. This message can be shared internally to proactively communicate a strong security posture with relevant stakeholders and leadership personnel.
 
 <Note>
   Real-time scanning is a feature available with our Enterprise plan.
