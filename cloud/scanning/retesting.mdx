@@ -1,0 +1,45 @@
+---
+title: "Retesting Vulnerabilities"
+description: "Quickly verify the current status of vulnerabilities through targeted retesting"
+---
+
+Retesting allows you to quickly verify the current status of a vulnerability, confirming whether it has been remediated or remains active. This feature is designed for ad-hoc validation of findings, eliminating the need to run full scans repeatedly.
+
+When you initiate a retest, you'll be presented with a confirmation dialog:
+
+<Frame>
+  <img src="/images/platform/retest-dialog.png" alt="Retest vulnerability dialog showing proxy selection options" />
+</Frame>
+
+The retest scan will automatically verify if the vulnerability has been resolved. If fixed, the report status will automatically update to "Fixed". Otherwise, it will revert to its original status.
+
+## Supported Scenarios
+
+### External Vulnerabilities
+- Direct retesting of vulnerabilities on externally accessible assets
+- No additional configuration required
+- Immediate validation of remediation status
+
+### Internal Vulnerabilities
+The platform supports retesting of internal vulnerabilities in two scenarios:
+
+1. **Cloud Platform Internal Scans**
+   - Results from scans executed through the cloud platform
+   - Requires selection of an internal proxy for retesting
+   - Maintains consistent access to internal targets
+
+2. **Uploaded Local Scan Results**
+   - Support for results from locally executed scans
+   - Requires proxy host with access to the original internal targets
+   - Seamless integration with existing internal scanning workflows
+
+<Note>
+To set up internal scanning capabilities and configure proxies, refer to our [Internal Network Scanning](/cloud/scanning/internal-scan) guide. This covers both TunnelX setup for cloud-managed scanning and local scanning configurations.
+</Note>
+
+<Info>
+For internal vulnerabilities, you'll need a properly configured proxy. You can either:
+- Use TunnelX for cloud-managed scanning (recommended for Enterprise users)
+- Set up local scanning with result uploads
+Learn more in our [Internal Scanning guide](/cloud/scanning/internal-scan).
+</Info> 
