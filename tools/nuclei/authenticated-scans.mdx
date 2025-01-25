@@ -31,7 +31,7 @@ Since authentication can be done in multiple ways, for example, using 3rd party 
 ### Dealing with Dynamic Authentication
 
   Implementing and managing Static Authentication is easy, but dealing with Dynamic Authentication is a bit complex due to multiple entities and secrets and the flow of authentication being involved. Some might require a browser guided authentication while some might be achievable with auth flow. 
-  A common solution for this is to capture and generate a login flow/sequence using a browser and then feed that script to app handling the authentication.
+  A common solution for this is to capture and generate a login flow/sequence using a browser and then feed that script to app handling the authentication._createMdxContent
 
   To focus on making this process easy, familiar, and scalable (users should be able to scan thousands of targets with authentication without much hassle), we leverage the existing rich ecosystem of `nuclei-templates`. These are written in YAML, are scalable, and comes with a powerful engine.
 
@@ -53,76 +53,15 @@ Since authentication can be done in multiple ways, for example, using 3rd party 
     We have not imposed the need to hardcode secrets in the `Secret File` configuration, and support the use of third-party secret management systems to templatize and manage secrets.
 
 
-### Encrypting Secrets
+### Integrations with Secret Management Systems
 
-To make it easy to manage and encrypt your secrets, Nuclei integrates with [SOPS](https://github.com/getsops/sops). It's a tool designed specifically for encrypting and decrypting files, allowing you to store sensitive information like API keys or passwords in a secure format. By integrating SOPS into your workflow, you can ensure your sensitive data is encrypted at rest while still being accessible to Nuclei during runtime.
+    We are currently exploring integrations with popular secret management systems for easy and secure management of secrets
 
-<Note>
-  This feature is available in Nuclei **vX.Y.Z**.
-</Note>
+    We are prioritizng support for:
 
-#### Recommended SOPS Configuration
-
-To simplify the encryption process, you can set up a [`.sops.yaml`](https://github.com/projectdiscovery/nuclei/blob/dev/.sops.yaml) file with rules that automatically encrypt specific [fields](/tools/nuclei/authenticated-scans#secret-file-fields) in your files. Here's a recommended configuration:
-
-```yaml
-creation_rules:  
-  - encrypted_regex: ^(password|username|token|value|key|raw)$
-```
-
-With this setup, SOPS will automatically encrypt [fields](/tools/nuclei/authenticated-scans#secret-file-fields) that match common sensitive patterns such as password, username, token, and similar keys whenever you create or update your files. This reduces the chances of accidentally exposing sensitive information in plaintext.
-
-Here's a simple guide to help you create and use encrypted secret files with Nuclei:
-
-1. [Define your secret file](/tools/nuclei/authenticated-scans#secret-file-formats)
-2. Encrypt the Secret File with SOPS
-
-Use SOPS to encrypt the plaintext file. Run the following command in your terminal:
-
-```bash
-sops encrypt --output secret-file.enc.yaml secret-file.yaml  
-```
-
-This command generates an encrypted version of your file called `secret-file.enc.yaml`. The original plaintext file (`secret-file.yaml`) should be deleted afterward to avoid accidentally exposing your sensitive data.
-
-<Note>
-  Please refer to the [SOPS documentation](https://getsops.io/docs/) for encrypting with AWS KMS, GCP KMS, Azure Key Vault, age, or PGP.
-</Note>
-
-3. Verify the Encrypted Secret File
-
-Open the encrypted file (`secret-file.enc.yaml`) to confirm that all sensitive fields have been encrypted. You should see unreadable ciphertext that looks something like this:
-
-```yaml
-username: ENC[AES256_GCM,data:...,iv:...,tag:...]  
-password: ENC[AES256_GCM,data:...,iv:...,tag:...]  
-api_key: ENC[AES256_GCM,data:...,iv:...,tag:...]  
-```
-
-This means your secrets are now securely encrypted.
-
-4. Use the Encrypted Secret File with Nuclei
-
-Configure Nuclei to use the encrypted secret file (`secret-file.enc.yaml`) with `-secret-file`/`-sf` flag during execution. Nuclei will automatically decrypt the file at runtime, ensuring the secrets are accessible only when needed without ever exposing them in plaintext. This keeps your sensitive data secure both at rest and in use.
-
-#### Why Use Encrypted Secret Files?
-
-Using encrypted secret files ensures that your sensitive information is always stored securely, whether it's in your local environment or being shared across systems. It prevents accidental leaks of confidential data and aligns with best practices for secure application development. Plus, since Nuclei handles decryption on the fly, you don't need to worry about manually decrypting files or exposing plaintext values in your configuration.
-
-#### `.gitignore` Configuration
-
-To prevent sensitive files from being accidentally committed to your Git repository, it's important to update your `.gitignore` file. Here's a recommended configuration:
-
-```yaml
-# Ignore all YAML files except encrypted files and SOPS config  
-*.yaml  
-!*.enc.yaml  
-!.sops.yaml  
-```
-
-This setup ignores all YAML files by default, ensuring that plaintext secret files like `secret-file.yaml` are never tracked in your repo. However, it makes an exception for encrypted files (`*.enc.yaml`) and the SOPS configuration file (`.sops.yaml`), allowing you to safely store and share these files.
-
-By following these steps and best practices, you can effectively secure your secrets while keeping them accessible for use with Nuclei. This approach ensures your sensitive information stays safe and your workflow remains smooth and efficient.
+    - **1Password**
+    - **Hashicorp Vault**
+    - **AWS Secrets Manager**
 
 ### Skipping Secret File
 
