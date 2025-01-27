@@ -107,12 +107,12 @@ Choose your preferred installation method:
 ```bash Docker (Recommended)
 # Pull and run the official image
 docker run --network host -d \
-  -e ProjectDiscovery_API_KEY="your_api_key" \
+  -e PDCP_API_KEY="your_api_key" \
   projectdiscovery/tunnelx:latest
 
 # Or build locally
 docker build -t tunnelx https://github.com/projectdiscovery/tunnelx.git
-docker run --network host -d -e ProjectDiscovery_API_KEY="your_api_key" tunnelx
+docker run --network host -d -e PDCP_API_KEY="your_api_key" tunnelx
 ```
 
 ```bash Go Installation
@@ -120,7 +120,7 @@ docker run --network host -d -e ProjectDiscovery_API_KEY="your_api_key" tunnelx
 go install github.com/projectdiscovery/tunnelx@latest
 
 # Set your API key and run
-export ProjectDiscovery_API_KEY="your_api_key"
+export PDCP_API_KEY="your_api_key"
 tunnelx
 ```
 
@@ -128,7 +128,7 @@ tunnelx
 # Clone and run from source
 git clone https://github.com/projectdiscovery/tunnelx.git
 cd tunnelx
-export ProjectDiscovery_API_KEY="your_api_key"
+export PDCP_API_KEY="your_api_key"
 go run .
 ```
 </CodeGroup>
