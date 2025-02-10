@@ -10,78 +10,42 @@ Sign up for our [cloud platform](https://cloud.projectdiscovery.io/) for free.
 Have a complex company use case? Get [Enterprise grade assistance](https://projectdiscovery.io/request-demo)
 </Tip> 
 
-Our cloud platform combines real-world attack detection with comprehensive vulnerability management. By leveraging our battle-tested open-source security tools used by over 100,000 security professionals worldwide, our platform helps organizations focus on what matters most - truly exploitable security risks.
+ProjectDiscovery is a continuous security monitoring platform that helps teams proactively find and fix critical exposures in their external infrastructure. It blends professional-grade vulnerability management with an easy-to-use, open-source powered approach. Below is an overview of its key capabilities:
 
-While traditional vulnerability management tools focus on CVE matching and version scanning, ProjectDiscovery takes an attacker's perspective:
+<div className="text-gray-900 dark:text-white font-semibold">Continuous Asset Monitoring</div>
+  - Continuously monitors all internet-exposed assets and services in your infrastructure, automatically discovering new hosts, endpoints, and changes in your attack surface
+  - Ensures you have up-to-date visibility into what's publicly accessible at any given time
 
-<CardGroup cols={2}>
-  <Card title="Actual Exploitability" icon="check-double">
-    Validate vulnerabilities through real exploitation attempts instead of version checks
-  </Card>
+<div className="text-gray-900 dark:text-white font-semibold">Open-Source Integrations</div>
+  - Leverages a suite of battle-tested open-source security tools (e.g. Nuclei, httpx, dnsx) to scan your environment at scale
+  - By integrating these community-driven tools, ProjectDiscovery helps uncover unknown exposures and misconfigurations that traditional scanners might miss, keeping your team one step ahead of threats
 
-  <Card title="Beyond CVEs" icon="shield-exclamation">
-    Detect exploitable misconfigurations and security gaps that traditional scanners miss
-  </Card>
+<div className="text-gray-900 dark:text-white font-semibold">Realistic Attack Simulation</div>
+  - Identifies and validates vulnerabilities with high accuracy by safely simulating real-world attack methods in a controlled environment
+  - Every finding is verified with a proof-of-concept exploit, drastically reducing false positives compared to basic version-based scanners
+  - In practice, this means you only get alerts for issues that are truly exploitable, saving time on triage
 
-  <Card title="Proof of Concept" icon="microscope">
-    Every finding includes clear evidence and reproduction steps
-  </Card>
+<div className="text-gray-900 dark:text-white font-semibold">Customizable Detection Rules</div>
+  - Provides a flexible, YAML-based framework that lets you define your own vulnerability detection rules and workflows
+  - Teams can codify insights from penetration tests or bug bounty reports into custom scan templates, automating the detection of those specific scenarios across their systems
+  - This customization empowers organizations to adapt the platform to their unique environment and security knowledge
 
-  <Card title="AI-Powered Detection" icon="robot">
-    Write custom vulnerability detections with AI assistance and knowledge sharing
-  </Card>
+<div className="text-gray-900 dark:text-white font-semibold">Community-Powered Updates</div>
+  - Stays in sync with the latest threats via a real-time community feed of new vulnerability templates and attack techniques
+  - ProjectDiscovery's global user community continuously contributes and updates these detection templates (for trending exploits, emerging CVEs, etc.)
+  - Ensures you're quickly alerted to new attack vectors as soon as they arise
 
-  <Card title="Community-Powered" icon="users">
-    Leverage our global open-source community to rapidly detect emerging threats
-  </Card>
-</CardGroup>
+<div className="text-gray-900 dark:text-white font-semibold">Attacker's Perspective</div>
+  - Unlike traditional vulnerability scanners that rely solely on known CVE databases and version checks, ProjectDiscovery approaches security from an attacker's point of view
+  - Zeroes in on vulnerabilities that are actually exploitable in real-world conditions – the weaknesses attackers would target
+  - Helps your team prioritize fixing the issues that matter most
 
-Our platform uniquely combines Vulnerability Management, Attack Surface Management, and Continuous Threat Exposure Management into a single, exploitability-focused solution with zero setup overhead - helping you manage security risks the way attackers see them, right from day one.
-
-<iframe
-  width="560"
-  height="315"
-  src="https://www.youtube.com/embed/rw26bRrg4-U?si=5HOwQdtkRsOpmidm"
-  title="YouTube video player"
-  frameborder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  allowfullscreen
-></iframe>
-
+Each of these capabilities works together to give security teams and developers an accurate, noise-free view of their true security risks. By focusing on what attackers can really exploit (rather than just matching CVEs), ProjectDiscovery helps organizations address the most critical vulnerabilities first, with confidence and speed.
 
 ## Getting Started
 
-<CardGroup cols={2}>
-  <Card 
-    title="Asset Discovery & Management" 
-    icon="radar"
-    href="/cloud/assets/overview">
-    Continuous discovery and monitoring of your attack surface across multi-cloud environments, domains, and infrastructure. Powered by our battle-tested open-source tools and cloud-native capabilities for comprehensive asset visibility.
-  </Card>
+Ready to secure your infrastructure? Here's how to begin:
 
-  <Card 
-    title="External Vulnerability Scanning" 
-    icon="globe"
-    href="/cloud/scanning/createscans">
-    Automated and precise external scanning with zero false positives. Every finding includes proof of concept and clear remediation steps. Supports both automated continuous monitoring and targeted assessments.
-  </Card>
-
-  <Card 
-    title="Internal Network Scanning" 
-    icon="network-wired"
-    href="/cloud/scanning/nuclei-scan">
-    Secure internal vulnerability assessment through local scanning or cloud-managed TunnelX. Identify critical internal vulnerabilities before attackers can exploit them for lateral movement.
-  </Card>
-
-  <Card 
-    title="Integrations" 
-    icon="puzzle-piece"
-    href="/cloud/integrations">
-    Seamless integration with your security stack including Slack, Teams, JIRA, GitHub, and custom webhooks. Automate vulnerability management and streamline your security operations.
-  </Card>
-</CardGroup>
-
-If you're new to ProjectDiscovery: 
- - [Create a free account](https://cloud.projectdiscovery.io)
- - [Explore our open source tools](/tools/index)
- - [Join our Discord community](https://discord.com/invite/projectdiscovery)
+- [Create a free account](https://cloud.projectdiscovery.io)
+- [Explore our documentation](/cloud/assets/overview)
+- [Join our Discord community](https://discord.com/invite/projectdiscovery)

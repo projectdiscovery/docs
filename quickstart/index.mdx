@@ -1,0 +1,281 @@
+---
+title: 'ProjectDiscovery Quick Start Guide'
+description: 'Get started with ProjectDiscovery for asset discovery, vulnerability scanning, and exposure monitoring'
+sidebarTitle: 'Overview'
+---
+
+ProjectDiscovery helps security and engineering teams continuously monitor and secure what they deploy on the internet. Modern development moves fast, and it's easy to unknowingly expose assets—whether it's an open port (e.g., 9092) assumed to be internal or a cloud resource left publicly accessible. Our platform automates discovery, providing real-time visibility into your internet-facing infrastructure, so you know exactly what's exposed before attackers do.
+
+Beyond discovery, ProjectDiscovery actively identifies and verifies exploitable vulnerabilities across your attack surface. Using real-world attack techniques, we simulate how adversaries find and exploit security gaps—but in a controlled, safe manner. This eliminates false positives and helps teams focus on actual risks. The platform is fully customizable, allowing you to extend detection with your own security rules, tailored to findings from pen tests, bug bounties, or internal policies.
+
+Backed by battle-tested open-source security tools used by over 100,000 professionals, ProjectDiscovery combines real-world attack detection with comprehensive vulnerability management. While traditional tools rely on CVE databases and version checks, we take an attacker's perspective—helping organizations understand, prioritize, and secure their most critical exposures in real time.
+
+## Real-World Impact of Security Exposures
+
+Recent high-profile breaches demonstrate why continuous security monitoring is crucial:
+
+- **Capital One (2019)**: Attackers exploited a misconfigured web application firewall and SSRF vulnerability to access an exposed AWS S3 bucket, stealing sensitive customer data.
+
+- **Uber (2016/2017)**: Hackers discovered cloud access credentials accidentally committed in a GitHub repository, using them to access AWS and extract millions of user and driver records.
+
+- **Equifax (2017)**: An unpatched Apache Struts vulnerability (CVE-2017-5638) in a public-facing web application allowed remote code execution, compromising personal data of around 143 million people.
+
+- **Colonial Pipeline (2021)**: A legacy VPN account without multi-factor authentication was exploited using stolen credentials, granting attackers access to the network and triggering a ransomware attack.
+
+- **Panera Bread (2018)**: An unsecured API endpoint exposed customer data in plain text, enabling attackers to enumerate records via sequential IDs and scrape millions of user profiles.
+
+These incidents highlight why organizations need robust security monitoring and vulnerability management. ProjectDiscovery's platform helps prevent such breaches by continuously monitoring your attack surface and validating security controls.
+
+## Platform Overview
+
+**ProjectDiscovery** is a security platform that combines powerful **open-source tools** with a **cloud-based service** to help you secure your infrastructure. It offers a hybrid approach where you can use a user-friendly cloud interface or command-line tools (CLI) – or both – to suit your workflow. With ProjectDiscovery, you can:
+
+- **Discover your assets** – Identify all your external-facing systems, domains, cloud resources, and more
+- **Scan for vulnerabilities** – Use automated, up-to-date vulnerability checks to find exploitable issues
+- **Monitor exposures continuously** – Keep an eye on your external and internal risks in real-time
+- **Automate security tasks** – Integrate with APIs and workflows to alert your team when issues are found
+
+Whether you're a beginner or a seasoned security professional, ProjectDiscovery's Cloud platform and CLI tools work together to provide immediate insights into your attack surface. The following guide will walk you through essential workflows on **both Cloud and CLI**, so you can quickly see value in using ProjectDiscovery for real-world security use cases.
+
+<CardGroup cols={2}>
+  <Card
+    title="Cloud Platform"
+    icon="cloud"
+    href="/cloud/introduction"
+  >
+    Get started with our cloud platform for instant asset discovery and continuous monitoring
+  </Card>
+  <Card
+    title="Open Source Tools"
+    icon="code"
+    href="/tools/index"
+  >
+    Explore our powerful CLI tools for security testing and automation
+  </Card>
+</CardGroup>
+
+<Note>
+New to ProjectDiscovery? [Sign up for free](https://cloud.projectdiscovery.io) to start securing your infrastructure.
+</Note>
+
+## Quick Navigation
+
+<CardGroup cols={2}>
+  <Card
+    title="Asset Discovery"
+    icon="radar"
+    href="/cloud/assets/overview"
+  >
+    Learn how to discover and manage your external attack surface
+  </Card>
+  <Card
+    title="Vulnerability Scanning"
+    icon="shield-check"
+    href="/cloud/scanning/overview"
+  >
+    Set up automated vulnerability scanning and continuous monitoring
+  </Card>
+  <Card
+    title="Template Creation"
+    icon="code-branch"
+    href="/templates/introduction"
+  >
+    Create custom security checks using our template framework
+  </Card>
+  <Card
+    title="Cloud Integration"
+    icon="cloud-arrow-up"
+    href="/cloud/integrations"
+  >
+    Connect cloud providers and third-party services
+  </Card>
+</CardGroup>
+
+## Getting Started with Cloud
+
+ProjectDiscovery Cloud makes it easy to discover and scan assets without managing any infrastructure. Follow these steps to get started quickly:
+
+1. **Sign Up and Log In:** Create a free account on the ProjectDiscovery Cloud platform (go to **cloud.projectdiscovery.io** and sign up). After verifying your email, log in to access the Cloud dashboard.
+
+2. **Add Your Assets:** Once in the dashboard, start your asset discovery by adding a **root domain** or organization name. For example, add **`yourcompany.com`** as a root domain. The platform will automatically enumerate subdomains, IP addresses, and related assets linked to that domain. You can add up to a certain number of domains for free — e.g. your company's main domains. ProjectDiscovery will use its scanners behind the scenes to give you an instant inventory of your external assets.
+
+3. **Initiate a Vulnerability Scan:** After your assets are discovered, launch an automated vulnerability scan in the cloud platform. You can navigate to the **Scans** section, select your asset or asset group, and start a **Nuclei scan** (Nuclei is the engine that runs vulnerability templates). Use the default template set to scan for a wide range of common issues. The scan runs in the cloud, testing your assets for exploitable vulnerabilities (like misconfigurations, outdated software, and known CVEs).
+
+4. **Continuous Monitoring:** ProjectDiscovery Cloud will **continuously monitor** your assets without further input. This means if a new subdomain appears tomorrow or a new critical vulnerability emerges in the template feed, the platform can automatically discover and scan it. You can also schedule regular scans (e.g. daily or weekly) for ongoing coverage. Essentially, once your assets are added, the cloud platform keeps an eye on them and updates findings in real-time.
+
+5. **Review Findings and Alerts:** Check the **Dashboard** or **Reports** section to review the results. You'll see any vulnerabilities found, categorized by severity, with details for each finding. For example, if an exposed admin panel or a known CVE was detected, it will be listed with information on the affected asset. From here, you can prioritize what to fix first. ProjectDiscovery Cloud also lets you set up real-time alerts – for instance, you can configure notifications via Email, Slack, or Microsoft Teams to be alerted the moment a high-severity issue is discovered. This ensures your team is notified immediately about critical risks.
+
+**Key Cloud Features:** *Instant asset discovery, automated scanning, and continuous monitoring* are built-in. As soon as you add a domain, the platform gives you quick visibility into your tech stack (domains, cloud instances, etc.). It continuously scans for **exploitable vulnerabilities** using the latest community-driven templates, so you're always up-to-date on emerging threats. All of this happens with no infrastructure for you to manage – the Cloud platform handles the heavy lifting while you get actionable results.
+
+## Getting Started with CLI
+
+If you prefer working in a terminal or want to integrate scans into your own environment, ProjectDiscovery's CLI tools are for you. This section will help you install the essential tools and run basic scans for asset discovery and security testing.
+
+**1. Install the CLI Tools:** ProjectDiscovery's open-source tools are written in Go, so you'll need to have Go (v1.20+ recommended) installed on your system. There are two convenient ways to install the tools:
+
+- *Use the Tool Manager (PDTM):* The **ProjectDiscovery Tool Manager (PDTM)** is a utility to install and update all tools easily. If you have Go, you can install PDTM by running:
+  ```bash
+  go install -v github.com/projectdiscovery/pdtm/cmd/pdtm@latest
+  ```
+  After installation, run `pdtm -ia` (install all) to automatically download and set up all ProjectDiscovery CLI tools. This one command gives you access to **Nuclei**, **Subfinder**, **HTTPx**, and many more tools in one go.
+
+- *Install Individually:* Alternatively, you can install tools individually. For example:
+  ```bash
+  go install -v github.com/projectdiscovery/subfinder/cmd/subfinder@latest
+  go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest
+  go install -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei@latest
+  ```
+  This will fetch the latest Subfinder, HTTPx, and Nuclei binaries into your `$GOPATH/bin`. (You can also find pre-built binaries on the ProjectDiscovery GitHub or use package managers like Homebrew on macOS.)
+
+*Note:* Ensure your Go `bin` path is in your `PATH` environment variable so you can run the tools from any directory. Once installed, you can verify by running `subfinder -h`, `httpx -h`, and `nuclei -h` to see the help output.
+
+**2. Asset Discovery with Subfinder:** To immediately see value from the CLI, start by discovering assets. For example, to find subdomains of a target domain:
+```bash
+subfinder -d example.com -o subdomains.txt
+```
+This command uses passive sources to enumerate subdomains of **example.com** and saves the results to `subdomains.txt`. In seconds, you'll get a list of domains that are part of the target's attack surface. (You can also run `subfinder -d example.com` without the `-o` flag to just print results to the screen.)
+
+**3. Probing Assets with HTTPx:** Often, you'll want to know which of those discovered domains are alive and what web technologies they are running. **HTTPx** can take a list of hostnames and probe them for active web services:
+```bash
+httpx -l subdomains.txt -o live_hosts.txt -title -status-code -silent
+```
+Here, the `-title` and `-status-code` flags tell HTTPx to fetch the page title and HTTP status code for each host, and `-silent` removes verbose headers for clean output. The results saved in `live_hosts.txt` will show you which subdomains are up, and give a hint of what each is (for example, a status 200 and a title "Login Portal" might indicate a login page). This helps you focus on active targets.
+
+**4. Vulnerability Scanning with Nuclei:** Now for the real value – finding vulnerabilities. **Nuclei** is a fast vulnerability scanner that uses template files to check targets for hundreds of known issues. You can run Nuclei against a single URL or a list:
+```bash
+nuclei -l live_hosts.txt -o findings.txt
+```
+This will scan all the hosts in `live_hosts.txt` for a broad range of vulnerabilities. Nuclei will output any findings to the console and also save them to `findings.txt`. Each finding will include the URL, the name of the vulnerability detected (based on the template that matched), and a severity level. For a quick test, you could also run nuclei directly on a single URL, e.g., `nuclei -u https://example.com`, to see if any common issues are present.
+
+After running these tools, you should have: a list of your assets (subdomains), a list of active systems, and any potential vulnerabilities discovered. Even as a beginner, within a few minutes you've used the CLI to map out a target and identify possible security issues – demonstrating the immediate value of ProjectDiscovery's tools.
+
+*(Tip: All ProjectDiscovery tools come with various options. For instance, you can update Nuclei templates with `nuclei -update-templates`, or limit scan scope by severity. As you grow more comfortable, you can customize these tools for more targeted results.)*
+
+## Key Workflows & Use Cases
+
+<CardGroup cols={2}>
+  <Card
+    title="Asset Discovery & Management"
+    icon="magnifying-glass"
+    href="/cloud/assets/overview"
+  >
+    Automatically discover and track assets across your infrastructure
+  </Card>
+  <Card
+    title="Real-time Vulnerability Scanning"
+    icon="bolt"
+    href="/cloud/scanning/overview"
+  >
+    Continuously scan for and detect security vulnerabilities
+  </Card>
+  <Card
+    title="Exposure Management"
+    icon="shield"
+    href="/cloud/scanning/external-scan"
+  >
+    Monitor and manage security exposures in real-time
+  </Card>
+  <Card
+    title="Infrastructure Security"
+    icon="server"
+    href="/cloud/scanning/internal-scan"
+  >
+    Secure cloud and on-premise infrastructure
+  </Card>
+</CardGroup>
+
+### Asset Discovery
+The first step in securing your attack surface is knowing what assets you have. ProjectDiscovery simplifies **asset discovery** by automatically finding and inventorying assets across your domains and cloud environments. In the Cloud platform, you can start with a few **root domains**, and the system will continuously discover all subdomains, related hosts, and even cloud infrastructure tied to those domains. This gives you an up-to-date inventory of external-facing assets (websites, APIs, servers, etc.) without manual effort. On the CLI side, tools like Subfinder (for subdomains) and Cloudlist (for cloud resources) let you script out asset discovery as well. By quickly building a comprehensive asset list, you ensure that no part of your external infrastructure is overlooked.
+
+### Real-time Vulnerability Scanning
+Once you have an asset inventory, the next workflow is to find **exploitable vulnerabilities** on those assets – ideally before attackers do. ProjectDiscovery's approach focuses on *real-time, template-driven scanning*. The Cloud platform continuously runs vulnerability scans using the latest **Nuclei templates** contributed by the community and ProjectDiscovery researchers, so it can catch newly disclosed issues fast. You can perform on-demand scans (for example, after a new deployment) or schedule regular scans across all assets. In practice, this means if a critical vulnerability (say, a new RCE in a popular software) is added to the templates, ProjectDiscovery can detect it on your systems within minutes of its disclosure. Using the CLI, you can integrate Nuclei into your CI/CD or scripts to scan specific targets (for instance, scanning every new build of an application before release). The result is a proactive vulnerability management process – you're finding and fixing weaknesses *in real time*, rather than reacting after an incident.
+
+### Exposure Management
+Security isn't a one-time effort. **Exposure management** is about continuously monitoring for changes or new risks in your environment, both external and internal, and responding quickly. ProjectDiscovery Cloud excels here by offering continuous monitoring of your attack surface. Once you've added your assets, it will keep checking for things like new subdomains popping up, services changing, or new vulnerabilities arising. If an exposure is found – for example, an open database becomes visible or an internal server starts exposing a port – the platform can send you immediate alerts. You can configure real-time notifications via your preferred channels (Email, Slack, Microsoft Teams, or custom webhooks) for various events. This real-time awareness is crucial for catching misconfigurations or shadow IT (unknown assets) before they become major incidents. Additionally, ProjectDiscovery supports internal exposure monitoring: you can run internal network scans (using Nuclei or Naabu for ports) and feed the results into the platform to ensure even behind-the-firewall assets are tracked. In short, exposure management with ProjectDiscovery means you always have an eye on your security posture and can react to new threats or changes as they happen.
+
+### Infrastructure Security
+Modern organizations run on complex infrastructure – multiple cloud providers, containers, on-prem networks, etc. ProjectDiscovery helps with **infrastructure security** by scanning your cloud and network environments for misconfigurations and risks. Through its integrations (and tools like Cloudlist), ProjectDiscovery Cloud can enumerate assets from **AWS, GCP, Azure, and others**, identifying things like misconfigured S3 buckets, public-facing VMs, or open network ports. For example, you can connect your AWS account and automatically retrieve a list of IPs, hostnames, and services you have, then have Nuclei scan them for known cloud-specific vulnerabilities. The platform's built-in port scanner (powered by Naabu) can check all your asset IPs for open ports (1-65535) to uncover services you might not realize are exposed. On the CLI side, you can similarly use Naabu for port scanning and feed those results into Nuclei or other tools for deeper analysis. Importantly, ProjectDiscovery also supports scanning internal infrastructure by letting you run scans within your network and upload the results to the cloud platform. This means even if certain systems aren't reachable from the outside, you can still include them in your security assessment. **Infrastructure security** use cases include checking your cloud accounts for open admin ports, ensuring no dev database is inadvertently open to the internet, and verifying that all your critical services are configured securely. ProjectDiscovery provides the tools to automate these checks across your entire tech stack.
+
+## Automation & Integration
+
+<CardGroup cols={2}>
+  <Card
+    title="API Documentation"
+    icon="code"
+    href="/api-reference/introduction"
+  >
+    Integrate ProjectDiscovery into your workflows using our REST APIs
+  </Card>
+  <Card
+    title="Platform Integrations"
+    icon="plug"
+    href="/cloud/integrations"
+  >
+    Connect with ticketing, alerting, and cloud services
+  </Card>
+</CardGroup>
+
+## Additional Resources
+
+<CardGroup cols={3}>
+  <Card
+    title="Community"
+    icon="discord"
+    href="https://discord.gg/projectdiscovery"
+  >
+    Join our active community for support and discussions
+  </Card>
+  <Card
+    title="GitHub"
+    icon="github"
+    href="https://github.com/projectdiscovery"
+  >
+    Explore our open-source tools and contribute
+  </Card>
+  <Card
+    title="Blog"
+    icon="newspaper"
+    href="https://blog.projectdiscovery.io"
+  >
+    Read about security research and tool updates
+  </Card>
+</CardGroup>
+
+## Next Steps & Resources
+
+You've just scratched the surface of what ProjectDiscovery can do. Here are some next steps and resources to continue your journey:
+
+- **Official Documentation:**
+  - Explore the comprehensive docs at **[docs.projectdiscovery.io](https://docs.projectdiscovery.io)**
+  - [Cloud Platform Overview](/cloud/introduction)
+  - [Asset Discovery Guide](/cloud/assets/overview)
+  - [Vulnerability Scanning Guide](/cloud/scanning/overview)
+  - [API Documentation](/api-reference/introduction)
+
+- **Community Support:**
+  - Join the [ProjectDiscovery Discord](https://discord.gg/projectdiscovery) for real-time discussions
+  - Visit our [GitHub Discussions](https://github.com/projectdiscovery/nuclei/discussions) for technical questions
+  - Follow us on [Twitter](https://twitter.com/pdiscoveryio) for updates
+  - Report issues on [GitHub](https://github.com/projectdiscovery)
+
+- **Tutorials & Examples:**
+  - Watch our ["All ProjectDiscovery Tools in 30 Minutes"](https://www.youtube.com/watch?v=cBkfk0VbvLw) video
+  - Learn about [Template Creation](/templates/introduction)
+  - Explore [Cloud Integrations](/cloud/integrations)
+  - Read our [Technical Blog](https://blog.projectdiscovery.io)
+  - Check [Template Examples](/templates/structure)
+
+- **Nuclei Templates & Open Source:**
+  - Browse the [Nuclei Templates Repository](https://github.com/projectdiscovery/nuclei-templates)
+  - Learn about [Contributing Templates](/templates/introduction#contributing)
+  - Use the [Template Editor](https://cloud.projectdiscovery.io/templates/editor)
+  - Explore [Template Syntax](/templates/protocols/http/basic-http)
+
+- **Integration Guides:**
+  - Set up [Cloud Provider Integrations](/cloud/integrations#cloud-asset-discovery)
+  - Configure [Notification Systems](/cloud/integrations#notification-integrations)
+  - Implement [Ticketing Integration](/cloud/integrations#ticketing-integrations)
+  - Use [Custom Webhooks](/cloud/integrations#webhook)
+  - Learn about [API Integration](/api-reference/introduction)
+
+By following this quick start guide, you've taken the first steps in proactive security monitoring. With ProjectDiscovery's cloud platform and CLI tools at your disposal, you have a scalable way to discover what you have, know when it's vulnerable, and respond faster. Keep experimenting with the tools, leverage the community's knowledge, and soon you'll be using ProjectDiscovery to its full potential in defending your organization's attack surface. Happy scanning! 

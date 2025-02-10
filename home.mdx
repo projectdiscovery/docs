@@ -1,0 +1,152 @@
+---
+title: ''
+description: 'ProjectDiscovery Documentation'
+mode: custom
+searchable: false
+---
+
+<div className="min-h-screen bg-gradient-radial">
+  {/* Hero Section */}
+  <div className="flex flex-col items-center justify-center min-h-[50vh] relative">
+    <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
+    
+    <h1 className="hero-title text-12xl font-bold text-center bg-gradient-to-r from-[#FF7F57] to-[#9563FF] text-transparent bg-clip-text leading-tight max-w-5xl">
+      Security at Scale
+    </h1>
+    
+    <p className="hero-subtitle text-center mt-16 mb-3 max-w-2xl text-gray-800 dark:text-gray-300">
+      Tap into the Future of Security Workflows
+    </p>
+
+    <p className="text-sm text-center mb-8 max-w-2xl text-gray-500 dark:text-gray-400">
+      Learn and read all about our open-source technologies, cloud platform, and APIs
+    </p>
+
+    <button 
+      onClick={() => {
+        // Simulate Command+K keyboard shortcut
+        const event = new KeyboardEvent('keydown', {
+          key: 'k',
+          code: 'KeyK',
+          metaKey: true, // Command key on Mac
+          ctrlKey: true, // Ctrl key on Windows
+          bubbles: true
+        });
+        document.dispatchEvent(event);
+      }} 
+      className="search-button flex items-center justify-between px-4 py-2 mb-12 text-sm text-gray-500 bg-white border rounded-lg shadow-sm dark:bg-zinc-800 dark:text-gray-300 dark:border-zinc-700 hover:bg-gray-50 dark:hover:bg-zinc-700"
+    >
+      <div className="flex items-center">
+        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        Search or ask anything...
+      </div>
+      <span className="text-xs text-gray-400">⌘K</span>
+    </button>
+
+    <p className="section-title text-s text-center mb-5">Get started</p>
+
+    {/* First Set of Cards */}
+    <div className="w-full max-w-6xl px-4 mb-4">
+      <CardGroup cols={3}>
+        <Card 
+          title="Advanced Exposure Discovery"
+          href="/tools/index#discover"
+          img="/images/post-6.jpg"
+        >
+          Map your internet-exposed assets and understand your attack surface.
+        </Card>
+
+        <Card 
+          title="Automate Custom Vulnerability"
+          href="/templates"
+          img="/images/post-5.jpg"
+        >
+          Create and automate custom security templates to detect vulnerabilities at scale.
+        </Card>
+
+        <Card 
+          title="Vulnerability Feed"
+          href="/api-reference/templates/get-early-template-list"
+          img="/images/post-3.jpg"
+        >
+          Stay updated with trending vulnerabilities and security exploits in real-time.
+        </Card>
+      </CardGroup>
+    </div>
+
+    <div className="card-group-divider" />
+    <p className="section-title text-s text-center mb-1">For Organizations</p>
+
+    {/* Second Set of Cards */}
+    <div className="w-full max-w-6xl px-4 mt-8">
+      <CardGroup cols={3}>
+        <Card 
+          title="Get Started"
+          href="/cloud/introduction"
+          img="/images/post-4.jpg"
+        >
+          Scale your security operations with our cloud platform and advanced automation.
+        </Card>
+
+        <Card 
+          title="Cloud Monitoring"
+          href="/cloud/scanning"
+          img="/images/post-9.jpg"
+        >
+          Connect and monitor AWS, GCP, Cloudflare, and Azure accounts for security vulnerabilities.
+        </Card>
+
+        <Card 
+          title="Setup Team Integrations"
+          href="/cloud/integrations"
+          img="/images/post-1.jpg"
+        >
+          Integrate with your existing ticketing and alerting tools.
+        </Card>
+      </CardGroup>
+    </div>
+
+    {/* Third Set of Cards */}
+    <div className="w-full max-w-6xl px-4 mt-8 mb-16">
+      <CardGroup cols={3}>
+        <Card 
+          title="API Integration"
+          href="/api-reference/introduction"
+          img="/images/post-7.jpg"
+        >
+          Build and automate custom security workflows using our comprehensive REST APIs.
+        </Card>
+
+        <Card 
+          title="Internal Network Security"
+          href="/cloud/scanning/internal-scan"
+          img="/images/post-2.jpg"
+        >
+          Secure internal networks with automated vulnerability assessment and monitoring.
+        </Card>
+
+        <Card 
+          title="Enterprise Security Setup"
+          href="/cloud/admin"
+          img="/images/post-8.jpg"
+        >
+          Configure SAML SSO, IP whitelisting, custom headers, and more for your organization.
+        </Card>
+      </CardGroup>
+    </div>
+
+    {/* Expert Contact Card */}
+    <div className="w-full max-w-6xl px-4 mt-16 mb-12">
+      <Card
+        title="Talk to Our Security Experts"
+        icon="headset"
+        iconType="duotone"
+        href="https://projectdiscovery.io/request-demo"
+      >
+        Get personalized guidance on implementing security workflows for your organization. Our team is ready to help you scale your security operations.
+      </Card>
+    </div>
+  </div>
+</div> 

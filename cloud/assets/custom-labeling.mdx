@@ -1,0 +1,64 @@
+---
+title: 'Custom & Bulk Asset Labeling'
+description: 'Create and manage custom labels for your assets with powerful bulk labeling capabilities'
+sidebarTitle: 'Custom Labeling'
+---
+
+Custom Labels in ProjectDiscovery Cloud are user-defined tags that you can manually assign to any discovered asset. This feature works alongside the automatic, AI-driven labels that the platform generates. While the system's AI assigns labels for website types (e.g., API docs, internal apps, login pages, admin panels) and environments (e.g., production, staging, internal) by default, custom labels give you the flexibility to define your own categories and classifications for assets. In other words, you're not limited to the auto-generated labels – you can tag assets with labels that make sense for your organization's context (such as project names, owner teams, sensitivity, or any internal naming scheme).
+
+### How They Work
+
+Using the ProjectDiscovery Cloud interface, a user can select an asset and assign one or more custom labels to it. These labels then appear alongside the asset in the inventory, just like the AI-generated labels. This manual labeling is valuable for capturing contextual information that automated methods might not know. For example, you might label certain assets as "Critical" if they pertain to core infrastructure, or tag a set of hosts as "Internal" if they should not be exposed to the internet. By labeling assets in a way that mirrors your environment and business, you ensure that important attributes of each asset are immediately visible.
+
+### Benefits
+
+Custom labels allow security teams to organize assets according to custom criteria and quickly spot key asset properties at a glance. This user-driven categorization adds an extra layer of context – teams gain full control over how assets are categorized. It becomes easier to filter and group assets based on these tags (for example, viewing all assets labeled "Internal" or "Web-Server"). Ultimately, this leads to better asset management as the platform helps classify results to help you better organize, contextualize, and prioritize your assets. In practice, custom labels enable workflows like separating production vs. staging assets or flagging high-risk systems, so that teams can focus on relevant subsets of the attack surface during monitoring and scanning.
+
+## Bulk Labeling
+
+ProjectDiscovery Cloud also supports Bulk Labeling, which lets users apply a label to many assets at once, rather than tagging each asset individually. This feature is implemented through the platform's powerful filtering system. Users can filter their asset list by specific criteria and then assign a label to all assets matching that filter in a few clicks. In effect, bulk labeling dramatically speeds up the process of categorizing large numbers of assets.
+
+### How It Works
+
+The platform provides filtering across 14+ attributes of assets – you can narrow results by things like port number, technology, domain, IP, content length, and even by existing labels. Here's how to create and save bulk labels:
+
+1. **Apply Filters**
+   - Navigate to the Assets view
+   - Click the "Filter" button in the top left
+   - Select your desired filter criteria (e.g., port, technology, domain)
+   - Apply multiple filters to refine your selection
+
+2. **Select Assets**
+   - After filtering, review the matching assets
+
+3. **Apply Labels**
+   - Click the "Label" button in the action bar
+   - Enter your label name or select from existing labels
+   - Click "Apply" to tag all selected assets
+
+4. **Save as Dynamic Group** (Optional)
+   - Click "Save Filter" in the top right
+   - In the pop-up dialog, enter a name for your dynamic group
+   - Click "Save" to create your dynamic group
+
+Your saved dynamic group will automatically update as new assets matching your filter criteria are discovered. For example, you could label all assets running on port 8088 as 'staging' in just a few clicks. This bulk tagging via filters approach means you don't have to manually edit each asset entry – the system streamlines it for you.
+
+### Advantages
+
+Bulk labeling is especially useful for applying environment or role labels to many assets simultaneously. It ensures consistency at scale – every asset meeting the criteria gets the exact same label, avoiding omissions or typos that might happen with one-by-one tagging. It's also a huge time-saver for large asset sets; teams can categorize hundreds or thousands of assets in seconds by leveraging filters, instead of minutes or hours. By making it easy to tag assets in bulk, ProjectDiscovery helps teams maintain an organized asset inventory even as new data pours in.
+
+## Use Cases and Workflow Integration
+
+Both custom labels and bulk labeling open up new use cases for integrating ProjectDiscovery into security team workflows:
+
+### Environment Segmentation
+Teams can mark assets by environment (e.g., Development, Staging, Production) using custom labels. Bulk labeling makes it easy to apply these environment tags en masse. For example, filtering by port 8088 and tagging those assets as "staging" is a quick way to group all staging assets. This segmentation allows different handling of assets based on environment – for instance, running more frequent scans on production assets or applying stricter monitoring to internal-only systems.
+
+### Technology or Port-based Grouping
+If many assets share a common attribute (such as a specific open port, technology, or domain pattern), you can filter them out and label them in bulk. For instance, label all assets running an outdated software version as "Legacy" or all assets on port 22 as "SSH-Servers." This practice helps in quickly identifying groups of assets that might require a specific security assessment or patching regimen. The filtering system supports multi-select and complex queries (e.g., all assets on either Nginx or Apache) to refine these groups.
+
+### Dynamic Asset Groups for Monitoring
+After labeling assets, those labels can be used to create saved views or dynamic subgroups in the platform. A dynamic subgroup is essentially a saved filter that updates automatically as assets change. For example, once you've labeled certain assets as "Critical", you could save a filter for `label = Critical`. As new assets get tagged with "Critical" (either through AI suggestions or manual labeling), they will automatically appear in that group. This is highly useful for workflows like continuous monitoring or targeted vulnerability scanning – you always have an up-to-date list of assets in that category without rebuilding queries.
+
+### Prioritization and Triage
+Custom labels can encode business context such as ownership (e.g., tagging an asset with the responsible team or project name) or criticality (e.g., High-Value, Low-Impact). Using bulk operations, a newly onboarded set of assets can quickly be labeled according to input from asset owners or CMDB data. Thereafter, security analysts can filter by these labels to prioritize issues. For example, during incident response or risk review, one might focus on assets labeled "Production" and "Customer-Facing" first, since an issue on those could be more severe.

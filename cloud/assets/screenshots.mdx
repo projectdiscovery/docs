@@ -1,0 +1,35 @@
+---
+title: 'Asset Screenshots'
+description: 'Visual catalog of your discovered assets for quick security assessment'
+sidebarTitle: 'Screenshots'
+---
+
+<Note>
+The Screenshots feature is currently in beta and operates asynchronously. After asset discovery, there may be a delay before screenshots become available as they are processed in the background. This current limitation is temporary while we work on infrastructure optimizations to make screenshot generation instant.
+
+We are actively working on:
+- Reducing screenshot generation time
+- Implementing real-time processing
+- Scaling our infrastructure to handle concurrent screenshot requests
+- Making the feature more widely available to all users
+
+During the beta period, you may experience longer wait times for screenshots to appear in your dashboard. We appreciate your patience as we enhance this feature to provide instant visual insights for all users.
+</Note>
+
+The *Screenshots* feature automatically captures and catalogs visual snapshots of web assets identified during your discovery process. In practice, this means that for each discovered web service, an image of its web page is saved for you to review. These screenshots provide a quick visual summary of what was found, allowing you to identify interesting or anomalous web pages at a glance. All captured images are organized alongside asset data, so security teams can easily browse them without manually visiting each site.
+
+**How this helps:** By seeing the actual rendered pages, you can spot login portals, dashboards, error pages, or other telling visuals immediately. This added context enriches your asset inventory beyond raw URLs and metadata, giving you an at-a-glance understanding of each asset's interface and content.
+
+## How It Works (Technical Process)
+
+Under the hood, the screenshot feature uses a headless browser to load each web page and take a snapshot of it. When asset discovery with screenshots is initiated, the system will launch a browser engine (Chrome in headless mode) to fully render the target page (including HTML, CSS, and JavaScript) before capturing the image. Because of this rendering step, screenshot generation is **resource-intensive** and **time-consuming**. Each page needs to load as if you opened it in a real browser, which introduces processing delays.
+
+In the current beta implementation, screenshots are taken **asynchronously**. This means the initial asset discovery can complete and return results before all screenshots are finished. The images will continue to be captured in the background and will appear in your asset catalog once ready. As a result, you might notice a gap between discovering an asset and seeing its screenshot. This is normal in the beta – the feature prioritizes completing the discovery process first, then works on rendering pages for snapshots.
+
+## Why Use Screenshots?
+
+Traditionally, after discovering new web assets, security engineers would **manually inspect** each site to understand what it is. This might involve copying URLs into a browser or using separate tools to capture site images. For large numbers of assets, that manual approach is tedious and time‑consuming. Important details could be missed if an analyst doesn't have time to check every single site.
+
+The screenshots feature automates this **visual assessment** step. Instead of manually visiting dozens or hundreds of websites, the system automatically provides you with a gallery of each site's front page. This saves considerable time and effort – without automation, teams often had to write custom scripts (for example, using Selenium to take browser snapshots) or even rerun their discovery with a separate screenshot tool just to capture images. Now, that process is integrated: as soon as an asset is found, a screenshot is queued up for it. Security teams can quickly scroll through the captured images to triage assets, prioritize investigation, and spot anything visually unusual or interesting. In essence, **Screenshots turn a once-manual, one-by-one review into an automated, at-scale process**, letting you cover more ground faster.
+
+**Use case example:** If your discovery process finds an unknown subdomain hosting a login page, the screenshot will show you the login form and branding. This immediate context might tell you that the site is an admin portal, which is valuable information for risk assessment. Without the screenshot, you might have overlooked that subdomain or delayed investigating it until you could manually check it. By automating this, the feature ensures no discovered web asset goes visually unchecked.

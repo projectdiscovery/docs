@@ -1,57 +1,47 @@
 ---
-title: "Adding Parameters"
-description: "A walkthrough of adding additional parameters to ProjectDiscovery scan configuration"
-sidebarTitle: "Adding Parameters"
+title: "Scan & Template Configurations"
+description: "Configure custom scan settings, HTTP headers, template variables, and template profiles"
+sidebarTitle: "Configurations"
 ---
 
-## Summary
-Some Nuclei templates, to adapt to running in our cloud platform, may require additional parameters. 
-A common example is Nuclei templates that need parameters like username and password to authenticate.
+## Overview
 
-This page provides a common example to show you the steps required to set up scan parameters.
-Using the scan configuration you can take advantage of these types of Nuclei templates within ProjectDiscovery. 
+ProjectDiscovery's scanning engine supports various configuration options to customize scan behavior and template execution. This includes HTTP headers, template variables, interactsh settings, and template profiles. Some templates, particularly those requiring authentication or specific parameters, need additional configuration to work effectively in the cloud platform.
 
-## Authentication Example 
+## Scan Configurations
 
-In this example we're going to look at a Nuclei template that requires WordPress authentication. 
+### HTTP Headers
+Configure custom HTTP headers that will be included in all scan requests. This is useful for:
+- Adding authentication tokens
+- Setting specific User-Agent strings
+- Including custom tracking headers
+- Passing required API keys
 
-WordPress authentication is required for over 150 different Nuclei templates, and in each of these the templates can't be executed without configuring additional parameters. 
+### Template Variables
+Define variables that templates can reference during execution. Common use cases include:
+- Authentication credentials
+- API tokens
+- Custom parameters
+- Environment-specific values
 
-For example:
+### Interactsh Settings
+Configure out-of-band (OOB) testing parameters:
+- Custom Interactsh server settings
+- Correlation timeout values
+- Callback configurations
+
+## Authentication Example
+
+Let's look at a practical example using WordPress authentication, which is required by over 150 different Nuclei templates.
+
+Here's a template that requires authentication parameters:
 
 ```yaml
-
 id: CVE-2023-1890
-
 info:
   name: Tablesome < 1.0.9 - Cross-Site Scripting
-  author: r3Y3r53
   severity: medium
-  description: |
-    Tablesome before 1.0.9 is susceptible to cross-site scripting via the tab parameter due to insufficient input sanitization and output escaping. An attacker can inject arbitrary script in the browser of an unsuspecting user in the context of the affected site. This can allow the attacker to steal cookie-based authentication credentials and launch other attacks.
-  impact: |
-    Successful exploitation of this vulnerability could lead to the execution of arbitrary JavaScript code in the context of the victim's browser, potentially leading to session hijacking, defacement, or theft of sensitive information.
-  remediation: Fixed in version 1.0.9.
-  reference:
-    - https://wpscan.com/vulnerability/8ef64490-30cd-4e07-9b7c-64f551944f3d
-    - https://wordpress.org/plugins/tablesome/
-    - https://nvd.nist.gov/vuln/detail/CVE-2023-1890
-  classification:
-    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N
-    cvss-score: 6.1
-    cve-id: CVE-2023-1890
-    cwe-id: CWE-79
-    epss-score: 0.00203
-    epss-percentile: 0.57653
-    cpe: cpe:2.3:a:pauple:tablesome:*:*:*:*:*:wordpress:*:*
-  metadata:
-    verified: true
-    max-request: 2
-    vendor: pauple
-    product: tablesome
-    framework: wordpress
-  tags: cve2023,cve,wpscan,wp,wp-plugin,wordpress,authenticated,xss,tablesome,pauple
-
+  
 http:
   - raw:
       - |
@@ -63,59 +53,127 @@ http:
       - |
         GET /wp-admin/edit.php?post_type=tablesome_cpt&a%22%3e%3cscript%3ealert`document.domain`%3c%2fscript%3e HTTP/1.1
         Host: {{Hostname}}
-
-    matchers:
-      - type: dsl
-        dsl:
-          - 'status_code_2 == 200'
-          - 'contains(content_type_2, "text/html")'
-          - 'contains(body_2, "<script>alert`document_domain`</script>")'
-          - 'contains(body_2, "tablesome")'
-        condition: and
-
 ```
 
-In the first request there are two variables that are not defined in the template. 
-Users are expected to pass the values of these variables `{{username}}` and `{{password}}`. 
-
-```
-   POST /wp-login.php HTTP/1.1
-        Host: {{Hostname}}
-        Content-Type: application/x-www-form-urlencoded
-
-        log={{username}}&pwd={{password}}&wp-submit=Log+In
+This template uses two undefined variables (`{{username}}` and `{{password}}`). While in CLI you would use:
+```bash
+nuclei -id CVE-2023-1890 -var username=admin -var password=password123 -target https://example.com
 ```
 
-In Nuclei from the CLI you would simply run the following command:
+In ProjectDiscovery Cloud, we need to configure these through the scan configuration interface.
 
-`nuclei -id CVE-2023-1890 -var username=admin -var password=password123 -target https://example.com`
+## Setting Up Scan Configurations
 
-However, ProjectDiscovery requires some additional configuration to include these parameters in a scan. 
-
-## Variable Configuration in ProjectDiscovery
-
-To configure these required scan parameters in ProjectDiscovery you can create a Scan Configuration to pass these variables along in any scans you create. 
-You can choose to enable this configuration for all scans by default, or apply the configuration manually when you set up a new scan. 
-
-Complete these steps to set up an username and password parameters for a scan that includes WordPress authentication within the Nuclei templates. 
+### Creating a New Configuration
 
 <Steps>
-  <Step title="Navigate to Scans">
-    Select Configurations. Next select **Scan Options** and **New Config**.
+  <Step title="Access Configuration Settings">
+    1. Navigate to Scans → Configurations
+    2. Select "Scan Options"
+    3. Click "New Config"
   </Step>
-  <Step title="Complete Scan configuration">
-    - Enter WP Login as the configuration name
-    - Under Template variables enter **key** with the desired username and **value** with the corresponding password
-    - Update Enable for all scans based on your preferences. _Keeping it selected (default) will pass the new variables for any templates that has these variables defined._ 
-  <img height="200" src="/images/platform/parameterconfig.png" />
+
+  <Step title="Basic Configuration">
+    1. Enter a descriptive name (e.g., "WP Authentication")
+    2. Choose configuration type:
+       - HTTP Headers
+       - Template Variables
+       - Interactsh Settings
   </Step>
-  <Step title="Complete your config">
-    Select **Create** to create the new scan configuration. 
+
+  <Step title="Add Parameters">
+    For template variables:
+    - Add key-value pairs (e.g., username: admin)
+    - Set scope (global or template-specific)
+    - Configure visibility settings
+    
+    For HTTP headers:
+    - Specify header name and value
+    - Set application conditions
+  </Step>
+
+  <Step title="Configure Application Scope">
+    1. Choose when to apply this configuration:
+       - Enable for all scans (global)
+       - Manual selection per scan
+    2. Set template matching criteria (optional)
   </Step>
 </Steps>
 
-## What's Next? 
-Now that you have created a new scan configuration if set to _"Enable for all scans"_ will appear as a configuration for any new scans you create. 
- - If this is not enabled you will be able to choose the configuration for any scan you create.
+### Template Profiles
 
-Create a new scan and select any WordPress templates you want to include. You can also create a custom template profile to define a specific group of WP templates.
+Create custom template collections based on:
+- Severity levels (Critical, High, Medium, Low)
+- Tags (wordpress, cve2023, authenticated, etc.)
+- Protocol types (HTTP, DNS, TCP, etc.)
+- Template IDs
+
+To create a template profile:
+1. Navigate to Scans → Configurations → Template Profiles
+2. Click "New Profile"
+3. Select filtering criteria
+4. Save and name your profile
+
+## Advanced Configuration Examples
+
+### WordPress Authentication
+```yaml
+name: "WordPress Auth"
+type: template_variables
+variables:
+  username: "admin"
+  password: "secure_password"
+scope: "wordpress,wp-plugin"
+```
+
+### Custom Headers
+```yaml
+name: "API Authentication"
+type: http_headers
+headers:
+  Authorization: "Bearer {{token}}"
+  X-Custom-Header: "value"
+```
+
+### Interactsh Configuration
+```yaml
+name: "Custom OOB Settings"
+type: interactsh
+settings:
+  server: "custom.interactsh.com"
+  token: "your_token"
+  correlation_timeout: 30
+```
+
+## Best Practices
+
+1. **Security Considerations**
+   - Use environment variables for sensitive values
+   - Implement least-privilege access
+   - Regularly rotate credentials
+   - Audit configuration usage
+
+2. **Performance Optimization**
+   - Group related configurations
+   - Use template-specific variables when possible
+   - Monitor configuration impact on scan times
+
+3. **Maintenance**
+   - Document configuration purposes
+   - Review and update regularly
+   - Remove unused configurations
+   - Test changes before production use
+
+<Note>
+When using authentication credentials or sensitive parameters, ensure they are stored securely and accessed only by authorized users. Consider using environment variables or secure credential storage for sensitive values.
+</Note>
+
+## What's Next?
+
+After setting up configurations:
+1. Create new scans using your configurations
+2. Monitor scan results for proper parameter usage
+3. Adjust configurations based on results
+4. Create template profiles for specific use cases
+
+For template development guidance, visit our [Template Editor](/cloud/editor/overview) documentation.

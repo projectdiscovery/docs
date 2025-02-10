@@ -2,7 +2,7 @@
   "$schema": "https://mintlify.com/schema.json",
   "name": "ProjectDiscovery Documentation",
   "primaryTab": {
-    "name": "Documentation"
+    "name": "Home"
   },
   "logo": {
     "dark": "/logo/ProjectDiscovery-Logo-OnDark.svg",
@@ -19,25 +19,22 @@
   "openapi": "openapi.yaml",
   "favicon": "/favicon.png",
   "colors": {
-    "primary": "#9563FF",
-    "light": "#6366f1",
+    "primary": "#09090b",
+    "light": "#FAFAFA",
     "dark": "#0D001D",
     "background": {
       "dark": "#09090b"
     },
     "anchors": {
       "from": "#FF7F57",
-      "to": "#9563FF"
+      "to": "#FAFAFA"
     }
   },
+  "backgroundImage": "/images/background.png",
   "topbarLinks": [
     {
       "name": "Login",
       "url": "https://cloud.projectdiscovery.io/"
-    },
-    {
-      "name": "Blog",
-      "url": "https://blog.projectdiscovery.io/"
     }
   ],
   "topbarCtaButton": {
@@ -46,20 +43,28 @@
   },
   "tabs": [
     {
-      "name": "Tools",
-      "url": "tools"
+      "name": "Home",
+      "url": "home"
     },
     {
-      "name": "Templates",
-      "url": "templates"
+      "name": "Quick Start",
+      "url": "quickstart"
     },
     {
       "name": "Cloud Platform",
       "url": "cloud"
     },
     {
-      "name": "API",
+      "name": "API Reference",
       "url": "api-reference"
+    },
+    {
+      "name": "Tools",
+      "url": "tools"
+    },
+    {
+      "name": "Templates",
+      "url": "templates"
     },
     {
       "name": "Help",
@@ -85,25 +90,13 @@
   ],
   "navigation": [
     {
-      "group": "Welcome",
-      "pages": [
-        "introduction",
-        "documentation-nav",
-        "overview"
-      ]
+      "group": "Home",
+      "pages": ["home"]
     },
     {
-      "group": "Getting Started",
+      "group": "Quick Start",
       "pages": [
-        "getstarted-overview",
-        "getstarted-example",
-        "getstarted-nextsteps"
-      ]
-    },
-    {
-      "group": "Cloud Platform",
-      "pages": [
-        "cloudplatform"
+        "quickstart/index"
       ]
     },
     {
@@ -394,7 +387,11 @@
           "iconType": "regular",
           "pages": [
             "cloud/assets/overview",
-            "cloud/assets/adding-assets"
+            "cloud/assets/adding-assets",
+            "cloud/assets/screenshots",
+            "cloud/assets/labeling",
+            "cloud/assets/custom-labeling",
+            "cloud/assets/subsidiary"
           ]
         },
         {
@@ -433,8 +430,11 @@
           "icon": "square-question",
           "iconType": "regular",
           "pages": [
-            "cloud/general-faq",
-            "cloud/admin"
+            "cloud/admin/audit-logs",
+            "cloud/admin/scan-ips",
+            "cloud/admin/saml-sso",
+            "cloud/admin",
+            "cloud/general-faq"
           ]
         }
       ]

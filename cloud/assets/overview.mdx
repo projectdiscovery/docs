@@ -1,80 +1,97 @@
 ---
-title: "Asset Discovery and Management"
+title: "Asset Discovery and Exposure Management"
 sidebarTitle: "Overview"
+description: "Next-generation attack surface management and asset discovery platform"
 ---
 
-Attack Surface Management (ASM) is the continuous discovery, inventory, classification, and monitoring of your external-facing and internal assets. These assets include any internet-facing systems, cloud resources, or services that could potentially be accessed by attackers.
+Attack Surface Management (ASM) has evolved from basic asset enumeration into a sophisticated process that continuously discovers, classifies, and monitors all assets vulnerable to attack. Modern organizations face ever‐expanding digital footprints spanning traditional internet-facing systems, dynamic cloud environments, and complex distributed services. ProjectDiscovery redefines ASM by combining proven open‑source techniques with advanced cloud‑native capabilities. This unified platform delivers instant insights—through a search‑like experience and deep reconnaissance—ensuring comprehensive coverage and real‑time visibility into your entire infrastructure. In essence, it lets your security team see your organization's attack surface as an attacker would, leaving no blind spots.
 
-<CardGroup cols={3}>
-  <Card 
-    title="Asset Discovery" 
-    icon="magnifying-glass"
-    href="/cloud/assets/adding-assets#asset-discovery">
-    Automated discovery and monitoring from root domains
-  </Card>
-  <Card 
-    title="Cloud Services" 
-    icon="cloud"
-    href="/cloud/integrations#cloud-asset-discovery">
-    Multi-cloud asset discovery and integration
-  </Card>
-  <Card 
-    title="API Integration" 
-    icon="code"
-    href="https://docs.projectdiscovery.io/api-reference/enumerations/create-enumeration">
-    Programmatic asset management via REST API
-  </Card>
-</CardGroup>
+This document outlines the core workflows and architectural components of ProjectDiscovery's ASM and Exposure Management. It is designed to help new users quickly understand how the system works and to provide a structured, yet developer‑friendly, overview for security and engineering teams.
 
-## Our Approach
+---
 
-ProjectDiscovery combines battle-tested open-source tools with cloud-native capabilities:
+## Platform Architecture
+
+Our next‑generation asset discovery platform is built on a revolutionary three‑layer architecture developed through extensive collaboration with hundreds of security teams. Each layer plays a distinct role in mapping and monitoring your infrastructure.
+
+### 1. External Discovery Layer
+
+- **Instant Enumeration:** Leveraging our enhanced Chaos database, this layer delivers immediate results through pre‑indexed data for hundreds of thousands of domains.
+- **Deep Reconnaissance:** Active reconnaissance methods (advanced DNS brute‑forcing, permutation analysis, certificate transparency log monitoring) supplement instant results.
+- **ASN Mapping:** Sophisticated ASN correlation (ASNMap) uncovers hidden relationships by mapping IP ranges associated with your organization. This network‑level insight expands your visibility beyond known domains.
+- **Third‑Party Data & Subsidiary Discovery:** Integration with external sources (e.g., Shodan, Censys, FOFA) and subsidiary detection mechanisms automatically identify related brands and assets—ensuring that acquired or lesser‑known entities are not overlooked.
+
+### 2. Cloud Integration Layer
+
+- **Real‑Time Cloud Asset Discovery:** Our enhanced Cloudlist engine connects natively with AWS, Azure, GCP, and more, continuously monitoring your cloud footprint.
+- **Service & Configuration Monitoring:** Advanced heuristics identify exposed services and risky configurations in real‑time, while persistent API connections ensure your cloud inventory stays up‑to‑date.
+- **Cross‑Cloud Correlation:** Cloud‑based assets are linked with ASN data and external discoveries to provide a unified view of your overall attack surface.
+
+### 3. Asset Management Layer
+
+- **Enrichment & Classification:** Raw asset data is transformed through multi‑stage analysis. Comprehensive DNS analysis, HTTP probing (with screenshots and technology fingerprinting), and certificate evaluation work together to create detailed asset profiles.
+- **Automated Labeling:** AI‑powered models automatically categorize and tag assets based on their characteristics, behavior patterns, and risk profiles. Users can also define custom labels and apply bulk labeling to further organize assets by environment, ownership, or risk.
+- **Graph‑Based Relationship Mapping:** Advanced mapping visualizes complex asset relationships and attack paths, providing actionable intelligence for prioritizing security efforts.
+
+---
+
+## Key Workflows & Features
 
 <CardGroup cols={2}>
-  <Card title="Open Source Foundation" icon="github">
-    ✓ [Subfinder](https://github.com/projectdiscovery/subfinder) for subdomain discovery
-
-    ✓ [Naabu](https://github.com/projectdiscovery/naabu) for port scanning
-
-    ✓ [Httpx](https://github.com/projectdiscovery/httpx) for HTTP probing
-
-    ✓ [Cloudlist](https://github.com/projectdiscovery/cloudlist) for cloud assets
-
-    ✓ [TLSx](https://github.com/projectdiscovery/tlsx) for certificate analysis
-
-    ✓ [Uncover](https://github.com/projectdiscovery/uncover) for exposed asset search
+  <Card
+    title="Asset Discovery"
+    icon="radar"
+    href="/cloud/assets/overview"
+  >
+    Automatically discover and track all external-facing and internal assets using integrated tools like Subfinder, Naabu, Httpx, and more
   </Card>
-  <Card title="Cloud Platform Features" icon="cloud">
-    ✓ Advanced subdomain enumeration
-
-    ✓ Port scanning (1-65535)
-
-    ✓ Deep technology fingerprinting
-
-    ✓ Cloud asset discovery
-
-    ✓ ASN-based discovery
-
-    ✓ Certificate chain analysis
-
+  <Card
+    title="Labels & Categorization"
+    icon="tags"
+    href="/cloud/assets/labeling"
+  >
+    Organize assets with AI-generated and custom labels for efficient management and prioritization
+  </Card>
+  <Card
+    title="Screenshots & Visualization"
+    icon="image"
+    href="/cloud/assets/screenshots"
+  >
+    Capture visual snapshots of web assets for quick identification of exposed interfaces
+  </Card>
+  <Card
+    title="Subsidiary Management"
+    icon="building"
+    href="/cloud/assets/subsidiary"
+  >
+    Automatically map and manage assets across multiple subsidiaries and brands
+  </Card>
+  <Card
+    title="Cloud Integrations"
+    icon="cloud"
+    href="/cloud/integrations"
+  >
+    Native integration with major cloud providers for comprehensive asset discovery
+  </Card>
+  <Card
+    title="Vulnerability Management"
+    icon="shield-check"
+    href="/cloud/scanning/overview"
+  >
+    Seamless integration with Nuclei-powered scanning for comprehensive security assessment
   </Card>
 </CardGroup>
 
-## Getting Started
+---
 
-Choose your preferred method to start building your asset inventory:
+## Best Practices & Next Steps
 
-<Steps>
-  1. **Asset Discovery**
-     Start with root domains and let our platform discover your assets automatically. [Learn more →](/cloud/assets/adding-assets#asset-discovery)
+- **Enable Continuous Scanning:** Schedule regular asset discovery and vulnerability scans to ensure your inventory remains current.
+- **Leverage Labels Effectively:** Develop a consistent labeling scheme that reflects your organizational structure (e.g. by environment, department, or risk level) to prioritize remediation efforts.
+- **Integrate with Your Workflow:** Set up integrations with alerting systems (Slack, Teams, email) and ticketing tools (Jira, GitHub) to automate notifications and track remediation.
+- **Review & Update Regularly:** Periodically audit your asset inventory to remove stale entries and adjust labels as your infrastructure evolves.
+- **Explore Advanced Features:** Once you're comfortable with the basics, dive into additional features such as customized filtering, dynamic grouping, and deeper cloud integrations to further refine your exposure management.
 
-  2. **Cloud Integration**
-     Connect your cloud providers for automated asset sync. [View providers →](/cloud/integrations#cloud-asset-discovery)
+---
 
-  3. **API Integration**
-     Programmatically manage assets using our REST API. [API docs →](https://docs.projectdiscovery.io/api-reference/enumerations/create-enumeration)
-</Steps>
-
-<Note>
-Need help getting started? Contact our [support team](mailto:support@projectdiscovery.io) or join our [Discord community](https://discord.gg/projectdiscovery).
-</Note>
+By following this guide, new users can quickly grasp the full capabilities of ProjectDiscovery's ASM and Exposure Management. The integrated workflows—from asset discovery and enrichment to continuous monitoring and vulnerability assessment—provide a robust, real‑time view of your infrastructure, empowering your security team to proactively secure your attack surface. Enjoy the streamlined, automated approach to managing your organization's exposure with ProjectDiscovery!

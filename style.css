@@ -1,3 +1,42 @@
+/* Import Geist and Geist Mono fonts */
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600;700&display=swap');
+
+/* Apply Geist font to body text */
+body {
+  font-family: 'Geist', sans-serif;
+}
+
+/* Apply Geist Mono to code blocks */
+code, pre {
+  font-family: 'Geist Mono', monospace;
+}
+
+/* Custom styling for the hero section text */
+.hero-title {
+  font-family: 'Geist', sans-serif;
+  font-weight: 700;
+  margin-bottom: 1rem;  /* Larger spacing - equivalent to about mb-28 */
+}
+
+.hero-subtitle {
+  font-family: 'Geist', sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  font-size: 2.5rem;
+}
+
+/* Section title styling */
+.section-title {
+  font-family: 'Geist', sans-serif;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+html[class~="dark"] .section-title {
+  color: rgba(255, 255, 255, 0.7);
+}
+
 nav ul li:nth-child(2) a {
     display: block;
     padding: 8px;
@@ -11,4 +50,44 @@ nav ul li:nth-child(2) a {
 nav ul li:nth-child(2) a:hover {
     background: #4d4fc4;
     color: white !important;
+}
+
+/* Custom search button styling */
+.search-button {
+  width: 400px !important;
+  max-width: 90vw;
+  margin-left: auto;
+  margin-right: auto;
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  backdrop-filter: blur(8px);
+}
+
+/* Dark mode styles */
+html[class~="dark"] .search-button {
+  background: rgba(39, 39, 42, 0.8) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+html[class~="dark"] .search-button:hover {
+  background: rgba(39, 39, 42, 0.95) !important;
+}
+
+.search-button:hover {
+  background: rgba(255, 255, 255, 1) !important;
+  border-color: rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Card group divider */
+.card-group-divider {
+  width: 100%;
+  max-width: 800px;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.06);
+  margin: 3rem auto;
+}
+
+html[class~="dark"] .card-group-divider {
+  background: rgba(255, 255, 255, 0.06);
 }

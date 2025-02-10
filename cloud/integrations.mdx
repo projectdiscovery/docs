@@ -39,7 +39,7 @@ ProjectDiscovery supports notifications through Microsoft Teams. To enable notif
 
 Choose from the list of **Events** (Scan Started, Scan Finished, Scan Failed)  to specify what notifications are generated.
 
-* Refer to [Microsoft’s documentation on creating webhooks](https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook?tabs=newteams%2Cdotnet) for configuration details.
+* Refer to [Microsoft's documentation on creating webhooks](https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook?tabs=newteams%2Cdotnet) for configuration details.
 
 ### Email
 
@@ -101,7 +101,7 @@ Provide your GitLab username, Project name, Project Access Token and a GitLab Is
 
 * Deduplicate posts any new results as comments on existing issues instead of creating new issues for the same result.
 
-Refer to GitLab’s documentation for details on [configuring a Project Access token.](https://docs.gitlab.com/ee/user/project/settings/project_access_tokens.html#create-a-project-access-token)
+Refer to GitLab's documentation for details on [configuring a Project Access token.](https://docs.gitlab.com/ee/user/project/settings/project_access_tokens.html#create-a-project-access-token)
 
 ### Linear
 
@@ -420,31 +420,3 @@ Access these providers through [Assets → Connect Cloud Services](https://cloud
 * **Linode**: Compute instances
 
 * **Hetzner Cloud**: Cloud servers
-
-## Scan Configurations
-
-Configure custom HTTP headers, template variables, and interactsh server settings to customize your scan behavior. Access these settings at [Scans → Configurations → Scan Settings](https://cloud.projectdiscovery.io/scans/configs?type=scan).
-
-You can configure:
-
-* Custom HTTP headers for scan requests
-
-* Template variables for scan customization
-
-* Interactsh server settings for OOB testing
-
-## Template Configurations
-
-Access pre-configured templates or create custom configurations with filtered rules based on:
-
-* Severity levels
-
-* Tags
-
-* Protocol types
-
-* Template IDs
-
-Configure these settings at [Scans → Configurations → Template Profiles](https://cloud.projectdiscovery.io/scans/configs?type=template).
-
-Want to write your custom templates? Learn more in our [Template Editor](/cloud/editor/overview) documentation.

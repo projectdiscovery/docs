@@ -4,73 +4,82 @@ sidebarTitle: "OSS vs Cloud"
 icon: "code-compare"
 ---
 
-ProjectDiscovery was born from the security community, with our open-source tools being used by over 100,000 security professionals worldwide. Our cloud platform builds upon this foundation, bringing additional capabilities for organizations while maintaining the transparency and flexibility our community loves.
+ProjectDiscovery's journey from open source to a cloud platform is grounded in a commitment to community-driven security and enhanced organizational capabilities. **ProjectDiscovery began as an open-source toolkit**, embraced by over 100,000 security professionals worldwide. These tools thrive on community-driven innovation – for example, users contribute new vulnerability templates to quickly detect emerging threats. We also offer advanced customization, like the ability to write custom scan templates and integrate with scripts, giving security engineers flexibility in how they hunt for issues. However, as usage grows within a company, teams often encounter challenges with **scale, consistency, and maintenance** that individual open-source tools alone may not easily solve. The **ProjectDiscovery Cloud Platform** was built to address these challenges by transforming our battle-tested open-source tools into a comprehensive, managed solution. It retains the transparency and flexibility that the community loves, while streamlining workflows, increasing speed, and adding enterprise-grade features to meet the needs of security and engineering teams at scale. Below, we outline the key benefits and features that the cloud platform brings, and how it complements our open-source tools.
 
-## Our Open Source Foundation
+## Cloud Platform Benefits
 
-ProjectDiscovery's tools are the cornerstone of many security programs because they provide:
+Moving to the cloud platform **streamlines security workflows** and offloads the operational burden from your team. Instead of running scans on local infrastructure and managing updates manually, you can leverage a high-performance cloud environment purpose-built for security scanning. Key benefits include:
 
-**Community-Driven Innovation**
-- Rapid detection of new threats through community templates
-- Transparent detection methods and workflows
-- Continuous improvements from security researchers
+- **No Infrastructure to Manage:** The cloud platform eliminates the need to deploy, configure, and maintain your own scanning servers or VMs. All scanning infrastructure is hosted and managed by ProjectDiscovery, meaning no installation headaches or ongoing server upkeep on your side (zero maintenance overhead). This frees your team to focus on findings and fixes rather than ops tasks.
 
-**Advanced Capabilities**
-- Custom template development
-- Advanced automation workflows
-- Direct CLI integration
-- Local data processing options
+- **Blazing-Fast, Scalable Scanning:** ProjectDiscovery's cloud orchestrates scans across a distributed network of machines, enabling massively parallel execution. This design delivers vulnerability scanning up to **50× faster than typical self-hosted deployments**. Large asset inventories that might take hours or days to scan with local tools can be covered in minutes on the cloud. High throughput scanning becomes the norm, allowing you to continuously assess thousands of assets without waiting.
 
-## Enhancing Open Source for Organizations
+- **Centralized Results (Single Source of Truth):** All scan findings and asset data are consolidated in one cloud-based dashboard. By maintaining a **single source of truth for all security discoveries across your organization**, the platform makes it easy to track issues from discovery to resolution. Teams no longer deal with scattered scan outputs or multiple databases – everything is in one place, searchable and correlated, which simplifies analysis and reporting.
 
-ProjectDiscovery transforms our battle-tested open source tools into a comprehensive security solution that addresses the complex challenges organizations face today. It combines the power of community-driven security with enterprise-grade features, all while maintaining the flexibility security teams need.
+- **Always Up-to-Date Checks:** The cloud platform stays in sync with the latest threat intelligence. Vulnerability signatures and detection templates are updated in real-time by ProjectDiscovery's research team and the global community. The moment a new CVE or exploit technique emerges, a template can be added and instantly made available for your scans. Your security tests are always using the most current knowledge base without you manually pulling updates from GitHub or managing template files.
 
-**Streamline Security Operations**
-- Zero infrastructure maintenance overhead
-- 50x faster scanning than self-hosted deployments
-- Maintain a single source of truth for all security discoveries across your organization
-- Real-time vulnerability template updates from our research team and community
-- Fixed scan IPs for whitelisting and custom rate limits
+- **Fixed Scan IPs for Easy Whitelisting:** All cloud-initiated scans originate from a fixed set of IP addresses provided by ProjectDiscovery. This makes it simple to whitelist the scanner in your target environments' firewalls and IPS. Unlike running scans from ever-changing IPs or developer machines, you know exactly what source addresses our cloud will use. You can define custom rate limits or access rules for these scanners, ensuring high-speed scans don't trigger defensive blocks. This **predictable IP range** is especially useful when scanning internal assets or third-party services that require pre-approval of scanner IPs.
 
-**Enable Team Collaboration**
-- Unite security teams through shared workspaces and collaborative workflows
-- Control access and permissions with granular role-based controls
-- Share security findings and insights across teams seamlessly
-- Unified dashboard for all security findings
-- Standardize security processes with templated workflows
-- SAML SSO integration (Okta, Entra, Google)
-- Comprehensive audit logs for team activities
+## Enterprise-Grade Features
 
-**Scale with Enterprise Needs**
-- Multi-cloud asset discovery and monitoring
-- Continuous vulnerability regression testing
-- Enterprise-grade support
-- Executive and compliance reports (SOC 2, PCI, HIPAA)
-- Advanced subsidiary discovery and asset mapping
+Beyond raw speed and convenience, the ProjectDiscovery Cloud Platform includes **enterprise-grade features** that help manage security efforts across large teams and complex environments. It's designed to provide the visibility, control, and integrations that organizations need for a mature security program:
 
-## Seamless Integration with CLI Tools
+- **Centralized Security Visibility:** The platform provides a unified dashboard that displays all vulnerabilities and assets discovered across your organization in real time. This **central visibility** means security leads and engineers share the same up-to-date view of the attack surface and can prioritize issues together. Instead of siloed scan reports, everyone sees findings in one place – improving situational awareness and facilitating data-driven decisions. Graphs, search filters, and trend views let you quickly assess your security posture or drill down into specific asset groups.
 
-Already using ProjectDiscovery tools? Our cloud platform enhances your existing workflow:
+- **Team Collaboration and Workspaces:** ProjectDiscovery Cloud is built for teams. You can organize assets and scans into shared workspaces so multiple team members can contribute without stepping on each other's toes. The platform enables collaborative workflows – for example, one team member can configure a scan, another can review the results, and a third can validate a finding – all within the same interface. By **uniting security teams through shared workspaces and collaborative processes**, the cloud platform ensures everyone stays in sync. Findings can be commented on and tagged, facilitating knowledge sharing across AppSec, DevOps, and engineering groups.
 
-<CardGroup cols={2}>
-  <Card title="CLI Integration" icon="terminal">
-    Connect your existing scripts and automation with our cloud APIs
-  </Card>
-  <Card title="Template Sync" icon="rotate">
-    Use your custom templates across both environments
-  </Card>
-  <Card title="Unified Results" icon="database">
-    Aggregate findings from both cloud and local scans
-  </Card>
-  <Card title="Flexible Deployment" icon="server">
-    Choose where to run specific security checks
-  </Card>
-</CardGroup>
+- **Granular Access Control (RBAC):** With role-based access control, you can tightly manage who on your team can view data or perform certain actions. The platform lets you define roles (e.g., admin, security engineer, read-only analyst) and assign permissions accordingly. For instance, you might allow an engineering team to see and fix vulnerabilities in their projects, while restricting administrative settings to the security team leads. This granular access control ensures sensitive information is only accessible to the right people and supports separation-of-duties practices. As a result, large organizations can onboard many users while maintaining governance over what each user or team can do.
 
-## Getting Started
+- **Single Sign-On and Audit Logging:** ProjectDiscovery Cloud integrates with enterprise Single Sign-On (SSO) providers like Okta, Azure AD (Entra ID), and Google Workspace for streamlined and secure authentication. Your team can use existing corporate logins to access the platform, simplifying user management and enforcing company login policies (such as 2FA). Additionally, every action on the platform is tracked with comprehensive **audit logs**. You can review who ran a scan, who acknowledged a vulnerability, or who changed a setting, along with timestamps. These logs help meet compliance requirements and provide accountability, making it easier to pass security audits or investigate incidents.
 
-Ready to enhance your security program?
-- [Create a free account](https://cloud.projectdiscovery.io)
-- [Explore our open source tools](/tools/index)
-- [Join our Discord community](https://discord.com/invite/projectdiscovery)
-- [Talk to sales for Enterprise needs](https://projectdiscovery.io/request-demo)
+- **Compliance Reporting:** Generating reports for executives or compliance frameworks is built into the platform. With a few clicks, you can produce reports tailored to standards like **SOC 2, PCI-DSS, HIPAA** and others. The reports compile relevant findings, trends, and metrics to demonstrate your security posture over time. This saves significant effort for security teams who typically would manually assemble data for auditors or management. The cloud platform ensures that the data in these reports is up-to-date and pulled from that single source of truth, reducing errors and omissions. Having on-demand executive and compliance reports readily available helps translate technical findings into business terms and proof of due diligence.
+
+- **Automated Vulnerability Regression Testing:** When vulnerabilities are found and fixed, the work isn't over – you need to ensure those issues stay fixed. The cloud platform can automatically **re-scan and retest known vulnerabilities** on a schedule or upon deployment of a fix. This regression testing workflow means if a previously patched issue reappears (due to a code change, configuration drift, etc.), you'll catch it immediately. It creates a safety net that continuously validates your remediation efforts. Instead of relying on memory or tickets to revisit old findings, the platform's automation verifies them for you and alerts if something that was safe becomes vulnerable again. This feature gives teams confidence that improvements are lasting and helps prevent regressions from slipping through.
+
+- **Dedicated Scanning IPs and Control:** (Enterprise Feature) As mentioned earlier, the cloud provides fixed scanning IP addresses. In an enterprise context, this is critical for complying with internal security policies. You can formally register or whitelist the ProjectDiscovery scanner IPs in advance, satisfying any approval processes before testing. Moreover, you can enforce custom rate limits or scanning hours to avoid network saturation in sensitive environments. Having **dedicated, known scanner IPs** and the ability to control their behavior makes the cloud platform play nicely within corporate network rules, unlike unmanaged open-source scans that might inadvertently trigger alarms.
+
+- **Enterprise Support and Scale:** For organizations that need it, ProjectDiscovery offers enterprise support plans with dedicated assistance, SLAs, and onboarding help. The platform is also built to handle **enterprise scale** – from discovering assets across multiple cloud providers to mapping out subsidiaries and business units. You can monitor a large, dynamic attack surface without worrying about hitting tool limits. Whether you have 100 or 100,000 assets to assess, the cloud backend can scale to meet the demand, leveraging cloud resources to maintain performance. This ensures that as your organization (and asset inventory) grows, your security scanning can grow with it seamlessly.
+
+## Open-Source Integration and Flexibility
+
+Adopting the cloud platform doesn't mean abandoning the open-source tools your team knows and loves. In fact, the two work hand-in-hand. We recognize that **security teams value the flexibility of open-source**, from crafting custom detection logic to integrating tools into bespoke workflows. ProjectDiscovery Cloud is designed to complement and enhance your use of open-source tools, allowing you to continue leveraging them where it makes sense while benefiting from cloud capabilities. Here's how the platform integrates with open-source usage:
+
+- **Use Existing CLI Tools with Cloud:** If you have existing scripts or pipelines built around ProjectDiscovery's CLI tools (such as Nuclei, Subfinder, httpx, etc.), you can plug them into the cloud via our API. The platform provides a robust API and SDKs that let you programmatically trigger cloud scans, fetch results, and manage assets. In practice, this means you can **connect your current automation with our cloud APIs** without a complete rewrite. For example, a CI/CD pipeline running daily scans can call the cloud to perform the scan and retrieve findings, blending into your established processes.
+
+- **Custom Templates Across Environments:** One of the strengths of ProjectDiscovery tools is the ability to write custom vulnerability templates (e.g., Nuclei YAML templates) for your specific needs. The cloud platform fully supports this customization. You can upload and use your **custom templates on the cloud just as you do locally**. Templates you've developed in-house can be synced to the cloud scanner, ensuring that proprietary checks (for your app, environment, or policy requirements) run at scale. There's no lock-in to only built-in templates – you maintain the freedom to tailor scanning to your unique context, with the cloud handling the heavy lifting to run those checks on many targets.
+
+- **Unified Data from Open-Source and Cloud Scans:** Whether a scan is run locally or in the cloud, you can bring the results together. The platform is able to **aggregate findings from both cloud and local scans into one unified view**. This means if certain sensitive scans must be done on-premises with open-source tools (for example, inside a restricted network), those results can be imported or correlated with your cloud findings. Your team gets a holistic picture of vulnerabilities without needing to manually merge reports. In short, the cloud platform becomes the central repository for all your ProjectDiscovery tool outputs, regardless of where they ran.
+
+- **Flexible Deployment Strategies:** With the combination of open-source and cloud, you can adopt a hybrid scanning strategy. The cloud platform allows you to **choose where to run specific security checks** – some can run in the cloud for speed and scale, while others run locally for special cases. For instance, you might run external-facing asset scans on the cloud (to leverage its scale and fixed IPs), but execute internal network scans with the open-source tools on an on-prem machine that has the necessary network access. Both sets of results flow into the platform. This flexibility ensures you're not constrained by one approach; you use the best tool for the job, and ProjectDiscovery ties it all together. The open-source tools remain an integral part of your workflow, and the cloud platform enhances them with a centralized, automated touch.
+
+## Performance and Scale
+
+One of the most compelling reasons to use the cloud platform is the **dramatic boost in scanning performance and the ability to scale to very large environments** effortlessly. ProjectDiscovery Cloud's architecture and optimizations solve many limitations of self-hosted scanning:
+
+- **Massively Parallel Scanning Engine:** Unlike running scanners on a single server (even a powerful one), the cloud platform can distribute workloads across many nodes. This massively parallel approach means you can scan dozens or hundreds of targets concurrently, each with hundreds of payloads or templates, without bogging down. The result is scans completing far faster than in a self-managed setup – up to *50 times faster than a typical Nuclei self-hosted deployment*. By scaling out horizontally, the cloud handles large-scale reconnaissance and vulnerability scanning in a fraction of the time, which is crucial when you need quick feedback or have tight assessment windows.
+
+- **High Throughput with Reliability:** The cloud platform is tuned for high-throughput scanning – it can handle running tens of thousands of requests per second when needed, all while gracefully managing retries, timeouts, and failures. Because ProjectDiscovery operates the infrastructure, it is optimized to avoid common pain points like running out of memory or crashing under load. You don't have to guess at thread counts or worry about CPU spikes; the platform auto-scales and balances load to keep scans efficient from start to finish. This means you get both speed *and* stability, even for complex scanning tasks.
+
+- **Real-Time Security Updates:** Speed is not just about how fast packets can be sent, but also how current your scanning knowledge is. The cloud platform benefits from **real-time vulnerability template updates** fed by our research team and community contributions. The instant a new vulnerability check is available, cloud scans can include it. This real-time update cycle ensures you can scan for the latest threats *immediately*. In contrast, in a self-hosted scenario you might update your tools weekly or ad-hoc, possibly missing critical windows. The platform essentially keeps you on the cutting edge of detection without any manual intervention.
+
+- **Scaling to Your Entire Attack Surface:** Because it's built on cloud infrastructure, the platform can easily scale to cover your full environment, however large or distributed. Need to scan assets across multiple regions or cloud providers? The platform can do that in parallel. It supports **multi-cloud asset discovery and monitoring** to find and track assets in AWS, GCP, Azure, and more. This wide coverage is coupled with the ability to run scans from different geographical regions to minimize latency to targets, if needed. In practical terms, whether you have 50 websites or 50,000, or whether those are spread across on-prem data centers and cloud accounts, you can count on the platform to enumerate and assess them in a standardized way. You won't be constrained by the limits of a single machine or network – the cloud dynamically allocates resources to meet your scanning needs.
+
+- **Faster Time to Remediation:** Ultimately, the performance gains and scalability translate into earlier detection of vulnerabilities. When scans that used to take days now finish in an hour, your team gets findings that much sooner. Faster discovery means you can start fixing issues sooner, reducing exposure. It also enables more frequent re-scans; instead of scanning critical assets monthly due to time constraints, perhaps you can scan them weekly or daily now. This agility in scanning cadence helps ensure that if a new risk appears, it's caught and addressed promptly, keeping your security posture much more current.
+
+## Standardized Security Processes
+
+Migrating to the ProjectDiscovery Cloud Platform not only improves raw capabilities, but also helps **standardize your security assessment processes**. For many organizations, one of the biggest challenges is ensuring everyone follows best practices and that security tasks are done consistently. The cloud platform is opinionated in the right ways – it provides structure that makes your operations more repeatable and efficient:
+
+- **Consistent, Templated Workflows:** The platform allows you to define and use templated workflows for common tasks. For example, you might have a "Weekly External Scan" template that includes a specific set of scanners, templates, and notification settings. By using such predefined scans, every execution follows the same proven process. This **standardization of workflows** ensures that no matter who runs the scan, the coverage and methodology are uniform. It reduces the chance of human error (such as someone forgetting to include a critical test) and makes your scanning regimen systematic. Over time, this builds confidence that your security checks are thorough and consistent.
+
+- **Organization-Wide Methodology:** When all teams use the cloud platform, you effectively establish a common security testing methodology across the organization. Application security, cloud security, and ops teams are no longer using completely different tools or techniques – they're all working within the same framework. This unified approach means findings from different parts of the organization are directly comparable and all follow the same risk scoring and format. If your company has multiple engineering teams, standardizing on the platform helps ensure each team's security practices are at the same high standard, which is hard to achieve when everyone uses disparate open-source setups.
+
+- **Faster Onboarding and Training:** New engineers or security analysts can get up to speed quicker because they have a clear, centralized system to learn. Instead of teaching newcomers a grab-bag of scripts and command-line flags, you can train them on the ProjectDiscovery Cloud interface and workflow. The learning curve is lower, and they can start contributing sooner. The platform's dashboards and reports are also more accessible to non-security stakeholders compared to raw tool output, which means developers, product managers, or auditors can understand the security data without needing deep tool knowledge. This broader understanding further enforces the practice, as more people in the organization can engage with the security process in a standard way.
+
+- **Improved Collaboration & Accountability:** With standardized processes comes better teamwork. Everyone knows how a finding should be documented, how a remediation should be validated, and how to mark an issue as resolved in the system. Features like shared workspaces, comments, and assignment of findings to owners mean the hand-off from detection to remediation is well-defined. Meanwhile, **audit logs on the platform record all these actions**, so you have a trail of who did what. This clarity greatly improves accountability – if a vulnerability was missed or left unpatched, you can trace back through the logs and workflow to see where the process might be improved. Over time, analyzing this data helps refine and strengthen your security operations playbook.
+
+- **Security and Compliance Alignment:** A standardized platform naturally produces standardized outputs (dashboards, reports, metrics). This makes it much easier to align with security policies and compliance requirements. You can configure the platform to enforce certain checks or frequencies (for example, require that all critical apps are scanned monthly). Compliance frameworks often call for evidence of regular, consistent security activities – the platform can be that evidence, showing a schedule of scans and how issues are tracked to closure. By automating and standardizing those activities, you reduce the manual effort to prove compliance. In essence, the platform bakes best practices and policy adherence into the daily routine, so passing audits becomes a byproduct of doing the right thing consistently.
+
+---
+
+By moving **from open-source tools to the ProjectDiscovery Cloud Platform**, organizations can dramatically boost their security capabilities while still retaining the flexibility that made the open-source approach successful. The cloud platform offloads maintenance and accelerates scanning, provides a unified view of risk for the entire team, and introduces enterprise features that simplify management and reporting. At the same time, it respects the need for customization and integration by working hand-in-hand with open-source workflows. The result is a solution that empowers security and engineering teams to cover more ground in less time, with greater confidence and consistency. In an era of fast-evolving threats and expanding attack surfaces, the combination of community-powered tools and a scalable cloud platform helps ensure your security processes are both **agile and standardized** – enabling you to find and fix vulnerabilities before they can be exploited.
