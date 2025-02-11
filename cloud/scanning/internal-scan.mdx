@@ -99,6 +99,18 @@ This method is ideal when you want to maintain complete control over scan execut
 Cloud-managed internal scanning with TunnelX is an Enterprise-exclusive feature. Free and Pro users can still perform internal scans using the local scanning method described above.
 </Note>
 
+<Note>
+**System Requirements**  
+TunnelX is designed to be lightweight and efficient. Minimum recommended specifications for optimal performance:
+- **CPU:** 1 vCPU/Core
+- **Memory:** 2GB RAM
+- **Network:** 100Mbps network interface
+- **Storage:** 10GB available disk space
+- **Operating System:** Linux (recommended), macOS, or Windows
+
+These specifications are suitable for most deployment scenarios. A basic VPS (Virtual Private Server) meeting these requirements is sufficient for running TunnelX efficiently.
+</Note>
+
 ### Install TunnelX
 
 Choose your preferred installation method:
@@ -132,63 +144,3 @@ export PDCP_API_KEY="your_api_key"
 go run .
 ```
 </CodeGroup>
-
-### Managing Multiple Networks
-
-TunnelX allows you to create separate tunnels for different internal networks:
-
-```bash
-# Run tunnels with custom names for different networks
-tunnelx -auth <api_key> -name prod-network
-tunnelx -auth <api_key> -name staging-network
-
-# Run in background
-nohup tunnelx -auth <api_key> & # Linux/MacOS
-start /B tunnelx -auth <api_key> # Windows
-```
-
-<Note>
-After successful connection, you'll see your network appear as a selectable option in the network dropdown menu on the ProjectDiscovery Scans page.
-</Note>
-
-<CardGroup cols={2}>
-  <Card title="Exploitability Focus" icon="bullseye">
-    Every vulnerability includes proof of concept, eliminating false positives common in traditional scanners.
-  </Card>
-  <Card title="Multiple Networks" icon="network-wired">
-    Scan different internal networks by running multiple TunnelX instances with unique names.
-  </Card>
-  <Card title="Secure Isolation" icon="lock">
-    Each tunnel creates an isolated SOCKS5 proxy, ensuring network traffic remains protected.
-  </Card>
-  <Card title="Centralized Management" icon="gauge">
-    Monitor and manage all internal scans from a single ProjectDiscovery dashboard.
-  </Card>
-</CardGroup>
-
-## Choosing Your Approach
-
-<CardGroup cols={2}>
-  <Card title="Use Local Scanning When:" icon="list-check">
-    - You need complete control over scan execution
-    - You have existing automation scripts
-    - Network policies restrict external connections
-    - You want to run scans on-demand
-  </Card>
-  <Card title="Use Cloud-Managed When:" icon="list-check">
-    - Managing large internal networks
-    - Need centralized scan management
-    - Want automated recurring scans
-    - Require multi-team collaboration
-  </Card>
-</CardGroup>
-
-<Warning>
-Always ensure you have proper authorization before scanning internal networks. Follow your organization's security policies and compliance requirements.
-</Warning>
-
-## Next Steps
-
-- Learn how to [create custom templates](/cloud/editor/introduction) for internal assets
-- Set up [automated scanning workflows](/cloud/automation/introduction)
-- Explore [AI-assisted template generation](/cloud/editor/ai) for your specific use cases
