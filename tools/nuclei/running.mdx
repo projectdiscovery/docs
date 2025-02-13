@@ -288,6 +288,69 @@ The nuclei engine can be updated to latest version by using the `-update` flag.
   others.
 </Tip>
 
+### AI-Powered Template Generation
+`-ai`
+
+Nuclei supports generating and running templates on-the-fly using AI capabilities powered by the ProjectDiscovery API. This feature allows you to perform quick, targeted scans without needing pre-written templates by describing what you want to detect in natural language.
+
+**Prerequisites:**
+
+1. A ProjectDiscovery API key (Get one at [cloud.projectdiscovery.io](https://cloud.projectdiscovery.io))
+2. Configure your API key using one of these methods:
+   
+   **Method 1: Using CLI (Recommended)**
+   ```bash
+   nuclei -auth
+   # Enter your API key when prompted
+   ```
+
+   **Method 2: Environment Variable**
+   ```bash
+   export PDCP_API_KEY=your_api_key_here
+   ```
+
+**Basic Usage:**
+
+1. **Finding Sensitive Information Leaks:**
+```bash
+nuclei -list targets.txt -ai "Find admin_api_key in response"
+```
+
+2. **Detecting Debug Information:**
+```bash
+nuclei -list targets.txt -ai "Detect exposed stack traces in error messages"
+```
+
+3. **Discovering Admin Interfaces:**
+```bash
+nuclei -list targets.txt -ai "Find admin login endpoints"
+```
+
+4. **Identifying Exposed Secrets:**
+```bash
+nuclei -list urls.txt -ai "Detect secrets in response"
+```
+
+5. **Extract Page Titles**
+```bash
+nuclei -list targets.txt -ai "Extract page titles"
+```
+
+You can also combine AI-generated templates with other Nuclei features:
+```bash
+# Generate and run against multiple targets
+nuclei -l targets.txt -ai "detect exposed git config files"
+
+# Combine with severity filters
+nuclei -u https://example.com -ai "find XSS vulnerabilities" -severity high,critical
+```
+
+<Note>
+The `-ai` flag requires an active internet connection to communicate with the ProjectDiscovery API. Generated templates are temporary and used only for the current scan session. For privacy, your prompts and generated templates are not used for AI training.
+
+Currently, each user is limited to 100 AI template generation queries per day. This limit is subject to change based on usage patterns and to prevent abuse.
+</Note>
+
 ### Nuclei Flags
 
 ```
