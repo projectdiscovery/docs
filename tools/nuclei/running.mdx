@@ -336,15 +336,6 @@ nuclei -list urls.txt -ai "Detect secrets in response"
 nuclei -list targets.txt -ai "Extract page titles"
 ```
 
-You can also combine AI-generated templates with other Nuclei features:
-```bash
-# Generate and run against multiple targets
-nuclei -l targets.txt -ai "detect exposed git config files"
-
-# Combine with severity filters
-nuclei -u https://example.com -ai "find XSS vulnerabilities" -severity high,critical
-```
-
 <Note>
 The `-ai` flag requires an active internet connection to communicate with the ProjectDiscovery API. Generated templates are temporary and used only for the current scan session. For privacy, your prompts and generated templates are not used for AI training.
 
