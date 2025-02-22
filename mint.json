@@ -380,6 +380,7 @@
       "pages": [
         "cloud/introduction",
         "cloud/ossvscloud",
+        "cloud/pricing",
         "cloud/integrations",
         {
           "group": "Assets",
