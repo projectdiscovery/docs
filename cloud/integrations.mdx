@@ -318,8 +318,6 @@ After configuring the integration, it's important to verify that ProjectDiscover
 
 - **Test with a Known Resource:** As a quick test, pick a known resource (like a specific EC2 instance or S3 bucket in your AWS account) and search for it in ProjectDiscovery's asset inventory. If it appears, the connection is functioning and pulling data.
 
-- **Connection Status:** The Integrations UI might show a status indicator or last synced time. Ensure it does not show errors. If there's a "Test Connection" button, use it – ProjectDiscovery will attempt to list a simple resource (like AWS regions) to confirm credentials. A success message indicates the credentials and permissions are correct.
-
 - **Troubleshooting Errors:** If the integration fails or some assets are missing, consider these common issues:
   - *Incorrect Credentials:* Double-check that the Access Key and Secret (if used) were entered correctly and correspond to an active IAM user. If you recently created the user, ensure you copied the keys exactly (no extra spaces or missing characters).
   - *Insufficient Permissions:* If certain services aren't showing up, the IAM policy might be missing permissions. For example, if S3 buckets aren't listed, confirm that the policy includes `s3:ListAllMyBuckets`. Refer back to the Required Permissions and make sure all relevant actions are allowed. You can also use AWS IAM Policy Simulator or CloudTrail logs to see if any **AccessDenied** errors occur when ProjectDiscovery calls AWS APIs.
