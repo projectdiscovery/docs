@@ -144,3 +144,35 @@ export PDCP_API_KEY="your_api_key"
 go run .
 ```
 </CodeGroup>
+
+### Triggering Internal Scans
+
+Once you've successfully configured TunnelX, you can easily trigger internal scans directly from the ProjectDiscovery Cloud Platform:
+
+1. **Navigate to Scans Dashboard**:
+   - Go to [https://cloud.projectdiscovery.io/scans](https://cloud.projectdiscovery.io/scans)
+   - Click the "Create new scan" button
+
+2. **Configure Your Scan**:
+   - Set your targets, templates, and other scan configurations
+   - Proceed to the final "Scan settings" step
+
+3. **Enable Internal Scanning**:
+   - In the bottom left corner of the Scan settings screen, you'll see an "Internal Scan" option
+   - Select this option to use your connected TunnelX proxy
+   - Choose the appropriate internal proxy connection from the dropdown
+
+<img width="800" src="/images/tunnelx-scan-time.png" alt="Internal Scan Option in Scan Settings" />
+
+4. **Launch Your Scan**:
+   - Click "Create scan" to start scanning your internal targets
+
+Your scan will now execute against internal targets through the secure TunnelX connection, with results appearing in your ProjectDiscovery dashboard just like external scans.
+
+<Note>
+TunnelX connections appear automatically in the dropdown once properly configured. If you don't see your connection, check that TunnelX is running properly and your API key is correctly configured.
+</Note>
+
+<Note>
+**Important:** Only input targets that are actually accessible from the machine where TunnelX is running. For example, if TunnelX is deployed on a server in your internal network (192.168.1.0/24), it can only scan hosts within that network or other networks it has routing access to. If you input external targets or internal hosts that the TunnelX machine cannot reach, the scan will fail.
+</Note>
