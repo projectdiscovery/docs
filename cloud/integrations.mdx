@@ -5,23 +5,32 @@ sidebarTitle: "Integrations"
 icon: "plug-circle-plus"
 ---
 
-## Summary
-
-ProjectDiscovery supports various third-party integrations to enhance your security workflow. These integrations enable:
-
-* Cloud asset discovery and management
-
-* Real-time alerting through communication platforms
-
-* Automated vulnerability tracking through ticketing systems
-
-* Custom webhook integrations for workflow automation
-
-Configure your integrations through the [Configurations](https://cloud.projectdiscovery.io/configs) interface.
+<CardGroup cols={4}>
+  <Card title="Slack" icon="slack" href="#slack" />
+  <Card title="MS Teams" icon="microsoft" href="#ms-teams" />
+  <Card title="Email" icon="envelope" href="#email" />
+  <Card title="Webhook" icon="webhook" href="#webhook" />
+  <Card title="Jira" icon="jira" href="#jira" />
+  <Card title="GitHub" icon="github" href="#github" />
+  <Card title="GitLab" icon="gitlab" href="#gitlab" />
+  <Card title="Linear" icon="circle" href="#linear" />
+  <Card title="AWS" icon="aws" href="#aws-amazon-web-services" />
+  <Card title="GCP" icon="google" href="#google-cloud-platform-gcp" />
+  <Card title="Azure" icon="microsoft" href="#azure" />
+  <Card title="Alibaba" icon="cloud" href="#alibaba-cloud" />
+  <Card title="Kubernetes" icon="dharmachakra" href="#kubernetes" />
+  <Card title="Hashicorp" icon="cube" href="#hashicorp-stack" />
+  <Card title="Cloudflare" icon="cloudflare" href="cdn-and-dns-providers" />
+  <Card title="Fastly" icon="bolt" href="cdn-and-dns-providers" />
+  <Card title="Namecheap" icon="globe" href="#cdn-and-dns-providers" />
+  <Card title="DigitalOcean" icon="digital-ocean" href="#vps-and-paas-providers" />
+  <Card title="Heroku" icon="h" href="#vps-and-paas-providers" />
+  <Card title="Linode" icon="server" href="#vps-and-paas-providers" />
+</CardGroup>
 
 ## Notification Integrations
 
-Alerting integrations support notifications as part of scanning and include Slack, Microsoft Teams, Email, and custom Webhooks. Navigate to [Scans → Configurations → Alerting](https://cloud.projectdiscovery.io/scans/configs) to configure your alerts.
+Alerting integrations support notifications as part of scanning and asset discovery, and include Slack, Microsoft Teams, Email, and custom Webhooks. Navigate to [Scans → Configurations → Alerting](https://cloud.projectdiscovery.io/scans/configs) to configure your alerts.
 
 <img height="300" src="/images/platform/scanintegrations.png" />
 
@@ -153,106 +162,176 @@ For detailed API documentation, refer to the [Linear API Documentation](https://
 
 ProjectDiscovery leverages our open-source [Cloudlist](https://github.com/projectdiscovery/cloudlist) technology to provide comprehensive cloud asset discovery and management through a simple web interface.
 
-### Major Cloud Services
 
-#### AWS (Amazon Web Services)
+### AWS (Amazon Web Services)
+ProjectDiscovery's AWS integration allows the platform to automatically discover and monitor cloud assets across your AWS accounts. By connecting AWS to ProjectDiscovery, security teams and DevOps engineers gain continuous visibility into EC2 instances, S3 buckets, DNS records, and other resources without manual inventory. This integration leverages ProjectDiscovery's open-source **Cloudlist** engine to enumerate assets via AWS APIs. In short, it helps ensure no cloud asset goes unnoticed, enabling proactive security monitoring and easier management of your attack surface.
+
+<Card title="Configure AWS Integration" icon="aws" href="https://cloud.projectdiscovery.io/assets/configure?provider=aws" color="#FF9900">
+  Click here to open the AWS integration configuration page in the ProjectDiscovery Cloud platform
+</Card>
+
+<img src="/images/aws-integration.png" width="800" alt="AWS Integration Interface" />
 
 Supported AWS Services:
 
-* [EC2](https://aws.amazon.com/ec2/)
+| Service | Description |
+|:-------|:------------|
+| [EC2](https://aws.amazon.com/ec2/) | VM instances and their public IPs |
+| [Route53](https://aws.amazon.com/route53/) | DNS hosted zones and records |
+| [S3](https://aws.amazon.com/s3/) | Buckets (especially those public or with DNS) |
+| [Cloudfront](https://aws.amazon.com/cloudfront/) | CDN distributions and their domains |
+| [ECS](https://aws.amazon.com/ecs/) | Container cluster resources |
+| [EKS](https://aws.amazon.com/eks/) | Kubernetes cluster endpoints |
+| [ELB](https://aws.amazon.com/elasticloadbalancing/) | Load balancers (Classic ELB and ALB/NLB) |
+| [ELBv2](https://aws.amazon.com/elasticloadbalancing/) | Load balancers (Classic ELB and ALB/NLB) |
+| [Lambda](https://aws.amazon.com/lambda/) | Serverless function endpoints |
+| [Lightsail](https://aws.amazon.com/lightsail/) | Lightsail instances (simplified VPS) |
+| [Apigateway](https://aws.amazon.com/api-gateway/) | API endpoints deployed via Amazon API Gateway |
 
-* [Route53](https://aws.amazon.com/route53/)
+By covering these services, ProjectDiscovery can map out a broad range of AWS assets in your account. (Support for additional services may be added over time.)
 
-* [S3](https://aws.amazon.com/s3/)
+**AWS Connection Methods**
 
-* [Cloudfront](https://aws.amazon.com/cloudfront/)
+ProjectDiscovery supports three methods to connect to AWS, each suited for different use cases and security preferences:
 
-* [ECS](https://aws.amazon.com/ecs/)
+1. **Single AWS Account (Access Key & Secret)** – Direct credential-based authentication using an IAM User's Access Key ID and Secret Access Key to connect one AWS account. Choose this for quick setups or single-account monitoring.
 
-* [EKS](https://aws.amazon.com/eks/)
+2. **Multiple AWS Accounts (Assume Role)** – Use one set of credentials to assume roles in multiple accounts. This method is ideal for organizations with multiple AWS accounts (e.g. dev, prod, etc.). You provide one account's credentials and the common role name that exists in all target accounts.
 
-* [ELB](https://aws.amazon.com/elasticloadbalancing/)
+3. **Cross-Account Role (Role ARN)** – Use a dedicated IAM role with an External ID for third-party access. This option lets you create a cross-account IAM role in your AWS account and grant ProjectDiscovery access via that role's Amazon Resource Name (ARN). This is the most secure integration method, as it follows AWS best practices for third-party account access.
 
-* [ELBv2](https://aws.amazon.com/elasticloadbalancing/)
+**Prerequisites**
 
-* [Lambda](https://aws.amazon.com/lambda/)
+Before configuring the integration, make sure you have:
 
-* [Lightsail](https://aws.amazon.com/lightsail/)
+- **AWS Account** – Access to an AWS account where you can create IAM identities
+- **Admin Access to IAM** – Permissions to create IAM users and roles
+- **ProjectDiscovery Account** – Access to ProjectDiscovery's Cloud platform
+- **Basic AWS IAM Knowledge** – Understanding of IAM users, access keys, and roles
 
-* [Apigateway](https://aws.amazon.com/api-gateway/)
+#### 1. Single AWS Account (Access Key & Secret)
 
-**Example Config**:
-Amazon Web Services can be integrated by using the following configuration block.
+To connect a single AWS account directly:
 
-```yaml
-- provider: aws # provider is the name of the provider
-  # id is the name defined by user for filtering (optional)
-  id: staging
-  # aws_access_key is the access key for AWS account
-  aws_access_key: $AWS_ACCESS_KEY
-  # aws_secret_key is the secret key for AWS account
-  aws_secret_key: $AWS_SECRET_KEY
-  # aws_session_token session token for temporary security credentials retrieved via STS (optional)
-  aws_session_token: $AWS_SESSION_TOKEN
-  # assume_role_name is the name of the role to assume (optional)
-  assume_role_name: $AWS_ASSUME_ROLE_NAME
-  # account_ids is the aws account ids which has similar assumed role name (optional)
-  account_ids:
-    - $AWS_ACCOUNT_ID_1
-    - $AWS_ACCOUNT_ID_2
-```
+1. **Create a Read-Only IAM User:** In the AWS IAM console, create a new IAM user for ProjectDiscovery integration. Assign **programmatic access** (which generates an Access Key ID and Secret Access Key).
 
-`aws_access_key` and `aws_secret_key` can be generated in the IAM console. We recommend creating a new IAM user with `Read Only` permissions and providing the access token for the user.
+2. **Attach Required Policies:** Grant the user read-only permissions to the AWS services you want to monitor. You can use AWS-managed policies like **AmazonEC2ReadOnlyAccess**, **AmazonS3ReadOnlyAccess**, etc. for each service (see the **Required Permissions** section below).
 
-Scopes Required:
+3. **Configure in ProjectDiscovery:** 
+   - Select **Single AWS Account (Access Key & Secret)**
+   - Enter your **AWS Access Key ID** and **AWS Secret Access Key**
+   - Optionally provide a **Session Token** (only for temporary credentials)
+   - Give the integration a unique name
+   - Select the AWS services you want to monitor
 
-The following scopes can directly be provided to the IAM user.
+*Tip:* Use an IAM user with minimal read-only permissions and rotate keys periodically for security.
 
-```
-EC2 - AmazonEC2ReadOnlyAccess
-Route53 - AmazonRoute53ReadOnlyAccess
-S3 - AmazonS3ReadOnlyAccess
-Lambda - AWSLambda_ReadOnlyAccess
-ELB - ElasticLoadBalancingReadOnly
-Cloudfront - CloudFrontReadOnlyAccess
-```
+#### 2. Multiple AWS Accounts (Assume Role)
 
-To also support other services, a custom policy document is provided which can directly be copy-pasted to the role to allow correct and minimal permissions.
+For monitoring multiple AWS accounts from a central account:
+
+1. **Choose a Primary Account:** Create an IAM user in one AWS account (the "primary") with programmatic access.
+
+2. **Create an IAM Role in Each Target Account:** In each AWS account you want to monitor, create a role that:
+   - Uses the **same role name** across all accounts (e.g., "ProjectDiscoveryReadOnlyRole")
+   - Has a trust relationship allowing your primary account to assume it
+   - Has the required read-only permissions
+
+3. **Configure in ProjectDiscovery:**
+   - Select **Multiple AWS Accounts (Assume Role)**
+   - Enter the primary account's **AWS Access Key ID** and **Secret Access Key**
+   - Specify the **Role Name to Assume** (the common role name)
+   - List all **AWS Account IDs** to monitor (one per line)
+   - Give the integration a unique name
+   - Select the AWS services you want to monitor
+
+#### 3. Cross-Account Role (Role ARN)
+
+The most secure method using ProjectDiscovery's service account:
+
+1. **Create an IAM Role in Your AWS Account:**
+   - In your AWS console, go to IAM → Roles → Create Role
+   - Select "Another AWS account" as the trusted entity
+   - Enter ProjectDiscovery's ARN: `arn:aws:iam::034362060511:user/projectdiscovery`
+   - Enable "Require External ID" and enter the External ID shown in the ProjectDiscovery UI
+   - Attach the necessary read-only permissions
+
+2. **Configure in ProjectDiscovery:**
+   - Select **Cross-Account Role (Role ARN)**
+   - Enter the **Role ARN** of the role you created
+   - Give the integration a unique name
+   - Select the AWS services you want to monitor
+
+**Required Permissions**
+
+ProjectDiscovery needs read-only access to your AWS assets. The following AWS-managed policies are recommended:
+
+- EC2 - AmazonEC2ReadOnlyAccess
+- Route53 - AmazonRoute53ReadOnlyAccess
+- S3 - AmazonS3ReadOnlyAccess
+- Lambda - AWSLambda_ReadOnlyAccess
+- ELB - ElasticLoadBalancingReadOnly
+- Cloudfront - CloudFrontReadOnlyAccess
+
+Alternatively, you can use this custom policy for minimal permissions:
 
 ```json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "RequiredReadPermissions",
-            "Effect": "Allow",
-            "Action": [
-                "ec2:DescribeInstances",
-                "ec2:DescribeRegions",
-                "route53:ListHostedZones",
-                "route53:ListResourceRecordSets",
-                "s3:ListAllMyBuckets",
-                "lambda:ListFunctions",
-                "elasticloadbalancing:DescribeLoadBalancers",
-                "elasticloadbalancing:DescribeTargetGroups",
-                "elasticloadbalancing:DescribeTargetHealth",
-                "cloudfront:ListDistributions",
-                "ecs:ListClusters",
-                "ecs:ListServices",
-                "ecs:ListTasks",
-                "ecs:DescribeTasks",
-                "ecs:DescribeContainerInstances",
-                "eks:ListClusters",
-                "eks:DescribeCluster",
-                "apigateway:GET",
-                "lightsail:GetInstances",
-                "lightsail:GetRegions"
-            ],
-            "Resource": "*"
-        }
-    ]
-} 
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "RequiredReadPermissions",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:DescribeInstances",
+        "ec2:DescribeRegions",
+        "route53:ListHostedZones",
+        "route53:ListResourceRecordSets",
+        "s3:ListAllMyBuckets",
+        "lambda:ListFunctions",
+        "elasticloadbalancing:DescribeLoadBalancers",
+        "elasticloadbalancing:DescribeTargetGroups",
+        "elasticloadbalancing:DescribeTargetHealth",
+        "cloudfront:ListDistributions",
+        "ecs:ListClusters",
+        "ecs:ListServices",
+        "ecs:ListTasks",
+        "ecs:DescribeTasks",
+        "ecs:DescribeContainerInstances",
+        "eks:ListClusters",
+        "eks:DescribeCluster",
+        "apigateway:GET",
+        "lightsail:GetInstances",
+        "lightsail:GetRegions"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
 ```
+
+**Verifying the Integration**
+
+After configuring the integration, it's important to verify that ProjectDiscovery is successfully connected and enumerating your AWS assets:
+
+- **Check Asset Discovery:** In the ProjectDiscovery platform, navigate to the cloud assets or inventory section. After a successful integration, you should start seeing resources from your AWS account(s) listed (for example, EC2 instance IDs, S3 bucket names, etc., corresponding to the integrated accounts). It may take a short while for the initial discovery to complete. If you see those assets, the integration is working.
+
+- **Test with a Known Resource:** As a quick test, pick a known resource (like a specific EC2 instance or S3 bucket in your AWS account) and search for it in ProjectDiscovery's asset inventory. If it appears, the connection is functioning and pulling data.
+
+- **Connection Status:** The Integrations UI might show a status indicator or last synced time. Ensure it does not show errors. If there's a "Test Connection" button, use it – ProjectDiscovery will attempt to list a simple resource (like AWS regions) to confirm credentials. A success message indicates the credentials and permissions are correct.
+
+- **Troubleshooting Errors:** If the integration fails or some assets are missing, consider these common issues:
+  - *Incorrect Credentials:* Double-check that the Access Key and Secret (if used) were entered correctly and correspond to an active IAM user. If you recently created the user, ensure you copied the keys exactly (no extra spaces or missing characters).
+  - *Insufficient Permissions:* If certain services aren't showing up, the IAM policy might be missing permissions. For example, if S3 buckets aren't listed, confirm that the policy includes `s3:ListAllMyBuckets`. Refer back to the Required Permissions and make sure all relevant actions are allowed. You can also use AWS IAM Policy Simulator or CloudTrail logs to see if any **AccessDenied** errors occur when ProjectDiscovery calls AWS APIs.
+  - *Assume Role Failures:* In multi-account or cross-account setups, a common issue is a misconfigured trust relationship. If ProjectDiscovery cannot assume a role, you might see an error in the UI or logs like "AccessDenied: Not authorized to perform sts:AssumeRole". In that case, check the following:
+    - The trust policy of the IAM role (in target account) trusts the correct principal (either your primary account's IAM user/role ARN for multi-account, or ProjectDiscovery's external account ID for cross-account) and the External ID if applicable.
+    - The role name or ARN in the ProjectDiscovery config exactly matches the one in AWS (spelling/case must match).
+    - The primary credentials (for multi-account) have permission to call `AssumeRole`.  
+  - *External ID Mismatch:* For cross-account roles, if the external ID in ProjectDiscovery and the one in the IAM role's trust policy do not match, AWS will deny the assume request. Ensure you didn't accidentally copy the wrong value or include extra spaces. It must be exact.
+
+- **AWS CloudTrail Logs:** As an additional verification, you can check AWS CloudTrail in your account. When ProjectDiscovery connects, you should see events like `DescribeInstances`, `ListBuckets`, etc., being called by the IAM user or assumed role. For cross-account roles, you will see an `AssumeRole` event from ProjectDiscovery's AWS account ID, and subsequent calls under the assumed role's identity. This audit trail can confirm that the integration is working as intended and using only allowed actions.
+
+If all checks out, ProjectDiscovery is now actively monitoring your AWS environment. New resources launched in AWS should be detected on the next scan cycle, and any changes to your cloud footprint will be reflected in the platform. Make sure to regularly review the integration and update the IAM permissions if you start using new AWS services.
 
 **References:**
 
@@ -262,13 +341,16 @@ To also support other services, a custom policy document is provided which can d
 
 3. [https://docs.aws.amazon.com/IAM/latest/UserGuide/id\_credentials\_temp\_request.html](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html)
 
-* Aws Assume Role:
+4. [https://docs.aws.amazon.com/sdkref/latest/guide/feature-assume-role-credentials.html](https://docs.aws.amazon.com/sdkref/latest/guide/feature-assume-role-credentials.html)
 
-  * [https://docs.aws.amazon.com/sdkref/latest/guide/feature-assume-role-credentials.html](https://docs.aws.amazon.com/sdkref/latest/guide/feature-assume-role-credentials.html)
+5. [https://docs.logrhythm.com/OCbeats/docs/aws-cross-account-access-using-sts-assume-role](https://docs.logrhythm.com/OCbeats/docs/aws-cross-account-access-using-sts-assume-role)
 
-  * [https://docs.logrhythm.com/OCbeats/docs/aws-cross-account-access-using-sts-assume-role](https://docs.logrhythm.com/OCbeats/docs/aws-cross-account-access-using-sts-assume-role)
 
-#### Google Cloud Platform (GCP)
+### Google Cloud Platform (GCP)
+
+<Card title="Configure GCP Integration" icon="google" href="https://cloud.projectdiscovery.io/assets/configure?provider=gcp" color="#4285F4">
+  Click here to open the GCP integration configuration page in the ProjectDiscovery Cloud platform
+</Card>
 
 Supported GCP Services:
 
@@ -284,7 +366,7 @@ Supported GCP Services:
 
 * [Cloud Run](https://cloud.google.com/run)
 
-**Example Config:**
+
 
 Google Cloud Platform can be integrated by using the following configuration block.
 
@@ -304,7 +386,11 @@ References:
 
 1. [https://cloud.google.com/iam/docs/service-account-overview](https://cloud.google.com/iam/docs/service-account-overview)
 
-#### Azure
+### Azure
+
+<Card title="Configure Azure Integration" icon="microsoft" href="https://cloud.projectdiscovery.io/assets/configure?provider=azure" color="#0078D4">
+  Click here to open the Azure integration configuration page in the ProjectDiscovery Cloud platform
+</Card>
 
 Supported Azure Services:
 
@@ -343,7 +429,11 @@ References:
 
 3. [https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli](https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli)
 
-#### Alibaba Cloud
+### Alibaba Cloud
+
+<Card title="Configure Alibaba Cloud Integration" icon="cloud" href="https://cloud.projectdiscovery.io/assets/configure?provider=alibaba" color="#FF6A00">
+  Click here to open the Alibaba Cloud integration configuration page in the ProjectDiscovery Cloud platform
+</Card>
 
 Suppoted Alibaba Cloud Services:
 
@@ -375,7 +465,11 @@ References:
 
 ## Infrastructure & Platform Services
 
-#### Kubernetes
+### Kubernetes
+
+<Card title="Configure Kubernetes Integration" icon="dharmachakra" href="https://cloud.projectdiscovery.io/assets/configure?provider=kubernetes" color="#326CE5">
+  Click here to open the Kubernetes integration configuration page in the ProjectDiscovery Cloud platform
+</Card>
 
 Support for:
 
@@ -387,7 +481,7 @@ Support for:
 
 Navigate to [Assets → Connect Cloud Services → Kubernetes](https://cloud.projectdiscovery.io/assets/configure) to configure your cluster access.
 
-#### Hashicorp Stack
+### Hashicorp Stack
 
 Support for:
 
@@ -401,6 +495,14 @@ Support for:
 
 Configure these providers through [Assets → Connect Cloud Services](https://cloud.projectdiscovery.io/assets/configure):
 
+<Card title="Configure Cloudflare Integration" icon="cloudflare" href="https://cloud.projectdiscovery.io/assets/configure?provider=cloudflare" color="#F38020">
+  Click here to open the Cloudflare integration configuration page in the ProjectDiscovery Cloud platform
+</Card>
+
+<Card title="Configure Fastly Integration" icon="bolt" href="https://cloud.projectdiscovery.io/assets/configure?provider=fastly" color="#FF282D">
+  Click here to open the Fastly integration configuration page in the ProjectDiscovery Cloud platform
+</Card>
+
 * **Cloudflare**: DNS and CDN assets
 
 * **Fastly**: CDN endpoints
@@ -410,6 +512,10 @@ Configure these providers through [Assets → Connect Cloud Services](https://cl
 ### VPS & PaaS Providers
 
 Access these providers through [Assets → Connect Cloud Services](https://cloud.projectdiscovery.io/assets/configure):
+
+<Card title="Configure DigitalOcean Integration" icon="digital-ocean" href="https://cloud.projectdiscovery.io/assets/configure?provider=digitalocean" color="#0080FF">
+  Click here to open the DigitalOcean integration configuration page in the ProjectDiscovery Cloud platform
+</Card>
 
 * **DigitalOcean**: Droplets and managed services
 
