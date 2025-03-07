@@ -94,7 +94,7 @@ Every part of a Protocol response can be matched with DSL matcher. Some examples
 
 ### Conditions
 
-Multiple words and regexes can be specified in a single matcher and can be configured with different conditions like **AND** and **OR**.
+Multiple words and regexes can be specified in a single matcher and can be configured with different conditions like **AND** and **OR**. When no condition is specified, **OR** is used as the default.
 
 1. **AND** - Using AND conditions allows matching of all the words from the list of words for the matcher. Only then will the request be marked as successful when all the words have been matched.
 2. **OR** - Using OR conditions allows matching of a single word from the list of matcher. The request will be marked as successful when even one of the word is matched for the matcher.
