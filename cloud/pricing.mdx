@@ -60,8 +60,16 @@ Our Pro tier is specifically designed for organizations and teams. If you're an 
 **Q: How do you calculate and track asset usage?**
 
 - Each unique hostname/IP:port combination counts as one distinct asset
-- We do not count additional quota of the same asset within a billing cycle
-- Usage dashboard under settings provides real-time visibility into asset consumption
+- Additional scans of the same asset do not count against your quota within the same billing cycle.
+- The billing cycle is monthly, and your asset consumption resets to zero at the beginning of each billing cycle.
+- Once your asset consumption reaches your plan limit, you cannot add new assets for scanning if the number of remaining available assets is lower than the number of new assets you wish to scan.
+- If new assets discovered during scans exceed your current asset limit, those additional assets will be skipped. Scans themselves will not fail or stop unexpectedly; they will simply continue scanning assets within your allowable quota.
+- You can monitor your real-time asset consumption through the Usage dashboard under settings.
+
+<Info>
+Recommendation:
+For larger teams or organizations managing a higher number of assets, it is generally recommended to choose the Enterprise plan. This plan provides greater flexibility, and assets exceeding your quota are not skipped, ensuring uninterrupted coverage. The Enterprise plan simplifies management and ensures continuous scanning without the need for manual adjustments or concerns about assets being skipped. The Pro plan is typically best suited for smaller teams or those monitoring and protecting fewer assets.
+</Info>
 
 **Q: What security certifications and compliance standards do you maintain?**
 
