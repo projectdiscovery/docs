@@ -1494,26 +1494,40 @@ paths:
         required: true
         schema:
           type: string
-  /v1/template/public/*:
+  '/v1/template/public/{template_id}':
     get:
-      operationId: get-v1-template-public-path
       summary: Get Public Template
-      description: Get public template text using path
-      parameters:
-        - name: X-Team-Id
-          in: header
-          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
-          schema:
-            type: string
-      responses:
-        '200':
-          description: OK
-          content:
-            text/plain:
-              schema:
-                type: string
       tags:
         - templates
+      responses:
+        '200':
+          $ref: '#/components/responses/GetTemplateDataResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/MessageResponse'
+      operationId: get-v1-public-template-data
+      description: Get public template data using template id
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: fields
+          description: 'template data fields '
+        - schema:
+            type: string
+          in: header
+          name: X-Team-Id
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+    parameters:
+      - schema:
+          type: string
+        name: template_id
+        in: path
+        required: true
+        description: 'Public Template ID'
   /v1/template:
     get:
       operationId: get-v1-templates
