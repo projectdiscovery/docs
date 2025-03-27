@@ -7,7 +7,14 @@ description: "Learn about bruteforcing HTTP requests using payloads with Nuclei"
 
 Nuclei engine supports brute forcing any value/component of HTTP Requests using payloads module, that allows to run various type of payloads in multiple format, It's possible to define placeholders with simple keywords (or using brackets `{{helper_function(variable)}}` in case mutator functions are needed), and perform **batteringram**, **pitchfork** and **clusterbomb** attacks. 
 
-The **wordlist** for these attacks needs to be defined during the request definition under the Payload field, with a name matching the keyword, Nuclei supports both file based and in template wordlist support and Finally all DSL functionalities are fully available and supported, and can be used to manipulate the final values.
+The **wordlist** for these attacks needs to be defined during the request definition under the `payload` field, with a name matching the keyword. Nuclei supports both file-based and in template wordlist support and finally all DSL functionalities are fully available and supported, and can be used to manipulate the final values.
+
+<Note>
+  Note that if you are developing a file-based payload and storing it outside the Nuclei
+  templates directory, you must run Nuclei with the `-lfa`
+  (or `-allow-local-file-access`) flag. This is necessary to allow access to
+  local files that are not within the default templates directory.
+</Note>
 
 Payloads are defined using variable name and can be referenced in the request in between `{{ }}` marker.
 
