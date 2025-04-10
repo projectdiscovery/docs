@@ -8,11 +8,11 @@ Internal network security is critical yet often overlooked. Once attackers gain 
 ProjectDiscovery offers two distinct approaches for internal network vulnerability scanning, each designed to fit different organizational needs while maintaining our core focus on exploitability and accurate detection.
 
 <CardGroup cols={2}>
-  <Card title="Local Scanning & Upload" icon="upload">
-    Run Nuclei locally and upload results to PDCP. Ideal for teams with existing scanning workflows or specific network restrictions.
-  </Card>
   <Card title="Cloud-Managed Scanning" icon="cloud" color="blue">
     Use TunnelX for remote scan triggering through PDCP UI. Perfect for large networks and centralized security management.
+  </Card>
+  <Card title="Local Scanning & Upload" icon="upload">
+    Run Nuclei locally and upload results to PDCP. Ideal for teams with existing scanning workflows or specific network restrictions.
   </Card>
 </CardGroup>
 
@@ -43,55 +43,7 @@ The discovered ports can be used as input for vulnerability scanning to ensure t
 Naabu will soon be integrated directly into ProjectDiscovery's internal vulnerability scanning capabilities. Contact our [sales team](https://projectdiscovery.io/request-demo) to be notified when this feature becomes available.
 </Info>
 
-## Method 1: Local Scanning & Upload
-
-This approach lets you run Nuclei locally and upload results to ProjectDiscovery Cloud Platform (ProjectDiscovery).
-
-### Set up your API Key
-
-To connect your existing Nuclei results to PDCP you will need to create a free API Key:
-
-1. Visit https://cloud.projectdiscovery.io 
-2. Open the setting menu from the top right and select "API Key" to create your API Key
-<img class="block" src="/images/pdcp-api-key.png" alt="PDCP API Key" />
-3. Use the `nuclei -auth` command, and enter your API key when prompted.
-
-### Configure Team (Optional)
-
-If you want to upload the scan results to a team workspace instead of your personal workspace, you can configure the Team ID using either method:
-
-- **Obtain Team ID:**
-  - Navigate to [https://cloud.projectdiscovery.io/settings/team](https://cloud.projectdiscovery.io/settings/team)
-  - Copy the Team ID from the top right section
-  <img class="block" src="/images/platform/obtain-team-id.png" alt="Obtain Team ID" />
-
-- **CLI Option:**
-  ```bash
-  nuclei -tid XXXXXX -cloud-upload
-  ```
-
-- **ENV Variable:**
-  ```bash
-  export PDCP_TEAM_ID=XXXXX
-  ```
-
-2. Run your scan with the upload flag:
-```bash
-# Single target
-nuclei -u http://internal-target -cloud-upload
-
-# Multiple targets
-nuclei -l internal-hosts.txt -cloud-upload
-
-# With specific templates
-nuclei -u http://internal-target -t misconfiguration/ -cloud-upload
-```
-
-<Note>
-This method is ideal when you want to maintain complete control over scan execution or integrate with existing automation scripts.
-</Note>
-
-## Method 2: Cloud-Managed Scanning (Recommended)
+## Method 1: Cloud-Managed Scanning (Recommended)
 
 [TunnelX](https://github.com/projectdiscovery/tunnelx) is our open-source tunneling solution, purpose-built by ProjectDiscovery to enable secure internal scanning. It establishes isolated SOCKS5 proxies that let you trigger scans directly from the ProjectDiscovery interface while ensuring your internal infrastructure remains protected and unexposed.
 
@@ -175,4 +127,52 @@ TunnelX connections appear automatically in the dropdown once properly configure
 
 <Note>
 **Important:** Only input targets that are actually accessible from the machine where TunnelX is running. For example, if TunnelX is deployed on a server in your internal network (192.168.1.0/24), it can only scan hosts within that network or other networks it has routing access to. If you input external targets or internal hosts that the TunnelX machine cannot reach, the scan will fail.
+</Note>
+
+## Method 2: Local Scanning & Upload
+
+This approach lets you run Nuclei locally and upload results to ProjectDiscovery Cloud Platform (ProjectDiscovery).
+
+### Set up your API Key
+
+To connect your existing Nuclei results to PDCP you will need to create a free API Key:
+
+1. Visit https://cloud.projectdiscovery.io 
+2. Open the setting menu from the top right and select "API Key" to create your API Key
+<img class="block" src="/images/pdcp-api-key.png" alt="PDCP API Key" />
+3. Use the `nuclei -auth` command, and enter your API key when prompted.
+
+### Configure Team (Optional)
+
+If you want to upload the scan results to a team workspace instead of your personal workspace, you can configure the Team ID using either method:
+
+- **Obtain Team ID:**
+  - Navigate to [https://cloud.projectdiscovery.io/settings/team](https://cloud.projectdiscovery.io/settings/team)
+  - Copy the Team ID from the top right section
+  <img class="block" src="/images/platform/obtain-team-id.png" alt="Obtain Team ID" />
+
+- **CLI Option:**
+  ```bash
+  nuclei -tid XXXXXX -cloud-upload
+  ```
+
+- **ENV Variable:**
+  ```bash
+  export PDCP_TEAM_ID=XXXXX
+  ```
+
+2. Run your scan with the upload flag:
+```bash
+# Single target
+nuclei -u http://internal-target -cloud-upload
+
+# Multiple targets
+nuclei -l internal-hosts.txt -cloud-upload
+
+# With specific templates
+nuclei -u http://internal-target -t misconfiguration/ -cloud-upload
+```
+
+<Note>
+This method is ideal when you want to maintain complete control over scan execution or integrate with existing automation scripts.
 </Note>

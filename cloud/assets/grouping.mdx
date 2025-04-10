@@ -1,0 +1,63 @@
+---
+title: "Dynamic Asset Grouping"
+description: "Create and manage filtered asset groups for targeted visibility"
+sidebarTitle: "Dynamic Grouping"
+---
+
+Dynamic asset grouping allows you to save and organize filtered asset views, making it easier to focus on specific subsets of your infrastructure. By creating saved filter combinations, security teams can quickly access the assets that matter most to them without having to reapply complex filter conditions each time.
+
+<Warning>
+Dynamic groups source their data from parent asset discoveries and cannot be rescanned or refreshed independently. Any updates to the underlying assets will automatically reflect in the dynamic groups.
+</Warning>
+
+## Creating Dynamic Asset Groups
+
+1. Navigate to your discovered **Assets groups**
+2. Apply filters to your assets using the filter option (e.g., by label, technology, port, status)
+3. Once you've created the desired view, click **Save filters**
+4. Enter a descriptive name
+5. Click **Save** to create your dynamic group
+
+<Frame>
+  ![Creating a dynamic asset group](/images/assets-dynamic-group-create.png)
+</Frame>
+
+Your saved dynamic groups will appear in the same [list as your assets](https://cloud.projectdiscovery.io/assets). From here you can:
+
+- **Access groups:** Click any group name to instantly view that filtered subset
+- **Edit groups:** Hover over a group name and click the edit icon to modify the filters
+- **Delete groups:** Remove groups that are no longer needed via the group settings menu
+- **Share groups:** Generate shareable links for specific groups (Enterprise plan only)
+
+## Use Cases and Best Practices
+
+Dynamic asset groups offer versatile applications across your organization's security workflows. Create team-specific views (DevOps focusing on cloud technologies, Security teams monitoring vulnerabilities, Compliance teams tracking regulated systems), environment-specific groups (production, development, third-party integrations), and security-priority filters (critical infrastructure, public-facing systems, legacy technologies). For optimal results, maintain descriptive naming conventions, document each group's purpose, regularly review and update as infrastructure evolves, limit group quantity to maintain focus, and combine with custom labels for more powerful filtering. This approach streamlines asset management while providing targeted visibility where it matters most.
+
+## Limitations
+
+- Dynamic groups cannot be targeted for independent rescans
+- The results in a dynamic group will always reflect the most recent state of the parent discovery
+- Filter conditions apply only to discovered attributes - custom data cannot be used for filtering
+
+<Note>
+When the parent asset discovery is updated or rescanned, all associated dynamic groups will automatically reflect the new data without any manual intervention required.
+</Note>
+
+## Related Features
+
+<CardGroup cols={2}>
+  <Card
+    title="Asset Labeling"
+    icon="tags"
+    href="/cloud/assets/labeling"
+  >
+    Learn how to use labels to better organize and filter your assets
+  </Card>
+  <Card
+    title="Custom Labeling"
+    icon="tag"
+    href="/cloud/assets/custom-labeling"
+  >
+    Create and apply custom labels to enhance your grouping strategy
+  </Card>
+</CardGroup> 
