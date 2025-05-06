@@ -11,34 +11,65 @@ icon: "credit-card"
 </CardGroup>
 
 <Info>
-**Note for Individual Researchers & Pentesters**: 
-Our Pro tier is specifically designed for organizations and teams. If you're an individual researcher or pentester, we recommend sticking with our Free tier while we actively develop more individual-focused features. We believe in being transparent - if a feature you need isn't available in the Free tier yet, our open-source tools might be a better fit for now. We're working hard to expand our Free tier capabilities!
+  **Note for Individual Researchers & Pentesters**:
+  Our Pro tier is specifically designed for organizations and teams. If you're an individual researcher or pentester, we recommend sticking with our Free tier while we actively develop more individual-focused features. We believe in being transparent - if a feature you need isn't available in the Free tier yet, our open-source tools might be a better fit for now. We're working hard to expand our Free tier capabilities\!
 </Info>
 
-| Feature | Free | Pro | Enterprise |
-|:--------|:-----|:----|:-----------|
-| Monthly Domain Discovery | 10 | 100 | Custom limit |
-| Vulnerability Scanning | Not available | 1,000 unique assets | Custom limit |
-| Template Access | Public | Public | Public + Real-time auto scan |
-| API Access | ✓ | ✓ | ✓ |
-| Reporting | - | ✓ | ✓ |
-| Reconnaissance | Basic | Advanced | Custom |
-| Vulnerability AI Automation | 1000 per month | 1000 per month | Custom limit |
-| Port Scanning | Top 10 | Full Range | Full Range |
-| Internal Network Scanning | - | - | ✓ |
-| Retention Policies | 30 days | 1 year | Custom |
-| User Seats | 1 | Up to 10 | Custom |
-| Team Workspaces | 1 | 2 | Custom |
-| Auto Vulnerability Retest | - | ✓ | ✓ |
-| Auto Vulnerability Regression | - | ✓ | ✓ |
-| Vulnerability Scan Logs | - | ✓ | ✓ |
-| SSO/SAML | - | Add on | ✓ |
-| RBAC | - | Available | Available |
-| Team Audit Logs | - | - | ✓ |
-| Integrations | - | ✓ | ✓ |
-| Account Management | - | - | Dedicated TAM |
-| Pricing | Free | $2,500/year + Add on | Custom Quote |
+### Exposure Management
 
+| Feature                                    | Free         | Pro            | Enterprise            |
+| :----------------------------------------- | :----------- | :------------- | :-------------------- |
+| Instant results with pre-indexed discovery | ✓            | ✓              | ✓                     |
+| Monthly new domain discovery limit         | 10           | 100            | Custom                |
+| Discovery frequency                        | Weekly       | Daily          | Hourly                |
+| Subdomain enumeration                      | ✓            | ✓              | ✓                     |
+| Port Enumeration                           | Top 10 ports | Top 1k ports   | Full or custom ranges |
+| Screenshots                                | ✓            | ✓              | ✓                     |
+| Technology detection                       | ✓            | ✓              | ✓                     |
+| Email, messaging alerts                    | ✓            | ✓              | ✓                     |
+| Integrate cloud services                   | -            | ✓              | ✓                     |
+| Export discovered assets                   | Raw          | JSON, CSV, Raw | JSON, CSV, Raw        |
+| Custom labels with AI                      | -            | ✓              | ✓                     |
+| Subsidiary discovery and mapping           | -            | -              | ✓                     |
+
+### Vulnerability Management
+
+| Feature                                         | Free                                      | Pro                                  | Enterprise                                           |
+| :---------------------------------------------- | :---------------------------------------- | :----------------------------------- | :--------------------------------------------------- |
+| Ultra fast cloud scans (35x faster than Nuclei) | Monthly scan for verified business emails | Up to 1,000 unique assets each month | Custom limits                                        |
+| Connect Nuclei to cloud                         | ✓                                         | ✓                                    | ✓                                                    |
+| Email, messaging alerts                         | ✓                                         | ✓                                    | ✓                                                    |
+| Scan logs                                       | -                                         | Read-only                            | Read and export CSV                                  |
+| PDF Reporting                                   | -                                         | Basic PDF, JSON, CSV                 | Executive and compliance reports (SOC 2, PCI, HIPAA) |
+| Custom rate limits                              | -                                         | -                                    | ✓                                                    |
+| Export findings to ticketing platforms          | -                                         | ✓                                    | ✓                                                    |
+| Real-time Autoscan for trending exploits        | -                                         | -                                    | ✓                                                    |
+| Automated regressions for fixed vulnerabilities | -                                         | -                                    | ✓                                                    |
+| DAST, fuzzing, and headless templates           | -                                         | -                                    | Coming soon                                          |
+
+### Nuclei Templates
+
+| Feature                                          | Free             | Pro               | Enterprise |
+| :----------------------------------------------- | :--------------- | :---------------- | :--------- |
+| Real-time templates feed                         | ✓                | ✓                 | ✓          |
+| Powerful AI template editor                      | 10 queries / day | 100 queries / day | Unlimited  |
+| Connect GitHub VCS                               | ✓                | ✓                 | ✓          |
+| Early access to new templates                    | ✓                | ✓                 | ✓          |
+| Live support for writing custom Nuclei templates | -                | -                 | ✓          |
+
+### Admin and Team
+
+| Feature                                           | Free                                     | Pro               | Enterprise         |
+| :------------------------------------------------ | :--------------------------------------- | :---------------- | :----------------- |
+| Seats                                             | 1, up to 10 for verified business emails | 10                | Unlimited          |
+| Team workspaces                                   | -                                        | 1                 | Unlimited          |
+| Role-based access control (admin, member, viewer) | -                                        | -                 | ✓                  |
+| Audit logs                                        | -                                        | -                 | ✓                  |
+| Fixed and dedicated scan IPs for whitelisting     | -                                        | -                 | ✓                  |
+| SAML, SSO (Okta, Entra, Google)                   | -                                        | -                 | ✓                  |
+| Support                                           | Community support                        | Community support | Enterprise support |
+| Account Management                                | -                                        | -                 | Dedicated TAM      |
+| Pricing                                           | Free                                     | \$2,500/year      | Custom Quote       |
 
 ## Getting Started
 
@@ -49,11 +80,13 @@ Our Pro tier is specifically designed for organizations and teams. If you're an 
 ## Frequently Asked Questions
 
 **Q: How is our billing structured and managed?**
+
 - Free Tier: Sign up and use basic features forever - no credit card needed.
-- Professional Plan: $2,500/year. Automated billing with usage reports.
+- Professional Plan: \$2,500/year. Automated billing with usage reports.
 - Enterprise: Customized billing arrangements including volume-based pricing, multi-year agreements, and flexible payment schedules aligned with your fiscal planning.
 
 **Q: What payment methods and billing processes do you support?**
+
 - Professional Plan: All major credit cards, automated recurring billing with detailed invoices and usage metrics.
 - Enterprise: Comprehensive payment options including wire transfer, purchase orders, ACH/direct debit, and custom contract arrangements.
 
@@ -67,13 +100,14 @@ Our Pro tier is specifically designed for organizations and teams. If you're an 
 - You can monitor your real-time asset consumption through the Usage dashboard under settings.
 
 <Info>
-Recommendation:
-For larger teams or organizations managing a higher number of assets, it is generally recommended to choose the Enterprise plan. This plan provides greater flexibility, and assets exceeding your quota are not skipped, ensuring uninterrupted coverage. The Enterprise plan simplifies management and ensures continuous scanning without the need for manual adjustments or concerns about assets being skipped. The Pro plan is typically best suited for smaller teams or those monitoring and protecting fewer assets.
+  Recommendation:
+  For larger teams or organizations managing a higher number of assets, it is generally recommended to choose the Enterprise plan. This plan provides greater flexibility, and assets exceeding your quota are not skipped, ensuring uninterrupted coverage. The Enterprise plan simplifies management and ensures continuous scanning without the need for manual adjustments or concerns about assets being skipped. The Pro plan is typically best suited for smaller teams or those monitoring and protecting fewer assets.
 </Info>
 
 **Q: What security certifications and compliance standards do you maintain?**
 
 Visit our [Trust Center](https://security.projectdiscovery.io/) for detailed information about our security practices and certifications:
+
 - SOC 2 Type II certified with annual audits
 - Regular penetration testing
 - Enterprise customers receive access to our security documentation portal including:
