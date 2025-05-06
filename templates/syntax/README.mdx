@@ -1,0 +1,137 @@
+# README
+
+## Top-level Schemas
+
+* [Untitled schema](./nuclei-schema) – `https://template`
+
+## Other Schemas
+
+### Objects
+
+* [Untitled object in undefined](./nuclei-schema-defs-attacktypeholder) – `https://template#/$defs/AttackTypeHolder`
+
+* [Untitled object in undefined](./nuclei-schema-defs-classification) – `https://template#/$defs/Classification`
+
+* [Untitled object in undefined](./nuclei-schema-defs-extractor) – `https://template#/$defs/Extractor`
+
+* [Untitled object in undefined](./nuclei-schema-defs-extractortypeholder) – `https://template#/$defs/ExtractorTypeHolder`
+
+* [Untitled object in undefined](./nuclei-schema-defs-httpmethodtypeholder) – `https://template#/$defs/HTTPMethodTypeHolder`
+
+* [Untitled object in undefined](./nuclei-schema-defs-info) – `https://template#/$defs/Info`
+
+* [Untitled object in undefined](./nuclei-schema-defs-matcher) – `https://template#/$defs/Matcher`
+
+* [Untitled object in undefined](./nuclei-schema-defs-matchertypeholder) – `https://template#/$defs/MatcherTypeHolder`
+
+* [Untitled object in undefined](./nuclei-schema-defs-orderedmapstringstring) – `https://template#/$defs/OrderedMap[string,string]`
+
+* [Untitled object in undefined](./nuclei-schema-defs-request) – `https://template#/$defs/Request`
+
+* [Untitled object in undefined](./nuclei-schema-defs-rule) – `https://template#/$defs/Rule`
+
+* [Untitled object in undefined](./nuclei-schema-defs-signaturetypeholder) – `https://template#/$defs/SignatureTypeHolder`
+
+* [Untitled object in undefined](./nuclei-schema-defs-sliceormapslice) – `https://template#/$defs/SliceOrMapSlice`
+
+* [Untitled object in undefined](./nuclei-schema-defs-template) – `https://template#/$defs/Template`
+
+* [Untitled object in undefined](./nuclei-schema-defs-variable) – `https://template#/$defs/Variable`
+
+* [Untitled object in undefined](./nuclei-schema-defs-workflowtemplate) – `https://template#/$defs/WorkflowTemplate`
+
+* [additional metadata for the template](./nuclei-schema-defs-info-properties-additional-metadata-for-the-template "Optional metadata for the template") – `https://template#/$defs/Info/properties/metadata`
+
+* [constant for the template](./nuclei-schema-defs-template-properties-constant-for-the-template "Constants are the global constants that once defined here can be used anywhere in the template") – `https://template#/$defs/Template/properties/constants`
+
+* [headers to send with the http request](./nuclei-schema-defs-request-properties-headers-to-send-with-the-http-request "Headers contains HTTP Headers to send with the request") – `https://template#/$defs/Request/properties/headers`
+
+* [payloads for the http request](./nuclei-schema-defs-request-properties-payloads-for-the-http-request "Payloads contains any payloads for the current request") – `https://template#/$defs/Request/properties/payloads`
+
+* [variables for the http request](./nuclei-schema-defs-template-properties-variables-for-the-http-request "Variables are the global variables that once defined here can be used anywhere in the template") – `https://template#/$defs/Template/properties/variables`
+
+### Arrays
+
+* [Untitled array in undefined](./nuclei-schema-defs-stringorslice-oneof-1) – `https://template#/$defs/StringOrSlice/oneOf/1`
+
+* [Untitled array in undefined](./nuclei-schema-defs-info-properties-author-of-the-template-oneof-1 "Author of the template without any special characters") – `https://template#/$defs/Info/properties/author/oneOf/1`
+
+* [Untitled array in undefined](./nuclei-schema-defs-info-properties-tags-of-the-template-oneof-1 "Multiple tags for the template separated by commas (No spaces)") – `https://template#/$defs/Info/properties/tags/oneOf/1`
+
+* [Untitled array in undefined](./nuclei-schema-defs-request-properties-raw "HTTP Requests in Raw Format") – `https://template#/$defs/Request/properties/raw`
+
+* [Untitled array in undefined](./nuclei-schema-defs-sliceormapslice-properties-value) – `https://template#/$defs/SliceOrMapSlice/properties/Value`
+
+* [acceptable size for response](./nuclei-schema-defs-matcher-properties-acceptable-size-for-response "Size is the acceptable size for the response") – `https://template#/$defs/Matcher/properties/size`
+
+* [binary patterns to match in response](./nuclei-schema-defs-matcher-properties-binary-patterns-to-match-in-response "Binary are the binary patterns required to be present in the response part") – `https://template#/$defs/Matcher/properties/binary`
+
+* [code snippets to make](./nuclei-schema-defs-template-properties-code-snippets-to-make "Code snippets") – `https://template#/$defs/Template/properties/code`
+
+* [dns requests to make](./nuclei-schema-defs-template-properties-dns-requests-to-make "DNS requests to make for the template") – `https://template#/$defs/Template/properties/dns`
+
+* [dsl expressions to extract](./nuclei-schema-defs-extractor-properties-dsl-expressions-to-extract "Optional attribute to extract from response dsl") – `https://template#/$defs/Extractor/properties/dsl`
+
+* [dsl expressions to match in response](./nuclei-schema-defs-matcher-properties-dsl-expressions-to-match-in-response "DSL are the dsl expressions that will be evaluated as part of nuclei matching rules") – `https://template#/$defs/Matcher/properties/dsl`
+
+* [extractors to run on response](./nuclei-schema-defs-request-properties-extractors-to-run-on-response "Extractors contains the extraction mechanism for the request to identify and extract parts of the response") – `https://template#/$defs/Request/properties/extractors`
+
+* [file requests to make](./nuclei-schema-defs-template-properties-file-requests-to-make "File requests to make for the template") – `https://template#/$defs/Template/properties/file`
+
+* [filter for fuzzing](./nuclei-schema-defs-request-properties-filter-for-fuzzing "Filter is matcher-like field to check if fuzzing should be performed on this request or not") – `https://template#/$defs/Request/properties/filter`
+
+* [fuzzin rules for http fuzzing](./nuclei-schema-defs-request-properties-fuzzin-rules-for-http-fuzzing "Fuzzing describes rule schema to fuzz http requests") – `https://template#/$defs/Request/properties/fuzzing`
+
+* [headless requests to make](./nuclei-schema-defs-template-properties-headless-requests-to-make "Headless requests to make for the template") – `https://template#/$defs/Template/properties/headless`
+
+* [html xpath expressions to extract data](./nuclei-schema-defs-extractor-properties-html-xpath-expressions-to-extract-data "XPath allows using xpath expressions to extract items from html response") – `https://template#/$defs/Extractor/properties/xpath`
+
+* [http requests to make](./nuclei-schema-defs-template-properties-http-requests-to-make "HTTP requests to make for the template") – `https://template#/$defs/Template/properties/requests`
+
+* [http requests to make](./nuclei-schema-defs-template-properties-http-requests-to-make-1 "HTTP requests to make for the template") – `https://template#/$defs/Template/properties/http`
+
+* [javascript requests to make](./nuclei-schema-defs-template-properties-javascript-requests-to-make "Javascript requests to make for the template") – `https://template#/$defs/Template/properties/javascript`
+
+* [json jq expressions to extract data](./nuclei-schema-defs-extractor-properties-json-jq-expressions-to-extract-data "JSON JQ expressions to evaluate from response part") – `https://template#/$defs/Extractor/properties/json`
+
+* [keys of parameters to fuzz](./nuclei-schema-defs-rule-properties-keys-of-parameters-to-fuzz "Keys of parameters to fuzz") – `https://template#/$defs/Rule/properties/keys`
+
+* [keys regex to fuzz](./nuclei-schema-defs-rule-properties-keys-regex-to-fuzz "Regex of parameter keys to fuzz") – `https://template#/$defs/Rule/properties/keys-regex`
+
+* [kval pairs to extract from response](./nuclei-schema-defs-extractor-properties-kval-pairs-to-extract-from-response "Kval pairs to extract from response") – `https://template#/$defs/Extractor/properties/kval`
+
+* [list of workflows to execute](./nuclei-schema-defs-template-properties-list-of-workflows-to-execute "List of workflows to execute for template") – `https://template#/$defs/Template/properties/workflows`
+
+* [matchers to run on response](./nuclei-schema-defs-request-properties-matchers-to-run-on-response "Detection mechanism to identify whether the request was successful by doing pattern matching") – `https://template#/$defs/Request/properties/matchers`
+
+* [name based template result matchers](./nuclei-schema-defs-workflowtemplate-properties-name-based-template-result-matchers "Matchers perform name based matching to run subtemplates for a workflow") – `https://template#/$defs/WorkflowTemplate/properties/matchers`
+
+* [network requests to make](./nuclei-schema-defs-template-properties-network-requests-to-make "Network requests to make for the template") – `https://template#/$defs/Template/properties/network`
+
+* [network(tcp) requests to make](./nuclei-schema-defs-template-properties-networktcp-requests-to-make "Network requests to make for the template") – `https://template#/$defs/Template/properties/tcp`
+
+* [path(s) for the http request](./nuclei-schema-defs-request-properties-paths-for-the-http-request "Path(s) to send http requests to") – `https://template#/$defs/Request/properties/path`
+
+* [regex to extract from part](./nuclei-schema-defs-extractor-properties-regex-to-extract-from-part "Regex to extract from part") – `https://template#/$defs/Extractor/properties/regex`
+
+* [regex to match in response](./nuclei-schema-defs-matcher-properties-regex-to-match-in-response "Regex contains regex patterns required to be present in the response part") – `https://template#/$defs/Matcher/properties/regex`
+
+* [ssl requests to make](./nuclei-schema-defs-template-properties-ssl-requests-to-make "SSL requests to make for the template") – `https://template#/$defs/Template/properties/ssl`
+
+* [status to match](./nuclei-schema-defs-matcher-properties-status-to-match "Status to match for the response") – `https://template#/$defs/Matcher/properties/status`
+
+* [subtemplate based result matchers](./nuclei-schema-defs-workflowtemplate-properties-subtemplate-based-result-matchers "Subtemplates are ran if the template field Template matches") – `https://template#/$defs/WorkflowTemplate/properties/subtemplates`
+
+* [values regex to fuzz](./nuclei-schema-defs-rule-properties-values-regex-to-fuzz "Regex of parameter values to fuzz") – `https://template#/$defs/Rule/properties/values`
+
+* [websocket requests to make](./nuclei-schema-defs-template-properties-websocket-requests-to-make "Websocket requests to make for the template") – `https://template#/$defs/Template/properties/websocket`
+
+* [whois requests to make](./nuclei-schema-defs-template-properties-whois-requests-to-make "WHOIS requests to make for the template") – `https://template#/$defs/Template/properties/whois`
+
+* [words to match in response](./nuclei-schema-defs-matcher-properties-words-to-match-in-response "Words contains word patterns required to be present in the response part") – `https://template#/$defs/Matcher/properties/words`
+
+* [xpath queries to match in response](./nuclei-schema-defs-matcher-properties-xpath-queries-to-match-in-response "xpath are the XPath queries that will be evaluated against the response part of nuclei matching rules") – `https://template#/$defs/Matcher/properties/xpath`
+
+## Version Note
+
+The schemas linked above follow the JSON Schema Spec version: `https://json-schema.org/draft/2020-12/schema`
