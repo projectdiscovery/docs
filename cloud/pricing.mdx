@@ -4,24 +4,47 @@ description: "Explore ProjectDiscovery's pricing plans designed for every securi
 icon: "credit-card"
 ---
 
-<CardGroup cols={1}>
-  <Card title="Request Quote" icon="arrow-right" href="https://projectdiscovery.io/request-demo">
-    Get in touch with our sales team for a custom quote tailored to your needs
+<CardGroup cols={3}>
+  <Card title="Free" icon="star">
+    ✓ Free monthly discovery and vulnerability scans on sign-up email domain
+    ✓ Monthly security report
+    ✓ Invite up to 3 team members
+  </Card>
+  <Card title="Growth" icon="rocket">
+    ✓ Daily vulnerability scans
+    ✓ Integrate cloud accounts (AWS, GCP, Azure)
+    ✓ Advanced asset discovery
+    ✓ Real time emerging threats autoscan
+    ✓ Reporting (PDF, JSON, CSV)
+    ✓ Invite up to 10 team members
+  </Card>
+  <Card title="Enterprise" icon="building">
+    ✓ Retest and regression automations
+    ✓ Custom scan limits and frequency controls
+    ✓ Internal network agent
+    ✓ 2-way ticketing
+    ✓ Vulnerability regression
+    ✓ PCI, SOC 2, ISO27001, HIPAA compliance
+    ✓ SSO, Role-based access control, audit logs
   </Card>
 </CardGroup>
 
 <Info>
   **Note for Individual Researchers & Pentesters**:
-  Our Pro tier is specifically designed for organizations and teams. If you're an individual researcher or pentester, we recommend sticking with our Free tier while we actively develop more individual-focused features. We believe in being transparent - if a feature you need isn't available in the Free tier yet, our open-source tools might be a better fit for now. We're working hard to expand our Free tier capabilities\!
+  Our Growth tier is specifically designed for organizations and teams. If you're an individual researcher or pentester, we recommend sticking with our Free tier while we actively develop more individual-focused features. We believe in being transparent - if a feature you need isn't available in the Free tier yet, our open-source tools might be a better fit for now. We're working hard to expand our Free tier capabilities\!
 </Info>
+## What counts as an asset?
+
+Assets are Fully Qualified Domain Names (FQDNs) or IP addresses without ports. For example, api.acme.com or 192.89.29.19 count as single assets, regardless of how many ports are open on them. We provide free asset discovery and cloud integrations to help you calculate your total assets before selecting a plan, with Growth tier supporting up to 100 assets and larger environments requiring Enterprise.
+
 
 ### Exposure Management
 
-| Feature                                    | Free         | Pro            | Enterprise            |
+| Feature                                    | Free         | Growth            | Enterprise            |
 | :----------------------------------------- | :----------- | :------------- | :-------------------- |
 | Instant results with pre-indexed discovery | ✓            | ✓              | ✓                     |
 | Monthly new domain discovery limit         | 10           | 100            | Custom                |
-| Discovery frequency                        | Weekly       | Daily          | Hourly                |
+| Discovery frequency                        | Monthly       | Daily          | Hourly                |
 | Subdomain enumeration                      | ✓            | ✓              | ✓                     |
 | Port Enumeration                           | Top 10 ports | Top 1k ports   | Full or custom ranges |
 | Screenshots                                | ✓            | ✓              | ✓                     |
@@ -34,22 +57,22 @@ icon: "credit-card"
 
 ### Vulnerability Management
 
-| Feature                                         | Free                                      | Pro                                  | Enterprise                                           |
+| Feature                                         | Free                                      | Growth                                  | Enterprise                                           |
 | :---------------------------------------------- | :---------------------------------------- | :----------------------------------- | :--------------------------------------------------- |
-| Ultra fast cloud scans (35x faster than Nuclei) | Monthly scan for verified business emails | Up to 1,000 unique assets each month | Custom limits                                        |
+| Ultra fast cloud scans (35x faster than Nuclei) | Monthly scan for verified business emails | Up to 100 unique assets each month | Custom limits                                        |
 | Connect Nuclei to cloud                         | ✓                                         | ✓                                    | ✓                                                    |
 | Email, messaging alerts                         | ✓                                         | ✓                                    | ✓                                                    |
 | Scan logs                                       | -                                         | Read-only                            | Read and export CSV                                  |
 | PDF Reporting                                   | -                                         | Basic PDF, JSON, CSV                 | Executive and compliance reports (SOC 2, PCI, HIPAA) |
 | Custom rate limits                              | -                                         | -                                    | ✓                                                    |
 | Export findings to ticketing platforms          | -                                         | ✓                                    | ✓                                                    |
-| Real-time Autoscan for trending exploits        | -                                         | -                                    | ✓                                                    |
+| Real-time Autoscan for trending exploits        | -              | ✓                                    | ✓                            |
 | Automated regressions for fixed vulnerabilities | -                                         | -                                    | ✓                                                    |
 | DAST, fuzzing, and headless templates           | -                                         | -                                    | Coming soon                                          |
 
 ### Nuclei Templates
 
-| Feature                                          | Free             | Pro               | Enterprise |
+| Feature                                          | Free             | Growth               | Enterprise |
 | :----------------------------------------------- | :--------------- | :---------------- | :--------- |
 | Real-time templates feed                         | ✓                | ✓                 | ✓          |
 | Powerful AI template editor                      | 10 queries / day | 100 queries / day | Unlimited  |
@@ -59,22 +82,20 @@ icon: "credit-card"
 
 ### Admin and Team
 
-| Feature                                           | Free                                     | Pro               | Enterprise         |
+| Feature                                           | Free                                     | Growth               | Enterprise         |
 | :------------------------------------------------ | :--------------------------------------- | :---------------- | :----------------- |
-| Seats                                             | 1, up to 10 for verified business emails | 10                | Unlimited          |
-| Team workspaces                                   | -                                        | 1                 | Unlimited          |
+| Seats                                             | 3 | 10                | Unlimited          |
+| Team workspaces                                   | 1 | Unlimited | Unlimited          |
 | Role-based access control (admin, member, viewer) | -                                        | -                 | ✓                  |
 | Audit logs                                        | -                                        | -                 | ✓                  |
 | Fixed and dedicated scan IPs for whitelisting     | -                                        | -                 | ✓                  |
 | SAML, SSO (Okta, Entra, Google)                   | -                                        | -                 | ✓                  |
 | Support                                           | Community support                        | Community support | Enterprise support |
-| Account Management                                | -                                        | -                 | Dedicated TAM      |
-| Pricing                                           | Free                                     | \$2,500/year      | Custom Quote       |
 
 ## Getting Started
 
 1. **Free Plan**: [Start Now](https://cloud.projectdiscovery.io) - No credit card required
-2. **Pro Plan**: [Upgrade to Pro](https://cloud.projectdiscovery.io/billing) - Instant access to hosted vulnerability scanning capabilities.
+2. **Growth Plan**: [Upgrade to Growth](https://cloud.projectdiscovery.io/billing) - Instant access to hosted vulnerability scanning capabilities.
 3. **Enterprise**: [Contact Sales](https://projectdiscovery.io/request-demo) - Custom solution design
 
 ## Frequently Asked Questions
@@ -82,12 +103,12 @@ icon: "credit-card"
 **Q: How is our billing structured and managed?**
 
 - Free Tier: Sign up and use basic features forever - no credit card needed.
-- Professional Plan: \$2,500/year. Automated billing with usage reports.
+- Growth Plan: \$3,500/year. Automated billing with usage reports.
 - Enterprise: Customized billing arrangements including volume-based pricing, multi-year agreements, and flexible payment schedules aligned with your fiscal planning.
 
 **Q: What payment methods and billing processes do you support?**
 
-- Professional Plan: All major credit cards, automated recurring billing with detailed invoices and usage metrics.
+- Growth Plan: All major credit cards, automated recurring billing with detailed invoices and usage metrics.
 - Enterprise: Comprehensive payment options including wire transfer, purchase orders, ACH/direct debit, and custom contract arrangements.
 
 **Q: How do you calculate and track asset usage?**
@@ -101,7 +122,7 @@ icon: "credit-card"
 
 <Info>
   Recommendation:
-  For larger teams or organizations managing a higher number of assets, it is generally recommended to choose the Enterprise plan. This plan provides greater flexibility, and assets exceeding your quota are not skipped, ensuring uninterrupted coverage. The Enterprise plan simplifies management and ensures continuous scanning without the need for manual adjustments or concerns about assets being skipped. The Pro plan is typically best suited for smaller teams or those monitoring and protecting fewer assets.
+  For larger teams or organizations managing a higher number of assets, it is generally recommended to choose the Enterprise plan. This plan provides greater flexibility, and assets exceeding your quota are not skipped, ensuring uninterrupted coverage. The Enterprise plan simplifies management and ensures continuous scanning without the need for manual adjustments or concerns about assets being skipped. The Growth plan is typically best suited for smaller teams or those monitoring and protecting fewer assets.
 </Info>
 
 **Q: What security certifications and compliance standards do you maintain?**
