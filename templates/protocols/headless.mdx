@@ -31,20 +31,38 @@ args:
 
 ### script
 
-Script runs a JS code on the current browser page. At the simplest level, you can just provide a `code` argument with the JS snippet you want to execute, and it will be run on the page. 
+Script runs a JavaScript code on the current browser page. At the simplest level, you can just provide a `code` argument with the JS snippet you want to execute, and it will be run on the page. 
 
 ```yaml
 action: script
 args:
-  code: alert(document.domain)
+  code: () => alert(document.domain)
 ```
+
+<Warning>
+  The <code>code</code> property strictly requires a function reference. Direct expressions or values are invalid and will not work. Always use a function.
+
+  **Incorrect:**
+  ```yaml
+  action: script
+  args:
+    code: alert(document.domain) # ❌ This is NOT a function reference
+  ```
+
+  **Correct:**
+  ```yaml
+  action: script
+  args:
+    code: () => alert(document.domain) # ✅ This is a function reference
+  ```
+</Warning>
 
 Suppose you want to run a matcher on a JS object to inspect its value. This type of data extraction use cases are also supported with nuclei headless. As an example, let's say the application sets an object called `window.random-object` with a value, and you want to match on that value.
 
 ```yaml
 - action: script
   args:
-    code: window.random-object
+    code: () => window.random-object
   name: script-name
 ...
 matchers:
@@ -61,7 +79,7 @@ The example provided hooks `window.alert` so that the alerts that are generated 
 ```yaml
 - action: script
   args:
-    code: (function() { window.alert=function(){} })()
+    code: () => (function() { window.alert=function(){} })()
     hook: true
 ```
 
