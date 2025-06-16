@@ -282,6 +282,17 @@ dnsx -l subdomain_list.txt -wd airbnb.com -o output.txt
 
 ---------
 
+### Using Resolvers with dnsx
+
+Here are some examples demonstrating how to configure dnsx with various resolvers:
+
+```console
+chaos -silent -d hackerone.com | dnsx -r tcp:1.1.1.1 -silent
+chaos -silent -d hackerone.com | dnsx -r udp:1.1.1.1 -silent
+chaos -silent -d hackerone.com | dnsx -r doh:https://dns.google/dns-query:post -silent
+chaos -silent -d hackerone.com | dnsx -r doh:https://doh.opendns.com/dns-query:post -silent
+```
+
 ### Dnsx as a library
 
 It's possible to use the library directly in your golang programs. The following code snippets is an example of use in golang programs. Please refer to [here](https://pkg.go.dev/github.com/projectdiscovery/dnsx@v1.1.0/libs/dnsx) for detailed package configuration and usage.
