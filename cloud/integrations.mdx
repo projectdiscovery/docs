@@ -6,33 +6,76 @@ icon: "plug-circle-plus"
 ---
 
 <CardGroup cols={4}>
-  <Card title="Slack" icon="slack" href="#slack" />
-  <Card title="MS Teams" icon="microsoft" href="#ms-teams" />
-  <Card title="Email" icon="envelope" href="#email" />
-  <Card title="Webhook" icon="webhook" href="#webhook" />
-  <Card title="Jira" icon="jira" href="#jira" />
-  <Card title="GitHub" icon="github" href="#github" />
-  <Card title="GitLab" icon="gitlab" href="#gitlab" />
-  <Card title="Linear" icon="circle" href="#linear" />
-  <Card title="AWS" icon="aws" href="#aws-amazon-web-services" />
-  <Card title="GCP" icon="google" href="#google-cloud-platform-gcp" />
-  <Card title="Azure" icon="microsoft" href="#azure" />
-  <Card title="Alibaba" icon="cloud" href="#alibaba-cloud" />
-  <Card title="Kubernetes" icon="dharmachakra" href="#kubernetes" />
-  <Card title="Hashicorp" icon="cube" href="#hashicorp-stack" />
-  <Card title="Cloudflare" icon="cloudflare" href="cdn-and-dns-providers" />
-  <Card title="Fastly" icon="bolt" href="cdn-and-dns-providers" />
-  <Card title="Namecheap" icon="globe" href="#cdn-and-dns-providers" />
-  <Card title="DigitalOcean" icon="digital-ocean" href="#vps-and-paas-providers" />
-  <Card title="Heroku" icon="h" href="#vps-and-paas-providers" />
-  <Card title="Linode" icon="server" href="#vps-and-paas-providers" />
+  <Card title="Slack" icon="slack" href="#slack">
+    
+  </Card>
+  <Card title="MS Teams" icon="microsoft" href="#ms-teams">
+    
+  </Card>
+  <Card title="Email" icon="envelope" href="#email">
+    
+  </Card>
+  <Card title="Webhook" icon="webhook" href="#webhook">
+    
+  </Card>
+  <Card title="Jira" icon="jira" href="#jira">
+    
+  </Card>
+  <Card title="GitHub" icon="github" href="#github">
+    
+  </Card>
+  <Card title="GitLab" icon="gitlab" href="#gitlab">
+    
+  </Card>
+  <Card title="Linear" icon="circle" href="#linear">
+    
+  </Card>
+  <Card title="AWS" icon="aws" href="#aws-amazon-web-services">
+    
+  </Card>
+  <Card title="GCP" icon="google" href="#google-cloud-platform-gcp">
+    
+  </Card>
+  <Card title="Azure" icon="microsoft" href="#azure">
+    
+  </Card>
+  <Card title="Alibaba" icon="cloud" href="#alibaba-cloud">
+    
+  </Card>
+  <Card title="Kubernetes" icon="dharmachakra" href="#kubernetes">
+    
+  </Card>
+  <Card title="Hashicorp" icon="cube" href="#hashicorp-stack">
+    
+  </Card>
+  <Card title="Cloudflare" icon="cloudflare" href="#cdn-and-dns-providers">
+    
+  </Card>
+  <Card title="Fastly" icon="bolt" href="#cdn-and-dns-providers">
+    
+  </Card>
+  <Card title="Namecheap" icon="globe" href="#cdn-and-dns-providers">
+    
+  </Card>
+  <Card title="DigitalOcean" icon="digital-ocean" href="#vps-and-paas-providers">
+    
+  </Card>
+  <Card title="Heroku" icon="h" href="#vps-and-paas-providers">
+    
+  </Card>
+  <Card title="Linode" icon="server" href="#vps-and-paas-providers">
+    
+  </Card>
 </CardGroup>
 
 ## Notification Integrations
 
 Alerting integrations support notifications as part of scanning and asset discovery, and include Slack, Microsoft Teams, Email, and custom Webhooks. Navigate to [Scans → Configurations → Alerting](https://cloud.projectdiscovery.io/scans/configs) to configure your alerts.
 
-<img height="300" src="/images/platform/scanintegrations.png" />
+<img
+  height="300"
+  src="/images/platform/scanintegrations.png"
+/>
 
 ### Slack
 
@@ -40,7 +83,7 @@ ProjectDiscovery supports scan notifications through Slack. To enable Slack noti
 
 Choose from the list of **Events** (Scan Started, Scan Finished, Scan Failed) to specify what notifications are generated. All Events are selected by default
 
-* Refer to Slack's [documentation on creating webhooks](https://api.slack.com/messaging/webhooks) for configuration details.
+- Refer to Slack's [documentation on creating webhooks](https://api.slack.com/messaging/webhooks) for configuration details.
 
 ### MS Teams
 
@@ -48,12 +91,11 @@ ProjectDiscovery supports notifications through Microsoft Teams. To enable notif
 
 Choose from the list of **Events** (Scan Started, Scan Finished, Scan Failed)  to specify what notifications are generated.
 
-* Refer to [Microsoft's documentation on creating webhooks](https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook?tabs=newteams%2Cdotnet) for configuration details.
+- Refer to [Microsoft's documentation on creating webhooks](https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook?tabs=newteams%2Cdotnet) for configuration details.
 
 ### Email
 
 ProjectDiscovery supports notifications via Email. To enable email notifications for completed scans simply add your recipient email addresses.
-
 
 ### Webhook
 
@@ -61,11 +103,9 @@ ProjectDiscovery supports custom webhook notifications, allowing you to post eve
 
 To implement webhook notifications, provide:
 
-* Configuration name
-
-* Webhook URL
-
-* Authentication parameters (if required)
+- Configuration name
+- Webhook URL
+- Authentication parameters (if required)
 
 Example endpoint format:
 
@@ -77,7 +117,10 @@ https://your-domain.com/api/security/alerts
 
 The integrations under Ticketing support ticketing functionality as part of scanning and include support for Jira, GitHub, GitLab, and Linear. Navigate to [Scans → Configurations → Ticketing](https://cloud.projectdiscovery.io/scans/configs?type=reporting) to configure your ticketing tools.
 
-<img height="300" src="/images/platform/scansticketing.png" />
+<img
+  height="300"
+  src="/images/platform/scansticketing.png"
+/>
 
 ### Jira
 
@@ -93,9 +136,8 @@ ProjectDiscovery provides integration support for GitHub to create new tickets w
 
 Provide a name for the configuration, the Organization or username, Project name, Issue Assignee, Token, and Issue Label. The Issue Label determines when a ticket is created. (For example, if critical severity is selected, any issues with a critical severity will create a ticket.)
 
-* The severity as label option adds a template result severity to any GitHub issues created.
-
-* Deduplicate posts any new results as comments on existing issues instead of creating new issues for the same result.
+- The severity as label option adds a template result severity to any GitHub issues created.
+- Deduplicate posts any new results as comments on existing issues instead of creating new issues for the same result.
 
 Details on setting up access in GitHub [are available here.](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
 
@@ -106,9 +148,8 @@ ProjectDiscovery provides integration support for GitLab to create new tickets w
 Provide your GitLab username, Project name, Project Access Token and a GitLab Issue label. The Issue Label determines when a ticket is created.
 (For example, if critical severity is selected, any issues with a critical severity will create a ticket.)
 
-* The severity as label option adds a template result severity to any GitLab issues created.
-
-* Deduplicate posts any new results as comments on existing issues instead of creating new issues for the same result.
+- The severity as label option adds a template result severity to any GitLab issues created.
+- Deduplicate posts any new results as comments on existing issues instead of creating new issues for the same result.
 
 Refer to GitLab's documentation for details on [configuring a Project Access token.](https://docs.gitlab.com/ee/user/project/settings/project_access_tokens.html#create-a-project-access-token)
 
@@ -117,19 +158,14 @@ Refer to GitLab's documentation for details on [configuring a Project Access tok
 ProjectDiscovery integrates with Linear for automated issue tracking. The integration requires the following API parameters:
 
 1. Linear API Key
-
 2. Linear Team ID
-
 3. Linear Open State ID
 
 To retrieve these parameters:
 
 1. **API Key Generation**:
-
-   * Path: Linear > Settings > API > Personal API keys
-
-   * Direct URL: linear.app/\[workspace]/settings/api
-
+   - Path: Linear \> Settings \> API \> Personal API keys
+   - Direct URL: linear.app/[workspace]/settings/api
 2. **Team ID Retrieval**:
 
 ```graphql
@@ -163,29 +199,34 @@ For detailed API documentation, refer to the [Linear API Documentation](https://
 ProjectDiscovery supports integrations with all popular cloud providers to automatically sync externally facing hosts for vulnerability scanning. This comprehensive approach ensures all your cloud resources with external exposure are continuously monitored, complementing our external discovery capabilities. The result is complete visibility of your attack surface across cloud environments through a simple web interface.
 
 ### AWS (Amazon Web Services)
+
 ProjectDiscovery's AWS integration allows the platform to automatically discover and monitor cloud assets across your AWS accounts. By connecting AWS to ProjectDiscovery, security teams and DevOps engineers gain continuous visibility into EC2 instances, S3 buckets, DNS records, and other resources without manual inventory. This integration leverages ProjectDiscovery's open-source **Cloudlist** engine to enumerate assets via AWS APIs. In short, it helps ensure no cloud asset goes unnoticed, enabling proactive security monitoring and easier management of your attack surface.
 
-<Card title="Configure AWS Integration" icon="aws" href="https://cloud.projectdiscovery.io/assets/configure?provider=aws" color="#FF9900">
+<Card title="Configure AWS Integration" icon="aws" color="#FF9900" href="https://cloud.projectdiscovery.io/assets/configure?provider=aws">
   Click here to open the AWS integration configuration page in the ProjectDiscovery Cloud platform
 </Card>
 
-<img src="/images/aws-integration.png" width="800" alt="AWS Integration Interface" />
+<img
+  src="/images/aws-integration.png"
+  width="800"
+  alt="AWS Integration Interface"
+/>
 
 Supported AWS Services:
 
-| Service | Description |
-|:-------|:------------|
-| [EC2](https://aws.amazon.com/ec2/) | VM instances and their public IPs |
-| [Route53](https://aws.amazon.com/route53/) | DNS hosted zones and records |
-| [S3](https://aws.amazon.com/s3/) | Buckets (especially those public or with DNS) |
-| [Cloudfront](https://aws.amazon.com/cloudfront/) | CDN distributions and their domains |
-| [ECS](https://aws.amazon.com/ecs/) | Container cluster resources |
-| [EKS](https://aws.amazon.com/eks/) | Kubernetes cluster endpoints |
-| [ELB](https://aws.amazon.com/elasticloadbalancing/) | Load balancers (Classic ELB and ALB/NLB) |
-| [ELBv2](https://aws.amazon.com/elasticloadbalancing/) | Load balancers (Classic ELB and ALB/NLB) |
-| [Lambda](https://aws.amazon.com/lambda/) | Serverless function endpoints |
-| [Lightsail](https://aws.amazon.com/lightsail/) | Lightsail instances (simplified VPS) |
-| [Apigateway](https://aws.amazon.com/api-gateway/) | API endpoints deployed via Amazon API Gateway |
+| Service                                               | Description                                   |
+| :---------------------------------------------------- | :-------------------------------------------- |
+| [EC2](https://aws.amazon.com/ec2/)                    | VM instances and their public IPs             |
+| [Route53](https://aws.amazon.com/route53/)            | DNS hosted zones and records                  |
+| [S3](https://aws.amazon.com/s3/)                      | Buckets (especially those public or with DNS) |
+| [Cloudfront](https://aws.amazon.com/cloudfront/)      | CDN distributions and their domains           |
+| [ECS](https://aws.amazon.com/ecs/)                    | Container cluster resources                   |
+| [EKS](https://aws.amazon.com/eks/)                    | Kubernetes cluster endpoints                  |
+| [ELB](https://aws.amazon.com/elasticloadbalancing/)   | Load balancers (Classic ELB and ALB/NLB)      |
+| [ELBv2](https://aws.amazon.com/elasticloadbalancing/) | Load balancers (Classic ELB and ALB/NLB)      |
+| [Lambda](https://aws.amazon.com/lambda/)              | Serverless function endpoints                 |
+| [Lightsail](https://aws.amazon.com/lightsail/)        | Lightsail instances (simplified VPS)          |
+| [Apigateway](https://aws.amazon.com/api-gateway/)     | API endpoints deployed via Amazon API Gateway |
 
 By covering these services, ProjectDiscovery can map out a broad range of AWS assets in your account. (Support for additional services may be added over time.)
 
@@ -194,9 +235,7 @@ By covering these services, ProjectDiscovery can map out a broad range of AWS as
 ProjectDiscovery supports three methods to connect to AWS, each suited for different use cases and security preferences:
 
 1. **Single AWS Account (Access Key & Secret)** – Direct credential-based authentication using an IAM User's Access Key ID and Secret Access Key to connect one AWS account. Choose this for quick setups or single-account monitoring.
-
 2. **Multiple AWS Accounts (Assume Role)** – Use one set of credentials to assume roles in multiple accounts. This method is ideal for organizations with multiple AWS accounts (e.g. dev, prod, etc.). You provide one account's credentials and the common role name that exists in all target accounts.
-
 3. **Cross-Account Role (Role ARN)** – Use a dedicated IAM role with an External ID for third-party access. This option lets you create a cross-account IAM role in your AWS account and grant ProjectDiscovery access via that role's Amazon Resource Name (ARN). This is the most secure integration method, as it follows AWS best practices for third-party account access.
 
 **Prerequisites**
@@ -213,29 +252,25 @@ Before configuring the integration, make sure you have:
 To connect a single AWS account directly:
 
 1. **Create a Read-Only IAM User:** In the AWS IAM console, create a new IAM user for ProjectDiscovery integration. Assign **programmatic access** (which generates an Access Key ID and Secret Access Key).
-
 2. **Attach Required Policies:** Grant the user read-only permissions to the AWS services you want to monitor. You can use AWS-managed policies like **AmazonEC2ReadOnlyAccess**, **AmazonS3ReadOnlyAccess**, etc. for each service (see the **Required Permissions** section below).
-
-3. **Configure in ProjectDiscovery:** 
+3. **Configure in ProjectDiscovery:**
    - Select **Single AWS Account (Access Key & Secret)**
    - Enter your **AWS Access Key ID** and **AWS Secret Access Key**
    - Optionally provide a **Session Token** (only for temporary credentials)
    - Give the integration a unique name
    - Select the AWS services you want to monitor
 
-*Tip:* Use an IAM user with minimal read-only permissions and rotate keys periodically for security.
+_Tip:_ Use an IAM user with minimal read-only permissions and rotate keys periodically for security.
 
 #### 2. Multiple AWS Accounts (Assume Role)
 
 For monitoring multiple AWS accounts from a central account:
 
 1. **Choose a Primary Account:** Create an IAM user in one AWS account (the "primary") with programmatic access.
-
 2. **Create an IAM Role in Each Target Account:** In each AWS account you want to monitor, create a role that:
    - Uses the **same role name** across all accounts (e.g., "ProjectDiscoveryReadOnlyRole")
    - Has a trust relationship allowing your primary account to assume it
    - Has the required read-only permissions
-
 3. **Configure in ProjectDiscovery:**
    - Select **Multiple AWS Accounts (Assume Role)**
    - Enter the primary account's **AWS Access Key ID** and **Secret Access Key**
@@ -254,7 +289,6 @@ The most secure method using ProjectDiscovery's service account:
    - Enter ProjectDiscovery's ARN: `arn:aws:iam::034362060511:user/projectdiscovery`
    - Enable "Require External ID" and enter the External ID shown in the ProjectDiscovery UI
    - Attach the necessary read-only permissions
-
 2. **Configure in ProjectDiscovery:**
    - Select **Cross-Account Role (Role ARN)**
    - Enter the **Role ARN** of the role you created
@@ -314,56 +348,41 @@ Alternatively, you can use this custom policy for minimal permissions:
 After configuring the integration, it's important to verify that ProjectDiscovery is successfully connected and enumerating your AWS assets:
 
 - **Check Asset Discovery:** In the ProjectDiscovery platform, navigate to the cloud assets or inventory section. After a successful integration, you should start seeing resources from your AWS account(s) listed (for example, EC2 instance IDs, S3 bucket names, etc., corresponding to the integrated accounts). It may take a short while for the initial discovery to complete. If you see those assets, the integration is working.
-
 - **Test with a Known Resource:** As a quick test, pick a known resource (like a specific EC2 instance or S3 bucket in your AWS account) and search for it in ProjectDiscovery's asset inventory. If it appears, the connection is functioning and pulling data.
-
 - **Troubleshooting Errors:** If the integration fails or some assets are missing, consider these common issues:
-  - *Incorrect Credentials:* Double-check that the Access Key and Secret (if used) were entered correctly and correspond to an active IAM user. If you recently created the user, ensure you copied the keys exactly (no extra spaces or missing characters).
-  - *Insufficient Permissions:* If certain services aren't showing up, the IAM policy might be missing permissions. For example, if S3 buckets aren't listed, confirm that the policy includes `s3:ListAllMyBuckets`. Refer back to the Required Permissions and make sure all relevant actions are allowed. You can also use AWS IAM Policy Simulator or CloudTrail logs to see if any **AccessDenied** errors occur when ProjectDiscovery calls AWS APIs.
-  - *Assume Role Failures:* In multi-account or cross-account setups, a common issue is a misconfigured trust relationship. If ProjectDiscovery cannot assume a role, you might see an error in the UI or logs like "AccessDenied: Not authorized to perform sts:AssumeRole". In that case, check the following:
+  - _Incorrect Credentials:_ Double-check that the Access Key and Secret (if used) were entered correctly and correspond to an active IAM user. If you recently created the user, ensure you copied the keys exactly (no extra spaces or missing characters).
+  - _Insufficient Permissions:_ If certain services aren't showing up, the IAM policy might be missing permissions. For example, if S3 buckets aren't listed, confirm that the policy includes `s3:ListAllMyBuckets`. Refer back to the Required Permissions and make sure all relevant actions are allowed. You can also use AWS IAM Policy Simulator or CloudTrail logs to see if any **AccessDenied** errors occur when ProjectDiscovery calls AWS APIs.
+  - _Assume Role Failures:_ In multi-account or cross-account setups, a common issue is a misconfigured trust relationship. If ProjectDiscovery cannot assume a role, you might see an error in the UI or logs like "AccessDenied: Not authorized to perform sts:AssumeRole". In that case, check the following:
     - The trust policy of the IAM role (in target account) trusts the correct principal (either your primary account's IAM user/role ARN for multi-account, or ProjectDiscovery's external account ID for cross-account) and the External ID if applicable.
     - The role name or ARN in the ProjectDiscovery config exactly matches the one in AWS (spelling/case must match).
-    - The primary credentials (for multi-account) have permission to call `AssumeRole`.  
-  - *External ID Mismatch:* For cross-account roles, if the external ID in ProjectDiscovery and the one in the IAM role's trust policy do not match, AWS will deny the assume request. Ensure you didn't accidentally copy the wrong value or include extra spaces. It must be exact.
-
+    - The primary credentials (for multi-account) have permission to call `AssumeRole`.
+  - _External ID Mismatch:_ For cross-account roles, if the external ID in ProjectDiscovery and the one in the IAM role's trust policy do not match, AWS will deny the assume request. Ensure you didn't accidentally copy the wrong value or include extra spaces. It must be exact.
 - **AWS CloudTrail Logs:** As an additional verification, you can check AWS CloudTrail in your account. When ProjectDiscovery connects, you should see events like `DescribeInstances`, `ListBuckets`, etc., being called by the IAM user or assumed role. For cross-account roles, you will see an `AssumeRole` event from ProjectDiscovery's AWS account ID, and subsequent calls under the assumed role's identity. This audit trail can confirm that the integration is working as intended and using only allowed actions.
 
 If all checks out, ProjectDiscovery is now actively monitoring your AWS environment. New resources launched in AWS should be detected on the next scan cycle, and any changes to your cloud footprint will be reflected in the platform. Make sure to regularly review the integration and update the IAM permissions if you start using new AWS services.
 
 **References:**
 
-1. [https://docs.aws.amazon.com/IAM/latest/UserGuide/reference\_policies\_examples\_iam\_read-only-console.html](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_iam_read-only-console.html)
-
-2. [https://docs.aws.amazon.com/IAM/latest/UserGuide/id\_credentials\_access-keys.html](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html)
-
-3. [https://docs.aws.amazon.com/IAM/latest/UserGuide/id\_credentials\_temp\_request.html](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html)
-
-4. [https://docs.aws.amazon.com/sdkref/latest/guide/feature-assume-role-credentials.html](https://docs.aws.amazon.com/sdkref/latest/guide/feature-assume-role-credentials.html)
-
-5. [https://docs.logrhythm.com/OCbeats/docs/aws-cross-account-access-using-sts-assume-role](https://docs.logrhythm.com/OCbeats/docs/aws-cross-account-access-using-sts-assume-role)
-
+1. https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_iam_read-only-console.html
+2. https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html
+3. https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html
+4. https://docs.aws.amazon.com/sdkref/latest/guide/feature-assume-role-credentials.html
+5. https://docs.logrhythm.com/OCbeats/docs/aws-cross-account-access-using-sts-assume-role
 
 ### Google Cloud Platform (GCP)
 
-<Card title="Configure GCP Integration" icon="google" href="https://cloud.projectdiscovery.io/assets/configure?provider=gcp" color="#4285F4">
+<Card title="Configure GCP Integration" icon="google" color="#4285F4" href="https://cloud.projectdiscovery.io/assets/configure?provider=gcp">
   Click here to open the GCP integration configuration page in the ProjectDiscovery Cloud platform
 </Card>
 
 Supported GCP Services:
 
-* [Cloud DNS](https://cloud.google.com/dns)
-
-* [Kubernetes Engine](https://cloud.google.com/kubernetes-engine)
-
-* [Compute Engine](https://cloud.google.com/products/compute)
-
-* [Bucket](https://cloud.google.com/storage)
-
-* [Cloud Functions](https://cloud.google.com/functions)
-
-* [Cloud Run](https://cloud.google.com/run)
-
-
+- [Cloud DNS](https://cloud.google.com/dns)
+- [Kubernetes Engine](https://cloud.google.com/kubernetes-engine)
+- [Compute Engine](https://cloud.google.com/products/compute)
+- [Bucket](https://cloud.google.com/storage)
+- [Cloud Functions](https://cloud.google.com/functions)
+- [Cloud Run](https://cloud.google.com/run)
 
 Google Cloud Platform can be integrated by using the following configuration block.
 
@@ -381,17 +400,17 @@ Scopes Required: Cloud DNS, GKE
 
 References:
 
-1. [https://cloud.google.com/iam/docs/service-account-overview](https://cloud.google.com/iam/docs/service-account-overview)
+1. https://cloud.google.com/iam/docs/service-account-overview
 
 ### Azure
 
-<Card title="Configure Azure Integration" icon="microsoft" href="https://cloud.projectdiscovery.io/assets/configure?provider=azure" color="#0078D4">
+<Card title="Configure Azure Integration" icon="microsoft" color="#0078D4" href="https://cloud.projectdiscovery.io/assets/configure?provider=azure">
   Click here to open the Azure integration configuration page in the ProjectDiscovery Cloud platform
 </Card>
 
 Supported Azure Services:
 
-* Virtual Machines
+- Virtual Machines
 
 **Example Config:**
 
@@ -413,28 +432,26 @@ Microsoft Azure can be integrated by using the following configuration block.
   use_cli_auth: true
 ```
 
-`tenant_id`, `client_id`, `client_secret` can be obtained/generated from   `All services` > `Azure Active Directory` > `App registrations`
-`subscription_id` can be retrieved from  `All services` > `Subscriptions`
+`tenant_id`, `client_id`, `client_secret` can be obtained/generated from   `All services` \> `Azure Active Directory` \> `App registrations`
+`subscription_id` can be retrieved from  `All services` \> `Subscriptions`
 
 To use cli auth set `use_cli_auth` value to `true` and run `az login` in the terminal
 
 References:
 
-1. [https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli](https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli)
-
-2. [https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest#az\_ad\_sp\_create\_for\_rbac](https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest#az_ad_sp_create_for_rbac)
-
-3. [https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli](https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli)
+1. https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli
+2. https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest#az_ad_sp_create_for_rbac
+3. https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli
 
 ### Alibaba Cloud
 
-<Card title="Configure Alibaba Cloud Integration" icon="cloud" href="https://cloud.projectdiscovery.io/assets/configure?provider=alibaba" color="#FF6A00">
+<Card title="Configure Alibaba Cloud Integration" icon="cloud" color="#FF6A00" href="https://cloud.projectdiscovery.io/assets/configure?provider=alibaba">
   Click here to open the Alibaba Cloud integration configuration page in the ProjectDiscovery Cloud platform
 </Card>
 
 Suppoted Alibaba Cloud Services:
 
-* ECS Instances
+- ECS Instances
 
 **Example Config:**
 
@@ -452,29 +469,26 @@ Alibaba Cloud can be integrated by using the following configuration block.
   alibaba_access_key_secret: $ALIBABA_ACCESS_KEY_SECRET
 ```
 
-Alibaba Cloud Access Key ID and Secret can be created by visiting [https://ram.console.aliyun.com/manage/ak](https://ram.console.aliyun.com/manage/ak)
+Alibaba Cloud Access Key ID and Secret can be created by visiting https://ram.console.aliyun.com/manage/ak
 
 References:
 
-1. [https://www.alibabacloud.com/help/faq-detail/142101.htm](https://www.alibabacloud.com/help/faq-detail/142101.htm)
-
-2. [https://www.alibabacloud.com/help/doc-detail/53045.htm](https://www.alibabacloud.com/help/doc-detail/53045.htm)
+1. https://www.alibabacloud.com/help/faq-detail/142101.htm
+2. https://www.alibabacloud.com/help/doc-detail/53045.htm
 
 ## Infrastructure & Platform Services
 
 ### Kubernetes
 
-<Card title="Configure Kubernetes Integration" icon="dharmachakra" href="https://cloud.projectdiscovery.io/assets/configure?provider=kubernetes" color="#326CE5">
+<Card title="Configure Kubernetes Integration" icon="dharmachakra" color="#326CE5" href="https://cloud.projectdiscovery.io/assets/configure?provider=kubernetes">
   Click here to open the Kubernetes integration configuration page in the ProjectDiscovery Cloud platform
 </Card>
 
 Support for:
 
-* Services
-
-* Ingresses
-
-* Cross-cloud cluster discovery
+- Services
+- Ingresses
+- Cross-cloud cluster discovery
 
 Navigate to [Assets → Connect Cloud Services → Kubernetes](https://cloud.projectdiscovery.io/assets/configure) to configure your cluster access.
 
@@ -482,44 +496,36 @@ Navigate to [Assets → Connect Cloud Services → Kubernetes](https://cloud.pro
 
 Support for:
 
-* Terraform state file parsing
-
-* Nomad services
-
-* Consul services
+- Terraform state file parsing
+- Nomad services
+- Consul services
 
 ### CDN & DNS Providers
 
 Configure these providers through [Assets → Connect Cloud Services](https://cloud.projectdiscovery.io/assets/configure):
 
-<Card title="Configure Cloudflare Integration" icon="cloudflare" href="https://cloud.projectdiscovery.io/assets/configure?provider=cloudflare" color="#F38020">
+<Card title="Configure Cloudflare Integration" icon="cloudflare" color="#F38020" href="https://cloud.projectdiscovery.io/assets/configure?provider=cloudflare">
   Click here to open the Cloudflare integration configuration page in the ProjectDiscovery Cloud platform
 </Card>
 
-<Card title="Configure Fastly Integration" icon="bolt" href="https://cloud.projectdiscovery.io/assets/configure?provider=fastly" color="#FF282D">
+<Card title="Configure Fastly Integration" icon="bolt" color="#FF282D" href="https://cloud.projectdiscovery.io/assets/configure?provider=fastly">
   Click here to open the Fastly integration configuration page in the ProjectDiscovery Cloud platform
 </Card>
 
-* **Cloudflare**: DNS and CDN assets
-
-* **Fastly**: CDN endpoints
-
-* **Namecheap**: Domain management
+- **Cloudflare**: DNS and CDN assets
+- **Fastly**: CDN endpoints
+- **Namecheap**: Domain management
 
 ### VPS & PaaS Providers
 
 Access these providers through [Assets → Connect Cloud Services](https://cloud.projectdiscovery.io/assets/configure):
 
-<Card title="Configure DigitalOcean Integration" icon="digital-ocean" href="https://cloud.projectdiscovery.io/assets/configure?provider=digitalocean" color="#0080FF">
+<Card title="Configure DigitalOcean Integration" icon="digital-ocean" color="#0080FF" href="https://cloud.projectdiscovery.io/assets/configure?provider=digitalocean">
   Click here to open the DigitalOcean integration configuration page in the ProjectDiscovery Cloud platform
 </Card>
 
-* **DigitalOcean**: Droplets and managed services
-
-* **Scaleway**: Instances and managed services
-
-* **Heroku**: Applications and add-ons
-
-* **Linode**: Compute instances
-
-* **Hetzner Cloud**: Cloud servers
+- **DigitalOcean**: Droplets and managed services
+- **Scaleway**: Instances and managed services
+- **Heroku**: Applications and add-ons
+- **Linode**: Compute instances
+- **Hetzner Cloud**: Cloud servers
