@@ -45,25 +45,13 @@ icon: "plug-circle-plus"
   <Card title="Kubernetes" icon="dharmachakra" href="#kubernetes">
     
   </Card>
-  <Card title="Hashicorp" icon="cube" href="#hashicorp-stack">
+  <Card title="Cloudflare" icon="cloudflare" href="#cloudflare">
     
   </Card>
-  <Card title="Cloudflare" icon="cloudflare" href="#cdn-%26-dns-providers">
+  <Card title="Fastly" icon="bolt" href="#fastly">
     
   </Card>
-  <Card title="Fastly" icon="bolt" href="#cdn-%26-dns-providers">
-    
-  </Card>
-  <Card title="Namecheap" icon="globe" href="#cdn-%26-dns-providers">
-    
-  </Card>
-  <Card title="DigitalOcean" icon="digital-ocean" href="#vps-%26-paas-providers">
-    
-  </Card>
-  <Card title="Heroku" icon="h" href="#vps-%26-paas-providers">
-    
-  </Card>
-  <Card title="Linode" icon="server" href="#vps-%26-paas-providers">
+  <Card title="DigitalOcean" icon="digital-ocean" href="#digitalocean">
     
   </Card>
 </CardGroup>
@@ -200,11 +188,11 @@ ProjectDiscovery supports integrations with all popular cloud providers to autom
 
 ### AWS (Amazon Web Services)
 
-ProjectDiscovery's AWS integration allows the platform to automatically discover and monitor cloud assets across your AWS accounts. By connecting AWS to ProjectDiscovery, security teams and DevOps engineers gain continuous visibility into EC2 instances, S3 buckets, DNS records, and other resources without manual inventory. This integration leverages ProjectDiscovery's open-source **Cloudlist** engine to enumerate assets via AWS APIs. In short, it helps ensure no cloud asset goes unnoticed, enabling proactive security monitoring and easier management of your attack surface.
-
 <Card title="Configure AWS Integration" icon="aws" color="#FF9900" href="https://cloud.projectdiscovery.io/assets/configure?provider=aws">
   Click here to open the AWS integration configuration page in the ProjectDiscovery Cloud platform
 </Card>
+
+ProjectDiscovery's AWS integration allows the platform to automatically discover and monitor cloud assets across your AWS accounts. By connecting AWS to ProjectDiscovery, security teams and DevOps engineers gain continuous visibility into EC2 instances, S3 buckets, DNS records, and other resources without manual inventory. This integration leverages ProjectDiscovery's open-source **Cloudlist** engine to enumerate assets via AWS APIs. In short, it helps ensure no cloud asset goes unnoticed, enabling proactive security monitoring and easier management of your attack surface.
 
 <img
   src="/images/aws-integration.png"
@@ -230,7 +218,7 @@ Supported AWS Services:
 
 By covering these services, ProjectDiscovery can map out a broad range of AWS assets in your account. (Support for additional services may be added over time.)
 
-**AWS Connection Methods**
+**AWS Integration Methods**
 
 ProjectDiscovery supports three methods to connect to AWS, each suited for different use cases and security preferences:
 
@@ -371,9 +359,18 @@ If all checks out, ProjectDiscovery is now actively monitoring your AWS environm
 
 ### Google Cloud Platform (GCP)
 
-<Card title="Configure GCP Integration" icon="google" color="#4285F4" href="https://cloud.projectdiscovery.io/assets/configure?provider=gcp">
+<Card title="Configure GCP Integration" icon="google" iconType="regular" color="#4285F4" href="https://cloud.projectdiscovery.io/assets/configure?provider=gcp">
   Click here to open the GCP integration configuration page in the ProjectDiscovery Cloud platform
 </Card>
+
+ProjectDiscovery's GCP integration allows the platform to automatically discover and monitor cloud assets across your GCP account.
+
+<img
+  src="/images/GCP_integration_screen.png"
+  alt="GCP Integration Screen Pn"
+  title="GCP Integration Screen Pn"
+  style={{ width:"61%" }}
+/>
 
 Supported GCP Services:
 
@@ -384,23 +381,16 @@ Supported GCP Services:
 - [Cloud Functions](https://cloud.google.com/functions)
 - [Cloud Run](https://cloud.google.com/run)
 
-Google Cloud Platform can be integrated by using the following configuration block.
+**GCP Integration Method:**
 
-```yaml
-- provider: gcp # provider is the name of the provider
-  # profile is the name of the provider profile
-  id: logs
-  # gcp_service_account_key is the minified json of a google cloud service account with list permissions
-  gcp_service_account_key: '{xxxxxxxxxxxxx}'
-```
-
-`gcp_service_account_key` can be retrieved by creating a new service account. To do so, create service account with Read Only access to `cloudresourcemanager` and `dns` scopes in IAM. Next, generate a new account key for the Service Account by following steps in Reference 2. This should give you a json which can be pasted in a single line in the `gcp_service_account_key`.
+`Service Account Key` can be retrieved by creating a new service account. To do so, create service account with Read Only access to `cloudresourcemanager` and `dns` scopes in IAM. Next, generate a new account key for the Service Account by following steps in Reference 2. This should give you a json which can be pasted in a single line in the `Service Account Key` input box.
 
 Scopes Required: Cloud DNS, GKE
 
 References:
 
 1. https://cloud.google.com/iam/docs/service-account-overview
+2. https://cloud.google.com/iam/docs/keys-create-delete#creating
 
 ### Azure
 
@@ -408,34 +398,44 @@ References:
   Click here to open the Azure integration configuration page in the ProjectDiscovery Cloud platform
 </Card>
 
+<img
+  src="/images/image.png"
+  alt="image.png"
+  title="image.png"
+  style={{ width:"63%" }}
+/>
+
 Supported Azure Services:
 
 - Virtual Machines
 
-**Example Config:**
+**Azure Integration Method:**
 
-Microsoft Azure can be integrated by using the following configuration block.
+To connect ProjectDiscovery to your Azure account, you will need to create and configure an **App Registration** in Azure Active Directory. This process generates a Service Principal with the necessary credentials and permissions to monitor your cloud assets in a secure, read-only manner.
 
-```yaml
-- provider: azure # provider is the name of the provider
-  # id is the name defined by user for filtering (optional)
-  id: staging
-  # client_id is the client ID of registered application of the azure account (not requuired if using cli auth)
-  client_id: $AZURE_CLIENT_ID
-  # client_secret is the secret ID of registered application of the zure account (not requuired if using cli uth)
-  client_secret: $AZURE_CLIENT_SECRET
-  # tenant_id is the tenant ID of registered application of the azure account (not requuired if using cli auth)
-  tenant_id: $AZURE_TENANT_ID
-  #subscription_id is the azure subscription id
-  subscription_id: $AZURE_SUBSCRIPTION_ID
-  #use_cli_auth if set to true cloudlist will use azure cli auth
-  use_cli_auth: true
-```
+The required credentials are:
 
-`tenant_id`, `client_id`, `client_secret` can be obtained/generated from   `All services` \> `Azure Active Directory` \> `App registrations`
-`subscription_id` can be retrieved from  `All services` \> `Subscriptions`
+- Azure Tenant ID
+- Azure Subscription ID
+- Azure Client ID
+- Azure Client Secret
 
-To use cli auth set `use_cli_auth` value to `true` and run `az login` in the terminal
+Below are the steps to get the above  credentials:
+
+1. **Create App Registration:**
+   - Go to **Azure Active Directory \> App registrations \> \+ New registration**.
+   - From the app's **Overview** page, collect the **Application (client) ID** and **Directory (tenant) ID**.
+2. **Generate Client Secret:**
+   - In the app, navigate to **Certificates & secrets \> \+ New client secret**.
+   - **CRITICAL:** Copy the secret **Value** immediately, as it is shown only once.
+3. **Assign Permissions:**
+   - Go to your **Subscription \> Access control (IAM)**.
+   - Add a role assignment to grant the **Reader** role to the App Registration you created.
+   - Note your **Subscription ID** from the subscription's overview page.
+4. **Connect:**
+   - Enter the four collected credentials (Tenant ID, Client ID, Client Secret, and Subscription ID) into ProjectDoscovery Cloud Platform to configure the integration.
+
+To use CLI, follow the instructions mentioned in the references below.
 
 References:
 
@@ -449,34 +449,48 @@ References:
   Click here to open the Alibaba Cloud integration configuration page in the ProjectDiscovery Cloud platform
 </Card>
 
-Suppoted Alibaba Cloud Services:
+<img
+  src="/images/Alibaba_integration_screen.png"
+  alt="Alibaba Integration Screen Pn"
+  title="Alibaba Integration Screen Pn"
+  style={{ width:"62%" }}
+/>
+
+Supported Alibaba Cloud Services:
 
 - ECS Instances
 
-**Example Config:**
+**Alibaba Integration Method**
 
-Alibaba Cloud can be integrated by using the following configuration block.
+This guide details the secure, best-practice method for connecting to Alibaba Cloud using a dedicated RAM user with read-only permissions.
 
-```yaml
-- provider: alibaba # provider is the name of the provider
-  # id is the name defined by user for filtering (optional)
-  id: staging
-  # alibaba_region_id is the region id of the resources
-  alibaba_region_id: $ALIBABA_REGION_ID
-  # alibaba_access_key is the access key ID for alibaba cloud account
-  alibaba_access_key: $ALIBABA_ACCESS_KEY
-  # alibaba_access_key_secret is the secret access key for alibaba cloud account
-  alibaba_access_key_secret: $ALIBABA_ACCESS_KEY_SECRET
-```
+1. **Create a RAM User for API Access:**
+   - Navigate to the **RAM (Resource Access Management) console**. [Ref](https://ram.console.aliyun.com/manage/ak)
+   - From the left menu, go to **Identities \> Users** and click **Create User**.
+   - Enter a **Logon Name** (e.g., `projectdiscovery-readonly`).
+   - For **Access Mode**, select **OpenAPI Access** and click **OK**. This is for programmatic access, not console login.
+2. **Securely Store the Access Key**: An AccessKey pair is generated immediately after the user is created. This is the only time the secret is shown.
 
-Alibaba Cloud Access Key ID and Secret can be created by visiting https://ram.console.aliyun.com/manage/ak
+   <Info>
+     On the confirmation screen, copy the **AccessKey ID** and the **AccessKey Secret**. Store them in a secure location immediately. The secret cannot be retrieved after you close this dialog.
+   </Info>
+3. **Grant Read-Only Permissions:**
+   - Return to the **Users** list.
+   - Find the user you just created and click **Add Permissions** in the _Actions_ column.
+   - Select the **System Policy** type.
+   - Search for and select the `AliyunReadOnlyAccess` policy and click **OK**. This is the official, managed policy for read-only access to all cloud resources.
+4. **Find Your Region ID and Connect:**
+   - Identify the **Region ID** for the resources you plan to monitor. You can find the official list in the Alibaba Cloud documentation here: [Regions and zones](https://www.alibabacloud.com/help/en/doc-detail/40654.htm) (This link lists the specific IDs required for API configuration).
+   - Use the credentials you have collected to fill in the fields in ProjectDiscovery:
+     - **Alibaba Region ID**: The target region, for example, `us-east-1`.
+     - **Alibaba Access Key**: The AccessKey ID from Step 2.
+     - **Alibaba Access Key Secret**: The AccessKey Secret from Step 2.
+   - Enter a unique **Integration Name** and click **Verify**.
 
 References:
 
 1. https://www.alibabacloud.com/help/faq-detail/142101.htm
 2. https://www.alibabacloud.com/help/doc-detail/53045.htm
-
-## Infrastructure & Platform Services
 
 ### Kubernetes
 
@@ -484,48 +498,150 @@ References:
   Click here to open the Kubernetes integration configuration page in the ProjectDiscovery Cloud platform
 </Card>
 
-Support for:
+<img
+  src="/images/Kubernetes_integration_screen.png"
+  alt="Kubernetes Integration Screen Pn"
+  title="Kubernetes Integration Screen Pn"
+  style={{ width:"62%" }}
+/>
+
+Supported Kubernetes Services:
 
 - Services
 - Ingresses
 - Cross-cloud cluster discovery
 
-Navigate to [Assets → Connect Cloud Services → Kubernetes](https://cloud.projectdiscovery.io/assets/configure) to configure your cluster access.
+**Kubernetes Integration Method**
 
-### Hashicorp Stack
+1. **Prepare Base64-Encoded Kubeconfig**
+   - Your kubeconfig file is typically located at:
 
-Support for:
+     ```
+     ~/.kube/config
+     ```
+   - Encode it using:
 
-- Terraform state file parsing
-- Nomad services
-- Consul services
+     ```
+     cat ~/.kube/config | base64
+     ```
+   - Paste the output into the **Kubeconfig** field in the UI.
 
-### CDN & DNS Providers
+     > ⚠️ Ensure the entire content is copied without extra whitespace.
+2. **Specify Context (Optional)**
+   - If your kubeconfig has multiple contexts, find them with:
 
-Configure these providers through [Assets → Connect Cloud Services](https://cloud.projectdiscovery.io/assets/configure):
+     ```
+     kubectl config get-contexts
+     ```
+   - To view the current context:
+
+     ```
+     kubectl config current-context
+     ```
+   - Use the relevant context name if required.
+3. **Define Integration Name & Verify**
+
+   Choose a unique, descriptive name for this integration and click \*\*Verify \*\*to complete the integration.
+
+References
+
+1. https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/
+
+### Cloudflare
 
 <Card title="Configure Cloudflare Integration" icon="cloudflare" color="#F38020" href="https://cloud.projectdiscovery.io/assets/configure?provider=cloudflare">
   Click here to open the Cloudflare integration configuration page in the ProjectDiscovery Cloud platform
 </Card>
 
+<img
+  src="/images/Cloudflare_integration_screen.png"
+  alt="Cloudflare Integration Screen Pn"
+  title="Cloudflare Integration Screen Pn"
+  style={{ width:"63%" }}
+/>
+
+Supported Cloudflare Services:
+
+- DNS and CDN assets
+
+**Cloudflare Integration Methods:**
+
+You can integrate Cloudflare into ProjectDiscovery via one of two methods:
+
+1. **Global API Key**
+   - Go to Cloudflare Dashboard.
+   - Under "API Keys", locate the **Global API Key** and click **View.**
+   - Authenticate and copy the key.
+   - Now enter the  Cloudflare account email and Global API Key copied in above step into ProjectDiscovery Cloud Platform.
+   - Give a unique Integration name and click **Verify**.
+2. **API Toekn**
+   - From the [Cloudflare dashboard ↗](https://dash.cloudflare.com/profile/api-tokens/), go to **My Profile** \> **API Tokens** for user tokens. For Account Tokens, go to **Manage Account** \> **API Tokens**.
+   - Select **Create Token**.
+   - Give required permission (follow reference 2 for details) and create token. Copy the Token
+   - Now enter API Token in ProjectDiscovery Cloud Platform.
+   - Give a unique Integration name and click **Verify**.
+
+References:
+
+1. https://developers.cloudflare.com/api/keys
+2. https://developers.cloudflare.com/fundamentals/api/get-started/create-token/
+
+### Flastly
+
 <Card title="Configure Fastly Integration" icon="bolt" color="#FF282D" href="https://cloud.projectdiscovery.io/assets/configure?provider=fastly">
   Click here to open the Fastly integration configuration page in the ProjectDiscovery Cloud platform
 </Card>
 
-- **Cloudflare**: DNS and CDN assets
-- **Fastly**: CDN endpoints
-- **Namecheap**: Domain management
+<img
+  src="/images/Fastly_Integration_Screen.png"
+  alt="Fastly Integration Screen Pn"
+  title="Fastly Integration Screen Pn"
+  style={{ width:"65%" }}
+/>
 
-### VPS & PaaS Providers
+**Fastly Integration Method**
 
-Access these providers through [Assets → Connect Cloud Services](https://cloud.projectdiscovery.io/assets/configure):
+- Go to Fastly [account settings](https://manage.fastly.com/account/personal).
+- Under **API**, click **Create API token** if you don’t already have one.
+- Copy the API Key.
+- Now enter API Key in ProjectDiscovery Cloud Platform.
+- Give a unique Integration name and click **Verify**.
+
+  <Tip>
+    Tip: In Fastly's documentation and interfaces, "API Key" and "API Token" refer to the same thing. You can use the terms interchangeably throughout this guide.
+  </Tip>
+
+References:
+
+1. https://docs.fastly.com/en/guides/using-api-tokens#creating-api-tokens
+
+### DigitalOcean
 
 <Card title="Configure DigitalOcean Integration" icon="digital-ocean" color="#0080FF" href="https://cloud.projectdiscovery.io/assets/configure?provider=digitalocean">
   Click here to open the DigitalOcean integration configuration page in the ProjectDiscovery Cloud platform
 </Card>
 
-- **DigitalOcean**: Droplets and managed services
-- **Scaleway**: Instances and managed services
-- **Heroku**: Applications and add-ons
-- **Linode**: Compute instances
-- **Hetzner Cloud**: Cloud servers
+<img
+  src="/images/DigitalOcean_integration_screen.png"
+  alt="Digital Ocean Integration Screen Pn"
+  title="Digital Ocean Integration Screen Pn"
+  style={{ width:"66%" }}
+/>
+
+**DigitalOcean Integration Method**
+
+- Go to DigitalOcean [API Settings](https://cloud.digitalocean.com/account/api/tokens).
+- Click **Generate New Token**
+- Provide a name and enable **read-only** access scope
+- Copy the token
+- Now enter token in ProjectDiscovery Cloud Platform.
+- Give a unique Integration name and click **Verify**.
+
+Supported Services:
+
+- Droplets and managed services
+
+References:
+
+1. https://docs.digitalocean.com/reference/api/create-personal-access-token/
+2. https://docs.digitalocean.com/reference/api/
