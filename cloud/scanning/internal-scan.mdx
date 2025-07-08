@@ -17,7 +17,7 @@ ProjectDiscovery offers two distinct approaches for internal network vulnerabili
 </CardGroup>
 
 <Note>
-Internal scanning helps identify misconfigurations, unpatched systems, and security gaps that could be exploited for lateral movement before attackers can leverage them.
+  Internal scanning helps identify misconfigurations, unpatched systems, and security gaps that could be exploited for lateral movement before attackers can leverage them.
 </Note>
 
 ## Port Discovery with Naabu
@@ -36,11 +36,11 @@ naabu -host 192.168.1.1/24 -rate 1000 -o internal_ports.txt
 ```
 
 <Note>
-The discovered ports can be used as input for vulnerability scanning to ensure thorough coverage of all exposed services. Learn more about Naabu's capabilities in our [detailed documentation](/tools/naabu/overview).
+  The discovered ports can be used as input for vulnerability scanning to ensure thorough coverage of all exposed services. Learn more about Naabu's capabilities in our [detailed documentation](/tools/naabu/overview).
 </Note>
 
 <Info>
-Naabu will soon be integrated directly into ProjectDiscovery's internal vulnerability scanning capabilities. Contact our [sales team](https://projectdiscovery.io/request-demo) to be notified when this feature becomes available.
+  Naabu will soon be integrated directly into ProjectDiscovery's internal vulnerability scanning capabilities. Contact our [sales team](https://projectdiscovery.io/request-demo) to be notified when this feature becomes available.
 </Info>
 
 ## Method 1: Cloud-Managed Scanning (Recommended)
@@ -48,19 +48,20 @@ Naabu will soon be integrated directly into ProjectDiscovery's internal vulnerab
 [TunnelX](https://github.com/projectdiscovery/tunnelx) is our open-source tunneling solution, purpose-built by ProjectDiscovery to enable secure internal scanning. It establishes isolated SOCKS5 proxies that let you trigger scans directly from the ProjectDiscovery interface while ensuring your internal infrastructure remains protected and unexposed.
 
 <Note>
-Cloud-managed internal scanning with TunnelX is an Enterprise-exclusive feature. Free and Pro users can still perform internal scans using the local scanning method described above.
+  Cloud-managed internal scanning with TunnelX is an Enterprise-exclusive feature. Free users can still perform internal scans using the local scanning method described above.
 </Note>
 
 <Note>
-**System Requirements**  
-TunnelX is designed to be lightweight and efficient. Minimum recommended specifications for optimal performance:
-- **CPU:** 1 vCPU/Core
-- **Memory:** 2GB RAM
-- **Network:** 100Mbps network interface
-- **Storage:** 10GB available disk space
-- **Operating System:** Linux (recommended), macOS, or Windows
+  **System Requirements**\
+  TunnelX is designed to be lightweight and efficient. Minimum recommended specifications for optimal performance:
 
-These specifications are suitable for most deployment scenarios. A basic VPS (Virtual Private Server) meeting these requirements is sufficient for running TunnelX efficiently.
+  - **CPU:** 1 vCPU/Core
+  - **Memory:** 2GB RAM
+  - **Network:** 100Mbps network interface
+  - **Storage:** 10GB available disk space
+  - **Operating System:** Linux (recommended), macOS, or Windows
+
+  These specifications are suitable for most deployment scenarios. A basic VPS (Virtual Private Server) meeting these requirements is sufficient for running TunnelX efficiently.
 </Note>
 
 ### Install TunnelX
@@ -68,6 +69,7 @@ These specifications are suitable for most deployment scenarios. A basic VPS (Vi
 Choose your preferred installation method:
 
 <CodeGroup>
+
 ```bash Docker (Recommended)
 # Pull and run the official image
 docker run --network host -d \
@@ -79,6 +81,7 @@ docker build -t tunnelx https://github.com/projectdiscovery/tunnelx.git
 docker run --network host -d -e PDCP_API_KEY="your_api_key" tunnelx
 ```
 
+
 ```bash Go Installation
 # Install using go install
 go install github.com/projectdiscovery/tunnelx@latest
@@ -88,6 +91,7 @@ export PDCP_API_KEY="your_api_key"
 tunnelx
 ```
 
+
 ```bash Source
 # Clone and run from source
 git clone https://github.com/projectdiscovery/tunnelx.git
@@ -95,6 +99,7 @@ cd tunnelx
 export PDCP_API_KEY="your_api_key"
 go run .
 ```
+
 </CodeGroup>
 
 ### Triggering Internal Scans
@@ -102,19 +107,21 @@ go run .
 Once you've successfully configured TunnelX, you can easily trigger internal scans directly from the ProjectDiscovery Cloud Platform:
 
 1. **Navigate to Scans Dashboard**:
-   - Go to [https://cloud.projectdiscovery.io/scans](https://cloud.projectdiscovery.io/scans)
+   - Go to https://cloud.projectdiscovery.io/scans
    - Click the "Create new scan" button
-
 2. **Configure Your Scan**:
    - Set your targets, templates, and other scan configurations
    - Proceed to the final "Scan settings" step
-
 3. **Enable Internal Scanning**:
    - In the bottom left corner of the Scan settings screen, you'll see an "Internal Scan" option
    - Select this option to use your connected TunnelX proxy
    - Choose the appropriate internal proxy connection from the dropdown
 
-<img width="800" src="/images/tunnelx-scan-time.png" alt="Internal Scan Option in Scan Settings" />
+<img
+  width="800"
+  src="/images/tunnelx-scan-time.png"
+  alt="Internal Scan Option in Scan Settings"
+/>
 
 4. **Launch Your Scan**:
    - Click "Create scan" to start scanning your internal targets
@@ -122,11 +129,11 @@ Once you've successfully configured TunnelX, you can easily trigger internal sca
 Your scan will now execute against internal targets through the secure TunnelX connection, with results appearing in your ProjectDiscovery dashboard just like external scans.
 
 <Note>
-TunnelX connections appear automatically in the dropdown once properly configured. If you don't see your connection, check that TunnelX is running properly and your API key is correctly configured.
+  TunnelX connections appear automatically in the dropdown once properly configured. If you don't see your connection, check that TunnelX is running properly and your API key is correctly configured.
 </Note>
 
 <Note>
-**Important:** Only input targets that are actually accessible from the machine where TunnelX is running. For example, if TunnelX is deployed on a server in your internal network (192.168.1.0/24), it can only scan hosts within that network or other networks it has routing access to. If you input external targets or internal hosts that the TunnelX machine cannot reach, the scan will fail.
+  **Important:** Only input targets that are actually accessible from the machine where TunnelX is running. For example, if TunnelX is deployed on a server in your internal network (192.168.1.0/24), it can only scan hosts within that network or other networks it has routing access to. If you input external targets or internal hosts that the TunnelX machine cannot reach, the scan will fail.
 </Note>
 
 ## Method 2: Local Scanning & Upload
@@ -137,9 +144,15 @@ This approach lets you run Nuclei locally and upload results to ProjectDiscovery
 
 To connect your existing Nuclei results to PDCP you will need to create a free API Key:
 
-1. Visit https://cloud.projectdiscovery.io 
+1. Visit https://cloud.projectdiscovery.io
 2. Open the setting menu from the top right and select "API Key" to create your API Key
-<img class="block" src="/images/pdcp-api-key.png" alt="PDCP API Key" />
+
+<img
+  class="block"
+  src="/images/pdcp-api-key.png"
+  alt="PDCP API Key"
+/>
+
 3. Use the `nuclei -auth` command, and enter your API key when prompted.
 
 ### Configure Team (Optional)
@@ -147,21 +160,27 @@ To connect your existing Nuclei results to PDCP you will need to create a free A
 If you want to upload the scan results to a team workspace instead of your personal workspace, you can configure the Team ID using either method:
 
 - **Obtain Team ID:**
-  - Navigate to [https://cloud.projectdiscovery.io/settings/team](https://cloud.projectdiscovery.io/settings/team)
+  - Navigate to https://cloud.projectdiscovery.io/settings/team
   - Copy the Team ID from the top right section
-  <img class="block" src="/images/platform/obtain-team-id.png" alt="Obtain Team ID" />
 
+  <img
+    class="block"
+    src="/images/platform/obtain-team-id.png"
+    alt="Obtain Team ID"
+  />
 - **CLI Option:**
+
   ```bash
   nuclei -tid XXXXXX -cloud-upload
   ```
-
 - **ENV Variable:**
+
   ```bash
   export PDCP_TEAM_ID=XXXXX
   ```
 
 2. Run your scan with the upload flag:
+
 ```bash
 # Single target
 nuclei -u http://internal-target -cloud-upload
@@ -174,5 +193,5 @@ nuclei -u http://internal-target -t misconfiguration/ -cloud-upload
 ```
 
 <Note>
-This method is ideal when you want to maintain complete control over scan execution or integrate with existing automation scripts.
+  This method is ideal when you want to maintain complete control over scan execution or integrate with existing automation scripts.
 </Note>

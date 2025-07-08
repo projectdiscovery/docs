@@ -6,7 +6,7 @@ sidebarTitle: "External Scanning"
 External vulnerability scanning is crucial for understanding your organization's security posture from an attacker's perspective. ProjectDiscovery's approach combines thorough asset discovery with precise vulnerability detection, focusing on exploitable issues rather than theoretical or low severity vulnerabilities.
 
 <Note>
-Before starting external scans, ensure you have a complete inventory of your internet facing assets. Learn more about our [Asset Discovery and Management](/cloud/assets/overview) capabilities.
+  Before starting external scans, ensure you have a complete inventory of your internet facing assets. Learn more about our [Asset Discovery and Management](/cloud/assets/overview) capabilities.
 </Note>
 
 ## Scanning Capabilities
@@ -16,6 +16,7 @@ ProjectDiscovery offers multiple scanning approaches, with automated scanning en
 <CardGroup cols={3}>
   <Card title="Automatic Triggers" icon="bolt">
     Scans automatically initiate when:
+
     - New assets are discovered
     - New templates are released
     - Infrastructure changes detected
@@ -49,29 +50,19 @@ ProjectDiscovery offers multiple scanning approaches, with automated scanning en
 </CardGroup>
 
 <Note>
-ProjectDiscovery offers tiered scanning capabilities: Pro users can perform ultra-fast cloud scans (50x faster) with support for up to 1,000 assets, while Enterprise users gain additional features like custom scan limits, custom rate limits, and fixed scan IPs for whitelisting. Free users are limited to internal vulnerability scans only - learn more about internal scanning [here](/cloud/scanning/nuclei-scan).
+  ProjectDiscovery offers Enterprise users gain additional features like custom scan limits, custom rate limits, and fixed scan IPs for whitelisting. Free users are limited to internal vulnerability scans only - learn more about internal scanning [here](/cloud/scanning/nuclei-scan).
 </Note>
 
 ## Get Started with External Scanning
 
 <CardGroup cols={3}>
-  <Card 
-    title="Create Scan" 
-    icon="play" 
-    href="https://cloud.projectdiscovery.io/scans"
-    color="green">
+  <Card title="Create Scan" icon="play" color="green" href="https://cloud.projectdiscovery.io/scans">
     Launch your first external vulnerability scan
   </Card>
-  <Card 
-    title="Configure Settings" 
-    icon="sliders" 
-    href="https://cloud.projectdiscovery.io/scans/configs">
+  <Card title="Configure Settings" icon="sliders" href="https://cloud.projectdiscovery.io/scans/configs">
     Customize scan parameters and templates
   </Card>
-  <Card 
-    title="Set Up Integrations" 
-    icon="plug" 
-    href="/cloud/integrations">
+  <Card title="Set Up Integrations" icon="plug" href="/cloud/integrations">
     Connect with your security tools and workflows
   </Card>
 </CardGroup>
@@ -85,12 +76,14 @@ POST https://api.projectdiscovery.io/v1/scans
 ```
 
 Required headers:
+
 ```http
 X-API-Key: your-api-key
 X-Team-Id: your-team-id  # Find at cloud.projectdiscovery.io/settings/team
 ```
 
 Example request body:
+
 ```json
 {
   "name": "External Scan",
@@ -104,26 +97,21 @@ Example request body:
 ```
 
 <Note>
-For detailed API documentation and additional endpoints, refer to our [API Reference](https://docs.projectdiscovery.io/api-reference/scans/create-scan).
+  For detailed API documentation and additional endpoints, refer to our [API Reference](https://docs.projectdiscovery.io/api-reference/scans/create-scan).
 </Note>
-
 
 ## Browsing Scan Results
 
 Once your scans are complete, you can explore the results to gain insights into your security posture. The ProjectDiscovery Cloud Platform provides a comprehensive view of all scan results, allowing you to:
 
 - **View All Scans**: Access a summary of all scans in your environment. Use categories like Vulnerabilities, Info, and Affected Assets to filter and refine your results.
-  
 - **Explore Individual Scans**: Click on a specific scan to view detailed results, including vulnerabilities, affected assets, and detection information. Use filters such as Status, Severity, and Host to navigate through the data. Example scan URL: `cloud.projectdiscovery.io/scans/<id>`.
-
 - **Review Vulnerabilities**: Expand each vulnerability to see complete details, including the templates used, assets affected, and detection information. You can also export vulnerabilities in various formats (JSON, CSV, PDF) and modify their status (e.g., false positives, closed).
-
 - **Retest and Remediate**: Retest individual vulnerabilities to confirm fixes and review remediation recommendations provided for each issue.
-
 - **Access Logs**: View scanning logs for detailed information on time, assets, detection templates, and match results. Logs also include error information to assist with troubleshooting. Access logs directly using the format: `/scans/<id>/logs`.
 
 <Note>
-New to ProjectDiscovery? Start with [Asset Discovery](/cloud/assets/overview) to ensure comprehensive coverage of your external attack surface.
+  New to ProjectDiscovery? Start with [Asset Discovery](/cloud/assets/overview) to ensure comprehensive coverage of your external attack surface.
 </Note>
 
 ## Next Steps
@@ -131,4 +119,3 @@ New to ProjectDiscovery? Start with [Asset Discovery](/cloud/assets/overview) to
 - [Configure Asset Discovery](/cloud/assets/adding-assets)
 - [Create Custom Templates](/cloud/editor/introduction)
 - [View Integration Options](/cloud/integrations)
-
