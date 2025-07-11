@@ -41,6 +41,20 @@ example3.com
 6.6.6.6
 [INF] Found 2 hosts and 6 IPs from AWS service (prod)
 ```
+## GCP Asset API Examples
+
+List all assets from a specific GCP organization using the Asset API:
+
+```bash
+cloudlist -provider gcp -id organization
+```
+
+List assets from specific GCP projects only:
+
+```bash
+cloudlist -provider gcp -id organization -json | jq '.[] | select(.provider == "gcp")'
+```
+
 ## Running cloudlist with Nuclei
 
 Scanning assets from various cloud providers with nuclei for security assessments:- 
@@ -86,6 +100,20 @@ The default provider config file should be located at `$HOME/.config/cloudlist/p
   id: logs
   # gcp_service_account_key is the minified json of a google cloud service account with list permissions
   gcp_service_account_key: '{xxxxxxxxxxxxx}'
+
+# GCP with Asset API (organization-level discovery)
+- provider: gcp # provider is the name of the provider
+  id: organization
+  # gcp_service_account_key is the minified json of a google cloud service account with asset inventory permissions
+  gcp_service_account_key: '{xxxxxxxxxxxxx}'
+  # use_asset_inventory enables the Cloud Asset Inventory API
+  use_asset_inventory: true
+  # organization_id is the organization ID (e.g., "123456789012")
+  organization_id: $GCP_ORGANIZATION_ID
+  # project_ids is a list of project IDs to scan (optional)
+  project_ids:
+    - $GCP_PROJECT_ID_1
+    - $GCP_PROJECT_ID_2
 
 - provider: azure # provider is the name of the provider
   # id is the name defined by user for filtering (optional)

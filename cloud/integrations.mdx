@@ -363,7 +363,7 @@ If all checks out, ProjectDiscovery is now actively monitoring your AWS environm
   Click here to open the GCP integration configuration page in the ProjectDiscovery Cloud platform
 </Card>
 
-ProjectDiscovery's GCP integration allows the platform to automatically discover and monitor cloud assets across your GCP account.
+ProjectDiscovery's GCP integration allows the platform to automatically discover and monitor cloud assets across your GCP account. The integration supports **two discovery approaches** to accommodate different organizational structures and permission models.
 
 <img
   src="/images/GCP_integration_screen.png"
@@ -381,16 +381,31 @@ Supported GCP Services:
 - [Cloud Functions](https://cloud.google.com/functions)
 - [Cloud Run](https://cloud.google.com/run)
 
-**GCP Integration Method:**
+**GCP Integration Methods:**
 
-`Service Account Key` can be retrieved by creating a new service account. To do so, create service account with Read Only access to `cloudresourcemanager` and `dns` scopes in IAM. Next, generate a new account key for the Service Account by following steps in Reference 2. This should give you a json which can be pasted in a single line in the `Service Account Key` input box.
+1. **Organization-Level Asset API** (Recommended for Enterprises)
+   - Uses Google Cloud's **Asset Inventory API** for comprehensive organization-wide discovery
+   - Discovers assets across entire GCP organization with a single configuration
+   - Requires organization-level permissions: `roles/cloudasset.viewer` and `roles/resourcemanager.viewer`
+   - Ideal for large organizations with multiple projects
 
-Scopes Required: Cloud DNS, GKE
+2. **Individual Service APIs** (Default)
+   - Uses individual GCP service APIs for project-specific discovery
+   - Faster execution with detailed resource metadata
+   - Requires project-level permissions for each service
+   - Ideal for focused, single-project discovery
+
+**Service Account Setup:**
+
+`Service Account Key` can be retrieved by creating a new service account. For individual service APIs, create service account with Read Only access to `cloudresourcemanager` and `dns` scopes in IAM. For organization-level discovery, grant organization-level Asset API permissions. Generate a new account key for the Service Account by following steps in Reference 2. This should give you a json which can be pasted in a single line in the `Service Account Key` input box.
+
+Scopes Required: Cloud DNS, GKE, Cloud Asset Inventory (for org-level discovery)
 
 References:
 
 1. https://cloud.google.com/iam/docs/service-account-overview
 2. https://cloud.google.com/iam/docs/keys-create-delete#creating
+3. https://cloud.google.com/asset-inventory/docs/overview
 
 ### Azure
 
