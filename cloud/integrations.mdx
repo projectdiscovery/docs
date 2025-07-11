@@ -395,11 +395,111 @@ Supported GCP Services:
    - Requires project-level permissions for each service
    - Ideal for focused, single-project discovery
 
-**Service Account Setup:**
+### Finding Your Organization ID
 
-`Service Account Key` can be retrieved by creating a new service account. For individual service APIs, create service account with Read Only access to `cloudresourcemanager` and `dns` scopes in IAM. For organization-level discovery, grant organization-level Asset API permissions. Generate a new account key for the Service Account by following steps in Reference 2. This should give you a json which can be pasted in a single line in the `Service Account Key` input box.
+1. **Via Google Cloud Console:**
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - In the top navigation, click on the **project selector** (next to "Google Cloud Platform")
+   - Click **All** tab to view all resources
+   - Look for your organization name - the **Organization ID** is displayed next to it
+   - Alternatively, go to [IAM & Admin > Settings](https://console.cloud.google.com/iam-admin/settings) - your Organization ID will be shown at the top
 
-Scopes Required: Cloud DNS, GKE, Cloud Asset Inventory (for org-level discovery)
+2. **Via gcloud CLI:**
+   ```bash
+   # List all organizations you have access to
+   gcloud organizations list
+   
+   # Get current organization (if configured)
+   gcloud config get-value project
+   gcloud projects describe $(gcloud config get-value project) --format="value(parent.id)"
+   ```
+
+3. **Via Organization Policies Page:**
+   - Navigate to [Organization Policies](https://console.cloud.google.com/iam-admin/orgpolicies) in the Console
+   - Your Organization ID will be displayed in the URL and page header
+
+### Checking Your Permissions
+
+Before setting up the integration, verify you have the necessary permissions:
+
+1. **For Organization-Level Integration:**
+   ```bash
+   # Check if you can list organization assets
+   gcloud organizations list
+   
+   # Check if you have the required roles
+   gcloud organizations get-iam-policy YOUR_ORG_ID --flatten="bindings[].members" --format="table(bindings.role)" --filter="bindings.members:user:YOUR_EMAIL"
+   ```
+
+2. **For Project-Level Integration:**
+   ```bash
+   # Check project permissions
+   gcloud projects get-iam-policy YOUR_PROJECT_ID --flatten="bindings[].members" --format="table(bindings.role)" --filter="bindings.members:user:YOUR_EMAIL"
+   ```
+
+## Step-by-Step Setup Instructions
+
+### Option 1: Organization-Level Asset API Setup
+
+1. **Verify Organization Access:**
+   - Ensure you have `roles/cloudasset.viewer` and `roles/resourcemanager.viewer` at the organization level
+   - You can check this in [IAM & Admin > IAM](https://console.cloud.google.com/iam-admin/iam) by switching to your organization scope
+
+2. **Create Service Account:**
+   - Navigate to any project within your organization
+   - Go to [IAM & Admin > Service Accounts](https://console.cloud.google.com/iam-admin/serviceaccounts)
+   - Click **Create Service Account**
+   - Name it something like `projectdiscovery-org-scanner`
+   - Click **Create and Continue**
+
+3. **Grant Organization-Level Permissions:**
+   - Go to [IAM & Admin > IAM](https://console.cloud.google.com/iam-admin/iam)
+   - Switch to your **Organization** scope (not project)
+   - Click **Grant Access**
+   - Enter your service account email: `projectdiscovery-org-scanner@YOUR_PROJECT_ID.iam.gserviceaccount.com`
+   - Assign these roles:
+     - `Cloud Asset Viewer`
+     - `Organization Viewer`
+   - Click **Save**
+
+4. **Generate Service Account Key:**
+   - Return to [Service Accounts](https://console.cloud.google.com/iam-admin/serviceaccounts)
+   - Click on your service account
+   - Go to **Keys** tab
+   - Click **Add Key > Create New Key**
+   - Choose **JSON** format
+   - Download and securely store the key file
+
+### Option 2: Individual Service APIs Setup
+
+1. **Select Target Project:**
+   - Choose the specific project you want to monitor
+   - Note the **Project ID** (not the display name)
+
+2. **Create Service Account:**
+   - Navigate to [IAM & Admin > Service Accounts](https://console.cloud.google.com/iam-admin/serviceaccounts) in your target project
+   - Click **Create Service Account**
+   - Name it something like `projectdiscovery-scanner`
+   - Click **Create and Continue**
+
+3. **Grant Project-Level Permissions:**
+   - On the same page, assign these roles:
+     - `Compute Viewer`
+     - `DNS Reader`
+     - `Storage Object Viewer`
+     - `Cloud Run Viewer`
+     - `Cloud Functions Viewer`
+     - `Kubernetes Engine Viewer`
+     - `Browser` (for basic project access)
+   - Click **Continue** and then **Done**
+
+4. **Generate Service Account Key:**
+   - Click on your service account
+   - Go to **Keys** tab
+   - Click **Add Key > Create New Key**
+   - Choose **JSON** format
+   - Download and securely store the key file
+
 
 References:
 
