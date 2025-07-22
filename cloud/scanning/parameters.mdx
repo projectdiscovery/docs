@@ -10,6 +10,17 @@ ProjectDiscovery's scanning engine supports various configuration options to cus
 
 ## Scan Configurations
 
+### Rate Limiting
+Configure request rate limits to control scan speed and avoid overwhelming target hosts:
+- Set requests per second per host
+- Prevent network congestion
+- Comply with target rate limits
+- Balance speed vs. stealth
+
+<Note>
+Lower rate limit values reduce scan speed but are more respectful to target hosts. Leave empty for maximum speed (default behavior).
+</Note>
+
 ### HTTP Headers
 Configure custom HTTP headers that will be included in all scan requests. This is useful for:
 - Adding authentication tokens
@@ -74,14 +85,31 @@ In ProjectDiscovery Cloud, we need to configure these through the scan configura
   </Step>
 
   <Step title="Basic Configuration">
-    1. Enter a descriptive name (e.g., "WP Authentication")
+    1. Enter a descriptive name (e.g., "WP Authentication" or "Rate Limit Config")
     2. Choose configuration type:
+       - Rate Limiting
        - HTTP Headers
        - Template Variables
        - Interactsh Settings
+    
+    <img
+      className="block dark:hidden"
+      src="/images/Screenshot2025-01-09at3.31.10PM.png"
+      alt="Rate limit configuration dialog"
+    />
+    <img
+      className="hidden dark:block"
+      src="/images/Screenshot2025-01-09at3.31.10PM.png"
+      alt="Rate limit configuration dialog"
+    />
   </Step>
 
   <Step title="Add Parameters">
+    For rate limiting:
+    - Set requests per second per host (e.g., 60)
+    - Leave empty for maximum speed (default)
+    - Consider target server capacity
+    
     For template variables:
     - Add key-value pairs (e.g., username: admin)
     - Set scope (global or template-specific)
@@ -94,9 +122,13 @@ In ProjectDiscovery Cloud, we need to configure these through the scan configura
 
   <Step title="Configure Application Scope">
     1. Choose when to apply this configuration:
-       - Enable for all scans (global)
-       - Manual selection per scan
+       - Enable for all scans (global) - applies rate limiting to every scan automatically
+       - Manual selection per scan - allows you to selectively apply rate limiting
     2. Set template matching criteria (optional)
+    
+    <Note>
+    Rate limiting configurations are particularly useful when applied globally to ensure consistent, respectful scanning behavior across all your scans.
+    </Note>
   </Step>
 </Steps>
 
@@ -115,6 +147,16 @@ To create a template profile:
 4. Save and name your profile
 
 ## Advanced Configuration Examples
+
+### Rate Limiting
+```yaml
+name: "Respectful Scanning"
+type: rate_limiting
+settings:
+  rate_limit_per_host: 50
+description: "Limits requests to 50 per second per host for respectful scanning"
+scope: "global"
+```
 
 ### WordPress Authentication
 ```yaml
@@ -157,6 +199,7 @@ settings:
    - Group related configurations
    - Use template-specific variables when possible
    - Monitor configuration impact on scan times
+   - Set appropriate rate limits to balance speed and target stability
 
 3. **Maintenance**
    - Document configuration purposes
