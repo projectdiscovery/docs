@@ -6,46 +6,98 @@ sidebarTitle: "Configurations"
 
 ## Overview
 
-ProjectDiscovery's scanning engine supports various configuration options to customize scan behavior and template execution. This includes HTTP headers, template variables, interactsh settings, and template profiles. Some templates, particularly those requiring authentication or specific parameters, need additional configuration to work effectively in the cloud platform.
+ProjectDiscovery's scanning engine supports various configuration options to customize scan behavior and template execution. These configurations allow you to set up authentication, rate limiting, custom headers, and template variables through an easy-to-use interface. Some templates, particularly those requiring authentication or specific parameters, need additional configuration to work effectively in the cloud platform.
 
 ## Scan Configurations
 
+When you [create a new scan configuration](https://cloud.projectdiscovery.io/settings/scan?create=true), you'll see a form with several sections that you can fill out based on your needs:
+
+### Configuration Setup
+
+**Config Name** (Required)
+Enter a descriptive name for your configuration to identify it later. Examples:
+- "WordPress Authentication"
+- "Rate Limited Scanning" 
+- "API Key Headers"
+- "Production Environment Config"
+
 ### Rate Limiting
-Configure request rate limits to control scan speed and avoid overwhelming target hosts:
-- Set requests per second per host
-- Prevent network congestion
-- Comply with target rate limits
-- Balance speed vs. stealth
+
+**Rate limit per host**
+Set the number of requests per second per host to control scan speed:
+- Enter a number (e.g., `60` for 60 requests per second)
+- Leave empty for maximum speed (default behavior)
+- Lower values are more respectful to target hosts
+- Higher values increase scan speed but may overwhelm targets
 
 <Note>
 Lower rate limit values reduce scan speed but are more respectful to target hosts. Leave empty for maximum speed (default behavior).
 </Note>
 
-### HTTP Headers
-Configure custom HTTP headers that will be included in all scan requests. This is useful for:
+### Custom Headers
+
+Add HTTP headers that will be included in all scan requests. Click "Add another" to add multiple headers.
+
+**Common Examples:**
+- **Key:** `Authorization` **Value:** `Bearer your-api-token-here`
+- **Key:** `X-API-Key` **Value:** `1234-5678-9012-3456`  
+- **Key:** `User-Agent` **Value:** `Custom Scanner v1.0`
+- **Key:** `X-Forwarded-For` **Value:** `10.0.0.1`
+
+**Use Cases:**
 - Adding authentication tokens
 - Setting specific User-Agent strings
 - Including custom tracking headers
 - Passing required API keys
 
 ### Template Variables
-Define variables that templates can reference during execution. Common use cases include:
+
+Define variables that templates can reference during execution. Click "Add another" to add multiple variables.
+
+**Common Examples:**
+- **Key:** `username` **Value:** `admin`
+- **Key:** `password` **Value:** `your-password-here`
+- **Key:** `domain` **Value:** `example.com`
+- **Key:** `api_key` **Value:** `your-api-key`
+
+**Use Cases:**
 - Authentication credentials
 - API tokens
 - Custom parameters
 - Environment-specific values
 
 ### Interactsh Settings
-Configure out-of-band (OOB) testing parameters:
-- Custom Interactsh server settings
-- Correlation timeout values
-- Callback configurations
+
+Configure out-of-band (OOB) testing parameters for advanced vulnerability detection:
+
+**Server**
+- Enter your custom Interactsh server URL (e.g., `oast.acme`)
+- Leave empty to use the default ProjectDiscovery server
+
+**Token**  
+- Enter your Interactsh token for authentication
+- Required if using a custom server
+- Example format: `1234-5678-9012-3456`
+
+## Practical Example: WordPress Authentication
+
+Many Nuclei templates require WordPress login credentials. Here's how to set this up:
+
+### Step 1: Create the Configuration
+1. **Config Name:** `WordPress Login Config`
+2. **Rate limit per host:** `30` (to avoid overwhelming the WordPress site)
+
+### Step 2: Add Template Variables
+Add these two variables:
+- **Key:** `username` **Value:** `admin` (or your WordPress username)
+- **Key:** `password` **Value:** `your-wordpress-password`
+
+### Step 3: Save and Use
+After saving, you can select this configuration when running scans that include WordPress templates.
 
 ## Authentication Example
 
-Let's look at a practical example using WordPress authentication, which is required by over 150 different Nuclei templates.
-
-Here's a template that requires authentication parameters:
+Let's look at how this works with a real template. Consider this WordPress vulnerability template:
 
 ```yaml
 id: CVE-2023-1890
@@ -66,12 +118,7 @@ http:
         Host: {{Hostname}}
 ```
 
-This template uses two undefined variables (`{{username}}` and `{{password}}`). While in CLI you would use:
-```bash
-nuclei -id CVE-2023-1890 -var username=admin -var password=password123 -target https://example.com
-```
-
-In ProjectDiscovery Cloud, we need to configure these through the scan configuration interface.
+This template uses `{{username}}` and `{{password}}` variables. When you create a configuration with these template variables, the scanner automatically substitutes your values during execution.
 
 ## Setting Up Scan Configurations
 
@@ -79,144 +126,106 @@ In ProjectDiscovery Cloud, we need to configure these through the scan configura
 
 <Steps>
   <Step title="Access Configuration Settings">
-    1. Navigate to Scans → Configurations
-    2. Select "Scan Options"
-    3. Click "New Config"
+    1. Navigate to [Scans → Configurations](https://cloud.projectdiscovery.io/settings/scan)
+    2. Click ["New Integration"](https://cloud.projectdiscovery.io/settings/scan?create=true) or "New Config"
   </Step>
 
-  <Step title="Basic Configuration">
-    1. Enter a descriptive name (e.g., "WP Authentication" or "Rate Limit Config")
-    2. Choose configuration type:
-       - Rate Limiting
-       - HTTP Headers
-       - Template Variables
-       - Interactsh Settings
-    
-    <img
-      className="block dark:hidden"
-      src="/images/Screenshot2025-01-09at3.31.10PM.png"
-      alt="Rate limit configuration dialog"
-    />
-    <img
-      className="hidden dark:block"
-      src="/images/Screenshot2025-01-09at3.31.10PM.png"
-      alt="Rate limit configuration dialog"
-    />
+  <Step title="Fill Out the Form">
+    1. **Config Name:** Enter a descriptive name
+    2. **Rate limit per host:** Set your desired rate limit (optional)
+    3. **Custom headers:** Add any required HTTP headers
+    4. **Template variables:** Add authentication or custom variables  
+    5. **Interactsh:** Configure OOB settings if needed
   </Step>
 
-  <Step title="Add Parameters">
-    For rate limiting:
-    - Set requests per second per host (e.g., 60)
-    - Leave empty for maximum speed (default)
-    - Consider target server capacity
-    
-    For template variables:
-    - Add key-value pairs (e.g., username: admin)
-    - Set scope (global or template-specific)
-    - Configure visibility settings
-    
-    For HTTP headers:
-    - Specify header name and value
-    - Set application conditions
+  <Step title="Save Configuration">
+    1. Click "Create" to save your configuration
+    2. The configuration will be available for future scans
+    3. You can edit or delete it later if needed
   </Step>
 
-  <Step title="Configure Application Scope">
-    1. Choose when to apply this configuration:
-       - Enable for all scans (global) - applies rate limiting to every scan automatically
-       - Manual selection per scan - allows you to selectively apply rate limiting
-    2. Set template matching criteria (optional)
-    
-    <Note>
-    Rate limiting configurations are particularly useful when applied globally to ensure consistent, respectful scanning behavior across all your scans.
-    </Note>
+  <Step title="Apply to Scans">
+    When creating a new scan:
+    1. Select your target
+    2. Choose your configuration from the dropdown
+    3. The settings will automatically apply to your scan
   </Step>
 </Steps>
 
-### Template Profiles
+### Configuration Scope Options
 
-Create custom template collections based on:
-- Severity levels (Critical, High, Medium, Low)
-- Tags (wordpress, cve2023, authenticated, etc.)
-- Protocol types (HTTP, DNS, TCP, etc.)
-- Template IDs
+When you enable the "Enable for all scans" toggle:
+- **Global Application:** The configuration applies to every scan automatically
+- **Manual Selection:** You choose when to apply the configuration per scan
 
-To create a template profile:
-1. Navigate to Scans → Configurations → Template Profiles
-2. Click "New Profile"
-3. Select filtering criteria
-4. Save and name your profile
+**Recommendation:** Use global application for rate limiting configurations to ensure consistent, respectful scanning behavior across all your scans.
 
 ## Advanced Configuration Examples
 
-### Rate Limiting
-```yaml
-name: "Respectful Scanning"
-type: rate_limiting
-settings:
-  rate_limit_per_host: 50
-description: "Limits requests to 50 per second per host for respectful scanning"
-scope: "global"
-```
+### API Testing Setup
+- **Config Name:** `API Testing Config`
+- **Custom Headers:** 
+  - `Authorization: Bearer abc123xyz`
+  - `Content-Type: application/json`
+- **Template Variables:**
+  - `api_endpoint: https://api.example.com`
+  - `api_version: v2`
 
-### WordPress Authentication
-```yaml
-name: "WordPress Auth"
-type: template_variables
-variables:
-  username: "admin"
-  password: "secure_password"
-scope: "wordpress,wp-plugin"
-```
+### E-commerce Platform Testing  
+- **Config Name:** `E-commerce Auth`
+- **Rate limit per host:** `20`
+- **Template Variables:**
+  - `username: testuser`
+  - `password: testpass123`
+  - `shop_domain: myshop.example.com`
 
-### Custom Headers
-```yaml
-name: "API Authentication"
-type: http_headers
-headers:
-  Authorization: "Bearer {{token}}"
-  X-Custom-Header: "value"
-```
-
-### Interactsh Configuration
-```yaml
-name: "Custom OOB Settings"
-type: interactsh
-settings:
-  server: "custom.interactsh.com"
-  token: "your_token"
-  correlation_timeout: 30
-```
+### Corporate Environment
+- **Config Name:** `Corporate Network`
+- **Custom Headers:**
+  - `X-Forwarded-For: 192.168.1.100`
+  - `User-Agent: Corporate Security Scanner`
+- **Rate limit per host:** `10`
 
 ## Best Practices
 
-1. **Security Considerations**
-   - Use environment variables for sensitive values
-   - Implement least-privilege access
+1. **Naming Conventions**
+   - Use descriptive, clear names
+   - Include the purpose (e.g., "WordPress Auth", "Rate Limit - Slow")
+   - Avoid special characters
+
+2. **Security Considerations**
+   - Don't use production passwords in testing
+   - Use dedicated test accounts when possible
    - Regularly rotate credentials
-   - Audit configuration usage
+   - Limit configuration access to authorized users
 
-2. **Performance Optimization**
-   - Group related configurations
-   - Use template-specific variables when possible
-   - Monitor configuration impact on scan times
-   - Set appropriate rate limits to balance speed and target stability
+3. **Rate Limiting Guidelines**
+   - Start with lower values (10-30 requests/second)
+   - Increase gradually based on target capacity
+   - Use global rate limiting for consistent behavior
+   - Monitor target server response times
 
-3. **Maintenance**
-   - Document configuration purposes
-   - Review and update regularly
-   - Remove unused configurations
-   - Test changes before production use
+4. **Template Variables**
+   - Use consistent naming (lowercase, underscores)
+   - Document variable purposes in config names
+   - Test configurations before production use
+   - Keep sensitive values secure
 
 <Note>
-When using authentication credentials or sensitive parameters, ensure they are stored securely and accessed only by authorized users. Consider using environment variables or secure credential storage for sensitive values.
+When using authentication credentials or sensitive parameters, ensure they are stored securely and accessed only by authorized users. Consider using dedicated test accounts rather than production credentials.
 </Note>
+
+## Quick Access Links
+
+- **[View All Configurations](https://cloud.projectdiscovery.io/settings/scan)** - See your existing scan configurations
+- **[Create New Configuration](https://cloud.projectdiscovery.io/settings/scan?create=true)** - Set up a new scan configuration
 
 ## What's Next?
 
 After setting up configurations:
 1. Create new scans using your configurations
 2. Monitor scan results for proper parameter usage
-3. Adjust configurations based on results
-4. Create template profiles for specific use cases
+3. Adjust rate limits based on target performance
+4. Create multiple configurations for different environments
 
 For template development guidance, visit our [Template Editor](/cloud/editor/overview) documentation.
