@@ -30,3 +30,7 @@ The fastest way to get started is through our asset discovery feature:
 <Note>
   Discovery features can be customized for Enterprise plans. Contact our [sales team](mailto:sales@projectdiscovery.io) for custom requirements.
 </Note>
+
+<Note>
+  **Cloudflare Port Exclusions**: By default, the asset discovery process excludes [Cloudflare proxy-compatible ports](https://developers.cloudflare.com/fundamentals/reference/network-ports/#network-ports-compatible-with-cloudflares-proxy) during enumeration to optimize scanning efficiency and reduce noise. This includes ports 8080, 8880, 8443, 2052, 2082, 2086, 2095, 2053, 2083, 2087, and 2096 when Cloudflare infrastructure is detected. Standard HTTP/HTTPS ports (80, 443) are not excluded. This behavior is enabled by default and cannot be configured by users. If you need to disable this exclusion behavior, please contact our [support team](mailto:support@projectdiscovery.io).
+</Note>
