@@ -1,0 +1,184 @@
+---
+title: "Discovery Target Exclusions"
+description: "Configure patterns to exclude specific targets from asset discovery"
+sidebarTitle: "Target Exclusions"
+---
+
+## Overview
+
+Discovery Target Exclusions allow you to proactively prevent specific assets or patterns from being discovered during asset enumeration. When exclusions are configured, these targets are actively filtered out of the discovery process, helping you focus on relevant assets and reduce noise in your asset inventory.
+
+This feature is particularly useful for excluding internal staging environments, test domains, government domains, or any other assets that should not be included in your attack surface monitoring.
+
+<Note>
+  **Quick Access**: Discovery Target Exclusions are managed in [Settings → Discovery Target Exclusions](https://cloud.projectdiscovery.io/settings/exclusions).
+</Note>
+
+## How It Works
+
+The exclusion system operates at the discovery layer, filtering out targets before they are added to your asset inventory. This ensures that excluded patterns are never discovered, scanned, or monitored by the platform.
+
+<Important>
+  **Global Exclusions**: Target exclusions are applied globally across all discovery operations. Once configured, exclusions affect all current and future asset discoveries, not just individual discovery sessions.
+</Important>
+
+### Supported Exclusion Types
+
+<CardGroup cols={3}>
+  <Card title="Subdomains" icon="globe">
+    Exclude specific subdomains from discovery
+  </Card>
+  <Card title="IP Addresses" icon="network-wired">
+    Exclude individual IP addresses or ranges
+  </Card>
+  <Card title="Wildcard Patterns" icon="asterisk">
+    Use wildcard patterns to exclude multiple targets
+  </Card>
+</CardGroup>
+
+## Configuration
+
+### Adding Exclusions
+
+1. Navigate to **Settings → Discovery Target Exclusions** or visit [cloud.projectdiscovery.io/settings/exclusions](https://cloud.projectdiscovery.io/settings/exclusions)
+2. Click **+ Add Exclusion** to open the exclusion configuration panel
+3. Enter your exclusion patterns in the text area (one pattern per line)
+4. Click **Add** to save your exclusions
+
+### Exclusion Pattern Examples
+
+#### Basic Subdomain Exclusions
+```
+staging.company.com
+dev.company.com
+test.company.com
+internal-tools.company.com
+```
+
+#### Wildcard Patterns
+```
+*.staging.company.com
+test.*.company.com
+dev-*.internal.company.com
+```
+
+#### IP Address Exclusions
+```
+192.168.1.100
+10.0.0.0/8
+172.16.0.0/12
+```
+
+#### Government and Restricted Domains
+```
+*.gov
+*.mil
+*.edu
+```
+
+## Pattern Syntax
+
+### Wildcard Support
+
+The exclusion system supports wildcard patterns using the asterisk (`*`) character:
+
+- **Prefix wildcards**: `*.staging.company.com` - Excludes any subdomain ending with `.staging.company.com`
+- **Suffix wildcards**: `test.*.company.com` - Excludes any subdomain starting with `test.` and ending with `.company.com`
+- **Multiple wildcards**: `*.staging.*.company.com` - Supports multiple wildcards in a single pattern
+
+### Pattern Matching Rules
+
+- Patterns are **case-insensitive**
+- Each line represents a separate exclusion pattern
+- Patterns are matched during the discovery phase
+- Once excluded, targets will not appear in any subsequent discovery results
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Environment Separation">
+    Use wildcard patterns to exclude entire environment categories:
+    ```
+    *.staging.company.com
+    *.dev.company.com
+    *.test.company.com
+    ```
+  </Accordion>
+
+  <Accordion title="Internal Infrastructure">
+    Exclude internal-only domains and IP ranges:
+    ```
+    *.internal.company.com
+    10.0.0.0/8
+    192.168.0.0/16
+    172.16.0.0/12
+    ```
+  </Accordion>
+
+  <Accordion title="Third-Party Restrictions">
+    Respect organizational policies by excluding restricted domains:
+    ```
+    *.gov
+    *.mil
+    *.edu
+    client-*.company.com
+    ```
+  </Accordion>
+
+  <Accordion title="Pattern Optimization">
+    Use broader patterns when possible to reduce configuration complexity:
+    - Instead of listing individual staging subdomains, use `*.staging.company.com`
+    - Group similar patterns together for better organization
+    - Regularly review and update exclusion patterns as your infrastructure evolves
+  </Accordion>
+</AccordionGroup>
+
+## Important Considerations
+
+<Warning>
+  **Exclusions are Permanent**: Once a target is excluded, it will not be discovered in future enumerations. Make sure your exclusion patterns are accurate to avoid missing important assets.
+</Warning>
+
+<Note>
+  **Discovery Impact**: Exclusions only affect the discovery process. If an asset was already discovered before adding an exclusion, it will remain in your inventory until manually removed.
+</Note>
+
+<Tip>
+  **Testing Patterns**: Start with specific exclusions and gradually expand to broader patterns. This helps ensure you don't accidentally exclude important assets.
+</Tip>
+
+## Managing Exclusions
+
+### Viewing Current Exclusions
+
+All active exclusions are displayed in the [Discovery Target Exclusions](https://cloud.projectdiscovery.io/settings/exclusions) interface as individual items in a list format. Each exclusion shows:
+- The exact pattern configured
+- A remove button (X icon) for easy deletion
+
+### Removing Exclusions
+
+To remove individual exclusions:
+1. Navigate to **Settings → Discovery Target Exclusions** or visit [cloud.projectdiscovery.io/settings/exclusions](https://cloud.projectdiscovery.io/settings/exclusions)
+2. Locate the exclusion you want to remove in the list
+3. Click the **X** icon next to the exclusion pattern
+4. The exclusion will be immediately removed from your configuration
+
+<Note>
+  Removing exclusions will allow those targets to be discovered in future enumerations.
+</Note>
+
+## Integration with Discovery Workflows
+
+Target exclusions integrate seamlessly with all discovery methods and are applied globally across the platform:
+
+- **Automatic Discovery**: Exclusions apply to all automated asset discovery processes
+- **Manual Enumeration**: Manually triggered discoveries respect exclusion patterns
+- **Cloud Integration**: Cloud-discovered assets are filtered against exclusion patterns
+
+<Note>
+  **Global Application**: All exclusion patterns apply to every discovery operation across your organization, ensuring consistent filtering regardless of the discovery method or who initiates it.
+</Note>
+
+---
+
+By implementing target exclusions, you can ensure that your asset discovery process focuses on the assets that matter most to your security posture while automatically filtering out noise and irrelevant targets.
