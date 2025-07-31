@@ -1,0 +1,301 @@
+---
+title: "Scan Exclusions"
+description: "Configure target and template exclusions for vulnerability scanning"
+sidebarTitle: "Scan Exclusions"
+---
+
+## Overview
+
+Scan Exclusions provide granular control over your vulnerability scanning operations by allowing you to exclude specific targets or templates from scans. This feature helps optimize scan performance, reduce noise, and focus scanning efforts on relevant assets and vulnerabilities.
+
+The exclusion system operates at two levels:
+- **Scan Target Exclusions**: Prevent specific targets from being scanned
+- **Scan Template Exclusions**: Prevent specific vulnerability templates from being executed
+
+<Note>
+  **Quick Access**: Scan Exclusions are managed in [Settings → Scan Exclusions](https://cloud.projectdiscovery.io/settings/exclusions), available on the same page as Discovery Target Exclusions.
+</Note>
+
+## How It Works
+
+Scan exclusions are applied during the vulnerability scanning process, filtering targets and templates before scan execution. This ensures excluded patterns are never scanned or tested, optimizing scan performance and reducing irrelevant results.
+
+<Important>
+  **Global Exclusions**: Scan exclusions are applied globally across all vulnerability scanning operations. Once configured, exclusions affect all current and future scans across your organization.
+</Important>
+
+## Scan Target Exclusions
+
+### Overview
+
+Scan Target Exclusions allow you to exclude specific targets or patterns from vulnerability scanning. These targets will be skipped during all scan operations, including automated scans, manual scans, and scheduled scans.
+
+<CardGroup cols={3}>
+  <Card title="Subdomains" icon="globe">
+    Exclude specific subdomains from vulnerability scanning
+  </Card>
+  <Card title="IP Addresses" icon="network-wired">
+    Exclude individual IP addresses or ranges from scans
+  </Card>
+  <Card title="Wildcard Patterns" icon="asterisk">
+    Use wildcard patterns to exclude multiple targets
+  </Card>
+</CardGroup>
+
+### Configuration
+
+#### Adding Target Exclusions
+
+1. Navigate to **Settings → Scan Exclusions** or visit [cloud.projectdiscovery.io/settings/exclusions](https://cloud.projectdiscovery.io/settings/exclusions)
+2. In the **Scan Target Exclusions** section, click **+ Add Exclusion**
+3. Enter your exclusion patterns in the text area (one pattern per line)
+4. Click **Add** to save your exclusions
+
+#### Target Exclusion Examples
+
+##### Basic Target Exclusions
+```
+staging.company.com
+dev.company.com
+test.company.com
+```
+
+##### Wildcard Patterns
+```
+*.staging.company.com
+dev-*.company.com
+test.*.internal.company.com
+```
+
+##### IP Address Exclusions
+```
+192.168.1.100
+10.0.0.0/8
+172.16.0.0/12
+```
+
+##### Production Systems
+```
+prod.company.com
+api.company.com
+*.production.company.com
+```
+
+### Target Exclusion Use Cases
+
+<AccordionGroup>
+  <Accordion title="Development Environments">
+    Exclude development and testing environments to focus scans on production systems:
+    ```
+    *.dev.company.com
+    *.staging.company.com
+    *.test.company.com
+    ```
+  </Accordion>
+
+  <Accordion title="Internal Infrastructure">
+    Exclude internal-only systems that don't require external vulnerability assessment:
+    ```
+    *.internal.company.com
+    192.168.0.0/16
+    10.0.0.0/8
+    ```
+  </Accordion>
+
+  <Accordion title="Third-Party Services">
+    Exclude third-party managed services or customer environments:
+    ```
+    *.amazonaws.com
+    *.azure.com
+    customer-*.company.com
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Scan Template Exclusions
+
+### Overview
+
+Scan Template Exclusions allow you to exclude specific vulnerability templates, CVEs, or template patterns from being executed during scans. This is useful for avoiding false positives, excluding low-priority vulnerabilities, or skipping checks that are not relevant to your environment.
+
+<CardGroup cols={3}>
+  <Card title="CVE IDs" icon="shield-exclamation">
+    Exclude specific CVE vulnerability checks
+  </Card>
+  <Card title="Template IDs" icon="file-code">
+    Exclude specific Nuclei template identifiers
+  </Card>
+  <Card title="Pattern Matching" icon="filter">
+    Use patterns to exclude groups of related templates
+  </Card>
+</CardGroup>
+
+### Configuration
+
+#### Adding Template Exclusions
+
+1. Navigate to **Settings → Scan Exclusions** or visit [cloud.projectdiscovery.io/settings/exclusions](https://cloud.projectdiscovery.io/settings/exclusions)
+2. In the **Scan Template Exclusions** section, click **+ Add Exclusion**
+3. Enter your template exclusion patterns (one pattern per line)
+4. Click **Add** to save your exclusions
+
+#### Template Exclusion Examples
+
+##### CVE Exclusions
+```
+CVE-2021-26855
+CVE-2016-7981
+CVE-2021-1491
+```
+
+##### Template ID Exclusions
+```
+apache-detect
+nginx-version
+wordpress-detect
+```
+
+##### Pattern-Based Exclusions
+```
+*-detect
+CVE-2020-*
+wordpress-*
+apache-*
+```
+
+### Template Exclusion Use Cases
+
+<AccordionGroup>
+  <Accordion title="False Positive Reduction">
+    Exclude templates that consistently produce false positives in your environment:
+    ```
+    CVE-2021-26855
+    exchange-server-*
+    specific-template-id
+    ```
+  </Accordion>
+
+  <Accordion title="Low Priority Vulnerabilities">
+    Exclude low-severity or informational checks to focus on critical issues:
+    ```
+    *-detect
+    *-version
+    *-disclosure
+    ```
+  </Accordion>
+
+  <Accordion title="Technology-Specific Exclusions">
+    Exclude templates for technologies not present in your environment:
+    ```
+    wordpress-*
+    drupal-*
+    joomla-*
+    sharepoint-*
+    ```
+  </Accordion>
+
+  <Accordion title="Legacy CVE Exclusions">
+    Exclude older CVEs that are not applicable to your modern infrastructure:
+    ```
+    CVE-2010-*
+    CVE-2011-*
+    CVE-2012-*
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Pattern Syntax
+
+### Wildcard Support
+
+Both target and template exclusions support wildcard patterns using the asterisk (`*`) character:
+
+- **Prefix wildcards**: `*.staging.company.com` or `CVE-2021-*`
+- **Suffix wildcards**: `wordpress-*` or `test-*.company.com`
+- **Multiple wildcards**: `*.staging.*.company.com` or `*-detect-*`
+
+### Pattern Matching Rules
+
+- Patterns are **case-insensitive**
+- Each line represents a separate exclusion pattern
+- Patterns are matched during the scan planning phase
+- Once excluded, targets/templates will not be included in any scan operations
+
+## Managing Exclusions
+
+### Viewing Current Exclusions
+
+All active exclusions are displayed in the respective sections of the [Scan Exclusions](https://cloud.projectdiscovery.io/settings/exclusions) interface as individual items in a list format. Each exclusion shows:
+- The exact pattern configured
+- A remove button (X icon) for easy deletion
+
+### Removing Exclusions
+
+To remove individual exclusions:
+1. Navigate to **Settings → Scan Exclusions** or visit [cloud.projectdiscovery.io/settings/exclusions](https://cloud.projectdiscovery.io/settings/exclusions)
+2. Locate the exclusion you want to remove in the appropriate section
+3. Click the **X** icon next to the exclusion pattern
+4. The exclusion will be immediately removed from your configuration
+
+<Note>
+  Removing target exclusions will allow those targets to be scanned in future operations. Removing template exclusions will re-enable those vulnerability checks in upcoming scans.
+</Note>
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Strategic Target Exclusions">
+    Focus exclusions on systems that shouldn't be scanned:
+    - Development and staging environments
+    - Internal management interfaces
+    - Third-party managed services
+    - Customer-owned infrastructure
+  </Accordion>
+
+  <Accordion title="Template Exclusion Strategy">
+    Exclude templates that add noise without value:
+    - Known false positives for your environment
+    - Informational checks for technologies you don't use
+    - Low-priority vulnerabilities that distract from critical issues
+    - Legacy CVEs not applicable to your infrastructure
+  </Accordion>
+
+  <Accordion title="Regular Review">
+    Periodically review and update exclusions:
+    - Remove exclusions for systems that now need scanning
+    - Add exclusions for new development environments
+    - Re-evaluate template exclusions as your infrastructure evolves
+    - Monitor scan results to identify new false positive patterns
+  </Accordion>
+</AccordionGroup>
+
+## Important Considerations
+
+<Warning>
+  **Security Impact**: Target exclusions prevent vulnerability scanning of specified assets. Ensure excluded targets are secured through other means or don't require scanning.
+</Warning>
+
+<Warning>
+  **Template Coverage**: Template exclusions disable specific vulnerability checks. Make sure excluded templates aren't critical for your security posture.
+</Warning>
+
+<Tip>
+  **Performance Optimization**: Use exclusions strategically to improve scan performance by focusing on relevant assets and vulnerabilities while reducing noise.
+</Tip>
+
+## Integration with Scanning Workflows
+
+Scan exclusions integrate seamlessly with all scanning operations and are applied globally across the platform:
+
+- **Automated Scans**: Exclusions apply to all automated vulnerability scanning processes
+- **Manual Scans**: User-initiated scans respect both target and template exclusions
+- **Scheduled Scans**: All scheduled scan operations honor exclusion patterns
+- **Retesting**: Vulnerability retesting operations also respect exclusion configurations
+
+<Note>
+  **Global Application**: All exclusion patterns apply to every scanning operation across your organization, ensuring consistent filtering regardless of the scan method or who initiates it.
+</Note>
+
+---
+
+By implementing scan exclusions, you can optimize your vulnerability scanning operations to focus on relevant targets and vulnerabilities while reducing noise and improving scan performance. This targeted approach ensures your security team can concentrate on the most important security issues affecting your infrastructure.
