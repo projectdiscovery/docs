@@ -392,6 +392,7 @@
             "cloud/assets/labeling",
             "cloud/assets/custom-labeling",
             "cloud/assets/grouping",
+            "cloud/assets/exclusions",
             "cloud/assets/subsidiary"
           ]
         },
@@ -401,11 +402,12 @@
           "iconType": "regular",
           "pages": [
             "cloud/scanning/overview",
+            "cloud/scanning/real-time-scans",
             "cloud/scanning/external-scan",
             "cloud/scanning/internal-scan",
             "cloud/scanning/retesting",
             "cloud/scanning/parameters",
-            "cloud/scanning/real-time-scans"
+            "cloud/scanning/exclusions"
           ]
         },
         {
