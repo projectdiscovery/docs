@@ -402,12 +402,12 @@
           "iconType": "regular",
           "pages": [
             "cloud/scanning/overview",
+            "cloud/scanning/real-time-scans",
             "cloud/scanning/external-scan",
             "cloud/scanning/internal-scan",
-            "cloud/scanning/exclusions",
             "cloud/scanning/retesting",
             "cloud/scanning/parameters",
-            "cloud/scanning/real-time-scans"
+            "cloud/scanning/exclusions"
           ]
         },
         {
