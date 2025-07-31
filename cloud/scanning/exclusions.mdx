@@ -116,19 +116,20 @@ api.company.com
 
 ### Overview
 
-Scan Template Exclusions allow you to exclude specific vulnerability templates, CVEs, or template patterns from being executed during scans. This is useful for avoiding false positives, excluding low-priority vulnerabilities, or skipping checks that are not relevant to your environment.
+Scan Template Exclusions allow you to exclude specific vulnerability templates or CVEs from being executed during scans. This is useful for avoiding false positives, excluding low-priority vulnerabilities, or skipping checks that are not relevant to your environment.
 
-<CardGroup cols={3}>
+<CardGroup cols={2}>
   <Card title="CVE IDs" icon="shield-exclamation">
     Exclude specific CVE vulnerability checks
   </Card>
   <Card title="Template IDs" icon="file-code">
     Exclude specific Nuclei template identifiers
   </Card>
-  <Card title="Pattern Matching" icon="filter">
-    Use patterns to exclude groups of related templates
-  </Card>
 </CardGroup>
+
+<Note>
+  **Exact Match Only**: Template exclusions require exact template IDs or CVE identifiers. Wildcard patterns are not supported for template exclusions.
+</Note>
 
 ### Configuration
 
@@ -153,70 +154,76 @@ CVE-2021-1491
 apache-detect
 nginx-version
 wordpress-detect
-```
-
-##### Pattern-Based Exclusions
-```
-*-detect
-CVE-2020-*
-wordpress-*
-apache-*
+exchange-server-rce
+drupal-sqli
 ```
 
 ### Template Exclusion Use Cases
 
 <AccordionGroup>
   <Accordion title="False Positive Reduction">
-    Exclude templates that consistently produce false positives in your environment:
+    Exclude specific templates that consistently produce false positives in your environment:
     ```
     CVE-2021-26855
-    exchange-server-*
+    exchange-server-rce
     specific-template-id
+    apache-default-page
     ```
   </Accordion>
 
   <Accordion title="Low Priority Vulnerabilities">
-    Exclude low-severity or informational checks to focus on critical issues:
+    Exclude specific low-severity or informational checks to focus on critical issues:
     ```
-    *-detect
-    *-version
-    *-disclosure
+    apache-detect
+    nginx-version
+    server-disclosure
+    http-title
     ```
   </Accordion>
 
   <Accordion title="Technology-Specific Exclusions">
-    Exclude templates for technologies not present in your environment:
+    Exclude specific templates for technologies not present in your environment:
     ```
-    wordpress-*
-    drupal-*
-    joomla-*
-    sharepoint-*
+    wordpress-detect
+    drupal-version
+    joomla-core
+    sharepoint-detect
     ```
   </Accordion>
 
   <Accordion title="Legacy CVE Exclusions">
-    Exclude older CVEs that are not applicable to your modern infrastructure:
+    Exclude specific older CVEs that are not applicable to your modern infrastructure:
     ```
-    CVE-2010-*
-    CVE-2011-*
-    CVE-2012-*
+    CVE-2010-3972
+    CVE-2011-3192
+    CVE-2012-1823
+    CVE-2013-2251
     ```
   </Accordion>
 </AccordionGroup>
 
 ## Pattern Syntax
 
-### Wildcard Support
+### Target Exclusions - Wildcard Support
 
-Both target and template exclusions support wildcard patterns using the asterisk (`*`) character:
+Target exclusions support wildcard patterns using the asterisk (`*`) character:
 
-- **Prefix wildcards**: `*.staging.company.com` or `CVE-2021-*`
-- **Suffix wildcards**: `wordpress-*` or `test-*.company.com`
-- **Multiple wildcards**: `*.staging.*.company.com` or `*-detect-*`
+- **Prefix wildcards**: `*.staging.company.com`
+- **Suffix wildcards**: `test-*.company.com`
+- **Multiple wildcards**: `*.staging.*.company.com`
+
+### Template Exclusions - Exact Match Only
+
+Template exclusions require exact identifiers:
+
+- **CVE IDs**: Must match exactly (e.g., `CVE-2021-26855`)
+- **Template IDs**: Must match the exact template identifier (e.g., `apache-detect`)
+- **No wildcards**: Patterns like `CVE-2021-*` or `*-detect` are not supported
 
 ### Pattern Matching Rules
 
-- Patterns are **case-insensitive**
+- **Target patterns** are case-insensitive and support wildcards
+- **Template patterns** are case-sensitive and require exact matches
 - Each line represents a separate exclusion pattern
 - Patterns are matched during the scan planning phase
 - Once excluded, targets/templates will not be included in any scan operations
