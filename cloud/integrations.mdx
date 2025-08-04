@@ -630,7 +630,19 @@ Supported Kubernetes Services:
 - Ingresses
 - Cross-cloud cluster discovery
 
+<Warning>
+  **Public/External Access Required**: Kubernetes integration only works with clusters that are publicly accessible or have external endpoints. Internal-only clusters (accessible only within private networks) will fail to integrate as ProjectDiscovery cannot reach them from the cloud platform.
+</Warning>
+
 **Kubernetes Integration Method**
+
+<Note>
+  **Cluster Accessibility**: Before attempting integration, ensure your Kubernetes cluster has public/external endpoints that ProjectDiscovery can access. This includes:
+  - Publicly accessible API servers
+  - External load balancers exposing services
+  - Internet-facing ingress controllers
+  - Clusters with public IP addresses
+</Note>
 
 1. **Prepare Base64-Encoded Kubeconfig**
    - Your kubeconfig file is typically located at:
@@ -660,7 +672,20 @@ Supported Kubernetes Services:
    - Use the relevant context name if required.
 3. **Define Integration Name & Verify**
 
-   Choose a unique, descriptive name for this integration and click \*\*Verify \*\*to complete the integration.
+   Choose a unique, descriptive name for this integration and click **Verify** to complete the integration.
+
+**Troubleshooting Integration Failures**
+
+If your Kubernetes integration fails, the most common cause is cluster accessibility:
+
+- **Internal Clusters**: Clusters only accessible within private networks (VPN, internal VPCs) cannot be reached by ProjectDiscovery
+- **Firewall Restrictions**: Ensure your cluster's API server and services are accessible from the internet
+- **Network Policies**: Check that network policies allow external access to required endpoints
+- **Load Balancer Configuration**: Verify that external load balancers are properly configured and accessible
+
+<Info>
+  **Alternative for Internal Clusters**: For internal-only Kubernetes clusters, consider using the cloud provider integration (AWS EKS, GCP GKE, Azure AKS) which can discover cluster endpoints through the cloud provider's APIs, or manually add the cluster's external endpoints as assets.
+</Info>
 
 References
 
