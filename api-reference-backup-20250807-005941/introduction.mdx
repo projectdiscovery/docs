@@ -12,7 +12,7 @@ This API documentation will walk you through each of the available resources, an
 
 ## Authentication
 
-The ProjectDiscovery API uses API keys to authenticate requests. You can view and manage your API key by visiting the ProjectDiscovery cloud dashboard at https://cloud.projectdiscovery.io/ and finding the API key there, or go to Settings in the left bottom and click API Key.
+The ProjectDiscovery API uses API keys to authenticate requests. You can view and manage your API key in ProjectDiscovery at https://cloud.projectdiscovery.io/ under your user information.
 
 Authentication with the API is performed using a custom request header - `X-Api-Key` - which should simply be the value of your API key found with your ProjectDiscovery account.
 
@@ -26,63 +26,47 @@ Below (and in the menu on the left) you can find the various resources available
     title="Assets"
     icon="server"
     iconType="duotone"
-    href="/api-reference/assets/get-asset-changelogs-for-a-given-asset_id"
+   href="/api-reference/assets"
   >
     Your assets (hosts, CIDR ranges, etc.) for scanning.
-  </Card>
-  <Card
-    title="Configurations"
-    icon="cog"
-    iconType="duotone"
-    href="/api-reference/configurations/get-configs-list"
-  >
-    Manage scan configurations and custom settings.
-  </Card>
-  <Card
-    title="Export"
-    icon="download"
-    iconType="duotone"
-    href="/api-reference/export/export-filtered-scan-results"
-  >
-    Export scan results and filtered data.
-  </Card>
-  <Card
-    title="Logs"
-    icon="file-lines"
-    iconType="duotone"
-    href="/api-reference/history/get-scan-log-stats-of-given-scan-id"
-  >
-    Access scan logs and historical data.
-  </Card>
-  <Card
-    title="Results"
-    icon="ballot-check"
-    iconType="duotone"
-    href="/api-reference/results/get-scan-vulnerability"
-  >
-    See and manage vulnerabilities detected by PDCP.
-  </Card>
-  <Card
-    title="Scans"
-    icon="radar"
-    iconType="duotone"
-    href="/api-reference/scans/get-scan-list"
-  >
-    Manage scans, scan schedules, and create new scans.
   </Card>
   <Card
     title="Templates"
     icon="puzzle"
     iconType="duotone"
-    href="/api-reference/templates/get-template-list"
+    href="/api-reference/templates"
   >
     Access public and private templates as well as AI template creation.
+  </Card>
+  <Card
+    title="Scans"
+    icon="radar"
+    iconType="duotone"
+    href="/api-reference/scans"
+  >
+    Manage scans, scan schedules, and create new scans.
+  </Card>
+  <Card
+    title="Results"
+    icon="ballot-check"
+    iconType="duotone"
+    href="/api-reference/results"
+  >
+    See and manage vulnerabilities detected by PDCP.
+  </Card>
+  <Card
+    title="Retest"
+    icon="microscope"
+    iconType="duotone"
+    href="/api-reference/retest"
+  >
+    Retest vulnerabilities or run single template/target scans.
   </Card>
   <Card
     title="Users"
     icon="user"
     iconType="duotone"
-    href="/api-reference/users/get-api-key"
+    href="/api-reference/results"
   >
     See and manage user settings, API keys and more.
   </Card>
