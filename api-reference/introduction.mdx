@@ -12,7 +12,7 @@ This API documentation will walk you through each of the available resources, an
 
 ## Authentication
 
-The ProjectDiscovery API uses API keys to authenticate requests. You can view and manage your API key in ProjectDiscovery at https://cloud.projectdiscovery.io/ under your user information.
+The ProjectDiscovery API uses API keys to authenticate requests. You can view and manage your API key on ProjectDiscovery [Dashboard](https://cloud.projectdiscovery.io/) or in left navbar Settings > [API Key](https://cloud.projectdiscovery.io/settings/api-key).
 
 Authentication with the API is performed using a custom request header - `X-Api-Key` - which should simply be the value of your API key found with your ProjectDiscovery account.
 
@@ -21,22 +21,14 @@ You must make all API calls over `HTTPS`. Calls made over plain HTTP will fail, 
 ## Resources
 Below (and in the menu on the left) you can find the various resources available to the ProjectDiscovery API.
 
-<CardGroup cols={2}>
-  <Card
-    title="Assets"
-    icon="server"
-    iconType="duotone"
-   href="/api-reference/assets"
-  >
-    Your assets (hosts, CIDR ranges, etc.) for scanning.
-  </Card>
+<CardGroup cols={3}>
   <Card
     title="Templates"
     icon="puzzle"
     iconType="duotone"
     href="/api-reference/templates"
   >
-    Access public and private templates as well as AI template creation.
+    Access public and private templates, AI template generation, and template sharing.
   </Card>
   <Card
     title="Scans"
@@ -44,30 +36,62 @@ Below (and in the menu on the left) you can find the various resources available
     iconType="duotone"
     href="/api-reference/scans"
   >
-    Manage scans, scan schedules, and create new scans.
+    Manage scans, scan schedules, import/export, and scan configurations.
   </Card>
   <Card
-    title="Results"
-    icon="ballot-check"
+    title="Vulnerabilities"
+    icon="shield-exclamation"
     iconType="duotone"
     href="/api-reference/results"
   >
-    See and manage vulnerabilities detected by PDCP.
+    View and manage vulnerabilities, changelogs, and retest results.
   </Card>
   <Card
-    title="Retest"
-    icon="microscope"
+    title="Leaks"
+    icon="eye-slash"
     iconType="duotone"
-    href="/api-reference/retest"
+    href="/api-reference/leaks"
   >
-    Retest vulnerabilities or run single template/target scans.
+    Monitor domain leaks, email leaks, and customer leak data.
   </Card>
   <Card
-    title="Users"
-    icon="user"
+    title="Users & Authentication"
+    icon="users"
     iconType="duotone"
-    href="/api-reference/results"
+    href="/api-reference/users"
   >
-    See and manage user settings, API keys and more.
+    Manage API keys, user tunnels, team members, and workspace settings.
+  </Card>
+  <Card
+    title="Asset Discovery"
+    icon="radar"
+    iconType="duotone"
+    href="/api-reference/enumerations"
+  >
+    Perform asset enumeration, manage asset groups, and track discovery history.
+  </Card>
+  <Card
+    title="Configurations"
+    icon="gear"
+    iconType="duotone"
+    href="/api-reference/configurations"
+  >
+    Configure scan settings, severity mappings, and template exclusions.
+  </Card>
+  <Card
+    title="Export & Logs"
+    icon="download"
+    iconType="duotone"
+    href="/api-reference/export"
+  >
+    Export scan results, download logs, and access audit information.
+  </Card>
+  <Card
+    title="Utilities"
+    icon="wrench"
+    iconType="duotone"
+    href="/api-reference/full-text-search"
+  >
+    Full-text search, filters, and additional utility functions.
   </Card>
 </CardGroup>
