@@ -38,6 +38,7 @@ To build the final product, we have a couple of additional steps:
 
 - Either download the latest `openapi.yaml` manually or run `./bin/download-api.sh`
 - Run `./bin/generate-api.sh` to generate any new API files
+- **OR** run `./bin/generate-filtered-api.sh` to generate API docs without internal/admin endpoints
 
 3. Deployment
 
