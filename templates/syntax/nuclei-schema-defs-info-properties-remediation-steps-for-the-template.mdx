@@ -1,0 +1,21 @@
+# remediation steps for the template Schema
+
+```txt
+https://template#/$defs/Info/properties/remediation
+```
+
+In-depth explanation on how to fix the issues found by the template
+
+| Abstract            | Extensible | Status         | Identifiable            | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                             |
+| :------------------ | :--------- | :------------- | :---------------------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------- |
+| Can be instantiated | No         | Unknown status | Unknown identifiability | Forbidden         | Allowed               | none                | [nuclei-schema.schema.json\*](../out/nuclei-schema.schema.json "open original schema") |
+
+## remediation Type
+
+`string` ([remediation steps for the template](nuclei-schema-defs-info-properties-remediation-steps-for-the-template))
+
+## remediation Examples
+
+```json
+"Change the default administrative username and password of Apache ActiveMQ by editing the file jetty-realm.properties"
+```
