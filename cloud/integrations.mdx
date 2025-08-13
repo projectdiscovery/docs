@@ -549,7 +549,42 @@ Below are the steps to get the above  credentials:
    - **CRITICAL:** Copy the secret **Value** immediately, as it is shown only once.
 3. **Assign Permissions:**
    - Go to your **Subscription \> Access control (IAM)**.
-   - Add a role assignment to grant the **Reader** role to the App Registration you created.
+   - Prefer a least-privilege custom role instead of the broad built-in Reader.
+   - Create a custom role (for example, "CloudList Reader") with minimal actions and then assign it to the App Registration you created. Example definition:
+
+```json
+{
+  "properties": {
+    "roleName": "CloudList Reader",
+    "description": "Minimal permissions for CloudList to discover Azure resources (VMs, Public IPs, Traffic Manager)",
+    "assignableScopes": [
+      "/subscriptions/<REPLACE_WITH_SUBSCRIPTION_ID>"
+    ],
+    "permissions": [
+      {
+        "actions": [
+          "Microsoft.Resources/subscriptions/read",
+          "Microsoft.Resources/subscriptions/resourceGroups/read",
+          "Microsoft.Compute/virtualMachines/read",
+          "Microsoft.Network/networkInterfaces/read",
+          "Microsoft.Network/publicIPAddresses/read",
+          "Microsoft.Network/trafficManagerProfiles/read"
+        ],
+        "notActions": [],
+        "dataActions": [],
+        "notDataActions": []
+      }
+    ]
+  }
+}
+```
+
+   - If you only need specific services, you can further reduce actions. For example:
+     - Virtual machines: `Microsoft.Compute/virtualMachines/read`, plus RG/subscription reads
+     - Public IPs: `Microsoft.Network/publicIPAddresses/read`
+     - Traffic Manager: `Microsoft.Network/trafficManagerProfiles/read`
+   - After creating the role, assign it to the App Registration under Role assignments.
+   - Alternatively, if creating custom roles is not feasible in your environment, you may assign the built-in **Reader** role to the App Registration. This provides broader read access across the subscription and may exceed least-privilege needs.
    - Note your **Subscription ID** from the subscription's overview page.
 4. **Connect:**
    - Enter the four collected credentials (Tenant ID, Client ID, Client Secret, and Subscription ID) into ProjectDiscovery Cloud Platform to configure the integration.
@@ -561,6 +596,9 @@ References:
 1. https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli
 2. https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest#az_ad_sp_create_for_rbac
 3. https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli
+4. https://learn.microsoft.com/en-us/azure/role-based-access-control/custom-roles-portal
+
+
 
 ### Alibaba Cloud
 
