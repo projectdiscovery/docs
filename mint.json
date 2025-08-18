@@ -412,6 +412,7 @@
             "cloud/scanning/exclusions"
           ]
         },
+        "cloud/credential-monitoring",
         {
           "group": "Templates & Editor",
           "icon": "list-tree",
