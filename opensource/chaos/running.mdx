@@ -1,0 +1,51 @@
+---
+title: Running Chaos
+description: "Learn about running Chaos with details and an example"
+sidebarTitle: Running
+---
+
+For all of the flags and options available for **Chaos** be sure to check out the [Usage](/opensource/chaos/usage) page. 
+
+<Note> If you have questions, reach out to us through [Help](/help). </Note>
+
+## Basic Usage
+
+In order to get subdomains for a domain, use the following command.
+
+```bash
+chaos -d uber.com -silent
+
+restaurants.uber.com
+testcdn.uber.com
+approvalservice.uber.com
+zoom-logs.uber.com
+eastwood.uber.com
+meh.uber.com
+webview.uber.com
+kiosk-api.uber.com
+utmbeta-staging.uber.com
+getmatched-staging.uber.com
+logs.uber.com
+dca1.cfe.uber.com
+cn-staging.uber.com
+frontends-primary.uber.com
+eng.uber.com
+guest.uber.com
+kiosk-home-staging.uber.com
+```
+
+## API Key 
+
+You can get your API key by either signing up or logging in at [cloud.projectdiscovery.io](https://cloud.projectdiscovery.io?ref=api_key).
+
+## API Key Environment variable
+You can also set the API key as an environment variable in your bash profile. 
+
+```bash
+export CHAOS_KEY=CHAOS_API_KEY
+```
+## Notes
+
+- The API is rate-limited to 60 request / min / ip
+- Chaos API **only** supports domain name to query.
+

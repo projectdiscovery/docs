@@ -59,8 +59,8 @@
       "url": "api-reference"
     },
     {
-      "name": "Tools",
-      "url": "tools"
+      "name": "Open Source",
+      "url": "opensource"
     },
     {
       "name": "Templates",
@@ -102,18 +102,18 @@
       ]
     },
     {
-      "group": "Tools",
+      "group": "Open Source",
       "pages": [
-        "tools/index",
+        "opensource/index",
         {
           "group": "AlterX",
           "icon": "cloud-word",
           "iconType": "duotone",
           "pages": [
-            "tools/alterx/overview",
-            "tools/alterx/install",
-            "tools/alterx/usage",
-            "tools/alterx/running"
+            "opensource/alterx/overview",
+            "opensource/alterx/install",
+            "opensource/alterx/usage",
+            "opensource/alterx/running"
           ]
         },
         {
@@ -121,10 +121,10 @@
           "icon": "globe",
           "iconType": "duotone",
           "pages": [
-            "tools/chaos/overview",
-            "tools/chaos/install",
-            "tools/chaos/usage",
-            "tools/chaos/running"
+            "opensource/chaos/overview",
+            "opensource/chaos/install",
+            "opensource/chaos/usage",
+            "opensource/chaos/running"
           ]
         },
         {
@@ -132,11 +132,11 @@
           "icon": "cloud",
           "iconType": "duotone",
           "pages": [
-            "tools/cloudlist/overview",
-            "tools/cloudlist/install",
-            "tools/cloudlist/usage",
-            "tools/cloudlist/providers",
-            "tools/cloudlist/running"
+            "opensource/cloudlist/overview",
+            "opensource/cloudlist/install",
+            "opensource/cloudlist/usage",
+            "opensource/cloudlist/providers",
+            "opensource/cloudlist/running"
           ]
         },
         {
@@ -144,10 +144,10 @@
           "icon": "signs-post",
           "iconType": "solid",
           "pages": [
-            "tools/cvemap/overview",
-            "tools/cvemap/install",
-            "tools/cvemap/usage",
-            "tools/cvemap/running"
+            "opensource/cvemap/overview",
+            "opensource/cvemap/install",
+            "opensource/cvemap/usage",
+            "opensource/cvemap/running"
           ]
         },
         {
@@ -155,10 +155,10 @@
           "icon": "tags",
           "iconType": "duotone",
           "pages": [
-            "tools/dnsx/overview",
-            "tools/dnsx/install",
-            "tools/dnsx/usage",
-            "tools/dnsx/running"
+            "opensource/dnsx/overview",
+            "opensource/dnsx/install",
+            "opensource/dnsx/usage",
+            "opensource/dnsx/running"
           ]
         },
         {
@@ -166,10 +166,10 @@
           "icon": "browser",
           "iconType": "duotone",
           "pages": [
-            "tools/httpx/overview",
-            "tools/httpx/install",
-            "tools/httpx/usage",
-            "tools/httpx/running"
+            "opensource/httpx/overview",
+            "opensource/httpx/install",
+            "opensource/httpx/usage",
+            "opensource/httpx/running"
           ]
         },
         {
@@ -177,12 +177,12 @@
           "icon": "whistle",
           "iconType": "duotone",
           "pages": [
-            "tools/interactsh/overview",
-            "tools/interactsh/install",
-            "tools/interactsh/usage",
-            "tools/interactsh/running",
-            "tools/interactsh/integrations",
-            "tools/interactsh/server"
+            "opensource/interactsh/overview",
+            "opensource/interactsh/install",
+            "opensource/interactsh/usage",
+            "opensource/interactsh/running",
+            "opensource/interactsh/integrations",
+            "opensource/interactsh/server"
           ]
         },
         {
@@ -190,10 +190,10 @@
           "icon": "sword",
           "iconType": "duotone",
           "pages": [
-            "tools/katana/overview",
-            "tools/katana/install",
-            "tools/katana/usage",
-            "tools/katana/running"
+            "opensource/katana/overview",
+            "opensource/katana/install",
+            "opensource/katana/usage",
+            "opensource/katana/running"
           ]
         },
         {
@@ -201,10 +201,10 @@
           "icon": "person-to-portal",
           "iconType": "duotone",
           "pages": [
-            "tools/naabu/overview",
-            "tools/naabu/install",
-            "tools/naabu/usage",
-            "tools/naabu/running"
+            "opensource/naabu/overview",
+            "opensource/naabu/install",
+            "opensource/naabu/usage",
+            "opensource/naabu/running"
           ]
         },
         {
@@ -212,11 +212,11 @@
           "icon": "bell",
           "iconType": "duotone",
           "pages": [
-            "tools/notify/overview",
-            "tools/notify/install",
-            "tools/notify/usage",
-            "tools/notify/provider-config",
-            "tools/notify/running"
+            "opensource/notify/overview",
+            "opensource/notify/install",
+            "opensource/notify/usage",
+            "opensource/notify/provider-config",
+            "opensource/notify/running"
           ]
         },
         {
@@ -224,14 +224,14 @@
           "icon": "atom",
           "iconType": "regular",
           "pages": [
-            "tools/nuclei/overview",
-            "tools/nuclei/install",
-            "tools/nuclei/running",
-            "tools/nuclei/input-formats",
-            "tools/nuclei/authenticated-scans",
-            "tools/nuclei/mass-scanning-cli",
-            "tools/nuclei/nuclei-sdk",
-            "tools/nuclei/faq"
+            "opensource/nuclei/overview",
+            "opensource/nuclei/install",
+            "opensource/nuclei/running",
+            "opensource/nuclei/input-formats",
+            "opensource/nuclei/authenticated-scans",
+            "opensource/nuclei/mass-scanning-cli",
+            "opensource/nuclei/nuclei-sdk",
+            "opensource/nuclei/faq"
           ]
         },
         {
@@ -239,10 +239,10 @@
           "icon": "toolbox",
           "iconType": "regular",
           "pages": [
-            "tools/pdtm/overview",
-            "tools/pdtm/install",
-            "tools/pdtm/usage",
-            "tools/pdtm/running"
+            "opensource/pdtm/overview",
+            "opensource/pdtm/install",
+            "opensource/pdtm/usage",
+            "opensource/pdtm/running"
           ]
         },
         {
@@ -250,10 +250,10 @@
           "icon": "radar",
           "iconType": "duotone",
           "pages": [
-            "tools/subfinder/overview",
-            "tools/subfinder/install",
-            "tools/subfinder/usage",
-            "tools/subfinder/running"
+            "opensource/subfinder/overview",
+            "opensource/subfinder/install",
+            "opensource/subfinder/usage",
+            "opensource/subfinder/running"
           ]
         },
         {
@@ -261,10 +261,10 @@
           "icon": "telescope",
           "iconType": "duotone",
           "pages": [
-            "tools/uncover/overview",
-            "tools/uncover/install",
-            "tools/uncover/usage",
-            "tools/uncover/running"
+            "opensource/uncover/overview",
+            "opensource/uncover/install",
+            "opensource/uncover/usage",
+            "opensource/uncover/running"
           ]
         }
       ]
@@ -609,5 +609,11 @@
   "feedback": {
     "thumbsRating": true,
     "suggestEdit": true
-  }
+  },
+  "redirects": [
+    {
+      "source": "/tools/:slug*",
+      "destination": "/opensource/:slug*"
+    }
+  ]
 }

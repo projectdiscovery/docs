@@ -1,32 +1,32 @@
 ---
-title: Notify Overview
-description: "A Go-based package to streamline and publish output of tools to multiple locations"
-sidebarTitle: Overview
+title: 'Redirecting...'
+description: 'This page has moved to /opensource/notify/overview'
 ---
-Notify is a Go-based package designed to streamline the process of monitoring the output from various tools or files. It enables users to pipe this output directly and publish it to a selection of supported platforms. 
 
-## Overview
-Notify is highly versatile, serving as a crucial link in automating the notification process across different communication platforms, thereby enhancing the efficiency of monitoring and reporting in security operations, development workflows, or any scenario requiring real-time alerts based on tool outputs or file changes
+import { useEffect } from 'react';
 
-Check out [the GitHub repo here](https://github.com/projectdiscovery/notify).
+export const RedirectComponent = () => {
+  useEffect(() => {
+    window.location.replace('/opensource/notify/overview');
+  }, []);
+  
+  return null;
+};
 
-## Features
-- Support for File / Pipe input
-- Support Line by Line / Bulk Post
-- Support using Single / Multiple providers
-- Support for custom Web-hooks
-- Support custom data formatting 
+<RedirectComponent />
 
-### Supported Tools
-- Slack
-- Discord 
-- Telegram
-- Pushover
-- Email
-- Microsoft Teams
-- Google Chat
+# 🔄 Redirecting...
 
-## Support 
-Questions about using Notify? Issues working through installation? Cool story or use case you want to share? Get in touch! 
+You are being redirected to [/opensource/notify/overview](/opensource/notify/overview).
 
-Reach out to us on [Discord](https://discord.com/invite/projectdiscovery). 
+If you are not automatically redirected, [click here](/opensource/notify/overview).
+
+<script dangerouslySetInnerHTML={{
+  __html: `
+    setTimeout(function() {
+      if (typeof window !== 'undefined') {
+        window.location.href = '/opensource/notify/overview';
+      }
+    }, 100);
+  `
+}} />

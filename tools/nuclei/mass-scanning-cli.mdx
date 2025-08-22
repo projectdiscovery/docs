@@ -1,171 +1,32 @@
 ---
-title: 'Mass Scanning with Nuclei'
-description: "Running Nuclei through the CLI on hundreds of targets"
-sidebarTitle: 'Mass Scanning'
+title: 'Redirecting...'
+description: 'This page has moved to /opensource/nuclei/mass-scanning-cli'
 ---
 
-## What is **Mass Scanning?**
-
-Mass scanning in the context of Nuclei means running the Nuclei CLI on more than 100 targets. While Nuclei works out-of-the-box for running scans on any number of targets -  we recommend learning more to understand 
-the resource requirements for running Nuclei in different scenarios and how to properly adjust flags and options to avoid overutilization of resources and to get the best performance.
-
-
-## Overutilization of Resources
-
-If flags and available options are not properly configured, Nuclei can overutilize resources and can cause following issues:
-
-- OOM Killed by the system
-
-- Hangs and crashes
-
-- Error code 137 etc
-
-
-## Understanding How Nuclei Consumes Resources
-
-Nuclei is a highly concurrent tool that has major Network I/O due to nature of the tool. There is a direct correlation between concurrency and memory usage. 
-
-**max-requests**
-
-    `max-requests` is a metadata field under info section of template that contains maximum number of outgoing requests this template can make.
-
-
-**Below are some flags and options that directly affect the resource utilization of Nuclei:**
-
-- **-c or -concurrency**
-
-    This flag controls concurrency/parallelism of two components/operations in Nuclei and its default value is 25.
-    1. Number of templates to run in parallel at a time (IN Template-Spray/Default mode/strategy)
-
-       Number of templates to run in parallel per target (IN Host-Spray mode/strategy)
-
-    2. Number of Requests to send in parallel per template
-
-        Ex: Some template have `payloads` field in template and usually sends multiple requests. This concurrency per template is controlled by `threads: 10` value in template
-
-        But if `threads` is not defined or missing (since it is optional), then nuclei will use `-c` value to decide concurrency of requests per template
-
-- **-bs or -bulk-size**
-
-    This flag controls concurrency/parallelism of targets in Nuclei and its default value is 25.
-
-    IN Host-Spray mode/strategy, this flag controls maximum number of targets to run in parallel at a time
-
-    IN Template-Spray/Default mode/strategy, this flag controls maximum number of targets to run in parallel for each template
-
-- **-hbs and -headc**
-
-    `-hbs` (-headless-bulk-size) and `-headc` (-headless-concurrency) flags are variants of `-bs` and `-c` flags specifically for headless templates since headless templates are resource intensive and run a headless browser in background.
-
-- **-jsc or -js-concurrency**
-
-    (Introduced in v3.1.8) This flag controls maximum number of javascript runtimes to run in parallel at a time. Javascript runtimes are used in templates with `flow` field and javascript protocol
-
-    Although javascript templates are few compared to http templates, but this provides a way to control the resource utilization of javascript templates.
-
-    Default value of this flag is 120 and is tested to be optimal with minimal resource utilization (Note: Nuclei by default reuses javascript runtimes to avoid overhead of creating new runtimes for each request)
-
-- **-pc or -payload-concurrency**
-
-    (Introduced in v3.2.0) This flag controls maximum number of payloads to run in parallel for each template. This flag is only applicable to templates with `payloads` field and does not have `threads` field set, default of this flag is 25 and can be updated as per requirement
-
-- **-rl or -rate-limit**
-
-    This flag controls the global rate limit of http requests in nuclei and its default value is 150 requests per second.
-
-    Note: Setting Low/Very Low value of this flag directly affects speed (RPS) and Memory Usage of Nuclei since ratelimit is applied just before sending requests but at this point the requests are already prepared and are in memory waiting to be sent
-
-- **-rlm or -rate-limit-minute**
-    
-    Alternative to `-rl` flag, this flag controls the global rate limit of http requests in nuclei but in terms of requests per minute (Not used as default and is mutually exclusive with `-rl` flag)
-
-- **-ss or -scan-strategy**
-
-    This flag controls the strategy of scanning targets and its default value is `auto`
-    1. `auto` is currently a placeholder for `template-spray` strategy
-    2. `template-spray` strategy can be understood as stealthy mode of scanning and does not aggressively scan a single target. Instead of running all templates on single target it runs a template on multiple targets thereby reducing the load on single target without compromising the speed of scanning
-    3. `host-spray` strategy can be understood as more of a focused mode of scanning where it runs all templates on single target before moving to next target
-
-    Although difference might not seem significant but in reality this plays a major role in resource utilization and speed of scanning. Ex: `template-spray` strategy is more stealthy but consumes more memory than `host-spray` since input/target chunk is different for each template contrary to `host-spray` strategy where input/target chunk is same for all templates
-
-    This flag only decides strategy of scanning and uses concurrency specified by `-c` and  `-bs` flags
-
-    **Note**: `host-spray` strategy currently does not support resume feature due to complexity of implementation
-
-- **-rsr or -response-size-read**
-    
-    This flag controls the maximum response size of http response that nuclei should read and its default value is 4MB (max).
-
-    Ex: If a endpoint/targets returns a response of 100MB(a zip file or something) then nuclei will only read first 4MB of response to avoid DOS as data read is stored in memory
-
-    This plays a major role in Memory Usage of Nuclei because at any moment heap memory of Nuclei is `1-1.5x x (concurrency * response-size-read)`
-
-- **-stream**
-
-    Instead of probing all input urls and then proceeding with scan (default behavior), this flag continiously stream inputs to nuclei instead of waiting for probe to finish
-
-    It was observed that this flag may lead to high memory usage when running in `template-spray` strategy as there is a Marshal/Unmarshal overhead is involved and each template has different copy of input/target chunk
-
-
-
-## Recommendations for Optimizing Resource Usage
-
-Currently, there is no out-of-the-box solution to optimize Nuclei automatically for mass scanning. Understanding the proper use of flags and options can help in optimizing Nuclei for mass scanning.
-
-In general, here are some recommendations to optimize Nuclei for mass scanning:
-
-- Prefer `host-spray` strategy when possible
-- Do not constraint GC (Garbage Collection) by setting low memory limits if possible. Nuclei (just like go standard http library) focuses on reusing memory than freeing it and allocating it again. This is why Nuclei like other Go tools does not have high fluctuation in memory usage and either increases or decreases memory usage gradually
-- Properly adjust `-c` , `-bs` and `-rl` flags after understanding requirement and capabilities of your own system as well as targets you are scanning
-- Although Nuclei can handle any number of targets we recommended batching targets based on targets or system capabilities
-
-
-## Feature-based Optimizations for Mass Scanning
-
-- **-timeout**
-    Timeout controls the maximum time Nuclei should wait for a response (current default is 10 sec for http 6 * -timout value for code protocol)
-    This flag depends on your targets and the network conditions. Setting a low value might cause false negatives and setting a high value might cause high memory usage and slow down the scanning process.
-
-- **-retries**
-    Retries controls the maximum number of retries Nuclei should attempt for a request (current default is 1)
-    This flag is useful when you are scanning targets with unstable network conditions. Setting a high value might cause high memory usage and slow down the scanning process.
-
-- **-mhe or -max-host-error**
-    This flag controls the maximum number of (network type) errors to allow per host before removing the unresponsive host from the scan (current default is 30)
-
-- **-nmhe or -no-max-host-error**
-    This flag disables the behavior of removing unresponsive hosts from the scan when they reach maximum number of errors (current default is 30)
-    Note: This flag directly affects the speed and memory usage of Nuclei since it keeps unresponsive hosts in memory and retries them.
-
-
-## Reporting Performance Issues
-
-Unlike other type of issues, Performance Issue require more information and a different kind of information to debug and fix this issue. Hence it is recommended to report performance issues with following information:
-
-
-- Nuclei Version (if not latest then try with latest version)
-- System Information (OS, Memory, CPU)
-- Target Count and Template Count
-- Above mentioned flags and options used especially -c, -bs, -rl, -ss
-- Any other flags and options used
-
-
-Above information will help in understanding if the issue is due to misconfiguration or due to a bug in nuclei. If Issue is of a more complex nature like memory leak then application profiles need to be collected and shared in the issue description
-
-Profiling can be enabled in nuclei using `PPROF=1` environment variable and also accepts addition option `PPROF_TIME=10s` using these two env variables will enable profiling and snapshot of cpu profile and memory profile will be collected and store in appropriate directories every 10 seconds(PPROF_TIME). For addition options about profiling refer to [nuclei-pprof](https://github.com/projectdiscovery/utils/tree/main/pprof).
-
-A good example of reporting performance issue like memory leak is [#4552](https://github.com/projectdiscovery/nuclei/issues/4552) .
-
-
-## Maximize Your Nuclei Experience with PDCP
-
-Building a Nuclei automation or running recurrent scans on more than 100 targets can be a challenging task without understanding Nuclei and experimenting with the flags and options.
-
-One additional option is to consider evaluating ProjectDiscovery Cloud Platform or [PDCP](https://cloud.projectdiscovery.io). As a managed service it offers:
-
-- All Scaling and Optimizations is abstracted
-- Scans are distributed and requests are approriately chunked in a manner to Scale without False Negatives 
-
-PDCP includes many other helpful features for vulnerability scanning and ASM like Dashboard, Integrations, Reporting, Recurring Scans and much more
-
-For more information on PDCP, Visit [PDCP](https://docs.projectdiscovery.io/cloud/introduction)
+import { useEffect } from 'react';
+
+export const RedirectComponent = () => {
+  useEffect(() => {
+    window.location.replace('/opensource/nuclei/mass-scanning-cli');
+  }, []);
+  
+  return null;
+};
+
+<RedirectComponent />
+
+# 🔄 Redirecting...
+
+You are being redirected to [/opensource/nuclei/mass-scanning-cli](/opensource/nuclei/mass-scanning-cli).
+
+If you are not automatically redirected, [click here](/opensource/nuclei/mass-scanning-cli).
+
+<script dangerouslySetInnerHTML={{
+  __html: `
+    setTimeout(function() {
+      if (typeof window !== 'undefined') {
+        window.location.href = '/opensource/nuclei/mass-scanning-cli';
+      }
+    }, 100);
+  `
+}} />

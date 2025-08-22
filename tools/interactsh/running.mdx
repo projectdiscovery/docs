@@ -1,209 +1,32 @@
 ---
-title: 'Running Interactsh interactsh-client'
-description: "Learn about running Interactsh with examples and detailed output"
-sidebarTitle: 'Running interactsh-client'
+title: 'Redirecting...'
+description: 'This page has moved to /opensource/interactsh/running'
 ---
 
-For all of the flags and options available for **Interactsh** be sure to check out the [Usage](/tools/interactsh/usage) page. 
-
-<Note> If you have questions, reach out to us through [Help](/help). </Note>
-
-## Basic Usage
-
-The command `interact-client` generates a unique payload that can be used for Out-Of-Band (OOB) testing with minimal interaction in the output.
-
-```console
-interactsh-client
-
-    _       __                       __       __  
-   (_)___  / /____  _________ ______/ /______/ /_ 
-  / / __ \/ __/ _ \/ ___/ __ '/ ___/ __/ ___/ __ \
- / / / / / /_/  __/ /  / /_/ / /__/ /_(__  ) / / /
-/_/_/ /_/\__/\___/_/   \__,_/\___/\__/____/_/ /_/ v0.0.5
-
-        projectdiscovery.io
-
-[INF] Listing 1 payload for OOB Testing
-[INF] c23b2la0kl1krjcrdj10cndmnioyyyyyn.oast.pro
-
-[c23b2la0kl1krjcrdj10cndmnioyyyyyn] Received DNS interaction (A) from 172.253.226.100 at 2021-26-26 12:26
-[c23b2la0kl1krjcrdj10cndmnioyyyyyn] Received DNS interaction (AAAA) from 32.3.34.129 at 2021-26-26 12:26
-[c23b2la0kl1krjcrdj10cndmnioyyyyyn] Received HTTP interaction from 43.22.22.50 at 2021-26-26 12:26
-[c23b2la0kl1krjcrdj10cndmnioyyyyyn] Received DNS interaction (MX) from 43.3.192.3 at 2021-26-26 12:26
-[c23b2la0kl1krjcrdj10cndmnioyyyyyn] Received DNS interaction (TXT) from 74.32.183.135 at 2021-26-26 12:26
-[c23b2la0kl1krjcrdj10cndmnioyyyyyn] Received SMTP interaction from 32.85.166.50 at 2021-26-26 12:26
-```
-
-## Session File
-
-`interactsh-client` with `-sf, -session-file` flag can be used to store/read the current session information from user defined file. This functionality is useful to resume the same session to poll the interactions even after the client gets stopped or closed. 
-
-```console
-interactsh-client -sf interact.session
-
-    _       __                       __       __  
-   (_)___  / /____  _________ ______/ /______/ /_ 
-  / / __ \/ __/ _ \/ ___/ __ '/ ___/ __/ ___/ __ \
- / / / / / /_/  __/ /  / /_/ / /__/ /_(__  ) / / /
-/_/_/ /_/\__/\___/_/   \__,_/\___/\__/____/_/ /_/ 1.0.3
-
-        projectdiscovery.io
-
-[INF] Listing 1 payload for OOB Testing
-[INF] c23b2la0kl1krjcrdj10cndmnioyyyyyn.oast.pro
-
-[c23b2la0kl1krjcrdj10cndmnioyyyyyn] Received DNS interaction (A) from 172.253.226.100 at 2021-26-26 12:26
-[c23b2la0kl1krjcrdj10cndmnioyyyyyn] Received DNS interaction (AAAA) from 32.3.34.129 at 2021-26-26 12:26
-[c23b2la0kl1krjcrdj10cndmnioyyyyyn] Received HTTP interaction from 43.22.22.50 at 2021-26-26 12:26
-[c23b2la0kl1krjcrdj10cndmnioyyyyyn] Received DNS interaction (MX) from 43.3.192.3 at 2021-26-26 12:26
-[c23b2la0kl1krjcrdj10cndmnioyyyyyn] Received DNS interaction (TXT) from 74.32.183.135 at 2021-26-26 12:26
-[c23b2la0kl1krjcrdj10cndmnioyyyyyn] Received SMTP interaction from 32.85.166.50 at 2021-26-26 12:26
-```
-
-## Verbose Mode
-
-Running the `interactsh-client` in **verbose mode** (v) allows you to to see the whole request and response, along with an output file to analyze afterwards.
-
-```console
-interactsh-client -v -o interactsh-logs.txt
-
-    _       __                       __       __  
-   (_)___  / /____  _________ ______/ /______/ /_ 
-  / / __ \/ __/ _ \/ ___/ __ '/ ___/ __/ ___/ __ \
- / / / / / /_/  __/ /  / /_/ / /__/ /_(__  ) / / /
-/_/_/ /_/\__/\___/_/   \__,_/\___/\__/____/_/ /_/ 1.0.3
-
-    projectdiscovery.io
-
-[INF] Listing 1 payload for OOB Testing
-[INF] c58bduhe008dovpvhvugcfemp9yyyyyyn.oast.pro
-
-[c58bduhe008dovpvhvugcfemp9yyyyyyn] Received HTTP interaction from 103.22.142.211 at 2021-09-26 18:08:07
-------------
-HTTP Request
-------------
-
-GET /favicon.ico HTTP/2.0
-Host: c58bduhe008dovpvhvugcfemp9yyyyyyn.oast.pro
-Referer: https://c58bduhe008dovpvhvugcfemp9yyyyyyn.oast.pro
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36
-
-
--------------
-HTTP Response
--------------
-
-HTTP/1.1 200 OK
-Connection: close
-Content-Type: text/html; charset=utf-8
-Server: oast.pro
-
-<html><head></head><body>nyyyyyy9pmefcguvhvpvod800ehudb85c</body></html>
-```
-
-## Choosing a Server
-When running `interactsh-client`, it is required that it can connect to a running `interactsh-server`. The Interactsh server captures and logs out-of-band interactions, while the client generates testing URLs and analyzes these interactions for vulnerabilities.
-
-You can either use one of ProjectDiscovery's default interactsh servers or choose you run a self-hosted sever.
-
-### ProjectDiscovery interachsh servers
-
-We maintain a list of default Interactsh servers to use with `interactsh-client`:
-
-- oast.pro
-- oast.live
-- oast.site
-- oast.online
-- oast.fun
-- oast.me
-
-Default servers are subject to change/rotate/down at any time, thus we recommend using a self-hosted interactsh server if you are experiencing issues with the default server.
-
-### Self-Hosted interactsh Server
-
-Using the `server` flag, `interactsh-client` can be configured to connect with a self-hosted Interactsh server, this flag accepts single or multiple server separated by comma.
-
-```sh
-interactsh-client -server hackwithautomation.com
-```
-
-**Using a Protected Self-Hosted Server**
-
-Using the `token` flag, `interactsh-client` can connect to a self-hosted Interactsh server that is protected with authentication.
-
-```sh
-interactsh-client -server hackwithautomation.com -token XXX
-```
-
-## Using with Notify
-
-If you are away from your terminal, you may use [notify](https://github.com/projectdiscovery/notify) to send a real-time interaction notification to any supported platform.
-
-```sh
-interactsh-client | notify
-```
-
-![image](https://user-images.githubusercontent.com/8293321/116283535-9bcac180-a7a9-11eb-94d5-0313d4812fef.png)
-
-## Interactsh Web Client
-
-[Interactsh-web](https://github.com/projectdiscovery/interactsh-web) is a free and open-source web client that displays Interactsh interactions in a well-managed dashboard in your browser. It uses the browser's local storage to store and display all incoming interactions. By default, the web client is configured to use **interact.sh** as default interactsh server, and supports other self-hosted public/authencaited interactsh servers as well.
-
-A hosted instance of **interactsh-web** client is available at https://app.interactsh.com
-
-![image](https://user-images.githubusercontent.com/8293321/136621531-d72c9ece-0076-4db1-98c9-21dcba4ba09c.png)
-
-## Interactsh Docker Client
-
-A [Docker image](https://hub.docker.com/r/projectdiscovery/interactsh-client) is also provided with interactsh client that is ready to run and can be used in the following way:
-
-```sh
-docker run projectdiscovery/interactsh-client:latest
-```
-
-```console
-docker run projectdiscovery/interactsh-client:latest
-
-    _       __                       __       __  
-   (_)___  / /____  _________ ______/ /______/ /_ 
-  / / __ \/ __/ _ \/ ___/ __ '/ ___/ __/ ___/ __ \
- / / / / / /_/  __/ /  / /_/ / /__/ /_(__  ) / / /
-/_/_/ /_/\__/\___/_/   \__,_/\___/\__/____/_/ /_/ v1.0.0
-
-        projectdiscovery.io
-
-[INF] Listing 1 payload for OOB Testing
-[INF] c59e3crp82ke7bcnedq0cfjqdpeyyyyyn.oast.pro
-```
-
-## Integrations
-
-### Burp Suite Extension
-See [integrations](/tools/interactsh/integrations) for more details on the [interactsh-collaborator](https://github.com/wdahlenburg/interactsh-collaborator).
-
-### ZAP Add-On
-See [integrations](/tools/interactsh/integrations) for more details on using interactsh with ZAP.
-
-### Use as library
-
-The [examples](https://github.com/projectdiscovery/interactsh/tree/main/examples) show using the interactsh client library to get external interactions for a generated URL by making a http request to the URL.
-
-### Nuclei - OAST
-
-[Nuclei](https://github.com/projectdiscovery/nuclei) vulnerability scanner utilize **Interactsh** for automated payload generation and detection of out of band based security vulnerabilities.
-
-See [Nuclei + Interactsh](https://blog.projectdiscovery.io/nuclei-interactsh-integration/) Integration blog and [guide document](https://docs.projectdiscovery.io/templates/reference/oob-testing) for more information.
-
-## Cloud Metadata
-
-Interactsh server supports DNS records for cloud metadata services, which is useful for testing SSRF-related vulnerabilities.
-
-Currently supported metadata services:
-
-- [AWS](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html)
-- [Alibaba](https://www.alibabacloud.com/blog/alibaba-cloud-ecs-metadata-user-data-and-dynamic-data_594351)
-
-Example:
-
-* **aws.interact.sh** points to 169.254.169.254
-* **alibaba.interact.sh** points to 100.100.100.200
+import { useEffect } from 'react';
+
+export const RedirectComponent = () => {
+  useEffect(() => {
+    window.location.replace('/opensource/interactsh/running');
+  }, []);
+  
+  return null;
+};
+
+<RedirectComponent />
+
+# 🔄 Redirecting...
+
+You are being redirected to [/opensource/interactsh/running](/opensource/interactsh/running).
+
+If you are not automatically redirected, [click here](/opensource/interactsh/running).
+
+<script dangerouslySetInnerHTML={{
+  __html: `
+    setTimeout(function() {
+      if (typeof window !== 'undefined') {
+        window.location.href = '/opensource/interactsh/running';
+      }
+    }, 100);
+  `
+}} />

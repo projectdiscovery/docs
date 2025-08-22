@@ -1,21 +1,32 @@
 ---
-title: Cloudlist Overview
-description: "A multi-cloud tool to identify assets across cloud service providers"
-sidebarTitle: Overview
+title: 'Redirecting...'
+description: 'This page has moved to /opensource/cloudlist/overview'
 ---
 
-Cloudlist is a multi-cloud tool for getting Assets from Cloud Providers. Cloudlist is designed for the blue team to augment Attack Surface Management efforts by maintaining a centralized list of assets across multiple clouds with very little configuration efforts.
+import { useEffect } from 'react';
 
-## Features
+export const RedirectComponent = () => {
+  useEffect(() => {
+    window.location.replace('/opensource/cloudlist/overview');
+  }, []);
+  
+  return null;
+};
 
- - List Cloud assets with multiple configurations
- - Multiple Cloud providers support
- - Multiple output format support
- - Multiple filters support
- - Highly extensible making adding new providers a breeze
- - **stdout** support to work with other tools in pipelines
+<RedirectComponent />
 
-## Support 
-Questions about using Cloudlist? Issues working through installation? Cool story or use case you want to share? Get in touch! 
+# 🔄 Redirecting...
 
-Check out the [Help](/help) section of the docs or reach out to us on [Discord](https://discord.com/invite/projectdiscovery). 
+You are being redirected to [/opensource/cloudlist/overview](/opensource/cloudlist/overview).
+
+If you are not automatically redirected, [click here](/opensource/cloudlist/overview).
+
+<script dangerouslySetInnerHTML={{
+  __html: `
+    setTimeout(function() {
+      if (typeof window !== 'undefined') {
+        window.location.href = '/opensource/cloudlist/overview';
+      }
+    }, 100);
+  `
+}} />

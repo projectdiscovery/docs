@@ -1,25 +1,32 @@
 ---
-title: Chaos Overview
-description: "A Go Client to communicate with the Chaos API"
-sidebarTitle: Overview
+title: 'Redirecting...'
+description: 'This page has moved to /opensource/chaos/overview'
 ---
 
-Chaos is a comprehensive API dataset of DNS entries across the internet. Maintained by ProjectDiscovery, Chaos is actively updated and contains thousand of records. 
+import { useEffect } from 'react';
 
-Check out [our blog introducing Chaos](https://blog.projectdiscovery.io/introducing-chaos-bug-bounty-recon-data-api/), and learn more on the [Chaos website](https://chaos.projectdiscovery.io/)
+export const RedirectComponent = () => {
+  useEffect(() => {
+    window.location.replace('/opensource/chaos/overview');
+  }, []);
+  
+  return null;
+};
 
-## Support
+<RedirectComponent />
 
-Questions about using Chaos? Issues working through installation? Cool story or use case you want to share? Get in touch!
+# 🔄 Redirecting...
 
-Check out the [Help](/help) section of the docs or reach out to us on [Discord](https://discord.com/invite/projectdiscovery).
+You are being redirected to [/opensource/chaos/overview](/opensource/chaos/overview).
 
-<div style={{ position: 'relative', backgroundImage: 'url("/images/background.png")', borderRadius: '10px', padding: '2rem', textAlign: 'center' }}>
-    <div style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)', borderRadius: '10px', padding: '1rem', display: 'inline-block' }}>
-        <h2 style={{ color: 'white', margin: '0' }}>Need Assistance?</h2>
-        <p style={{ color: 'white' }}>We're here to help you! Explore the documentation or join the conversation.</p>
-        <a href="/help" style={{ display: 'inline-block', backgroundColor: '#00D09C', color: '#000', padding: '1rem 2rem', borderRadius: '5px', textDecoration: 'none' }}>View Help Section</a>
-        <a href="https://discord.com/invite/projectdiscovery" style={{ display: 'inline-block', backgroundColor: '#00D09C', color: '#000', padding: '1rem 2rem', borderRadius: '5px', textDecoration: 'none', marginLeft: '1rem' }}>Join Discord</a>
-    </div>
-</div>
+If you are not automatically redirected, [click here](/opensource/chaos/overview).
 
+<script dangerouslySetInnerHTML={{
+  __html: `
+    setTimeout(function() {
+      if (typeof window !== 'undefined') {
+        window.location.href = '/opensource/chaos/overview';
+      }
+    }, 100);
+  `
+}} />

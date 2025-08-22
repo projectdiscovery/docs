@@ -1,19 +1,32 @@
 ---
-title: AlterX Install
-description: "Learn how to install AlterX and get started"
-sidebarTitle: Install
+title: 'Redirecting...'
+description: 'This page has moved to /opensource/alterx/install'
 ---
 
+import { useEffect } from 'react';
 
-<Tabs>
-  <Tab title="Go">
-    <Note> Enter the command below in a terminal to install uncover using Go. </Note>
+export const RedirectComponent = () => {
+  useEffect(() => {
+    window.location.replace('/opensource/alterx/install');
+  }, []);
+  
+  return null;
+};
 
-    ```bash
-    go install github.com/projectdiscovery/alterx/cmd/alterx@latest
-    ```
-  </Tab>  
-</Tabs>
+<RedirectComponent />
 
-## Installation Notes
-  - AlterX requires the latest version of [**Go**](https://go.dev/doc/install)
+# 🔄 Redirecting...
+
+You are being redirected to [/opensource/alterx/install](/opensource/alterx/install).
+
+If you are not automatically redirected, [click here](/opensource/alterx/install).
+
+<script dangerouslySetInnerHTML={{
+  __html: `
+    setTimeout(function() {
+      if (typeof window !== 'undefined') {
+        window.location.href = '/opensource/alterx/install';
+      }
+    }, 100);
+  `
+}} />

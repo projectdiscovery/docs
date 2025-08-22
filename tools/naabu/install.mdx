@@ -1,38 +1,32 @@
 ---
-title: "Installing Naabu"
-description: "Learn about how to install Naabu and get started"
-sidebarTitle: "Install"
+title: 'Redirecting...'
+description: 'This page has moved to /opensource/naabu/install'
 ---
 
+import { useEffect } from 'react';
 
-<Tabs>
-  <Tab title="Go">
-    <Note> Enter the command below in a terminal to install ProjectDiscovery's Naabu using Go. </Note>
-
-    ```bash
-    go install -v github.com/projectdiscovery/naabu/cmd/naabu@latest
-    ```
-  </Tab>
-   <Tab title="Binary">
-    ```bash
-    https://github.com/projectdiscovery/naabu/releases/
-    ```
-
-    <Tip>
-    - Download the latest binary for your OS.
-    - Unzip the ready to run binary.
-    </Tip>
-
-  </Tab>
-</Tabs>
-
-## Installation Notes
-  - Naabu requires the latest version of [**Go**](https://go.dev/doc/install)
-  - Add the Go bin path to the system paths. On OSX or Linux, in your terminal use
+export const RedirectComponent = () => {
+  useEffect(() => {
+    window.location.replace('/opensource/naabu/install');
+  }, []);
   
-  ```
-  echo export $PATH=$PATH:$HOME/go/bin >> $home/.bashrc
-  source $home/.bashrc
-  ```
-  - To add the Go bin path in Windows, [click this link for instructions.](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/)
-  - The binary will be located in `$home/go/bin/naabu`  
+  return null;
+};
+
+<RedirectComponent />
+
+# 🔄 Redirecting...
+
+You are being redirected to [/opensource/naabu/install](/opensource/naabu/install).
+
+If you are not automatically redirected, [click here](/opensource/naabu/install).
+
+<script dangerouslySetInnerHTML={{
+  __html: `
+    setTimeout(function() {
+      if (typeof window !== 'undefined') {
+        window.location.href = '/opensource/naabu/install';
+      }
+    }, 100);
+  `
+}} />

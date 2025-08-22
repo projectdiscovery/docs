@@ -1,62 +1,32 @@
 ---
-title: "Installing Katana"
-description: "Learn about how to install Katana"
-sidebarTitle: "Install"
+title: 'Redirecting...'
+description: 'This page has moved to /opensource/katana/install'
 ---
-<Tabs>
-  <Tab title="Go">
-    <Note> Enter the command below in a terminal to install ProjectDiscovery's Katana using Go. </Note>
-    ```bash
-    go install github.com/projectdiscovery/katana/cmd/katana@latest
-   ```
-  </Tab>
-  <Tab title="Docker">
-  <Note> Enter the command below in a terminal to install ProjectDiscovery's Katana using Go. </Note>
-    To install/update Docker to the latest tag
-    ```bash
-   docker pull projectdiscovery/katana:latest
-    ```
-  </Tab>
-    <Tab title="GitHub">
-   <Note> Enter the command below in a terminal to install ProjectDiscovery's Katana using GitHub. </Note>
-    ```bash
-   go install github.com/projectdiscovery/katana/cmd/katana@latest
-    ```
-  </Tab>
-    <Tab title="Ubuntu">
-    For running Ubuntu we recommend installing the following prerequisits
 
-    ```sh
-    sudo apt update
-    sudo snap refresh
-    sudo apt install zip curl wget git
-    sudo snap install golang --classic
-    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
-    sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-    sudo apt update 
-    sudo apt install google-chrome-stable
-    ```
-  </Tab>
-  <Tab title="Binary">
-    ```bash
-    https://github.com/projectdiscovery/katana/releases
-    ```
+import { useEffect } from 'react';
 
-    <Tip>
-    - Download the latest binary for your OS.
-    - Unzip the file to run binary.
-    </Tip>
-
-  </Tab>
-</Tabs>
-
-## Installation Notes
-  - Katana requires the latest version of [**Go**](https://go.dev/doc/install)
-  - Add the Go bin path to the system paths. On OSX or Linux, in your terminal use
+export const RedirectComponent = () => {
+  useEffect(() => {
+    window.location.replace('/opensource/katana/install');
+  }, []);
   
-  ```
-  echo export $PATH=$PATH:$HOME/go/bin >> $home/.bashrc
-  source $home/.bashrc
-  ```
-  - To add the Go bin path in Windows, [click this link for instructions.](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/)
-  - The binary will be located in `$home/go/bin/katana`  
+  return null;
+};
+
+<RedirectComponent />
+
+# 🔄 Redirecting...
+
+You are being redirected to [/opensource/katana/install](/opensource/katana/install).
+
+If you are not automatically redirected, [click here](/opensource/katana/install).
+
+<script dangerouslySetInnerHTML={{
+  __html: `
+    setTimeout(function() {
+      if (typeof window !== 'undefined') {
+        window.location.href = '/opensource/katana/install';
+      }
+    }, 100);
+  `
+}} />

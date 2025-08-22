@@ -1,20 +1,32 @@
 ---
-title: Notify Install
-description: "Learn how to install Notify and get started"
-sidebarTitle: Install
+title: 'Redirecting...'
+description: 'This page has moved to /opensource/notify/install'
 ---
 
+import { useEffect } from 'react';
 
-<Tabs>
-  <Tab title="Go">
-    <Note> Enter the command below in a terminal to install uncover using Go. </Note>
+export const RedirectComponent = () => {
+  useEffect(() => {
+    window.location.replace('/opensource/notify/install');
+  }, []);
+  
+  return null;
+};
 
-    ```bash
-    go install -v github.com/projectdiscovery/notify/cmd/notify@latest
-    ```
-  </Tab>  
-</Tabs>
+<RedirectComponent />
 
-## Installation Notes
-  - Notify requires the latest version of [**Go**](https://go.dev/doc/install)
+# 🔄 Redirecting...
 
+You are being redirected to [/opensource/notify/install](/opensource/notify/install).
+
+If you are not automatically redirected, [click here](/opensource/notify/install).
+
+<script dangerouslySetInnerHTML={{
+  __html: `
+    setTimeout(function() {
+      if (typeof window !== 'undefined') {
+        window.location.href = '/opensource/notify/install';
+      }
+    }, 100);
+  `
+}} />

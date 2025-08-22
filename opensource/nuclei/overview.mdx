@@ -1,0 +1,103 @@
+---
+title: Nuclei Overview
+description: "A fast and customisable vulnerability scanner powered by simple YAML-based templates"
+sidebarTitle: Overview
+---
+
+## What is **Nuclei?**
+
+Nuclei is a fast vulnerability scanner designed to probe modern applications, infrastructure, cloud platforms, and networks, aiding in the identification and mitigation of exploitable vulnerabilities.
+
+At its core, Nuclei uses templates—expressed as straightforward YAML files, that delineate methods for detecting, ranking, and addressing specific security flaws.
+
+Each template delineates a possible attack route, detailing the vulnerability, its severity, priority rating, and occasionally associated exploits. This template-centric methodology ensures Nuclei not only identifies potential threats, but pinpoints exploitable vulnerabilities with tangible real-world implications.
+
+New to scanners and Nuclei? Try it out today with a quick example through our [Getting Started](/getstarted-overview).
+
+## What are Nuclei's features?
+
+| Feature                                         | Description                                                                                                                                                        |
+| ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| [Extensive Template Library](#)                 | Nuclei offers a vast collection of community-powered templates for targeted scans of various vulnerabilities and attack vectors.                                   |
+| [Versatile Target Specification](#)             | Support for various target specification options, such as URLs, IP ranges, ASN range, and file input, allowing flexibility in defining the scanning scope.         |
+| [Bulk Scanning](#)                              | Perform bulk scanning by specifying multiple targets at once, enabling efficient scanning of a large number of assets or websites.                                 |
+| [Flexible Customization](#)                     | Customize scanning templates to fit specific needs, allowing tailored scanning and focusing on relevant security checks.                                           |
+| [Parallel Scanning](#)                          | Supports parallel scanning, reducing scanning time and improving efficiency, especially for large-scale targets.                                                   |
+| [Comprehensive Reporting `cloud`](#)            | Generates detailed reports with actionable insights, including vulnerability details, severity levels, affected endpoints, and suggested remediation steps.        |
+| [Integration with CI/CD Pipelines](#)           | Seamlessly integrate Nuclei into CI/CD pipelines for automated security testing as part of the development and deployment process.                                 |
+| [CI/CD Integration `cloud`](#)                  | Actively maintained and developed by the ProjectDiscovery team, introducing new features, bug fixes, and enhancements to provide an up-to-date scanning framework. |
+| [Ticketing integration `cloud`](#)              | Two-way ticketing integration with Jira, Splunk, and many others to easily remediate and retest vulnerabilities.                                                   |
+| [Customizable Output Format](#)                 | Configure the output format of Nuclei's scan results to suit your needs, including options for JSON, YAML, and more.                                               |
+| [Dynamic Variables](#)                          | Utilize dynamic variables in templates to perform parameterized scanning, enabling versatile and flexible scanning configurations.                                 |
+| [Inclusion and Exclusion Filters](#)            | Apply inclusion and exclusion filters to specify targets, reducing scanning scope and focusing on specific areas of interest.                                      |
+| [Authentication Support](/opensource/nuclei/authenticated-scans)                     | Nuclei supports various authentication mechanisms, including HTTP basic authentication, JWT token authentication, and more.                                        |
+| [Embedding custom code in templates](#) | Execute custom code within Nuclei templates to incorporate user-defined logic, perform advanced scanning actions, and more.                                        |
+| [AI-Powered Template Generation](#) | Generate and run vulnerability templates on-the-fly using natural language descriptions powered by ProjectDiscovery's AI capabilities.                           |
+
+
+## How can I use Nuclei?
+
+The global security community, including numerous researchers and engineers, actively contributes to the Nuclei template ecosystem. With over 6500 templates contributed thus far, Nuclei is continuously updated with real-world exploits and cutting-edge attack vectors. 
+
+Nuclei templates support scanning for critical issues such as the Log4j vulnerability and RCEs that impact vendors such as GitLab, Cisco, F5, and many others. Nuclei has dozens of use cases, including:
+
+| Use Case                                   | Description                                                                                   |
+| ------------------------------------------ | --------------------------------------------------------------------------------------------- |
+| Web Application Security                   | Identifies common web vulnerabilities with community-powered templates.                       |
+| Infrastructure Security                    | Audits server configurations, open ports, and insecure services for security issues.          |
+| API Security Testing `alpha`               | Tests APIs against known vulnerabilities and misconfigurations.                               |
+| (CI/CD) Security                           | Integrates into CI/CD pipelines to minimize vulnerability resurface into production.          |
+| Third-party Vendor Assessment              | Evaluates the security of third-party vendors by scanning their digital assets.               |
+| Cloud Security `alpha`                     | Scans cloud environments for misconfigurations and vulnerabilities.                           |
+| Mobile Application Security                | Scans mobile applications for security issues, including API tests and configuration checks.  |
+| Network Device Security `alpha`            | Identifies vulnerabilities in network devices like routers, switches, and firewalls.          |
+| Web Server Assessment                      | Identifies common vulnerabilities and misconfigurations in web servers.                       |
+| Content Management System (CMS) Assessment | Identifies vulnerabilities specific to CMS platforms like WordPress, Joomla, or Drupal.       |
+| Database Security Assessment               | Scans databases for known vulnerabilities, default configurations, and access control issues. |
+
+## Who is Nuclei for?
+
+People use Nuclei in a variety of ways:
+
+- **Security Engineers/Analysts**: Conduct security assessments, proactively identify vulnerabilities, convert custom vectors and analyze latest attack vectors.
+- **Red Teams**: Leverage Nuclei as part of their offensive security operations to simulate real-world attack scenarios, identify weaknesses, and provide actionable recommendations for enhancing overall security.
+- **DevOps Teams**: Integrate Nuclei into their CI/CD pipelines to ensure continuous security and regression of custom vulnerabilities.
+- **Bug Bounty Hunters**: Leverage Nuclei to find vulnerabilities across their programs listed on platforms like HackerOne, Bugcrowd, Intigriti etc.
+- **Penetration Testers**: Utilize Nuclei to automate their assessment methodologies into templates for their clients' systems.
+
+### Security Engineers
+
+Nuclei offers a number of features that are helpful for security engineers to customise workflows in their organization. With the varieties of scan capabilities (like DNS, HTTP, TCP), security engineers can easily create a suite of custom checks with Nuclei.
+
+- Protocols support including: TCP, DNS, HTTP, File, etc
+- Achieve complex vulnerability steps with workflows and [dynamic requests.](https://blog.projectdiscovery.io/nuclei-unleashed-quickly-write-complex-exploits/)
+- Easily integrate into CI/CD, designed to be easily integrated into regression cycle to actively check the fix and re-appearance of vulnerability.
+
+### Developers and Organizations
+
+Nuclei is built with simplicity in mind and templates backed by hundreds of community members, it allows you to stay updated with the latest security threats using continuous Nuclei scanning on the hosts. 
+It is designed to be easily integrated into regression tests cycle, to verify fixes and eliminate future vulnerabilities.
+
+- **CI/CD:** Engineers are already using Nuclei within their CI/CD pipeline, it allows them to constantly monitor their staging and production environments with customised templates.
+- **Continuous Regression Cycle:** With Nuclei, you can create your custom template on every new identified vulnerability and put into Nuclei engine to eliminate in the continuous regression cycle.
+
+### Bug Bounty Hunters
+
+Nuclei allows a custom testing approach, supporting your own suite of checks to easily run across your bug bounty programs. In addition, Nuclei can be easily integrated into any continuous scanning workflow.
+
+- Nuclei is easily integrated into other tool workflows
+- Can process thousands of hosts in few minutes
+- Easily automates your custom testing approach with our simple YAML DSL
+
+Check our projects and tools to see what might fit into your bug bounty workflow: [github.com/projectdiscovery](http://github.com/projectdiscovery). We also host a daily [refresh of DNS data at Chaos](http://chaos.projectdiscovery.io).
+
+### Penetration Testers
+
+Nuclei can immensely improve how you approach security assessment by augmenting the manual, repetitive processes. Consultancies are already converting their manual assessment steps with Nuclei, it allows them to run set of their custom assessment approach across thousands of hosts in an automated manner.
+
+Pen-testers get the full power public templates and customization capabilities to speed up their assessment process, particularly during the regression cycle where you can easily verify the fix.
+
+- Easily create your compliance, standards suite (e.g. OWASP Top 10) checklist
+- Use capabilities like [DAST](https://docs.projectdiscovery.io/templates/protocols/http/fuzzing-overview) and [workflows](https://docs.projectdiscovery.io/templates/workflows/overview) to simplify complex manual steps and repetitive assessment through automated with Nuclei.
+- Easy to re-test vulnerability-fix by just re-running the template.
+

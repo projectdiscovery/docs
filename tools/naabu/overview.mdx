@@ -1,39 +1,32 @@
 ---
-title: "Naabu Overview"
-description: "A Go-based port scanning tool to quickly enumerate valid ports"
-sidebarTitle: "Overview"
+title: 'Redirecting...'
+description: 'This page has moved to /opensource/naabu/overview'
 ---
 
-# What is **Naabu?**
+import { useEffect } from 'react';
 
-Naabu is a port scanning tool written in Go that enumerates valid ports for hosts in a fast and reliable manner. It is a really simple tool that does fast SYN/CONNECT/UDP scans on the host or list of hosts and provides all ports that return a reply.
+export const RedirectComponent = () => {
+  useEffect(() => {
+    window.location.replace('/opensource/naabu/overview');
+  }, []);
+  
+  return null;
+};
 
-## Features and capabilities
+<RedirectComponent />
 
- - Fast And Simple **SYN/CONNECT/UDP** probe based scanning
- - Optimized for ease of use and **lightweight** on resources
- - **DNS** Port scan
- - **Automatic IP Deduplication** for DNS port scan
- - **IPv4/IPv6** Port scan (**experimental**)
- - **Passive** Port enumeration using Shodan [Internetdb](https://internetdb.shodan.io)
- - **Host Discovery** scan (**experimental**)
- - **NMAP** integration for service discovery
- - Multiple input support - **STDIN/HOST/IP/CIDR/ASN**
- - Multiple output format support - **JSON/TXT/STDOUT**
+# 🔄 Redirecting...
 
-## Additional Naabu Resources
+You are being redirected to [/opensource/naabu/overview](/opensource/naabu/overview).
 
-As an open source tool with a robust community there are a lot of community-created resources available. 
-We are happy to share those to offer even more information about our tools. 
-<i>ProjectDiscovery’s httpx should not be confused with the httpx python library.</i>
+If you are not automatically redirected, [click here](/opensource/naabu/overview).
 
-<Note>Sharing these resources **is not formal approval or a recommendation** from ProjectDiscovery. 
-We cannot provide an endorsement of accuracy or validation that content is up-to-date. Anything shared here should be approached with caution.</Note> 
-
-- https://mrshan.medium.com/naabu-port-scanner-why-you-should-use-it-947d8ca025df
-- https://highon.coffee/blog/naabu-cheat-sheet/
-
-## Support 
-Questions about using Naabu? Issues working through installation? Cool story or use case you want to share? Get in touch! 
-
-Check out the [Help](/help) section of the docs or reach out to us on [Discord](https://discord.com/invite/projectdiscovery). 
+<script dangerouslySetInnerHTML={{
+  __html: `
+    setTimeout(function() {
+      if (typeof window !== 'undefined') {
+        window.location.href = '/opensource/naabu/overview';
+      }
+    }, 100);
+  `
+}} />
