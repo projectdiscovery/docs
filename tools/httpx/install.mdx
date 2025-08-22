@@ -1,63 +1,32 @@
 ---
-title: "Installing httpx"
-description: "Learn about how to install and get started with httpx"
-sidebarTitle: "Install"
+title: 'Redirecting...'
+description: 'This page has moved to /opensource/httpx/install'
 ---
 
-<Tabs>
-  <Tab title="Go">
-    <Note> Enter the command below in a terminal to install ProjectDiscovery's httpx using Go. </Note>
+import { useEffect } from 'react';
 
-    ```bash
-    go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest
-    ```
-  </Tab>
-  <Tab title="Brew">
-    ```bash
-    brew install httpx
-    ```
-
-    <Note>Supported in **macOS** (or Linux)</Note>
-
-  </Tab>
-  <Tab title="Docker">
-    ```bash
-    docker pull projectdiscovery/httpx:latest
-    ```
-
-    {/* Docker-specific usage instructions can be found [here](./running#running-with-docker). */}
-
-  </Tab>
-  <Tab title="GitHub">
-   <Note> Enter the commands below in a terminal to install ProjectDiscovery's httpx using GitHub. </Note>
-    ```bash
-    git clone https://github.com/projectdiscovery/httpx.git; \
-    cd httpx/cmd/httpx; \
-    go build; \
-    mv httpx /usr/local/bin/; \
-    httpx -version;
-    ```
-  </Tab>
-  <Tab title="Binary">
-    ```bash
-    https://github.com/projectdiscovery/httpx/releases
-    ```
-
-    <Tip>
-    - Download the latest binary for your OS.
-    - Unzip the ready to run binary.
-    </Tip>
-
-  </Tab>
-</Tabs>
-
-## Installation Notes
-  - httpx requires the latest version of [**Go**](https://go.dev/doc/install)
-  - Add the Go bin path to the system paths. On OSX or Linux, in your terminal use
+export const RedirectComponent = () => {
+  useEffect(() => {
+    window.location.replace('/opensource/httpx/install');
+  }, []);
   
-  ```
-  echo export PATH=$PATH:$HOME/go/bin >> $HOME/.bashrc
-  source $HOME/.bashrc
-  ```
-  - To add the Go bin path in Windows, [click this link for instructions.](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/)
-  - The binary will be located in `$home/go/bin/httpx`  
+  return null;
+};
+
+<RedirectComponent />
+
+# 🔄 Redirecting...
+
+You are being redirected to [/opensource/httpx/install](/opensource/httpx/install).
+
+If you are not automatically redirected, [click here](/opensource/httpx/install).
+
+<script dangerouslySetInnerHTML={{
+  __html: `
+    setTimeout(function() {
+      if (typeof window !== 'undefined') {
+        window.location.href = '/opensource/httpx/install';
+      }
+    }, 100);
+  `
+}} />

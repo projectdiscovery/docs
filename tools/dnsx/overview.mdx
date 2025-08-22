@@ -1,40 +1,32 @@
 ---
-title: dnsx Overview
-description: "A fast DNS toolkit for running various probes with multiple features"
-sidebarTitle: Overview
+title: 'Redirecting...'
+description: 'This page has moved to /opensource/dnsx/overview'
 ---
 
-## What is dnsx?
+import { useEffect } from 'react';
 
-`dnsx` is a fast and multi-purpose DNS toolkit designed for running various probes through the [retryabledns](https://github.com/projectdiscovery/retryabledns) library. 
-It supports multiple DNS queries, user supplied resolvers, DNS wildcard filtering like [shuffledns](https://github.com/projectdiscovery/shuffledns) etc.
+export const RedirectComponent = () => {
+  useEffect(() => {
+    window.location.replace('/opensource/dnsx/overview');
+  }, []);
+  
+  return null;
+};
 
+<RedirectComponent />
 
-## Features and capabilities
+# 🔄 Redirecting...
 
- - Simple and easy-to-use utility to query DNS records
- - **A, AAAA, CNAME, PTR, NS, MX, TXT, SRV, SOA** query support
- - DNS **Resolution** / **Brute-force** support
- - Custom **resolver** input support
- - Multiple resolver format **(TCP/UDP/DOH/DOT)** support
- - **stdin** and **stdout** support
- - Automatic **wildcard** handling support
+You are being redirected to [/opensource/dnsx/overview](/opensource/dnsx/overview).
 
- ## Additional dnsx resources
+If you are not automatically redirected, [click here](/opensource/dnsx/overview).
 
-As an open source tool with a robust community there are a lot of community-created resources available. 
-We are happy to share those to offer even more information about our tools. 
-
-- https://www.geeksforgeeks.org/dnsx-dns-toolkit-allow-to-run-multiple-dns-queries/
-- https://www.kitploit.com/2020/11/dnsx-fast-and-multi-purpose-dns-toolkit.html?m=0
-- https://blog.projectdiscovery.io/building-your-own-historical-dns-solution-with-dnsx/
-
-<Note>Sharing any external resources **is not formal approval or a recommendation** from ProjectDiscovery. 
-We cannot provide an endorsement of accuracy or validation that content is up-to-date. Anything shared here should be approached with caution.</Note> 
-
-
-## Support 
-Questions about using dnsx? Issues working through installation? Cool story or use case you want to share? Get in touch! 
-
-Check out the [Help](/help) section of the docs or reach out to us on [Discord](https://discord.com/invite/projectdiscovery). 
-
+<script dangerouslySetInnerHTML={{
+  __html: `
+    setTimeout(function() {
+      if (typeof window !== 'undefined') {
+        window.location.href = '/opensource/dnsx/overview';
+      }
+    }, 100);
+  `
+}} />

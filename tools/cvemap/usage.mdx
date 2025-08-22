@@ -1,69 +1,32 @@
 ---
-title: "cvemap usage"
-description: "Learn cvemap usage including flags and filters"
-sidebarTitle: "Usage"
+title: 'Redirecting...'
+description: 'This page has moved to /opensource/cvemap/usage'
 ---
-## Access help 
 
-Use `cvemap - h` to display all help options. 
+import { useEffect } from 'react';
 
-## cvemap help options
+export const RedirectComponent = () => {
+  useEffect(() => {
+    window.location.replace('/opensource/cvemap/usage');
+  }, []);
+  
+  return null;
+};
 
-```
-Flags:
-CONFIG:
-   -auth  configure projectdiscovery cloud (pdcp) api key
+<RedirectComponent />
 
-OPTIONS:
-   -id string[]                    cve to list for given id
-   -v, -vendor string[]            cve to list for given vendor
-   -p, -product string[]           cve to list for given product
-   -eproduct string[]              cves to exclude based on products
-   -s, -severity string[]          cve to list for given severity
-   -cs, -cvss-score string[]       cve to list for given cvss score
-   -c, -cpe string                 cve to list for given cpe
-   -es, -epss-score string         cve to list for given epss score
-   -ep, -epss-percentile string[]  cve to list for given epss percentile
-   -age string                     cve to list published by given age in days
-   -a, -assignee string[]          cve to list for given publisher assignee
-   -vs, -vstatus value             cve to list for given vulnerability status in cli output. supported: modified, rejected, unknown, new, confirmed, unconfirmed
+# 🔄 Redirecting...
 
-UPDATE:
-   -up, -update                 update cvemap to latest version
-   -duc, -disable-update-check  disable automatic cvemap update check
+You are being redirected to [/opensource/cvemap/usage](/opensource/cvemap/usage).
 
-FILTER:
-   -q, -search string  search in cve data
-   -k, -kev            display cves marked as exploitable vulnerabilities by cisa (default true)
-   -t, -template       display cves that has public nuclei templates (default true)
-   -poc                display cves that has public published poc (default true)
-   -h1, -hackerone     display cves reported on hackerone (default true)
-   -re, -remote        display remotely exploitable cves (AV:N & PR:N | PR:L) (default true)
+If you are not automatically redirected, [click here](/opensource/cvemap/usage).
 
-OUTPUT:
-   -f, -field value         fields to display in cli output. supported: age, kev, template, poc, cwe, vendor, vstatus, epss, product, assignee
-   -fe, -exclude value      fields to exclude from cli output. supported: age, kev, template, poc, cwe, vendor, vstatus, epss, product, assignee
-   -lsi, -list-id           list only the cve ids in the output
-   -l, -limit int           limit the number of results to display (default 50)
-   -offset int              offset the results to display
-   -j, -json                return output in json format
-   -epk, -enable-page-keys  enable page keys to navigate results
-
-DEBUG:
-   -version  Version
-   -silent   Silent
-   -verbose  Verbose
-```
-
-## Notes on usage
-
-- CVE datasets gets updated in every 6 hours.
-
-## References
-
-- **[National Vulnerability Database (NVD)](https://nvd.nist.gov/developers)**: Comprehensive CVE vulnerability data.
-- **[Known Exploited Vulnerabilities Catalog (KEV)](https://www.cisa.gov/known-exploited-vulnerabilities-catalog)**: Exploited vulnerabilities catalog.
-- **[Exploit Prediction Scoring System (EPSS)](https://www.first.org/epss/data_stats)**: Exploit prediction scores.
-- **[HackerOne](https://hackerone.com/hacktivity/cve_discovery)**: CVE discoveries disclosure.
-- **[Nuclei Templates](https://github.com/projectdiscovery/nuclei-templates)**: Vulnerability validation templates.
-- **[Live-Hack-CVE](https://github.com/Live-Hack-CVE/) / [PoC-in-GitHub](https://github.com/nomi-sec/PoC-in-GitHub/)** GitHub Repository: Vulnerability PoCs references.
+<script dangerouslySetInnerHTML={{
+  __html: `
+    setTimeout(function() {
+      if (typeof window !== 'undefined') {
+        window.location.href = '/opensource/cvemap/usage';
+      }
+    }, 100);
+  `
+}} />

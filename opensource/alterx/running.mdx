@@ -1,0 +1,173 @@
+---
+title: Running AlterX
+description: "Learn about running AlterX with details on variables and examples"
+sidebarTitle: Running
+---
+
+## Basic Usage
+For a detailed overview of **AlterX** options, visit the [Usage](/opensource/alterx/usage) page.
+
+<Note> If you have questions, feel free to reach out through our [Help](/help) page.</Note>
+
+## Why AlterX?
+
+What differentiates `alterx` from other subdomain permutation tools like `goaltdns` is its **scripting** feature. AlterX accepts patterns as input and generates subdomain permutation wordlists based on these patterns—similar to how [Nuclei](https://github.com/projectdiscovery/nuclei) works with [fuzzing-templates](https://github.com/projectdiscovery/fuzzing-templates).
+
+Active Subdomain Enumeration is challenging due to the probability of finding actual existing domains. On a scale, this process can be visualized as:
+
+```console
+   Using Wordlist < generate permutations with subdomains (goaltdns) < alterx
+```
+
+Most subdomain permutation tools rely on hardcoded patterns, generating massive wordlists that may contain millions of subdomains—making bruteforcing with tools like `dnsx` infeasible. With `alterx`, you can create patterns based on results from passive subdomain enumeration, significantly increasing the chances of finding valid subdomains and making brute-forcing more efficient.
+
+## Variables
+
+`alterx` uses variable-like syntax similar to nuclei-templates. You can create custom patterns using these variables . when domains are passed as input `alterx` evaluates input and extracts variables from it .
+
+### Basic Variables
+  
+```yaml
+{{sub}}     :  subdomain prefix or left most part of a subdomain
+{{suffix}}  :  everything except {{sub}} in subdomain name is suffix
+{{tld}}     :  top level domain name (ex com,uk,in etc)
+{{etld}}    :  also know as public suffix (ex co.uk , gov.in etc)
+```
+
+| Variable   | api.scanme.sh | admin.dev.scanme.sh | cloud.scanme.co.uk |
+| ---------- | ------------- | ------------------- | ------------------ |
+| `{{sub}}`    | `api`         | `admin`             | `cloud`          |
+| `{{suffix}}` | `scanme.sh`   | `dev.scanme.sh`     | `scanme.co.uk`   |
+| `{{tld}}`    | `sh`          | `sh`                | `uk`             |
+| `{{etld}}`   | `-`           | `-`                 | `co.uk`          |
+
+### Advanced Variables
+
+```yaml
+{{root}}  :  also known as eTLD+1 i.e only root domain (ex for api.scanme.sh => {{root}} is scanme.sh)
+{{subN}}  :  here N is an integer (ex {{sub1}} , {{sub2}} etc) .
+
+// {{subN}} is advanced variable which exists depending on input
+// lets say there is a multi level domain cloud.nuclei.scanme.sh
+// in this case {{sub}} = cloud and {{sub1}} = nuclei`
+```
+
+| Variable | api.scanme.sh | admin.dev.scanme.sh | cloud.scanme.co.uk |
+| -------- | ------------- | ------------------- | ------------------ |
+| `{{root}}` | `scanme.sh`   | `scanme.sh`         | `scanme.co.uk`   |
+| `{{sub1}}` | `-`           | `dev`               | `-`              |
+| `{{sub2}}` | `-`           | `-`                 | `-`              |
+
+
+## Patterns
+
+In simple terms, a pattern is a `template` that describes what type of permutations AlterX should generate.
+
+```console
+// Below are some of example patterns which can be used to generate permutations
+// assuming api.scanme.sh was given as input and variable {{word}} was given as input with only one value prod
+// alterx generates subdomains for below patterns
+
+"{{sub}}-{{word}}.{{suffix}}" // ex: api-prod.scanme.sh
+"{{word}}-{{sub}}.{{suffix}}" // ex: prod-api.scanme.sh
+"{{word}}.{{sub}}.{{suffix}}" // ex: prod.api.scanme.sh
+"{{sub}}.{{word}}.{{suffix}}" // ex: api.prod.scanme.sh
+```
+You can find an example of a pattern configuration file [here](https://github.com/projectdiscovery/alterx/blob/main/permutations.yaml). This file is customizable based on your security assessments or penetration test requirements.
+
+This configuration file generates subdomain permutations for security assessments or penetration tests using customizable patterns and dynamic payloads. Patterns include dash-based, dot-based, and others. Users can create custom payload sections, such as words, region identifiers, or numbers, to suit their specific needs.
+
+For example, a user could define a new payload section `env` with values like `prod` and `dev`, then use it in patterns like `{{env}}-{{word}}.{{suffix}}` to generate subdomains like `prod-app.example.com` and `dev-api.example.com`. This flexibility allows tailored subdomain list for unique testing scenarios and target environments.
+
+Default pattern config file used for generation is stored in `$HOME/.config/alterx/` directory, and custom config file can be also used using `-ac` option.
+
+## Examples
+
+An example of running alterx on existing list of passive subdomains of `tesla.com` yield us **10 additional NEW** and **valid subdomains** resolved using [dnsx](https://github.com/projectdiscovery/dnsx).
+
+```console
+$ chaos -d tesla.com | alterx | dnsx
+
+ 
+
+   ___   ____          _  __
+  / _ | / / /____ ____| |/_/
+ / __ |/ / __/ -_) __/>  <  
+/_/ |_/_/\__/\__/_/ /_/|_|              
+
+      projectdiscovery.io
+
+[INF] Generated 8312 permutations in 0.0740s
+auth-global-stage.tesla.com
+auth-stage.tesla.com
+digitalassets-stage.tesla.com
+errlog-stage.tesla.com
+kronos-dev.tesla.com
+mfa-stage.tesla.com
+paymentrecon-stage.tesla.com
+sso-dev.tesla.com
+shop-stage.tesla.com
+www-uat-dev.tesla.com
+```
+
+Similarly `-enrich` option can be used to populate known subdomains as world input to generate **target aware permutations**.
+
+```console
+$ chaos -d tesla.com | alterx -enrich
+
+   ___   ____          _  __
+  / _ | / / /____ ____| |/_/
+ / __ |/ / __/ -_) __/>  <  
+/_/ |_/_/\__/\__/_/ /_/|_|              
+
+      projectdiscovery.io
+
+[INF] Generated 662010 permutations in 3.9989s
+```
+
+You can alter the default patterns at run time using `-pattern` CLI option. 
+
+```console
+$ chaos -d tesla.com | alterx -enrich -p '{{word}}-{{suffix}}'
+
+   ___   ____          _  __
+  / _ | / / /____ ____| |/_/
+ / __ |/ / __/ -_) __/>  <  
+/_/ |_/_/\__/\__/_/ /_/|_|              
+
+      projectdiscovery.io
+
+[INF] Generated 21523 permutations in 0.7984s
+```
+
+You can also overwrite existing variable values using the `-payload` CLI options.
+
+```console
+$ alterx -list tesla.txt -enrich -p '{{word}}-{{year}}.{{suffix}}' -pp word=keywords.txt -pp year=2023
+
+   ___   ____          _  __
+  / _ | / / /____ ____| |/_/
+ / __ |/ / __/ -_) __/>  <  
+/_/ |_/_/\__/\__/_/ /_/|_|              
+
+      projectdiscovery.io
+
+[INF] Generated 21419 permutations in 1.1699s
+```
+
+<Tip>For more information, check out the release **[blog](https://blog.projectdiscovery.io/introducing-alterx-simplifying-active-subdomain-enumeration-with-patterns/)**</Tip>
+
+
+
+Explore other subdomain permutation tools that might integrate well with your workflow:
+
+- [altdns](https://github.com/infosec-au/altdns)
+- [goaltdns](https://github.com/subfinder/goaltdns)
+- [gotator](https://github.com/Josue87/gotator)
+- [ripgen](https://github.com/resyncgg/ripgen/)
+- [dnsgen](https://github.com/ProjectAnte/dnsgen)
+- [dmut](https://github.com/bp0lr/dmut)
+- [permdns](https://github.com/hpy/permDNS)
+- [str-replace](https://github.com/j3ssie/str-replace)
+- [dnscewl](https://github.com/codingo/DNSCewl)
+- [regulator](https://github.com/cramppet/regulator)

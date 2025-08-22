@@ -1,30 +1,32 @@
 ---
-title: PDTM Install
-description: "Learn how to install PDTM and get started"
-sidebarTitle: Install
+title: 'Redirecting...'
+description: 'This page has moved to /opensource/pdtm/install'
 ---
 
+import { useEffect } from 'react';
 
-<Tabs>
-  <Tab title="Go">
-    <Note> Enter the command below in a terminal to install ProjectDiscovery's Chaos Client using Go. </Note>
+export const RedirectComponent = () => {
+  useEffect(() => {
+    window.location.replace('/opensource/pdtm/install');
+  }, []);
+  
+  return null;
+};
 
-    ```sh
-    go install -v github.com/projectdiscovery/pdtm/cmd/pdtm@latest
-    ```
-  </Tab>
-    <Tab title="Binary">
-    ```bash
-    https://github.com/projectdiscovery/pdtm/releases
-    ```
-    <Tip>
-    - Download the latest binary for your OS.
-    - Unzip the ready-to-run binary.
-    </Tip>
-  </Tab>  
-</Tabs>
+<RedirectComponent />
 
-## Installation Notes
-  - PDTM requires the latest version of [**Go**](https://go.dev/doc/install)
-  - Projects are installed by downloading the released project binary. This means that projects can only be installed on the platforms for which binaries have been published.
-  - The path `$HOME/.pdtm/go/bin` is added to the `$PATH` variable by default
+# 🔄 Redirecting...
+
+You are being redirected to [/opensource/pdtm/install](/opensource/pdtm/install).
+
+If you are not automatically redirected, [click here](/opensource/pdtm/install).
+
+<script dangerouslySetInnerHTML={{
+  __html: `
+    setTimeout(function() {
+      if (typeof window !== 'undefined') {
+        window.location.href = '/opensource/pdtm/install';
+      }
+    }, 100);
+  `
+}} />

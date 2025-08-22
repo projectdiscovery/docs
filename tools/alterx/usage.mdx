@@ -1,44 +1,32 @@
 ---
-title: AlterX Usage
-description: "Learn AlterX usage including flags and filters"
-sidebarTitle: Usage
+title: 'Redirecting...'
+description: 'This page has moved to /opensource/alterx/usage'
 ---
 
-## Access help
+import { useEffect } from 'react';
 
-Use `alterx -h` to display all of the help options.
+export const RedirectComponent = () => {
+  useEffect(() => {
+    window.location.replace('/opensource/alterx/usage');
+  }, []);
+  
+  return null;
+};
 
-## AlterX options
+<RedirectComponent />
 
-You can use the following command to see the available flags and options:
+# 🔄 Redirecting...
 
-```console
-Fast and customizable subdomain wordlist generator using DSL.
+You are being redirected to [/opensource/alterx/usage](/opensource/alterx/usage).
 
-Usage:
-  ./alterx [flags]
+If you are not automatically redirected, [click here](/opensource/alterx/usage).
 
-Flags:
-INPUT:
-   -l, -list string[]     subdomains to use when creating permutations (stdin, comma-separated, file)
-   -p, -pattern string[]  custom permutation patterns input to generate (comma-seperated, file)
-   -pp, -payload value    custom payload pattern input to replace/use in key=value format (-pp 'word=words.txt')
-
-OUTPUT:
-   -es, -estimate      estimate permutation count without generating payloads
-   -o, -output string  output file to write altered subdomain list
-   -ms, -max-size int  Max export data size (kb, mb, gb, tb) (default mb)
-   -v, -verbose        display verbose output
-   -silent             display results only
-   -version            display alterx version
-
-CONFIG:
-   -config string  alterx cli config file (default '$HOME/.config/alterx/config.yaml')
-   -en, -enrich    enrich wordlist by extracting words from input
-   -ac string      alterx permutation config file (default '$HOME/.config/alterx/permutation_v0.0.1.yaml')
-   -limit int      limit the number of results to return (default 0)
-
-UPDATE:
-   -up, -update                 update alterx to latest version
-   -duc, -disable-update-check  disable automatic alterx update check
-```
+<script dangerouslySetInnerHTML={{
+  __html: `
+    setTimeout(function() {
+      if (typeof window !== 'undefined') {
+        window.location.href = '/opensource/alterx/usage';
+      }
+    }, 100);
+  `
+}} />

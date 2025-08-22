@@ -1,0 +1,45 @@
+---
+title: "PDTM Usage"
+description: "Learn PDTM usage including flags and options"
+sidebarTitle: "Usage"
+---
+## Access help 
+
+Use `pdtm - h` to display all help options. 
+
+## PDTM options
+
+
+```console
+
+Usage:
+  ./pdtm [flags]
+
+Flags:
+CONFIG:
+   -config string            cli flag configuration file (default "$HOME/.config/pdtm/config.yaml")
+   -bp, -binary-path string  custom location to download project binary (default "$HOME/.pdtm/go/bin")
+
+INSTALL:
+   -i, -install string[]  install single or multiple project by name (comma separated)
+   -ia, -install-all      install all the projects
+   -ip, -install-path     append path to PATH environment variables
+
+UPDATE:
+   -u, -update string[]         update single or multiple project by name (comma separated)
+   -ua, -update-all             update all the projects
+   -up, -self-update            update pdtm to latest version
+   -duc, -disable-update-check  disable automatic pdtm update check
+
+REMOVE:
+   -r, -remove string[]  remove single or multiple project by name (comma separated)
+   -ra, -remove-all      remove all the projects
+   -rp, -remove-path     remove path from PATH environment variables
+
+DEBUG:
+   -sp, -show-path          show the current binary path then exit
+   -version                 show version of the project
+   -v, -verbose             show verbose output
+   -nc, -no-color           disable output content coloring (ANSI escape codes)
+   -disable-changelog, -dc  disable release changelog in output
+```

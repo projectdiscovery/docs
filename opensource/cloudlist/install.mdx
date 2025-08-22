@@ -1,0 +1,37 @@
+---
+title: Cloudlist Install
+description: "Learn how to install Cloudlist and get started"
+sidebarTitle: Install
+---
+
+<Tabs>
+  <Tab title="Go">
+    <Note> Enter the command below in a terminal to install ProjectDiscovery's Cloudlist using Go. </Note>
+
+    ```bash
+    go install -v github.com/projectdiscovery/cloudlist/cmd/cloudlist@latest
+    ```
+  </Tab>
+   <Tab title="Binary">
+    ```bash
+    https://github.com/projectdiscovery/cloudlist/releases/
+    ```
+
+    <Tip>
+    - Download the latest binary for your OS.
+    - Unzip the ready to run binary.
+    </Tip>
+
+  </Tab>
+</Tabs>
+
+## Installation Notes
+  - Cloudlist requires the latest version of [**Go**](https://go.dev/doc/install)
+  - Add the Go bin path to the system paths. On OSX or Linux, in your terminal use
+  
+  ```
+  echo export $PATH=$PATH:$HOME/go/bin >> $home/.bashrc
+  source $home/.bashrc
+  ```
+  - To add the Go bin path in Windows, [click this link for instructions.](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/)
+  - The binary will be located in `$home/go/bin/cloudlist`  

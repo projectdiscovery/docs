@@ -1,32 +1,32 @@
 ---
-title: uncover Overview
-description: "A Go wrapper using APIs to discover exposed hosts"
-sidebarTitle: Overview
+title: 'Redirecting...'
+description: 'This page has moved to /opensource/uncover/overview'
 ---
 
-`uncover` is a Go wrapper using APIs from well known search engines to quickly discover exposed hosts on the internet. It is built with automation in mind, so you can query it and use the results with your current pipeline tools.
+import { useEffect } from 'react';
 
- The uncover [GitHub repo is available here](https://github.com/projectdiscovery/uncover)
+export const RedirectComponent = () => {
+  useEffect(() => {
+    window.location.replace('/opensource/uncover/overview');
+  }, []);
+  
+  return null;
+};
 
-## Features
+<RedirectComponent />
 
-- Query multiple search engine at once
-- Available Search engine support
-  - [Shodan](https://www.shodan.io)
-  - [Censys](https://search.censys.io)
-  - [FOFA](https://fofa.info)
-  - [Hunter](https://hunter.qianxin.com)
-  - [Quake](https://quake.360.net/quake/#/index)
-  - [Zoomeye](https://www.zoomeye.org)
-  - [Netlas](https://netlas.io/)
-  - [CriminalIP](https://www.criminalip.io)
-  - [PublicWWW](https://publicwww.com)
-  - [HunterHow](https://hunter.how)
-- Multiple API key input support
-- Automatic API key randomization
-- **stdin** / **stdout** support for input
+# 🔄 Redirecting...
 
-## Support 
-Questions about using `uncover`? Issues working through installation? Cool story or use case you want to share? Get in touch! 
+You are being redirected to [/opensource/uncover/overview](/opensource/uncover/overview).
 
-Check out the [Help](/help) section of the docs or reach out to us on [Discord](https://discord.com/invite/projectdiscovery). 
+If you are not automatically redirected, [click here](/opensource/uncover/overview).
+
+<script dangerouslySetInnerHTML={{
+  __html: `
+    setTimeout(function() {
+      if (typeof window !== 'undefined') {
+        window.location.href = '/opensource/uncover/overview';
+      }
+    }, 100);
+  `
+}} />

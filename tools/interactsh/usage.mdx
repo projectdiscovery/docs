@@ -1,52 +1,32 @@
 ---
-title: Interactsh Usage
-description: "Learn Interact usage including flags and filters"
-sidebarTitle: Usage
+title: 'Redirecting...'
+description: 'This page has moved to /opensource/interactsh/usage'
 ---
 
-## Access help
+import { useEffect } from 'react';
 
-Use `interactsh-client -h` to display all of the help options.
+export const RedirectComponent = () => {
+  useEffect(() => {
+    window.location.replace('/opensource/interactsh/usage');
+  }, []);
+  
+  return null;
+};
 
-## Interactsh options
+<RedirectComponent />
 
-```yaml
-Usage:
-  ./interactsh-client [flags]
+# 🔄 Redirecting...
 
-Flags:
-INPUT:
-   -s, -server string  interactsh server(s) to use (default "oast.pro,oast.live,oast.site,oast.online,oast.fun,oast.me")
+You are being redirected to [/opensource/interactsh/usage](/opensource/interactsh/usage).
 
-CONFIG:
-   -config string                           flag configuration file (default "$HOME/.config/interactsh-client/config.yaml")
-   -n, -number int                          number of interactsh payload to generate (default 1)
-   -t, -token string                        authentication token to connect protected interactsh server
-   -pi, -poll-interval int                  poll interval in seconds to pull interaction data (default 5)
-   -nf, -no-http-fallback                   disable http fallback registration
-   -cidl, -correlation-id-length int        length of the correlation id preamble (default 20)
-   -cidn, -correlation-id-nonce-length int  length of the correlation id nonce (default 13)
-   -sf, -session-file string                store/read from session file
+If you are not automatically redirected, [click here](/opensource/interactsh/usage).
 
-FILTER:
-   -m, -match string[]   match interaction based on the specified pattern
-   -f, -filter string[]  filter interaction based on the specified pattern
-   -dns-only             display only dns interaction in CLI output
-   -http-only            display only http interaction in CLI output
-   -smtp-only            display only smtp interactions in CLI output
-
-UPDATE:
-   -up, -update                 update interactsh-client to latest version
-   -duc, -disable-update-check  disable automatic interactsh-client update check
-   
-OUTPUT:
-   -o string                         output file to write interaction data
-   -json                             write output in JSONL(ines) format
-   -ps, -payload-store               enable storing generated interactsh payload to file
-   -psf, -payload-store-file string  store generated interactsh payloads to given file (default "interactsh_payload.txt")
-   -v                                display verbose interaction
-
-DEBUG:
-   -version            show version of the project
-   -health-check, -hc  run diagnostic check up
-```
+<script dangerouslySetInnerHTML={{
+  __html: `
+    setTimeout(function() {
+      if (typeof window !== 'undefined') {
+        window.location.href = '/opensource/interactsh/usage';
+      }
+    }, 100);
+  `
+}} />

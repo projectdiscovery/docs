@@ -1,19 +1,32 @@
 ---
-title: Interactsh Install
-description: "Learn how to install Interactsh and get started"
-sidebarTitle: Install
+title: 'Redirecting...'
+description: 'This page has moved to /opensource/interactsh/install'
 ---
 
+import { useEffect } from 'react';
 
-<Tabs>
-  <Tab title="Go">
-    <Note> Enter the command below in a terminal to install ProjectDiscovery's Interactsh. </Note>
+export const RedirectComponent = () => {
+  useEffect(() => {
+    window.location.replace('/opensource/interactsh/install');
+  }, []);
+  
+  return null;
+};
 
-    ```bash
-    go install -v github.com/projectdiscovery/interactsh/cmd/interactsh-client@latest
-    ```
-  </Tab>  
-</Tabs>
+<RedirectComponent />
 
-## Installation Notes
-  - The Interactsh CLI client requires the latest version of [**Go**](https://go.dev/doc/install)
+# 🔄 Redirecting...
+
+You are being redirected to [/opensource/interactsh/install](/opensource/interactsh/install).
+
+If you are not automatically redirected, [click here](/opensource/interactsh/install).
+
+<script dangerouslySetInnerHTML={{
+  __html: `
+    setTimeout(function() {
+      if (typeof window !== 'undefined') {
+        window.location.href = '/opensource/interactsh/install';
+      }
+    }, 100);
+  `
+}} />
