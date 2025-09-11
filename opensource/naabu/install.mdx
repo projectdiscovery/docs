@@ -8,9 +8,10 @@ sidebarTitle: "Install"
 <Tabs>
   <Tab title="Go">
     <Note> Enter the command below in a terminal to install ProjectDiscovery's Naabu using Go. </Note>
+    <Note> before installing naabu, make sure to install libpcap library for packet capturing. </Note>
 
     ```bash
-    go install -v github.com/projectdiscovery/naabu/cmd/naabu@latest
+    go install -v github.com/projectdiscovery/naabu/v2/cmd/naabu@latest
     ```
   </Tab>
    <Tab title="Binary">
@@ -28,10 +29,11 @@ sidebarTitle: "Install"
 
 ## Installation Notes
   - Naabu requires the latest version of [**Go**](https://go.dev/doc/install)
+  - To install libcap on Linux: `sudo apt install -y libpcap-dev`, on Mac: `brew install libpcap`
   - Add the Go bin path to the system paths. On OSX or Linux, in your terminal use
   
   ```
-  echo export $PATH=$PATH:$HOME/go/bin >> $home/.bashrc
+  echo export PATH=$PATH:$HOME/go/bin >> $HOME/.bashrc
   source $home/.bashrc
   ```
   - To add the Go bin path in Windows, [click this link for instructions.](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/)
