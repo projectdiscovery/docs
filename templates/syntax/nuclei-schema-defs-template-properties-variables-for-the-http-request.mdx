@@ -1,0 +1,38 @@
+# variables for the http request Schema
+
+```txt
+https://template#/$defs/Template/properties/variables
+```
+
+Variables are the global variables that once defined here can be used anywhere in the template
+Variables are evaluated in the order they are defined so one variable can be referenced in another variable
+Variables are evaluated before sending every requests so one can reference any variables that are available at runtime and they will be evaluate and used when referenced
+Example:
+
+```yaml
+variables:
+  oast: {{interact-sh}}
+  payload: "{{base64(oast)}}"
+```
+
+Full example template of variables is available at <https://cloud.projectdiscovery.io/public/screenshot>
+Note: -
+These variables can be overridden by -V flag at runtime if needed
+
+| Abstract            | Extensible | Status         | Identifiable            | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                             |
+| :------------------ | :--------- | :------------- | :---------------------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------- |
+| Can be instantiated | No         | Unknown status | Unknown identifiability | Forbidden         | Allowed               | none                | [nuclei-schema.schema.json\*](../out/nuclei-schema.schema.json "open original schema") |
+
+## variables Type
+
+`object` ([variables for the http request](nuclei-schema-defs-template-properties-variables-for-the-http-request))
+
+## variables Examples
+
+```json
+"\n\tdomain: \"{{FQDN}}\"\n\temail: pdteam@{{domain}}"
+```
+
+```json
+"\n\toast: \"{{interact-sh}}\"\n\tpayload: \"{{base64(oast)}}\""
+```
