@@ -221,31 +221,90 @@ References:
 
 Supported Azure Services:
   - Virtual Machines
+  - Public IP Addresses
+  - Traffic Manager Profiles
+  - Storage Accounts
+  - Azure Kubernetes Service (AKS)
+  - Content Delivery Network (CDN)
+  - DNS Zones and Records
+  - Application Gateway & Load Balancer
+  - Container Instances
+  - App Service & Web Apps
+  - Azure Functions
+  - API Management
+  - Front Door
+  - Container Apps
+  - Static Web Apps
 
-**Example Config:**
+**Example Configurations:**
 
-Microsoft Azure can be integrated by using the following configuration block.
+Microsoft Azure integration supports multiple authentication methods via the modern Track 2 SDK. Here are examples for different scenarios:
 
+**1. Client Secret Authentication (Most Common):**
 ```yaml
-- provider: azure # provider is the name of the provider
-  # id is the name defined by user for filtering (optional)
-  id: staging
-  # client_id is the client ID of registered application of the azure account (not requuired if using cli auth)
+- provider: azure
+  id: production
   client_id: $AZURE_CLIENT_ID
-  # client_secret is the secret ID of registered application of the zure account (not requuired if using cli uth)
   client_secret: $AZURE_CLIENT_SECRET
-  # tenant_id is the tenant ID of registered application of the azure account (not requuired if using cli auth)
   tenant_id: $AZURE_TENANT_ID
-  #subscription_id is the azure subscription id
   subscription_id: $AZURE_SUBSCRIPTION_ID
-  #use_cli_auth if set to true cloudlist will use azure cli auth
+```
+
+**2. Azure CLI Authentication (Local Development):**
+```yaml
+- provider: azure
+  id: development
+  subscription_id: $AZURE_SUBSCRIPTION_ID
   use_cli_auth: true
 ```
 
-`tenant_id`, `client_id`, `client_secret` can be obtained/generated from   `All services` > `Azure Active Directory` > `App registrations`
-`subscription_id` can be retrieved from  `All services` > `Subscriptions`
+**3. Client Certificate Authentication (Enterprise Security):**
+```yaml
+- provider: azure
+  id: secure-env
+  client_id: $AZURE_CLIENT_ID
+  certificate_path: /path/to/certificate.pem
+  tenant_id: $AZURE_TENANT_ID
+  subscription_id: $AZURE_SUBSCRIPTION_ID
+```
 
-To use cli auth set `use_cli_auth` value to `true` and run `az login` in the terminal
+**4. Managed Identity (Azure VMs, App Services, AKS):**
+```yaml
+- provider: azure
+  id: azure-hosted
+  subscription_id: $AZURE_SUBSCRIPTION_ID
+  use_managed_identity: true
+```
+
+**5. Workload Identity (Kubernetes, GitHub Actions OIDC):**
+```yaml
+- provider: azure
+  id: k8s-workload
+  subscription_id: $AZURE_SUBSCRIPTION_ID
+  use_workload_identity: true
+```
+
+**6. Auto-Detection (DefaultAzureCredential):**
+```yaml
+- provider: azure
+  id: auto-detect
+  subscription_id: $AZURE_SUBSCRIPTION_ID
+  # No explicit auth method - automatically detects available credentials
+```
+
+**Authentication Setup:**
+
+- `tenant_id`, `client_id`, `client_secret` can be obtained/generated from `All services` > `Azure Active Directory` > `App registrations`
+- `subscription_id` can be retrieved from `All services` > `Subscriptions`
+- For CLI auth: set `use_cli_auth: true` and run `az login` in the terminal
+- For certificate auth: generate a certificate and register it with your App Registration
+- For managed/workload identity: ensure the identity has appropriate permissions on the subscription
+
+**Authentication Priority (when using auto-detection):**
+1. Environment Variables (AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, AZURE_TENANT_ID)
+2. Workload Identity (Kubernetes service account tokens)
+3. Managed Identity (Azure VMs, App Services, AKS nodes)
+4. Azure CLI (az login session)
 
 References:
 1. https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli

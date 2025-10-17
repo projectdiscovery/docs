@@ -118,16 +118,20 @@ The default provider config file should be located at `$HOME/.config/cloudlist/p
 - provider: azure # provider is the name of the provider
   # id is the name defined by user for filtering (optional)
   id: staging
-  # client_id is the client ID of registered application of the azure account (not requuired if using cli auth)
-  client_id: $AZURE_CLIENT_ID
-  # client_secret is the secret ID of registered application of the zure account (not requuired if using cli uth)
-  client_secret: $AZURE_CLIENT_SECRET
-  # tenant_id is the tenant ID of registered application of the azure account (not requuired if using cli auth)
-  tenant_id: $AZURE_TENANT_ID
-  #subscription_id is the azure subscription id
+  # subscription_id is the azure subscription id (required)
   subscription_id: $AZURE_SUBSCRIPTION_ID
-  #use_cli_auth if set to true cloudlist will use azure cli auth
+  # client_id is the client ID of registered application (optional - for service principal auth)
+  client_id: $AZURE_CLIENT_ID
+  # client_secret is the secret of registered application (optional - for service principal auth)
+  client_secret: $AZURE_CLIENT_SECRET
+  # tenant_id is the tenant ID (optional - for service principal auth)
+  tenant_id: $AZURE_TENANT_ID
+  # use_cli_auth: true enables Azure CLI authentication (optional)
   use_cli_auth: true
+  # Other supported auth methods:
+  # use_managed_identity: true    # For Azure VMs, App Services, AKS
+  # use_workload_identity: true   # For Kubernetes, GitHub Actions OIDC
+  # certificate_path: /path/cert  # For certificate-based authentication
 
 - provider: cloudflare # provider is the name of the provider
   # email is the email for cloudflare

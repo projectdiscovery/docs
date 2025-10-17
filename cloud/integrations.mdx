@@ -527,15 +527,32 @@ References:
 Supported Azure Services:
 
 - Virtual Machines
+- Public IP Addresses  
+- Traffic Manager
+- Storage Accounts
+- Azure Kubernetes Service (AKS)
+- Content Delivery Network (CDN)
+- DNS Zones and Records
+- Application Gateway & Load Balancer
+- Container Instances
+- App Service & Web Apps
+- Azure Functions
+- API Management
+- Front Door
+- Container Apps
+- Static Web Apps
 
 **Azure Integration Method:**
 
-To connect ProjectDiscovery to your Azure account, you will need to create and configure an **App Registration** in Azure Active Directory. This process generates a Service Principal with the necessary credentials and permissions to monitor your cloud assets in a secure, read-only manner.
+ProjectDiscovery Cloud Platform uses Microsoft's modern **Track 2 SDK** for Azure integration, providing enhanced security, performance, and support for the latest Azure services. The integration supports **6 authentication methods** to accommodate various cloud deployment scenarios while maintaining 100% backward compatibility with existing configurations.
 
-The required credentials are:
+### Quick Setup Options
+
+**For most users (Service Principal method):**
+Create an App Registration in Azure Active Directory with the following required credentials:
 
 - Azure Tenant ID
-- Azure Subscription ID
+- Azure Subscription ID  
 - Azure Client ID
 - Azure Client Secret
 
@@ -556,7 +573,7 @@ Below are the steps to get the above  credentials:
 {
   "properties": {
     "roleName": "CloudList Reader",
-    "description": "Minimal permissions for CloudList to discover Azure resources (VMs, Public IPs, Traffic Manager)",
+    "description": "Minimal permissions for CloudList to discover Azure resources including VMs, Storage, AKS, CDN, DNS, and more",
     "assignableScopes": [
       "/subscriptions/<REPLACE_WITH_SUBSCRIPTION_ID>"
     ],
@@ -568,7 +585,22 @@ Below are the steps to get the above  credentials:
           "Microsoft.Compute/virtualMachines/read",
           "Microsoft.Network/networkInterfaces/read",
           "Microsoft.Network/publicIPAddresses/read",
-          "Microsoft.Network/trafficManagerProfiles/read"
+          "Microsoft.Network/trafficManagerProfiles/read",
+          "Microsoft.Storage/storageAccounts/read",
+          "Microsoft.ContainerService/managedClusters/read",
+          "Microsoft.Cdn/profiles/read",
+          "Microsoft.Cdn/profiles/endpoints/read",
+          "Microsoft.Network/dnszones/read",
+          "Microsoft.Network/dnszones/recordsets/read",
+          "Microsoft.Network/applicationGateways/read",
+          "Microsoft.Network/loadBalancers/read",
+          "Microsoft.ContainerInstance/containerGroups/read",
+          "Microsoft.Web/sites/read",
+          "Microsoft.Web/sites/functions/read",
+          "Microsoft.ApiManagement/service/read",
+          "Microsoft.Network/frontDoors/read",
+          "Microsoft.App/containerApps/read",
+          "Microsoft.Web/staticSites/read"
         ],
         "notActions": [],
         "dataActions": [],
@@ -583,20 +615,24 @@ Below are the steps to get the above  credentials:
      - Virtual machines: `Microsoft.Compute/virtualMachines/read`, plus RG/subscription reads
      - Public IPs: `Microsoft.Network/publicIPAddresses/read`
      - Traffic Manager: `Microsoft.Network/trafficManagerProfiles/read`
+     - Storage Accounts: `Microsoft.Storage/storageAccounts/read`
+     - AKS Clusters: `Microsoft.ContainerService/managedClusters/read`
+     - CDN: `Microsoft.Cdn/profiles/read`, `Microsoft.Cdn/profiles/endpoints/read`
+     - DNS: `Microsoft.Network/dnszones/read`, `Microsoft.Network/dnszones/recordsets/read`
+     - App Services: `Microsoft.Web/sites/read`
+     - Functions: `Microsoft.Web/sites/functions/read`
+     - Container Apps: `Microsoft.App/containerApps/read`
    - After creating the role, assign it to the App Registration under Role assignments.
    - Alternatively, if creating custom roles is not feasible in your environment, you may assign the built-in **Reader** role to the App Registration. This provides broader read access across the subscription and may exceed least-privilege needs.
    - Note your **Subscription ID** from the subscription's overview page.
 4. **Connect:**
    - Enter the four collected credentials (Tenant ID, Client ID, Client Secret, and Subscription ID) into ProjectDiscovery Cloud Platform to configure the integration.
 
-To use CLI, follow the instructions mentioned in the references below.
-
 References:
 
-1. https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli
-2. https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest#az_ad_sp_create_for_rbac
-3. https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli
-4. https://learn.microsoft.com/en-us/azure/role-based-access-control/custom-roles-portal
+1. https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal
+2. https://learn.microsoft.com/en-us/azure/role-based-access-control/custom-roles-portal
+3. https://learn.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals
 
 
 
