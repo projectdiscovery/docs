@@ -3,15 +3,82 @@ title: "Retesting Vulnerabilities"
 description: "Quickly verify the current status of vulnerabilities through targeted retesting"
 ---
 
-Retesting allows you to quickly verify the current status of a vulnerability, confirming whether it has been remediated or remains active. This feature is designed for ad-hoc validation of findings, eliminating the need to run full scans repeatedly.
+The platform provides both manual and automated retesting capabilities to help you maintain accurate vulnerability status and ensure your security remediation efforts are effective.
 
-When you initiate a retest, you'll be presented with a confirmation dialog:
+## Manual Retest
+
+Manual retesting allows you to quickly verify the current status of specific vulnerabilities on-demand. This feature is designed for ad-hoc validation of findings, eliminating the need to run full scans repeatedly when you only need to check particular vulnerabilities.
+
+### How Manual Retest Works
+
+When you initiate a manual retest, you'll be presented with a confirmation dialog:
 
 <Frame>
   <img src="/images/platform/retest-dialog.png" alt="Retest vulnerability dialog showing proxy selection options" />
 </Frame>
 
-The retest scan will automatically verify if the vulnerability has been resolved. If fixed, the report status will automatically update to "Fixed". Otherwise, it will revert to its original status.
+The retest process will:
+
+- **Target specific vulnerabilities**: Only tests the vulnerabilities you've selected
+- **Provide immediate results**: Runs on-demand when you need verification
+- **Update status automatically**: If the vulnerability is fixed, the status updates to "Fixed"; otherwise, it reverts to its original status
+- **Require minimal resources**: Lightweight operation focused on specific findings
+
+Manual retest is particularly valuable when you need immediate confirmation after applying fixes or want to validate specific vulnerabilities before important deadlines.
+
+## Auto Retest
+
+The platform includes an **automated retesting feature** that runs daily to continuously monitor the status of your vulnerabilities. This feature is **enabled by default** and provides ongoing validation of your security posture without manual intervention.
+
+### How Auto Retest Works
+
+Auto retest automatically examines all open and fixed vulnerabilities in your system on a daily basis to:
+
+- **Maintain accuracy**: Ensures that vulnerability statuses reflect the current state of your assets
+- **Detect regressions**: Identifies when previously fixed vulnerabilities have reappeared
+- **Provide visibility**: Gives you clear insight into which vulnerabilities are actively exploitable
+
+Since this process runs automatically in the background, you may not be aware it's happening - but it's continuously working to keep your vulnerability data current and reliable.
+
+### Manual Retest vs Auto Retest
+
+The platform offers two distinct retesting approaches, each serving different needs:
+
+| Feature | Manual Retest | Auto Retest |
+|---------|---------------|-------------|
+| **Scope** | Retests specific selected vulnerabilities | Retests all existing vulnerabilities in the system |
+| **Purpose** | Ad-hoc validation of specific findings | Continuous validation and regression detection |
+| **Trigger** | User-initiated, on-demand | Daily, automatic |
+| **Control** | Full user control over what gets tested | Automatic, system-managed |
+| **Resource usage** | Minimal, highly targeted | Lightweight, comprehensive coverage |
+| **Use case** | Verify remediation of specific vulnerabilities | Maintain overall security posture |
+| **Timing** | Immediate, when needed | Background, daily schedule |
+
+### When to Use Each Approach
+
+**Choose Manual Retest when:**
+- You've just fixed a specific vulnerability and want immediate confirmation
+- You need to validate remediation before a security review or audit
+- You want to test a small subset of critical vulnerabilities quickly
+- You're working on specific issues and need real-time feedback
+
+**Auto Retest is ideal for:**
+- Maintaining continuous security posture monitoring
+- Detecting regressions without manual effort
+- Keeping vulnerability statuses accurate across your entire portfolio
+- Background monitoring that doesn't require user intervention
+
+<Info>
+**Auto Retest vs Rescan**: Auto retest only validates existing vulnerabilities in your system to check their current status, while rescanning performs comprehensive discovery to find new vulnerabilities. Auto retest is lightweight and focused on monitoring known issues, whereas rescans are resource-intensive and designed for complete security assessments.
+</Info>
+
+### Configuration
+
+Auto retest is enabled by default. If needed, you can disable this feature by visiting your [Auto Retest Settings](https://cloud.projectdiscovery.io/settings/autoretest).
+
+<Warning>
+Disabling auto retest means you'll need to manually verify vulnerability statuses and may miss important regressions where previously fixed vulnerabilities have reappeared.
+</Warning>
 
 ## Supported Scenarios
 
