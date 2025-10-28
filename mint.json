@@ -513,9 +513,12 @@
         {
           "group": "Leaks",
           "pages": [
-            "api-reference/leaks/get-domain-leaks",
-            "api-reference/leaks/get-email-leaks",
-            "api-reference/leaks/get-domain-customer-leaks"
+            "api-reference/leaks/get-all-leaks",
+            "api-reference/leaks/export-leaks",
+            "api-reference/leaks/get-leak-info",
+            "api-reference/leaks/update-leak-status",
+            "api-reference/leaks/get-domain-stats",
+            "api-reference/leaks/get-email-stats"
           ]
         },
         {

@@ -1,3 +1,38 @@
 ---
 openapi: get /v1/leaks/domain
 ---
+
+<Warning>
+**DEPRECATED:** This endpoint is deprecated in favor of the consolidated `/v1/leaks` endpoint.
+
+Use `GET /v1/leaks?type=employee` instead for the same functionality with enhanced features.
+</Warning>
+
+## Migration Guide
+
+This endpoint has been replaced by the new consolidated leaks API. Here's how to migrate:
+
+### Old Way (Deprecated)
+```bash
+GET /v1/leaks/domain?search=example&limit=20
+```
+
+### New Way (Recommended)
+```bash
+GET /v1/leaks?type=employee&search=example&limit=20
+```
+
+## Why Migrate?
+
+The new consolidated endpoint offers several advantages:
+
+- **Unified API**: Access all leak types (personal, employee, customer) from one endpoint
+- **Enhanced Classification**: Distinguishes between organization leaks and external vendor leaks
+- **Better Filtering**: More advanced filtering and grouping options
+- **Improved Performance**: Optimized for better response times
+- **Future-Proof**: All new features will be added to the consolidated endpoint
+
+## See Also
+
+- [Get All Leaks (New Consolidated Endpoint)](/api-reference/leaks/get-all-leaks)
+- [Migration Guide](#migration-guide) above

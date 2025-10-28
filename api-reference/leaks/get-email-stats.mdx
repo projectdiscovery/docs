@@ -1,0 +1,120 @@
+---
+openapi: get /v1/leaks/stats/email
+---
+
+## Overview
+
+Get statistical information about leaks associated with a specific email address. This endpoint provides aggregate data for personal leak monitoring and analysis.
+
+<Info>
+This endpoint is primarily used for personal email leak statistics. For organizational monitoring, consider using the domain stats endpoint instead.
+</Info>
+
+## Query Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `email` | string | **Required.** The email address to get leak statistics for |
+| `unmask_email` | boolean | Whether to unmask email addresses in the response |
+
+## Response Structure
+
+The response provides comprehensive statistics about leaks for the specified email:
+
+```json
+{
+  "email": "user@example.com",
+  "total_leaks": 25,
+  "open_leaks": 18,
+  "fixed_leaks": 7,
+  "leak_classification": {
+    "personal_leaks": 15,
+    "employee_leaks": 8,
+    "customer_leaks": 2
+  },
+  "recent_activity": {
+    "last_30_days": 3,
+    "last_7_days": 1
+  },
+  "compromised_services": [
+    {
+      "service": "facebook.com",
+      "count": 8,
+      "last_seen": "2023-03-15T10:30:00Z"
+    },
+    {
+      "service": "linkedin.com",
+      "count": 5,
+      "last_seen": "2023-02-28T14:20:00Z"
+    }
+  ],
+  "risk_timeline": [
+    {
+      "date": "2023-03",
+      "new_leaks": 3,
+      "fixed_leaks": 1
+    },
+    {
+      "date": "2023-02", 
+      "new_leaks": 5,
+      "fixed_leaks": 2
+    }
+  ]
+}
+```
+
+## Data Fields Explained
+
+| Field | Description |
+|-------|-------------|
+| `email` | The email address these statistics apply to |
+| `total_leaks` | Total number of leaks found for this email |
+| `open_leaks` | Number of leaks that haven't been marked as fixed |
+| `fixed_leaks` | Number of leaks marked as remediated |
+| `leak_classification` | Breakdown by leak type (personal, employee, customer) |
+| `recent_activity` | New leak discovery in recent time periods |
+| `compromised_services` | Services where this email was found in leaks |
+| `risk_timeline` | Historical trend of leak discovery and remediation |
+
+## Usage Examples
+
+### Get basic email stats
+```bash
+curl -X GET "https://api.projectdiscovery.io/v1/leaks/stats/email?email=user@example.com" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+### Get stats with unmasked emails
+```bash
+curl -X GET "https://api.projectdiscovery.io/v1/leaks/stats/email?email=user@example.com&unmask_email=true" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+## Privacy Considerations
+
+### Access Control
+- You can only access stats for emails you're authorized to view
+- Personal emails: accessible to the account owner
+- Employee emails: requires domain verification
+
+### Data Sensitivity
+- Email statistics may reveal sensitive information about user behavior
+- Consider data retention policies for stored statistics
+- Implement appropriate access controls in your applications
+
+## Best Practices
+
+### Regular Monitoring
+- Check email stats periodically for accounts under your management
+- Set up alerts for new leak discoveries
+- Track remediation progress to ensure security improvements
+
+### Integration Tips
+- Use this endpoint for summary dashboards and reports
+- Combine with detailed leak endpoints for comprehensive security monitoring
+- Cache results appropriately to minimize API usage
+
+### Security Recommendations
+- Encourage users to fix open leaks promptly
+- Provide guidance on changing passwords for compromised services
+- Monitor trends to identify systemic security issues
