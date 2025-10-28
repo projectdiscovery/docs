@@ -1,0 +1,140 @@
+---
+openapi: get /v1/leaks
+---
+
+<Info>
+This is the **new consolidated leaks endpoint** that replaces the deprecated individual endpoints (`/v1/leaks/domain`, `/v1/leaks/email`, `/v1/leaks/domain/customers`).
+
+It returns all types of leaks (personal, employee, customer) with optional filtering by type.
+</Info>
+
+## Overview
+
+The consolidated leaks endpoint provides access to all leaked credentials associated with your account:
+
+- **Personal leaks**: Leaks associated with your personal email address
+- **Employee leaks**: Leaks from employees of your verified domains, classified as:
+  - `organization_leaks`: Leaks on organization systems (login URL domain matches email domain)
+  - `external_vendor_leaks`: Leaks on external vendor systems (login URL domain differs from email domain)
+- **Customer leaks**: Leaks from customers using your verified domains
+
+## Key Features
+
+### Advanced Filtering
+- Filter by leak type (`personal`, `employee`, `customer`, `external_vendor_leaks`, `organization_leaks`)
+- Search across all fields
+- Filter by domain, email, status, and date ranges
+- Sort by various fields (URL, username, log_date, country, etc.)
+
+### Grouping & Analytics
+Use the `group_by` parameter to get aggregated data:
+- Group by URL, country, device_ip, hostname, email, or hardware_id
+- Returns group summaries instead of individual leak records
+- Perfect for analytics and reporting
+
+### Pagination
+- Standard pagination with `limit` and `page_number` parameters
+- Default limit: 20 results per page
+
+## Response Structure
+
+### Individual Leaks Response
+```json
+{
+  "data": [
+    {
+      "id": "leak_id_hash",
+      "url": "https://example.com",
+      "username": "user@example.com",
+      "password": "masked_or_unmasked",
+      "device_ip": "192.168.1.1",
+      "hostname": "DESKTOP-ABC123",
+      "os": "Windows 10",
+      "country": "United States",
+      "log_date": "2023-01-15",
+      "hardware_id": "hw_12345",
+      "domain": "example.com",
+      "email_domain": "example.com",
+      "url_domain": "example.com",
+      "status": "open",
+      "user_type": "employee"
+    }
+  ],
+  "total_leaks": 150,
+  "total_pages": 8,
+  "total_count": 150,
+  "summary": {
+    "total_leaks": 150,
+    "personal_leaks": 25,
+    "employee_leaks": 100,
+    "customer_leaks": 25,
+    "external_vendor_leaks": 60,
+    "organization_leaks": 40
+  }
+}
+```
+
+### Grouped Response (when using `group_by`)
+```json
+{
+  "group_summary": [
+    {
+      "url": "https://facebook.com",
+      "count": 45
+    },
+    {
+      "url": "https://linkedin.com", 
+      "count": 32
+    }
+  ],
+  "total_leaks": 150
+}
+```
+
+## Privacy & Security
+
+### Access Control
+- **Personal leaks**: Always accessible to the authenticated user
+- **Employee/Customer leaks**: Requires domain verification
+- **Password unmasking**: Requires domain verification
+
+### Data Classification
+The API automatically classifies employee leaks:
+- **Organization leaks**: Login URL domain matches or is a subdomain of the email domain
+- **External vendor leaks**: Login URL domain is completely different from email domain
+
+## Migration from Deprecated Endpoints
+
+If you're currently using the deprecated endpoints, here's how to migrate:
+
+| Deprecated Endpoint | New Equivalent |
+|-------------------|----------------|
+| `GET /v1/leaks/email` | `GET /v1/leaks?type=personal` |
+| `GET /v1/leaks/domain` | `GET /v1/leaks?type=employee` |
+| `GET /v1/leaks/domain/customers` | `GET /v1/leaks?type=customer` |
+
+## Examples
+
+### Get all leaks
+```bash
+curl -X GET "https://api.projectdiscovery.io/v1/leaks" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+### Get only employee leaks
+```bash
+curl -X GET "https://api.projectdiscovery.io/v1/leaks?type=employee" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+### Get leaks grouped by URL
+```bash
+curl -X GET "https://api.projectdiscovery.io/v1/leaks?group_by=url" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+### Search for specific domain
+```bash
+curl -X GET "https://api.projectdiscovery.io/v1/leaks?domain=example.com" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```

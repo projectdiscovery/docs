@@ -1,0 +1,168 @@
+---
+openapi: post /v1/leaks/status
+---
+
+## Overview
+
+Update the status of one or more leaks to track remediation progress. You can mark leaks as `fixed` when credentials have been changed or `open` if they need attention.
+
+## Authentication & Authorization
+
+### Access Control
+- **Personal leaks**: Always accessible if the leak belongs to your email
+- **Employee/Customer leaks**: Requires domain verification for the associated domain
+- **Bulk operations**: All specified leaks must be accessible to your account
+
+### Privacy-First Validation
+The API validates leak ownership before allowing status updates to ensure users can only modify leaks they have access to.
+
+## Request Body
+
+You can update a single leak or multiple leaks in one request:
+
+### Single Leak Update
+```json
+{
+  "leakid": "b3652f2555841f7652badd9804859f4e",
+  "status": "fixed"
+}
+```
+
+### Multiple Leaks Update
+```json
+{
+  "leakids": [
+    "b3652f2555841f7652badd9804859f4e",
+    "c4763g3666952g8763caee0915960g5f",
+    "d5874h4777063h9874dbff1026071h6g"
+  ],
+  "status": "fixed"
+}
+```
+
+## Status Values
+
+| Status | Description |
+|--------|-------------|
+| `open` | Leak requires attention - credentials may still be compromised |
+| `fixed` | Leak has been remediated - credentials have been changed/secured |
+
+## Response Examples
+
+### Successful Update
+```json
+{
+  "status": "success",
+  "message": "Leak status updated successfully",
+  "leak_id": "b3652f2555841f7652badd9804859f4e",
+  "new_status": "fixed"
+}
+```
+
+### Bulk Update Success
+```json
+{
+  "status": "success", 
+  "message": "3 leak statuses updated successfully",
+  "updated_count": 3
+}
+```
+
+### Error Responses
+
+#### Invalid Request Body
+```json
+{
+  "message": "Invalid request body"
+}
+```
+
+#### Access Denied
+```json
+{
+  "message": "Access denied: you don't have access to this leak"
+}
+```
+
+#### Leak Not Found
+```json
+{
+  "message": "One or more leaks not found"
+}
+```
+
+## Validation Rules
+
+### Required Fields
+- Either `leakid` (single) OR `leakids` (multiple) must be provided
+- `status` field is required and must be either `"open"` or `"fixed"`
+
+### Leak ID Format
+- Must be 32-character MD5 hash (e.g., `b3652f2555841f7652badd9804859f4e`)
+- Invalid format will result in a 400 error
+
+### Ownership Validation
+- API validates that you have access to each leak before updating
+- Unauthorized leaks will result in a 403 error
+
+## Usage Examples
+
+### Mark single leak as fixed
+```bash
+curl -X POST "https://api.projectdiscovery.io/v1/leaks/status" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "leakid": "b3652f2555841f7652badd9804859f4e",
+    "status": "fixed"
+  }'
+```
+
+### Mark multiple leaks as fixed
+```bash
+curl -X POST "https://api.projectdiscovery.io/v1/leaks/status" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "leakids": [
+      "b3652f2555841f7652badd9804859f4e",
+      "c4763g3666952g8763caee0915960g5f"
+    ],
+    "status": "fixed"
+  }'
+```
+
+### Reopen a previously fixed leak
+```bash
+curl -X POST "https://api.projectdiscovery.io/v1/leaks/status" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "leakid": "b3652f2555841f7652badd9804859f4e",
+    "status": "open"
+  }'
+```
+
+## Best Practices
+
+### Remediation Workflow
+1. **Identify leaks** using the main leaks endpoint
+2. **Get detailed info** using the leak info endpoint
+3. **Change credentials** on the affected service
+4. **Mark as fixed** using this status endpoint
+5. **Monitor for new leaks** regularly
+
+### Bulk Operations
+- Use bulk updates when fixing multiple related leaks
+- Validate all leak IDs before making bulk requests
+- Handle partial failures gracefully in bulk operations
+
+### Status Management
+- Mark leaks as `fixed` only after confirming credential changes
+- Use `open` status to flag leaks that need immediate attention
+- Regularly audit fixed leaks to ensure they remain secure
+
+### Error Handling
+- Implement retry logic for transient failures
+- Log access denied errors for security monitoring
+- Validate leak ID format before making requests

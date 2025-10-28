@@ -1,0 +1,130 @@
+---
+openapi: post /v1/leaks/export
+---
+
+## Overview
+
+Export leaked credentials data with the same filtering capabilities as the main leaks endpoint. Supports both JSON and CSV formats for easy integration with external tools and reporting systems.
+
+## Export Formats
+
+### JSON Format
+Returns structured data identical to the GET `/v1/leaks` endpoint response.
+
+### CSV Format  
+Returns comma-separated values with headers, perfect for spreadsheet applications and data analysis tools.
+
+## Request Body
+
+The export endpoint accepts the same filtering parameters as the GET `/v1/leaks` endpoint in the request body:
+
+```json
+{
+  "type": "all",
+  "domain": "example.com", 
+  "email": "user@example.com",
+  "search": "facebook",
+  "limit": 1000,
+  "page_number": 1,
+  "start_date": "2023-01-01",
+  "end_date": "2023-12-31",
+  "time_range": "last_6_months",
+  "sort_by": "log_date",
+  "sort_order": "desc",
+  "status": "open",
+  "group_by": "url"
+}
+```
+
+## Response Examples
+
+### JSON Export Response
+```json
+{
+  "data": [
+    {
+      "id": "leak_id_hash",
+      "url": "https://example.com",
+      "username": "user@example.com", 
+      "password": "masked_password",
+      "device_ip": "192.168.1.1",
+      "hostname": "DESKTOP-ABC123",
+      "os": "Windows 10",
+      "country": "United States",
+      "log_date": "2023-01-15",
+      "hardware_id": "hw_12345",
+      "domain": "example.com",
+      "email_domain": "example.com",
+      "url_domain": "example.com",
+      "status": "open",
+      "user_type": "employee"
+    }
+  ],
+  "total_leaks": 150,
+  "summary": {
+    "total_leaks": 150,
+    "personal_leaks": 25,
+    "employee_leaks": 100,
+    "customer_leaks": 25
+  }
+}
+```
+
+### CSV Export Response
+```csv
+id,url,username,password,device_ip,hostname,os,country,log_date,hardware_id,domain,email_domain,url_domain,status,user_type
+leak_id_hash,https://example.com,user@example.com,masked_password,192.168.1.1,DESKTOP-ABC123,Windows 10,United States,2023-01-15,hw_12345,example.com,example.com,example.com,open,employee
+```
+
+## Usage Examples
+
+### Export all leaks as JSON
+```bash
+curl -X POST "https://api.projectdiscovery.io/v1/leaks/export?format=json" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "type": "all"
+  }'
+```
+
+### Export employee leaks as CSV
+```bash
+curl -X POST "https://api.projectdiscovery.io/v1/leaks/export?format=csv" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "type": "employee",
+    "domain": "mycompany.com"
+  }'
+```
+
+### Export with date filtering
+```bash
+curl -X POST "https://api.projectdiscovery.io/v1/leaks/export" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "time_range": "last_3_months",
+    "status": "open",
+    "sort_by": "log_date",
+    "sort_order": "desc"
+  }'
+```
+
+## Best Practices
+
+### Large Datasets
+- Use pagination (`limit` and `page_number`) for large exports
+- Consider filtering by date ranges to reduce response size
+- CSV format is more efficient for large datasets
+
+### Security Considerations
+- Exported data may contain sensitive information
+- Ensure secure handling and storage of exported files
+- Password unmasking follows the same ACL rules as the main leaks endpoint
+
+### Performance Tips
+- Use specific filters to reduce export size
+- CSV exports are generally faster for large datasets
+- Consider using `group_by` for summary reports instead of full exports

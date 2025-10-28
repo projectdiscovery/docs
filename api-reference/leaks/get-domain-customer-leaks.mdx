@@ -1,3 +1,47 @@
 ---
 openapi: get /v1/leaks/domain/customers
 ---
+
+<Warning>
+**DEPRECATED:** This endpoint is deprecated in favor of the consolidated `/v1/leaks` endpoint.
+
+Use `GET /v1/leaks?type=customer` instead for the same functionality with enhanced features.
+</Warning>
+
+## Migration Guide
+
+This endpoint has been replaced by the new consolidated leaks API. Here's how to migrate:
+
+### Old Way (Deprecated)
+```bash
+GET /v1/leaks/domain/customers?search=example&limit=20
+```
+
+### New Way (Recommended)
+```bash
+GET /v1/leaks?type=customer&search=example&limit=20
+```
+
+## Why Migrate?
+
+The new consolidated endpoint offers several advantages:
+
+- **Unified API**: Access all leak types (personal, employee, customer) from one endpoint
+- **Enhanced Privacy**: Better privacy controls for customer data
+- **Advanced Filtering**: More sophisticated filtering and search capabilities
+- **Improved Performance**: Optimized for better response times
+- **Future-Proof**: All new features will be added to the consolidated endpoint
+- **Better Analytics**: Enhanced grouping and summary capabilities
+
+## Privacy Enhancements
+
+The new consolidated endpoint includes enhanced privacy protections for customer leaks:
+
+- **Password Masking**: Customer leak passwords are never unmasked (privacy protection)
+- **Access Control**: Stricter validation of domain ownership
+- **Audit Logging**: Better tracking of access to customer data
+
+## See Also
+
+- [Get All Leaks (New Consolidated Endpoint)](/api-reference/leaks/get-all-leaks)
+- [Migration Guide](#migration-guide) above

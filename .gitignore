@@ -3,3 +3,4 @@
 /static/docsbuilder/node_modules/
 /static/docsbuilder/src/
 CLAUDE.md
+filter_openapi.py

@@ -1,0 +1,85 @@
+---
+openapi: get /v1/leaks/stats/domain
+---
+
+## Overview
+
+Get statistical information about leaks associated with a specific domain. This endpoint provides aggregate data for monitoring and reporting purposes.
+
+<Info>
+This endpoint requires domain verification. You can only get stats for domains you have verified ownership of.
+</Info>
+
+## Query Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `domain` | string | **Required.** The domain to get leak statistics for |
+| `unmask_email` | boolean | Whether to unmask email addresses in the response |
+
+## Response Structure
+
+The response provides comprehensive statistics about leaks for the specified domain:
+
+```json
+{
+  "domain": "example.com",
+  "total_leaks": 150,
+  "open_leaks": 120,
+  "fixed_leaks": 30,
+  "leak_types": {
+    "employee_leaks": 100,
+    "customer_leaks": 50
+  },
+  "recent_activity": {
+    "last_30_days": 15,
+    "last_7_days": 3
+  },
+  "top_services": [
+    {
+      "service": "facebook.com",
+      "count": 45
+    },
+    {
+      "service": "linkedin.com", 
+      "count": 32
+    }
+  ],
+  "geographic_distribution": [
+    {
+      "country": "United States",
+      "count": 89
+    },
+    {
+      "country": "Canada",
+      "count": 23
+    }
+  ]
+}
+```
+
+## Usage Examples
+
+### Get basic domain stats
+```bash
+curl -X GET "https://api.projectdiscovery.io/v1/leaks/stats/domain?domain=example.com" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+### Get stats with unmasked emails
+```bash
+curl -X GET "https://api.projectdiscovery.io/v1/leaks/stats/domain?domain=example.com&unmask_email=true" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+## Best Practices
+
+### Regular Monitoring
+- Check domain stats regularly to identify new leaks quickly
+- Set up automated alerts when leak counts increase
+- Monitor the ratio of open vs fixed leaks
+
+### Performance Considerations
+- Cache stats data appropriately to avoid excessive API calls
+- Use this endpoint for summary data, detailed leak info requires other endpoints
+- Consider rate limiting when building automated monitoring systems
