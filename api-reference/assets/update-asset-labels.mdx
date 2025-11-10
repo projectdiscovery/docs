@@ -3,6 +3,10 @@ title: "Bulk Update Asset Labels"
 openapi: patch /v1/asset/labels
 ---
 
+<Warning>
+When filters are empty or not specified, this operation applies to **ALL assets in your account**. Always specify filters to target specific assets unless you intentionally want to update your entire asset inventory.
+</Warning>
+
 ## Overview
 
 Bulk update labels across multiple assets using powerful filters. This endpoint allows you to add, replace, or delete labels on many assets at once, making it ideal for organizing large asset inventories efficiently.
@@ -47,6 +51,8 @@ Removes specific labels from assets:
 
 ## Request Body Structure
 
+### With Filters (Recommended)
+Target specific assets using filters:
 ```json
 {
   "filters": {
@@ -61,6 +67,30 @@ Removes specific labels from assets:
   },
   "labels": ["label1", "label2", "label3"]
 }
+```
+
+### Without Filters (Applies to ALL Assets)
+<Warning>
+This will update **every asset** in your account:
+</Warning>
+
+```json
+{
+  "filters": {},
+  "labels": ["label-for-all-assets"]
+}
+```
+
+Example:
+```bash
+# This deletes "test1" label from ALL assets in your account
+curl -X PATCH "https://api.projectdiscovery.io/v1/asset/labels?update_type=delete" \
+  -H "X-Api-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "filters": {},
+    "labels": ["test1"]
+  }'
 ```
 
 ## Response
