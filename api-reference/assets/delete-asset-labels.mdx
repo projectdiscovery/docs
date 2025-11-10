@@ -1,0 +1,80 @@
+---
+openapi: delete /v1/asset/{asset_id}/labels
+---
+
+<Warning>
+This endpoint removes **ALL labels** from an asset. If you want to remove specific labels while keeping others, use `PATCH /v1/asset/{asset_id}/labels` with `update_type=delete` instead.
+</Warning>
+
+## Overview
+
+Remove all labels from a specific asset. This endpoint provides a quick way to completely clear an asset's labels, useful when:
+- Resetting asset categorization
+- Cleaning up before re-labeling
+- Removing assets from all label-based groups
+- Decommissioning or archiving assets
+
+## Quick Example
+
+```bash
+curl -X DELETE "https://api.projectdiscovery.io/v1/asset/123456/labels" \
+  -H "X-Api-Key: YOUR_API_KEY"
+```
+
+## Response
+
+### Success Response
+```json
+{
+  "message": "All labels removed successfully"
+}
+```
+
+### Error Responses
+
+**Asset Not Found:**
+```json
+{
+  "message": "Asset not found",
+  "code": "NOT_FOUND"
+}
+```
+
+**Invalid Asset ID:**
+```json
+{
+  "message": "Invalid asset ID format",
+  "code": "INVALID_ID"
+}
+```
+
+## Behavior
+
+### Complete Label Removal
+This endpoint removes **all** labels from the asset:
+
+**Before:**
+```json
+{
+  "id": 123456,
+  "name": "https://example.com",
+  "labels": ["production", "api", "critical", "monitored"]
+}
+```
+
+**Request:**
+```bash
+curl -X DELETE "https://api.projectdiscovery.io/v1/asset/123456/labels" \
+  -H "X-Api-Key: YOUR_API_KEY"
+```
+
+**After:**
+```json
+{
+  "id": 123456,
+  "name": "https://example.com",
+  "labels": []
+}
+```
+
+

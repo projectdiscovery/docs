@@ -1,0 +1,202 @@
+---
+openapi: patch /v1/asset/{asset_id}/labels
+---
+
+## Overview
+
+Modify labels on a specific asset with granular control over how labels are updated. This endpoint provides three update modes (append, replace, delete) for managing labels on individual assets.
+
+## Update Modes
+
+### Append Mode (Default)
+Add new labels while keeping existing ones:
+```bash
+curl -X PATCH "https://api.projectdiscovery.io/v1/asset/123456/labels?update_type=append" \
+  -H "X-Api-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "labels": ["new-label"]
+  }'
+```
+
+### Replace Mode
+Replace all existing labels with new ones:
+```bash
+curl -X PATCH "https://api.projectdiscovery.io/v1/asset/123456/labels?update_type=replace" \
+  -H "X-Api-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "labels": ["only-these-labels"]
+  }'
+```
+
+### Delete Mode
+Remove specific labels from the asset:
+```bash
+curl -X PATCH "https://api.projectdiscovery.io/v1/asset/123456/labels?update_type=delete" \
+  -H "X-Api-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "labels": ["remove-this-label"]
+  }'
+```
+
+## Query Parameters
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `update_type` | string | No | `append` | Update mode: `append`, `replace`, or `delete` |
+
+## Request Body
+
+```json
+{
+  "labels": ["label1", "label2", "label3"]
+}
+```
+
+## Response
+
+```json
+{
+  "message": "Asset labels updated successfully"
+}
+```
+
+## Detailed Examples
+
+### Example 1: Append Labels
+Add labels without affecting existing ones:
+
+**Before:**
+```json
+{
+  "id": 123456,
+  "name": "https://api.example.com",
+  "labels": ["production", "api"]
+}
+```
+
+**Request:**
+```bash
+curl -X PATCH "https://api.projectdiscovery.io/v1/asset/123456/labels?update_type=append" \
+  -H "X-Api-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "labels": ["critical", "monitoring"]
+  }'
+```
+
+**After:**
+```json
+{
+  "id": 123456,
+  "name": "https://api.example.com",
+  "labels": ["production", "api", "critical", "monitoring"]
+}
+```
+
+### Example 2: Replace All Labels
+Completely replace the label set:
+
+**Before:**
+```json
+{
+  "id": 123456,
+  "name": "https://api.example.com",
+  "labels": ["production", "api", "old-label", "deprecated"]
+}
+```
+
+**Request:**
+```bash
+curl -X PATCH "https://api.projectdiscovery.io/v1/asset/123456/labels?update_type=replace" \
+  -H "X-Api-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "labels": ["staging", "testing"]
+  }'
+```
+
+**After:**
+```json
+{
+  "id": 123456,
+  "name": "https://api.example.com",
+  "labels": ["staging", "testing"]
+}
+```
+
+### Example 3: Delete Specific Labels
+Remove only specific labels:
+
+**Before:**
+```json
+{
+  "id": 123456,
+  "name": "https://api.example.com",
+  "labels": ["production", "api", "needs-review", "temporary"]
+}
+```
+
+**Request:**
+```bash
+curl -X PATCH "https://api.projectdiscovery.io/v1/asset/123456/labels?update_type=delete" \
+  -H "X-Api-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "labels": ["needs-review", "temporary"]
+  }'
+```
+
+**After:**
+```json
+{
+  "id": 123456,
+  "name": "https://api.example.com",
+  "labels": ["production", "api"]
+}
+```
+
+## Use Cases
+
+### 1. Change Asset Classification
+Update labels when asset purpose changes:
+```bash
+# Change from staging to production
+curl -X PATCH "https://api.projectdiscovery.io/v1/asset/123456/labels?update_type=replace" \
+  -H "X-Api-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "labels": ["production", "critical", "monitored"]
+  }'
+```
+
+### 2. Remove Temporary Labels
+Clean up labels after completing a process:
+```bash
+# Remove temporary labels after review
+curl -X PATCH "https://api.projectdiscovery.io/v1/asset/123456/labels?update_type=delete" \
+  -H "X-Api-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "labels": ["under-review", "pending"]
+  }'
+```
+
+### 3. Update Priority
+Change priority labels as situations evolve:
+```bash
+# Upgrade to high priority
+curl -X PATCH "https://api.projectdiscovery.io/v1/asset/123456/labels?update_type=delete" \
+  -H "X-Api-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"labels": ["low-priority"]}'
+
+curl -X PATCH "https://api.projectdiscovery.io/v1/asset/123456/labels?update_type=append" \
+  -H "X-Api-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"labels": ["high-priority"]}'
+```
+
+

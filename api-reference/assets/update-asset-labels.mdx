@@ -1,0 +1,107 @@
+---
+title: "Bulk Update Asset Labels"
+openapi: patch /v1/asset/labels
+---
+
+## Overview
+
+Bulk update labels across multiple assets using powerful filters. This endpoint allows you to add, replace, or delete labels on many assets at once, making it ideal for organizing large asset inventories efficiently.
+
+## Key Features
+
+### Flexible Update Modes
+- **Append**: Add new labels without removing existing ones
+- **Replace**: Replace all existing labels with new ones
+- **Delete**: Remove specific labels from assets
+
+### Filter-Based Selection
+Apply labels to assets that match your filter criteria:
+- Technology stack (e.g., all WordPress sites)
+- Port numbers (e.g., assets with port 443)
+- Status codes (e.g., all 200 responses)
+- Domains, hosts, IP addresses
+- Custom filters for complex queries
+
+### Asynchronous Processing
+Large operations are processed asynchronously, allowing you to label thousands of assets without waiting for the request to complete.
+
+## Update Modes Explained
+
+### Append Mode (Default)
+Adds new labels while preserving existing ones:
+- Existing labels: `["prod", "api"]`
+- New labels: `["critical"]`
+- Result: `["prod", "api", "critical"]`
+
+### Replace Mode
+Replaces all existing labels with new ones:
+- Existing labels: `["prod", "api"]`
+- New labels: `["critical", "review"]`
+- Result: `["critical", "review"]`
+
+### Delete Mode
+Removes specific labels from assets:
+- Existing labels: `["prod", "api", "critical"]`
+- Labels to delete: `["critical"]`
+- Result: `["prod", "api"]`
+
+## Request Body Structure
+
+```json
+{
+  "filters": {
+    "technologies": "wordpress,nginx",
+    "domain": ["example.com", "api.example.com"],
+    "port": "443,8080",
+    "status_code": "200,301",
+    "is_new": true,
+    "labels": "existing-label",
+    "time": "last_week",
+    "custom_filter": "encoded_custom_query"
+  },
+  "labels": ["label1", "label2", "label3"]
+}
+```
+
+## Response
+
+### Synchronous Response
+For small operations:
+```json
+{
+  "message": "Labels updated successfully",
+  "asset_count": 42,
+  "async": false
+}
+```
+
+### Asynchronous Response
+For large operations:
+```json
+{
+  "message": "Label update queued",
+  "asset_count": 5000,
+  "async": true
+}
+```
+
+## Available Filters
+
+| Filter | Description | Example |
+|--------|-------------|---------|
+| `technologies` | Filter by technology stack | `"wordpress,nginx"` |
+| `domain` | Filter by domain names | `["example.com"]` |
+| `host` | Filter by specific hosts | `"https://api.example.com"` |
+| `port` | Filter by port numbers | `"443,8080"` |
+| `status_code` | Filter by HTTP status codes | `"200,301,404"` |
+| `title` | Filter by page titles | `"Admin Panel"` |
+| `ip` | Filter by IP addresses | `"192.168.1.1"` |
+| `cname` | Filter by CNAME records | `"cdn.example.com"` |
+| `is_new` | Filter only new assets | `true` |
+| `is_tech` | Assets with technology data | `true` |
+| `is_screenshot` | Assets with screenshots | `true` |
+| `labels` | Filter by existing labels | `"prod,api"` |
+| `time` | Time range filter | `"last_week"` |
+| `enumeration_id` | Specific enumeration | `"enum_123"` |
+
+

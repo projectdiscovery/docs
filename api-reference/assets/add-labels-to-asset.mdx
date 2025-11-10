@@ -1,0 +1,159 @@
+---
+openapi: post /v1/asset/{asset_id}/labels
+---
+
+## Overview
+
+Add labels to a specific asset by its ID. This endpoint enables programmatic labeling of individual assets based on custom logic, security findings, or business rules.
+
+Unlike the bulk endpoint (`PATCH /v1/asset/labels`), this endpoint targets a single asset, making it ideal for:
+- Programmatic labeling based on scan results or vulnerability findings
+- Building custom asset classification pipelines
+- Event-driven labeling (e.g., label assets when specific conditions are met)
+
+## Quick Example
+
+```bash
+curl -X POST "https://api.projectdiscovery.io/v1/asset/123456/labels" \
+  -H "X-Api-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "labels": ["reviewed", "production", "critical"]
+  }'
+```
+
+## Request Body
+
+```json
+{
+  "labels": ["label1", "label2", "label3"]
+}
+```
+
+The `labels` array contains all labels you want to add to the asset. Existing labels are preserved - this endpoint always appends.
+
+## Response
+
+### Success Response
+```json
+{
+  "message": "Labels added successfully"
+}
+```
+
+### Error Responses
+
+**Asset Not Found:**
+```json
+{
+  "message": "Asset not found",
+  "code": "NOT_FOUND"
+}
+```
+
+**Invalid Asset ID:**
+```json
+{
+  "message": "Invalid asset ID format",
+  "code": "INVALID_ID"
+}
+```
+
+## Use Cases
+
+### 1. Manual Asset Review
+After reviewing an asset, mark it as reviewed:
+```bash
+curl -X POST "https://api.projectdiscovery.io/v1/asset/789012/labels" \
+  -H "X-Api-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "labels": ["reviewed", "approved"]
+  }'
+```
+
+### 2. Security Assessment
+Label assets after vulnerability assessment:
+```bash
+curl -X POST "https://api.projectdiscovery.io/v1/asset/345678/labels" \
+  -H "X-Api-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "labels": ["security-tested", "no-vulnerabilities"]
+  }'
+```
+
+### 3. Incident Response
+Quickly label compromised or suspicious assets:
+```bash
+curl -X POST "https://api.projectdiscovery.io/v1/asset/901234/labels" \
+  -H "X-Api-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "labels": ["incident", "investigate", "high-priority"]
+  }'
+```
+
+### 4. Asset Ownership
+Assign ownership or team responsibility:
+```bash
+curl -X POST "https://api.projectdiscovery.io/v1/asset/567890/labels" \
+  -H "X-Api-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "labels": ["team-backend", "owner-john"]
+  }'
+```
+
+## Behavior & Important Notes
+
+### Label Appending
+This endpoint **always appends** labels. It never removes existing labels:
+- Existing labels: `["prod", "api"]`
+- Adding labels: `["critical"]`
+- Result: `["prod", "api", "critical"]`
+
+### Duplicate Prevention
+Adding labels that already exist is safe - they won't be duplicated:
+- Existing labels: `["prod", "api"]`
+- Adding labels: `["api", "critical"]`
+- Result: `["prod", "api", "critical"]` (not `["prod", "api", "api", "critical"]`)
+
+### Empty Labels Array
+Sending an empty labels array has no effect:
+```json
+{
+  "labels": []
+}
+// Result: Asset labels remain unchanged
+```
+
+## Getting the Asset ID
+
+You can retrieve asset IDs from:
+
+### From Enumeration Contents
+```bash
+GET /v1/asset/enumerate/{enumerate_id}/contents
+```
+
+Response includes `id` field:
+```json
+{
+  "data": [
+    {
+      "id": 123456,
+      "name": "https://example.com",
+      "enumeration_id": "enum_abc",
+      "labels": ["existing-label"]
+    }
+  ]
+}
+```
+
+### From Asset Details
+```bash
+GET /v1/asset/{asset_id}
+```
+
+

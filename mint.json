@@ -560,6 +560,10 @@
             "api-reference/enumerations/update-an-asset-group",
             "api-reference/asset/export-list-of-unique-domains-discovered-in-an-enumeration",
             "api-reference/assets/get-asset-changelogs-for-a-given-asset_id",
+            "api-reference/assets/update-asset-labels",
+            "api-reference/assets/add-labels-to-asset",
+            "api-reference/assets/modify-asset-labels",
+            "api-reference/assets/delete-asset-labels",
             "api-reference/get-asset-enumeration-history-data"
           ]
         },
