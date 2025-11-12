@@ -8,11 +8,11 @@ Internal network security is critical yet often overlooked. Once attackers gain 
 ProjectDiscovery offers two distinct approaches for internal network vulnerability scanning, each designed to fit different organizational needs while maintaining our core focus on exploitability and accurate detection.
 
 <CardGroup cols={2}>
-  <Card title="Cloud-Managed Scanning" icon="cloud" color="blue">
-    Use pdcp-agent for seamless internal scanning through PDCP UI. Perfect for large networks and centralized security management.
+  <Card title="Agent based Scanning" icon="cloud" color="blue">
+    Use pd-agent for seamless internal scanning through our platform. Perfect for large networks and centralized security management.
   </Card>
   <Card title="Local Scanning & Upload" icon="upload">
-    Run Nuclei locally and upload results to PDCP. Ideal for teams with existing scanning workflows or specific network restrictions.
+    Run Nuclei locally and upload results to PD's platform. Ideal for teams with existing scanning workflows or specific network restrictions.
   </Card>
 </CardGroup>
 
@@ -20,13 +20,13 @@ ProjectDiscovery offers two distinct approaches for internal network vulnerabili
   Internal scanning helps identify misconfigurations, unpatched systems, and security gaps that could be exploited for lateral movement before attackers can leverage them.
 </Note>
 
-## Method 1: Cloud-Managed Scanning (Recommended)
+## Method 1: Agent based Scanning (Recommended)
 
-To use cloud-managed internal scanning, you'll need to install and deploy pdcp-agent within your internal network. The agent acts as a bridge between your internal infrastructure and ProjectDiscovery's Cloud Platform, enabling you to trigger and manage scans remotely.
+To use this feature you'll need to install and deploy pd-agent within your internal network. The agent acts as a bridge between your internal infrastructure and ProjectDiscovery's platform, enabling you to trigger and manage scans remotely.
 
-### What is pdcp-agent?
+### What is pd-agent?
 
-pdcp-agent is a lightweight agent that you deploy within your internal network to execute scans and enumerations remotely. It establishes a secure connection between your internal infrastructure and ProjectDiscovery's Cloud Platform, receives scan configurations and executes them locally using ProjectDiscovery's tools.
+pd-agent is a lightweight agent that you deploy within your internal network to execute scans and enumerations remotely. It establishes a secure connection between your internal infrastructure and ProjectDiscovery's platform, receives scan configurations and executes them locally using ProjectDiscovery's tools.
 
 **Key Capabilities:**
 
@@ -37,7 +37,7 @@ pdcp-agent is a lightweight agent that you deploy within your internal network t
 - **Automatic Updates**: Receive and execute new scan configurations automatically
 
 <Note>
-  Cloud-managed internal scanning with pdcp-agent is an Enterprise-exclusive feature. Free users can still perform internal scans using the local scanning method described below.
+  Agent based internal scanning is an Enterprise-exclusive feature. Free users can still perform internal scans using the local scanning method described below.
 </Note>
 
 <Note>
