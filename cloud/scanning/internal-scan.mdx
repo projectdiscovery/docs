@@ -20,48 +20,35 @@ ProjectDiscovery offers two distinct approaches for internal network vulnerabili
   Internal scanning helps identify misconfigurations, unpatched systems, and security gaps that could be exploited for lateral movement before attackers can leverage them.
 </Note>
 
-## Port Discovery with Naabu
-
-Before running vulnerability scans, it's recommended to first identify open ports in your internal network using [Naabu](https://github.com/projectdiscovery/naabu) - a fast and reliable port scanner. This ensures comprehensive vulnerability scanning coverage.
-
-```bash
-# Scan entire internal subnet and save results
-naabu -host 192.168.1.1/24 -o internal_ports.txt
-
-# Scan specific port ranges
-naabu -host 192.168.1.1/24 -p 80,443,8000-9000 -o internal_ports.txt
-
-# Faster scanning with increased rate
-naabu -host 192.168.1.1/24 -rate 1000 -o internal_ports.txt
-```
-
-<Note>
-  The discovered ports can be used as input for vulnerability scanning to ensure thorough coverage of all exposed services. Learn more about Naabu's capabilities in our [detailed documentation](/opensource/naabu/overview).
-</Note>
-
-<Info>
-  Naabu will soon be integrated directly into ProjectDiscovery's internal vulnerability scanning capabilities. Contact our [sales team](https://projectdiscovery.io/request-demo) to be notified when this feature becomes available.
-</Info>
-
 ## Method 1: Cloud-Managed Scanning (Recommended)
 
-[TunnelX](https://github.com/projectdiscovery/tunnelx) is our open-source tunneling solution, purpose-built by ProjectDiscovery to enable secure internal scanning. It establishes isolated SOCKS5 proxies that let you trigger scans directly from the ProjectDiscovery interface while ensuring your internal infrastructure remains protected and unexposed.
+### What is pdcp-agent?
+
+pdcp-agent is a lightweight agent that you deploy within your internal network to execute scans and enumerations remotely. It establishes a secure connection between your internal infrastructure and ProjectDiscovery's Cloud Platform, receives scan configurations and executes them locally using ProjectDiscovery's tools.
+
+**Key Capabilities:**
+
+- **Network Discovery**: Automatically discover assets, services, and open ports across your internal network
+- **Vulnerability Scanning**: Execute Nuclei-based vulnerability scans using templates from the PDCP interface  
+- **Agent Tagging**: Organize agents with tags and networks for targeted execution
+- **Passive Discovery**: Optional passive network discovery via libpcap/gopacket
+- **Automatic Updates**: Receive and execute new scan configurations automatically
 
 <Note>
-  Cloud-managed internal scanning with TunnelX is an Enterprise-exclusive feature. Free users can still perform internal scans using the local scanning method described above.
+  Cloud-managed internal scanning with pdcp-agent is an Enterprise-exclusive feature. Free users can still perform internal scans using the local scanning method described below.
 </Note>
 
 <Note>
   **System Requirements**\
-  TunnelX is designed to be lightweight and efficient. Minimum recommended specifications for optimal performance:
+  pdcp-agent is designed to be lightweight and efficient. Minimum recommended specifications for optimal performance:
 
-  - **CPU:** 1 vCPU/Core
-  - **Memory:** 2GB RAM
+  - **CPU:** 2 vCPU
+  - **Memory:** 4GB RAM
   - **Network:** 100Mbps network interface
   - **Storage:** 10GB available disk space
   - **Operating System:** Linux (recommended), macOS, or Windows
 
-  These specifications are suitable for most deployment scenarios. A basic VPS (Virtual Private Server) meeting these requirements is sufficient for running TunnelX efficiently.
+  These specifications are suitable for most deployment scenarios. A basic VPS (Virtual Private Server) meeting these requirements is sufficient for running pdcp-agent efficiently.
 </Note>
 
 ### Install TunnelX
