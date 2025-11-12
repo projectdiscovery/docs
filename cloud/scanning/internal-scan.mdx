@@ -42,7 +42,7 @@ pd-agent is a lightweight agent that you deploy within your internal network to 
 
 <Note>
   **System Requirements**\
-  pdcp-agent is designed to be lightweight and efficient. Minimum recommended specifications for optimal performance:
+  pd-agent is designed to be lightweight and efficient. Minimum recommended specifications for optimal performance:
 
   - **CPU:** 2 vCPU
   - **Memory:** 4GB RAM
@@ -50,12 +50,12 @@ pd-agent is a lightweight agent that you deploy within your internal network to 
   - **Storage:** 10GB available disk space
   - **Operating System:** Linux (recommended), macOS, or Windows
 
-  These specifications are suitable for most deployment scenarios. A basic VPS (Virtual Private Server) meeting these requirements is sufficient for running pdcp-agent efficiently.
+  These specifications are suitable for most deployment scenarios. A basic VPS (Virtual Private Server) meeting these requirements is sufficient for running pd-agent efficiently.
 </Note>
 
 ### Step 1: Create a Network
 
-Before installing pdcp-agent, you need to create a network in the ProjectDiscovery Cloud Platform. Each network represents a distinct internal environment (e.g., production, staging, office network) and generates a unique agent configuration.
+Before installing pd-agent, you need to create a network in the ProjectDiscovery Cloud Platform. Each network represents a distinct internal environment (e.g., production, staging, office network) and generates a unique agent configuration.
 
 1. Navigate to [https://cloud.projectdiscovery.io/networks](https://cloud.projectdiscovery.io/networks)
 2. Click **"Create Network"**
@@ -89,46 +89,48 @@ Once the agent runs successfully, it will appear in your network dashboard with 
 
 <img
   width="800"
-  src="/images/pdcp-agent-setup-demo.gif"
-  alt="Complete pdcp-agent Setup: Create Network, Install Agent, and Verify Connection"
+  src="/images/pd-agent-setup-demo.gif"
+  alt="Complete pd-agent Setup: Create Network, Install Agent, and Verify Connection"
 />
 
 <Note>
   The agent must remain running to execute scans. For production deployments, consider running it as a system service (systemd, Docker, or Kubernetes) to ensure it stays active.
 </Note>
 
-### Triggering Internal Scans
+### Step 3: Trigger Internal Scans
 
-Once you've successfully configured TunnelX, you can easily trigger internal scans directly from the ProjectDiscovery Cloud Platform:
+Once your pd-agent is connected, triggering internal scans works identically to external scanning. The workflow is seamless - you configure scans through the same interface and view results in the same dashboard.
 
 1. **Navigate to Scans Dashboard**:
    - Go to https://cloud.projectdiscovery.io/scans
-   - Click the "Create new scan" button
+   - Click **"Create new scan"**
+
 2. **Configure Your Scan**:
-   - Set your targets, templates, and other scan configurations
-   - Proceed to the final "Scan settings" step
-3. **Enable Internal Scanning**:
-   - In the bottom left corner of the Scan settings screen, you'll see an "Internal Scan" option
-   - Select this option to use your connected TunnelX proxy
-   - Choose the appropriate internal proxy connection from the dropdown
+   - **Targets**: Enter internal IPs, hostnames, or CIDR ranges (e.g., `192.168.1.0/24`, `internal-server.local`)
+   - **Templates**: Select Nuclei templates (CVEs, misconfigurations, vulnerabilities, etc.)
+   - **Configuration**: Choose scan settings, rate limits, headers, and other parameters
+
+3. **Select Your Network**:
+   - In the scan settings, select your internal network from the dropdown
+   - This routes the scan through your connected pd-agent
+
+4. **Launch Your Scan**:
+   - Click **"Create scan"** to start scanning your internal targets
+   - The scan executes through pd-agent in your internal network
+   - Results appear in your dashboard just like external scans
 
 <img
   width="800"
-  src="/images/tunnelx-scan-time.png"
-  alt="Internal Scan Option in Scan Settings"
+  src="/images/pdcp-internal-scan-demo.gif"
+  alt="Creating and Running an Internal Scan in PDCP"
 />
 
-4. **Launch Your Scan**:
-   - Click "Create scan" to start scanning your internal targets
-
-Your scan will now execute against internal targets through the secure TunnelX connection, with results appearing in your ProjectDiscovery dashboard just like external scans.
-
 <Note>
-  TunnelX connections appear automatically in the dropdown once properly configured. If you don't see your connection, check that TunnelX is running properly and your API key is correctly configured.
+  Internal scanning provides the same experience as external scanning - identical template selection, scan configuration, results viewing, retesting capabilities, and integration options.
 </Note>
 
 <Note>
-  **Important:** Only input targets that are actually accessible from the machine where TunnelX is running. For example, if TunnelX is deployed on a server in your internal network (192.168.1.0/24), it can only scan hosts within that network or other networks it has routing access to. If you input external targets or internal hosts that the TunnelX machine cannot reach, the scan will fail.
+  **Important:** Only input targets that are accessible from where pd-agent is deployed. If the agent is running on a server in your 192.168.1.0/24 network, it can only scan hosts within that network or other networks it has routing access to.
 </Note>
 
 ## Method 2: Local Scanning & Upload
