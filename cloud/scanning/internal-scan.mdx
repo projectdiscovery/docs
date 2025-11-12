@@ -53,43 +53,49 @@ pd-agent is a lightweight agent that you deploy within your internal network to 
   These specifications are suitable for most deployment scenarios. A basic VPS (Virtual Private Server) meeting these requirements is sufficient for running pdcp-agent efficiently.
 </Note>
 
-### Install TunnelX
+### Step 1: Create a Network
 
-Choose your preferred installation method:
+Before installing pdcp-agent, you need to create a network in the ProjectDiscovery Cloud Platform. Each network represents a distinct internal environment (e.g., production, staging, office network) and generates a unique agent configuration.
 
-<CodeGroup>
+1. Navigate to [https://cloud.projectdiscovery.io/networks](https://cloud.projectdiscovery.io/networks)
+2. Click **"Create Network"**
+3. Provide a network name
+4. Save the network to generate your unique agent installation command
 
-```bash Docker (Recommended)
-# Pull and run the official image
-docker run --network host -d \
-  -e PDCP_API_KEY="your_api_key" \
-  projectdiscovery/tunnelx:latest
+<img
+  width="800"
+  src="/images/pdcp-create-network-demo.gif"
+  alt="Creating a Network in PDCP"
+/>
 
-# Or build locally
-docker build -t tunnelx https://github.com/projectdiscovery/tunnelx.git
-docker run --network host -d -e PDCP_API_KEY="your_api_key" tunnelx
-```
+<Info>
+  You can create multiple networks for different environments or network segments. Each network can have one or more agents deployed.
+</Info>
 
+### Step 2: Install pdcp-agent
 
-```bash Go Installation
-# Install using go install
-go install github.com/projectdiscovery/tunnelx@latest
+After creating your network, the platform will display a unique installation command pre-configured with your credentials and network settings. Simply copy and run this command in your internal environment where you want the agent deployed.
 
-# Set your API key and run
-export PDCP_API_KEY="your_api_key"
-tunnelx
-```
+<Warning>
+  Keep your installation command secure - it contains your API key and agent configuration. Anyone with this command can connect an agent to your network.
+</Warning>
 
+The installation command will:
+- Download and configure pdcp-agent
+- Establish a secure connection to ProjectDiscovery Cloud Platform
+- Register the agent with your network
 
-```bash Source
-# Clone and run from source
-git clone https://github.com/projectdiscovery/tunnelx.git
-cd tunnelx
-export PDCP_API_KEY="your_api_key"
-go run .
-```
+Once the agent runs successfully, it will appear in your network dashboard with a **"Connected"** status, indicating it's ready to execute scans.
 
-</CodeGroup>
+<img
+  width="800"
+  src="/images/pdcp-agent-setup-demo.gif"
+  alt="Complete pdcp-agent Setup: Create Network, Install Agent, and Verify Connection"
+/>
+
+<Note>
+  The agent must remain running to execute scans. For production deployments, consider running it as a system service (systemd, Docker, or Kubernetes) to ensure it stays active.
+</Note>
 
 ### Triggering Internal Scans
 
