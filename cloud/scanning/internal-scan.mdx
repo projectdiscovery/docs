@@ -62,11 +62,9 @@ Before installing pd-agent, you need to create a network in the ProjectDiscovery
 3. Provide a network name
 4. Save the network to generate your unique agent installation command
 
-<img
-  width="800"
-  src="/images/Internal_Network_Scan/pdcp-create-network-demo.gif"
-  alt="Creating a Network in PDCP"
-/>
+<Frame>
+  <img src="/images/pdcp-create-network-demo.gif" alt="Creating a Network in PDCP" />
+</Frame>
 
 <Info>
   You can create multiple networks for different environments or network segments. Each network can have one or more agents deployed.
@@ -87,11 +85,9 @@ The installation command will:
 
 Once the agent runs successfully, it will appear in your network dashboard with a **"Connected"** status, indicating it's ready to execute scans.
 
-<img
-  width="800"
-  src="/images/pd-agent-setup-demo.gif"
-  alt="Complete pd-agent Setup: Create Network, Install Agent, and Verify Connection"
-/>
+<Frame>
+  <img src="/images/pd-agent-setup-demo.gif" alt="Complete pd-agent Setup: Create Network, Install Agent, and Verify Connection" />
+</Frame>
 
 <Note>
   The agent must remain running to execute scans. For production deployments, consider running it as a system service (systemd, Docker, or Kubernetes) to ensure it stays active.
@@ -119,11 +115,9 @@ Once your pd-agent is connected, triggering internal scans works identically to 
    - The scan executes through pd-agent in your internal network
    - Results appear in your dashboard just like external scans
 
-<img
-  width="800"
-  src="/images/pdcp-internal-scan-demo.gif"
-  alt="Creating and Running an Internal Scan in PDCP"
-/>
+<Frame>
+  <img src="/images/pdcp-internal-scan-demo.gif" alt="Creating and Running an Internal Scan in PDCP" />
+</Frame>
 
 <Note>
   Internal scanning provides the same experience as external scanning - identical template selection, scan configuration, results viewing, retesting capabilities, and integration options.
