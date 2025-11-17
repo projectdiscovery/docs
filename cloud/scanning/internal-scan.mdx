@@ -31,7 +31,7 @@ pd-agent is a lightweight agent that you deploy within your internal network to 
 **Key Capabilities:**
 
 - **Network Discovery**: Automatically discover assets, services, and open ports across your internal network
-- **Vulnerability Scanning**: Execute Nuclei-based vulnerability scans using templates from the PDCP interface  
+- **Vulnerability Scanning**: Execute Nuclei-based vulnerability scans using templates from the ProjectDiscovery's platform  
 - **Agent Tagging**: Organize agents with tags and networks for targeted execution
 - **Passive Discovery**: Optional passive network discovery via libpcap/gopacket
 - **Automatic Updates**: Receive and execute new scan configurations automatically
@@ -42,7 +42,7 @@ pd-agent is a lightweight agent that you deploy within your internal network to 
 
 <Note>
   **System Requirements**\
-  pd-agent is designed to be lightweight and efficient. Minimum recommended specifications for optimal performance:
+  The agent is designed to be lightweight and efficient. Minimum recommended specifications for optimal performance:
 
   - **CPU:** 2 vCPU
   - **Memory:** 4GB RAM
@@ -55,7 +55,7 @@ pd-agent is a lightweight agent that you deploy within your internal network to 
 
 ### Step 1: Create a Network
 
-Before installing pd-agent, you need to create a network in the ProjectDiscovery Cloud Platform. Each network represents a distinct internal environment (e.g., production, staging, office network) and generates a unique agent configuration.
+Before installing the agent, you need to create a network in the ProjectDiscovery's platform. Each network represents a distinct internal environment (e.g., production, staging, office network) and generates a unique agent configuration.
 
 1. Navigate to [https://cloud.projectdiscovery.io/networks](https://cloud.projectdiscovery.io/networks)
 2. Click **"Create Network"**
@@ -70,7 +70,7 @@ Before installing pd-agent, you need to create a network in the ProjectDiscovery
   You can create multiple networks for different environments or network segments. Each network can have one or more agents deployed.
 </Info>
 
-### Step 2: Install pd-agent
+### Step 2: Install the agent
 
 After creating your network, the platform will display a unique installation command pre-configured with your credentials and network settings. Simply copy and run this command in your internal environment where you want the agent deployed.
 
@@ -79,11 +79,11 @@ After creating your network, the platform will display a unique installation com
 </Warning>
 
 The installation command will:
-- Download and configure pd-agent
+- Download and configure the agent
 - Establish a secure connection to ProjectDiscovery's platform
 - Register the agent with your network
 
-Once the agent runs successfully, it will appear in your network dashboard with a **"Connected"** status, indicating it's ready to execute scans.
+Once the agent runs successfully, it will appear in your network dashboard with a **"Connected"** status, indicating that it's ready to execute scans.
 
 <Frame>
   <img src="/images/pd-agent-setup-demo.gif" alt="Complete pd-agent Setup: Create Network, Install Agent, and Verify Connection" />
