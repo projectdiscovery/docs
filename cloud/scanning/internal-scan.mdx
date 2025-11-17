@@ -78,6 +78,33 @@ After creating your network, the platform will display a unique installation com
   Keep your installation command secure - it contains your API key and agent configuration. Anyone with this command can connect an agent to your network.
 </Warning>
 
+You can install the agent using either Go or Docker. Replace the placeholder values with your network's installation details.
+
+<Tabs>
+  <Tab title="Go">
+
+  ```bash
+  PDCP_API_KEY=<VALUE> \
+  PDCP_API_SERVER=https://api.projectdiscovery.io \
+  PDCP_TEAM_ID=<VALUE> \
+  go run github.com/projectdiscovery/pd-agent/cmd/pd-agent@main -agent-networks "agent-name"
+  ```
+
+  </Tab>
+  <Tab title="Docker">
+
+  ```bash
+  docker run --network host \
+    -e PDCP_API_KEY=<VALUE> \
+    -e PDCP_TEAM_ID=<VALUE> \
+    -e PDCP_API_SERVER=https://api.dev.projectdiscovery.io \
+    projectdiscovery/pd-agent:latest \
+    -agent-networks "agent-name"
+  ```
+
+  </Tab>
+</Tabs>
+
 The installation command will:
 - Download and configure the agent
 - Establish a secure connection to ProjectDiscovery's platform
