@@ -97,20 +97,16 @@ Once the agent runs successfully, it will appear in your network dashboard with 
 
 Once your pd-agent is connected, triggering internal scans works identically to external scanning. The workflow is seamless - you configure scans through the same interface and view results in the same dashboard.
 
-1. **Navigate to Scans Dashboard**:
-   - Go to https://cloud.projectdiscovery.io/scans
-   - Click **"Create new scan"**
+1. **Initiate a Scan**:
+   - Click on the **Scan** button for the network you want to scan
+   - Or go to the **Scans** menu (https://cloud.projectdiscovery.io/scans) and create a new scan, choose **Internal** followed by the network you want to scan. Similar to how you would run an external scan
 
-2. **Select Your Network**:
-   - In the scan settings, select your internal network from the dropdown
-   - This routes the scan through your connected pd-agent
-
-3. **Configure Your Scan**:
+2. **Configure Your Scan**:
    - **Targets**: Enter internal IPs, hostnames, or CIDR ranges (e.g., `192.168.1.0/24`, `internal-server.local`)
    - **Templates**: Select Nuclei templates (CVEs, misconfigurations, vulnerabilities, etc.)
    - **Configuration**: Choose scan settings, rate limits, headers, and other parameters
 
-4. **Launch Your Scan**:
+3. **Launch Your Scan**:
    - Click **"Create scan"** to start scanning your internal targets
    - The scan executes through pd-agent in your internal network
    - Results appear in your dashboard just like external scans
