@@ -8,11 +8,11 @@ Internal network security is critical yet often overlooked. Once attackers gain 
 ProjectDiscovery offers two distinct approaches for internal network vulnerability scanning, each designed to fit different organizational needs while maintaining our core focus on exploitability and accurate detection.
 
 <CardGroup cols={2}>
-  <Card title="Cloud-Managed Scanning" icon="cloud" color="blue">
-    Use TunnelX for remote scan triggering through PDCP UI. Perfect for large networks and centralized security management.
+  <Card title="Agent based Scanning" icon="cloud" color="blue">
+    Use pd-agent for seamless internal scanning through our platform. Perfect for large networks and centralized security management.
   </Card>
   <Card title="Local Scanning & Upload" icon="upload">
-    Run Nuclei locally and upload results to PDCP. Ideal for teams with existing scanning workflows or specific network restrictions.
+    Run Nuclei locally and upload results to PD's platform. Ideal for teams with existing scanning workflows or specific network restrictions.
   </Card>
 </CardGroup>
 
@@ -20,120 +20,107 @@ ProjectDiscovery offers two distinct approaches for internal network vulnerabili
   Internal scanning helps identify misconfigurations, unpatched systems, and security gaps that could be exploited for lateral movement before attackers can leverage them.
 </Note>
 
-## Port Discovery with Naabu
+## Method 1: Agent based Scanning (Recommended)
 
-Before running vulnerability scans, it's recommended to first identify open ports in your internal network using [Naabu](https://github.com/projectdiscovery/naabu) - a fast and reliable port scanner. This ensures comprehensive vulnerability scanning coverage.
+To use this feature you'll need to install and deploy pd-agent within your internal network. The agent acts as a bridge between your internal infrastructure and ProjectDiscovery's platform, enabling you to trigger and manage scans remotely.
 
-```bash
-# Scan entire internal subnet and save results
-naabu -host 192.168.1.1/24 -o internal_ports.txt
+### What is pd-agent?
 
-# Scan specific port ranges
-naabu -host 192.168.1.1/24 -p 80,443,8000-9000 -o internal_ports.txt
+pd-agent is a lightweight agent that you deploy within your internal network to execute scans and enumerations remotely. It establishes a secure connection between your internal infrastructure and ProjectDiscovery's platform, receives scan configurations and executes them locally using ProjectDiscovery's tools.
 
-# Faster scanning with increased rate
-naabu -host 192.168.1.1/24 -rate 1000 -o internal_ports.txt
-```
+**Key Capabilities:**
 
-<Note>
-  The discovered ports can be used as input for vulnerability scanning to ensure thorough coverage of all exposed services. Learn more about Naabu's capabilities in our [detailed documentation](/opensource/naabu/overview).
-</Note>
-
-<Info>
-  Naabu will soon be integrated directly into ProjectDiscovery's internal vulnerability scanning capabilities. Contact our [sales team](https://projectdiscovery.io/request-demo) to be notified when this feature becomes available.
-</Info>
-
-## Method 1: Cloud-Managed Scanning (Recommended)
-
-[TunnelX](https://github.com/projectdiscovery/tunnelx) is our open-source tunneling solution, purpose-built by ProjectDiscovery to enable secure internal scanning. It establishes isolated SOCKS5 proxies that let you trigger scans directly from the ProjectDiscovery interface while ensuring your internal infrastructure remains protected and unexposed.
+- **Network Discovery**: Automatically discover assets, services, and open ports across your internal network
+- **Vulnerability Scanning**: Execute Nuclei-based vulnerability scans using templates from the ProjectDiscovery's platform  
+- **Agent Tagging**: Organize agents with tags and networks for targeted execution
+- **Passive Discovery**: Optional passive network discovery via libpcap/gopacket
+- **Automatic Updates**: Receive and execute new scan configurations automatically
 
 <Note>
-  Cloud-managed internal scanning with TunnelX is an Enterprise-exclusive feature. Free users can still perform internal scans using the local scanning method described above.
+  Agent based internal scanning is an Enterprise-exclusive feature. Free users can still perform internal scans using the local scanning method described below.
 </Note>
 
 <Note>
   **System Requirements**\
-  TunnelX is designed to be lightweight and efficient. Minimum recommended specifications for optimal performance:
+  The agent is designed to be lightweight and efficient. Minimum recommended specifications for optimal performance:
 
-  - **CPU:** 1 vCPU/Core
-  - **Memory:** 2GB RAM
+  - **CPU:** 2 vCPU
+  - **Memory:** 4GB RAM
   - **Network:** 100Mbps network interface
   - **Storage:** 10GB available disk space
   - **Operating System:** Linux (recommended), macOS, or Windows
 
-  These specifications are suitable for most deployment scenarios. A basic VPS (Virtual Private Server) meeting these requirements is sufficient for running TunnelX efficiently.
+  These specifications are suitable for most deployment scenarios. A basic VPS (Virtual Private Server) meeting these requirements is sufficient for running pd-agent efficiently.
 </Note>
 
-### Install TunnelX
+### Step 1: Create a Network
 
-Choose your preferred installation method:
+Before installing the agent, you need to create a network in the ProjectDiscovery's platform. Each network represents a distinct internal environment (e.g., production, staging, office network) and generates a unique agent configuration.
 
-<CodeGroup>
+1. Navigate to [https://cloud.projectdiscovery.io/networks](https://cloud.projectdiscovery.io/networks)
+2. Click **"Create Network"**
+3. Provide a network name
+4. Save the network to generate your unique agent installation command
 
-```bash Docker (Recommended)
-# Pull and run the official image
-docker run --network host -d \
-  -e PDCP_API_KEY="your_api_key" \
-  projectdiscovery/tunnelx:latest
+<Frame>
+  <img src="/images/pdcp-create-network-demo.gif" alt="Creating a Network in PDCP" />
+</Frame>
 
-# Or build locally
-docker build -t tunnelx https://github.com/projectdiscovery/tunnelx.git
-docker run --network host -d -e PDCP_API_KEY="your_api_key" tunnelx
-```
+<Info>
+  You can create multiple networks for different environments or network segments. Each network can have one or more agents deployed.
+</Info>
 
+### Step 2: Install the agent
 
-```bash Go Installation
-# Install using go install
-go install github.com/projectdiscovery/tunnelx@latest
+After creating your network, the platform will display a unique installation command pre-configured with your credentials and network settings. Simply copy and run this command in your internal environment where you want the agent deployed.
 
-# Set your API key and run
-export PDCP_API_KEY="your_api_key"
-tunnelx
-```
+<Warning>
+  Keep your installation command secure - it contains your API key and agent configuration. Anyone with this command can connect an agent to your network.
+</Warning>
 
+The installation command will:
+- Download and configure the agent
+- Establish a secure connection to ProjectDiscovery's platform
+- Register the agent with your network
 
-```bash Source
-# Clone and run from source
-git clone https://github.com/projectdiscovery/tunnelx.git
-cd tunnelx
-export PDCP_API_KEY="your_api_key"
-go run .
-```
+Once the agent runs successfully, it will appear in your network dashboard, indicating that it's ready to execute scans.
 
-</CodeGroup>
+<Frame>
+  <img src="/images/pd-agent-setup-demo.gif" alt="Complete pd-agent Setup: Create Network, Install Agent, and Verify Connection" />
+</Frame>
 
-### Triggering Internal Scans
+<Note>
+  The agent must remain running to execute scans. For production deployments, consider running it as a system service (systemd, Docker, or Kubernetes) to ensure it stays active.
+</Note>
 
-Once you've successfully configured TunnelX, you can easily trigger internal scans directly from the ProjectDiscovery Cloud Platform:
+### Step 3: Trigger Internal Scans
 
-1. **Navigate to Scans Dashboard**:
-   - Go to https://cloud.projectdiscovery.io/scans
-   - Click the "Create new scan" button
+Once your pd-agent is connected, triggering internal scans works identically to external scanning. The workflow is seamless - you configure scans through the same interface and view results in the same dashboard.
+
+1. **Initiate a Scan**:
+   - Click on the **Scan** button for the network you want to scan
+   - Or go to the **Scans** menu (https://cloud.projectdiscovery.io/scans) and click on **Create New Scan**, choose **Internal** followed by the network you want to scan. Similar to how you would run an external scan
+
 2. **Configure Your Scan**:
-   - Set your targets, templates, and other scan configurations
-   - Proceed to the final "Scan settings" step
-3. **Enable Internal Scanning**:
-   - In the bottom left corner of the Scan settings screen, you'll see an "Internal Scan" option
-   - Select this option to use your connected TunnelX proxy
-   - Choose the appropriate internal proxy connection from the dropdown
+   - **Targets**: Enter internal IPs, hostnames, or CIDR ranges (e.g., `192.168.1.0/24`, `internal-server.local`)
+   - **Templates**: Select Nuclei templates (CVEs, misconfigurations, vulnerabilities, etc.)
+   - **Configuration**: Choose scan settings, rate limits, headers, and other parameters
 
-<img
-  width="800"
-  src="/images/tunnelx-scan-time.png"
-  alt="Internal Scan Option in Scan Settings"
-/>
+3. **Launch Your Scan**:
+   - Click **"Create Scan"** to start scanning your internal targets
+   - The scan executes through pd-agent in your internal network
+   - Results appear in your dashboard just like external scans
 
-4. **Launch Your Scan**:
-   - Click "Create scan" to start scanning your internal targets
-
-Your scan will now execute against internal targets through the secure TunnelX connection, with results appearing in your ProjectDiscovery dashboard just like external scans.
+<Frame>
+  <img src="/images/pdcp-internal-scan-demo.gif" alt="Creating and Running an Internal Scan in PDCP" />
+</Frame>
 
 <Note>
-  TunnelX connections appear automatically in the dropdown once properly configured. If you don't see your connection, check that TunnelX is running properly and your API key is correctly configured.
+  Internal scanning provides the same experience as external scanning - identical template selection, scan configuration, results viewing, retesting capabilities, and integration options.
 </Note>
 
 <Note>
-  **Important:** Only input targets that are actually accessible from the machine where TunnelX is running. For example, if TunnelX is deployed on a server in your internal network (192.168.1.0/24), it can only scan hosts within that network or other networks it has routing access to. If you input external targets or internal hosts that the TunnelX machine cannot reach, the scan will fail.
+  **Important:** Only input targets that are accessible from where pd-agent is deployed. If the agent is running on a server in your 192.168.1.0/24 network, it can only scan hosts within that network or other networks it has routing access to.
 </Note>
 
 ## Method 2: Local Scanning & Upload
