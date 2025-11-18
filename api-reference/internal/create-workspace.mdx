@@ -1,3 +1,36 @@
 ---
 openapi: post /v1/user/team
 ---
+
+Create a new team workspace in ProjectDiscovery Cloud Platform. This endpoint allows you to programmatically create team workspaces for collaborative security testing and vulnerability management.
+
+## Use Cases
+
+- **Organization Onboarding**: Automatically provision team workspaces during organization setup
+- **Multi-Tenant Applications**: Create isolated workspaces for different clients or departments
+- **Automated Provisioning**: Set up new teams through CI/CD or infrastructure-as-code workflows
+- **Team Management**: Programmatically manage multiple team environments
+
+## Required Information
+
+To create a workspace, you need to provide:
+- **Team Name**: A unique, descriptive name for the workspace
+- **Team Description** (optional): Additional context about the team's purpose
+- **Initial Settings**: Default configurations for the new workspace
+
+## Important Notes
+
+<Warning>
+  Creating a team workspace is a significant operation. Ensure you have the necessary permissions and that the team name is unique within your organization.
+</Warning>
+
+<Note>
+  After successful creation, you'll receive a `team_id` that should be used for all subsequent team-related operations. Store this ID securely in your application.
+</Note>
+
+## Best Practices
+
+1. **Naming Convention**: Use clear, descriptive team names that reflect their purpose (e.g., "Security-Team-Production", "Client-ABC-Testing")
+2. **Documentation**: Maintain a record of created workspaces and their purposes
+3. **Access Control**: Immediately configure appropriate access controls after workspace creation
+4. **Cleanup**: Implement processes to remove unused workspaces to avoid clutter

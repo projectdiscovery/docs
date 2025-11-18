@@ -1,3 +1,45 @@
 ---
 openapi: patch /v1/user/team
 ---
+
+Update an existing team's metadata, including team name, description, and settings. This endpoint allows you to modify team configurations without affecting team members or their access permissions.
+
+## Use Cases
+
+- **Rebranding**: Update team names to reflect organizational changes
+- **Configuration Management**: Adjust team settings and preferences programmatically
+- **Metadata Updates**: Keep team descriptions and information current
+- **Settings Optimization**: Fine-tune team configurations based on usage patterns
+
+## What You Can Update
+
+The following team properties can be modified:
+- Team name
+- Team description
+- Team settings and preferences
+- Notification configurations
+- Default scanning parameters
+
+## Important Considerations
+
+<Note>
+  You must be the team owner or have admin permissions to update team information. The `X-Team-Id` header must match the team you're authorized to modify.
+</Note>
+
+<Warning>
+  Changing certain team settings may affect ongoing scans, scheduled tasks, or team member workflows. Consider notifying team members before making significant changes.
+</Warning>
+
+## What This Endpoint Does NOT Do
+
+- **Does not** modify team members or their roles (use team member endpoints for that)
+- **Does not** affect team subscription or billing
+- **Does not** change team ownership
+- **Does not** impact existing scans, assets, or vulnerabilities
+
+## Best Practices
+
+1. **Incremental Updates**: Make targeted changes rather than updating everything at once
+2. **Validation**: Verify the update was successful by retrieving team info afterward
+3. **Audit Trail**: Log team updates for compliance and troubleshooting
+4. **Communication**: Notify team members of significant configuration changes

@@ -1,3 +1,122 @@
 ---
 openapi: delete /v1/user/team/member
 ---
+
+Remove a member from your team workspace, revoking their access to all team resources including scans, assets, vulnerabilities, and configurations. This endpoint immediately terminates the member's access to the team.
+
+## Use Cases
+
+- **Employee Offboarding**: Remove access when team members leave the organization
+- **Access Revocation**: Immediately remove unauthorized or compromised accounts
+- **Project Completion**: Remove temporary members after project-specific work concludes
+- **Security Incidents**: Quickly revoke access during security investigations
+- **Team Restructuring**: Remove members during organizational changes
+
+## What Happens When You Delete a Member
+
+**Immediate Effects:**
+- ✅ Member loses all access to team workspace
+- ✅ Cannot view scans, assets, or vulnerabilities
+- ✅ Cannot create or modify team resources
+- ✅ Removed from team member list
+- ✅ Cannot access team API keys or integrations
+
+**What is Preserved:**
+- 📝 Audit logs showing member's historical actions
+- 📝 Scans and assets they created remain in the team
+- 📝 Their user account (outside the team) remains active
+
+<Note>
+  The member's email must be provided to identify who should be removed. You cannot remove the team owner through this endpoint.
+</Note>
+
+## Important Considerations
+
+<Warning>
+  **Immediate Access Revocation:** This action takes effect immediately. The member will lose access to all team resources without warning. Consider communicating with the member before removal if appropriate.
+</Warning>
+
+<Warning>
+  **Cannot Remove Owner:** The team owner cannot be removed through this endpoint. To change team ownership, you must transfer ownership first, then the previous owner can be removed.
+</Warning>
+
+## Recommended Workflow
+
+<Steps>
+  <Step title="Review Member Activity">
+    Check the member's recent activity and ensure no critical operations are in progress
+  </Step>
+  
+  <Step title="Backup/Transfer Ownership">
+    If the member owns critical resources, transfer or document them before removal
+  </Step>
+  
+  <Step title="Communicate (If Appropriate)">
+    For planned removals, inform the member beforehand to allow proper handoff
+  </Step>
+  
+  <Step title="Remove Member">
+    Call this endpoint with the member's email address
+  </Step>
+  
+  <Step title="Verify Removal">
+    Confirm the member no longer appears in the team member list
+  </Step>
+  
+  <Step title="Audit & Document">
+    Log the removal for compliance and future reference
+  </Step>
+</Steps>
+
+## Security Scenarios
+
+**Scenario: Employee Resignation**
+- **Timing**: Remove on last day of employment
+- **Actions**: 
+  - Transfer ownership of critical scans/assets
+  - Document their work for team continuity
+  - Remove access at end of business day
+
+**Scenario: Compromised Account**
+- **Timing**: Immediate removal
+- **Actions**:
+  - Remove access immediately
+  - Review their recent activity
+  - Rotate any API keys they had access to
+  - Investigate potential security impact
+
+**Scenario: Contractor Project End**
+- **Timing**: After project delivery and sign-off
+- **Actions**:
+  - Export any needed reports
+  - Document findings they discovered
+  - Remove access after final deliverables
+
+## Best Practices
+
+1. **Timely Removal**: Remove access promptly when no longer needed
+2. **Documentation**: Maintain records of who was removed and why
+3. **Transfer First**: Ensure critical work is transferred before removal
+4. **Audit Trail**: Review member's activity before removal for compliance
+5. **Communication**: When appropriate, inform the member of pending removal
+6. **Verify**: Confirm removal was successful and access is revoked
+
+## Re-Adding Members
+
+If you need to re-add a member after removal:
+- They must be invited again using the "Add Team Member" endpoint
+- They will need to accept a new invitation
+- Their previous role and permissions are not automatically restored
+- Consider their historical context when assigning new role
+
+<Tip>
+  Instead of removing and re-adding members, consider temporarily changing their role to "Viewer" if they might need access again in the future.
+</Tip>
+
+## Alternative Options
+
+Before removing a member, consider:
+- **Role Downgrade**: Change them to Viewer for read-only access
+- **Temporary Suspension**: Some systems support suspending instead of deleting
+- **Transfer Ownership**: If they own critical resources, transfer first
+- **Export Data**: Backup any member-specific configurations or work

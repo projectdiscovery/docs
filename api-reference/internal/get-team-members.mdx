@@ -1,3 +1,43 @@
 ---
 openapi: get /v1/user/team/member
 ---
+
+Retrieve a complete list of all members in your team, including their roles, permissions, status, and invitation details. This endpoint provides comprehensive member information for team management and access control.
+
+## Use Cases
+
+- **Team Dashboard**: Display current team members and their roles in your UI
+- **Access Auditing**: Review who has access to your team workspace
+- **Permission Management**: Check member roles before granting access to resources
+- **Onboarding Status**: Track which invitations are pending acceptance
+- **Compliance**: Generate reports of team access for security audits
+
+## Response Information
+
+For each team member, you'll receive:
+- **User Details**: Email, name, and user ID
+- **Role & Permissions**: Member role (owner, admin, member, viewer)
+- **Status**: Active, pending invitation, or suspended
+- **Timestamps**: When they joined and last active
+- **Invitation Details**: For pending members, when invited and by whom
+
+## Member Statuses
+
+- **Active**: Member has accepted invitation and has full access
+- **Pending**: Invitation sent but not yet accepted
+- **Suspended**: Member access temporarily disabled
+
+<Note>
+  Only team members with appropriate permissions can view the full team member list. Viewers may have restricted access to certain member details.
+</Note>
+
+<Tip>
+  Use this endpoint to verify team composition before performing bulk operations or sending team-wide notifications.
+</Tip>
+
+## Best Practices
+
+1. **Cache Wisely**: Team member lists don't change frequently, consider caching with reasonable TTL
+2. **Filter Locally**: Retrieve all members once and filter/sort on the client side for better performance
+3. **Regular Audits**: Periodically review team membership to ensure access is appropriate
+4. **Status Monitoring**: Track pending invitations and follow up on unaccepted invites

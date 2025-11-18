@@ -1,3 +1,30 @@
 ---
 openapi: get /v1/user/team
 ---
+
+Retrieve detailed metadata about your team, including team name, member count, subscription information, and team settings. This endpoint provides a comprehensive overview of your team's configuration and current state.
+
+## Use Cases
+
+- **Dashboard Display**: Fetch team information to display in your application's team dashboard
+- **Access Control**: Verify team membership and permissions before performing operations
+- **Audit & Reporting**: Collect team metadata for audit logs and reporting purposes
+- **Subscription Management**: Check current subscription tier and limits
+
+## Response Information
+
+The response includes:
+- Team ID and name
+- Team owner information
+- Member count and list
+- Subscription tier and limits
+- Team settings and preferences
+- Creation and last updated timestamps
+
+<Note>
+  You must provide a valid `X-Team-Id` header to retrieve team information. The Team ID can be found at [https://cloud.projectdiscovery.io/settings/team](https://cloud.projectdiscovery.io/settings/team).
+</Note>
+
+<Tip>
+  This is a read-only operation and can be safely called frequently for dashboard updates or access verification.
+</Tip>
