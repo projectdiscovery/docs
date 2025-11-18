@@ -40,58 +40,6 @@ Remove a member from your team workspace, revoking their access to all team reso
   **Cannot Remove Owner:** The team owner cannot be removed through this endpoint. To change team ownership, you must transfer ownership first, then the previous owner can be removed.
 </Warning>
 
-## Recommended Workflow
-
-<Steps>
-  <Step title="Review Member Activity">
-    Check the member's recent activity and ensure no critical operations are in progress
-  </Step>
-  
-  <Step title="Backup/Transfer Ownership">
-    If the member owns critical resources, transfer or document them before removal
-  </Step>
-  
-  <Step title="Communicate (If Appropriate)">
-    For planned removals, inform the member beforehand to allow proper handoff
-  </Step>
-  
-  <Step title="Remove Member">
-    Call this endpoint with the member's email address
-  </Step>
-  
-  <Step title="Verify Removal">
-    Confirm the member no longer appears in the team member list
-  </Step>
-  
-  <Step title="Audit & Document">
-    Log the removal for compliance and future reference
-  </Step>
-</Steps>
-
-## Security Scenarios
-
-**Scenario: Employee Resignation**
-- **Timing**: Remove on last day of employment
-- **Actions**: 
-  - Transfer ownership of critical scans/assets
-  - Document their work for team continuity
-  - Remove access at end of business day
-
-**Scenario: Compromised Account**
-- **Timing**: Immediate removal
-- **Actions**:
-  - Remove access immediately
-  - Review their recent activity
-  - Rotate any API keys they had access to
-  - Investigate potential security impact
-
-**Scenario: Contractor Project End**
-- **Timing**: After project delivery and sign-off
-- **Actions**:
-  - Export any needed reports
-  - Document findings they discovered
-  - Remove access after final deliverables
-
 ## Best Practices
 
 1. **Timely Removal**: Remove access promptly when no longer needed
@@ -112,11 +60,3 @@ If you need to re-add a member after removal:
 <Tip>
   Instead of removing and re-adding members, consider temporarily changing their role to "Viewer" if they might need access again in the future.
 </Tip>
-
-## Alternative Options
-
-Before removing a member, consider:
-- **Role Downgrade**: Change them to Viewer for read-only access
-- **Temporary Suspension**: Some systems support suspending instead of deleting
-- **Transfer Ownership**: If they own critical resources, transfer first
-- **Export Data**: Backup any member-specific configurations or work

@@ -10,13 +10,12 @@ Permanently delete a team workspace from ProjectDiscovery Cloud Platform. This i
   **This operation is irreversible!** Once a team is deleted, all associated data including scans, assets, vulnerabilities, templates, and configurations will be permanently removed and cannot be recovered.
 </Warning>
 
-## Prerequisites
+## Disclaimer
 
-Before deleting a team, you must:
+Before deleting a team:
 
-1. **Remove all team members**: The team must have **zero members** (only the owner remains)
-2. **Owner permissions**: Only the team owner can delete a team
-3. **Confirmation**: Understand that all team data will be lost permanently
+- Only the team owner can delete a team
+- Understand that all team data will be lost permanently
 
 ## Use Cases
 
@@ -35,33 +34,6 @@ When you delete a team, the following data is permanently removed:
 - All scan histories and logs
 - All team-specific integrations
 
-## Recommended Workflow
-
-<Steps>
-  <Step title="Export Important Data">
-    Before deletion, export any scans, reports, or data you need to retain using the export endpoints.
-  </Step>
-  
-  <Step title="Remove Team Members">
-    Delete or reassign all team members. The team must have 0 members before it can be deleted.
-  </Step>
-  
-  <Step title="Verify Prerequisites">
-    Confirm you're the team owner and that all members have been removed.
-  </Step>
-  
-  <Step title="Delete Team">
-    Call this endpoint with the team ID to permanently delete the workspace.
-  </Step>
-</Steps>
-
 <Note>
   If you need to preserve any team data, make sure to export it before deletion. There is no way to recover deleted team data.
 </Note>
-
-## Alternative Options
-
-Consider these alternatives before deleting:
-- **Archive Instead**: Keep the team but remove active members
-- **Transfer Ownership**: Assign the team to another user
-- **Export Data**: Back up important scans and configurations before deletion

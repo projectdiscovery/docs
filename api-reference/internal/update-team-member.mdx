@@ -4,49 +4,9 @@ openapi: patch /v1/user/team/member
 
 Update an existing team member's role and permissions. This endpoint allows you to modify member access levels without removing and re-adding them, preserving their history and activity within the team.
 
-## Use Cases
-
-- **Role Adjustments**: Promote or adjust member permissions based on changing responsibilities
-- **Access Control**: Modify permissions in response to organizational changes
-- **Privilege Management**: Implement principle of least privilege by adjusting roles over time
-- **Temporary Elevation**: Grant temporary elevated access for specific projects
-- **Compliance**: Adjust access levels to meet security policy requirements
-
-## What You Can Update
-
-- **Role Change**: Modify member's role (Owner, Admin, Member, Viewer)
-- **Permission Adjustments**: Update specific permissions within a role
-- **Status Changes**: Activate, suspend, or reactivate member access
-
 <Note>
   You must have Admin or Owner permissions to update team member roles. Owners can update any member; Admins cannot update Owner roles.
 </Note>
-
-## Role Transition Examples
-
-**Promoting to Admin:**
-```
-Member → Admin
-```
-- User was a regular member who now leads the security team
-- Gains access to team settings and member management
-- Can now configure integrations and manage workflows
-
-**Restricting to Viewer:**
-```
-Member → Viewer
-```
-- User moved to a reporting or oversight role
-- Maintains visibility but can no longer create scans
-- Ideal for stakeholders who need read-only access
-
-**Temporary Elevation:**
-```
-Viewer → Member (temporarily)
-Member → Viewer (after project)
-```
-- Grant temporary access for specific projects
-- Return to previous role when no longer needed
 
 <Warning>
   **Cannot Modify Owner Role:** The team owner cannot be changed through this endpoint. To transfer ownership, contact support or use the dedicated ownership transfer process.
@@ -55,14 +15,6 @@ Member → Viewer (after project)
 <Warning>
   **Downgrading Permissions:** When downgrading a member's role (e.g., Admin to Member), they will immediately lose access to administrative functions. Ensure this doesn't disrupt ongoing operations.
 </Warning>
-
-## Best Practices
-
-1. **Document Changes**: Maintain an audit log of role changes with justification
-2. **Communication**: Notify members when their role changes, especially for downgrades
-3. **Review Regularly**: Conduct periodic access reviews to ensure roles are appropriate
-4. **Gradual Changes**: When possible, make incremental permission changes rather than dramatic shifts
-5. **Test Impact**: Understand what access is gained or lost before making changes
 
 ## Permission Impact
 
@@ -95,20 +47,3 @@ Member → Viewer (after project)
     - ✅ Can view all scans and results
   </Tab>
 </Tabs>
-
-## Common Use Cases
-
-**New Team Lead Appointed:**
-- Update previous lead from Admin to Member
-- Promote new lead from Member to Admin
-- Ensures clean transition of administrative duties
-
-**Consultant Project Complete:**
-- Update consultant from Member to Viewer
-- They can still access reports for their records
-- No longer have ability to modify team resources
-
-**Privilege Escalation for Investigation:**
-- Temporarily upgrade Viewer to Member
-- Allow investigation of specific vulnerability
-- Downgrade back to Viewer after completion
