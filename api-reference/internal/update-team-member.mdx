@@ -1,3 +1,49 @@
 ---
 openapi: patch /v1/user/team/member
 ---
+
+Update an existing team member's role and permissions. This endpoint allows you to modify member access levels without removing and re-adding them, preserving their history and activity within the team.
+
+<Note>
+  You must have Admin or Owner permissions to update team member roles. Owners can update any member; Admins cannot update Owner roles.
+</Note>
+
+<Warning>
+  **Cannot Modify Owner Role:** The team owner cannot be changed through this endpoint. To transfer ownership, contact support or use the dedicated ownership transfer process.
+</Warning>
+
+<Warning>
+  **Downgrading Permissions:** When downgrading a member's role (e.g., Admin to Member), they will immediately lose access to administrative functions. Ensure this doesn't disrupt ongoing operations.
+</Warning>
+
+## Permission Impact
+
+<Tabs>
+  <Tab title="Upgrading Roles">
+    **Member → Admin:**
+    - ✅ Can now manage team settings
+    - ✅ Can add/remove members
+    - ✅ Can configure integrations
+    - ✅ Retains all previous Member permissions
+    
+    **Admin → Owner:**
+    - ✅ Full administrative control
+    - ✅ Can delete team
+    - ✅ Can manage billing
+    - ⚠️ Only one owner allowed per team
+  </Tab>
+  
+  <Tab title="Downgrading Roles">
+    **Admin → Member:**
+    - ❌ Cannot manage team settings
+    - ❌ Cannot add/remove members
+    - ❌ Cannot configure integrations
+    - ✅ Can still create scans and manage assets
+    
+    **Member → Viewer:**
+    - ❌ Cannot create or modify scans
+    - ❌ Cannot upload assets
+    - ❌ Cannot create templates
+    - ✅ Can view all scans and results
+  </Tab>
+</Tabs>

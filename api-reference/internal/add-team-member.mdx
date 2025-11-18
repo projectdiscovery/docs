@@ -1,3 +1,68 @@
 ---
 openapi: post /v1/user/team/member
 ---
+
+Invite a new member to join your team workspace. This endpoint sends an invitation email to the specified user, granting them access to your team's scans, assets, and configurations based on the assigned role.
+
+## Use Cases
+
+- **Team Expansion**: Add new security team members or collaborators
+- **Onboarding**: Automate new employee access provisioning
+- **Contractor Access**: Grant temporary access to external consultants
+- **Cross-Functional Collaboration**: Invite stakeholders from other departments
+- **Automated Provisioning**: Integrate with HR systems for access management
+
+## Required Information
+
+To invite a team member, provide:
+- **Email Address**: Valid email of the user to invite (must be unique)
+- **Role**: Member's role and permission level
+- **Custom Message** (optional): Personalized invitation message
+
+## Available Roles
+
+<Tabs>
+  <Tab title="Owner">
+    **Full Control**
+    - Complete administrative access
+    - Can delete the team
+    - Manage billing and subscriptions
+    - Add/remove any members
+    - *Only one owner per team*
+  </Tab>
+  
+  <Tab title="Admin">
+    **Administrative Access**
+    - Manage team settings
+    - Add/remove members (except owner)
+    - Configure integrations
+    - Manage scans and assets
+    - Cannot delete team or change billing
+  </Tab>
+  
+  <Tab title="Member">
+    **Standard Access**
+    - Create and run scans
+    - View and manage assets
+    - Create templates
+    - View team results
+    - Cannot modify team settings
+  </Tab>
+  
+  <Tab title="Viewer">
+    **Read-Only Access**
+    - View scans and results
+    - View assets and vulnerabilities
+    - View templates
+    - Cannot create or modify anything
+    - Ideal for stakeholders and auditors
+  </Tab>
+</Tabs>
+
+## Best Practices
+
+1. **Principle of Least Privilege**: Assign the minimum role necessary for the user's responsibilities
+2. **Verification**: Double-check email addresses before sending invitations
+3. **Role Review**: Periodically audit member roles and adjust as responsibilities change
+4. **Onboarding Documentation**: Provide new members with documentation about your team's scanning policies
+5. **Monitor Pending**: Track invitation acceptance and follow up on pending invites

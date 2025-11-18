@@ -1,3 +1,24 @@
 ---
 openapi: patch /v1/user/team
 ---
+
+Update an existing team's metadata, including team name, description, and settings. This endpoint allows you to modify team configurations without affecting team members or their access permissions.
+
+## What You Can Update
+
+The following team properties can be modified:
+- Team name
+- Team description
+- Team settings and preferences
+- Notification configurations
+- Default scanning parameters
+
+## Important Considerations
+
+<Note>
+  You must be the team owner or have admin permissions to update team information. The `X-Team-Id` header must match the team you're authorized to modify.
+</Note>
+
+<Warning>
+  Changing certain team settings may affect ongoing scans, scheduled tasks, or team member workflows. Consider notifying team members before making significant changes.
+</Warning>

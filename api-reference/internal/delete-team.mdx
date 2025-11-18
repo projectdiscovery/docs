@@ -1,3 +1,37 @@
 ---
 openapi: delete /v1/user/team
 ---
+
+Permanently delete a team workspace from ProjectDiscovery Cloud Platform. This is a destructive operation that removes all team data, including scans, assets, vulnerabilities, and configurations.
+
+## ⚠️ Critical Information
+
+<Warning>
+  **This operation is irreversible!** Once a team is deleted, all associated data including scans, assets, vulnerabilities, templates, and configurations will be permanently removed and cannot be recovered.
+</Warning>
+
+## Disclaimer
+
+- Only the team owner can delete a team
+- Understand that all team data will be lost permanently
+
+## Use Cases
+
+- **Workspace Cleanup**: Remove unused or test workspaces
+- **Organization Restructuring**: Delete deprecated teams during reorganization
+- **Compliance**: Remove teams as part of data retention policies
+- **Resource Management**: Clean up temporary or project-specific workspaces
+
+## What Gets Deleted
+
+When you delete a team, the following data is permanently removed:
+- All vulnerability scans and results
+- All discovered assets and enumeration data
+- All custom templates and configurations
+- All team settings and preferences
+- All scan histories and logs
+- All team-specific integrations
+
+<Note>
+  If you need to preserve any team data, make sure to export it before deletion. There is no way to recover deleted team data.
+</Note>
