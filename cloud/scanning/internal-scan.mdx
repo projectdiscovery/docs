@@ -72,7 +72,32 @@ Before installing the agent, you need to create a network in the ProjectDiscover
 
 ### Step 2: Install the agent
 
-After creating your network, the platform will display a unique installation command pre-configured with your credentials and network settings. Simply copy and run this command in your internal environment where you want the agent deployed.
+After creating your network, the platform will display a unique installation command pre-configured with your credentials and network settings. 
+
+<Note>
+**Prerequisites for Go installation method**
+
+If you're using the Go command option to install pd-agent, ensure you have:
+1. **Go installed** on your system ([download Go](https://go.dev/dl/))
+2. **pdtm (ProjectDiscovery Tool Manager)** installed
+
+To install pdtm, run:
+
+```bash
+go install -v github.com/projectdiscovery/pdtm/cmd/pdtm@latest
+pdtm -ia
+```
+
+Or combine both commands:
+
+```bash
+go install -v github.com/projectdiscovery/pdtm/cmd/pdtm@latest && pdtm -ia
+```
+</Note>
+
+Finally copy and run this command in your internal environment where you want the agent deployed.
+ 
+If you're using the Docker option, you can directly run the command displayed in the platform without any additional prerequisites.
 
 <Warning>
   Keep your installation command secure - it contains your API key and agent configuration. Anyone with this command can connect an agent to your network.
