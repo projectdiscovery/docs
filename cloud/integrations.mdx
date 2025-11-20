@@ -89,17 +89,581 @@ ProjectDiscovery supports notifications via Email. To enable email notifications
 
 ProjectDiscovery supports custom webhook notifications, allowing you to post events to any HTTP endpoint that matches your infrastructure requirements.
 
-To implement webhook notifications, provide:
+<Info>
+**Quick Setup**
+1. Navigate to [Scans → Configurations → Alerting](https://cloud.projectdiscovery.io/scans/configs)
+2. Select "Webhook" integration
+3. Provide your endpoint URL and optional authentication
+4. Choose which events to receive (New Asset, New Vulnerability, Scan/Asset Finished/Failed)
+5. Select severity filters (optional)
+</Info>
 
-- Configuration name
-- Webhook URL
-- Authentication parameters (if required)
+**Configuration Requirements:**
 
-Example endpoint format:
+<ParamField body="Config Name" type="string" required>
+  A descriptive name for your webhook configuration
+</ParamField>
 
+<ParamField body="Webhook URL" type="string" required>
+  Your HTTPS endpoint that will receive POST requests
+  
+  Example: `https://your-domain.com/api/security/alerts`
+</ParamField>
+
+#### Event Types Overview
+
+ProjectDiscovery sends webhook notifications as **HTTP POST requests** with `Content-Type: application/json`. Each scan or enumeration job triggers multiple webhooks throughout its lifecycle.
+
+<CardGroup cols={2}>
+  <Card title="Scan Events" icon="radar">
+    Track vulnerability scan lifecycle from start to completion
+    
+    <small>Started (`running`)</small>
+    <small>Finished (`finished`)</small>
+    <small>Failed (`failed_stopped`)</small>
+  </Card>
+  
+  <Card title="Discovery Events" icon="magnifying-glass">
+    Monitor asset discovery operations in real-time
+    
+    <small>Started (`running`)</small>
+    <small>Finished (`finished`)</small>
+    <small>Failed (`failed_stopped`)</small>
+  </Card>
+  
+  <Card title="New Vulnerability" icon="shield-exclamation">
+    Alerts when new vulnerabilities are found (rescans only)
+    
+    <small>Type: `new_vuln`</small>
+    <small>Triggered at end of scan when comparing results</small>
+  </Card>
+  
+  <Card title="New Asset" icon="server">
+    Alerts when new assets are discovered in your attack surface
+    
+    <small>Type: `new_asset`</small>
+    <small>Triggered at end of disocvery or scan</small>
+  </Card>
+</CardGroup>
+
+<Tip>
+**Event Filtering:** Configure which events and severity levels trigger webhooks in your integration settings. This helps reduce noise and focus on what matters most to your team.
+</Tip>
+
+<Warning>
+**Scan and Discovery lifecycle events** trigger **3 separate webhook calls**: one when it starts (`running`), one when it completes (`finished` or `failed_stopped`). Only the relevant data object is populated in each webhook - the others will be `null`.
+
+**New Vulnerability and New Asset alerts** are single webhooks sent only when new items are discovered (at the end of scan/enumeration).
+</Warning>
+
+---
+#### Webhook Payload Reference
+
+<Tabs>
+  <Tab title="Scan Events">
+  
+  Select a scan event to view its webhook payload structure:
+  
+  <AccordionGroup>
+    <Accordion title="Scan Started" icon="play" defaultOpen="true">
+  
+<Info>
+**Trigger:** Immediately when a vulnerability scan begins execution
+
+**Type:** `running`
+</Info>
+
+```json Scan Started Payload
+{
+  "type": "running",
+  "message": "Scan started successfully",
+  "scan_name": "Production API Security Scan",
+  "scan_id": "scan-abc123",
+  
+  "running": {
+    "started_at": "2025-11-20T14:30:00Z",
+    "total_targets": 150,
+    "total_templates": 85,
+    "total_requests": 12750
+  },
+  
+  "finished": null,
+  "failed_stopped": null
+}
 ```
-https://your-domain.com/api/security/alerts
+
+<AccordionGroup>
+  <Accordion title="Field Definitions" icon="book">
+  
+  **Root Fields:**
+  - `type` — Always `"running"` for this event
+  - `message` — Human-readable status message
+  - `scan_name` — Name of the scan configuration
+  - `scan_id` — Unique identifier for this scan execution
+  
+  **Running Object:**
+  - `started_at` — ISO 8601 timestamp when scan started
+  - `total_targets` — Number of targets to scan (integer)
+  - `total_templates` — Number of templates being used (integer)
+  - `total_requests` — Estimated total HTTP requests (integer)
+  </Accordion>
+</AccordionGroup>
+    </Accordion>
+
+    <Accordion title="Scan Finished" icon="circle-check">
+  
+<Info>
+**Trigger:** When a vulnerability scan completes successfully
+
+**Type:** `finished`
+</Info>
+
+```json Scan Finished Payload
+{
+  "type": "finished",
+  "message": "Scan completed successfully",
+  "scan_name": "Production API Security Scan",
+  "scan_id": "scan-abc123",
+  
+  "running": null,
+  
+  "finished": {
+    "finished_at": "2025-11-20T15:45:00Z",
+    "scan_time": "4500s",
+    "total_matches": 23,
+    "severity_breakdown": {
+      "critical": 5,
+      "high": 8,
+      "medium": 6,
+      "low": 3,
+      "info": 1
+    },
+    "rescan_new_vulnerabilities": 3,
+    "rescan_vulns_list": [
+      {
+        "Name": "Apache HTTP Server 2.4.49 - Path Traversal",
+        "Severity": "critical",
+        "Count": 2
+      },
+      {
+        "Name": "SQL Injection in /api/login",
+        "Severity": "high",
+        "Count": 1
+      }
+    ]
+  },
+  
+  "failed_stopped": null
+}
 ```
+
+<AccordionGroup>
+  <Accordion title="Field Definitions" icon="book">
+  
+  **Root Fields:**
+  - `type` — Always `"finished"` for this event
+  - `message` — Human-readable status message
+  - `scan_name` — Name of the scan configuration
+  - `scan_id` — Unique identifier for this scan execution
+  
+  **Finished Object:**
+  - `finished_at` — ISO 8601 timestamp when scan completed
+  - `scan_time` — Total duration in seconds (e.g., "4500s")
+  - `total_matches` — Total vulnerabilities found (integer)
+  - `severity_breakdown` — Count by severity level (object)
+    - `critical` — Critical severity count
+    - `high` — High severity count
+    - `medium` — Medium severity count
+    - `low` — Low severity count
+    - `info` — Info severity count
+  - `rescan_new_vulnerabilities` — New vulns since last scan, rescans only (integer)
+  - `rescan_vulns_list` — List of new vulnerabilities, **max 15 items**, rescans only (array)
+    - `Name` — Vulnerability name/title
+    - `Severity` — Severity level (critical, high, medium, low, info)
+    - `Count` — Number of instances found
+  </Accordion>
+</AccordionGroup>
+
+<Warning>
+**Truncation:** The `rescan_vulns_list` is limited to **15 items** for webhook delivery. For the complete vulnerability list, fetch full scan results via the API.
+</Warning>
+
+<Tip>
+**Severity Filtering:** If you configured severity filters in webhook settings, only matching vulnerabilities will be included in counts and lists.
+</Tip>
+    </Accordion>
+
+    <Accordion title="Scan Failed" icon="circle-xmark">
+  
+<Info>
+**Trigger:** When a scan fails or is manually stopped
+
+**Type:** `failed_stopped`
+</Info>
+
+```json Scan Failed Payload
+{
+  "type": "failed_stopped",
+  "message": "Scan failed due to error",
+  "scan_name": "Production API Security Scan",
+  "scan_id": "scan-abc123",
+  
+  "running": null,
+  "finished": null,
+  
+  "failed_stopped": {
+    "timestamp": "2025-11-20T15:20:00Z",
+    "progress": 67,
+    "failure_reason": "Network timeout connecting to target hosts"
+  }
+}
+```
+
+<AccordionGroup>
+  <Accordion title="Field Definitions" icon="book">
+  
+  **Root Fields:**
+  - `type` — Always `"failed_stopped"` for this event
+  - `message` — Human-readable status message
+  - `scan_name` — Name of the scan configuration
+  - `scan_id` — Unique identifier for this scan execution
+  
+  **Failed/Stopped Object:**
+  - `timestamp` — ISO 8601 timestamp when failure occurred
+  - `progress` — Completion percentage (0-100) when failed (integer)
+  - `failure_reason` — Description of why scan failed or was stopped (string)
+  </Accordion>
+</AccordionGroup>
+    </Accordion>
+  </AccordionGroup>
+  </Tab>
+
+  <Tab title="Discovery Events">
+  
+  Select an Discovery event to view its webhook payload structure:
+  
+  <AccordionGroup>
+    <Accordion title="Enumeration Started" icon="magnifying-glass" defaultOpen="true">
+  
+<Info>
+**Trigger:** When asset discovery begins
+
+**Type:** `running`
+</Info>
+
+```json Enumeration Started Payload
+{
+  "type": "running",
+  "message": "Enumeration started successfully",
+  "enumeration_name": "Weekly Asset Discovery",
+  "enumeration_id": "enum-xyz789",
+  
+  "running": {
+    "started_at": "2025-11-20T10:00:00Z"
+  },
+  
+  "finished": null,
+  "failed_stopped": null
+}
+```
+
+<AccordionGroup>
+  <Accordion title="Field Definitions" icon="book">
+  
+  **Root Fields:**
+  - `type` — Always `"running"` for this event
+  - `message` — Human-readable status message
+  - `enumeration_name` — Name of the enumeration configuration
+  - `enumeration_id` — Unique identifier for this enumeration execution
+  
+  **Running Object:**
+  - `started_at` — ISO 8601 timestamp when enumeration started
+  </Accordion>
+</AccordionGroup>
+    </Accordion>
+
+    <Accordion title="Enumeration Finished" icon="circle-check">
+  
+<Info>
+**Trigger:** When asset disocvery completes successfully
+
+**Type:** `finished`
+</Info>
+
+```json Enumeration Finished Payload
+{
+  "type": "finished",
+  "message": "Enumeration completed successfully",
+  "enumeration_name": "Weekly Asset Discovery",
+  "enumeration_id": "enum-xyz789",
+  
+  "running": null,
+  
+  "finished": {
+    "finished_at": "2025-11-20T10:30:00Z",
+    "enumeration_time": "1800s",
+    "total_assets": 247,
+    "new_assets": 5,
+    "new_assets_list": [
+      {
+        "host": "api-v2.example.com",
+        "port": 443,
+        "ip": ["192.168.1.50", "192.168.1.51"]
+      },
+      {
+        "host": "staging.example.com",
+        "port": 80,
+        "ip": ["10.0.0.15"]
+      },
+      {
+        "host": "admin.example.com",
+        "port": 8443,
+        "ip": ["172.16.0.10"]
+      }
+    ]
+  },
+  
+  "failed_stopped": null
+}
+```
+
+<AccordionGroup>
+  <Accordion title="Field Definitions" icon="book">
+  
+  **Root Fields:**
+  - `type` — Always `"finished"` for this event
+  - `message` — Human-readable status message
+  - `enumeration_name` — Name of the enumeration configuration
+  - `enumeration_id` — Unique identifier for this enumeration execution
+  
+  **Finished Object:**
+  - `finished_at` — ISO 8601 timestamp when enumeration completed
+  - `enumeration_time` — Total duration in seconds (e.g., "1800s")
+  - `total_assets` — Total number of assets in inventory (integer)
+  - `new_assets` — Number of newly discovered assets (integer)
+  - `new_assets_list` — Details of newly discovered assets (array)
+    - `host` — Hostname or domain name
+    - `port` — Port number
+    - `ip` — List of IP addresses associated with the host (array of strings)
+  </Accordion>
+</AccordionGroup>
+    </Accordion>
+
+    <Accordion title="Enumeration Failed" icon="circle-xmark">
+  
+<Info>
+**Trigger:** When discovery fails or is manually stopped
+
+**Type:** `failed_stopped`
+</Info>
+
+```json Enumeration Failed Payload
+{
+  "type": "failed_stopped",
+  "message": "Enumeration failed due to error",
+  "enumeration_name": "Weekly Asset Discovery",
+  "enumeration_id": "enum-xyz789",
+  
+  "running": null,
+  "finished": null,
+  
+  "failed_stopped": {
+    "timestamp": "2025-11-20T10:15:00Z",
+    "progress": 45,
+    "failure_reason": "API rate limit exceeded on cloud provider"
+  }
+}
+```
+
+<AccordionGroup>
+  <Accordion title="Field Definitions" icon="book">
+  
+  **Root Fields:**
+  - `type` — Always `"failed_stopped"` for this event
+  - `message` — Human-readable status message
+  - `enumeration_name` — Name of the enumeration configuration
+  - `enumeration_id` — Unique identifier for this enumeration execution
+  
+  **Failed/Stopped Object:**
+  - `timestamp` — ISO 8601 timestamp when failure occurred
+  - `progress` — Completion percentage (0-100) when failed (integer)
+  - `failure_reason` — Description of why enumeration failed or was stopped (string)
+  </Accordion>
+</AccordionGroup>
+    </Accordion>
+  </AccordionGroup>
+  </Tab>
+
+  <Tab title="New Asset / Vulnerability Events">
+  
+  Select an alert event to view its webhook payload structure:
+  
+  <AccordionGroup>
+    <Accordion title="New Vulnerability" icon="shield-exclamation" defaultOpen="true">
+  
+<Info>
+**Trigger:** At the end of a scan when new vulnerabilities are discovered (compared to previous scan)
+
+**Type:** `new_vuln`
+
+**Note:** This event is only triggered for rescans when comparing against previous results
+</Info>
+
+```json New Vulnerability Alert Payload
+{
+  "type": "new_vuln",
+  "message": "New vulnerabilities discovered in scan",
+  "scan_name": "Production API Security Scan",
+  "scan_id": "scan-abc123",
+  
+  "running": null,
+  
+  "finished": {
+    "finished_at": "2025-11-20T15:45:00Z",
+    "scan_time": "4500s",
+    "total_matches": 23,
+    "severity_breakdown": {
+      "critical": 5,
+      "high": 8,
+      "medium": 6,
+      "low": 3,
+      "info": 1
+    },
+    "rescan_new_vulnerabilities": 3,
+    "rescan_vulns_list": [
+      {
+        "Name": "Apache HTTP Server 2.4.49 - Path Traversal",
+        "Severity": "critical",
+        "Count": 2
+      },
+      {
+        "Name": "SQL Injection in /api/login",
+        "Severity": "high",
+        "Count": 1
+      }
+    ]
+  },
+  
+  "failed_stopped": null
+}
+```
+
+<AccordionGroup>
+  <Accordion title="Field Definitions" icon="book">
+  
+  **Root Fields:**
+  - `type` — Always `"new_vuln"` for this event
+  - `message` — Human-readable status message
+  - `scan_name` — Name of the scan configuration
+  - `scan_id` — Unique identifier for this scan execution
+  
+  **Finished Object:**
+  - `finished_at` — ISO 8601 timestamp when scan completed
+  - `scan_time` — Total duration in seconds (e.g., "4500s")
+  - `total_matches` — Total vulnerabilities found in this scan (integer)
+  - `severity_breakdown` — Count by severity level for all findings (object)
+  - `rescan_new_vulnerabilities` — **Number of NEW vulnerabilities** compared to previous scan (integer)
+  - `rescan_vulns_list` — **List of NEW vulnerabilities only**, max 15 items (array)
+    - `Name` — Vulnerability name/title
+    - `Severity` — Severity level (critical, high, medium, low, info)
+    - `Count` — Number of instances found
+  </Accordion>
+</AccordionGroup>
+
+<Tip>
+**Key Difference from "Scan Finished":** This event focuses on `rescan_new_vulnerabilities` - only NEW findings are highlighted. Use this to trigger immediate alerts for emerging threats in your infrastructure.
+</Tip>
+
+<Note>
+If you configured severity filters (e.g., only Critical and High), only new vulnerabilities matching those severities will trigger this event and be included in the `rescan_vulns_list`.
+</Note>
+    </Accordion>
+
+    <Accordion title="New Asset" icon="server">
+  
+<Info>
+**Trigger:** At the end of discovery when new assets are discovered
+
+**Type:** `new_asset`
+
+**Configuration:** Can be enabled for disocvery, scan, or both based on your alerting configuration
+</Info>
+
+```json New Asset Alert Payload
+{
+  "type": "new_asset",
+  "message": "New assets discovered in enumeration",
+  "enumeration_name": "Weekly Asset Discovery",
+  "enumeration_id": "enum-xyz789",
+  
+  "running": null,
+  
+  "finished": {
+    "finished_at": "2025-11-20T10:30:00Z",
+    "enumeration_time": "1800s",
+    "total_assets": 247,
+    "new_assets": 5,
+    "new_assets_list": [
+      {
+        "host": "api-v2.example.com",
+        "port": 443,
+        "ip": ["192.168.1.50", "192.168.1.51"]
+      },
+      {
+        "host": "staging.example.com",
+        "port": 80,
+        "ip": ["10.0.0.15"]
+      },
+      {
+        "host": "admin.example.com",
+        "port": 8443,
+        "ip": ["172.16.0.10"]
+      },
+      {
+        "host": "dev.example.com",
+        "port": 443,
+        "ip": ["10.0.0.25"]
+      },
+      {
+        "host": "backup.example.com",
+        "port": 22,
+        "ip": ["172.16.0.99"]
+      }
+    ]
+  },
+  
+  "failed_stopped": null
+}
+```
+
+<AccordionGroup>
+  <Accordion title="Field Definitions" icon="book">
+  
+  **Root Fields:**
+  - `type` — Always `"new_asset"` for this event
+  - `message` — Human-readable status message
+  - `enumeration_name` — Name of the enumeration configuration
+  - `enumeration_id` — Unique identifier for this enumeration execution
+  
+  **Finished Object:**
+  - `finished_at` — ISO 8601 timestamp when enumeration completed
+  - `enumeration_time` — Total duration in seconds (e.g., "1800s")
+  - `total_assets` — Total number of assets in your inventory (integer)
+  - `new_assets` — **Number of NEWLY discovered assets** (integer)
+  - `new_assets_list` — **List of NEWLY discovered assets only** (array)
+    - `host` — Hostname or domain name
+    - `port` — Port number
+    - `ip` — List of IP addresses associated with the host (array of strings)
+  </Accordion>
+</AccordionGroup>
+
+<Tip>
+**Key Difference from "Enumeration Finished":** This event focuses on `new_assets` - only NEW discoveries are highlighted. Use this to monitor your attack surface expansion and catch shadow IT or infrastructure changes immediately.
+</Tip>
+    </Accordion>
+  </AccordionGroup>
+  </Tab>
+</Tabs>
 
 ## Ticketing Integrations
 
