@@ -123,7 +123,7 @@ ProjectDiscovery sends webhook notifications as **HTTP POST requests** with `Con
     <small>Failed (`failed_stopped`)</small>
   </Card>
   
-  <Card title="Enumeration Events" icon="magnifying-glass">
+  <Card title="Discovery Events" icon="magnifying-glass">
     Monitor asset discovery operations in real-time
     
     <small>Started (`running`)</small>
@@ -142,7 +142,7 @@ ProjectDiscovery sends webhook notifications as **HTTP POST requests** with `Con
     Alerts when new assets are discovered in your attack surface
     
     <small>Type: `new_asset`</small>
-    <small>Triggered at end of enumeration or scan</small>
+    <small>Triggered at end of disocvery or scan</small>
   </Card>
 </CardGroup>
 
@@ -151,7 +151,7 @@ ProjectDiscovery sends webhook notifications as **HTTP POST requests** with `Con
 </Tip>
 
 <Warning>
-**Scan and Enumeration lifecycle events** trigger **3 separate webhook calls**: one when it starts (`running`), one when it completes (`finished` or `failed_stopped`). Only the relevant data object is populated in each webhook - the others will be `null`.
+**Scan and Discovery lifecycle events** trigger **3 separate webhook calls**: one when it starts (`running`), one when it completes (`finished` or `failed_stopped`). Only the relevant data object is populated in each webhook - the others will be `null`.
 
 **New Vulnerability and New Asset alerts** are single webhooks sent only when new items are discovered (at the end of scan/enumeration).
 </Warning>
@@ -168,9 +168,9 @@ ProjectDiscovery sends webhook notifications as **HTTP POST requests** with `Con
     <Accordion title="Scan Started" icon="play" defaultOpen="true">
   
 <Info>
-**When triggered:** Immediately when a vulnerability scan begins execution
+**Trigger:** Immediately when a vulnerability scan begins execution
 
-**Type value:** `running`
+**Type:** `running`
 </Info>
 
 ```json Scan Started Payload
@@ -213,9 +213,9 @@ ProjectDiscovery sends webhook notifications as **HTTP POST requests** with `Con
     <Accordion title="Scan Finished" icon="circle-check">
   
 <Info>
-**When triggered:** When a vulnerability scan completes successfully
+**Trigger:** When a vulnerability scan completes successfully
 
-**Type value:** `finished`
+**Type:** `finished`
 </Info>
 
 ```json Scan Finished Payload
@@ -296,9 +296,9 @@ ProjectDiscovery sends webhook notifications as **HTTP POST requests** with `Con
     <Accordion title="Scan Failed" icon="circle-xmark">
   
 <Info>
-**When triggered:** When a scan fails or is manually stopped
+**Trigger:** When a scan fails or is manually stopped
 
-**Type value:** `failed_stopped`
+**Type:** `failed_stopped`
 </Info>
 
 ```json Scan Failed Payload
@@ -338,17 +338,17 @@ ProjectDiscovery sends webhook notifications as **HTTP POST requests** with `Con
   </AccordionGroup>
   </Tab>
 
-  <Tab title="Enumeration Events">
+  <Tab title="Discovery Events">
   
-  Select an enumeration event to view its webhook payload structure:
+  Select an Discovery event to view its webhook payload structure:
   
   <AccordionGroup>
     <Accordion title="Enumeration Started" icon="magnifying-glass" defaultOpen="true">
   
 <Info>
-**When triggered:** When asset enumeration begins execution
+**Trigger:** When asset discovery begins
 
-**Type value:** `running`
+**Type:** `running`
 </Info>
 
 ```json Enumeration Started Payload
@@ -385,9 +385,9 @@ ProjectDiscovery sends webhook notifications as **HTTP POST requests** with `Con
     <Accordion title="Enumeration Finished" icon="circle-check">
   
 <Info>
-**When triggered:** When asset enumeration completes successfully
+**Trigger:** When asset disocvery completes successfully
 
-**Type value:** `finished`
+**Type:** `finished`
 </Info>
 
 ```json Enumeration Finished Payload
@@ -452,9 +452,9 @@ ProjectDiscovery sends webhook notifications as **HTTP POST requests** with `Con
     <Accordion title="Enumeration Failed" icon="circle-xmark">
   
 <Info>
-**When triggered:** When enumeration fails or is manually stopped
+**Trigger:** When discovery fails or is manually stopped
 
-**Type value:** `failed_stopped`
+**Type:** `failed_stopped`
 </Info>
 
 ```json Enumeration Failed Payload
@@ -502,9 +502,9 @@ ProjectDiscovery sends webhook notifications as **HTTP POST requests** with `Con
     <Accordion title="New Vulnerability" icon="shield-exclamation" defaultOpen="true">
   
 <Info>
-**When triggered:** At the end of a scan when new vulnerabilities are discovered (compared to previous scan)
+**Trigger:** At the end of a scan when new vulnerabilities are discovered (compared to previous scan)
 
-**Type value:** `new_vuln`
+**Type:** `new_vuln`
 
 **Note:** This event is only triggered for rescans when comparing against previous results
 </Info>
@@ -582,11 +582,11 @@ If you configured severity filters (e.g., only Critical and High), only new vuln
     <Accordion title="New Asset" icon="server">
   
 <Info>
-**When triggered:** At the end of enumeration when new assets are discovered
+**Trigger:** At the end of discovery when new assets are discovered
 
-**Type value:** `new_asset`
+**Type:** `new_asset`
 
-**Configuration:** Can be enabled for enumerations, scans, or both based on your alerting configuration
+**Configuration:** Can be enabled for disocvery, scan, or both based on your alerting configuration
 </Info>
 
 ```json New Asset Alert Payload
