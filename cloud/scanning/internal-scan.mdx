@@ -95,9 +95,9 @@ go install -v github.com/projectdiscovery/pdtm/cmd/pdtm@latest && pdtm -ia
 ```
 </Note>
 
-Finally copy and run this command in your internal environment where you want the agent deployed.
- 
-If you're using the Docker option, you can directly run the command displayed in the platform without any additional prerequisites.
+Finally copy and run the command (displayed when you create a network) in your internal environment where you want the agent deployed.
+
+If you're using the Docker option, you can directly run the installation command without any additional prerequisites.
 
 <Warning>
   Keep your installation command secure - it contains your API key and agent configuration. Anyone with this command can connect an agent to your network.
@@ -118,23 +118,35 @@ Once the agent runs successfully, it will appear in your network dashboard, indi
   The agent must remain running to execute scans. For production deployments, consider running it as a system service (systemd, Docker, or Kubernetes) to ensure it stays active.
 </Note>
 
-### Step 3: Trigger Internal Scans
+### Step 3: Discover Assets
 
-Once your pd-agent is connected, triggering internal scans works identically to external scanning. The workflow is seamless - you configure scans through the same interface and view results in the same dashboard.
+Before running vulnerability scans, you can discover assets in your internal network. This helps you identify all hosts, services, and open ports that the agent can reach.
 
-1. **Initiate a Scan**:
-   - Click on the **Scan** button for the network you want to scan
-   - Or go to the **Scans** menu (https://cloud.projectdiscovery.io/scans) and click on **Create New Scan**, choose **Internal** followed by the network you want to scan. Similar to how you would run an external scan
+1. Navigate to your networks dashboard at [https://cloud.projectdiscovery.io/internal-network](https://cloud.projectdiscovery.io/internal-network)
+2. Locate the network you want to discover assets for and click the **Discover assets** button under the **Action** column
+3. Configure your discovery parameters (target ranges, ports, discovery methods, etc.)
+4. Click on **Start Discovery** to initiate the discovery process. The pd-agent will scan your internal network and discovered assets will appear in your asset inventory
 
-2. **Configure Your Scan**:
-   - **Targets**: Enter internal IPs, hostnames, or CIDR ranges (e.g., `192.168.1.0/24`, `internal-server.local`)
-   - **Templates**: Select Nuclei templates (CVEs, misconfigurations, vulnerabilities, etc.)
-   - **Configuration**: Choose scan settings, rate limits, headers, and other parameters
+<Frame>
+  <img src="/images/pdcp-discover-assets-demo.gif" alt="Discovering Assets in Internal Network using pd-agent" />
+</Frame>
 
-3. **Launch Your Scan**:
-   - Click **"Create Scan"** to start scanning your internal targets
-   - The scan executes through pd-agent in your internal network
-   - Results appear in your dashboard just like external scans
+<Note>
+  Asset discovery helps you build an accurate inventory of your internal infrastructure before running targeted vulnerability scans. This ensures comprehensive coverage of your attack surface.
+</Note>
+
+<Tip>
+  **Scaling for Large Networks:** If your network has a large number of assets that need to be scanned, consider deploying multiple pd-agents across different network segments. This distributes the scanning load and improves performance for comprehensive vulnerability assessments.
+</Tip>
+
+### Step 4: Trigger Internal Scans
+
+Once your pd-agent is connected and assets are discovered (optional), you can trigger vulnerability scans. The workflow is identical to external scanning - configure scans through the same interface and view results in the same dashboard.
+
+1. Click on the **Scan** button for the network you want to scan, or go to the **Scans** menu (https://cloud.projectdiscovery.io/scans) and click **Create New Scan**, choose **Internal** followed by the network
+2. Select the Asset Group created from the previous discovery operation, or manually enter your targets (internal IPs, hostnames, or CIDR ranges like `192.168.1.0/24`, `internal-server.local`)
+3. Select Nuclei templates (CVEs, misconfigurations, vulnerabilities, etc.) and configure scan settings (rate limits, headers, parameters)
+4. Click **Create Scan** to start - the scan executes through pd-agent in your internal network and results appear in your dashboard
 
 <Frame>
   <img src="/images/pdcp-internal-scan-demo.gif" alt="Creating and Running an Internal Scan in PDCP" />
