@@ -2,7 +2,7 @@
   "dependencies": {
     "@types/react": "^19.0.8",
     "clsx": "^2.1.1",
-    "js-yaml": "^4.1.0",
+    "js-yaml": "^4.1.1",
     "react": "^19.0.0",
     "tailwind-merge": "^3.0.1"
   }
