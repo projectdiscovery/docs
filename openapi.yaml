@@ -5925,6 +5925,38 @@ paths:
           description: time range to get logs
         - schema:
             type: string
+            enum:
+              - api
+              - platform
+              - unknown
+          in: query
+          name: source
+          description: filter by source of the audit log entry
+        - schema:
+            type: string
+            format: date
+          in: query
+          name: start_date
+          description: start date from which you want to get logs
+        - schema:
+            type: string
+            format: date
+          in: query
+          name: end_date
+          description: end date till which you want to get logs
+        - schema:
+            type: string
+            enum:
+              - current_month
+              - last_month
+              - last_3_months
+              - last_6_months
+              - last_12_months
+          in: query
+          name: time_range
+          description: time range to get logs
+        - schema:
+            type: string
           in: header
           description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
           name: X-Team-Id
