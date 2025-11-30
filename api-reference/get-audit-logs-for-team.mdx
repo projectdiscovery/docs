@@ -1,3 +1,47 @@
 ---
 openapi: get /v1/team/audit_log
 ---
+
+## Filtering Audit Logs
+
+This endpoint supports multiple filter parameters to help you narrow down audit log entries:
+
+### Date Filters
+
+- **`start_date`** and **`end_date`**: Filter logs by custom date range
+- **`time_range`**: Use predefined time ranges for quick filtering
+  - `current_month` - Logs from the current month
+  - `last_month` - Logs from the previous month
+  - `last_3_months` - Logs from the last 3 months
+  - `last_6_months` - Logs from the last 6 months
+  - `last_12_months` - Logs from the last 12 months
+
+### Additional Filters
+
+- **`email`**: Filter by specific user email
+- **`action`**: Filter by specific action name (e.g., endpoint path)
+- **`source`**: Filter by the source of the audit log entry
+  - `api` - Actions performed via API
+  - `platform` - Actions performed via the web platform
+  - `unknown` - Actions from unknown sources
+
+### Pagination
+
+- **`limit`**: Number of rows to return (default: 100, max: 100)
+- **`offset`**: Number of rows to skip for pagination
+
+## Example Usage
+
+Filter logs from the last month for a specific user:
+
+```bash
+curl -X GET "https://api.projectdiscovery.io/v1/team/audit_log?time_range=last_month&email=user@example.com" \
+  -H "X-Api-Key: YOUR_API_KEY"
+```
+
+Filter logs by source and date range:
+
+```bash
+curl -X GET "https://api.projectdiscovery.io/v1/team/audit_log?source=api&start_date=2024-01-01&end_date=2024-01-31" \
+  -H "X-Api-Key: YOUR_API_KEY"
+```
