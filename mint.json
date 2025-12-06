@@ -112,24 +112,24 @@
           "pages": [
             "opensource/gsoc/index",
             {
-              "group": "GSoC 2025",
+              "group": "GSoC 2026",
               "icon": "calendar",
               "iconType": "solid",
               "pages": [
-                "opensource/gsoc/2025/overview",
-                "opensource/gsoc/2025/getting-started",
-                "opensource/gsoc/2025/application-process",
-                "opensource/gsoc/2025/project-ideas",
-                "opensource/gsoc/2025/timeline",
-                "opensource/gsoc/2025/faq",
-                "opensource/gsoc/2025/community-engagement",
+                "opensource/gsoc/2026/overview",
+                "opensource/gsoc/2026/getting-started",
+                "opensource/gsoc/2026/application-process",
+                "opensource/gsoc/2026/project-ideas",
+                "opensource/gsoc/2026/timeline",
+                "opensource/gsoc/2026/faq",
+                "opensource/gsoc/2026/community-engagement",
                 {
                   "group": "For Mentors",
                   "icon": "chalkboard-user",
                   "iconType": "solid",
                   "pages": [
-                    "opensource/gsoc/2025/mentor-guidelines",
-                    "opensource/gsoc/2025/mentor-resources"
+                    "opensource/gsoc/2026/mentor-guidelines",
+                    "opensource/gsoc/2026/mentor-resources"
                   ]
                 }
               ]
