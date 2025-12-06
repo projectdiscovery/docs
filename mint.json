@@ -106,6 +106,46 @@
       "pages": [
         "opensource/index",
         {
+          "group": "Google Summer of Code",
+          "icon": "graduation-cap",
+          "iconType": "duotone",
+          "pages": [
+            "opensource/gsoc/index",
+            {
+              "group": "GSoC 2025",
+              "icon": "calendar",
+              "iconType": "solid",
+              "pages": [
+                "opensource/gsoc/2025/overview",
+                "opensource/gsoc/2025/getting-started",
+                "opensource/gsoc/2025/application-process",
+                "opensource/gsoc/2025/project-ideas",
+                "opensource/gsoc/2025/timeline",
+                "opensource/gsoc/2025/faq",
+                "opensource/gsoc/2025/community-engagement",
+                {
+                  "group": "For Mentors",
+                  "icon": "chalkboard-user",
+                  "iconType": "solid",
+                  "pages": [
+                    "opensource/gsoc/2025/mentor-guidelines",
+                    "opensource/gsoc/2025/mentor-resources"
+                  ]
+                }
+              ]
+            },
+            {
+              "group": "Resources",
+              "icon": "book",
+              "iconType": "solid",
+              "pages": [
+                "opensource/gsoc/resources/proposal-template",
+                "opensource/gsoc/resources/evaluation-criteria"
+              ]
+            }
+          ]
+        },
+        {
           "group": "AlterX",
           "icon": "cloud-word",
           "iconType": "duotone",

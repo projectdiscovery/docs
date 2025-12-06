@@ -1,0 +1,426 @@
+---
+title: "GSoC 2025 Project Ideas"
+description: "Browse available projects for Google Summer of Code 2025 with ProjectDiscovery"
+sidebarTitle: "Project Ideas"
+icon: "lightbulb"
+---
+
+# GSoC 2025 Project Ideas
+
+Explore exciting projects across ProjectDiscovery's open source security tools. Choose a project that matches your interests and skills, or propose your own custom idea!
+
+## How to Use This Page
+
+1. **Browse projects** below to find ones that interest you
+2. **Check required skills** to see if you're a good fit
+3. **Read the tool documentation** linked in each project
+4. **Try the tool** to understand how it works
+5. **Discuss with mentors** on Discord before applying
+6. **Review application process** when ready to apply
+
+<Note>
+**Custom proposals welcome!** Have your own idea? Discuss it with mentors on [Discord](https://projectdiscovery.io/community) first to ensure it aligns with ProjectDiscovery's goals.
+</Note>
+
+## Project Categories
+
+Our projects span different difficulty levels and time commitments:
+
+| Difficulty | Hours | Suitable For |
+|------------|-------|--------------|
+| **Easy-Medium** | 175 hours | First-time contributors, focused features |
+| **Medium** | 350 hours | Moderate experience, substantial features |
+| **Hard** | 350 hours | Experienced contributors, complex projects |
+
+## Available Projects
+
+### Project 1: Nuclei Template Performance Analyzer
+
+<Card title="Quick Overview" icon="info-circle">
+  **Tool**: Nuclei
+  **Difficulty**: Medium
+  **Size**: 350 hours
+  **Mentors**: To be assigned
+</Card>
+
+#### Description
+
+Build a comprehensive performance analysis tool for Nuclei templates that helps template authors identify bottlenecks and optimize their templates for faster scanning. This project involves understanding Nuclei's template engine internals, implementing profiling hooks, collecting performance metrics, and creating visualizations to help users understand where time is spent during template execution.
+
+Currently, template authors have limited visibility into performance characteristics. This tool will provide detailed insights into execution time, network calls, matching operations, and resource usage, enabling data-driven optimization decisions.
+
+#### Goals & Deliverables
+
+- **Profiling Framework**: Implement hooks in Nuclei's template engine to collect timing and resource metrics
+- **Metrics Collection**: Gather detailed data on:
+  - Template execution time breakdown
+  - Network request/response times
+  - Matcher evaluation performance
+  - Memory and CPU usage per template
+- **CLI Analysis Tool**: Build command-line interface for:
+  - Running profiling sessions
+  - Generating performance reports
+  - Comparing template performance
+  - Identifying optimization opportunities
+- **Web Dashboard**: Create visualization interface showing:
+  - Flame graphs for execution traces
+  - Timeline views of template execution
+  - Performance comparisons
+  - Bottleneck identification
+- **Documentation**: Comprehensive guide for using the profiler and interpreting results
+- **Test Coverage**: Unit and integration tests with 75%+ coverage
+
+#### Technical Skills Required
+
+**Required**:
+- Strong Go programming skills
+- Understanding of profiling and benchmarking concepts
+- Experience with performance optimization
+- Familiarity with data collection and analysis
+
+**Preferred**:
+- Experience with Go profiling tools (pprof, trace)
+- Web development (for dashboard - can use existing frameworks)
+- Knowledge of Nuclei or similar scanning tools
+- Database experience (for metrics storage)
+
+#### Skills You'll Learn
+
+- Nuclei template engine architecture and internals
+- Go profiling tools and techniques (pprof, runtime/trace)
+- Performance optimization strategies for high-throughput systems
+- Building developer tools and CLIs
+- Data visualization and dashboard creation
+- Security scanner workflows and patterns
+
+#### Getting Started
+
+1. **Read Documentation**:
+   - [Nuclei Overview](/opensource/nuclei/overview)
+   - [Nuclei Templates](/templates/introduction)
+
+2. **Explore Nuclei**:
+   - Install Nuclei and run sample scans
+   - Study template structure and execution
+   - Profile current performance using Go tools
+
+3. **Understand Codebase**:
+   - Review Nuclei's template engine code
+   - Identify key execution paths
+   - Look at existing performance considerations
+
+4. **Make Contributions**:
+   - Fix "good-first-issue" bugs
+   - Improve documentation
+   - Add tests or examples
+
+5. **Discuss Your Approach**:
+   - Share your ideas in Discord #gsoc channel
+   - Get feedback from mentors
+   - Refine your proposal
+
+#### Related Links
+
+- [Nuclei GitHub](https://github.com/projectdiscovery/nuclei)
+- [Nuclei Documentation](/opensource/nuclei)
+- [Template Structure](/templates/structure)
+
+---
+
+### Project 2: Katana JavaScript Rendering Enhancement
+
+<Card title="Quick Overview" icon="info-circle">
+  **Tool**: Katana
+  **Difficulty**: Hard
+  **Size**: 350 hours
+  **Mentors**: To be assigned
+</Card>
+
+#### Description
+
+Enhance Katana's JavaScript rendering capabilities to better handle modern web applications, especially single-page applications (SPAs) that heavily rely on JavaScript for content rendering. This project involves implementing advanced browser automation features, improving JavaScript execution detection, and optimizing crawling strategies for dynamic web applications.
+
+Modern web applications use frameworks like React, Vue, and Angular that render content dynamically. Katana needs sophisticated strategies to properly crawl these applications, detect when JavaScript execution is complete, handle infinite scroll, and efficiently manage headless browser resources.
+
+#### Goals & Deliverables
+
+- **Advanced JS Detection**: Implement intelligent detection of:
+  - When JavaScript execution is complete
+  - Dynamic content loading (AJAX, fetch)
+  - Infinite scroll and lazy loading
+  - WebSocket connections
+  - Service worker activity
+
+- **SPA Crawling Strategies**: Develop specialized approaches for:
+  - React/Vue/Angular applications
+  - Client-side routing detection
+  - State management analysis
+  - Virtual DOM interactions
+
+- **Resource Optimization**: Optimize headless browser usage:
+  - Connection pooling and reuse
+  - Resource blocking (ads, trackers)
+  - Memory management
+  - Parallel execution strategies
+
+- **Configuration System**: Extensible configuration for:
+  - Wait strategies (network idle, DOM stable, custom)
+  - Timeout management
+  - Browser flags and options
+  - JavaScript injection hooks
+
+- **Comprehensive Testing**: Test suite covering:
+  - Various SPA frameworks
+  - Real-world web applications
+  - Edge cases and error handling
+
+- **Performance Benchmarks**: Measure and optimize:
+  - Crawl speed improvements
+  - Resource usage
+  - Accuracy of content discovery
+
+#### Technical Skills Required
+
+**Required**:
+- Strong Go programming skills
+- Experience with browser automation (Puppeteer, Playwright, or similar)
+- Deep understanding of web technologies (HTML, CSS, JavaScript)
+- Knowledge of how modern web frameworks work (React, Vue, Angular)
+- Concurrent programming experience
+
+**Preferred**:
+- Experience with headless browser libraries
+- Performance optimization at scale
+- Understanding of web application architecture
+- Network protocol knowledge (HTTP/2, WebSocket)
+
+#### Skills You'll Learn
+
+- Web crawling architectures and algorithms
+- Browser automation internals
+- Modern web application frameworks
+- Performance optimization for I/O-bound systems
+- Concurrent programming patterns in Go
+- Strategies for handling dynamic content
+
+#### Getting Started
+
+1. **Read Documentation**:
+   - [Katana Overview](/opensource/katana/overview)
+   - [Katana Usage](/opensource/katana/usage)
+
+2. **Experiment with Katana**:
+   - Crawl various types of websites
+   - Test on modern SPAs (try popular web apps)
+   - Identify current limitations with JS rendering
+
+3. **Study Modern Web Apps**:
+   - Analyze how React/Vue/Angular apps work
+   - Understand client-side routing
+   - Learn about dynamic content loading patterns
+
+4. **Analyze Codebase**:
+   - Review Katana's current JS rendering implementation
+   - Study browser automation integration
+   - Identify areas for improvement
+
+5. **Make Contributions**:
+   - Report bugs or suggest improvements
+   - Fix documentation
+   - Add test cases
+
+#### Related Links
+
+- [Katana GitHub](https://github.com/projectdiscovery/katana)
+- [Katana Documentation](/opensource/katana)
+
+---
+
+### Project 3: httpx Response Analysis Framework
+
+<Card title="Quick Overview" icon="info-circle">
+  **Tool**: httpx
+  **Difficulty**: Easy-Medium
+  **Size**: 175 hours
+  **Mentors**: To be assigned
+</Card>
+
+#### Description
+
+Create an extensible plugin framework for analyzing HTTP responses beyond basic status codes and headers. This project will enable users to build custom analyzers for response content, implement advanced pattern matching, improve technology detection, and extend httpx's capabilities through a clean plugin architecture.
+
+Currently, httpx provides excellent HTTP probing capabilities but has limited built-in response analysis. This framework will allow users to easily add custom analyzers for their specific needs, from detecting custom technologies to analyzing response patterns for security issues.
+
+#### Goals & Deliverables
+
+- **Plugin Architecture**: Design and implement:
+  - Clean plugin interface for analyzers
+  - Plugin discovery and loading system
+  - Configuration management
+  - Result aggregation and reporting
+
+- **Built-in Analyzers** (implement 3-5):
+  - Advanced technology detection (frameworks, CMS, libraries)
+  - Content pattern matcher (regex-based analysis)
+  - Security header analyzer (missing/misconfigured headers)
+  - API endpoint detector (REST/GraphQL patterns)
+  - Error message analyzer (debug info leakage)
+
+- **Developer Tools**:
+  - Plugin template/boilerplate generator
+  - Testing framework for analyzers
+  - Documentation generator
+  - Example plugins
+
+- **Documentation**:
+  - Plugin development guide
+  - API reference
+  - Example use cases
+  - Migration guide for existing users
+
+- **Performance**:
+  - Benchmark framework for analyzers
+  - Optimization for large-scale scanning
+  - Parallel execution support
+
+- **Testing**: Comprehensive test suite with 80%+ coverage
+
+#### Technical Skills Required
+
+**Required**:
+- Go programming experience (intermediate level)
+- Understanding of HTTP protocol and headers
+- Experience with regex and pattern matching
+- Software architecture and design patterns
+
+**Preferred**:
+- Plugin architecture design experience
+- Web technology fingerprinting knowledge
+- API design experience
+- Experience with similar tools (httpx, curl, etc.)
+
+#### Skills You'll Learn
+
+- Plugin architecture design in Go
+- HTTP response analysis techniques
+- Web technology fingerprinting
+- Building extensible systems
+- API design for third-party developers
+- Performance optimization for network tools
+
+#### Getting Started
+
+1. **Read Documentation**:
+   - [httpx Overview](/opensource/httpx/overview)
+   - [httpx Usage](/opensource/httpx/usage)
+
+2. **Experiment with httpx**:
+   - Run httpx against various websites
+   - Analyze different response types
+   - Understand current capabilities and limitations
+
+3. **Research Existing Solutions**:
+   - Study how other tools implement plugins
+   - Look at Go plugin systems
+   - Identify common patterns
+
+4. **Explore Codebase**:
+   - Review httpx's response handling code
+   - Understand the current architecture
+   - Identify integration points for plugins
+
+5. **Make Contributions**:
+   - Fix bugs or documentation issues
+   - Add feature suggestions
+   - Implement small improvements
+
+#### Related Links
+
+- [httpx GitHub](https://github.com/projectdiscovery/httpx)
+- [httpx Documentation](/opensource/httpx)
+
+---
+
+## Custom Project Proposals
+
+Have your own idea for improving ProjectDiscovery's tools? We welcome custom proposals!
+
+### Requirements for Custom Proposals
+
+1. **Discuss First**: Talk with mentors on Discord before applying
+2. **Alignment**: Ensure it aligns with ProjectDiscovery's goals
+3. **Scope**: Size appropriately for 175 or 350 hours
+4. **Value**: Demonstrate clear benefit to users
+5. **Feasibility**: Show it's technically achievable
+
+### Good Custom Project Ideas
+
+✅ New features for existing tools
+✅ Performance improvements with measurable impact
+✅ Integration between ProjectDiscovery tools
+✅ Developer experience improvements
+✅ Testing or CI/CD infrastructure
+
+### Ideas to Avoid
+
+❌ Complete rewrites of existing tools
+❌ Projects requiring proprietary APIs
+❌ Research-only projects without code deliverables
+❌ Projects outside security/scanning domain
+
+### How to Propose
+
+1. **Join Discord** and share your idea in #gsoc
+2. **Describe the problem** you want to solve
+3. **Explain your approach** at a high level
+4. **Get feedback** and refine your idea
+5. **Follow proposal guidelines** when applying
+
+## Application Process
+
+Ready to apply for one of these projects?
+
+<CardGroup cols={2}>
+  <Card title="Application Guide" icon="file-pen" href="/opensource/gsoc/2025/application-process">
+    Learn how to write your proposal
+  </Card>
+  <Card title="Proposal Template" icon="file-lines" href="/opensource/gsoc/resources/proposal-template">
+    Use our template
+  </Card>
+  <Card title="Getting Started" icon="rocket" href="/opensource/gsoc/2025/getting-started">
+    6-step participation guide
+  </Card>
+  <Card title="Join Discord" icon="discord" href="https://projectdiscovery.io/community">
+    Connect with mentors
+  </Card>
+</CardGroup>
+
+## Tips for Choosing a Project
+
+### Match Your Skills
+- Choose a project where you have 60-70% of required skills
+- You should be able to learn the remaining 30-40%
+- Don't choose projects where you have 0% of skills
+
+### Consider Your Interests
+- Pick something that excites you
+- You'll spend 12-14 weeks on this
+- Passion matters for motivation
+
+### Think About Impact
+- Which project would help the most users?
+- What aligns with your career goals?
+- What showcases skills you want to develop?
+
+### Assess Difficulty Honestly
+- Are you comfortable with the complexity?
+- Do you have enough time?
+- Can you complete it in the given timeframe?
+
+## Questions?
+
+<Note>
+Have questions about any project? Join our [Discord community](https://projectdiscovery.io/community) and ask in the #gsoc channel. Mentors are available to help you understand projects and choose the right one!
+</Note>
+
+Good luck choosing your project! 🚀

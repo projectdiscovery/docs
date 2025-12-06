@@ -1,0 +1,349 @@
+---
+title: "Community Engagement Guide"
+description: "How to engage with ProjectDiscovery's community during GSoC"
+sidebarTitle: "Community"
+icon: "users"
+---
+
+# Community Engagement Guide
+
+Learn how to effectively engage with ProjectDiscovery's community, make contributions, and build relationships with mentors and fellow contributors.
+
+## Communication Channels
+
+### Discord (Primary Channel)
+
+Our main hub for community interaction:
+
+<Card title="Join Discord" icon="discord" iconType="solid" href="https://projectdiscovery.io/community">
+  Join 20,000+ security enthusiasts in our community
+</Card>
+
+**Key Channels for GSoC**:
+- **#gsoc**: GSoC-specific discussions, questions, and announcements
+- **#introductions**: Introduce yourself to the community
+- **#nuclei**, **#httpx**, **#katana**: Tool-specific technical discussions
+- **#general**: General conversations
+- **#help**: Get help with our tools
+
+**When to Use Discord**:
+- Asking questions about projects or proposals
+- Getting clarification on technical approaches
+- Discussing ideas with mentors
+- Daily updates during GSoC
+- Community bonding and networking
+
+### GitHub (Code & Issues)
+
+Where the code lives and work happens:
+
+**ProjectDiscovery Organization**: [github.com/projectdiscovery](https://github.com/projectdiscovery)
+
+**When to Use GitHub**:
+- Reporting bugs or issues
+- Submitting code contributions (pull requests)
+- Reviewing code changes
+- Technical discussions on specific issues
+- Tracking project progress
+
+**Popular Repositories**:
+- [Nuclei](https://github.com/projectdiscovery/nuclei)
+- [httpx](https://github.com/projectdiscovery/httpx)
+- [Katana](https://github.com/projectdiscovery/katana)
+- [Subfinder](https://github.com/projectdiscovery/subfinder)
+- [All repositories](https://github.com/orgs/projectdiscovery/repositories)
+
+### Email (Limited Use)
+
+Email is for private communications only. Prefer public channels (Discord/GitHub) when possible.
+
+## Communication Etiquette
+
+### Asking Good Questions
+
+<Tip>
+**Before asking**, search Discord history and GitHub issues to see if your question has been answered before.
+</Tip>
+
+**Good Question Format**:
+1. **Context**: What are you trying to do?
+2. **What you've tried**: Steps you've already taken
+3. **Specific problem**: Exact error or issue
+4. **Environment**: Relevant details (OS, version, etc.)
+
+**Example**:
+```
+❌ Bad: "httpx doesn't work, help!"
+
+✅ Good: "I'm trying to use httpx to scan a list of URLs from a file,
+but I'm getting a 'connection refused' error. I've tried:
+1. Running with -v flag
+2. Checking the target is accessible with curl (works fine)
+3. Testing with a single URL (works)
+
+Error message: [paste error]
+Command: httpx -l urls.txt
+OS: Ubuntu 22.04, httpx version: v1.3.0
+
+Any ideas what might be wrong?"
+```
+
+### Response Time Expectations
+
+**From you**:
+- **Within 24 hours** for mentor questions
+- **Same day** for critical blocking issues
+- **Regular updates** on Discord during GSoC
+
+**From mentors/community**:
+- **24-48 hours** during application period
+- **24 hours** for GSoC blocking issues
+- **48 hours** for general questions
+- Faster responses during UTC business hours
+
+### Professional Communication
+
+✅ **Do**:
+- Be respectful and professional
+- Provide context and details
+- Thank people for their help
+- Share solutions when you figure things out
+- Help others when you can
+- Be patient and understanding
+
+❌ **Don't**:
+- Send unsolicited DMs to mentors (use public channels)
+- Ask the same question across multiple channels
+- Demand immediate responses
+- Share confidential or inappropriate content
+- Spam or flood channels
+- Be dismissive of feedback
+
+## Making Your First Contribution
+
+### Finding Good Issues
+
+Look for issues labeled:
+- `good-first-issue`: Perfect for newcomers
+- `help-wanted`: Community contributions welcome
+- `documentation`: Improve docs
+- `bug`: Fix a reported problem
+
+**Where to Find Them**:
+```
+https://github.com/projectdiscovery/nuclei/labels/good-first-issue
+https://github.com/projectdiscovery/httpx/labels/help-wanted
+```
+
+### Contribution Workflow
+
+1. **Find an issue** you want to work on
+2. **Comment** on the issue: "I'd like to work on this"
+3. **Fork** the repository to your account
+4. **Clone** your fork locally
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/nuclei.git
+   cd nuclei
+   ```
+5. **Create a branch** for your changes
+   ```bash
+   git checkout -b fix-issue-123
+   ```
+6. **Make your changes** with tests
+7. **Commit** with a clear message
+   ```bash
+   git commit -m "Fix: description of what you fixed (#123)"
+   ```
+8. **Push** to your fork
+   ```bash
+   git push origin fix-issue-123
+   ```
+9. **Create Pull Request** on GitHub
+10. **Respond to feedback** and iterate
+
+### Pull Request Best Practices
+
+**Good PR Description**:
+```markdown
+## Description
+Fixes #123 - Brief description of the issue
+
+## Changes
+- Specific change 1
+- Specific change 2
+
+## Testing
+- [ ] Added unit tests
+- [ ] Tested manually with: [command]
+- [ ] All existing tests pass
+
+## Screenshots (if applicable)
+[Add screenshots for UI changes]
+```
+
+**Before Submitting**:
+- ✅ Code follows project style guidelines
+- ✅ All tests pass (`go test ./...`)
+- ✅ Added tests for new functionality
+- ✅ Updated documentation if needed
+- ✅ Commit messages are clear
+- ✅ PR description explains changes
+
+### Responding to Code Review
+
+Code review is a learning opportunity:
+
+1. **Be receptive**: Feedback helps you improve
+2. **Ask questions**: If you don't understand, ask for clarification
+3. **Explain reasoning**: Share why you made certain choices
+4. **Make changes**: Update your PR based on feedback
+5. **Thank reviewers**: Appreciate their time
+
+<Tip>
+Don't take feedback personally. Even experienced developers get lots of comments on their PRs!
+</Tip>
+
+## Building Your Profile
+
+### Consistent Contributions
+
+**Quality > Quantity**:
+- 1 meaningful PR > 10 typo fixes
+- Focus on understanding, not just fixing
+- Learn from each contribution
+
+**Contribution Ideas**:
+1. **Week 1**: Documentation improvements
+2. **Week 2**: Fix a simple bug
+3. **Week 3**: Add test coverage
+4. **Week 4**: Implement a small feature
+5. **Ongoing**: Help others, review PRs
+
+### Helping Others
+
+**Ways to Contribute Beyond Code**:
+- Answer questions in Discord
+- Review others' pull requests
+- Write tutorials or blog posts
+- Report bugs with detailed reproduction steps
+- Test new features and provide feedback
+- Improve documentation
+
+### Engaging with Mentors
+
+**Building Relationships**:
+- Participate in technical discussions
+- Share your learning journey
+- Ask thoughtful questions
+- Show initiative and curiosity
+- Be consistent and reliable
+
+**What Mentors Look For**:
+- Technical ability
+- Communication skills
+- Initiative and self-direction
+- Willingness to learn
+- Reliability and follow-through
+- Positive attitude
+
+## Community Guidelines
+
+### Code of Conduct
+
+ProjectDiscovery is committed to providing a welcoming and inclusive community for everyone.
+
+**Expected Behavior**:
+- Be respectful and considerate
+- Welcome newcomers
+- Accept constructive criticism gracefully
+- Focus on what's best for the community
+- Show empathy towards others
+
+**Unacceptable Behavior**:
+- Harassment or discrimination
+- Trolling or inflammatory comments
+- Personal attacks
+- Sharing private information
+- Inappropriate content
+
+### Conflict Resolution
+
+If you encounter issues:
+
+1. **Assume good intent**: Most conflicts are misunderstandings
+2. **Communicate directly**: Try to resolve privately first
+3. **Stay professional**: Keep emotions in check
+4. **Involve moderators**: If direct resolution doesn't work
+5. **Document**: Keep records of serious issues
+
+## During GSoC
+
+### Communication Expectations
+
+**Weekly Minimum**:
+- 2 check-ins with your mentor
+- 1 progress update in Discord
+- Regular commits to your branch
+- Prompt responses to feedback
+
+**Recommended**:
+- Daily brief updates (even if small)
+- Proactive communication about blockers
+- Sharing interesting discoveries
+- Participating in community discussions
+
+### Staying Engaged
+
+**Daily**:
+- Check Discord for messages
+- Review mentor feedback
+- Make progress on your project
+- Help others when possible
+
+**Weekly**:
+- Share progress update
+- Sync with mentor
+- Review your timeline
+- Adjust plans if needed
+
+**Monthly**:
+- Reflect on progress
+- Update documentation
+- Celebrate milestones
+- Plan next phase
+
+## Resources
+
+<CardGroup cols={2}>
+  <Card title="Discord Community" icon="discord" href="https://projectdiscovery.io/community">
+    Join our community
+  </Card>
+  <Card title="GitHub Organization" icon="github" href="https://github.com/projectdiscovery">
+    Browse our code
+  </Card>
+  <Card title="Getting Started" icon="rocket" href="/opensource/gsoc/2025/getting-started">
+    GSoC participation guide
+  </Card>
+  <Card title="FAQ" icon="circle-question" href="/opensource/gsoc/2025/faq">
+    Common questions
+  </Card>
+</CardGroup>
+
+## Tips for Success
+
+<CardGroup cols={2}>
+  <Card title="Start Early" icon="clock" iconType="solid">
+    Begin contributing 6-8 weeks before the application deadline
+  </Card>
+  <Card title="Be Consistent" icon="calendar-check" iconType="solid">
+    Regular small contributions > occasional large ones
+  </Card>
+  <Card title="Communicate Well" icon="comments" iconType="solid">
+    Over-communicate rather than under-communicate
+  </Card>
+  <Card title="Help Others" icon="hand-holding-heart" iconType="solid">
+    Give back to the community that's helping you
+  </Card>
+</CardGroup>
+
+Welcome to the ProjectDiscovery community! We're excited to have you. 🎉
