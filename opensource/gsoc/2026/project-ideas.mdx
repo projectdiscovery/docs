@@ -34,7 +34,230 @@ Our projects span different difficulty levels and time commitments:
 
 ## Available Projects
 
-### Project 1: Nuclei Template Performance Analyzer
+<Tip>
+**New to open source or security tools?** Start with **Project 1 (Subfinder)** or **Project 2 (httpx Testing)** - they're beginner-friendly and focus on software development skills like CLI design, testing, and CI/CD!
+</Tip>
+
+### Project 1: Subfinder Output Formatting & Export System
+
+<Card title="Quick Overview" icon="info-circle">
+  **Tool**: Subfinder
+  **Difficulty**: Easy
+  **Size**: 175 hours
+  **Mentors**: To be assigned
+</Card>
+
+#### Description
+
+Improve Subfinder's output formatting capabilities and build a flexible export system that allows users to customize how subdomain results are displayed and exported. This beginner-friendly project focuses on developer experience, output formatting, and data export functionality - perfect for contributors new to security tools.
+
+Subfinder currently supports basic output formats, but users often need custom formatting for integration with other tools, pipelines, or reporting systems. This project will create a flexible output template system and add multiple export formats.
+
+#### Goals & Deliverables
+
+- **Output Template System**: Implement customizable output templates:
+  - User-defined format strings (similar to printf)
+  - Support for all subdomain data fields
+  - Color-coded terminal output
+  - Column alignment and formatting
+
+- **Export Formats**: Add support for multiple formats:
+  - CSV with customizable columns
+  - Markdown tables for reports
+  - HTML with styling options
+  - SQLite database export
+  - Excel (XLSX) format
+
+- **CLI Enhancements**: Improve command-line experience:
+  - Interactive mode for selecting export options
+  - Progress bars with statistics
+  - Summary reports (total domains, sources, timing)
+  - Filtering and sorting options
+
+- **Configuration**: Template and format configuration:
+  - Saved templates for reuse
+  - Configuration file support
+  - Example templates for common use cases
+
+- **Documentation**: User guides and examples showing:
+  - How to create custom templates
+  - Integration with other tools
+  - Common formatting patterns
+
+- **Testing**: Unit tests with 80%+ coverage
+
+#### Technical Skills Required
+
+**Required**:
+- Go programming (beginner to intermediate level)
+- Understanding of file formats (JSON, CSV, etc.)
+- Basic CLI application experience
+
+**Preferred**:
+- Experience with Go template libraries
+- Familiarity with terminal output formatting
+- Experience with data export libraries
+
+#### Skills You'll Learn
+
+- Go programming best practices
+- Working with Go's text/template package
+- File format generation (CSV, Excel, SQLite)
+- CLI design and user experience
+- Testing Go applications
+- Working with a popular open source tool
+
+#### Getting Started
+
+1. **Read Documentation**:
+   - [Subfinder Overview](/opensource/subfinder/overview)
+   - [Subfinder Usage](/opensource/subfinder/usage)
+
+2. **Experiment with Subfinder**:
+   - Install and run Subfinder
+   - Test different output formats
+   - Try piping output to other tools
+   - Identify formatting limitations
+
+3. **Explore Codebase**:
+   - Review Subfinder's output handling code
+   - Understand current format implementation
+   - Look at how other Go tools handle templates
+
+4. **Make Contributions**:
+   - Fix documentation issues
+   - Add tests
+   - Report bugs or suggest improvements
+
+5. **Research Similar Tools**:
+   - Study how tools like jq, awk handle formatting
+   - Look at template systems in other Go CLI tools
+   - Identify best practices
+
+#### Related Links
+
+- [Subfinder GitHub](https://github.com/projectdiscovery/subfinder)
+- [Subfinder Documentation](/opensource/subfinder)
+
+---
+
+### Project 2: httpx Testing & CI/CD Infrastructure
+
+<Card title="Quick Overview" icon="info-circle">
+  **Tool**: httpx
+  **Difficulty**: Easy-Medium
+  **Size**: 175 hours
+  **Mentors**: To be assigned
+</Card>
+
+#### Description
+
+Enhance httpx's testing infrastructure and CI/CD pipeline to improve code quality, catch bugs earlier, and make it easier for contributors to add features with confidence. This project focuses on developer tooling and testing - great for someone interested in software quality and DevOps.
+
+While httpx has basic tests, there's significant room for improvement in test coverage, integration testing, and automated quality checks. This project will build a comprehensive testing framework and improve the contributor experience.
+
+#### Goals & Deliverables
+
+- **Integration Test Suite**: Create comprehensive integration tests:
+  - Test server/mock infrastructure for HTTP testing
+  - Tests for various HTTP scenarios (redirects, timeouts, errors)
+  - Tests for different server technologies
+  - Tests for edge cases and error handling
+  - Performance regression tests
+
+- **Test Coverage Improvements**: Increase test coverage to 75%+:
+  - Identify untested code paths
+  - Add unit tests for core functionality
+  - Add tests for CLI flags and options
+  - Document testing guidelines
+
+- **CI/CD Enhancements**: Improve GitHub Actions workflows:
+  - Add automated code quality checks (linting, formatting)
+  - Implement security scanning (gosec, etc.)
+  - Add performance benchmarking in CI
+  - Create release automation
+  - Add dependency update checks
+
+- **Developer Tools**: Build tools for contributors:
+  - Local development environment setup scripts
+  - Test helpers and utilities
+  - Code generation for repetitive tasks
+  - Pre-commit hooks for quality checks
+
+- **Documentation**: Create contributor guides:
+  - Testing best practices
+  - How to run tests locally
+  - CI/CD architecture documentation
+  - Contributing guidelines improvements
+
+- **Monitoring**: Add observability:
+  - Code coverage reporting and badges
+  - Test execution time tracking
+  - Flaky test detection
+
+#### Technical Skills Required
+
+**Required**:
+- Go programming (intermediate level)
+- Understanding of testing concepts (unit, integration, e2e)
+- Basic CI/CD knowledge (GitHub Actions or similar)
+- Git and GitHub workflow
+
+**Preferred**:
+- Experience with Go testing frameworks
+- Docker knowledge (for test containers)
+- CI/CD pipeline experience
+- Experience with code quality tools
+
+#### Skills You'll Learn
+
+- Go testing best practices and patterns
+- Integration testing strategies
+- CI/CD pipeline design and implementation
+- Code quality automation
+- Developer experience optimization
+- Working with GitHub Actions
+- Test infrastructure design
+
+#### Getting Started
+
+1. **Read Documentation**:
+   - [httpx Overview](/opensource/httpx/overview)
+   - [httpx Usage](/opensource/httpx/usage)
+
+2. **Analyze Current State**:
+   - Run existing tests: `go test ./...`
+   - Check test coverage: `go test -cover ./...`
+   - Review CI/CD workflows in `.github/workflows/`
+   - Identify gaps in test coverage
+
+3. **Research Best Practices**:
+   - Study Go testing patterns
+   - Look at well-tested Go projects
+   - Research integration testing approaches
+   - Study CI/CD best practices
+
+4. **Explore Codebase**:
+   - Review httpx's architecture
+   - Understand core functionality
+   - Identify critical paths needing tests
+   - Look at existing test structure
+
+5. **Make Contributions**:
+   - Add tests for uncovered code
+   - Fix failing or flaky tests
+   - Improve test documentation
+   - Suggest CI improvements
+
+#### Related Links
+
+- [httpx GitHub](https://github.com/projectdiscovery/httpx)
+- [httpx Documentation](/opensource/httpx)
+- [Go Testing](https://go.dev/doc/tutorial/add-a-test)
+
+---
+
+### Project 3: Nuclei Template Performance Analyzer
 
 <Card title="Quick Overview" icon="info-circle">
   **Tool**: Nuclei
@@ -127,7 +350,7 @@ Currently, template authors have limited visibility into performance characteris
 
 ---
 
-### Project 2: Katana JavaScript Rendering Enhancement
+### Project 4: Katana JavaScript Rendering Enhancement
 
 <Card title="Quick Overview" icon="info-circle">
   **Tool**: Katana
@@ -236,7 +459,7 @@ Modern web applications use frameworks like React, Vue, and Angular that render 
 
 ---
 
-### Project 3: httpx Response Analysis Framework
+### Project 5: httpx Response Analysis Framework
 
 <Card title="Quick Overview" icon="info-circle">
   **Tool**: httpx
