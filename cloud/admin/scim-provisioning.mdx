@@ -1,6 +1,112 @@
 ---
 title: "SCIM Provisioning"
-description: "SCIM integration for automated user management"
+description: "System for Cross-domain Identity Management (SCIM) integration for automated and seamless user management"
 sidebarTitle: "SCIM Provisioning"
 ---
 
+## Overview
+
+This guide will help you set up automated user provisioning for your account using SCIM 2.0 (System for Cross-domain Identity Management). Once configured, you'll be able to manage your team's access to ProjectDiscovery's platform directly from your Identity Provider.
+
+<Note>
+  SCIM Provisioning is available exclusively for Enterprise customers. Contact our [sales team](https://projectdiscovery.io/request-demo) to enable SCIM for your organization.
+</Note>
+
+## Benefits of SCIM Integration
+
+- **Centralized Management**: Manage ProjectDiscovery's platform access directly from your Identity Provider
+- **Automated Onboarding**: Automatically add new team members to the platform when assigned in your IdP
+- **Instant Offboarding**: Remove access immediately when users leave your organization
+- **Consistent Security**: Apply the same access policies across all your applications
+
+## What You'll Need
+
+- Administrative access to your Identity Provider (Okta, Azure AD, etc.)
+- SCIM credentials from your ProjectDiscovery representative:
+    - Base URL
+    - Authorization token
+
+## Setup Instructions
+
+### Step 1: Configure Your Identity Provider
+
+1. Log in to your Identity Provider's admin console
+2. Navigate to your ProjectDiscovery application settings
+3. Enable SCIM provisioning
+4. Enter the credentials provided by your ProjectDiscovery representative:
+    - SCIM Base URL
+    - Authorization Token
+5. Test the connection to verify the integration
+
+### Step 2: Map Users and Roles
+
+When assigning users to ProjectDiscovery's platform in your IdP, you'll need to specify their roles:
+
+- `ADMIN` - Full administrative access to the workspace
+- `MEMBER` - Standard access for team collaboration (default)
+- `VIEWER` - Read-only access to workspace resources
+
+<Note>
+If no role is specified, users will be assigned the MEMBER role by default.
+</Note>
+
+### Step 3: Provision Your Team
+
+1. In your IdP console, assign users or groups to ProjectDiscovery application
+2. Select the appropriate role for each user
+3. On completion, users will be automatically created in your ProjectDiscovery account
+
+## Managing Users
+
+### Adding New Users
+
+To add new users to your ProjectDiscovery account:
+
+1. Assign them to the ProjectDiscovery application in your IdP and enter their role
+2. They'll be automatically provisioned in ProjectDiscovery's platform
+
+### Removing Users
+
+To revoke access:
+
+1. Unassign the user(s) from the ProjectDiscovery application in your IdP
+2. They'll be automatically removed from your ProjectDiscovery account
+
+### Updating User Roles
+
+To change users' permissions:
+
+1. Update their role assignment in your IdP
+2. The changes will be synced automatically to ProjectDiscovery's platform
+
+## SCIM + Single Sign-On (SSO) Integration
+
+If your organization uses SSO, SCIM works seamlessly alongside it:
+
+- Users authenticate through your Identity Provider
+- SCIM automatically provisions their account if they're assigned in your IdP
+- Users are granted access with their assigned role
+- No additional ProjectDiscovery credentials are needed
+
+## Migrating Existing Users
+
+If your team is already using ProjectDiscovery and you're adding SCIM:
+
+1. After SCIM is activated, assign/reassign all existing users to the ProjectDiscovery application in your IdP
+2. Make sure to specify the correct role for each user during assignment
+3. This one-time synchronization brings all users under IdP management
+4. Future user management will be handled exclusively through your IdP
+
+## Important Considerations
+
+<Warning>
+Please keep the following in mind when using SCIM provisioning:
+
+- **Workspace Owner:** The OWNER role cannot be managed through SCIM. Please contact ProjectDiscovery's support team for any ownership changes.
+- **Centralized Control:** Once SCIM is activated, all user management operations must be done through your IdP. Manual user management in ProjectDiscovery's platform will be disabled.
+- **Domain Restriction:** Only users with email addresses matching your organization's domain can be provisioned.
+</Warning>
+
+## Need Help?
+
+If you encounter any issues during setup or have questions about SCIM integration, please contact our support team at support@projectdiscovery.io
