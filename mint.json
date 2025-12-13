@@ -439,6 +439,7 @@
             "cloud/admin/audit-logs",
             "cloud/admin/scan-ips",
             "cloud/admin/saml-sso",
+            "cloud/admin/scim-provisioning",
             "cloud/admin",
             "cloud/general-faq"
           ]
