@@ -18,13 +18,28 @@ code:
 ```
 ## Engine
 
-To execute the code, a list of language interpreters, which are installed or available on the system environment, is specified. These interpreters can be and not limited to `bash` `sh` `py` `python3`, `go`, `ps`, among others, and they are searched sequentially until a suitable one is found. The identifiers for these interpreters should correspond to their respective names or identifiers recognized by the system environment.
+To execute the code, a list of language interpreters, which are installed or available on the system environment, is specified. These interpreters can be and not limited to `bash` `sh` `py` `python3`, `go`, `ps`, `pwsh`, among others, and they are searched sequentially until a suitable one is found. The identifiers for these interpreters should correspond to their respective names or identifiers recognized by the system environment.
 
 ```yaml
 - engine:
     - py
     - python3
 ```
+
+## Common Interpreters
+
+The following are some of the most commonly used interpreters with the Code protocol:
+
+### Python
+
+Python is widely available on most systems and can be used with engines such as `py`, `python`, or `python3`. Python is typically pre-installed on macOS and many Linux distributions.
+
+### PowerShell
+
+PowerShell can be used with engines such as `pwsh`, `powershell`, or `powershell.exe`. PowerShell may need to be installed separately depending on your operating system:
+
+- **macOS**: [Install PowerShell on macOS](https://learn.microsoft.com/en-us/powershell/scripting/install/install-powershell-on-macos)
+- **Linux**: [Install PowerShell on Linux](https://learn.microsoft.com/en-us/powershell/scripting/install/install-powershell-on-linux)
 
 The code to be executed can be provided either as an external file or as a code snippet directly within the template.
 
@@ -103,6 +118,7 @@ Args are arguments that are sent to engine while executing the code. For example
 
 ```yaml
   - engine:
+      - pwsh
       - powershell
       - powershell.exe
     args:
@@ -166,6 +182,7 @@ info:
 
 code:
   - engine:
+      - pwsh
       - powershell
       - powershell.exe
     args:
@@ -192,6 +209,8 @@ By default Nuclei will not execute code templates. To enable code protocol execu
 ```bash
 nuclei -t code-template.yaml -code
 ```
+
+
 
 ## Learn More 
 
