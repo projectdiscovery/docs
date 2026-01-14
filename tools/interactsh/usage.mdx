@@ -1,32 +1,11 @@
 ---
 title: 'Redirecting...'
 description: 'This page has moved to /opensource/interactsh/usage'
+redirect: /opensource/interactsh/usage
 ---
-
-import { useEffect } from 'react';
-
-export const RedirectComponent = () => {
-  useEffect(() => {
-    window.location.replace('/opensource/interactsh/usage');
-  }, []);
-  
-  return null;
-};
-
-<RedirectComponent />
 
 # 🔄 Redirecting...
 
 You are being redirected to [/opensource/interactsh/usage](/opensource/interactsh/usage).
 
 If you are not automatically redirected, [click here](/opensource/interactsh/usage).
-
-<script dangerouslySetInnerHTML={{
-  __html: `
-    setTimeout(function() {
-      if (typeof window !== 'undefined') {
-        window.location.href = '/opensource/interactsh/usage';
-      }
-    }, 100);
-  `
-}} />

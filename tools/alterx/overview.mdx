@@ -1,32 +1,11 @@
 ---
 title: 'Redirecting...'
 description: 'This page has moved to /opensource/alterx/overview'
+redirect: /opensource/alterx/overview
 ---
-
-import { useEffect } from 'react';
-
-export const RedirectComponent = () => {
-  useEffect(() => {
-    window.location.replace('/opensource/alterx/overview');
-  }, []);
-  
-  return null;
-};
-
-<RedirectComponent />
 
 # 🔄 Redirecting...
 
 You are being redirected to [/opensource/alterx/overview](/opensource/alterx/overview).
 
 If you are not automatically redirected, [click here](/opensource/alterx/overview).
-
-<script dangerouslySetInnerHTML={{
-  __html: `
-    setTimeout(function() {
-      if (typeof window !== 'undefined') {
-        window.location.href = '/opensource/alterx/overview';
-      }
-    }, 100);
-  `
-}} />

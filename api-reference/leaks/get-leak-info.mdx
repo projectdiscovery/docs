@@ -12,7 +12,6 @@ Retrieve detailed information for a specific leak by its ID. This endpoint provi
 - **Personal leaks**: Always accessible if the leak belongs to your email
 - **Employee/Customer leaks**: Requires domain verification for the associated domain
 - **Password unmasking**: Requires domain verification
-- **Customer leak privacy**: Passwords are never unmasked for customer leaks (privacy protection)
 
 ### Leak ID Format
 The leak ID must be a 32-character MD5 hash (e.g., `b3652f2555841f7652badd9804859f4e`).
@@ -101,11 +100,10 @@ The leak ID must be a 32-character MD5 hash (e.g., `b3652f2555841f7652badd980485
 ### When Passwords Are Unmasked
 - Personal leaks: Always unmasked for the account owner
 - Employee leaks: Unmasked with domain verification
-- Customer leaks: **Never unmasked** (privacy protection)
+- Customer leaks: Unmasked with domain verification
 
 ### When Passwords Are Masked
 - Shows as `***MASKED***` when access is not authorized
-- Customer leak passwords are always masked for privacy protection
 
 ## Usage Examples
 
@@ -122,7 +120,6 @@ curl -X POST "https://api.projectdiscovery.io/v1/leaks/info" \
 ## Security Considerations
 
 ### Privacy Protection
-- Customer leak passwords are never exposed to maintain customer privacy
 - Access is strictly controlled based on domain verification
 - All access attempts are logged for security auditing
 

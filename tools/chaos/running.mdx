@@ -1,32 +1,11 @@
 ---
 title: 'Redirecting...'
 description: 'This page has moved to /opensource/chaos/running'
+redirect: /opensource/chaos/running
 ---
-
-import { useEffect } from 'react';
-
-export const RedirectComponent = () => {
-  useEffect(() => {
-    window.location.replace('/opensource/chaos/running');
-  }, []);
-  
-  return null;
-};
-
-<RedirectComponent />
 
 # 🔄 Redirecting...
 
 You are being redirected to [/opensource/chaos/running](/opensource/chaos/running).
 
 If you are not automatically redirected, [click here](/opensource/chaos/running).
-
-<script dangerouslySetInnerHTML={{
-  __html: `
-    setTimeout(function() {
-      if (typeof window !== 'undefined') {
-        window.location.href = '/opensource/chaos/running';
-      }
-    }, 100);
-  `
-}} />

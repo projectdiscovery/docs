@@ -1,32 +1,11 @@
 ---
 title: 'Redirecting...'
 description: 'This page has moved to /opensource/httpx/running'
+redirect: /opensource/httpx/running
 ---
-
-import { useEffect } from 'react';
-
-export const RedirectComponent = () => {
-  useEffect(() => {
-    window.location.replace('/opensource/httpx/running');
-  }, []);
-  
-  return null;
-};
-
-<RedirectComponent />
 
 # 🔄 Redirecting...
 
 You are being redirected to [/opensource/httpx/running](/opensource/httpx/running).
 
 If you are not automatically redirected, [click here](/opensource/httpx/running).
-
-<script dangerouslySetInnerHTML={{
-  __html: `
-    setTimeout(function() {
-      if (typeof window !== 'undefined') {
-        window.location.href = '/opensource/httpx/running';
-      }
-    }, 100);
-  `
-}} />

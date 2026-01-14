@@ -1,32 +1,11 @@
 ---
 title: 'Redirecting...'
 description: 'This page has moved to /opensource/notify/install'
+redirect: /opensource/notify/install
 ---
-
-import { useEffect } from 'react';
-
-export const RedirectComponent = () => {
-  useEffect(() => {
-    window.location.replace('/opensource/notify/install');
-  }, []);
-  
-  return null;
-};
-
-<RedirectComponent />
 
 # 🔄 Redirecting...
 
 You are being redirected to [/opensource/notify/install](/opensource/notify/install).
 
 If you are not automatically redirected, [click here](/opensource/notify/install).
-
-<script dangerouslySetInnerHTML={{
-  __html: `
-    setTimeout(function() {
-      if (typeof window !== 'undefined') {
-        window.location.href = '/opensource/notify/install';
-      }
-    }, 100);
-  `
-}} />

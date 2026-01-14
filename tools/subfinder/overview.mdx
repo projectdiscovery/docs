@@ -1,32 +1,11 @@
 ---
 title: 'Redirecting...'
 description: 'This page has moved to /opensource/subfinder/overview'
+redirect: /opensource/subfinder/overview
 ---
-
-import { useEffect } from 'react';
-
-export const RedirectComponent = () => {
-  useEffect(() => {
-    window.location.replace('/opensource/subfinder/overview');
-  }, []);
-  
-  return null;
-};
-
-<RedirectComponent />
 
 # 🔄 Redirecting...
 
 You are being redirected to [/opensource/subfinder/overview](/opensource/subfinder/overview).
 
 If you are not automatically redirected, [click here](/opensource/subfinder/overview).
-
-<script dangerouslySetInnerHTML={{
-  __html: `
-    setTimeout(function() {
-      if (typeof window !== 'undefined') {
-        window.location.href = '/opensource/subfinder/overview';
-      }
-    }, 100);
-  `
-}} />

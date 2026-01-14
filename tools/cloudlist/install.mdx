@@ -1,32 +1,11 @@
 ---
 title: 'Redirecting...'
 description: 'This page has moved to /opensource/cloudlist/install'
+redirect: /opensource/cloudlist/install
 ---
-
-import { useEffect } from 'react';
-
-export const RedirectComponent = () => {
-  useEffect(() => {
-    window.location.replace('/opensource/cloudlist/install');
-  }, []);
-  
-  return null;
-};
-
-<RedirectComponent />
 
 # 🔄 Redirecting...
 
 You are being redirected to [/opensource/cloudlist/install](/opensource/cloudlist/install).
 
 If you are not automatically redirected, [click here](/opensource/cloudlist/install).
-
-<script dangerouslySetInnerHTML={{
-  __html: `
-    setTimeout(function() {
-      if (typeof window !== 'undefined') {
-        window.location.href = '/opensource/cloudlist/install';
-      }
-    }, 100);
-  `
-}} />

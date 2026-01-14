@@ -1,32 +1,11 @@
 ---
 title: 'Redirecting...'
 description: 'This page has moved to /opensource/nuclei/overview'
+redirect: /opensource/nuclei/overview
 ---
-
-import { useEffect } from 'react';
-
-export const RedirectComponent = () => {
-  useEffect(() => {
-    window.location.replace('/opensource/nuclei/overview');
-  }, []);
-  
-  return null;
-};
-
-<RedirectComponent />
 
 # 🔄 Redirecting...
 
 You are being redirected to [/opensource/nuclei/overview](/opensource/nuclei/overview).
 
 If you are not automatically redirected, [click here](/opensource/nuclei/overview).
-
-<script dangerouslySetInnerHTML={{
-  __html: `
-    setTimeout(function() {
-      if (typeof window !== 'undefined') {
-        window.location.href = '/opensource/nuclei/overview';
-      }
-    }, 100);
-  `
-}} />
