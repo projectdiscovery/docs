@@ -4,10 +4,10 @@ openapi: get /v1/leaks/stats/domain
 
 ## Overview
 
-Get statistical information about leaks associated with a specific domain. This endpoint provides aggregate data for monitoring and reporting purposes.
+Get statistical information about leaks associated with any domain. This is a **public endpoint** that doesn't require authentication, making it ideal for quick breach checks and integrations.
 
 <Info>
-This endpoint requires domain verification. You can only get stats for domains you have verified ownership of.
+**Public Endpoint**: No authentication required. You can check leak statistics for any domain.
 </Info>
 
 ## Query Parameters
@@ -15,7 +15,6 @@ This endpoint requires domain verification. You can only get stats for domains y
 | Parameter | Type | Description |
 |-----------|------|-------------|
 | `domain` | string | **Required.** The domain to get leak statistics for |
-| `unmask_email` | boolean | Whether to unmask email addresses in the response |
 
 ## Response Structure
 
@@ -25,12 +24,8 @@ The response provides comprehensive statistics about leaks for the specified dom
 {
   "domain": "example.com",
   "total_leaks": 150,
-  "open_leaks": 120,
-  "fixed_leaks": 30,
-  "leak_types": {
-    "employee_leaks": 100,
-    "customer_leaks": 50
-  },
+  "employee_leaks": 100,
+  "customer_leaks": 50,
   "recent_activity": {
     "last_30_days": 15,
     "last_7_days": 3
@@ -60,26 +55,28 @@ The response provides comprehensive statistics about leaks for the specified dom
 
 ## Usage Examples
 
-### Get basic domain stats
+### Check domain breach status
 ```bash
-curl -X GET "https://api.projectdiscovery.io/v1/leaks/stats/domain?domain=example.com" \
-  -H "Authorization: Bearer YOUR_API_KEY"
+curl -X GET "https://api.projectdiscovery.io/v1/leaks/stats/domain?domain=example.com"
 ```
 
-### Get stats with unmasked emails
-```bash
-curl -X GET "https://api.projectdiscovery.io/v1/leaks/stats/domain?domain=example.com&unmask_email=true" \
-  -H "Authorization: Bearer YOUR_API_KEY"
-```
+<Note>
+No API key or authentication header is required for this endpoint.
+</Note>
+
+## Use Cases
+
+### Quick Breach Check
+Use this endpoint to quickly check if a domain has any known credential leaks without requiring authentication.
+
+### Security Integrations
+Integrate with your security tools to monitor domains for new leaks and alert when breach counts increase.
+
+### Due Diligence
+Check potential partners or vendors for credential exposure as part of your security assessment process.
 
 ## Best Practices
 
-### Regular Monitoring
-- Check domain stats regularly to identify new leaks quickly
-- Set up automated alerts when leak counts increase
-- Monitor the ratio of open vs fixed leaks
-
-### Performance Considerations
-- Cache stats data appropriately to avoid excessive API calls
-- Use this endpoint for summary data, detailed leak info requires other endpoints
+- Cache results appropriately to avoid excessive API calls
+- Use this for summary data; detailed leak information requires authenticated endpoints
 - Consider rate limiting when building automated monitoring systems

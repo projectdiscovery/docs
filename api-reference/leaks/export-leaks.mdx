@@ -4,7 +4,11 @@ openapi: post /v1/leaks/export
 
 ## Overview
 
-Export leaked credentials data with the same filtering capabilities as the main leaks endpoint. Supports both JSON and CSV formats for easy integration with external tools and reporting systems.
+Export leaked credentials data with filtering by type, domain, email, date range, and more. Supports both JSON and CSV formats for easy integration with external tools and reporting systems.
+
+<Info>
+**Password Unmasking**: Passwords are displayed unmasked after [domain verification](/cloud/credential-monitoring#domain-verification). Without verification, passwords appear as `***MASKED***`.
+</Info>
 
 ## Export Formats
 
@@ -120,9 +124,9 @@ curl -X POST "https://api.projectdiscovery.io/v1/leaks/export" \
 - CSV format is more efficient for large datasets
 
 ### Security Considerations
-- Exported data may contain sensitive information
+- Exported data may contain sensitive information including unmasked passwords
 - Ensure secure handling and storage of exported files
-- Password unmasking follows the same ACL rules as the main leaks endpoint
+- Passwords are unmasked after [domain verification](/cloud/credential-monitoring#domain-verification)
 
 ### Performance Tips
 - Use specific filters to reduce export size

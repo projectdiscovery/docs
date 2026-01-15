@@ -4,7 +4,11 @@ openapi: post /v1/leaks/info
 
 ## Overview
 
-Retrieve detailed information for a specific leak by its ID. This endpoint provides access to complete leak details with optional password and email unmasking based on your permissions and domain verification.
+Retrieve detailed information for a specific leak by its ID. This endpoint provides access to complete leak details including unmasked passwords after domain verification.
+
+<Info>
+**Password Unmasking**: Passwords are displayed unmasked after [domain verification](/cloud/credential-monitoring#domain-verification). Without verification, passwords appear as `***MASKED***`.
+</Info>
 
 ## Authentication & Authorization
 
@@ -97,13 +101,15 @@ The leak ID must be a 32-character MD5 hash (e.g., `b3652f2555841f7652badd980485
 
 ## Password Unmasking Rules
 
-### When Passwords Are Unmasked
-- Personal leaks: Always unmasked for the account owner
-- Employee leaks: Unmasked with domain verification
-- Customer leaks: Unmasked with domain verification
+Passwords are unmasked after [domain verification](/cloud/credential-monitoring#domain-verification):
 
-### When Passwords Are Masked
-- Shows as `***MASKED***` when access is not authorized
+| Leak Type | Password Access |
+|-----------|-----------------|
+| **Personal leaks** | Always unmasked for the account owner |
+| **Employee leaks** | Unmasked after domain verification |
+| **Customer leaks** | Unmasked after domain verification |
+
+Without domain verification, passwords show as `***MASKED***`.
 
 ## Usage Examples
 

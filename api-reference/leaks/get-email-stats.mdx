@@ -4,10 +4,10 @@ openapi: get /v1/leaks/stats/email
 
 ## Overview
 
-Get statistical information about leaks associated with a specific email address. This endpoint provides aggregate data for personal leak monitoring and analysis.
+Get statistical information about leaks associated with any email address. This is a **public endpoint** that doesn't require authentication, making it ideal for quick breach checks and self-service monitoring.
 
 <Info>
-This endpoint is primarily used for personal email leak statistics. For organizational monitoring, consider using the domain stats endpoint instead.
+**Public Endpoint**: No authentication required. You can check leak statistics for any email address.
 </Info>
 
 ## Query Parameters
@@ -15,7 +15,6 @@ This endpoint is primarily used for personal email leak statistics. For organiza
 | Parameter | Type | Description |
 |-----------|------|-------------|
 | `email` | string | **Required.** The email address to get leak statistics for |
-| `unmask_email` | boolean | Whether to unmask email addresses in the response |
 
 ## Response Structure
 
@@ -25,8 +24,6 @@ The response provides comprehensive statistics about leaks for the specified ema
 {
   "email": "user@example.com",
   "total_leaks": 25,
-  "open_leaks": 18,
-  "fixed_leaks": 7,
   "leak_classification": {
     "personal_leaks": 15,
     "employee_leaks": 8,
@@ -51,13 +48,11 @@ The response provides comprehensive statistics about leaks for the specified ema
   "risk_timeline": [
     {
       "date": "2023-03",
-      "new_leaks": 3,
-      "fixed_leaks": 1
+      "new_leaks": 3
     },
     {
       "date": "2023-02", 
-      "new_leaks": 5,
-      "fixed_leaks": 2
+      "new_leaks": 5
     }
   ]
 }
@@ -69,52 +64,36 @@ The response provides comprehensive statistics about leaks for the specified ema
 |-------|-------------|
 | `email` | The email address these statistics apply to |
 | `total_leaks` | Total number of leaks found for this email |
-| `open_leaks` | Number of leaks that haven't been marked as fixed |
-| `fixed_leaks` | Number of leaks marked as remediated |
 | `leak_classification` | Breakdown by leak type (personal, employee, customer) |
 | `recent_activity` | New leak discovery in recent time periods |
 | `compromised_services` | Services where this email was found in leaks |
-| `risk_timeline` | Historical trend of leak discovery and remediation |
+| `risk_timeline` | Historical trend of leak discovery |
 
 ## Usage Examples
 
-### Get basic email stats
+### Check email breach status
 ```bash
-curl -X GET "https://api.projectdiscovery.io/v1/leaks/stats/email?email=user@example.com" \
-  -H "Authorization: Bearer YOUR_API_KEY"
+curl -X GET "https://api.projectdiscovery.io/v1/leaks/stats/email?email=user@example.com"
 ```
 
-### Get stats with unmasked emails
-```bash
-curl -X GET "https://api.projectdiscovery.io/v1/leaks/stats/email?email=user@example.com&unmask_email=true" \
-  -H "Authorization: Bearer YOUR_API_KEY"
-```
+<Note>
+No API key or authentication header is required for this endpoint.
+</Note>
 
-## Privacy Considerations
+## Use Cases
 
-### Access Control
-- You can only access stats for emails you're authorized to view
-- Personal emails: accessible to the account owner
-- Employee emails: requires domain verification
+### Personal Breach Check
+Allow users to quickly check if their email has been involved in any credential leaks.
 
-### Data Sensitivity
-- Email statistics may reveal sensitive information about user behavior
-- Consider data retention policies for stored statistics
-- Implement appropriate access controls in your applications
+### Self-Service Monitoring
+Build breach notification tools that let users check their own exposure without requiring account creation.
+
+### Security Awareness
+Integrate into security training tools to show employees their personal exposure risk.
 
 ## Best Practices
 
-### Regular Monitoring
-- Check email stats periodically for accounts under your management
-- Set up alerts for new leak discoveries
-- Track remediation progress to ensure security improvements
-
-### Integration Tips
-- Use this endpoint for summary dashboards and reports
-- Combine with detailed leak endpoints for comprehensive security monitoring
-- Cache results appropriately to minimize API usage
-
-### Security Recommendations
-- Encourage users to fix open leaks promptly
-- Provide guidance on changing passwords for compromised services
-- Monitor trends to identify systemic security issues
+- Cache results appropriately to minimize API calls
+- Use this for summary data; detailed leak information requires authenticated endpoints
+- Consider rate limiting when building user-facing applications
+- Combine with the domain stats endpoint for comprehensive organizational monitoring
