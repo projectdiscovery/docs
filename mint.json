@@ -514,7 +514,6 @@
         {
           "group": "Leaks",
           "pages": [
-            "api-reference/leaks/get-all-leaks",
             "api-reference/leaks/export-leaks",
             "api-reference/leaks/get-leak-info",
             "api-reference/leaks/update-leak-status",

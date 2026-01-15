@@ -10988,7 +10988,8 @@ paths:
         $ref: '#/components/requestBodies/AddCustomSeverityMappingRequest'
   /v1/leaks/stats/domain:
     get:
-      summary: Your GET endpoint for domain stats
+      summary: Get leak statistics for a domain (Public)
+      description: 'Public endpoint - no authentication required. Returns leak statistics for any domain including employee/customer leak counts, geographic distribution, and top compromised services.'
       tags:
         - leaks
       responses:
@@ -11072,19 +11073,18 @@ paths:
         default:
           $ref: '#/components/responses/ErrorResponse'
       operationId: get-v1-leaks-stats-domain
-      description: get leaks stats for a domain
+      security: []
       parameters:
         - schema:
             type: string
           in: query
           name: domain
-        - schema:
-            type: boolean
-          in: query
-          name: unmask_email
+          required: true
+          description: The domain to get leak statistics for
   /v1/leaks/stats/email:
     get:
-      summary: Your GET endpoint for email stats
+      summary: Get leak statistics for an email (Public)
+      description: 'Public endpoint - no authentication required. Returns leak statistics for any email address including leak classification, compromised services, and risk timeline.'
       tags:
         - leaks
       responses:
@@ -11168,17 +11168,14 @@ paths:
         default:
           $ref: '#/components/responses/ErrorResponse'
       operationId: get-v1-leaks-stats-email
-      description: get leaks stats for an email
+      security: []
       parameters:
         - schema:
             type: string
           in: query
           name: email
-          description: Email to get stats for
-        - schema:
-            type: boolean
-          in: query
-          name: unmask_email
+          description: The email address to get leak statistics for
+          required: true
   /v1/leaks:
     get:
       summary: Get all leaked credentials
@@ -11410,7 +11407,7 @@ paths:
   /v1/leaks/export:
     post:
       summary: Export leaked credentials
-      description: Export leaked credentials with same filtering options as GET /v1/leaks
+      description: 'Export leaked credentials with filtering by type, domain, email, date range, and more. Passwords are unmasked after domain verification. See [Domain Verification](/cloud/credential-monitoring#domain-verification) for setup instructions.'
       tags:
         - export
       responses:
@@ -11518,11 +11515,6 @@ paths:
           in: query
           name: format
           description: Export format (json or csv)
-        - schema:
-            type: string
-          in: header
-          name: X-Team-Id
-          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
       requestBody:
         required: true
         content:
@@ -12941,8 +12933,10 @@ paths:
                     type: string
   /v1/leaks/status:
     post:
-      summary: Your POST endpoint
-      tags: []
+      summary: Update leak status
+      description: 'Mark leaks as fixed or reopen them. Requires authentication and domain verification for employee/customer leaks. See [Domain Verification](/cloud/credential-monitoring#domain-verification) for setup instructions.'
+      tags:
+        - leaks
       responses:
         '200':
           description: OK
@@ -12997,7 +12991,7 @@ paths:
   /v1/leaks/info:
     post:
       summary: Get leak information by ID
-      description: Retrieve detailed leak information by leak ID with optional password and email unmasking
+      description: 'Retrieve detailed leak information by leak ID. Passwords are unmasked after domain verification. See [Domain Verification](/cloud/credential-monitoring#domain-verification) for setup instructions.'
       tags:
         - leaks
       operationId: post-v1-leaks-info
