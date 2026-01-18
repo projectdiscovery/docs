@@ -10183,6 +10183,66 @@ paths:
           in: query
           name: scope
           description: Scope of search
+  /v1/domain/associated:
+    get:
+      summary: Get Associated Domains
+      description: Discover domains related to a given domain through acquisition history, certificate transparency logs, and WHOIS records. Returns associated domains with evidence of their relationship.
+      tags:
+        - enumerations
+      responses:
+        '200':
+          $ref: '#/components/responses/AssociatedDomainsResults'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: associated-domains
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: domain
+          description: Domain name to fetch associated domains. If omitted, returns associated domains for all your verified domains.
+        - schema:
+            type: string
+          in: query
+          name: source
+          description: 'Comma-separated source filter (acquisition_history, certificate_history, whois_history)'
+        - schema:
+            type: boolean
+          in: query
+          name: active
+          description: 'Filter by liveness (true=alive, false=unreachable)'
+        - schema:
+            type: string
+            enum:
+              - active
+              - domain
+              - source
+              - subdomain_count
+              - update_date
+          in: query
+          name: sort
+          description: Sort results by field
+        - schema:
+            type: integer
+          in: query
+          name: limit
+          description: 'Maximum results per page (pagination). If omitted, returns all.'
+        - schema:
+            type: integer
+          in: query
+          name: page
+          description: 'Page number (pagination, starts at 1)'
+        - schema:
+            type: boolean
+          in: query
+          name: raw
+          description: 'If true, returns plain text list (one domain per line)'
   /v1/organization/search:
     get:
       summary: Get Organization by Domain
@@ -16645,6 +16705,149 @@ components:
             - organization
             - domain
           type: string
+    AssociatedDomainEvidence:
+      title: AssociatedDomainEvidence
+      type: object
+      description: Evidence supporting the domain association from various sources
+      properties:
+        acquired_company:
+          description: Acquired company name (acquisition_history source)
+          type: string
+        acquired_date:
+          description: Acquisition date (acquisition_history source)
+          type: string
+        acquirer_name:
+          description: Acquirer organization name (acquisition_history source)
+          type: string
+        active:
+          description: Whether the domain is currently reachable
+          type: boolean
+        as_name:
+          description: Autonomous system name
+          type: string
+        as_number:
+          description: Autonomous system number
+          type: integer
+        cert_common_name:
+          description: Certificate common name (certificate_history source)
+          type: string
+        cert_expiry_date:
+          description: Certificate expiry date (certificate_history source)
+          type: string
+        cert_issued_date:
+          description: Certificate issued date (certificate_history source)
+          type: string
+        cert_issuer:
+          description: Certificate issuer (certificate_history source)
+          type: string
+        cert_org_name:
+          description: Certificate organization name (certificate_history source)
+          type: string
+        cert_serial:
+          description: Certificate serial number (certificate_history source)
+          type: string
+        expiry_date:
+          description: Domain expiry date (whois_history source)
+          type: string
+        location:
+          description: Geographic location
+          type: string
+        orgname:
+          description: WHOIS organization name (whois_history source)
+          type: string
+        probe:
+          description: Probe information
+          type: string
+        registrant_org:
+          description: Registrant organization (whois_history source)
+          type: string
+        registrar:
+          description: Registrar name (whois_history source)
+          type: string
+        registration_date:
+          description: Domain registration date (whois_history source)
+          type: string
+        search_identifier:
+          description: Search identifier
+          type: string
+        source_url:
+          description: URL to source information
+          type: string
+        status_code:
+          description: HTTP status code from probe
+          type: integer
+        subdomain_count:
+          description: Number of discovered subdomains
+          type: integer
+        title:
+          description: HTTP page title from probe
+          type: string
+        update_date:
+          description: Last update date
+          type: string
+        whois_server:
+          description: WHOIS server (whois_history source)
+          type: string
+    AssociatedDomainResult:
+      title: AssociatedDomainResult
+      type: object
+      description: A single associated domain with its discovery sources and evidence
+      required:
+        - domain
+        - sources
+      properties:
+        domain:
+          description: The associated domain name
+          type: string
+        evidence:
+          $ref: '#/components/schemas/AssociatedDomainEvidence'
+        sources:
+          description: Sources that reported the association (acquisition_history, certificate_history, whois_history)
+          type: array
+          items:
+            type: string
+    AssociatedDomainsResultSet:
+      title: AssociatedDomainsResultSet
+      type: object
+      description: Complete response for associated domains query
+      required:
+        - domain
+        - results
+        - sources
+      properties:
+        domain:
+          description: The queried domain
+          type: string
+        results:
+          description: List of associated domains with evidence
+          type: array
+          items:
+            $ref: '#/components/schemas/AssociatedDomainResult'
+        sources:
+          description: List of sources used in the query
+          type: array
+          items:
+            type: string
+        sources_count:
+          description: Count of results per source
+          type: object
+          additionalProperties:
+            type: integer
+        unique_count:
+          description: Unique associated domains count
+          type: integer
+        limit:
+          description: Maximum results per page when paginated
+          type: integer
+        page:
+          description: Current page when paginated
+          type: integer
+        total_count:
+          description: Total associated domains when paginated
+          type: integer
+        total_pages:
+          description: Total pages when paginated
+          type: integer
     OpenVulnerabilityScoreMetrics:
       title: OpenVulnerabilityScoreMetrics
       type: object
@@ -19386,6 +19589,16 @@ components:
                   $ref: '#/components/schemas/OrganizationFullInfo'
               total:
                 type: integer
+    AssociatedDomainsResults:
+      description: Associated domains response with evidence from multiple sources
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AssociatedDomainsResultSet'
+        text/plain:
+          schema:
+            type: string
+            description: Plain text list of domains when raw=true
     UpdateSharedTemplateResponse:
       description: Example response
       content:

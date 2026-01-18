@@ -1,0 +1,309 @@
+---
+title: 'Associated Domains Discovery'
+description: 'Discover related domains through acquisition history, certificate transparency, and WHOIS records'
+sidebarTitle: 'Associated Domains'
+---
+
+<Note>
+Need advanced workflows or custom domain discovery configurations? Our team can help set up enterprise-grade configurations tailored to your infrastructure. [Talk to our team](https://projectdiscovery.io/request-demo) to discuss your specific requirements.
+</Note>
+
+Modern enterprises frequently have complex infrastructures spread across many domains and business units. ProjectDiscovery's **Associated Domains Discovery** gives security teams instant visibility into their entire organizational attack surface by automatically discovering related domains through multiple intelligence sources.
+
+The platform correlates data from **three primary sources**:
+- **Acquisition History** — Corporate subsidiaries and acquired companies from business intelligence sources
+- **Certificate History** — SSL/TLS certificate transparency logs revealing shared infrastructure
+- **WHOIS History** — Domain registration records identifying common ownership
+
+This multi-source approach ensures comprehensive coverage, discovering domains that might be missed when relying on a single data source.
+
+---
+
+## Why Associated Domains Discovery Matters
+
+Tracking assets across multiple organizations, subsidiaries, and technical infrastructures is notoriously difficult when done manually. Security teams traditionally had to compile lists of related domains from internal knowledge or public records, then run separate scans for each—a time-consuming and error-prone process.
+
+### Common Challenges
+
+- **Incomplete Visibility:** Large organizations might have dozens of related domains across subsidiaries, product brands, and acquired companies. Manually mapping all these entities is a huge challenge. In practice, many enterprises have hundreds or even thousands of related entities, making it difficult to get a clear picture of their full attack surface.
+
+- **Constant Change:** Mergers, acquisitions, and infrastructure changes mean the set of assets is constantly evolving. Without continuous updates, asset inventories become outdated quickly. Domains can change ownership or get spun up rapidly in cloud environments.
+
+- **Fragmented Data Sources:** Information about related domains is scattered across financial databases, certificate logs, WHOIS records, and press releases. Mapping out which domains are owned by your organization requires extensive research across multiple sources.
+
+- **Risk of Unknown Assets:** Unknown or unmanaged assets can lead to security incidents. A forgotten website under an acquired company or a domain sharing your SSL certificate could become an easy target for attackers.
+
+---
+
+## Discovery Sources
+
+Associated Domains Discovery leverages three distinct intelligence sources, each providing unique insights into domain relationships.
+
+### Acquisition History
+
+<Icon icon="building" iconType="regular" /> **Source: Business Intelligence & Corporate Records**
+
+ProjectDiscovery integrates with corporate intelligence sources to automatically identify subsidiaries, acquired companies, and related brands associated with your organization.
+
+**What it discovers:**
+- Subsidiary companies and their domains
+- Acquired company assets
+- Related brands and product domains
+- Corporate hierarchy relationships
+
+**Evidence provided:**
+| Field | Description |
+|-------|-------------|
+| `acquired_company` | Name of the acquired company |
+| `acquired_date` | Date of acquisition |
+| `acquirer_name` | Parent organization name |
+| `source_url` | Link to source information |
+
+When you onboard to the platform, it automatically pulls known subsidiaries and related entities—giving you an instant snapshot of your organization's broad footprint without manual research.
+
+### Certificate History
+
+<Icon icon="certificate" iconType="regular" /> **Source: Certificate Transparency Logs**
+
+SSL/TLS certificates often reveal domain relationships that aren't visible through other means. Organizations frequently use shared certificates across related properties, or certificate organization fields expose ownership.
+
+**What it discovers:**
+- Domains sharing the same SSL certificate
+- Domains with matching certificate organization names
+- Wildcard certificate coverage
+- Certificate authority patterns
+
+**Evidence provided:**
+| Field | Description |
+|-------|-------------|
+| `cert_common_name` | Certificate common name (CN) |
+| `cert_org_name` | Organization name in certificate |
+| `cert_issuer` | Certificate authority |
+| `cert_serial` | Certificate serial number |
+| `cert_issued_date` | When certificate was issued |
+| `cert_expiry_date` | Certificate expiration date |
+
+### WHOIS History
+
+<Icon icon="file-contract" iconType="regular" /> **Source: Domain Registration Records**
+
+WHOIS records provide authoritative information about domain ownership. By analyzing registration patterns, the platform identifies domains that share organizational ownership.
+
+**What it discovers:**
+- Domains with matching registrant organizations
+- Shared registrar patterns
+- Common registration dates (bulk registrations)
+- Related WHOIS contact information
+
+**Evidence provided:**
+| Field | Description |
+|-------|-------------|
+| `registrant_org` | Registrant organization name |
+| `registrar` | Domain registrar |
+| `registration_date` | Domain registration date |
+| `expiry_date` | Domain expiration date |
+| `whois_server` | WHOIS server used |
+| `orgname` | WHOIS organization name |
+
+---
+
+## Using Associated Domains Discovery
+
+### Via the Platform UI
+
+Access [Associated Domains](https://cloud.projectdiscovery.io/assets/domains) in the platform to view domains related to your verified domains. By default, the platform automatically discovers and displays associated domains for all your verified domains.
+
+1. Navigate to **Assets** → **Domains** in the left sidebar
+2. View associated domains automatically discovered for your verified domains
+3. Optionally search for a specific domain to explore its associations
+4. Review results grouped by discovery source
+5. Add discovered domains to your asset inventory for monitoring
+
+### Via the API
+
+Query associated domains programmatically using the [Associated Domains API](/api-reference/enumerations/get-associated-domains).
+
+**Default behavior** — Returns associated domains for all your verified domains:
+
+```bash
+curl -X GET "https://api.projectdiscovery.io/v1/domain/associated" \
+  -H "X-Api-Key: YOUR_API_KEY"
+```
+
+**Query specific domain** — Optionally specify a domain to get its associated domains:
+
+```bash
+curl -X GET "https://api.projectdiscovery.io/v1/domain/associated?domain=example.com" \
+  -H "X-Api-Key: YOUR_API_KEY"
+```
+
+**Filter by source:**
+
+```bash
+# Only acquisition history
+curl -X GET "https://api.projectdiscovery.io/v1/domain/associated?domain=example.com&source=acquisition_history" \
+  -H "X-Api-Key: YOUR_API_KEY"
+
+# Only certificate history
+curl -X GET "https://api.projectdiscovery.io/v1/domain/associated?domain=example.com&source=certificate_history" \
+  -H "X-Api-Key: YOUR_API_KEY"
+
+# Multiple sources
+curl -X GET "https://api.projectdiscovery.io/v1/domain/associated?domain=example.com&source=certificate_history,whois_history" \
+  -H "X-Api-Key: YOUR_API_KEY"
+```
+
+**Filter by liveness:**
+
+```bash
+# Only active/reachable domains
+curl -X GET "https://api.projectdiscovery.io/v1/domain/associated?domain=example.com&active=true" \
+  -H "X-Api-Key: YOUR_API_KEY"
+```
+
+**Pagination and sorting:**
+
+```bash
+# Paginated results sorted by subdomain count
+curl -X GET "https://api.projectdiscovery.io/v1/domain/associated?domain=example.com&limit=50&page=1&sort=subdomain_count" \
+  -H "X-Api-Key: YOUR_API_KEY"
+```
+
+**Raw output (plain text):**
+
+```bash
+# Get just domain names, one per line
+curl -X GET "https://api.projectdiscovery.io/v1/domain/associated?domain=example.com&raw=true" \
+  -H "X-Api-Key: YOUR_API_KEY"
+```
+
+<Info>
+Associated Domains Discovery returns up to 10 results per query on standard plans. [Upgrade to Enterprise](https://projectdiscovery.io/pricing) for complete associated domain discovery results.
+</Info>
+
+---
+
+## Response Structure
+
+The API returns comprehensive information about each discovered domain:
+
+```json
+{
+  "domain": "example.com",
+  "sources": ["acquisition_history", "certificate_history", "whois_history"],
+  "sources_count": {
+    "acquisition_history": 5,
+    "certificate_history": 12,
+    "whois_history": 8
+  },
+  "unique_count": 18,
+  "results": [
+    {
+      "domain": "subsidiary.com",
+      "sources": ["acquisition_history"],
+      "evidence": {
+        "acquired_company": "Subsidiary Inc",
+        "acquired_date": "2023-06-15",
+        "acquirer_name": "Example Corp",
+        "active": true,
+        "subdomain_count": 45,
+        "status_code": 200,
+        "title": "Subsidiary Inc - Homepage"
+      }
+    },
+    {
+      "domain": "example-cdn.com",
+      "sources": ["certificate_history"],
+      "evidence": {
+        "cert_common_name": "*.example.com",
+        "cert_org_name": "Example Corporation",
+        "cert_issuer": "DigiCert Inc",
+        "cert_issued_date": "2024-01-15",
+        "cert_expiry_date": "2025-01-15",
+        "active": true,
+        "subdomain_count": 3
+      }
+    },
+    {
+      "domain": "example-backup.com",
+      "sources": ["whois_history"],
+      "evidence": {
+        "registrant_org": "Example Corporation",
+        "registrar": "GoDaddy",
+        "registration_date": "2020-03-10",
+        "expiry_date": "2025-03-10",
+        "active": false
+      }
+    }
+  ]
+}
+```
+
+### Key Response Fields
+
+| Field | Description |
+|-------|-------------|
+| `domain` | The queried domain |
+| `sources` | List of all sources used in the query |
+| `sources_count` | Number of results from each source |
+| `unique_count` | Total unique associated domains found |
+| `results` | Array of discovered domains with evidence |
+
+### Per-Result Fields
+
+| Field | Description |
+|-------|-------------|
+| `domain` | The associated domain name |
+| `sources` | Which sources identified this domain |
+| `evidence` | Source-specific proof of association |
+| `evidence.active` | Whether the domain is currently reachable |
+| `evidence.subdomain_count` | Number of known subdomains |
+| `evidence.status_code` | HTTP status code (if probed) |
+| `evidence.title` | HTTP page title (if available) |
+
+---
+
+## Best Practices
+
+### Maximize Discovery Coverage
+
+1. **Use all sources:** Don't filter by source initially—let the platform correlate across all three sources for maximum coverage.
+
+2. **Check inactive domains:** Domains marked as `active: false` may still be valuable—they could be parked domains or temporarily down services that attackers might target.
+
+3. **Review subdomain counts:** High subdomain counts often indicate active infrastructure worth investigating further.
+
+### Integrate into Your Workflow
+
+1. **Automate discovery:** Use the API to periodically query associated domains and automatically add new discoveries to your asset inventory.
+
+2. **Set up alerts:** Configure notifications when new associated domains are discovered to stay ahead of your expanding attack surface.
+
+3. **Cross-reference with scans:** Run vulnerability scans on newly discovered domains to identify exposure before attackers do.
+
+### Handle Multi-Organization Environments
+
+1. **Start with your primary domain:** Query your main corporate domain first to establish the baseline.
+
+2. **Iterate on discoveries:** Query significant discovered domains to find second-degree associations.
+
+3. **Validate ownership:** Before adding domains to your scanning scope, verify ownership to avoid scanning third-party infrastructure.
+
+---
+
+## Continuous Enrichment
+
+Associated Domains Discovery is not a one-time static pull. The platform continuously enhances its correlation capabilities:
+
+- **Real-time certificate monitoring:** New certificates are indexed as they appear in transparency logs
+- **WHOIS update tracking:** Registration changes are detected and reflected in results
+- **Acquisition intelligence:** Corporate events are tracked and correlated with domain ownership
+- **Liveness probing:** Domain reachability is regularly checked and updated
+
+As your organization grows—launching new websites, spinning up cloud services, or acquiring companies—the platform automatically updates discoveries and keeps track of new potential entry points.
+
+---
+
+## API Reference
+
+For complete API documentation including all parameters, response schemas, and code examples in multiple languages, see the [Associated Domains API Reference](/api-reference/enumerations/get-associated-domains).
