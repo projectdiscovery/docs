@@ -1,0 +1,74 @@
+---
+openapi: get /v1/domain/associated
+---
+
+<Note>
+This endpoint discovers domains related to a given domain through multiple intelligence sources: acquisition history, certificate transparency logs, and WHOIS records.
+
+**Default Behavior:** When called without the `domain` parameter, returns associated domains for all your verified domains. Optionally provide a `domain` parameter to query associated domains for a specific domain.
+
+**Result Limits:** Results are limited to 10 associated domains per query. Enterprise plans include full results with pagination support. Contact [sales](https://projectdiscovery.io/request-demo) to access complete results.
+</Note>
+
+<Tip>
+Retrieve your API key from [Settings → API Key](https://cloud.projectdiscovery.io/settings/api-key) in the ProjectDiscovery Cloud Platform.
+</Tip>
+
+## Discovery Sources
+
+The Associated Domains API correlates data from three primary sources:
+
+| Source | Description |
+|--------|-------------|
+| `acquisition_history` | Corporate subsidiaries and acquired companies from business intelligence sources |
+| `certificate_history` | SSL/TLS certificate transparency logs revealing shared infrastructure |
+| `whois_history` | Domain registration records identifying common ownership |
+
+## Example Requests
+
+### Get all associated domains
+
+```bash
+curl -X GET "https://api.projectdiscovery.io/v1/domain/associated?domain=meta.com" \
+  -H "X-Api-Key: YOUR_API_KEY"
+```
+
+### Filter by specific source
+
+```bash
+# Only certificate-based associations
+curl -X GET "https://api.projectdiscovery.io/v1/domain/associated?domain=meta.com&source=certificate_history" \
+  -H "X-Api-Key: YOUR_API_KEY"
+
+# Multiple sources
+curl -X GET "https://api.projectdiscovery.io/v1/domain/associated?domain=meta.com&source=acquisition_history,whois_history" \
+  -H "X-Api-Key: YOUR_API_KEY"
+```
+
+### Filter by liveness
+
+```bash
+# Only active/reachable domains
+curl -X GET "https://api.projectdiscovery.io/v1/domain/associated?domain=meta.com&active=true" \
+  -H "X-Api-Key: YOUR_API_KEY"
+```
+
+### Paginated results
+
+```bash
+curl -X GET "https://api.projectdiscovery.io/v1/domain/associated?domain=meta.com&limit=50&page=1&sort=subdomain_count" \
+  -H "X-Api-Key: YOUR_API_KEY"
+```
+
+### Raw output (plain text)
+
+```bash
+# Get just domain names, one per line (useful for piping to other tools)
+curl -X GET "https://api.projectdiscovery.io/v1/domain/associated?domain=meta.com&raw=true" \
+  -H "X-Api-Key: YOUR_API_KEY"
+```
+
+## Related Resources
+
+- [Associated Domains Discovery Guide](/cloud/assets/associated-domains) - Comprehensive feature documentation
+- [Asset Discovery Overview](/cloud/assets/overview) - Platform asset management capabilities

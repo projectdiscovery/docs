@@ -384,18 +384,18 @@
         "cloud/ossvscloud",
         "cloud/integrations",
         {
-          "group": "Assets",
+          "group": "Asset Discovery",
           "icon": "bullseye",
           "iconType": "regular",
           "pages": [
             "cloud/assets/overview",
+            "cloud/assets/associated-domains",
             "cloud/assets/adding-assets",
             "cloud/assets/screenshots",
             "cloud/assets/labeling",
             "cloud/assets/custom-labeling",
             "cloud/assets/grouping",
-            "cloud/assets/exclusions",
-            "cloud/assets/subsidiary"
+            "cloud/assets/exclusions"
           ]
         },
         {
@@ -542,6 +542,7 @@
         {
           "group": "Asset Discovery",
           "pages": [
+            "api-reference/enumerations/get-associated-domains",
             "api-reference/enumerations/get-enumeration-list",
             "api-reference/enumerations/create-enumeration",
             "api-reference/enumerations/delete-assets-in-bulk",
