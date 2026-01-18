@@ -11,9 +11,9 @@ Need advanced workflows or custom domain discovery configurations? Our team can 
 Modern enterprises frequently have complex infrastructures spread across many domains and business units. ProjectDiscovery's **Associated Domains Discovery** gives security teams instant visibility into their entire organizational attack surface by automatically discovering related domains through multiple intelligence sources.
 
 The platform correlates data from **three primary sources**:
-- **Acquisition History** — Corporate subsidiaries and acquired companies from business intelligence sources
-- **Certificate History** — SSL/TLS certificate transparency logs revealing shared infrastructure
-- **WHOIS History** — Domain registration records identifying common ownership
+- **Acquisition History** - Corporate subsidiaries and acquired companies from business intelligence sources
+- **Certificate History** - SSL/TLS certificate transparency logs revealing shared infrastructure
+- **WHOIS History** - Domain registration records identifying common ownership
 
 This multi-source approach ensures comprehensive coverage, discovering domains that might be missed when relying on a single data source.
 
@@ -21,7 +21,7 @@ This multi-source approach ensures comprehensive coverage, discovering domains t
 
 ## Why Associated Domains Discovery Matters
 
-Tracking assets across multiple organizations, subsidiaries, and technical infrastructures is notoriously difficult when done manually. Security teams traditionally had to compile lists of related domains from internal knowledge or public records, then run separate scans for each—a time-consuming and error-prone process.
+Tracking assets across multiple organizations, subsidiaries, and technical infrastructures is notoriously difficult when done manually. Security teams traditionally had to compile lists of related domains from internal knowledge or public records, then run separate scans for each-a time-consuming and error-prone process.
 
 ### Common Challenges
 
@@ -59,7 +59,7 @@ ProjectDiscovery integrates with corporate intelligence sources to automatically
 | `acquirer_name` | Parent organization name |
 | `source_url` | Link to source information |
 
-When you onboard to the platform, it automatically pulls known subsidiaries and related entities—giving you an instant snapshot of your organization's broad footprint without manual research.
+When you onboard to the platform, it automatically pulls known subsidiaries and related entities-giving you an instant snapshot of your organization's broad footprint without manual research.
 
 ### Certificate History
 
@@ -123,17 +123,17 @@ Access [Associated Domains](https://cloud.projectdiscovery.io/assets/domains) in
 
 Query associated domains programmatically using the [Associated Domains API](/api-reference/enumerations/get-associated-domains).
 
-**Default behavior** — Returns associated domains for all your verified domains:
+**Default behavior** - Returns associated domains for all your verified domains:
 
 ```bash
 curl -X GET "https://api.projectdiscovery.io/v1/domain/associated" \
   -H "X-Api-Key: YOUR_API_KEY"
 ```
 
-**Query specific domain** — Optionally specify a domain to get its associated domains:
+**Query specific domain** - Optionally specify a domain to get its associated domains:
 
 ```bash
-curl -X GET "https://api.projectdiscovery.io/v1/domain/associated?domain=example.com" \
+curl -X GET "https://api.projectdiscovery.io/v1/domain/associated?domain=meta.com" \
   -H "X-Api-Key: YOUR_API_KEY"
 ```
 
@@ -141,15 +141,15 @@ curl -X GET "https://api.projectdiscovery.io/v1/domain/associated?domain=example
 
 ```bash
 # Only acquisition history
-curl -X GET "https://api.projectdiscovery.io/v1/domain/associated?domain=example.com&source=acquisition_history" \
+curl -X GET "https://api.projectdiscovery.io/v1/domain/associated?domain=meta.com&source=acquisition_history" \
   -H "X-Api-Key: YOUR_API_KEY"
 
 # Only certificate history
-curl -X GET "https://api.projectdiscovery.io/v1/domain/associated?domain=example.com&source=certificate_history" \
+curl -X GET "https://api.projectdiscovery.io/v1/domain/associated?domain=meta.com&source=certificate_history" \
   -H "X-Api-Key: YOUR_API_KEY"
 
 # Multiple sources
-curl -X GET "https://api.projectdiscovery.io/v1/domain/associated?domain=example.com&source=certificate_history,whois_history" \
+curl -X GET "https://api.projectdiscovery.io/v1/domain/associated?domain=meta.com&source=certificate_history,whois_history" \
   -H "X-Api-Key: YOUR_API_KEY"
 ```
 
@@ -157,7 +157,7 @@ curl -X GET "https://api.projectdiscovery.io/v1/domain/associated?domain=example
 
 ```bash
 # Only active/reachable domains
-curl -X GET "https://api.projectdiscovery.io/v1/domain/associated?domain=example.com&active=true" \
+curl -X GET "https://api.projectdiscovery.io/v1/domain/associated?domain=meta.com&active=true" \
   -H "X-Api-Key: YOUR_API_KEY"
 ```
 
@@ -165,7 +165,7 @@ curl -X GET "https://api.projectdiscovery.io/v1/domain/associated?domain=example
 
 ```bash
 # Paginated results sorted by subdomain count
-curl -X GET "https://api.projectdiscovery.io/v1/domain/associated?domain=example.com&limit=50&page=1&sort=subdomain_count" \
+curl -X GET "https://api.projectdiscovery.io/v1/domain/associated?domain=meta.com&limit=50&page=1&sort=subdomain_count" \
   -H "X-Api-Key: YOUR_API_KEY"
 ```
 
@@ -173,7 +173,7 @@ curl -X GET "https://api.projectdiscovery.io/v1/domain/associated?domain=example
 
 ```bash
 # Get just domain names, one per line
-curl -X GET "https://api.projectdiscovery.io/v1/domain/associated?domain=example.com&raw=true" \
+curl -X GET "https://api.projectdiscovery.io/v1/domain/associated?domain=meta.com&raw=true" \
   -H "X-Api-Key: YOUR_API_KEY"
 ```
 
@@ -189,7 +189,7 @@ The API returns comprehensive information about each discovered domain:
 
 ```json
 {
-  "domain": "example.com",
+  "domain": "meta.com",
   "sources": ["acquisition_history", "certificate_history", "whois_history"],
   "sources_count": {
     "acquisition_history": 5,
@@ -204,7 +204,7 @@ The API returns comprehensive information about each discovered domain:
       "evidence": {
         "acquired_company": "Subsidiary Inc",
         "acquired_date": "2023-06-15",
-        "acquirer_name": "Example Corp",
+        "acquirer_name": "Meta",
         "active": true,
         "subdomain_count": 45,
         "status_code": 200,
@@ -215,8 +215,8 @@ The API returns comprehensive information about each discovered domain:
       "domain": "example-cdn.com",
       "sources": ["certificate_history"],
       "evidence": {
-        "cert_common_name": "*.example.com",
-        "cert_org_name": "Example Corporation",
+        "cert_common_name": "*.meta.com",
+        "cert_org_name": "Meta Platforms, Inc.",
         "cert_issuer": "DigiCert Inc",
         "cert_issued_date": "2024-01-15",
         "cert_expiry_date": "2025-01-15",
@@ -228,7 +228,7 @@ The API returns comprehensive information about each discovered domain:
       "domain": "example-backup.com",
       "sources": ["whois_history"],
       "evidence": {
-        "registrant_org": "Example Corporation",
+        "registrant_org": "Meta Platforms, Inc.",
         "registrar": "GoDaddy",
         "registration_date": "2020-03-10",
         "expiry_date": "2025-03-10",
@@ -267,9 +267,9 @@ The API returns comprehensive information about each discovered domain:
 
 ### Maximize Discovery Coverage
 
-1. **Use all sources:** Don't filter by source initially—let the platform correlate across all three sources for maximum coverage.
+1. **Use all sources:** Don't filter by source initially-let the platform correlate across all three sources for maximum coverage.
 
-2. **Check inactive domains:** Domains marked as `active: false` may still be valuable—they could be parked domains or temporarily down services that attackers might target.
+2. **Check inactive domains:** Domains marked as `active: false` may still be valuable-they could be parked domains or temporarily down services that attackers might target.
 
 3. **Review subdomain counts:** High subdomain counts often indicate active infrastructure worth investigating further.
 
@@ -300,7 +300,7 @@ Associated Domains Discovery is not a one-time static pull. The platform continu
 - **Acquisition intelligence:** Corporate events are tracked and correlated with domain ownership
 - **Liveness probing:** Domain reachability is regularly checked and updated
 
-As your organization grows—launching new websites, spinning up cloud services, or acquiring companies—the platform automatically updates discoveries and keeps track of new potential entry points.
+As your organization grows-launching new websites, spinning up cloud services, or acquiring companies-the platform automatically updates discoveries and keeps track of new potential entry points.
 
 ---
 
