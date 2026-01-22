@@ -1,0 +1,248 @@
+# Untitled object in undefined Schema
+
+```txt
+https://template#/$defs/Request/properties/extractors/items
+```
+
+
+
+| Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                             |
+| :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------- |
+| Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [nuclei-schema.schema.json\*](../out/nuclei-schema.schema.json "open original schema") |
+
+## items Type
+
+`object` ([Details](nuclei-schema-defs-extractor))
+
+# items Properties
+
+| Property                              | Type      | Required | Nullable       | Defined by                                                                                                                                                           |
+| :------------------------------------ | :-------- | :------- | :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [name](#name)                         | `string`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-extractor-properties-name-of-the-extractor "https://template#/$defs/Extractor/properties/name")                              |
+| [type](#type)                         | `object`  | Required | cannot be null | [Untitled schema](nuclei-schema-defs-extractortypeholder "https://template#/$defs/Extractor/properties/type")                                                     |
+| [regex](#regex)                       | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-extractor-properties-regex-to-extract-from-part "https://template#/$defs/Extractor/properties/regex")                        |
+| [group](#group)                       | `integer` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-extractor-properties-group-to-extract-from-regex "https://template#/$defs/Extractor/properties/group")                       |
+| [kval](#kval)                         | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-extractor-properties-kval-pairs-to-extract-from-response "https://template#/$defs/Extractor/properties/kval")                |
+| [json](#json)                         | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-extractor-properties-json-jq-expressions-to-extract-data "https://template#/$defs/Extractor/properties/json")                |
+| [xpath](#xpath)                       | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-extractor-properties-html-xpath-expressions-to-extract-data "https://template#/$defs/Extractor/properties/xpath")            |
+| [attribute](#attribute)               | `string`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-extractor-properties-optional-attribute-to-extract-from-xpath "https://template#/$defs/Extractor/properties/attribute")      |
+| [dsl](#dsl)                           | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-extractor-properties-dsl-expressions-to-extract "https://template#/$defs/Extractor/properties/dsl")                          |
+| [part](#part)                         | `string`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-extractor-properties-part-of-response-to-extract-data-from "https://template#/$defs/Extractor/properties/part")              |
+| [internal](#internal)                 | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-extractor-properties-mark-extracted-value-for-internal-variable-use "https://template#/$defs/Extractor/properties/internal") |
+| [case-insensitive](#case-insensitive) | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-extractor-properties-use-case-insensitive-extract "https://template#/$defs/Extractor/properties/case-insensitive")           |
+
+## name
+
+Name of the extractor
+
+`name`
+
+* is optional
+
+* Type: `string` ([name of the extractor](nuclei-schema-defs-extractor-properties-name-of-the-extractor))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-extractor-properties-name-of-the-extractor "https://template#/$defs/Extractor/properties/name")
+
+### name Type
+
+`string` ([name of the extractor](nuclei-schema-defs-extractor-properties-name-of-the-extractor))
+
+## type
+
+
+
+`type`
+
+* is required
+
+* Type: `object` ([Details](nuclei-schema-defs-extractortypeholder))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-extractortypeholder "https://template#/$defs/Extractor/properties/type")
+
+### type Type
+
+`object` ([Details](nuclei-schema-defs-extractortypeholder))
+
+## regex
+
+Regex to extract from part
+
+`regex`
+
+* is optional
+
+* Type: `string[]`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-extractor-properties-regex-to-extract-from-part "https://template#/$defs/Extractor/properties/regex")
+
+### regex Type
+
+`string[]`
+
+## group
+
+Group to extract from regex
+
+`group`
+
+* is optional
+
+* Type: `integer` ([group to extract from regex](nuclei-schema-defs-extractor-properties-group-to-extract-from-regex))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-extractor-properties-group-to-extract-from-regex "https://template#/$defs/Extractor/properties/group")
+
+### group Type
+
+`integer` ([group to extract from regex](nuclei-schema-defs-extractor-properties-group-to-extract-from-regex))
+
+## kval
+
+Kval pairs to extract from response
+
+`kval`
+
+* is optional
+
+* Type: `string[]`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-extractor-properties-kval-pairs-to-extract-from-response "https://template#/$defs/Extractor/properties/kval")
+
+### kval Type
+
+`string[]`
+
+## json
+
+JSON JQ expressions to evaluate from response part
+
+`json`
+
+* is optional
+
+* Type: `string[]`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-extractor-properties-json-jq-expressions-to-extract-data "https://template#/$defs/Extractor/properties/json")
+
+### json Type
+
+`string[]`
+
+## xpath
+
+XPath allows using xpath expressions to extract items from html response
+
+`xpath`
+
+* is optional
+
+* Type: `string[]`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-extractor-properties-html-xpath-expressions-to-extract-data "https://template#/$defs/Extractor/properties/xpath")
+
+### xpath Type
+
+`string[]`
+
+## attribute
+
+Optional attribute to extract from response XPath
+
+`attribute`
+
+* is optional
+
+* Type: `string` ([optional attribute to extract from xpath](nuclei-schema-defs-extractor-properties-optional-attribute-to-extract-from-xpath))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-extractor-properties-optional-attribute-to-extract-from-xpath "https://template#/$defs/Extractor/properties/attribute")
+
+### attribute Type
+
+`string` ([optional attribute to extract from xpath](nuclei-schema-defs-extractor-properties-optional-attribute-to-extract-from-xpath))
+
+## dsl
+
+Optional attribute to extract from response dsl
+
+`dsl`
+
+* is optional
+
+* Type: `string[]`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-extractor-properties-dsl-expressions-to-extract "https://template#/$defs/Extractor/properties/dsl")
+
+### dsl Type
+
+`string[]`
+
+## part
+
+Part of the request response to extract data from
+
+`part`
+
+* is optional
+
+* Type: `string` ([part of response to extract data from](nuclei-schema-defs-extractor-properties-part-of-response-to-extract-data-from))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-extractor-properties-part-of-response-to-extract-data-from "https://template#/$defs/Extractor/properties/part")
+
+### part Type
+
+`string` ([part of response to extract data from](nuclei-schema-defs-extractor-properties-part-of-response-to-extract-data-from))
+
+## internal
+
+Internal when set to true will allow using the value extracted in the next request for some protocols
+
+`internal`
+
+* is optional
+
+* Type: `boolean` ([mark extracted value for internal variable use](nuclei-schema-defs-extractor-properties-mark-extracted-value-for-internal-variable-use))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-extractor-properties-mark-extracted-value-for-internal-variable-use "https://template#/$defs/Extractor/properties/internal")
+
+### internal Type
+
+`boolean` ([mark extracted value for internal variable use](nuclei-schema-defs-extractor-properties-mark-extracted-value-for-internal-variable-use))
+
+## case-insensitive
+
+use case insensitive extract
+
+`case-insensitive`
+
+* is optional
+
+* Type: `boolean` ([use case insensitive extract](nuclei-schema-defs-extractor-properties-use-case-insensitive-extract))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-extractor-properties-use-case-insensitive-extract "https://template#/$defs/Extractor/properties/case-insensitive")
+
+### case-insensitive Type
+
+`boolean` ([use case insensitive extract](nuclei-schema-defs-extractor-properties-use-case-insensitive-extract))

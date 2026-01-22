@@ -1,0 +1,28 @@
+# constant for the template Schema
+
+```txt
+https://template#/$defs/Template/properties/constants
+```
+
+Constants are the global constants that once defined here can be used anywhere in the template
+It can be used in same way as variables but only difference is that constants cannot be overridden by -V flag at runtime
+Example:
+
+```yaml
+constants:
+  exploit: 'x0x0x0x0x0x0x
+```
+
+| Abstract            | Extensible | Status         | Identifiable            | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                             |
+| :------------------ | :--------- | :------------- | :---------------------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------- |
+| Can be instantiated | No         | Unknown status | Unknown identifiability | Forbidden         | Allowed               | none                | [nuclei-schema.schema.json\*](../out/nuclei-schema.schema.json "open original schema") |
+
+## constants Type
+
+`object` ([constant for the template](nuclei-schema-defs-template-properties-constant-for-the-template))
+
+## constants Examples
+
+```json
+"\n\texploit: 'x0x0x0x0x0x0x"
+```
