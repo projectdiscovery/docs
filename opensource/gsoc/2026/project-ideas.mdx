@@ -36,9 +36,9 @@ Our projects span different difficulty levels and time commitments:
 
 | Category | Projects |
 |----------|----------|
-| **Beginner-Friendly** | Project 5 (Wappalyzer Detection) |
-| **Intermediate** | Projects 2, 3, 4, 7 (GraphQL, XSS Analyzer, Honeypot, SDK) |
-| **Advanced** | Projects 1, 6, 8 (DAST Engine, Auth Support, TLS Fingerprinting) |
+| **Beginner-Friendly** | Project 4 (Wappalyzer Detection) |
+| **Intermediate** | Projects 2, 3, 6 (XSS Analyzer, Honeypot, SDK) |
+| **Advanced** | Projects 1, 5, 7 (DAST Engine, Auth Support, TLS Fingerprinting) |
 
 ## Available Projects
 
@@ -148,105 +148,7 @@ Currently, Nuclei excels at stateless vulnerability detection but struggles with
 
 ---
 
-### Project 2: GraphQL Fuzzing Support
-
-<Card title="Quick Overview" icon="info-circle">
-  **Tool**: Nuclei
-  **Difficulty**: Medium
-  **Size**: 350 hours
-  **Mentors**: To be assigned
-  **Reference**: [Issue #5717](https://github.com/projectdiscovery/nuclei/issues/5717)
-</Card>
-
-#### Description
-
-Implement comprehensive GraphQL security testing capabilities in Nuclei, including schema introspection, field-level injection testing, and GraphQL-specific attack patterns. GraphQL APIs are increasingly common but have unique security considerations that differ from REST APIs.
-
-Many organizations are adopting GraphQL, but security testing tools haven't kept pace. This project will add native GraphQL support to Nuclei, enabling security professionals to test GraphQL endpoints with the same ease as HTTP endpoints.
-
-#### Goals & Deliverables
-
-- **Schema Discovery**:
-  - GraphQL introspection query support
-  - Schema parsing and analysis
-  - Type and field enumeration
-  - Deprecated field detection
-
-- **Injection Testing**:
-  - Field-level SQL injection testing
-  - NoSQL injection in resolvers
-  - IDOR through object references
-  - Input validation bypass
-
-- **GraphQL-Specific Attacks**:
-  - Query depth attacks (DoS)
-  - Batch query attacks
-  - Alias-based rate limit bypass
-  - Field duplication attacks
-  - Circular fragment attacks
-
-- **Template DSL Extensions**:
-  - GraphQL query builders
-  - Schema-aware payload generation
-  - Response parsing helpers
-  - Mutation testing support
-
-- **Built-in Templates**: Security templates for common GraphQL vulnerabilities
-- **Documentation**: Usage guides and template examples
-
-#### Technical Skills Required
-
-**Required**:
-- Go programming (intermediate level)
-- Strong understanding of GraphQL specification
-- HTTP protocol knowledge
-- Experience with API security testing
-
-**Preferred**:
-- GraphQL server implementation experience
-- Knowledge of common GraphQL vulnerabilities
-- Familiarity with Nuclei templates
-- Experience with other GraphQL security tools
-
-#### Skills You'll Learn
-
-- GraphQL protocol internals
-- API security testing methodologies
-- Nuclei template DSL development
-- Security scanner architecture
-- Building protocol-specific testing modules
-
-#### Getting Started
-
-1. **Read Documentation**:
-   - [Nuclei Overview](/opensource/nuclei/overview)
-   - [GraphQL Specification](https://graphql.org/learn/)
-   - Review [Issue #5717](https://github.com/projectdiscovery/nuclei/issues/5717)
-
-2. **Learn GraphQL Security**:
-   - Study common GraphQL vulnerabilities
-   - Practice with vulnerable GraphQL apps (DVGA, etc.)
-   - Understand introspection and schema analysis
-
-3. **Explore Nuclei Codebase**:
-   - Review protocol implementations (HTTP, DNS, etc.)
-   - Understand how new protocols are added
-   - Look at existing request/response handling
-
-4. **Make Contributions**:
-   - Fix issues in Nuclei
-   - Write GraphQL security templates (manual for now)
-   - Document GraphQL testing approaches
-
-#### Related Links
-
-- [GitHub Issue #5717](https://github.com/projectdiscovery/nuclei/issues/5717)
-- [Nuclei GitHub](https://github.com/projectdiscovery/nuclei)
-- [GraphQL Security Resources](https://graphql.org/learn/best-practices/)
-
----
-
-### Project 3: XSS Context Analyzer
+### Project 2: XSS Context Analyzer
 
 <Card title="Quick Overview" icon="info-circle">
   **Tool**: Nuclei
@@ -344,7 +246,7 @@ Current XSS testing often relies on large payload lists that may not work in spe
 
 ---
 
-### Project 4: Honeypot Detection System
+### Project 3: Honeypot Detection System
 
 <Card title="Quick Overview" icon="info-circle">
   **Tool**: Nuclei
@@ -440,7 +342,7 @@ Honeypots can skew scan results and waste time during security assessments. This
 
 ---
 
-### Project 5: Wappalyzer Technology Detection
+### Project 4: Wappalyzer Technology Detection
 
 <Card title="Quick Overview" icon="info-circle">
   **Tool**: Nuclei
@@ -536,7 +438,7 @@ Currently, Nuclei runs all matching templates regardless of target technology. W
 
 ---
 
-### Project 6: Complete Auth Support for Protected Targets
+### Project 5: Complete Auth Support for Protected Targets
 
 <Card title="Quick Overview" icon="info-circle">
   **Tool**: Nuclei
@@ -635,7 +537,7 @@ Many real-world security assessments require scanning authenticated portions of 
 
 ---
 
-### Project 7: Nuclei SDK & Concurrency Improvements
+### Project 6: Nuclei SDK & Concurrency Improvements
 
 <Card title="Quick Overview" icon="info-circle">
   **Tool**: Nuclei
@@ -732,7 +634,7 @@ As Nuclei is increasingly used as a library, the SDK needs improvements for prod
 
 ---
 
-### Project 8: Browser TLS Fingerprint Impersonation
+### Project 7: Browser TLS Fingerprint Impersonation
 
 <Card title="Quick Overview" icon="info-circle">
   **Tool**: httpx
