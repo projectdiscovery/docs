@@ -28,539 +28,805 @@ Our projects span different difficulty levels and time commitments:
 
 | Difficulty | Hours | Suitable For |
 |------------|-------|--------------|
-| **Easy-Medium** | 175 hours | First-time contributors, focused features |
-| **Medium** | 350 hours | Moderate experience, substantial features |
+| **Easy** | 175 hours | First-time contributors, focused features |
+| **Medium** | 175-350 hours | Moderate experience, substantial features |
 | **Hard** | 350 hours | Experienced contributors, complex projects |
+
+### Projects by Difficulty
+
+| Category | Projects |
+|----------|----------|
+| **Beginner-Friendly** | Project 5 (Wappalyzer Detection) |
+| **Intermediate** | Projects 2, 3, 4, 7 (GraphQL, XSS Analyzer, Honeypot, SDK) |
+| **Advanced** | Projects 1, 6, 8 (DAST Engine, Auth Support, TLS Fingerprinting) |
 
 ## Available Projects
 
 <Tip>
-**New to open source or security tools?** Start with **Project 1 (Subfinder)** or **Project 2 (httpx Testing)** - they're beginner-friendly and focus on software development skills like CLI design, testing, and CI/CD!
+**This year's focus**: Most projects center on **Nuclei**, our flagship vulnerability scanner. We're looking for contributors to enhance its core scanning capabilities, authentication support, and integration features.
 </Tip>
 
-### Project 1: Subfinder Output Formatting & Export System
-
-<Card title="Quick Overview" icon="info-circle">
-  **Tool**: Subfinder
-  **Difficulty**: Easy
-  **Size**: 175 hours
-  **Mentors**: To be assigned
-</Card>
-
-#### Description
-
-Improve Subfinder's output formatting capabilities and build a flexible export system that allows users to customize how subdomain results are displayed and exported. This beginner-friendly project focuses on developer experience, output formatting, and data export functionality - perfect for contributors new to security tools.
-
-Subfinder currently supports basic output formats, but users often need custom formatting for integration with other tools, pipelines, or reporting systems. This project will create a flexible output template system and add multiple export formats.
-
-#### Goals & Deliverables
-
-- **Output Template System**: Implement customizable output templates:
-  - User-defined format strings (similar to printf)
-  - Support for all subdomain data fields
-  - Color-coded terminal output
-  - Column alignment and formatting
-
-- **Export Formats**: Add support for multiple formats:
-  - CSV with customizable columns
-  - Markdown tables for reports
-  - HTML with styling options
-  - SQLite database export
-  - Excel (XLSX) format
-
-- **CLI Enhancements**: Improve command-line experience:
-  - Interactive mode for selecting export options
-  - Progress bars with statistics
-  - Summary reports (total domains, sources, timing)
-  - Filtering and sorting options
-
-- **Configuration**: Template and format configuration:
-  - Saved templates for reuse
-  - Configuration file support
-  - Example templates for common use cases
-
-- **Documentation**: User guides and examples showing:
-  - How to create custom templates
-  - Integration with other tools
-  - Common formatting patterns
-
-- **Testing**: Unit tests with 80%+ coverage
-
-#### Technical Skills Required
-
-**Required**:
-- Go programming (beginner to intermediate level)
-- Understanding of file formats (JSON, CSV, etc.)
-- Basic CLI application experience
-
-**Preferred**:
-- Experience with Go template libraries
-- Familiarity with terminal output formatting
-- Experience with data export libraries
-
-#### Skills You'll Learn
-
-- Go programming best practices
-- Working with Go's text/template package
-- File format generation (CSV, Excel, SQLite)
-- CLI design and user experience
-- Testing Go applications
-- Working with a popular open source tool
-
-#### Getting Started
-
-1. **Read Documentation**:
-   - [Subfinder Overview](/opensource/subfinder/overview)
-   - [Subfinder Usage](/opensource/subfinder/usage)
-
-2. **Experiment with Subfinder**:
-   - Install and run Subfinder
-   - Test different output formats
-   - Try piping output to other tools
-   - Identify formatting limitations
-
-3. **Explore Codebase**:
-   - Review Subfinder's output handling code
-   - Understand current format implementation
-   - Look at how other Go tools handle templates
-
-4. **Make Contributions**:
-   - Fix documentation issues
-   - Add tests
-   - Report bugs or suggest improvements
-
-5. **Research Similar Tools**:
-   - Study how tools like jq, awk handle formatting
-   - Look at template systems in other Go CLI tools
-   - Identify best practices
-
-#### Related Links
-
-- [Subfinder GitHub](https://github.com/projectdiscovery/subfinder)
-- [Subfinder Documentation](/opensource/subfinder)
-
 ---
 
-### Project 2: httpx Testing & CI/CD Infrastructure
+### Project 1: Proxy-Driven DAST Engine
 
-<Card title="Quick Overview" icon="info-circle">
-  **Tool**: httpx
-  **Difficulty**: Easy-Medium
-  **Size**: 175 hours
-  **Mentors**: To be assigned
-</Card>
-
-#### Description
-
-Enhance httpx's testing infrastructure and CI/CD pipeline to improve code quality, catch bugs earlier, and make it easier for contributors to add features with confidence. This project focuses on developer tooling and testing - great for someone interested in software quality and DevOps.
-
-While httpx has basic tests, there's significant room for improvement in test coverage, integration testing, and automated quality checks. This project will build a comprehensive testing framework and improve the contributor experience.
-
-#### Goals & Deliverables
-
-- **Integration Test Suite**: Create comprehensive integration tests:
-  - Test server/mock infrastructure for HTTP testing
-  - Tests for various HTTP scenarios (redirects, timeouts, errors)
-  - Tests for different server technologies
-  - Tests for edge cases and error handling
-  - Performance regression tests
-
-- **Test Coverage Improvements**: Increase test coverage to 75%+:
-  - Identify untested code paths
-  - Add unit tests for core functionality
-  - Add tests for CLI flags and options
-  - Document testing guidelines
-
-- **CI/CD Enhancements**: Improve GitHub Actions workflows:
-  - Add automated code quality checks (linting, formatting)
-  - Implement security scanning (gosec, etc.)
-  - Add performance benchmarking in CI
-  - Create release automation
-  - Add dependency update checks
-
-- **Developer Tools**: Build tools for contributors:
-  - Local development environment setup scripts
-  - Test helpers and utilities
-  - Code generation for repetitive tasks
-  - Pre-commit hooks for quality checks
-
-- **Documentation**: Create contributor guides:
-  - Testing best practices
-  - How to run tests locally
-  - CI/CD architecture documentation
-  - Contributing guidelines improvements
-
-- **Monitoring**: Add observability:
-  - Code coverage reporting and badges
-  - Test execution time tracking
-  - Flaky test detection
-
-#### Technical Skills Required
-
-**Required**:
-- Go programming (intermediate level)
-- Understanding of testing concepts (unit, integration, e2e)
-- Basic CI/CD knowledge (GitHub Actions or similar)
-- Git and GitHub workflow
-
-**Preferred**:
-- Experience with Go testing frameworks
-- Docker knowledge (for test containers)
-- CI/CD pipeline experience
-- Experience with code quality tools
-
-#### Skills You'll Learn
-
-- Go testing best practices and patterns
-- Integration testing strategies
-- CI/CD pipeline design and implementation
-- Code quality automation
-- Developer experience optimization
-- Working with GitHub Actions
-- Test infrastructure design
-
-#### Getting Started
-
-1. **Read Documentation**:
-   - [httpx Overview](/opensource/httpx/overview)
-   - [httpx Usage](/opensource/httpx/usage)
-
-2. **Analyze Current State**:
-   - Run existing tests: `go test ./...`
-   - Check test coverage: `go test -cover ./...`
-   - Review CI/CD workflows in `.github/workflows/`
-   - Identify gaps in test coverage
-
-3. **Research Best Practices**:
-   - Study Go testing patterns
-   - Look at well-tested Go projects
-   - Research integration testing approaches
-   - Study CI/CD best practices
-
-4. **Explore Codebase**:
-   - Review httpx's architecture
-   - Understand core functionality
-   - Identify critical paths needing tests
-   - Look at existing test structure
-
-5. **Make Contributions**:
-   - Add tests for uncovered code
-   - Fix failing or flaky tests
-   - Improve test documentation
-   - Suggest CI improvements
-
-#### Related Links
-
-- [httpx GitHub](https://github.com/projectdiscovery/httpx)
-- [httpx Documentation](/opensource/httpx)
-- [Go Testing](https://go.dev/doc/tutorial/add-a-test)
-
----
-
-### Project 3: Nuclei Template Performance Analyzer
+<Tip>
+**Community Contribution** - This project idea was proposed by community member [xhzeem](https://github.com/xhzeem) in [Discussion #6782](https://github.com/orgs/projectdiscovery/discussions/6782). We welcome and credit community-proposed ideas!
+</Tip>
 
 <Card title="Quick Overview" icon="info-circle">
   **Tool**: Nuclei
-  **Difficulty**: Medium
+  **Difficulty**: Hard
   **Size**: 350 hours
   **Mentors**: To be assigned
+  **Reference**: [Discussion #6782](https://github.com/orgs/projectdiscovery/discussions/6782)
 </Card>
 
 #### Description
 
-Build a comprehensive performance analysis tool for Nuclei templates that helps template authors identify bottlenecks and optimize their templates for faster scanning. This project involves understanding Nuclei's template engine internals, implementing profiling hooks, collecting performance metrics, and creating visualizations to help users understand where time is spent during template execution.
+Build a proxy-based Dynamic Application Security Testing (DAST) engine for Nuclei that bridges the gap between stateless template scanning and complex authenticated web application testing. This project implements traffic interception with session tracking, enabling Nuclei to test applications that require multi-step authentication flows, CSRF tokens, and stateful session handling.
 
-Currently, template authors have limited visibility into performance characteristics. This tool will provide detailed insights into execution time, network calls, matching operations, and resource usage, enabling data-driven optimization decisions.
+Currently, Nuclei excels at stateless vulnerability detection but struggles with modern web applications that require maintaining session state across requests. This DAST engine will intercept live traffic, track sessions, and apply template-driven attacks while preserving application state.
 
 #### Goals & Deliverables
 
-- **Profiling Framework**: Implement hooks in Nuclei's template engine to collect timing and resource metrics
-- **Metrics Collection**: Gather detailed data on:
-  - Template execution time breakdown
-  - Network request/response times
-  - Matcher evaluation performance
-  - Memory and CPU usage per template
-- **CLI Analysis Tool**: Build command-line interface for:
-  - Running profiling sessions
-  - Generating performance reports
-  - Comparing template performance
-  - Identifying optimization opportunities
-- **Web Dashboard**: Create visualization interface showing:
-  - Flame graphs for execution traces
-  - Timeline views of template execution
-  - Performance comparisons
-  - Bottleneck identification
-- **Documentation**: Comprehensive guide for using the profiler and interpreting results
-- **Test Coverage**: Unit and integration tests with 75%+ coverage
+- **Proxy Infrastructure**: Implement MITM proxy for traffic interception:
+  - HTTP/HTTPS traffic interception
+  - WebSocket support
+  - Certificate generation and management
+  - Request/response modification hooks
+
+- **Dual Operation Modes**:
+  - **Target Mode**: Automated crawling with session preservation
+  - **Proxy Mode**: Live traffic interception during manual browsing
+
+- **Session Management**:
+  - Cookie and token tracking across requests
+  - CSRF token extraction and replay
+  - Authentication state preservation
+  - Session invalidation detection
+
+- **Template Integration**:
+  - DSL extensions for session-aware attacks
+  - Stateful matcher and extractor support
+  - Template chaining for multi-step attacks
+  - Context injection from captured traffic
+
+- **Documentation**: Architecture docs, usage guides, and example templates
+- **Testing**: Comprehensive test suite with mock applications
 
 #### Technical Skills Required
 
 **Required**:
 - Strong Go programming skills
-- Understanding of profiling and benchmarking concepts
-- Experience with performance optimization
-- Familiarity with data collection and analysis
+- Deep understanding of HTTP/HTTPS protocols
+- Experience with proxy/MITM concepts
+- Knowledge of web authentication mechanisms
 
 **Preferred**:
-- Experience with Go profiling tools (pprof, trace)
-- Web development (for dashboard - can use existing frameworks)
-- Knowledge of Nuclei or similar scanning tools
-- Database experience (for metrics storage)
+- Experience with tools like Burp Suite, mitmproxy, or ZAP
+- Understanding of CSRF, session management vulnerabilities
+- Familiarity with Nuclei's template DSL
+- TLS/certificate handling experience
 
 #### Skills You'll Learn
 
-- Nuclei template engine architecture and internals
-- Go profiling tools and techniques (pprof, runtime/trace)
-- Performance optimization strategies for high-throughput systems
-- Building developer tools and CLIs
-- Data visualization and dashboard creation
-- Security scanner workflows and patterns
+- Building MITM proxy infrastructure
+- Web application security testing methodologies
+- Session management and authentication flows
+- Nuclei's internal architecture and DSL
+- DAST tooling design patterns
+- Complex state management in security tools
 
 #### Getting Started
 
 1. **Read Documentation**:
    - [Nuclei Overview](/opensource/nuclei/overview)
    - [Nuclei Templates](/templates/introduction)
+   - Review the [original discussion](https://github.com/orgs/projectdiscovery/discussions/6782)
 
-2. **Explore Nuclei**:
-   - Install Nuclei and run sample scans
-   - Study template structure and execution
-   - Profile current performance using Go tools
+2. **Study DAST Tools**:
+   - Understand how Burp Suite and ZAP handle sessions
+   - Learn about MITM proxy architecture
+   - Study authentication flow testing
 
-3. **Understand Codebase**:
-   - Review Nuclei's template engine code
-   - Identify key execution paths
-   - Look at existing performance considerations
+3. **Explore Codebase**:
+   - Review Nuclei's HTTP protocol implementation
+   - Understand template execution flow
+   - Look at existing session handling code
 
 4. **Make Contributions**:
-   - Fix "good-first-issue" bugs
-   - Improve documentation
-   - Add tests or examples
-
-5. **Discuss Your Approach**:
-   - Share your ideas in Discord #gsoc channel
-   - Get feedback from mentors
-   - Refine your proposal
+   - Fix "good-first-issue" bugs in Nuclei
+   - Add tests or documentation
+   - Contribute to discussions on the feature
 
 #### Related Links
 
+- [Original Discussion by xhzeem](https://github.com/orgs/projectdiscovery/discussions/6782)
 - [Nuclei GitHub](https://github.com/projectdiscovery/nuclei)
 - [Nuclei Documentation](/opensource/nuclei)
-- [Template Structure](/templates/structure)
 
 ---
 
-### Project 4: Katana JavaScript Rendering Enhancement
+### Project 2: GraphQL Fuzzing Support
 
 <Card title="Quick Overview" icon="info-circle">
-  **Tool**: Katana
-  **Difficulty**: Hard
+  **Tool**: Nuclei
+  **Difficulty**: Medium
   **Size**: 350 hours
   **Mentors**: To be assigned
+  **Reference**: [Issue #5717](https://github.com/projectdiscovery/nuclei/issues/5717)
 </Card>
 
 #### Description
 
-Enhance Katana's JavaScript rendering capabilities to better handle modern web applications, especially single-page applications (SPAs) that heavily rely on JavaScript for content rendering. This project involves implementing advanced browser automation features, improving JavaScript execution detection, and optimizing crawling strategies for dynamic web applications.
+Implement comprehensive GraphQL security testing capabilities in Nuclei, including schema introspection, field-level injection testing, and GraphQL-specific attack patterns. GraphQL APIs are increasingly common but have unique security considerations that differ from REST APIs.
 
-Modern web applications use frameworks like React, Vue, and Angular that render content dynamically. Katana needs sophisticated strategies to properly crawl these applications, detect when JavaScript execution is complete, handle infinite scroll, and efficiently manage headless browser resources.
+Many organizations are adopting GraphQL, but security testing tools haven't kept pace. This project will add native GraphQL support to Nuclei, enabling security professionals to test GraphQL endpoints with the same ease as HTTP endpoints.
 
 #### Goals & Deliverables
 
-- **Advanced JS Detection**: Implement intelligent detection of:
-  - When JavaScript execution is complete
-  - Dynamic content loading (AJAX, fetch)
-  - Infinite scroll and lazy loading
-  - WebSocket connections
-  - Service worker activity
+- **Schema Discovery**:
+  - GraphQL introspection query support
+  - Schema parsing and analysis
+  - Type and field enumeration
+  - Deprecated field detection
 
-- **SPA Crawling Strategies**: Develop specialized approaches for:
-  - React/Vue/Angular applications
-  - Client-side routing detection
-  - State management analysis
-  - Virtual DOM interactions
+- **Injection Testing**:
+  - Field-level SQL injection testing
+  - NoSQL injection in resolvers
+  - IDOR through object references
+  - Input validation bypass
 
-- **Resource Optimization**: Optimize headless browser usage:
-  - Connection pooling and reuse
-  - Resource blocking (ads, trackers)
-  - Memory management
-  - Parallel execution strategies
+- **GraphQL-Specific Attacks**:
+  - Query depth attacks (DoS)
+  - Batch query attacks
+  - Alias-based rate limit bypass
+  - Field duplication attacks
+  - Circular fragment attacks
 
-- **Configuration System**: Extensible configuration for:
-  - Wait strategies (network idle, DOM stable, custom)
-  - Timeout management
-  - Browser flags and options
-  - JavaScript injection hooks
+- **Template DSL Extensions**:
+  - GraphQL query builders
+  - Schema-aware payload generation
+  - Response parsing helpers
+  - Mutation testing support
 
-- **Comprehensive Testing**: Test suite covering:
-  - Various SPA frameworks
-  - Real-world web applications
-  - Edge cases and error handling
+- **Built-in Templates**: Security templates for common GraphQL vulnerabilities
+- **Documentation**: Usage guides and template examples
 
-- **Performance Benchmarks**: Measure and optimize:
-  - Crawl speed improvements
-  - Resource usage
-  - Accuracy of content discovery
+#### Technical Skills Required
+
+**Required**:
+- Go programming (intermediate level)
+- Strong understanding of GraphQL specification
+- HTTP protocol knowledge
+- Experience with API security testing
+
+**Preferred**:
+- GraphQL server implementation experience
+- Knowledge of common GraphQL vulnerabilities
+- Familiarity with Nuclei templates
+- Experience with other GraphQL security tools
+
+#### Skills You'll Learn
+
+- GraphQL protocol internals
+- API security testing methodologies
+- Nuclei template DSL development
+- Security scanner architecture
+- Building protocol-specific testing modules
+
+#### Getting Started
+
+1. **Read Documentation**:
+   - [Nuclei Overview](/opensource/nuclei/overview)
+   - [GraphQL Specification](https://graphql.org/learn/)
+   - Review [Issue #5717](https://github.com/projectdiscovery/nuclei/issues/5717)
+
+2. **Learn GraphQL Security**:
+   - Study common GraphQL vulnerabilities
+   - Practice with vulnerable GraphQL apps (DVGA, etc.)
+   - Understand introspection and schema analysis
+
+3. **Explore Nuclei Codebase**:
+   - Review protocol implementations (HTTP, DNS, etc.)
+   - Understand how new protocols are added
+   - Look at existing request/response handling
+
+4. **Make Contributions**:
+   - Fix issues in Nuclei
+   - Write GraphQL security templates (manual for now)
+   - Document GraphQL testing approaches
+
+#### Related Links
+
+- [GitHub Issue #5717](https://github.com/projectdiscovery/nuclei/issues/5717)
+- [Nuclei GitHub](https://github.com/projectdiscovery/nuclei)
+- [GraphQL Security Resources](https://graphql.org/learn/best-practices/)
+
+---
+
+### Project 3: XSS Context Analyzer
+
+<Card title="Quick Overview" icon="info-circle">
+  **Tool**: Nuclei
+  **Difficulty**: Medium
+  **Size**: 350 hours
+  **Mentors**: To be assigned
+  **Reference**: [Issue #5838](https://github.com/projectdiscovery/nuclei/issues/5838)
+</Card>
+
+#### Description
+
+Build an intelligent XSS context analyzer for Nuclei that detects injection contexts and generates context-aware payloads. Instead of blindly throwing XSS payloads, this system will analyze where user input appears in the response and craft appropriate payloads for that specific context.
+
+Current XSS testing often relies on large payload lists that may not work in specific contexts. This analyzer will identify whether input lands in HTML content, JavaScript, attributes, URLs, or CSS, then suggest or generate payloads optimized for that context.
+
+#### Goals & Deliverables
+
+- **Context Detection**:
+  - HTML body context
+  - HTML attribute context (quoted/unquoted)
+  - JavaScript context (string, template literal, code)
+  - URL context (href, src, etc.)
+  - CSS context (style attributes, stylesheets)
+  - Event handler context
+
+- **Payload Generation**:
+  - Context-specific payload selection
+  - Encoding-aware payload generation
+  - Filter bypass suggestions
+  - Payload mutation for WAF evasion
+
+- **Template DSL Functions**:
+  - `xss_context()` - detect injection context
+  - `xss_payload()` - generate appropriate payload
+  - `xss_encode()` - context-aware encoding
+  - Filter detection and bypass helpers
+
+- **Analysis Features**:
+  - Reflection point identification
+  - Character filtering detection
+  - Encoding transformation analysis
+  - Confidence scoring for contexts
+
+- **Built-in Templates**: Context-aware XSS detection templates
+- **Documentation**: Context analysis guide and examples
+
+#### Technical Skills Required
+
+**Required**:
+- Go programming (intermediate level)
+- Deep understanding of XSS vulnerabilities
+- HTML/JavaScript parsing knowledge
+- Web security testing experience
+
+**Preferred**:
+- Experience with XSS filter bypass techniques
+- Knowledge of browser parsing quirks
+- Familiarity with Nuclei's DSL
+- HTML parsing library experience
+
+#### Skills You'll Learn
+
+- Advanced XSS attack techniques
+- HTML/JavaScript parsing internals
+- Context-aware security testing
+- Nuclei DSL extension development
+- Browser security model understanding
+
+#### Getting Started
+
+1. **Read Documentation**:
+   - [Nuclei Overview](/opensource/nuclei/overview)
+   - Review [Issue #5838](https://github.com/projectdiscovery/nuclei/issues/5838)
+
+2. **Study XSS Contexts**:
+   - Learn about different injection contexts
+   - Practice identifying contexts manually
+   - Study XSS filter bypass techniques
+
+3. **Explore Codebase**:
+   - Review Nuclei's matcher and extractor code
+   - Understand DSL function implementation
+   - Look at existing helper functions
+
+4. **Make Contributions**:
+   - Write XSS detection templates
+   - Improve existing templates
+   - Document XSS testing approaches
+
+#### Related Links
+
+- [GitHub Issue #5838](https://github.com/projectdiscovery/nuclei/issues/5838)
+- [Nuclei GitHub](https://github.com/projectdiscovery/nuclei)
+- [XSS Filter Evasion Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/XSS_Filter_Evasion_Cheat_Sheet.html)
+
+---
+
+### Project 4: Honeypot Detection System
+
+<Card title="Quick Overview" icon="info-circle">
+  **Tool**: Nuclei
+  **Difficulty**: Medium
+  **Size**: 175 hours
+  **Mentors**: To be assigned
+  **Reference**: [Issue #6403](https://github.com/projectdiscovery/nuclei/issues/6403)
+</Card>
+
+#### Description
+
+Implement a honeypot and tarpit detection system for Nuclei to reduce false positives and avoid wasting resources on decoy systems. Security scanners often encounter honeypots (like Shodan's decoys) that respond positively to everything, generating misleading results.
+
+Honeypots can skew scan results and waste time during security assessments. This detection system will identify likely honeypots through behavioral analysis and response anomalies, allowing users to skip or tag suspicious targets.
+
+#### Goals & Deliverables
+
+- **Detection Techniques**:
+  - Response anomaly detection (too many open ports)
+  - Banner inconsistency analysis
+  - Service fingerprint mismatches
+  - Suspicious response patterns
+  - Known honeypot signatures
+
+- **Scoring System**:
+  - Configurable confidence threshold
+  - Multiple indicator aggregation
+  - Weighted scoring algorithm
+  - Confidence level reporting
+
+- **Integration Options**:
+  - Pre-scan detection phase
+  - Runtime detection during scanning
+  - Post-scan result filtering
+  - Tag-based result categorization
+
+- **User Controls**:
+  - Skip honeypots automatically
+  - Tag results for manual review
+  - Configurable sensitivity levels
+  - Whitelist/blacklist support
+
+- **Detection Templates**: Templates for common honeypot types
+- **Documentation**: Detection methodology and configuration guide
+
+#### Technical Skills Required
+
+**Required**:
+- Go programming (intermediate level)
+- Understanding of network protocols
+- Knowledge of how honeypots work
+- Basic statistics for anomaly detection
+
+**Preferred**:
+- Experience with honeypot systems
+- Network fingerprinting knowledge
+- Familiarity with Nuclei internals
+- Security scanning experience
+
+#### Skills You'll Learn
+
+- Honeypot detection methodologies
+- Network fingerprinting techniques
+- Anomaly detection algorithms
+- Nuclei's scanning pipeline
+- False positive reduction strategies
+
+#### Getting Started
+
+1. **Read Documentation**:
+   - [Nuclei Overview](/opensource/nuclei/overview)
+   - Review [Issue #6403](https://github.com/projectdiscovery/nuclei/issues/6403)
+
+2. **Study Honeypots**:
+   - Learn about common honeypot types
+   - Understand detection techniques
+   - Research existing honeypot detection tools
+
+3. **Explore Codebase**:
+   - Review Nuclei's target handling
+   - Understand the scanning pipeline
+   - Look at result processing code
+
+4. **Make Contributions**:
+   - Document honeypot detection approaches
+   - Create detection templates
+   - Report false positives from honeypots
+
+#### Related Links
+
+- [GitHub Issue #6403](https://github.com/projectdiscovery/nuclei/issues/6403)
+- [Nuclei GitHub](https://github.com/projectdiscovery/nuclei)
+
+---
+
+### Project 5: Wappalyzer Technology Detection
+
+<Card title="Quick Overview" icon="info-circle">
+  **Tool**: Nuclei
+  **Difficulty**: Easy
+  **Size**: 175 hours
+  **Mentors**: To be assigned
+  **Reference**: [Issue #6336](https://github.com/projectdiscovery/nuclei/issues/6336)
+</Card>
+
+#### Description
+
+Integrate the wappalyzergo library into Nuclei for technology fingerprinting, enabling conditional template execution based on detected technologies. This allows templates to run only when relevant technologies are present, improving scan efficiency and accuracy.
+
+Currently, Nuclei runs all matching templates regardless of target technology. With Wappalyzer integration, WordPress-specific templates would only run on WordPress sites, reducing noise and improving performance.
+
+#### Goals & Deliverables
+
+- **Wappalyzer Integration**:
+  - Integrate wappalyzergo library
+  - Technology detection during scanning
+  - Version detection where possible
+  - Category-based grouping
+
+- **Template DSL Extensions**:
+  - `tech_detected("wordpress")` - check for technology
+  - `tech_version("php")` - get detected version
+  - `tech_category("cms")` - check technology category
+  - Boolean operators for complex conditions
+
+- **Conditional Execution**:
+  - Skip templates for non-matching technologies
+  - Technology-based template chains
+  - Automatic template selection
+  - Technology metadata in results
+
+- **Performance Optimization**:
+  - Cache detection results per target
+  - Minimize additional requests
+  - Efficient fingerprint matching
+
+- **Documentation**: Usage guide and template examples
+- **Testing**: Unit tests for detection and DSL functions
+
+#### Technical Skills Required
+
+**Required**:
+- Go programming (beginner to intermediate)
+- Understanding of HTTP responses
+- Basic web technology knowledge
+- Familiarity with fingerprinting concepts
+
+**Preferred**:
+- Experience with wappalyzergo or similar
+- Knowledge of Nuclei's DSL
+- Web application experience
+- Regex proficiency
+
+#### Skills You'll Learn
+
+- Technology fingerprinting techniques
+- Nuclei DSL development
+- Library integration in Go
+- Performance optimization
+- Conditional execution patterns
+
+#### Getting Started
+
+1. **Read Documentation**:
+   - [Nuclei Overview](/opensource/nuclei/overview)
+   - Review [Issue #6336](https://github.com/projectdiscovery/nuclei/issues/6336)
+   - [wappalyzergo documentation](https://github.com/projectdiscovery/wappalyzergo)
+
+2. **Understand Technology Detection**:
+   - Study how Wappalyzer works
+   - Learn about fingerprinting techniques
+   - Test wappalyzergo standalone
+
+3. **Explore Codebase**:
+   - Review Nuclei's DSL implementation
+   - Understand template execution flow
+   - Look at existing helper functions
+
+4. **Make Contributions**:
+   - Write technology-specific templates
+   - Improve documentation
+   - Fix beginner-friendly issues
+
+#### Related Links
+
+- [GitHub Issue #6336](https://github.com/projectdiscovery/nuclei/issues/6336)
+- [Nuclei GitHub](https://github.com/projectdiscovery/nuclei)
+- [wappalyzergo](https://github.com/projectdiscovery/wappalyzergo)
+
+---
+
+### Project 6: Complete Auth Support for Protected Targets
+
+<Card title="Quick Overview" icon="info-circle">
+  **Tool**: Nuclei
+  **Difficulty**: Hard
+  **Size**: 350 hours
+  **Mentors**: To be assigned
+  **Reference**: [Issue #4793](https://github.com/projectdiscovery/nuclei/issues/4793)
+</Card>
+
+#### Description
+
+Implement comprehensive authentication support in Nuclei for scanning protected targets. This includes static credentials (API keys, tokens), dynamic authentication (login flows, token refresh), and integration with secrets management systems like HashiCorp Vault.
+
+Many real-world security assessments require scanning authenticated portions of applications. This project will enable Nuclei to handle various authentication mechanisms, from simple API keys to complex OAuth flows with token refresh.
+
+#### Goals & Deliverables
+
+- **Static Authentication**:
+  - Per-target credential configuration
+  - API key injection (header, query, body)
+  - Bearer token support
+  - Basic/Digest authentication
+  - Custom header authentication
+
+- **Dynamic Authentication**:
+  - Login flow templates
+  - Token extraction and reuse
+  - Automatic token refresh
+  - Session cookie management
+  - OAuth2 flow support
+
+- **Secrets Management Integration**:
+  - HashiCorp Vault integration
+  - 1Password integration
+  - Environment variable support
+  - Encrypted credential storage
+  - Credential rotation handling
+
+- **Configuration**:
+  - Per-host credential mapping
+  - Credential scope (template/global)
+  - Credential priority rules
+  - Secure credential storage
+
+- **Documentation**: Configuration guides and examples
+- **Testing**: Security tests for credential handling
 
 #### Technical Skills Required
 
 **Required**:
 - Strong Go programming skills
-- Experience with browser automation (Puppeteer, Playwright, or similar)
-- Deep understanding of web technologies (HTML, CSS, JavaScript)
-- Knowledge of how modern web frameworks work (React, Vue, Angular)
-- Concurrent programming experience
+- Deep understanding of authentication mechanisms
+- Security-conscious development practices
+- API design experience
 
 **Preferred**:
-- Experience with headless browser libraries
-- Performance optimization at scale
-- Understanding of web application architecture
-- Network protocol knowledge (HTTP/2, WebSocket)
+- Experience with OAuth2/OIDC
+- Knowledge of secrets management tools
+- Familiarity with Nuclei internals
+- Enterprise security experience
 
 #### Skills You'll Learn
 
-- Web crawling architectures and algorithms
-- Browser automation internals
-- Modern web application frameworks
-- Performance optimization for I/O-bound systems
-- Concurrent programming patterns in Go
-- Strategies for handling dynamic content
+- Authentication protocol implementation
+- Secrets management integration
+- Secure credential handling
+- Nuclei's request pipeline
+- Enterprise security patterns
 
 #### Getting Started
 
 1. **Read Documentation**:
-   - [Katana Overview](/opensource/katana/overview)
-   - [Katana Usage](/opensource/katana/usage)
+   - [Nuclei Overview](/opensource/nuclei/overview)
+   - Review [Issue #4793](https://github.com/projectdiscovery/nuclei/issues/4793)
 
-2. **Experiment with Katana**:
-   - Crawl various types of websites
-   - Test on modern SPAs (try popular web apps)
-   - Identify current limitations with JS rendering
+2. **Study Authentication**:
+   - Learn about various auth mechanisms
+   - Understand OAuth2 flows
+   - Study secrets management systems
 
-3. **Study Modern Web Apps**:
-   - Analyze how React/Vue/Angular apps work
-   - Understand client-side routing
-   - Learn about dynamic content loading patterns
+3. **Explore Codebase**:
+   - Review Nuclei's HTTP request handling
+   - Understand current auth support
+   - Look at configuration systems
 
-4. **Analyze Codebase**:
-   - Review Katana's current JS rendering implementation
-   - Study browser automation integration
-   - Identify areas for improvement
-
-5. **Make Contributions**:
-   - Report bugs or suggest improvements
-   - Fix documentation
-   - Add test cases
+4. **Make Contributions**:
+   - Improve existing auth documentation
+   - Fix auth-related issues
+   - Write authenticated templates
 
 #### Related Links
 
-- [Katana GitHub](https://github.com/projectdiscovery/katana)
-- [Katana Documentation](/opensource/katana)
+- [GitHub Issue #4793](https://github.com/projectdiscovery/nuclei/issues/4793)
+- [Nuclei GitHub](https://github.com/projectdiscovery/nuclei)
+- [HashiCorp Vault](https://www.vaultproject.io/)
 
 ---
 
-### Project 5: httpx Response Analysis Framework
+### Project 7: Nuclei SDK & Concurrency Improvements
 
 <Card title="Quick Overview" icon="info-circle">
-  **Tool**: httpx
-  **Difficulty**: Easy-Medium
+  **Tool**: Nuclei
+  **Difficulty**: Medium
   **Size**: 175 hours
   **Mentors**: To be assigned
+  **Reference**: [Issue #5651](https://github.com/projectdiscovery/nuclei/issues/5651) + [PR #6322](https://github.com/projectdiscovery/nuclei/pull/6322)
 </Card>
 
 #### Description
 
-Create an extensible plugin framework for analyzing HTTP responses beyond basic status codes and headers. This project will enable users to build custom analyzers for response content, implement advanced pattern matching, improve technology detection, and extend httpx's capabilities through a clean plugin architecture.
+Improve Nuclei's SDK to support better concurrency, per-execution callbacks, and reliable engine reuse. This enables developers building on Nuclei to run multiple scan engines concurrently, receive real-time results, and avoid memory leaks when reusing engines.
 
-Currently, httpx provides excellent HTTP probing capabilities but has limited built-in response analysis. This framework will allow users to easily add custom analyzers for their specific needs, from detecting custom technologies to analyzing response patterns for security issues.
+As Nuclei is increasingly used as a library, the SDK needs improvements for production use cases. This project focuses on making Nuclei reliable and efficient when embedded in other applications.
 
 #### Goals & Deliverables
 
-- **Plugin Architecture**: Design and implement:
-  - Clean plugin interface for analyzers
-  - Plugin discovery and loading system
-  - Configuration management
-  - Result aggregation and reporting
+- **Concurrency Support**:
+  - Multiple concurrent Nuclei engines in same process
+  - Thread-safe template parsing
+  - Isolated scan contexts
+  - Resource sharing optimization
 
-- **Built-in Analyzers** (implement 3-5):
-  - Advanced technology detection (frameworks, CMS, libraries)
-  - Content pattern matcher (regex-based analysis)
-  - Security header analyzer (missing/misconfigured headers)
-  - API endpoint detector (REST/GraphQL patterns)
-  - Error message analyzer (debug info leakage)
+- **Callback System**:
+  - Per-execution result callbacks
+  - Progress callbacks
+  - Error callbacks
+  - Streaming results support
 
-- **Developer Tools**:
-  - Plugin template/boilerplate generator
-  - Testing framework for analyzers
-  - Documentation generator
-  - Example plugins
+- **Memory Management**:
+  - Fix memory leaks on engine reuse
+  - Proper resource cleanup
+  - Connection pool management
+  - Template cache optimization
 
-- **Documentation**:
-  - Plugin development guide
-  - API reference
-  - Example use cases
-  - Migration guide for existing users
+- **SDK Improvements**:
+  - Better error handling
+  - Context cancellation support
+  - Configuration validation
+  - API documentation
 
-- **Performance**:
-  - Benchmark framework for analyzers
-  - Optimization for large-scale scanning
-  - Parallel execution support
-
-- **Testing**: Comprehensive test suite with 80%+ coverage
+- **Documentation**: SDK usage guide with examples
+- **Testing**: Concurrent execution tests, leak detection
 
 #### Technical Skills Required
 
 **Required**:
-- Go programming experience (intermediate level)
-- Understanding of HTTP protocol and headers
-- Experience with regex and pattern matching
-- Software architecture and design patterns
+- Strong Go programming skills
+- Concurrent programming experience
+- Memory management understanding
+- API design skills
 
 **Preferred**:
-- Plugin architecture design experience
-- Web technology fingerprinting knowledge
-- API design experience
-- Experience with similar tools (httpx, curl, etc.)
+- Experience with Go profiling tools
+- Library/SDK development experience
+- Familiarity with Nuclei codebase
+- Testing concurrent systems
 
 #### Skills You'll Learn
 
-- Plugin architecture design in Go
-- HTTP response analysis techniques
-- Web technology fingerprinting
-- Building extensible systems
-- API design for third-party developers
-- Performance optimization for network tools
+- Go concurrency patterns
+- Memory profiling and leak detection
+- SDK/library design
+- Nuclei internals
+- Building reusable components
+
+#### Getting Started
+
+1. **Read Documentation**:
+   - [Nuclei Overview](/opensource/nuclei/overview)
+   - Review [Issue #5651](https://github.com/projectdiscovery/nuclei/issues/5651)
+   - Review [PR #6322](https://github.com/projectdiscovery/nuclei/pull/6322)
+
+2. **Understand Current SDK**:
+   - Use Nuclei as a library
+   - Identify current limitations
+   - Test concurrent execution
+
+3. **Explore Codebase**:
+   - Review SDK implementation
+   - Understand engine lifecycle
+   - Identify shared state
+
+4. **Make Contributions**:
+   - Fix SDK-related issues
+   - Add SDK tests
+   - Improve documentation
+
+#### Related Links
+
+- [GitHub Issue #5651](https://github.com/projectdiscovery/nuclei/issues/5651)
+- [Related PR #6322](https://github.com/projectdiscovery/nuclei/pull/6322)
+- [Nuclei GitHub](https://github.com/projectdiscovery/nuclei)
+
+---
+
+### Project 8: Browser TLS Fingerprint Impersonation
+
+<Card title="Quick Overview" icon="info-circle">
+  **Tool**: httpx
+  **Difficulty**: Hard
+  **Size**: 350 hours
+  **Mentors**: To be assigned
+  **Reference**: [Issue #2044](https://github.com/projectdiscovery/httpx/issues/2044)
+</Card>
+
+#### Description
+
+Implement browser TLS fingerprint impersonation in httpx to bypass WAF and bot detection systems that fingerprint TLS connections. This includes JA3/JA4 fingerprint spoofing and HTTP/2 fingerprinting to make httpx requests appear as legitimate browser traffic.
+
+Modern bot detection systems fingerprint TLS handshakes (JA3/JA4) and HTTP/2 settings to distinguish automated tools from real browsers. This project will allow httpx to impersonate Chrome, Firefox, Safari, and Edge fingerprints.
+
+#### Goals & Deliverables
+
+- **TLS Fingerprint Impersonation**:
+  - JA3 fingerprint spoofing
+  - JA4 fingerprint spoofing
+  - Cipher suite ordering
+  - TLS extension configuration
+  - ALPN protocol ordering
+
+- **Browser Profiles**:
+  - Chrome (multiple versions)
+  - Firefox (multiple versions)
+  - Safari
+  - Edge
+  - Custom profile support
+
+- **HTTP/2 Fingerprinting**:
+  - SETTINGS frame configuration
+  - Header priority ordering
+  - Window update behavior
+  - Stream handling patterns
+
+- **CLI Integration**:
+  - Browser profile selection flag
+  - Custom fingerprint configuration
+  - Fingerprint randomization option
+  - Profile listing and info
+
+- **Documentation**: Usage guide and profile documentation
+- **Testing**: Fingerprint verification tests
+
+#### Technical Skills Required
+
+**Required**:
+- Strong Go programming skills
+- Deep understanding of TLS protocol
+- HTTP/2 protocol knowledge
+- Network programming experience
+
+**Preferred**:
+- Experience with TLS fingerprinting
+- Knowledge of bot detection systems
+- Low-level networking experience
+- Familiarity with httpx codebase
+
+#### Skills You'll Learn
+
+- TLS protocol internals
+- Browser fingerprinting techniques
+- HTTP/2 protocol details
+- Bot detection evasion (for legitimate testing)
+- Low-level Go networking
 
 #### Getting Started
 
 1. **Read Documentation**:
    - [httpx Overview](/opensource/httpx/overview)
-   - [httpx Usage](/opensource/httpx/usage)
+   - Review [Issue #2044](https://github.com/projectdiscovery/httpx/issues/2044)
 
-2. **Experiment with httpx**:
-   - Run httpx against various websites
-   - Analyze different response types
-   - Understand current capabilities and limitations
+2. **Study TLS Fingerprinting**:
+   - Learn about JA3/JA4 fingerprints
+   - Understand how fingerprinting works
+   - Study browser TLS configurations
 
-3. **Research Existing Solutions**:
-   - Study how other tools implement plugins
-   - Look at Go plugin systems
-   - Identify common patterns
+3. **Explore Codebase**:
+   - Review httpx's TLS configuration
+   - Understand HTTP client setup
+   - Look at existing connection handling
 
-4. **Explore Codebase**:
-   - Review httpx's response handling code
-   - Understand the current architecture
-   - Identify integration points for plugins
-
-5. **Make Contributions**:
-   - Fix bugs or documentation issues
-   - Add feature suggestions
-   - Implement small improvements
+4. **Make Contributions**:
+   - Fix httpx issues
+   - Improve documentation
+   - Add tests
 
 #### Related Links
 
+- [GitHub Issue #2044](https://github.com/projectdiscovery/httpx/issues/2044)
 - [httpx GitHub](https://github.com/projectdiscovery/httpx)
-- [httpx Documentation](/opensource/httpx)
+- [JA3 Fingerprinting](https://github.com/salesforce/ja3)
 
 ---
 
@@ -578,18 +844,18 @@ Have your own idea for improving ProjectDiscovery's tools? We welcome custom pro
 
 ### Good Custom Project Ideas
 
-✅ New features for existing tools
-✅ Performance improvements with measurable impact
-✅ Integration between ProjectDiscovery tools
-✅ Developer experience improvements
-✅ Testing or CI/CD infrastructure
+- New features for existing tools
+- Performance improvements with measurable impact
+- Integration between ProjectDiscovery tools
+- Developer experience improvements
+- Testing or CI/CD infrastructure
 
 ### Ideas to Avoid
 
-❌ Complete rewrites of existing tools
-❌ Projects requiring proprietary APIs
-❌ Research-only projects without code deliverables
-❌ Projects outside security/scanning domain
+- Complete rewrites of existing tools
+- Projects requiring proprietary APIs
+- Research-only projects without code deliverables
+- Projects outside security/scanning domain
 
 ### How to Propose
 
@@ -645,5 +911,3 @@ Ready to apply for one of these projects?
 <Note>
 Have questions about any project? Join our [Discord community](https://discord.com/invite/projectdiscovery) and ask in the #gsoc channel. Mentors are available to help you understand projects and choose the right one!
 </Note>
-
-Good luck choosing your project! 🚀
