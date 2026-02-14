@@ -1,0 +1,137 @@
+---
+title: 'Running Nuclei in CI/CD'
+description: 'Automate Nuclei scans in CI/CD pipelines with GitHub Actions'
+sidebarTitle: 'CI/CD'
+---
+
+## Why run Nuclei in CI/CD?
+
+Adding Nuclei to CI/CD helps catch regressions earlier and keeps security checks close to code changes.
+
+Common patterns:
+
+- Scan staging endpoints on every push.
+- Run template-based regression checks for known issues.
+- Export SARIF and publish findings in GitHub Code Scanning.
+
+## GitHub Actions with `nuclei-action`
+
+Use [projectdiscovery/nuclei-action](https://github.com/projectdiscovery/nuclei-action) to install and run Nuclei directly in a workflow.
+
+### Minimal scan example
+
+```yaml
+name: nuclei-scan
+
+on:
+  push: {}
+  pull_request: {}
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Nuclei
+        uses: projectdiscovery/nuclei-action@v3
+        with:
+          args: -u https://example.com
+```
+
+### Install only + run manually
+
+```yaml
+name: nuclei-install-only
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Nuclei
+        uses: projectdiscovery/nuclei-action@v3
+        with:
+          version: latest
+          install-only: true
+
+      - name: Verify install
+        run: nuclei -version
+```
+
+### Use config file from repository
+
+```yaml
+name: nuclei-config-scan
+
+on:
+  push: {}
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Nuclei with config
+        uses: projectdiscovery/nuclei-action@v3
+        with:
+          config-path: .github/nuclei/nuclei.yaml
+```
+
+## Upload SARIF to GitHub Code Scanning
+
+Nuclei can export SARIF and upload it to GitHub Code Scanning.
+
+```yaml
+name: nuclei-sarif
+
+on:
+  push: {}
+  pull_request: {}
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Nuclei and export SARIF
+        uses: projectdiscovery/nuclei-action@v3
+        with:
+          config: |
+            target:
+              - https://example.com
+            sarif-export: results.sarif
+
+      - name: Upload SARIF
+        uses: github/codeql-action/upload-sarif@v3
+        if: success()
+        with:
+          sarif_file: results.sarif
+          category: nuclei-results
+```
+
+## Inputs and precedence
+
+* `args` passes CLI flags directly to Nuclei.
+* `config` passes inline Nuclei config.
+* `config-path` points to a config file in the repository.
+* Do not set `config` and `config-path` together.
+* If `args` is set, it takes precedence over `config` and `config-path`.
+
+## Best practices
+
+* Pin `nuclei-action` to `@v3`.
+* Store sensitive values in GitHub Secrets.
+* Keep custom templates/config in the repository for reproducibility.
+* Use SARIF upload when your team relies on GitHub-native triage.
+
+For the full action interface and examples, see the official repository: [github.com/projectdiscovery/nuclei-action](https://github.com/projectdiscovery/nuclei-action).
