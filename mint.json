@@ -227,6 +227,7 @@
             "opensource/nuclei/overview",
             "opensource/nuclei/install",
             "opensource/nuclei/running",
+            "opensource/nuclei/ci-cd",
             "opensource/nuclei/input-formats",
             "opensource/nuclei/authenticated-scans",
             "opensource/nuclei/mass-scanning-cli",
