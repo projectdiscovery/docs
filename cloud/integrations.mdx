@@ -1354,19 +1354,31 @@ You can integrate Cloudflare into ProjectDiscovery via one of two methods:
    - Go to Cloudflare Dashboard.
    - Under "API Keys", locate the **Global API Key** and click **View.**
    - Authenticate and copy the key.
-   - Now enter the  Cloudflare account email and Global API Key copied in above step into ProjectDiscovery Cloud Platform.
+   - Now enter the Cloudflare account email and Global API Key copied in above step into ProjectDiscovery Cloud Platform.
    - Give a unique Integration name and click **Verify**.
-2. **API Token**
-   - From the [Cloudflare dashboard ↗](https://dash.cloudflare.com/profile/api-tokens/), go to **My Profile** \> **API Tokens** for user tokens. For Account Tokens, go to **Manage Account** \> **API Tokens**.
-   - Select **Create Token**.
-   - Give required permission (follow reference 2 for details) and create token. Copy the Token
-   - Now enter API Token in ProjectDiscovery Cloud Platform.
+2. **API Token** (Recommended)
+   - From the [Cloudflare dashboard ↗](https://dash.cloudflare.com/profile/api-tokens/), go to **My Profile** \> **API Tokens**.
+   - Select **Create Token** \> choose **Create Custom Token**.
+   - Set the following **read-only** permissions required for asset discovery:
+
+     | Permission Group | Permission | Access |
+     |---|---|---|
+     | Zone | Zone | Read |
+     | Zone | DNS | Read |
+
+   - Under **Zone Resources**, select **All zones** (or choose specific zones to limit scope).
+   - Click **Continue to summary** \> **Create Token** and copy the generated token.
+   - Now enter the API Token in ProjectDiscovery Cloud Platform.
    - Give a unique Integration name and click **Verify**.
+
+  <Tip>
+    For least-privilege access, use a scoped **API Token** instead of the Global API Key. The two permissions above (**Zone:Read** and **DNS:Read**) are the minimum required to pull DNS and CDN assets from Cloudflare.
+  </Tip>
 
 References:
 
-1. https://developers.cloudflare.com/api/keys
-2. https://developers.cloudflare.com/fundamentals/api/get-started/create-token/
+1. https://developers.cloudflare.com/fundamentals/api/get-started/create-token/
+2. https://developers.cloudflare.com/fundamentals/api/reference/permissions/
 
 ### Fastly
 
