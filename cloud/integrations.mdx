@@ -927,153 +927,380 @@ If all checks out, ProjectDiscovery is now actively monitoring your AWS environm
   Click here to open the GCP integration configuration page in the ProjectDiscovery Cloud platform
 </Card>
 
-ProjectDiscovery's GCP integration allows the platform to automatically discover and monitor cloud assets across your GCP account. The integration supports **two discovery approaches** to accommodate different organizational structures and permission models.
+ProjectDiscovery's GCP integration automatically discovers and monitors cloud assets across your GCP environment. The integration has two independent configuration choices — **enumeration scope** (what gets discovered) and **authentication method** (how you connect).
 
-<img
-  src="/images/GCP_integration_screen.png"
-  alt="GCP Integration Screen"
-  title="GCP Integration Screen"
-  style={{ width:"61%" }}
-/>
+**Supported GCP Services:**
 
-Supported GCP Services:
+| Service | Description |
+|:---|:---|
+| [Cloud DNS](https://cloud.google.com/dns) | DNS zones and records |
+| [Kubernetes Engine](https://cloud.google.com/kubernetes-engine) | GKE cluster endpoints |
+| [Compute Engine](https://cloud.google.com/products/compute) | VM instances and public IPs |
+| [Cloud Storage](https://cloud.google.com/storage) | Buckets |
+| [Cloud Functions](https://cloud.google.com/functions) | Serverless function endpoints |
+| [Cloud Run](https://cloud.google.com/run) | Container service URLs |
 
-- [Cloud DNS](https://cloud.google.com/dns)
-- [Kubernetes Engine](https://cloud.google.com/kubernetes-engine)
-- [Compute Engine](https://cloud.google.com/products/compute)
-- [Bucket](https://cloud.google.com/storage)
-- [Cloud Functions](https://cloud.google.com/functions)
-- [Cloud Run](https://cloud.google.com/run)
+---
 
-**GCP Integration Methods:**
+#### Enumeration Scope
 
-1. **Organization-Level Asset API** (Recommended for Enterprises)
-   - Uses Google Cloud's **Asset Inventory API** for comprehensive organization-wide discovery
-   - Discovers assets across entire GCP organization with a single configuration
-   - Requires organization-level permissions: `roles/cloudasset.viewer` and `roles/resourcemanager.viewer`
-   - Ideal for large organizations with multiple projects
+Enumeration scope determines **what gets discovered**. This applies regardless of which authentication method you choose.
 
-2. **Individual Service APIs** (Default)
-   - Uses individual GCP service APIs for project-specific discovery
-   - Faster execution with detailed resource metadata
-   - Requires project-level permissions for each service
-   - Ideal for focused, single-project discovery
+<CardGroup cols={2}>
+  <Card title="Project-Level" icon="folder">
+    Discovers resources across all GCP projects where the service account has been granted access.
 
-### Multi-Organization Support
+    **When to use:** Scope discovery to one or more specific projects.
 
-ProjectDiscovery supports monitoring **multiple GCP organizations simultaneously**. Simply configure multiple integrations with different organization IDs to get consolidated asset discovery across all your GCP environments (e.g., production, staging, development organizations).
+    **Configuration:** Leave the `Organization ID` field **empty**.
+  </Card>
+  <Card title="Organization-Level" icon="building">
+    Discovers resources across **all projects under your organization** using the Cloud Asset Inventory API.
 
-### Finding Your Organization ID
+    **When to use:** Full visibility across your entire GCP organization.
+
+    **Configuration:** Provide your numeric `Organization ID` (e.g. `292477584000`).
+  </Card>
+</CardGroup>
+
+<Warning>
+Organization-level enumeration requires roles bound at the organization level. Granting only project-level permissions while providing an Organization ID will result in a **permission denied** error.
+</Warning>
+
+##### Multi-Organization Support
+
+You can monitor **multiple GCP organizations** by creating separate integrations with different organization IDs, giving you consolidated asset discovery across all your GCP environments (e.g. production, staging, development).
+
+##### Finding Your Organization ID
 
 1. **Via Google Cloud Console:**
    - Go to the [Google Cloud Console](https://console.cloud.google.com/)
-   - In the top navigation, click on the **project selector** (next to "Google Cloud Platform")
-   - Click **All** tab to view all resources
-   - Look for your organization name - the **Organization ID** is displayed next to it
-   - Alternatively, go to [IAM & Admin > Settings](https://console.cloud.google.com/iam-admin/settings) - your Organization ID will be shown at the top
+   - Click on the **project selector** in the top navigation
+   - Click the **All** tab — your Organization ID is displayed next to your organization name
+   - Or go to [IAM & Admin > Settings](https://console.cloud.google.com/iam-admin/settings)
 
 2. **Via gcloud CLI:**
    ```bash
-   # List all organizations you have access to
    gcloud organizations list
-   
-   # Get current organization (if configured)
-   gcloud config get-value project
-   gcloud projects describe $(gcloud config get-value project) --format="value(parent.id)"
    ```
 
 3. **Via Organization Policies Page:**
-   - Navigate to [Organization Policies](https://console.cloud.google.com/iam-admin/orgpolicies) in the Console
-   - Your Organization ID will be displayed in the URL and page header
+   - Navigate to [Organization Policies](https://console.cloud.google.com/iam-admin/orgpolicies) — your Organization ID is in the URL and page header
 
-### Checking Your Permissions
+---
 
-Before setting up the integration, verify you have the necessary permissions:
+#### Authentication Methods
 
-1. **For Organization-Level Integration:**
-   ```bash
-   # Check if you can list organization assets
-   gcloud organizations list
-   
-   # Check if you have the required roles
-   gcloud organizations get-iam-policy YOUR_ORG_ID --flatten="bindings[].members" --format="table(bindings.role)" --filter="bindings.members:user:YOUR_EMAIL"
-   ```
+ProjectDiscovery supports two methods to authenticate with GCP. Both methods work with either enumeration scope.
 
-2. **For Project-Level Integration:**
-   ```bash
-   # Check project permissions
-   gcloud projects get-iam-policy YOUR_PROJECT_ID --flatten="bindings[].members" --format="table(bindings.role)" --filter="bindings.members:user:YOUR_EMAIL"
-   ```
+<CardGroup cols={2}>
+  <Card title="Service Account Key" icon="key" href="#service-account-key">
+    Traditional JSON key file. Simpler to set up, but requires managing long-lived credentials.
+  </Card>
+  <Card title="Workload Identity Federation" icon="shield-halved" href="#workload-identity-federation">
+    Short-lived OIDC tokens. No credentials to manage or rotate. Recommended for security.
+  </Card>
+</CardGroup>
 
-## Step-by-Step Setup Instructions
+---
 
-### Option 1: Organization-Level Asset API Setup
+#### Service Account Key
 
-1. **Verify Organization Access:**
-   - Ensure you have `roles/cloudasset.viewer` and `roles/resourcemanager.viewer` at the organization level
-   - You can check this in [IAM & Admin > IAM](https://console.cloud.google.com/iam-admin/iam) by switching to your organization scope
+<img
+  src="/images/GCP_integration_screen.png"
+  alt="GCP Service Account Key Integration Screen"
+  title="GCP Service Account Key Integration Screen"
+  style={{ width:"61%" }}
+/>
 
-2. **Create Service Account:**
-   - Navigate to any project within your organization
-   - Go to [IAM & Admin > Service Accounts](https://console.cloud.google.com/iam-admin/serviceaccounts)
-   - Click **Create Service Account**
-   - Name it something like `projectdiscovery-org-scanner`
-   - Click **Create and Continue**
+Authenticate using a downloaded JSON key file from a GCP service account. This is the simpler setup but requires you to manage and rotate the key.
 
-3. **Grant Organization-Level Permissions:**
-   - Go to [IAM & Admin > IAM](https://console.cloud.google.com/iam-admin/iam)
-   - Switch to your **Organization** scope (not project)
-   - Click **Grant Access**
-   - Enter your service account email: `projectdiscovery-org-scanner@YOUR_PROJECT_ID.iam.gserviceaccount.com`
-   - Assign these roles:
-     - `Cloud Asset Viewer`
-     - `Organization Viewer`
-   - Click **Save**
+**Prerequisites:**
+- A GCP project where you can create service accounts
+- `Owner` or `IAM Admin` role on the project
 
-4. **Generate Service Account Key:**
-   - Return to [Service Accounts](https://console.cloud.google.com/iam-admin/serviceaccounts)
-   - Click on your service account
-   - Go to **Keys** tab
-   - Click **Add Key > Create New Key**
-   - Choose **JSON** format
-   - Download and securely store the key file
+**Step 1: Create a Service Account**
 
-### Option 2: Individual Service APIs Setup
+```bash
+gcloud iam service-accounts create projectdiscovery-scanner \
+  --project="YOUR_PROJECT_ID" \
+  --display-name="ProjectDiscovery Scanner"
+```
 
-1. **Select Target Project:**
-   - Choose the specific project you want to monitor
-   - Note the **Project ID** (not the display name)
+Or via the [Cloud Console](https://console.cloud.google.com/iam-admin/serviceaccounts): click **Create Service Account**, name it `projectdiscovery-scanner`, and click **Create and Continue**.
 
-2. **Create Service Account:**
-   - Navigate to [IAM & Admin > Service Accounts](https://console.cloud.google.com/iam-admin/serviceaccounts) in your target project
-   - Click **Create Service Account**
-   - Name it something like `projectdiscovery-scanner`
-   - Click **Create and Continue**
+**Step 2: Grant Permissions**
 
-3. **Grant Project-Level Permissions:**
-   - On the same page, assign these roles:
-     - `Compute Viewer`
-     - `DNS Reader`
-     - `Storage Object Viewer`
-     - `Cloud Run Viewer`
-     - `Cloud Functions Viewer`
-     - `Kubernetes Engine Viewer`
-     - `Browser` (for basic project access)
-   - Click **Continue** and then **Done**
+Grant the required roles based on your [enumeration scope](#enumeration-scope).
 
-4. **Generate Service Account Key:**
-   - Click on your service account
-   - Go to **Keys** tab
-   - Click **Add Key > Create New Key**
-   - Choose **JSON** format
-   - Download and securely store the key file
+<Tabs>
+  <Tab title="Project-Level">
 
+  | Role | Role ID |
+  |---|---|
+  | Compute Viewer | `roles/compute.viewer` |
+  | DNS Reader | `roles/dns.reader` |
+  | Storage Object Viewer | `roles/storage.objectViewer` |
+  | Cloud Run Viewer | `roles/run.viewer` |
+  | Cloud Functions Viewer | `roles/cloudfunctions.viewer` |
+  | Kubernetes Engine Viewer | `roles/container.viewer` |
+  | Browser | `roles/browser` |
 
-References:
+  Grant these roles via the [Cloud Console IAM page](https://console.cloud.google.com/iam-admin/iam) or using `gcloud`:
+
+  ```bash
+  gcloud projects add-iam-policy-binding YOUR_PROJECT_ID \
+    --member="serviceAccount:projectdiscovery-scanner@YOUR_PROJECT_ID.iam.gserviceaccount.com" \
+    --role="ROLE_ID"
+  ```
+
+  Replace `ROLE_ID` with each role from the table above. Repeat for each project you want to enumerate.
+
+  <Tip>
+  For a simpler setup, you can use `roles/viewer` instead of the individual roles. However, `roles/viewer` is a primitive role that grants read access to **all** resources in the project, which is broader than what ProjectDiscovery requires.
+  </Tip>
+  </Tab>
+  <Tab title="Organization-Level">
+
+  | Role | Role ID |
+  |---|---|
+  | Cloud Asset Viewer | `roles/cloudasset.viewer` |
+  | Organization Viewer | `roles/resourcemanager.organizationViewer` |
+  | Folder Viewer | `roles/resourcemanager.folderViewer` |
+  | Browser | `roles/browser` |
+
+  Grant these roles at the **organization level** via the [Cloud Console IAM page](https://console.cloud.google.com/iam-admin/iam) (switch to organization scope) or using `gcloud`:
+
+  ```bash
+  gcloud organizations add-iam-policy-binding YOUR_ORG_ID \
+    --member="serviceAccount:projectdiscovery-scanner@YOUR_PROJECT_ID.iam.gserviceaccount.com" \
+    --role="ROLE_ID"
+  ```
+
+  Replace `ROLE_ID` with each role from the table above.
+  </Tab>
+</Tabs>
+
+**Step 3: Generate Service Account Key**
+
+```bash
+gcloud iam service-accounts keys create key.json \
+  --iam-account="projectdiscovery-scanner@YOUR_PROJECT_ID.iam.gserviceaccount.com"
+```
+
+Or via the [Cloud Console](https://console.cloud.google.com/iam-admin/serviceaccounts): click on your service account, go to **Keys** tab, click **Add Key > Create New Key**, choose **JSON** format, and download the key file.
+
+**Step 4: Configure in ProjectDiscovery**
+
+In the ProjectDiscovery platform, create a new GCP integration and select **Service Account Key** as the authentication method. Upload the JSON key file and optionally provide your Organization ID for org-level enumeration.
+
+Click **Verify** to confirm the connection, then **Create & Start Discovery**.
+
+---
+
+#### Workload Identity Federation
+
+<Note>
+**Recommended.** Workload Identity Federation (WIF) eliminates long-lived service account keys. ProjectDiscovery's OIDC identity provider exchanges short-lived tokens (1 hour) with GCP for each enumeration — no credentials are stored or need rotation.
+</Note>
+
+<img
+  src="/images/GCP_Integration_wip_screen.png"
+  alt="GCP Workload Identity Federation Integration Screen"
+  title="GCP Workload Identity Federation Integration Screen"
+  style={{ width:"61%" }}
+/>
+
+**Benefits over service account keys:**
+- No long-lived credentials to manage or rotate
+- Tokens are short-lived (1 hour) and scoped per-enumeration
+- Audit trail in GCP shows federated identity access
+- Follows GCP security best practices
+
+**Prerequisites:**
+- A GCP project with billing enabled
+- `Owner` or `IAM Admin` role on the project (to create WIF resources)
+- The Cloud IAM API enabled on your project
+
+**Step 1: Create a Workload Identity Pool**
+
+```bash
+gcloud iam workload-identity-pools create projectdiscovery-pool \
+  --project="YOUR_PROJECT_ID" \
+  --location="global" \
+  --display-name="ProjectDiscovery Pool"
+```
+
+**Step 2: Add ProjectDiscovery as an OIDC Provider**
+
+```bash
+gcloud iam workload-identity-pools providers create-oidc projectdiscovery-oidc \
+  --project="YOUR_PROJECT_ID" \
+  --location="global" \
+  --workload-identity-pool="projectdiscovery-pool" \
+  --display-name="ProjectDiscovery OIDC" \
+  --issuer-uri="https://oidc.projectdiscovery.io" \
+  --attribute-mapping="google.subject=assertion.sub"
+```
+
+**Step 3: Create a Service Account**
+
+```bash
+gcloud iam service-accounts create pd-cloudlist-reader \
+  --project="YOUR_PROJECT_ID" \
+  --display-name="ProjectDiscovery Cloud Reader"
+```
+
+**Step 4: Grant Permissions**
+
+Grant the required roles based on your [enumeration scope](#enumeration-scope).
+
+<Tabs>
+  <Tab title="Project-Level">
+
+  | Role | Role ID |
+  |---|---|
+  | Compute Viewer | `roles/compute.viewer` |
+  | DNS Reader | `roles/dns.reader` |
+  | Storage Object Viewer | `roles/storage.objectViewer` |
+  | Cloud Run Viewer | `roles/run.viewer` |
+  | Cloud Functions Viewer | `roles/cloudfunctions.viewer` |
+  | Kubernetes Engine Viewer | `roles/container.viewer` |
+  | Browser | `roles/browser` |
+
+  Grant these roles via the [Cloud Console IAM page](https://console.cloud.google.com/iam-admin/iam) or using `gcloud`:
+
+  ```bash
+  gcloud projects add-iam-policy-binding YOUR_PROJECT_ID \
+    --member="serviceAccount:pd-cloudlist-reader@YOUR_PROJECT_ID.iam.gserviceaccount.com" \
+    --role="ROLE_ID"
+  ```
+
+  Replace `ROLE_ID` with each role from the table above. Repeat for each project you want to enumerate.
+
+  <Tip>
+  For a simpler setup, you can use `roles/viewer` instead of the individual roles. However, `roles/viewer` is a primitive role that grants read access to **all** resources in the project, which is broader than what ProjectDiscovery requires.
+  </Tip>
+  </Tab>
+  <Tab title="Organization-Level">
+
+  | Role | Role ID |
+  |---|---|
+  | Cloud Asset Viewer | `roles/cloudasset.viewer` |
+  | Organization Viewer | `roles/resourcemanager.organizationViewer` |
+  | Folder Viewer | `roles/resourcemanager.folderViewer` |
+  | Browser | `roles/browser` |
+
+  Grant these roles at the **organization level** via the [Cloud Console IAM page](https://console.cloud.google.com/iam-admin/iam) (switch to organization scope) or using `gcloud`:
+
+  ```bash
+  gcloud organizations add-iam-policy-binding YOUR_ORG_ID \
+    --member="serviceAccount:pd-cloudlist-reader@YOUR_PROJECT_ID.iam.gserviceaccount.com" \
+    --role="ROLE_ID"
+  ```
+
+  Replace `ROLE_ID` with each role from the table above.
+  </Tab>
+</Tabs>
+
+**Step 5: Allow WIF to Impersonate the Service Account**
+
+```bash
+gcloud iam service-accounts add-iam-policy-binding \
+  pd-cloudlist-reader@YOUR_PROJECT_ID.iam.gserviceaccount.com \
+  --project="YOUR_PROJECT_ID" \
+  --role="roles/iam.workloadIdentityUser" \
+  --member="principalSet://iam.googleapis.com/projects/YOUR_PROJECT_NUMBER/locations/global/workloadIdentityPools/projectdiscovery-pool/*"
+```
+
+<Note>
+`YOUR_PROJECT_NUMBER` is the numeric project number, not the project ID. Find it with:
+```bash
+gcloud projects describe YOUR_PROJECT_ID --format='value(projectNumber)'
+```
+</Note>
+
+**Step 6: Get the Provider Resource Path**
+
+```bash
+gcloud iam workload-identity-pools providers describe projectdiscovery-oidc \
+  --project="YOUR_PROJECT_ID" \
+  --location="global" \
+  --workload-identity-pool="projectdiscovery-pool" \
+  --format='value(name)'
+```
+
+This returns a path like:
+```
+projects/123456789/locations/global/workloadIdentityPools/projectdiscovery-pool/providers/projectdiscovery-oidc
+```
+
+**Step 7: Configure in ProjectDiscovery**
+
+In the ProjectDiscovery platform, create a new GCP integration and select **Workload Identity Federation** as the authentication method. Provide:
+
+| Field | Value |
+|---|---|
+| **Workload Identity Provider** | Full provider path from Step 6 |
+| **Service Account Email** | `pd-cloudlist-reader@YOUR_PROJECT_ID.iam.gserviceaccount.com` |
+| **Organization ID** | Your numeric org ID — leave empty for project-level enumeration |
+
+Click **Verify** to confirm the connection, then **Create & Start Discovery**.
+
+---
+
+#### GCP Troubleshooting
+
+**"Google Cloud denied access" with Organization ID set**
+
+The service account does not have permissions at the org level. Ensure all four org-level roles are granted: `roles/cloudasset.viewer`, `roles/resourcemanager.organizationViewer`, `roles/resourcemanager.folderViewer`, and `roles/browser`. See the Organization-Level tab in the [Grant Permissions](#service-account-key) step for details.
+
+**"GCP token exchange failed"** (WIF only)
+- Verify the Workload Identity Provider path is correct (check for typos)
+- Ensure the OIDC provider issuer URI is `https://oidc.projectdiscovery.io`
+- Check the attribute mapping includes `google.subject=assertion.sub`
+
+**"GCP service account impersonation failed"** (WIF only)
+- Verify `roles/iam.workloadIdentityUser` binding exists on the service account
+- Ensure you used the correct project **number** (not project ID) in the member principal
+- Check that the service account email is correct
+
+**"Workload Identity Pool configuration error"** (WIF only)
+
+The provider path must follow this exact format:
+```
+projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/providers/PROVIDER_ID
+```
+
+**Verifying permissions**
+
+```bash
+# Check organization-level roles
+gcloud organizations get-iam-policy YOUR_ORG_ID \
+  --flatten="bindings[].members" \
+  --format="table(bindings.role)" \
+  --filter="bindings.members:serviceAccount:YOUR_SA_EMAIL"
+
+# Check project-level roles
+gcloud projects get-iam-policy YOUR_PROJECT_ID \
+  --flatten="bindings[].members" \
+  --format="table(bindings.role)" \
+  --filter="bindings.members:serviceAccount:YOUR_SA_EMAIL"
+```
+
+<Info>
+**Security Notes:**
+- ProjectDiscovery only requires **read-only** access to enumerate your cloud assets
+- With WIF, tokens are short-lived (1 hour max) and automatically expire after each enumeration — no credentials are stored
+- You can revoke access at any time by removing IAM bindings or (for WIF) deleting the Workload Identity Pool
+</Info>
+
+**References:**
 
 1. https://cloud.google.com/iam/docs/service-account-overview
 2. https://cloud.google.com/iam/docs/keys-create-delete#creating
 3. https://cloud.google.com/asset-inventory/docs/overview
+4. https://cloud.google.com/iam/docs/workload-identity-federation
 
 ### Azure
 
