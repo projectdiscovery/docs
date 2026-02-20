@@ -963,29 +963,37 @@ Enumeration scope determines **what gets discovered**. This applies regardless o
   </Card>
 </CardGroup>
 
-<Warning>
-Organization-level enumeration requires roles bound at the organization level. Granting only project-level permissions while providing an Organization ID will result in a **permission denied** error.
-</Warning>
+<Note>
+**Multi-Organization Support** — Monitor multiple GCP organizations by creating separate integrations with different organization IDs for consolidated asset discovery across all your environments.
+</Note>
 
-##### Multi-Organization Support
+<AccordionGroup>
+  <Accordion title="How to find your Organization ID">
+  Your Organization ID is a numeric value (e.g. `292477584000`).
 
-You can monitor **multiple GCP organizations** by creating separate integrations with different organization IDs, giving you consolidated asset discovery across all your GCP environments (e.g. production, staging, development).
+  <Tabs>
+    <Tab title="Cloud Console">
+      1. Go to the [Google Cloud Console](https://console.cloud.google.com/)
+      2. Click the **project selector** in the top navigation
+      3. Click the **All** tab — your Organization ID is displayed next to your organization name
 
-##### Finding Your Organization ID
+      Or go directly to [IAM & Admin > Settings](https://console.cloud.google.com/iam-admin/settings).
+    </Tab>
+    <Tab title="gcloud CLI">
+      ```bash
+      gcloud organizations list
+      ```
+    </Tab>
+    <Tab title="Organization Policies">
+      Navigate to [Organization Policies](https://console.cloud.google.com/iam-admin/orgpolicies) — your Organization ID is displayed in the URL and page header.
+    </Tab>
+  </Tabs>
+  </Accordion>
 
-1. **Via Google Cloud Console:**
-   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
-   - Click on the **project selector** in the top navigation
-   - Click the **All** tab — your Organization ID is displayed next to your organization name
-   - Or go to [IAM & Admin > Settings](https://console.cloud.google.com/iam-admin/settings)
-
-2. **Via gcloud CLI:**
-   ```bash
-   gcloud organizations list
-   ```
-
-3. **Via Organization Policies Page:**
-   - Navigate to [Organization Policies](https://console.cloud.google.com/iam-admin/orgpolicies) — your Organization ID is in the URL and page header
+  <Accordion title="What happens if permissions don't match the scope?">
+  Organization-level enumeration requires roles bound at the **organization level**. If you provide an Organization ID but only have project-level permissions, enumeration will fail with a **permission denied** error. See the required roles in the [Grant Permissions](#service-account-key) step of your chosen authentication method.
+  </Accordion>
+</AccordionGroup>
 
 ---
 
