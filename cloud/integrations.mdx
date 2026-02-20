@@ -940,8 +940,6 @@ ProjectDiscovery's GCP integration automatically discovers and monitors cloud as
 | [Cloud Functions](https://cloud.google.com/functions) | Serverless function endpoints |
 | [Cloud Run](https://cloud.google.com/run) | Container service URLs |
 
----
-
 #### Enumeration Scope
 
 Enumeration scope determines **what gets discovered**. This applies regardless of which authentication method you choose.
@@ -959,7 +957,7 @@ Enumeration scope determines **what gets discovered**. This applies regardless o
 
     **When to use:** Full visibility across your entire GCP organization.
 
-    **Configuration:** Provide your numeric `Organization ID` (e.g. `292477584000`).
+    **Configuration:** Provide your numeric `Organization ID` (e.g. `123456789012`).
   </Card>
 </CardGroup>
 
@@ -969,7 +967,7 @@ Enumeration scope determines **what gets discovered**. This applies regardless o
 
 <AccordionGroup>
   <Accordion title="How to find your Organization ID">
-  Your Organization ID is a numeric value (e.g. `292477584000`).
+  Your Organization ID is a numeric value (e.g. `123456789012`).
 
   <Tabs>
     <Tab title="Cloud Console">
@@ -1240,7 +1238,7 @@ gcloud iam workload-identity-pools providers describe projectdiscovery-oidc \
 
 This returns a path like:
 ```
-projects/123456789/locations/global/workloadIdentityPools/projectdiscovery-pool/providers/projectdiscovery-oidc
+projects/123456789012/locations/global/workloadIdentityPools/projectdiscovery-pool/providers/projectdiscovery-oidc
 ```
 
 **Step 7: Configure in ProjectDiscovery**
