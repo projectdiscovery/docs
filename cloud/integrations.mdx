@@ -1061,10 +1061,6 @@ Grant the required roles based on your [enumeration scope](#enumeration-scope).
   ```
 
   Replace `ROLE_ID` with each role from the table above. Repeat for each project you want to enumerate.
-
-  <Tip>
-  For a simpler setup, you can use `roles/viewer` instead of the individual roles. However, `roles/viewer` is a primitive role that grants read access to **all** resources in the project, which is broader than what ProjectDiscovery requires.
-  </Tip>
   </Tab>
   <Tab title="Organization-Level">
 
@@ -1146,7 +1142,7 @@ gcloud iam workload-identity-pools providers create-oidc projectdiscovery-oidc \
   --workload-identity-pool="projectdiscovery-pool" \
   --display-name="ProjectDiscovery OIDC" \
   --issuer-uri="https://oidc.projectdiscovery.io" \
-  --attribute-mapping="google.subject=assertion.sub"
+  --attribute-mapping="google.subject=assertion.sub,attribute.sub=assertion.sub"
 ```
 
 **Step 3: Create a Service Account**
@@ -1183,10 +1179,6 @@ Grant the required roles based on your [enumeration scope](#enumeration-scope).
   ```
 
   Replace `ROLE_ID` with each role from the table above. Repeat for each project you want to enumerate.
-
-  <Tip>
-  For a simpler setup, you can use `roles/viewer` instead of the individual roles. However, `roles/viewer` is a primitive role that grants read access to **all** resources in the project, which is broader than what ProjectDiscovery requires.
-  </Tip>
   </Tab>
   <Tab title="Organization-Level">
 
@@ -1211,13 +1203,26 @@ Grant the required roles based on your [enumeration scope](#enumeration-scope).
 
 **Step 5: Allow WIF to Impersonate the Service Account**
 
+Bind the service account to your ProjectDiscovery workspace using an attribute condition on the `sub` claim. Replace `YOUR_TEAM_ID` with your Team ID from the ProjectDiscovery platform.
+
 ```bash
 gcloud iam service-accounts add-iam-policy-binding \
   pd-cloudlist-reader@YOUR_PROJECT_ID.iam.gserviceaccount.com \
   --project="YOUR_PROJECT_ID" \
   --role="roles/iam.workloadIdentityUser" \
-  --member="principalSet://iam.googleapis.com/projects/YOUR_PROJECT_NUMBER/locations/global/workloadIdentityPools/projectdiscovery-pool/*"
+  --member="principalSet://iam.googleapis.com/projects/YOUR_PROJECT_NUMBER/locations/global/workloadIdentityPools/projectdiscovery-pool/attribute.sub/YOUR_TEAM_ID"
 ```
+
+<Tip>
+**Finding your Team ID** — In the ProjectDiscovery platform, click on your team name in the left sidebar to reveal your Team ID. Use the copy button to copy it.
+
+<img
+  src="/images/pdcp-teamid.png"
+  alt="Finding your Team ID in ProjectDiscovery"
+  title="Finding your Team ID in ProjectDiscovery"
+  style={{ width:"45%" }}
+/>
+</Tip>
 
 <Note>
 `YOUR_PROJECT_NUMBER` is the numeric project number, not the project ID. Find it with:
@@ -1264,10 +1269,11 @@ The service account does not have permissions at the org level. Ensure all four 
 **"GCP token exchange failed"** (WIF only)
 - Verify the Workload Identity Provider path is correct (check for typos)
 - Ensure the OIDC provider issuer URI is `https://oidc.projectdiscovery.io`
-- Check the attribute mapping includes `google.subject=assertion.sub`
+- Check the attribute mapping includes `google.subject=assertion.sub,attribute.sub=assertion.sub` in the OIDC provider configuration
 
 **"GCP service account impersonation failed"** (WIF only)
 - Verify `roles/iam.workloadIdentityUser` binding exists on the service account
+- Ensure the `attribute.sub` value in the member principal matches your Team ID
 - Ensure you used the correct project **number** (not project ID) in the member principal
 - Check that the service account email is correct
 
@@ -1293,6 +1299,16 @@ gcloud projects get-iam-policy YOUR_PROJECT_ID \
   --format="table(bindings.role)" \
   --filter="bindings.members:serviceAccount:YOUR_SA_EMAIL"
 ```
+
+**Verifying WIF impersonation binding**
+
+```bash
+gcloud iam service-accounts get-iam-policy YOUR_SA_EMAIL \
+  --format="yaml" \
+  --filter="bindings.role:roles/iam.workloadIdentityUser"
+```
+
+Confirm the output contains a member with your Team ID in the `attribute.sub` path.
 
 <Info>
 **Security Notes:**
