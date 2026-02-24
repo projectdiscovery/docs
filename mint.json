@@ -396,7 +396,8 @@
             "cloud/assets/labeling",
             "cloud/assets/custom-labeling",
             "cloud/assets/grouping",
-            "cloud/assets/exclusions"
+            "cloud/assets/exclusions",
+            "cloud/assets/asset-policies"
           ]
         },
         {
