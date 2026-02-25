@@ -1046,7 +1046,7 @@ Grant the required roles based on your [enumeration scope](#enumeration-scope).
   |---|---|
   | Compute Viewer | `roles/compute.viewer` |
   | DNS Reader | `roles/dns.reader` |
-  | Storage Object Viewer | `roles/storage.objectViewer` |
+  | Storage Bucket Viewer | `roles/storage.bucketViewer` |
   | Cloud Run Viewer | `roles/run.viewer` |
   | Cloud Functions Viewer | `roles/cloudfunctions.viewer` |
   | Kubernetes Engine Viewer | `roles/container.viewer` |
@@ -1055,7 +1055,7 @@ Grant the required roles based on your [enumeration scope](#enumeration-scope).
   Grant these roles via the [Cloud Console IAM page](https://console.cloud.google.com/iam-admin/iam) or using `gcloud`:
 
   ```bash
-  for role in roles/compute.viewer roles/dns.reader roles/storage.objectViewer roles/run.viewer roles/cloudfunctions.viewer roles/container.viewer roles/browser; do
+  for role in roles/compute.viewer roles/dns.reader roles/storage.bucketViewer roles/run.viewer roles/cloudfunctions.viewer roles/container.viewer roles/browser; do
     gcloud projects add-iam-policy-binding YOUR_PROJECT_ID \
       --member="serviceAccount:projectdiscovery-scanner@YOUR_PROJECT_ID.iam.gserviceaccount.com" \
       --role="$role"
@@ -1171,7 +1171,7 @@ Grant the required roles based on your [enumeration scope](#enumeration-scope).
   |---|---|
   | Compute Viewer | `roles/compute.viewer` |
   | DNS Reader | `roles/dns.reader` |
-  | Storage Object Viewer | `roles/storage.objectViewer` |
+  | Storage Bucket Viewer | `roles/storage.bucketViewer` |
   | Cloud Run Viewer | `roles/run.viewer` |
   | Cloud Functions Viewer | `roles/cloudfunctions.viewer` |
   | Kubernetes Engine Viewer | `roles/container.viewer` |
@@ -1180,7 +1180,7 @@ Grant the required roles based on your [enumeration scope](#enumeration-scope).
   Grant these roles via the [Cloud Console IAM page](https://console.cloud.google.com/iam-admin/iam) or using `gcloud`:
 
   ```bash
-  for role in roles/compute.viewer roles/dns.reader roles/storage.objectViewer roles/run.viewer roles/cloudfunctions.viewer roles/container.viewer roles/browser; do
+  for role in roles/compute.viewer roles/dns.reader roles/storage.bucketViewer roles/run.viewer roles/cloudfunctions.viewer roles/container.viewer roles/browser; do
     gcloud projects add-iam-policy-binding YOUR_PROJECT_ID \
       --member="serviceAccount:pd-cloudlist-reader@YOUR_PROJECT_ID.iam.gserviceaccount.com" \
       --role="$role"
