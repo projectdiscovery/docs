@@ -1055,12 +1055,14 @@ Grant the required roles based on your [enumeration scope](#enumeration-scope).
   Grant these roles via the [Cloud Console IAM page](https://console.cloud.google.com/iam-admin/iam) or using `gcloud`:
 
   ```bash
-  gcloud projects add-iam-policy-binding YOUR_PROJECT_ID \
-    --member="serviceAccount:projectdiscovery-scanner@YOUR_PROJECT_ID.iam.gserviceaccount.com" \
-    --role="ROLE_ID"
+  for role in roles/compute.viewer roles/dns.reader roles/storage.objectViewer roles/run.viewer roles/cloudfunctions.viewer roles/container.viewer roles/browser; do
+    gcloud projects add-iam-policy-binding YOUR_PROJECT_ID \
+      --member="serviceAccount:projectdiscovery-scanner@YOUR_PROJECT_ID.iam.gserviceaccount.com" \
+      --role="$role"
+  done
   ```
 
-  Replace `ROLE_ID` with each role from the table above. Repeat for each project you want to enumerate.
+  Repeat for each project you want to enumerate.
   </Tab>
   <Tab title="Organization-Level">
 
@@ -1071,15 +1073,20 @@ Grant the required roles based on your [enumeration scope](#enumeration-scope).
   | Folder Viewer | `roles/resourcemanager.folderViewer` |
   | Browser | `roles/browser` |
 
+  Find your Organization ID:
+  ```bash
+  gcloud organizations list
+  ```
+
   Grant these roles at the **organization level** via the [Cloud Console IAM page](https://console.cloud.google.com/iam-admin/iam) (switch to organization scope) or using `gcloud`:
 
   ```bash
-  gcloud organizations add-iam-policy-binding YOUR_ORG_ID \
-    --member="serviceAccount:projectdiscovery-scanner@YOUR_PROJECT_ID.iam.gserviceaccount.com" \
-    --role="ROLE_ID"
+  for role in roles/cloudasset.viewer roles/resourcemanager.organizationViewer roles/resourcemanager.folderViewer roles/browser; do
+    gcloud organizations add-iam-policy-binding YOUR_ORG_ID \
+      --member="serviceAccount:projectdiscovery-scanner@YOUR_PROJECT_ID.iam.gserviceaccount.com" \
+      --role="$role"
+  done
   ```
-
-  Replace `ROLE_ID` with each role from the table above.
   </Tab>
 </Tabs>
 
@@ -1173,12 +1180,14 @@ Grant the required roles based on your [enumeration scope](#enumeration-scope).
   Grant these roles via the [Cloud Console IAM page](https://console.cloud.google.com/iam-admin/iam) or using `gcloud`:
 
   ```bash
-  gcloud projects add-iam-policy-binding YOUR_PROJECT_ID \
-    --member="serviceAccount:pd-cloudlist-reader@YOUR_PROJECT_ID.iam.gserviceaccount.com" \
-    --role="ROLE_ID"
+  for role in roles/compute.viewer roles/dns.reader roles/storage.objectViewer roles/run.viewer roles/cloudfunctions.viewer roles/container.viewer roles/browser; do
+    gcloud projects add-iam-policy-binding YOUR_PROJECT_ID \
+      --member="serviceAccount:pd-cloudlist-reader@YOUR_PROJECT_ID.iam.gserviceaccount.com" \
+      --role="$role"
+  done
   ```
 
-  Replace `ROLE_ID` with each role from the table above. Repeat for each project you want to enumerate.
+  Repeat for each project you want to enumerate.
   </Tab>
   <Tab title="Organization-Level">
 
@@ -1189,15 +1198,20 @@ Grant the required roles based on your [enumeration scope](#enumeration-scope).
   | Folder Viewer | `roles/resourcemanager.folderViewer` |
   | Browser | `roles/browser` |
 
+  Find your Organization ID:
+  ```bash
+  gcloud organizations list
+  ```
+
   Grant these roles at the **organization level** via the [Cloud Console IAM page](https://console.cloud.google.com/iam-admin/iam) (switch to organization scope) or using `gcloud`:
 
   ```bash
-  gcloud organizations add-iam-policy-binding YOUR_ORG_ID \
-    --member="serviceAccount:pd-cloudlist-reader@YOUR_PROJECT_ID.iam.gserviceaccount.com" \
-    --role="ROLE_ID"
+  for role in roles/cloudasset.viewer roles/resourcemanager.organizationViewer roles/resourcemanager.folderViewer roles/browser; do
+    gcloud organizations add-iam-policy-binding YOUR_ORG_ID \
+      --member="serviceAccount:pd-cloudlist-reader@YOUR_PROJECT_ID.iam.gserviceaccount.com" \
+      --role="$role"
+  done
   ```
-
-  Replace `ROLE_ID` with each role from the table above.
   </Tab>
 </Tabs>
 
