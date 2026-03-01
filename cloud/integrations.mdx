@@ -1072,6 +1072,16 @@ Grant the required roles based on your [enumeration scope](#enumeration-scope).
   | Organization Viewer | `roles/resourcemanager.organizationViewer` |
   | Folder Viewer | `roles/resourcemanager.folderViewer` |
   | Browser | `roles/browser` |
+  | Compute Viewer | `roles/compute.viewer` |
+  | DNS Reader | `roles/dns.reader` |
+  | Storage Bucket Viewer | `roles/storage.bucketViewer` |
+  | Cloud Run Viewer | `roles/run.viewer` |
+  | Cloud Functions Viewer | `roles/cloudfunctions.viewer` |
+  | Kubernetes Engine Viewer | `roles/container.clusterViewer` |
+
+  <Note>
+  **Permission Inheritance:** Organization-level IAM roles automatically cascade to all projects and folders within the organization. This means granting these 10 roles at the org level provides access across your entire GCP environment without per-project configuration.
+  </Note>
 
   Find your Organization ID:
   ```bash
@@ -1081,7 +1091,7 @@ Grant the required roles based on your [enumeration scope](#enumeration-scope).
   Grant these roles at the **organization level** via the [Cloud Console IAM page](https://console.cloud.google.com/iam-admin/iam) (switch to organization scope) or using `gcloud`:
 
   ```bash
-  for role in roles/cloudasset.viewer roles/resourcemanager.organizationViewer roles/resourcemanager.folderViewer roles/browser; do
+  for role in roles/cloudasset.viewer roles/resourcemanager.organizationViewer roles/resourcemanager.folderViewer roles/browser roles/compute.viewer roles/dns.reader roles/storage.bucketViewer roles/run.viewer roles/cloudfunctions.viewer roles/container.clusterViewer; do
     gcloud organizations add-iam-policy-binding YOUR_ORG_ID \
       --member="serviceAccount:projectdiscovery-scanner@YOUR_PROJECT_ID.iam.gserviceaccount.com" \
       --role="$role"
@@ -1197,6 +1207,16 @@ Grant the required roles based on your [enumeration scope](#enumeration-scope).
   | Organization Viewer | `roles/resourcemanager.organizationViewer` |
   | Folder Viewer | `roles/resourcemanager.folderViewer` |
   | Browser | `roles/browser` |
+  | Compute Viewer | `roles/compute.viewer` |
+  | DNS Reader | `roles/dns.reader` |
+  | Storage Bucket Viewer | `roles/storage.bucketViewer` |
+  | Cloud Run Viewer | `roles/run.viewer` |
+  | Cloud Functions Viewer | `roles/cloudfunctions.viewer` |
+  | Kubernetes Engine Viewer | `roles/container.clusterViewer` |
+
+  <Note>
+  **Permission Inheritance:** Organization-level IAM roles automatically cascade to all projects and folders within the organization. This means granting these 10 roles at the org level provides access across your entire GCP environment without per-project configuration.
+  </Note>
 
   Find your Organization ID:
   ```bash
@@ -1206,7 +1226,7 @@ Grant the required roles based on your [enumeration scope](#enumeration-scope).
   Grant these roles at the **organization level** via the [Cloud Console IAM page](https://console.cloud.google.com/iam-admin/iam) (switch to organization scope) or using `gcloud`:
 
   ```bash
-  for role in roles/cloudasset.viewer roles/resourcemanager.organizationViewer roles/resourcemanager.folderViewer roles/browser; do
+  for role in roles/cloudasset.viewer roles/resourcemanager.organizationViewer roles/resourcemanager.folderViewer roles/browser roles/compute.viewer roles/dns.reader roles/storage.bucketViewer roles/run.viewer roles/cloudfunctions.viewer roles/container.clusterViewer; do
     gcloud organizations add-iam-policy-binding YOUR_ORG_ID \
       --member="serviceAccount:pd-cloudlist-reader@YOUR_PROJECT_ID.iam.gserviceaccount.com" \
       --role="$role"
