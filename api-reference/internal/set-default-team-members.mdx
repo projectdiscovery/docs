@@ -1,0 +1,105 @@
+---
+openapi: post /v1/user/team/default-members
+---
+
+Configure a list of members that will be automatically added to any new team/workspace you create. This endpoint replaces any existing default member configuration.
+
+## How It Works
+
+When you set default members:
+- **Replaces** any existing default member configuration
+- **Validates** each member against your workspace plan limits
+- **Deduplicates** members by email (keeps first occurrence)
+- **Applies** to all future teams created by the owner
+
+<Warning>
+  This operation **replaces** the entire default members list. To add or remove individual members, retrieve the current list, modify it, and send the updated version.
+</Warning>
+
+## Request Body
+
+Send an array of member objects, each containing:
+- `email` (string, required): Member's email address
+- `role` (string, required): One of `ADMIN`, `MEMBER`, `VIEWER`, or `GUEST`
+
+<Note>
+  The `OWNER` role cannot be assigned as a default member. Owner is always assigned automatically during team creation.
+</Note>
+
+## Examples
+
+### Set Multiple Default Members
+
+```bash
+curl -X POST "https://api.projectdiscovery.io/v1/user/team/default-members" \
+  -H "Content-Type: application/json" \
+  -H "X-Api-Key: YOUR_API_KEY" \
+  -H "X-Team-Id: YOUR_TEAM_ID" \
+  -d '{
+    "members": [
+      { "email": "security-lead@example.com", "role": "ADMIN" },
+      { "email": "team-member@example.com", "role": "MEMBER" },
+      { "email": "auditor@example.com", "role": "VIEWER" }
+    ]
+  }'
+```
+
+**Response:**
+```json
+{
+  "message": "default team members updated successfully (3 members)"
+}
+```
+
+### Clear All Default Members
+
+```bash
+curl -X POST "https://api.projectdiscovery.io/v1/user/team/default-members" \
+  -H "Content-Type: application/json" \
+  -H "X-Api-Key: YOUR_API_KEY" \
+  -H "X-Team-Id: YOUR_TEAM_ID" \
+  -d '{ "members": [] }'
+```
+
+**Response:**
+```json
+{
+  "message": "default team members updated successfully (0 members)"
+}
+```
+
+## Validation Rules
+
+### Email Validation
+- Must be valid email format
+- Invalid emails return `400` error: `"invalid email format: bad-email"`
+
+### Role Validation
+- Must be one of: `ADMIN`, `MEMBER`, `VIEWER`, `GUEST`
+- Invalid roles return `400` error: `"invalid role: INVALID. Valid roles are: ADMIN, MEMBER, VIEWER, GUEST"`
+
+### Plan Limits
+- Default members count is validated against your workspace plan's `MaxTeamMembers` limit (minus 1 for owner)
+- Exceeding limit returns `400` error: `"default members count (15) exceeds your plan limit of 10 members"`
+
+## Common Errors
+
+| Status | Scenario | Solution |
+|--------|----------|----------|
+| `400` | Invalid email format | Verify email addresses are properly formatted |
+| `400` | Invalid role | Use only: `ADMIN`, `MEMBER`, `VIEWER`, `GUEST` |
+| `400` | Exceeds plan limit | Reduce number of default members or upgrade plan |
+| `403` | Not owner/admin | Only team owners and admins can configure defaults |
+
+## Behavior During Team Creation
+
+When a new team is created:
+1. System checks if the owner has configured default members
+2. Each default member's email **must exist** in the system
+3. If any email doesn't correspond to an existing user, team creation returns `400` error
+4. Default members are **directly added** to the new team (no invitation flow)
+5. Owner is automatically skipped if present in default members list
+
+<Tip>
+  Default members streamline team provisioning, especially when creating multiple teams or workspaces with consistent access patterns.
+</Tip>

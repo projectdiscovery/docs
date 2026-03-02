@@ -1,0 +1,31 @@
+---
+openapi: get /v1/user/team/default-members
+---
+
+Retrieve the list of members that will be automatically added to any new team/workspace created by the owner. This configuration eliminates the need to manually invite the same members every time a new team is created.
+
+## What You'll Get
+
+The response includes:
+- List of configured default members with their emails and assigned roles
+- Confirmation message
+
+<Note>
+  Only **owner** or **admin** of the workspace can retrieve default team members.
+</Note>
+
+## Example Response
+
+```json
+{
+  "message": "successfully retrieved default team members",
+  "members": [
+    { "email": "user1@example.com", "role": "MEMBER" },
+    { "email": "user2@example.com", "role": "ADMIN" }
+  ]
+}
+```
+
+<Tip>
+  If no default members are configured, the `members` array will be empty.
+</Tip>
