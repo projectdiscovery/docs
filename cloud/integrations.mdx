@@ -1111,9 +1111,25 @@ Or via the [Cloud Console](https://console.cloud.google.com/iam-admin/serviceacc
 
 **Step 4: Configure in ProjectDiscovery**
 
-In the ProjectDiscovery platform, create a new GCP integration and select **Service Account Key** as the authentication method. Upload the JSON key file and optionally provide your Organization ID for org-level enumeration.
+In the ProjectDiscovery platform, create a new GCP integration and select **Service Account Key** as the authentication method. Upload the JSON key file and optionally provide your Organization ID for org-level enumeration and an **optional Project IDs** list to limit discovery to specific projects (leave it empty to scan all projects).
 
 Click **Verify** to confirm the connection, then **Create & Start Discovery**.
+
+<AccordionGroup>
+  <Accordion title="How to find list of project IDs">
+  The **Project IDs** field is optional. If you provide it, **only those projects will be scanned** (not all projects under the organization).
+
+  To list the projects your service account can access:
+
+  ```bash
+  # Authenticate as the service account
+  gcloud auth activate-service-account --key-file=PATH_TO_SA_KEY.json
+
+  # List all projects the service account can see
+  gcloud projects list --format="value(projectId)"
+  ```
+  </Accordion>
+</AccordionGroup>
 
 ---
 
@@ -1289,8 +1305,23 @@ In the ProjectDiscovery platform, create a new GCP integration and select **Work
 | **Workload Identity Provider** | Full provider path from Step 6 |
 | **Service Account Email** | `pd-cloudlist-reader@YOUR_PROJECT_ID.iam.gserviceaccount.com` |
 | **Organization ID** | Your numeric org ID — leave empty for project-level enumeration |
+| **Project IDs (Optional)** | Limit discovery to specific projects |
 
 Click **Verify** to confirm the connection, then **Create & Start Discovery**.
+
+<AccordionGroup>
+  <Accordion title="How to find list of project IDs">
+  The **Project IDs** field is optional. If you provide it, **only those projects will be scanned** (not all projects under the organization).
+
+  To list the projects you can access:
+
+  ```bash
+  gcloud projects list --format="value(projectId)"
+  ```
+
+  Run this as an org admin (or a principal with org-level visibility) if you need the full list of projects.
+  </Accordion>
+</AccordionGroup>
 
 ---
 
