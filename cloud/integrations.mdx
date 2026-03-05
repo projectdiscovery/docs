@@ -913,6 +913,131 @@ After configuring the integration, it's important to verify that ProjectDiscover
 
 If all checks out, ProjectDiscovery is now actively monitoring your AWS environment. New resources launched in AWS should be detected on the next scan cycle, and any changes to your cloud footprint will be reflected in the platform. Make sure to regularly review the integration and update the IAM permissions if you start using new AWS services.
 
+#### API Setup
+
+You can set up the AWS integration entirely through the API. The process involves creating a cloudlist configuration, verifying it, and then using it to create an enumeration.
+
+The cloudlist configuration is a YAML array that must be **base64-encoded** before sending it to the API. Each connection method uses a different YAML structure, but the API calls are the same.
+
+**Configuration Format**
+
+<AccordionGroup>
+  <Accordion title="Single AWS Account (Access Key & Secret)">
+    ```yaml
+    - provider: aws
+      aws_access_key: "AKIAIOSFODNN7EXAMPLE"
+      aws_secret_key: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+      aws_session_token: "optional-session-token"
+      services:
+        - ec2
+        - route53
+        - s3
+    ```
+  </Accordion>
+
+  <Accordion title="Multiple AWS Accounts (Assume Role)">
+    ```yaml
+    - provider: aws
+      aws_access_key: "AKIAIOSFODNN7EXAMPLE"
+      aws_secret_key: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+      assume_role_name: "ProjectDiscoveryReadOnlyRole"
+      account_ids:
+        - "123456789012"
+        - "987654321098"
+      services:
+        - ec2
+        - route53
+        - s3
+    ```
+  </Accordion>
+
+  <Accordion title="Cross-Account Role (Role ARN)">
+    ```yaml
+    - provider: aws
+      assume_role_arn: "arn:aws:iam::123456789012:role/ProjectDiscoveryRole"
+      external_id: "your-external-id"
+      assume_role_session_name: "projectdiscovery_role"
+      services:
+        - ec2
+        - route53
+        - s3
+    ```
+
+    The `external_id` is displayed in the ProjectDiscovery UI when you select the Cross-Account Role method. You can also retrieve it from your account settings.
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  The YAML configuration must be **base64-encoded** before passing it as the `config` field in the API request. For example, using the command line: `cat config.yaml | base64`.
+</Note>
+
+**Step 1: Verify the Configuration**
+
+<Note>
+  While verification is optional, it is strongly recommended before creating the integration. This step validates that the credentials are correct and that ProjectDiscovery can successfully connect to your AWS account, saving you from debugging failed enumerations later.
+</Note>
+
+```bash
+curl -X POST https://api.projectdiscovery.io/v1/scans/config/verify \
+  -H 'Content-Type: application/json' \
+  -H 'X-API-Key: <your-api-key>' \
+  -d '{
+    "config_type": "cloudlist",
+    "config": "<base64-encoded-yaml>"
+  }'
+```
+
+A successful response:
+
+```json
+{
+  "is_verified": true,
+  "response": "config verified successfully"
+}
+```
+
+If verification fails, check your credentials, IAM permissions, and role trust policies before proceeding.
+
+**Step 2: Create the Integration**
+
+Once verified, send the base64-encoded configuration to create a cloudlist config:
+
+```bash
+curl -X POST https://api.projectdiscovery.io/v1/scans/config \
+  -H 'Content-Type: application/json' \
+  -H 'X-API-Key: <your-api-key>' \
+  -d '{
+    "name": "My AWS Integration",
+    "config_type": "cloudlist",
+    "config": "<base64-encoded-yaml>"
+  }'
+```
+
+The response includes the config `id` that you will use in the next step:
+
+```json
+{
+  "id": "config-id",
+  "message": "successfully created configuration"
+}
+```
+
+**Step 3: Create an Enumeration**
+
+Use the config `id` from Step 2 to create a cloud asset enumeration:
+
+```bash
+curl -X POST https://api.projectdiscovery.io/v1/asset/enumerate \
+  -H 'Content-Type: application/json' \
+  -H 'X-API-Key: <your-api-key>' \
+  -d '{
+    "cloudlist_config_ids": ["<config-id-from-step-2>"],
+    "name": "AWS Cloud Enumeration"
+  }'
+```
+
+The example above shows a minimal request. Refer to the [Create Enumeration API reference](/api-reference/enumerations/create-enumeration) for the complete list of required and optional fields.
+
 **References:**
 
 1. https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_iam_read-only-console.html
