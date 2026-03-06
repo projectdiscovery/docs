@@ -1,3 +1,75 @@
 ---
 openapi: post /v1/asset/policy
 ---
+
+<Note>
+The `policy_type` determines which fields are required:
+
+| Policy Type | Required Fields |
+|---|---|
+| `alert` (default) | `alerting_config_ids` |
+| `delete` | — |
+| `set_label` | `labels` |
+| `remove_label` | `labels` |
+
+**Conditions:** Multiple filters in the `policies` object use AND logic — all conditions must match for the policy to apply.
+
+**Scope:** Set `apply_to_existing` to `true` to apply the policy to existing matching assets immediately. When `false` (default), the policy only acts on newly discovered assets.
+</Note>
+
+## Example Requests
+
+### Create a delete policy for noisy assets
+
+```bash
+curl -X POST "https://api.projectdiscovery.io/v1/asset/policy" \
+  -H "X-Api-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Remove 401 webhooks",
+    "policy_type": "delete",
+    "policies": {
+      "host": "www.webhook.office.com",
+      "status_code": "401"
+    },
+    "apply_to_existing": true
+  }'
+```
+
+### Create an alert policy for sensitive ports
+
+```bash
+curl -X POST "https://api.projectdiscovery.io/v1/asset/policy" \
+  -H "X-Api-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Alert on sensitive ports",
+    "policy_type": "alert",
+    "policies": {
+      "port": "22,3306,5432,6379"
+    },
+    "alerting_config_ids": ["your-alerting-config-id"],
+    "apply_to_existing": false
+  }'
+```
+
+### Create a labeling policy
+
+```bash
+curl -X POST "https://api.projectdiscovery.io/v1/asset/policy" \
+  -H "X-Api-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Tag WordPress sites",
+    "policy_type": "set_label",
+    "policies": {
+      "technologies": "WordPress"
+    },
+    "labels": ["cms", "wordpress"],
+    "apply_to_existing": true
+  }'
+```
+
+## Related Resources
+
+- [Asset Policies Guide](/cloud/assets/asset-policies) - Feature overview with walkthrough

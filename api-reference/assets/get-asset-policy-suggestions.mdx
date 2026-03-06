@@ -1,3 +1,18 @@
 ---
 openapi: get /v1/asset/policy/suggestion
 ---
+
+<Note>
+Each suggestion includes a pre-built policy template that can be used directly with the Create Asset Policy endpoint.
+
+**Categories analyzed:** error status codes, zero content length, TLS issues, sensitive ports, IP concentration, repeated titles, sensitive technologies (Jenkins, Kubernetes, Redis, etc.), admin panels, login pages, and dev/staging environments.
+
+The `threshold` parameter controls the minimum percentage of assets a pattern must affect to be suggested (default: 5%).
+</Note>
+
+## Example Request
+
+```bash
+curl -X GET "https://api.projectdiscovery.io/v1/asset/policy/suggestion?limit=5&threshold=10" \
+  -H "X-Api-Key: YOUR_API_KEY"
+```
