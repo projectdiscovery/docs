@@ -1,3 +1,43 @@
 ---
 openapi: patch /v1/asset/policy/{policy_id}
 ---
+
+<Note>
+The `update_type` query parameter controls how values are merged:
+
+| Mode | Behavior |
+|---|---|
+| `append` (default) | Merges new values with existing ones. For example, adding new `alerting_config_ids` keeps the current ones. |
+| `replace` | Completely overwrites the policy. All required fields for the policy type must be provided. |
+
+In `replace` mode, `alerting_config_ids` is required for `alert` policies and `labels` is required for `set_label`/`remove_label` policies.
+</Note>
+
+## Example Requests
+
+### Append new labels to an existing policy
+
+```bash
+curl -X PATCH "https://api.projectdiscovery.io/v1/asset/policy/POLICY_ID?update_type=append" \
+  -H "X-Api-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "labels": ["new-label"]
+  }'
+```
+
+### Replace policy conditions entirely
+
+```bash
+curl -X PATCH "https://api.projectdiscovery.io/v1/asset/policy/POLICY_ID?update_type=replace" \
+  -H "X-Api-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Updated policy",
+    "policy_type": "delete",
+    "policies": {
+      "host": "staging.example.com",
+      "status_code": "503"
+    }
+  }'
+```

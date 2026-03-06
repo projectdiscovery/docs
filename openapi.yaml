@@ -14012,7 +14012,7 @@ paths:
             type: string
           in: query
           name: search
-          description: Search on the content name
+          description: Case-insensitive substring search on the host field
         - schema:
             type: string
             enum:
@@ -14043,7 +14043,7 @@ paths:
         default:
           $ref: '#/components/responses/ErrorResponse'
       operationId: get-v1-asset-policy
-      description: List all asset policy
+      description: List all asset policies configured for your account. Returns each policy with its conditions, action type, and execution metadata.
       parameters:
         - schema:
             type: integer
@@ -14070,6 +14070,7 @@ paths:
                     type: string
                   id:
                     type: string
+                    description: Unique identifier of the created policy
         '400':
           $ref: '#/components/responses/ErrorResponse'
         '401':
@@ -14081,7 +14082,7 @@ paths:
         default:
           description: Default
       operationId: post-v1-asset-policy
-      description: Create a new asset policy filter
+      description: 'Create a new asset policy that automatically takes action on assets matching defined conditions. Supported actions: alert (send notifications), delete (remove assets), set_label (add labels), and remove_label (remove labels).'
       requestBody:
         $ref: '#/components/requestBodies/CreateAssetPolicyRequest'
   '/v1/asset/policy/{policy_id}':
@@ -14091,6 +14092,7 @@ paths:
         name: policy_id
         in: path
         required: true
+        description: Unique identifier of the asset policy
     get:
       summary: Get asset policy
       tags: []
@@ -14117,7 +14119,7 @@ paths:
         default:
           $ref: '#/components/responses/ErrorResponse'
       operationId: get-v1-asset-policy-policy_id
-      description: Get a single asset policy by ID
+      description: Get a single asset policy by ID, including its conditions, action configuration, and execution metadata.
     patch:
       summary: Update asset policy
       tags: []
@@ -14144,7 +14146,7 @@ paths:
         default:
           $ref: '#/components/responses/ErrorResponse'
       operationId: patch-v1-asset-policy-policy_id
-      description: Update an existing asset policy filter
+      description: Update an existing asset policy. Use `append` mode to merge new values with existing ones (e.g., add alerting configs or labels without removing current ones). Use `replace` mode to completely overwrite the policy configuration.
       parameters:
         - schema:
             type: string
@@ -14153,7 +14155,7 @@ paths:
               - replace
           in: query
           name: update_type
-          description: Append vs Replace update_type. Default is append
+          description: 'Update strategy. `append` (default) merges new values with existing ones. `replace` overwrites the entire policy — all required fields for the policy type must be provided.'
       requestBody:
         $ref: '#/components/requestBodies/UpdateAssetPolicyRequest'
     delete:
@@ -14180,7 +14182,7 @@ paths:
         default:
           $ref: '#/components/responses/ErrorResponse'
       operationId: delete-v1-asset-policy-policy_id
-      description: Delete an asset policy filter
+      description: Permanently delete an asset policy. This stops all future automatic actions for this policy.
   /v1/asset/policy/suggestion:
     get:
       summary: Get asset policy suggestions
@@ -14227,6 +14229,7 @@ paths:
         name: policy_id
         in: path
         required: true
+        description: Unique identifier of the asset policy
     get:
       summary: Get asset policy events
       tags: []
@@ -14264,16 +14267,18 @@ paths:
         default:
           $ref: '#/components/responses/ErrorResponse'
       operationId: get-v1-asset-policy-policy_id-events
-      description: Get activity events for a specific asset policy
+      description: Get the execution history for a specific asset policy, including apply actions, alert deliveries, and errors.
       parameters:
         - schema:
             type: integer
           in: query
           name: limit
+          description: 'Maximum results per page (default: 50, max: 100)'
         - schema:
             type: integer
           in: query
           name: offset
+          description: Number of items to skip for pagination
 components:
   schemas:
     TimelineEvent:
@@ -18547,28 +18552,53 @@ components:
       properties:
         id:
           type: string
+          description: Unique identifier for the finding
         enumeration_id:
           type: string
+          description: ID of the enumeration run that discovered this finding
         finding_type:
           type: string
           enum:
             - dangling_dns
             - origin_exposure
+          description: Type of infrastructure misconfiguration
         host:
           type: string
+          description: The affected hostname or domain
         severity:
           type: string
+          enum:
+            - critical
+            - high
+            - medium
+            - low
+            - info
+            - unknown
+          description: Severity level of the finding
         status:
           type: string
+          enum:
+            - open
+            - fixed
+            - false_positive
+            - duplicate
+            - fix_in_progress
+            - accepted_risk
+            - triaged
+            - out_of_scope
+          description: Current status of the finding
         event:
           type: object
           additionalProperties: true
+          description: 'Type-specific finding details. For dangling_dns: host, ip, provider. For origin_exposure: provider, origin_ip, leaking_hosts.'
         created_at:
           type: string
           format: date
+          description: When the finding was first discovered
         updated_at:
           type: string
           format: date
+          description: When the finding was last updated
     AssetPolicyType:
       title: AssetPolicyType
       type: string
@@ -18631,6 +18661,7 @@ components:
           description: Timestamp of the last successful policy execution
         apply_to_existing:
           type: boolean
+          description: Whether this policy applies to existing matching assets in addition to future assets
     AssetPolicyListResponse:
       title: AssetPolicyListResponse
       type: object
@@ -21368,6 +21399,7 @@ components:
                 $ref: '#/components/schemas/AssetFilters'
               name:
                 type: string
+                description: Display name for the policy. Auto-generated if not provided.
               policy_type:
                 $ref: '#/components/schemas/AssetPolicyType'
               alerting_config_ids:
@@ -21388,6 +21420,7 @@ components:
               apply_to_existing:
                 type: boolean
                 default: false
+                description: 'When true, the policy action is applied to existing assets that match the conditions in addition to future assets. When false (default), the policy only applies to newly discovered assets.'
     UpdateAssetPolicyRequest:
       content:
         application/json:
@@ -21398,6 +21431,7 @@ components:
                 $ref: '#/components/schemas/AssetFilters'
               name:
                 type: string
+                description: Display name for the policy
               enumeration_ids:
                 type: array
                 description: Optional list of enumeration IDs to scope this policy to specific enumerations
@@ -21407,16 +21441,17 @@ components:
                 $ref: '#/components/schemas/AssetPolicyType'
               labels:
                 type: array
-                description: List of labels to apply/remove (required when policy_type is 'set_label' or 'remove_label')
+                description: 'List of labels to apply/remove (required when policy_type is set_label or remove_label). In append mode, merged with existing labels. In replace mode, replaces all labels.'
                 items:
                   type: string
               alerting_config_ids:
                 type: array
-                description: List of alerting configuration IDs (required when policy_type is 'alert')
+                description: 'List of alerting configuration IDs (required when policy_type is alert). In append mode, merged with existing configs. In replace mode, replaces all configs.'
                 items:
                   type: string
               apply_to_existing:
                 type: boolean
+                description: 'When true, the policy action is applied to existing matching assets in addition to future assets.'
 x-internal: false
 security:
   - X-API-Key: []

@@ -1,3 +1,51 @@
 ---
 openapi: get /v1/asset/enumerate/misconfiguration
 ---
+
+## Finding Types
+
+| Type | Description |
+|---|---|
+| `dangling_dns` | DNS records pointing to resources that no longer exist, potentially vulnerable to subdomain takeover |
+| `origin_exposure` | Backend origin IPs exposed behind CDN or proxy services |
+
+### Event Details by Finding Type
+
+The `event` object contains type-specific details:
+
+**`dangling_dns`**
+| Field | Description |
+|---|---|
+| `host` | The vulnerable hostname |
+| `ip` | The dangling IP address |
+| `provider` | Cloud provider (e.g., AWS) |
+
+**`origin_exposure`**
+| Field | Description |
+|---|---|
+| `origin_ip` | The exposed origin server IP |
+| `provider` | CDN provider (e.g., CloudFlare) |
+| `leaking_hosts` | Hostnames leaking the origin IP |
+
+## Example Requests
+
+### List all misconfigurations
+
+```bash
+curl -X GET "https://api.projectdiscovery.io/v1/asset/enumerate/misconfiguration?limit=50" \
+  -H "X-Api-Key: YOUR_API_KEY"
+```
+
+### Filter by finding type
+
+```bash
+curl -X GET "https://api.projectdiscovery.io/v1/asset/enumerate/misconfiguration?finding_type=dangling_dns" \
+  -H "X-Api-Key: YOUR_API_KEY"
+```
+
+### Search by host
+
+```bash
+curl -X GET "https://api.projectdiscovery.io/v1/asset/enumerate/misconfiguration?search=staging.example.com" \
+  -H "X-Api-Key: YOUR_API_KEY"
+```
