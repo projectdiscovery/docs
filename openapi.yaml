@@ -3649,6 +3649,93 @@ paths:
         $ref: '#/components/requestBodies/InviteTeamMemberRequest'
       description: Accept team invite
       parameters: []
+  /v1/user/team/default-members:
+    get:
+      summary: Get Default Team Members
+      operationId: get-v1-user-team-default-members
+      tags:
+        - internal
+      responses:
+        '200':
+          $ref: '#/components/responses/GetDefaultTeamMembersResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+        - X-API-Key: []
+      description: Retrieve the list of configured default team members
+      parameters:
+        - schema:
+            type: string
+          in: header
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+          name: X-Team-Id
+          required: true
+    post:
+      summary: Set Default Team Members
+      operationId: post-v1-user-team-default-members
+      tags:
+        - internal
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+        - X-API-Key: []
+      requestBody:
+        $ref: '#/components/requestBodies/SetDefaultTeamMembersRequest'
+      description: Set (replace) the list of default team members
+      parameters:
+        - schema:
+            type: string
+          in: header
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+          name: X-Team-Id
+          required: true
+    delete:
+      summary: Delete Default Team Members
+      operationId: delete-v1-user-team-default-members
+      tags:
+        - internal
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+        - X-API-Key: []
+      requestBody:
+        $ref: '#/components/requestBodies/DeleteDefaultTeamMemberRequest'
+      description: Delete default team members (specific or all)
+      parameters:
+        - schema:
+            type: string
+          in: header
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+          name: X-Team-Id
+          required: true
   /v1/admin/team/member:
     post:
       summary: Add Team Member (Admin)
@@ -19633,6 +19720,30 @@ components:
               - message
               - members
               - max_team_members
+    GetDefaultTeamMembersResponse:
+      description: Default team members response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              members:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                    role:
+                      type: string
+                  required:
+                    - email
+                    - role
+            required:
+              - message
+              - members
     StaticScanIPsResponse:
       description: ''
       content:
@@ -20877,6 +20988,40 @@ components:
                 description: Team member role. Valid values are ADMIN, MEMBER, VIEWER, GUEST.
             required:
               - email
+    SetDefaultTeamMembersRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              members:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                    role:
+                      type: string
+                      enum:
+                        - ADMIN
+                        - MEMBER
+                        - VIEWER
+                        - GUEST
+                  required:
+                    - email
+                    - role
+            required:
+              - members
+    DeleteDefaultTeamMemberRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                description: Email of specific member to remove. Omit to remove all
     AdminAddTeamMemberRequest:
       content:
         application/json:
