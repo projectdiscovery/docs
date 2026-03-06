@@ -151,6 +151,19 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/TemplateData'
+                  validation_errors:
+                    type: array
+                    description: Detailed validation issues detected before upload
+                    items:
+                      $ref: '#/components/schemas/TemplateValidationError'
+                  workflow_rejections:
+                    type: array
+                    description: Templates rejected because workflow files are not supported
+                    items:
+                      $ref: '#/components/schemas/TemplateWorkflowRejection'
+                  trace_id:
+                    type: string
+                    description: Trace identifier that can be shared with support for debugging
         '400':
           $ref: '#/components/responses/MessageResponse'
         '401':
@@ -2526,13 +2539,15 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+                - domain
               properties:
                 domain:
                   type: string
                   description: 'Root domain to verify (e.g., example.com)'
                   example: example.com
-              required:
-                - domain
+                verification_type:
+                  $ref: '#/components/schemas/DomainVerificationType'
       description: Request domain ownership verification through DNS TXT record. Only root domains are supported.
       parameters:
         - schema:
@@ -2577,10 +2592,13 @@ paths:
               type: object
               required:
                 - domain
+                - verification_type
               properties:
                 domain:
                   type: string
                   description: 'Root domain to delete (e.g., example.com)'
+                verification_type:
+                  $ref: '#/components/schemas/DomainVerificationType'
       description: Delete domain verification request. Only root domains are supported.
       security:
         - X-API-Key: []
@@ -2641,13 +2659,17 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+                - domain
               properties:
                 domain:
                   type: string
                   description: Root domain to confirm verification for
                   example: example.com
-              required:
-                - domain
+                verification_type:
+                  $ref: '#/components/schemas/DomainVerificationType'
+                email:
+                  type: string
       description: Confirm domain ownership by checking if the required DNS TXT record has been added.
       parameters:
         - schema:
@@ -4937,6 +4959,12 @@ paths:
                   type: array
                   items:
                     type: string
+                  description: >-
+                    Combined inclusion and exclusion patterns for discovery scope.
+                    Exclusion patterns (e.g. `*.staging.company.com`) filter out matching targets.
+                    Inclusion patterns use a `+` prefix (e.g. `+prod-*.company.com`) to restrict discovery to only matching targets (allowlist mode).
+                    When inclusion patterns are present, targets must match at least one inclusion pattern and not match any exclusion pattern.
+                    Supports exact domains, wildcard patterns, IP addresses, and CIDR ranges.
       security:
         - X-API-Key: []
       description: Create a new enumeration
@@ -5931,35 +5959,77 @@ paths:
               - unknown
           in: query
           name: source
-          description: filter by source of the audit log entry
-        - schema:
-            type: string
-            format: date
-          in: query
-          name: start_date
-          description: start date from which you want to get logs
-        - schema:
-            type: string
-            format: date
-          in: query
-          name: end_date
-          description: end date till which you want to get logs
-        - schema:
-            type: string
-            enum:
-              - current_month
-              - last_month
-              - last_3_months
-              - last_6_months
-              - last_12_months
-          in: query
-          name: time_range
-          description: time range to get logs
+          description: 'filter by request source (api, platform, unknown)'
         - schema:
             type: string
           in: header
           description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
           name: X-Team-Id
+  /v1/team/audit_log/search:
+    get:
+      summary: Smart search across audit logs
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - message
+                  - data
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/UserAuditLogItems'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+      operationId: get-v1-team-audit-log-search
+      security:
+        - X-API-Key: []
+      parameters:
+        - schema:
+            type: string
+            minLength: 1
+            maxLength: 200
+          in: query
+          name: q
+          required: true
+          description: |
+            Search query. Automatically detects search intent:
+            - Status code (404, 200, 500) → Searches status_code field
+            - Source (api, platform, unknown) → Searches source field
+            - IP address (192.168.x.x) → Searches ip field
+            - Email (user@example.com) → Searches email field
+            - HTTP method (GET, POST, PUT) → Searches method field
+            - Path (/v1/scans, enumerate) → Searches path_name and path fields
+            - General text → Searches across path, path_name, request, response
+        - schema:
+            type: integer
+            default: 0
+          in: query
+          name: offset
+          description: number of rows to skip
+        - schema:
+            type: integer
+            default: 100
+          in: query
+          name: limit
+          description: number of rows to get (max 100)
+        - schema:
+            type: string
+          in: header
+          name: X-Team-Id
+          required: true
+          description: '''Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'''
   /v1/scans/history:
     get:
       summary: Get All Scans History
@@ -7534,6 +7604,18 @@ paths:
           in: query
           name: format
           description: 'supported format is csv, raw, or json (default json)'
+        - schema:
+            type: string
+            format: date
+          in: query
+          name: start_date
+          description: time filter start date
+        - schema:
+            type: string
+            format: date
+          in: query
+          name: end_date
+          description: time filter end date
     parameters: []
   '/v1/asset/enumerate/{enumerate_id}/domains':
     parameters:
@@ -9473,6 +9555,8 @@ paths:
                   type: array
                   items:
                     $ref: '#/components/schemas/EnumerationIDTypes'
+                asset_filters:
+                  $ref: '#/components/schemas/AssetFilters'
       operationId: post-v1-scans-validate
       security:
         - X-API-Key: []
@@ -9870,6 +9954,10 @@ paths:
                 stripe_price_id:
                   type: string
                   description: Stripe price ID for the growth plan
+                predefined_count:
+                  type: integer
+                  format: int64
+                  description: Optional predefined scan token count for the user
     delete:
       summary: Delete growth plan user mapping
       tags:
@@ -10188,7 +10276,7 @@ paths:
       summary: Get Associated Domains
       description: Discover domains related to a given domain through acquisition history, certificate transparency logs, and WHOIS records. Returns associated domains with evidence of their relationship.
       tags:
-        - enumerations
+        - chaos
       responses:
         '200':
           $ref: '#/components/responses/AssociatedDomainsResults'
@@ -10227,7 +10315,7 @@ paths:
               - update_date
           in: query
           name: sort
-          description: Sort results by field
+          description: Sort results
         - schema:
             type: integer
           in: query
@@ -10243,6 +10331,11 @@ paths:
           in: query
           name: raw
           description: 'If true, returns plain text list (one domain per line)'
+        - schema:
+            type: string
+          in: header
+          name: X-Team-Id
+    parameters: []
   /v1/organization/search:
     get:
       summary: Get Organization by Domain
@@ -11133,14 +11226,15 @@ paths:
         default:
           $ref: '#/components/responses/ErrorResponse'
       operationId: get-v1-leaks-stats-domain
-      security: []
       parameters:
         - schema:
             type: string
           in: query
           name: domain
-          required: true
-          description: The domain to get leak statistics for
+        - schema:
+            type: boolean
+          in: query
+          name: unmask_email
   /v1/leaks/stats/email:
     get:
       summary: Get leak statistics for an email (Public)
@@ -11228,14 +11322,16 @@ paths:
         default:
           $ref: '#/components/responses/ErrorResponse'
       operationId: get-v1-leaks-stats-email
-      security: []
       parameters:
         - schema:
             type: string
           in: query
           name: email
-          description: The email address to get leak statistics for
-          required: true
+          description: Email to get stats for
+        - schema:
+            type: boolean
+          in: query
+          name: unmask_email
   /v1/leaks:
     get:
       summary: Get all leaked credentials
@@ -11575,6 +11671,11 @@ paths:
           in: query
           name: format
           description: Export format (json or csv)
+        - schema:
+            type: string
+          in: header
+          name: X-Team-Id
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
       requestBody:
         required: true
         content:
@@ -12378,6 +12479,53 @@ paths:
           in: query
           name: fields
           description: 'template data fields '
+  '/v2/vulnerability/{id}/timeline':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Get Vulnerability Timeline
+      tags:
+        - vulnerability
+      parameters:
+        - schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - detected
+                - status_change
+                - resolved
+                - reopened
+                - severity_change
+                - template_released
+                - template_updated
+          name: event_type
+          in: query
+          required: false
+          description: 'Filter by event types (comma-separated). If not provided, returns all events.'
+          style: form
+          explode: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VulnTimelineResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-vulnerability-timeline
+      description: 'Get timeline of events for a vulnerability including template release date, first detection, status changes, and severity changes'
   /v2/vulnerability/filters:
     get:
       summary: Get All Filters for Vulnerabilities
@@ -13720,8 +13868,373 @@ paths:
                   format: email
                   description: The user email to associate with the export
       x-internal: true
+  /v1/asset/enumerate/misconfiguration:
+    get:
+      summary: List Misconfiguration Findings
+      description: >-
+        Retrieve infrastructure misconfiguration findings discovered during asset enumeration, such as dangling DNS records and origin IP exposures.
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  total_pages:
+                    type: integer
+                  total_results:
+                    type: integer
+                  current_page:
+                    type: integer
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MisconfigurationResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-asset-enumerate-misconfiguration
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: X-Team-Id
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - schema:
+            type: integer
+          in: query
+          name: limit
+          description: The numbers of items to return
+        - schema:
+            type: integer
+          in: query
+          name: offset
+          description: The number of items to skip before starting to collect the result set
+        - schema:
+            type: string
+          in: query
+          name: search
+          description: Search on the content name
+        - schema:
+            type: string
+            enum:
+              - dangling_dns
+              - origin_exposure
+          in: query
+          name: finding_type
+          description: Filter by finding type
+  /v1/asset/policy:
+    get:
+      summary: List asset policies
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetPolicyListResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-asset-policy
+      description: List all asset policy
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: limit
+          description: Number of items to return
+        - schema:
+            type: integer
+          in: query
+          name: offset
+          description: Number of items to skip
+    post:
+      summary: Create asset policy
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  id:
+                    type: string
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          description: Default
+      operationId: post-v1-asset-policy
+      description: Create a new asset policy filter
+      requestBody:
+        $ref: '#/components/requestBodies/CreateAssetPolicyRequest'
+  '/v1/asset/policy/{policy_id}':
+    parameters:
+      - schema:
+          type: string
+        name: policy_id
+        in: path
+        required: true
+    get:
+      summary: Get asset policy
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AssetPolicy'
+                  message:
+                    type: string
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-asset-policy-policy_id
+      description: Get a single asset policy by ID
+    patch:
+      summary: Update asset policy
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  id:
+                    type: string
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: patch-v1-asset-policy-policy_id
+      description: Update an existing asset policy filter
+      parameters:
+        - schema:
+            type: string
+            enum:
+              - append
+              - replace
+          in: query
+          name: update_type
+          description: Append vs Replace update_type. Default is append
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateAssetPolicyRequest'
+    delete:
+      summary: Delete asset policy
+      tags: []
+      responses:
+        '200':
+          description: Shared Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: delete-v1-asset-policy-policy_id
+      description: Delete an asset policy filter
+  /v1/asset/policy/suggestion:
+    get:
+      summary: Get asset policy suggestions
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetPolicySuggestionsResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-asset-policy-suggestion
+      description: Get suggested asset policies based on user data patterns. Analyzes asset data to suggest policies for bad data detection and important asset highlighting.
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: enumeration_id
+          description: Optional enumeration ID to scope suggestions
+        - schema:
+            type: integer
+          in: query
+          name: limit
+          description: Maximum suggestions per category
+        - schema:
+            type: number
+          in: query
+          name: threshold
+          description: Minimum percentage threshold for anomaly detection
+  '/v1/asset/policy/{policy_id}/events':
+    parameters:
+      - schema:
+          type: string
+        name: policy_id
+        in: path
+        required: true
+    get:
+      summary: Get asset policy events
+      tags: []
+      responses:
+        '200':
+          description: Shared Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      events:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/ActivityEvent'
+                  total:
+                    type: integer
+                  limit:
+                    type: integer
+                  offset:
+                    type: integer
+                  message:
+                    type: string
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-asset-policy-policy_id-events
+      description: Get activity events for a specific asset policy
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: limit
+        - schema:
+            type: integer
+          in: query
+          name: offset
 components:
   schemas:
+    TimelineEvent:
+      title: TimelineEvent
+      type: object
+      required:
+        - timestamp
+        - event_type
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        event_type:
+          type: string
+          description: 'Type of event (template_released, detected, status_change, severity_change, reopened)'
+        old_value:
+          type: string
+        new_value:
+          type: string
+        description:
+          type: string
+    VulnTimelineResponse:
+      title: VulnTimelineResponse
+      type: object
+      properties:
+        template_released_at:
+          type: string
+          format: date-time
+          description: Date when the template was first released (created)
+        template_updated_at:
+          type: string
+          format: date-time
+          description: Date when the template was last updated
+        template_raw:
+          type: string
+          description: Raw template content (YAML) for public templates
+        first_detected_at:
+          type: string
+          format: date-time
+        last_seen_at:
+          type: string
+          format: date-time
+        current_status:
+          type: string
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/TimelineEvent'
     AssetCategory:
       title: AssetCategory
       type: object
@@ -13767,7 +14280,6 @@ components:
         - domain
         - status
         - created_at
-        - expires_at
         - verification_attempts
       properties:
         domain:
@@ -13779,6 +14291,8 @@ components:
             - pending
             - verified
             - expired
+            - deleted
+            - failed
           description: Current verification status
         verification_string:
           type: string
@@ -13787,10 +14301,6 @@ components:
           type: string
           format: date-time
           description: When the verification request was created
-        expires_at:
-          type: string
-          format: date-time
-          description: When the verification request expires
         verification_attempts:
           type: integer
           description: Number of verification attempts made
@@ -13798,6 +14308,8 @@ components:
           type: string
           format: date-time
           description: When the last verification attempt was made
+        verification_type:
+          $ref: '#/components/schemas/DomainVerificationType'
     VerifyConfigContentsRequestProvider:
       title: VerifyConfigContentsRequestProvider
       type: string
@@ -13933,6 +14445,9 @@ components:
     EnumerateFiltersItem:
       title: EnumerateFiltersItem
       type: object
+      required:
+        - value
+        - count
       properties:
         labels:
           type: string
@@ -13958,9 +14473,9 @@ components:
           type: string
         count:
           type: integer
-      required:
-        - value
-        - count
+        updated_at:
+          type: string
+          format: date-time
     VulnerabilityResults:
       type: object
       required:
@@ -14695,6 +15210,14 @@ components:
           type: string
         path:
           type: string
+        source:
+          type: string
+          nullable: true
+          enum:
+            - api
+            - platform
+            - unknown
+          description: 'Request origin - "api" for x-api-key authentication, "platform" for JWT token, "unknown" for fallback. NULL for historical records (displayed as "-" in UI)'
     PublicTemplateListItem:
       title: PublicTemplateListItem
       type: object
@@ -14733,6 +15256,7 @@ components:
           type: string
         role:
           type: string
+          description: Team member role. Values are OWNER, ADMIN, MEMBER, VIEWER, GUEST.
         invited_at:
           type: string
         accepted_at:
@@ -15613,6 +16137,8 @@ components:
           default: distribute
         scan_all_assets:
           type: boolean
+        asset_filters:
+          $ref: '#/components/schemas/AssetFilters'
     ScanConfigUpdateItem:
       title: ScanConfigUpdateItem
       type: object
@@ -15669,6 +16195,8 @@ components:
           default: distribute
         scan_all_assets:
           type: boolean
+        asset_filters:
+          $ref: '#/components/schemas/AssetFilters'
     ScanLogResp:
       title: ScanLogResp
       type: object
@@ -16459,9 +16987,11 @@ components:
         search:
           type: string
           description: Search on the content name
-        enumeration_id:
-          type: string
-          description: Filter by enumeration id
+        enumeration_ids:
+          type: array
+          items:
+            type: string
+          description: Filter by enumeration ids
         only_dns:
           type: boolean
           description: Query only dns FQDN records
@@ -16681,46 +17211,21 @@ components:
           description: The total number of subdomains
           type: integer
       type: object
-    DomainSearchItem:
-      title: DomainSearchItem
-      type: object
-      required:
-        - name
-        - type
-        - search_score
-      properties:
-        domain:
-          $ref: '#/components/schemas/RootDomainInfo'
-        name:
-          description: The display name for autocomplete
-          type: string
-        organization:
-          $ref: '#/components/schemas/OrganizationInfo'
-        search_score:
-          description: The search score of the result
-          type: number
-        type:
-          description: Indicates whether this is an organization or domain result
-          enum:
-            - organization
-            - domain
-          type: string
     AssociatedDomainEvidence:
       title: AssociatedDomainEvidence
       type: object
-      description: Evidence supporting the domain association from various sources
       properties:
         acquired_company:
-          description: Acquired company name (acquisition_history source)
+          description: Acquired company name
           type: string
         acquired_date:
-          description: Acquisition date (acquisition_history source)
+          description: Acquisition date
           type: string
         acquirer_name:
-          description: Acquirer organization name (acquisition_history source)
+          description: Acquirer organization name
           type: string
         active:
-          description: Whether the domain is currently reachable
+          description: Whether the domain is reachable
           type: boolean
         as_name:
           description: Autonomous system name
@@ -16729,97 +17234,95 @@ components:
           description: Autonomous system number
           type: integer
         cert_common_name:
-          description: Certificate common name (certificate_history source)
+          description: Certificate common name
           type: string
         cert_expiry_date:
-          description: Certificate expiry date (certificate_history source)
+          description: Certificate expiry date
           type: string
         cert_issued_date:
-          description: Certificate issued date (certificate_history source)
+          description: Certificate issued date
           type: string
         cert_issuer:
-          description: Certificate issuer (certificate_history source)
+          description: Certificate issuer
           type: string
         cert_org_name:
-          description: Certificate organization name (certificate_history source)
+          description: Certificate organization name
           type: string
         cert_serial:
-          description: Certificate serial number (certificate_history source)
+          description: Certificate serial number
+          type: string
+        crunchbase_url:
+          description: Crunchbase URL
           type: string
         expiry_date:
-          description: Domain expiry date (whois_history source)
+          description: Domain expiry date
           type: string
         location:
           description: Geographic location
           type: string
         orgname:
-          description: WHOIS organization name (whois_history source)
+          description: WHOIS organization name
           type: string
         probe:
           description: Probe information
           type: string
         registrant_org:
-          description: Registrant organization (whois_history source)
+          description: Registrant organization
           type: string
         registrar:
-          description: Registrar name (whois_history source)
+          description: Registrar name
           type: string
         registration_date:
-          description: Domain registration date (whois_history source)
+          description: Domain registration date
           type: string
         search_identifier:
           description: Search identifier
           type: string
-        source_url:
-          description: URL to source information
-          type: string
         status_code:
-          description: HTTP status code from probe
+          description: HTTP status code
           type: integer
         subdomain_count:
           description: Number of discovered subdomains
           type: integer
         title:
-          description: HTTP page title from probe
+          description: HTTP title
           type: string
         update_date:
           description: Last update date
           type: string
         whois_server:
-          description: WHOIS server (whois_history source)
+          description: WHOIS server
           type: string
     AssociatedDomainResult:
       title: AssociatedDomainResult
       type: object
-      description: A single associated domain with its discovery sources and evidence
       required:
         - domain
         - sources
       properties:
         domain:
-          description: The associated domain name
+          description: Associated domain name
           type: string
         evidence:
           $ref: '#/components/schemas/AssociatedDomainEvidence'
         sources:
-          description: Sources that reported the association (acquisition_history, certificate_history, whois_history)
+          description: Sources that reported the association
           type: array
           items:
             type: string
     AssociatedDomainsResultSet:
       title: AssociatedDomainsResultSet
       type: object
-      description: Complete response for associated domains query
       required:
         - domain
         - results
         - sources
       properties:
         domain:
-          description: The queried domain
+          description: Queried domain
           type: string
         results:
-          description: List of associated domains with evidence
+          description: List of associated domains
           type: array
           items:
             $ref: '#/components/schemas/AssociatedDomainResult'
@@ -16848,6 +17351,30 @@ components:
         total_pages:
           description: Total pages when paginated
           type: integer
+    DomainSearchItem:
+      title: DomainSearchItem
+      type: object
+      required:
+        - name
+        - type
+        - search_score
+      properties:
+        domain:
+          $ref: '#/components/schemas/RootDomainInfo'
+        name:
+          description: The display name for autocomplete
+          type: string
+        organization:
+          $ref: '#/components/schemas/OrganizationInfo'
+        search_score:
+          description: The search score of the result
+          type: number
+        type:
+          description: Indicates whether this is an organization or domain result
+          enum:
+            - organization
+            - domain
+          type: string
     OpenVulnerabilityScoreMetrics:
       title: OpenVulnerabilityScoreMetrics
       type: object
@@ -16906,6 +17433,42 @@ components:
           type: string
         template:
           type: string
+    TemplateValidationError:
+      title: TemplateValidationError
+      type: object
+      required:
+        - filename
+        - message
+      properties:
+        filename:
+          type: string
+        message:
+          type: string
+        detail:
+          type: string
+        line:
+          type: integer
+          description: Line number reported by the validator (if available)
+        column:
+          type: integer
+          description: Column number reported by the validator (if available)
+        issue_code:
+          type: string
+          description: Optional validator issue identifier
+    TemplateWorkflowRejection:
+      title: TemplateWorkflowRejection
+      type: object
+      required:
+        - filename
+        - reason
+      properties:
+        filename:
+          type: string
+        reason:
+          type: string
+        hint:
+          type: string
+          description: Suggested action to resolve the rejection
     TemplateFileMetadata:
       title: TemplateFileMetadata
       type: object
@@ -17884,6 +18447,249 @@ components:
           type: string
           format: date-time
           description: Last update timestamp
+    DomainVerificationType:
+      title: DomainVerificationType
+      enum:
+        - dns_text_record
+        - html_meta_tag
+        - file_upload
+      default: dns_text_record
+    MisconfigurationResponse:
+      title: MisconfigurationResponse
+      type: object
+      properties:
+        id:
+          type: string
+        enumeration_id:
+          type: string
+        finding_type:
+          type: string
+          enum:
+            - dangling_dns
+            - origin_exposure
+        host:
+          type: string
+        severity:
+          type: string
+        status:
+          type: string
+        event:
+          type: object
+          additionalProperties: true
+        created_at:
+          type: string
+          format: date
+        updated_at:
+          type: string
+          format: date
+    AssetPolicyType:
+      title: AssetPolicyType
+      type: string
+      enum:
+        - alert
+        - delete
+        - set_label
+        - remove_label
+      description: Type of action to perform when policy matches assets
+    AssetPolicy:
+      title: AssetPolicy
+      type: object
+      required:
+        - id
+        - name
+        - policy_type
+        - policies
+        - created_at
+        - updated_at
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the asset policy
+        name:
+          type: string
+          description: Name of the asset policy
+        policy_type:
+          $ref: '#/components/schemas/AssetPolicyType'
+        policies:
+          $ref: '#/components/schemas/AssetFilters'
+        alerting_config_ids:
+          type: array
+          description: List of alerting configuration IDs bound to this asset policy (required for alert type)
+          items:
+            type: string
+        labels:
+          type: array
+          description: List of labels associated with this policy (used for set_label/remove_label types)
+          items:
+            type: string
+        enumeration_ids:
+          type: array
+          description: Optional list of enumeration IDs to scope this policy to specific enumerations
+          items:
+            type: string
+        metadata:
+          type: object
+          description: Additional metadata
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+        last_executed_at:
+          type: string
+          format: date-time
+          description: Timestamp of the last successful policy execution
+        apply_to_existing:
+          type: boolean
+    AssetPolicyListResponse:
+      title: AssetPolicyListResponse
+      type: object
+      required:
+        - policies
+        - total
+      properties:
+        policies:
+          type: array
+          description: Total number of asset policies for the user
+          items:
+            $ref: '#/components/schemas/AssetPolicy'
+        total:
+          type: integer
+          format: int64
+        message:
+          type: string
+    AssetPolicySuggestionsResponse:
+      title: AssetPolicySuggestionsResponse
+      type: object
+      required:
+        - suggestions
+        - total
+      properties:
+        suggestions:
+          type: array
+          description: List of suggested policies based on user asset patterns
+          items:
+            $ref: '#/components/schemas/AssetPolicySuggestion'
+        total:
+          type: integer
+          format: int64
+          description: Total number of suggestions
+        message:
+          type: string
+    AssetPolicySuggestion:
+      title: AssetPolicySuggestion
+      type: object
+      required:
+        - id
+        - category
+        - title
+        - reason
+        - severity
+        - suggested_policy
+        - affected_count
+      properties:
+        id:
+          type: string
+          description: Unique identifier for this suggestion (deterministic based on pattern)
+        category:
+          type: string
+          description: 'Category of the suggestion (e.g., ip_concentration, repeated_title)'
+        title:
+          type: string
+          description: Human-readable title for the suggestion
+        reason:
+          type: string
+          description: Detailed explanation of why this suggestion is made
+        severity:
+          type: string
+          description: Severity level of the suggestion
+        suggested_policy:
+          type: object
+          required:
+            - name
+            - policy_type
+            - policies
+          properties:
+            name:
+              type: string
+              description: Suggested name for the policy
+            policy_type:
+              $ref: '#/components/schemas/AssetPolicyType'
+            policies:
+              $ref: '#/components/schemas/AssetFilters'
+            labels:
+              type: array
+              description: Labels to apply (for set_label/remove_label types)
+              items:
+                type: string
+        affected_count:
+          type: integer
+          format: int64
+          description: Number of assets affected by this pattern
+        affected_percentage:
+          type: number
+          format: float
+          description: Percentage of total assets affected
+        sample_assets:
+          type: array
+          description: Sample assets matching this pattern
+          items:
+            type: object
+    ActivityEvent:
+      title: ActivityEvent
+      type: object
+      required:
+        - event_type
+        - subject_type
+        - subject_id
+        - status
+        - created_at
+      properties:
+        id:
+          type: string
+        event_type:
+          type: string
+          description: 'Event type (e.g., asset_policy_applied, asset_policy_processed, asset_policy_alert_sent)'
+        subject_type:
+          type: string
+          description: 'Subject type (e.g., asset_policy)'
+        subject_id:
+          type: string
+          description: Subject ID (policy ID)
+        subject_name:
+          type: string
+          description: Subject name (policy name)
+        status:
+          enum:
+            - succeeded
+            - failed
+            - pending
+        error_message:
+          type: string
+        channel:
+          type: string
+          description: 'Notification channel (email, slack, etc.)'
+        destination:
+          type: string
+          description: Notification destination (redacted)
+        alert_config_id:
+          type: string
+        asset_policy_id:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        seen:
+          type: boolean
+        message_payload:
+          type: object
+          description: Event metadata
   securitySchemes:
     X-API-Key:
       name: X-API-Key
@@ -18099,6 +18905,11 @@ components:
                   recurrence_period:
                     type: string
                     description: Billing period (MONTHLY/YEARLY)
+              feature_flag:
+                type: object
+                properties:
+                  internal_scan:
+                    type: boolean
     DeleteTemplateResponse:
       description: Example response
       content:
@@ -19292,6 +20103,17 @@ components:
                 type: boolean
               body:
                 type: string
+              cloud_name:
+                type: string
+              cdn_name:
+                type: string
+              waf_name:
+                type: string
+              source_type:
+                type: string
+              extended_metadata:
+                type: object
+                additionalProperties: {}
     EnumerationStatsResponse:
       description: Example response
       content:
@@ -19551,6 +20373,16 @@ components:
                 type: array
                 items:
                   $ref: '#/components/schemas/VulnScoreMetricsTimeSeries'
+    AssociatedDomainsResults:
+      description: Associated domains response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AssociatedDomainsResultSet'
+        text/plain:
+          schema:
+            type: string
+            description: Plain text list of domains when raw=true
     DomainSearchResults:
       description: Domain Search Results
       content:
@@ -19589,16 +20421,6 @@ components:
                   $ref: '#/components/schemas/OrganizationFullInfo'
               total:
                 type: integer
-    AssociatedDomainsResults:
-      description: Associated domains response with evidence from multiple sources
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/AssociatedDomainsResultSet'
-        text/plain:
-          schema:
-            type: string
-            description: Plain text list of domains when raw=true
     UpdateSharedTemplateResponse:
       description: Example response
       content:
@@ -19869,6 +20691,14 @@ components:
                 type: array
                 items:
                   type: string
+                description: >-
+                  Combined inclusion and exclusion patterns for scan scope.
+                  Exclusion patterns (e.g. `*.staging.company.com`) filter out matching targets.
+                  Inclusion patterns use a `+` prefix (e.g. `+prod-*.company.com`) to restrict scanning to only matching targets (allowlist mode).
+                  When inclusion patterns are present, targets must match at least one inclusion pattern and not match any exclusion pattern.
+                  Supports exact domains, wildcard patterns, IP addresses, and CIDR ranges.
+              asset_filters:
+                $ref: '#/components/schemas/AssetFilters'
     SetScanScheduleRequest:
       content:
         application/json:
@@ -19962,6 +20792,8 @@ components:
         application/json:
           schema:
             type: object
+            required:
+              - email
             properties:
               email:
                 type: string
@@ -19987,8 +20819,11 @@ components:
                 type: boolean
               is_leaks_enabled:
                 type: boolean
-            required:
-              - email
+              feature_flag:
+                type: object
+                properties:
+                  internal_scan:
+                    type: boolean
     CreateTeamRequest:
       content:
         application/json:
@@ -20039,6 +20874,7 @@ components:
                 type: string
               role:
                 type: string
+                description: Team member role. Valid values are ADMIN, MEMBER, VIEWER, GUEST.
             required:
               - email
     AdminAddTeamMemberRequest:
@@ -20375,6 +21211,67 @@ components:
                 items:
                   type: integer
                   format: int64
+    CreateAssetPolicyRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - policies
+            properties:
+              policies:
+                $ref: '#/components/schemas/AssetFilters'
+              name:
+                type: string
+              policy_type:
+                $ref: '#/components/schemas/AssetPolicyType'
+              alerting_config_ids:
+                type: array
+                description: List of alerting configuration IDs (required when policy_type is 'alert')
+                items:
+                  type: string
+              labels:
+                type: array
+                description: List of labels to apply/remove (required when policy_type is 'set_label' or 'remove_label')
+                items:
+                  type: string
+              enumeration_ids:
+                type: array
+                description: Optional list of enumeration IDs to scope this policy to specific enumerations
+                items:
+                  type: string
+              apply_to_existing:
+                type: boolean
+                default: false
+    UpdateAssetPolicyRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              policies:
+                $ref: '#/components/schemas/AssetFilters'
+              name:
+                type: string
+              enumeration_ids:
+                type: array
+                description: Optional list of enumeration IDs to scope this policy to specific enumerations
+                items:
+                  type: string
+              policy_type:
+                $ref: '#/components/schemas/AssetPolicyType'
+              labels:
+                type: array
+                description: List of labels to apply/remove (required when policy_type is 'set_label' or 'remove_label')
+                items:
+                  type: string
+              alerting_config_ids:
+                type: array
+                description: List of alerting configuration IDs (required when policy_type is 'alert')
+                items:
+                  type: string
+              apply_to_existing:
+                type: boolean
 x-internal: false
 security:
   - X-API-Key: []

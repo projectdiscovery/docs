@@ -510,7 +510,8 @@
             "api-reference/results/get-all-vulnerability-changelogs",
             "api-reference/retests/get-retest-vulnerability",
             "api-reference/get-vulnerability-by-id",
-            "api-reference/get-all-filters-for-vulnerabilities"
+            "api-reference/get-all-filters-for-vulnerabilities",
+            "api-reference/results/get-vulnerability-timeline"
           ]
         },
         {
@@ -538,7 +539,8 @@
             "api-reference/internal/get-team",
             "api-reference/internal/create-workspace",
             "api-reference/internal/delete-team",
-            "api-reference/internal/update-team"
+            "api-reference/internal/update-team",
+            "api-reference/internal/search-audit-logs"
           ]
         },
         {
@@ -567,7 +569,15 @@
             "api-reference/assets/add-labels-to-asset",
             "api-reference/assets/modify-asset-labels",
             "api-reference/assets/delete-asset-labels",
-            "api-reference/get-asset-enumeration-history-data"
+            "api-reference/get-asset-enumeration-history-data",
+            "api-reference/enumerations/list-enumeration-misconfigurations",
+            "api-reference/assets/list-asset-policies",
+            "api-reference/assets/create-asset-policy",
+            "api-reference/assets/get-asset-policy",
+            "api-reference/assets/update-asset-policy",
+            "api-reference/assets/delete-asset-policy",
+            "api-reference/assets/get-asset-policy-suggestions",
+            "api-reference/assets/get-asset-policy-events"
           ]
         },
         {
