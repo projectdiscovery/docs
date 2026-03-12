@@ -6,8 +6,24 @@ openapi: get /v1/asset/enumerate/misconfiguration
 
 | Type | Description |
 |---|---|
-| `dangling_dns` | DNS records pointing to resources that no longer exist, potentially vulnerable to subdomain takeover |
-| `origin_exposure` | Backend origin IPs exposed behind CDN or proxy services |
+| `dangling_dns` | AWS Elastic IPs that no longer exist, leaving DNS records vulnerable to subdomain takeover |
+| `origin_exposure` | Cloudflare-proxied origin IPs independently discoverable through other hostnames |
+
+### AWS Dangling DNS
+
+A dangling DNS finding is reported when a DNS record points to an AWS Elastic IP that no longer exists, making it potentially vulnerable to subdomain takeover. Requires an AWS cloud integration.
+
+### Cloudflare Origin IP Exposure
+
+When a domain is proxied through Cloudflare, its origin server IP is hidden behind Cloudflare's network. An origin exposure finding indicates that this origin IP is independently discoverable through another hostname that resolves to it directly, without going through Cloudflare.
+
+This finding requires two things:
+
+1. **A Cloudflare cloud integration** — This allows us to read your DNS records and identify which hostnames are proxied and what origin IPs they point to.
+
+2. **Asset inventory** — Hostnames and their resolved IPs from your attack surface discovery. The check runs against your entire inventory, excluding assets sourced from cloud integrations.
+
+When a hostname from your inventory resolves to the same IP as the origin behind one of your proxied Cloudflare records, it is flagged as an origin exposure finding.
 
 ### Event Details by Finding Type
 
@@ -24,8 +40,8 @@ The `event` object contains type-specific details:
 | Field | Description |
 |---|---|
 | `origin_ip` | The exposed origin server IP |
-| `provider` | CDN provider (e.g., CloudFlare) |
-| `leaking_hosts` | Hostnames leaking the origin IP |
+| `provider` | CDN provider (e.g., Cloudflare) |
+| `leaking_hosts` | The hostnames from your inventory that resolve directly to the origin IP |
 
 ## Example Requests
 
