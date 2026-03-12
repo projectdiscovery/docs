@@ -1785,6 +1785,10 @@ Supported Cloudflare Services:
 
 - DNS and CDN assets
 
+<Note>
+  Connecting a Cloudflare integration also enables **origin IP exposure** detection under [Misconfigurations](/api-reference/enumerations/list-enumeration-misconfigurations). When a hostname from your asset inventory resolves to the same IP as the origin behind one of your proxied Cloudflare records, it is flagged as an origin exposure finding.
+</Note>
+
 **Cloudflare Integration Methods:**
 
 You can integrate Cloudflare into ProjectDiscovery via one of two methods:
