@@ -1,0 +1,29 @@
+# stop at first match Schema
+
+```txt
+https://template#/$defs/Template/properties/stop-at-first-match
+```
+
+stop-at-first-match stops the execution of template as soon as first match/result was found in a template given that template was sending multiple requests
+this is required in case of default-login , brute-force and even detection templates where multiple requests are sent from template but we want to exit as soon as first match/result was found
+Example:
+
+```yaml
+stop-at-first-match: true
+```
+
+Full example template of stop-at-first-match is available at <https://cloud.projectdiscovery.io/public/bitbucket-public-repository>
+
+| Abstract            | Extensible | Status         | Identifiable            | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                             |
+| :------------------ | :--------- | :------------- | :---------------------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------- |
+| Can be instantiated | No         | Unknown status | Unknown identifiability | Forbidden         | Allowed               | none                | [nuclei-schema.schema.json\*](../out/nuclei-schema.schema.json "open original schema") |
+
+## stop-at-first-match Type
+
+`boolean` ([stop at first match](nuclei-schema-defs-template-properties-stop-at-first-match))
+
+## stop-at-first-match Examples
+
+```json
+true
+```

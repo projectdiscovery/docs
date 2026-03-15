@@ -1,0 +1,31 @@
+# mark requests as self-contained Schema
+
+```txt
+https://template#/$defs/Template/properties/self-contained
+```
+
+Self-contained marks all requests in this template as independent of input which means input/target is not required for execution of template
+but other variables defined in template need to be explicitly set using -V flag
+Default value is false
+Note: self-contained templates only run once regardless of how many targets where provided to nuclei
+Example:
+
+```yaml
+self-contained: true
+```
+
+Full example template of self-contained is available at <https://cloud.projectdiscovery.io/public/aws-app-enum>
+
+| Abstract            | Extensible | Status         | Identifiable            | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                             |
+| :------------------ | :--------- | :------------- | :---------------------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------- |
+| Can be instantiated | No         | Unknown status | Unknown identifiability | Forbidden         | Allowed               | none                | [nuclei-schema.schema.json\*](../out/nuclei-schema.schema.json "open original schema") |
+
+## self-contained Type
+
+`boolean` ([mark requests as self-contained](nuclei-schema-defs-template-properties-mark-requests-as-self-contained))
+
+## self-contained Examples
+
+```json
+true
+```

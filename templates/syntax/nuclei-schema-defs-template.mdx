@@ -1,0 +1,580 @@
+# Untitled object in undefined Schema
+
+```txt
+https://template#/$defs/Template
+```
+
+
+
+| Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                             |
+| :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------- |
+| Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [nuclei-schema.schema.json\*](../out/nuclei-schema.schema.json "open original schema") |
+
+## Template Type
+
+`object` ([Details](nuclei-schema-defs-template))
+
+any of
+
+* [Untitled schema](nuclei-schema-defs-template-anyof-0 "check type definition")
+
+* [Untitled schema](nuclei-schema-defs-template-anyof-1 "check type definition")
+
+* [Untitled schema](nuclei-schema-defs-template-anyof-2 "check type definition")
+
+* [Untitled schema](nuclei-schema-defs-template-anyof-3 "check type definition")
+
+* [Untitled schema](nuclei-schema-defs-template-anyof-4 "check type definition")
+
+* [Untitled schema](nuclei-schema-defs-template-anyof-5 "check type definition")
+
+* [Untitled schema](nuclei-schema-defs-template-anyof-6 "check type definition")
+
+* [Untitled schema](nuclei-schema-defs-template-anyof-7 "check type definition")
+
+* [Untitled schema](nuclei-schema-defs-template-anyof-8 "check type definition")
+
+* [Untitled schema](nuclei-schema-defs-template-anyof-9 "check type definition")
+
+* [Untitled schema](nuclei-schema-defs-template-anyof-10 "check type definition")
+
+* [Untitled schema](nuclei-schema-defs-template-anyof-11 "check type definition")
+
+* [Untitled schema](nuclei-schema-defs-template-anyof-12 "check type definition")
+
+# Template Properties
+
+| Property                                    | Type      | Required | Nullable       | Defined by                                                                                                                                                |
+| :------------------------------------------ | :-------- | :------- | :------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [id](#id)                                   | `string`  | Required | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-id-of-the-template "https://template#/$defs/Template/properties/id")                          |
+| [info](#info)                               | `object`  | Required | cannot be null | [Untitled schema](nuclei-schema-defs-info "https://template#/$defs/Template/properties/info")                                                          |
+| [flow](#flow)                               | `string`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-template-execution-flow-in-js "https://template#/$defs/Template/properties/flow")             |
+| [requests](#requests)                       | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-http-requests-to-make "https://template#/$defs/Template/properties/requests")                 |
+| [http](#http)                               | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-http-requests-to-make-1 "https://template#/$defs/Template/properties/http")                   |
+| [dns](#dns)                                 | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-dns-requests-to-make "https://template#/$defs/Template/properties/dns")                       |
+| [file](#file)                               | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-file-requests-to-make "https://template#/$defs/Template/properties/file")                     |
+| [network](#network)                         | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-network-requests-to-make "https://template#/$defs/Template/properties/network")               |
+| [tcp](#tcp)                                 | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-networktcp-requests-to-make "https://template#/$defs/Template/properties/tcp")                |
+| [headless](#headless)                       | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-headless-requests-to-make "https://template#/$defs/Template/properties/headless")             |
+| [ssl](#ssl)                                 | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-ssl-requests-to-make "https://template#/$defs/Template/properties/ssl")                       |
+| [websocket](#websocket)                     | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-websocket-requests-to-make "https://template#/$defs/Template/properties/websocket")           |
+| [whois](#whois)                             | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-whois-requests-to-make "https://template#/$defs/Template/properties/whois")                   |
+| [code](#code)                               | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-code-snippets-to-make "https://template#/$defs/Template/properties/code")                     |
+| [javascript](#javascript)                   | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-javascript-requests-to-make "https://template#/$defs/Template/properties/javascript")         |
+| [workflows](#workflows)                     | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-list-of-workflows-to-execute "https://template#/$defs/Template/properties/workflows")         |
+| [self-contained](#self-contained)           | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-mark-requests-as-self-contained "https://template#/$defs/Template/properties/self-contained") |
+| [stop-at-first-match](#stop-at-first-match) | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-stop-at-first-match "https://template#/$defs/Template/properties/stop-at-first-match")        |
+| [signature](#signature)                     | `object`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-signaturetypeholder "https://template#/$defs/Template/properties/signature")                                      |
+| [variables](#variables)                     | `object`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-variables-for-the-http-request "https://template#/$defs/Template/properties/variables")       |
+| [constants](#constants)                     | `object`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-template-properties-constant-for-the-template "https://template#/$defs/Template/properties/constants")            |
+
+## id
+
+ID is the unique id for the template.
+
+### Good IDs
+
+A good ID uniquely identifies what the requests in the template
+are doing. Let's say you have a template that identifies a git-config
+file on the webservers, a good name would be `git-config-exposure`. Another
+example name is `azure-apps-nxdomain-takeover`
+
+`id`
+
+* is required
+
+* Type: `string` ([id of the template](nuclei-schema-defs-template-properties-id-of-the-template))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-id-of-the-template "https://template#/$defs/Template/properties/id")
+
+### id Type
+
+`string` ([id of the template](nuclei-schema-defs-template-properties-id-of-the-template))
+
+### id Constraints
+
+**pattern**: the string must match the following regular expression:&#x20;
+
+```regexp
+^([a-zA-Z0-9]+[-_])*[a-zA-Z0-9]+$
+```
+
+[try pattern](https://regexr.com/?expression=%5E\(%5Ba-zA-Z0-9%5D%2B%5B-_%5D\)*%5Ba-zA-Z0-9%5D%2B%24 "try regular expression with regexr.com")
+
+### id Examples
+
+```json
+"example-id"
+```
+
+```json
+"git-config-exposure"
+```
+
+```json
+"azure-apps-nxdomain-takeover"
+```
+
+```json
+"cve-2021-19520"
+```
+
+## info
+
+Info contains the required metadata information about the template
+It is meant to provide basic but necessary info like name, author , severity
+along with many other fields like metadata, classification etc
+Note: -
+For a template to be valid name,author,severity of `info` section must be set
+
+`info`
+
+* is required
+
+* Type: `object` ([info for the template](nuclei-schema-defs-info))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-info "https://template#/$defs/Template/properties/info")
+
+### info Type
+
+`object` ([info for the template](nuclei-schema-defs-info))
+
+### info Examples
+
+```json
+"\n\tname: Example Template\n\tauthor: pdteam\n\tseverity: info\n\tdescription: This is an example template"
+```
+
+```json
+"\n\tname: example-template\n\tauthor: pdteam\n\tseverity: unknown\n\tdescription: Example description of the template\n\timpact: Impact of the template\n\treference: \n\t  - https://example.com\n\tmetadata: \n\t  max-request: 1\n\ttags: http"
+```
+
+## flow
+
+Flow describes how multiple request-blocks/protocols should be combined together and executed
+It is a javascript code where each protocol is a function and all request-blocks are indexed by their corresponding index in request array
+Example:
+flow: http(1) && http(2)
+means that second http request will be executed only if first http request is successful (aka matched)
+
+`flow`
+
+* is optional
+
+* Type: `string` ([template execution flow in js](nuclei-schema-defs-template-properties-template-execution-flow-in-js))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-template-execution-flow-in-js "https://template#/$defs/Template/properties/flow")
+
+### flow Type
+
+`string` ([template execution flow in js](nuclei-schema-defs-template-properties-template-execution-flow-in-js))
+
+### flow Examples
+
+```json
+"'flow: http(0) && http(1)'"
+```
+
+```json
+"http(1) && http(2)"
+```
+
+```json
+" | # example-vhost-enum\n\tssl(); // ->  execute all ssl protocol requests\n\tdns(); // ->  execute all dns protocol requests\n\tfor (let got of template.domains) { // ->  iterate over 'domains' array variable\n\t\tset('vhost', got); // ->  set 'vhost' variable to current domain\n\t\thttp(); // ->  execute all http protocol requests\n\t}\n"
+```
+
+## requests
+
+HTTP requests to make for the template
+
+`requests`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-request))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-http-requests-to-make "https://template#/$defs/Template/properties/requests")
+
+### requests Type
+
+`object[]` ([Details](nuclei-schema-defs-request))
+
+## http
+
+HTTP requests to make for the template
+
+`http`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-request))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-http-requests-to-make-1 "https://template#/$defs/Template/properties/http")
+
+### http Type
+
+`object[]` ([Details](nuclei-schema-defs-request))
+
+## dns
+
+DNS requests to make for the template
+
+`dns`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-request))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-dns-requests-to-make "https://template#/$defs/Template/properties/dns")
+
+### dns Type
+
+`object[]` ([Details](nuclei-schema-defs-request))
+
+## file
+
+File requests to make for the template
+
+`file`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-request))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-file-requests-to-make "https://template#/$defs/Template/properties/file")
+
+### file Type
+
+`object[]` ([Details](nuclei-schema-defs-request))
+
+## network
+
+Network requests to make for the template
+
+`network`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-request))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-network-requests-to-make "https://template#/$defs/Template/properties/network")
+
+### network Type
+
+`object[]` ([Details](nuclei-schema-defs-request))
+
+## tcp
+
+Network requests to make for the template
+
+`tcp`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-request))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-networktcp-requests-to-make "https://template#/$defs/Template/properties/tcp")
+
+### tcp Type
+
+`object[]` ([Details](nuclei-schema-defs-request))
+
+## headless
+
+Headless requests to make for the template
+
+`headless`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-request))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-headless-requests-to-make "https://template#/$defs/Template/properties/headless")
+
+### headless Type
+
+`object[]` ([Details](nuclei-schema-defs-request))
+
+## ssl
+
+SSL requests to make for the template
+
+`ssl`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-request))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-ssl-requests-to-make "https://template#/$defs/Template/properties/ssl")
+
+### ssl Type
+
+`object[]` ([Details](nuclei-schema-defs-request))
+
+## websocket
+
+Websocket requests to make for the template
+
+`websocket`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-request))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-websocket-requests-to-make "https://template#/$defs/Template/properties/websocket")
+
+### websocket Type
+
+`object[]` ([Details](nuclei-schema-defs-request))
+
+## whois
+
+WHOIS requests to make for the template
+
+`whois`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-request))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-whois-requests-to-make "https://template#/$defs/Template/properties/whois")
+
+### whois Type
+
+`object[]` ([Details](nuclei-schema-defs-request))
+
+## code
+
+Code snippets
+
+`code`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-request))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-code-snippets-to-make "https://template#/$defs/Template/properties/code")
+
+### code Type
+
+`object[]` ([Details](nuclei-schema-defs-request))
+
+## javascript
+
+Javascript requests to make for the template
+
+`javascript`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-request))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-javascript-requests-to-make "https://template#/$defs/Template/properties/javascript")
+
+### javascript Type
+
+`object[]` ([Details](nuclei-schema-defs-request))
+
+## workflows
+
+List of workflows to execute for template
+
+`workflows`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-workflowtemplate))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-list-of-workflows-to-execute "https://template#/$defs/Template/properties/workflows")
+
+### workflows Type
+
+`object[]` ([Details](nuclei-schema-defs-workflowtemplate))
+
+## self-contained
+
+Self-contained marks all requests in this template as independent of input which means input/target is not required for execution of template
+but other variables defined in template need to be explicitly set using -V flag
+Default value is false
+Note: self-contained templates only run once regardless of how many targets where provided to nuclei
+Example:
+
+```yaml
+self-contained: true
+```
+
+Full example template of self-contained is available at <https://cloud.projectdiscovery.io/public/aws-app-enum>
+
+`self-contained`
+
+* is optional
+
+* Type: `boolean` ([mark requests as self-contained](nuclei-schema-defs-template-properties-mark-requests-as-self-contained))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-mark-requests-as-self-contained "https://template#/$defs/Template/properties/self-contained")
+
+### self-contained Type
+
+`boolean` ([mark requests as self-contained](nuclei-schema-defs-template-properties-mark-requests-as-self-contained))
+
+### self-contained Examples
+
+```json
+true
+```
+
+## stop-at-first-match
+
+stop-at-first-match stops the execution of template as soon as first match/result was found in a template given that template was sending multiple requests
+this is required in case of default-login , brute-force and even detection templates where multiple requests are sent from template but we want to exit as soon as first match/result was found
+Example:
+
+```yaml
+stop-at-first-match: true
+```
+
+Full example template of stop-at-first-match is available at <https://cloud.projectdiscovery.io/public/bitbucket-public-repository>
+
+`stop-at-first-match`
+
+* is optional
+
+* Type: `boolean` ([stop at first match](nuclei-schema-defs-template-properties-stop-at-first-match))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-stop-at-first-match "https://template#/$defs/Template/properties/stop-at-first-match")
+
+### stop-at-first-match Type
+
+`boolean` ([stop at first match](nuclei-schema-defs-template-properties-stop-at-first-match))
+
+### stop-at-first-match Examples
+
+```json
+true
+```
+
+## signature
+
+Signature is the HTTP Request signature Method
+
+`signature`
+
+* is optional
+
+* Type: `object` ([signature is the http request signature method](nuclei-schema-defs-signaturetypeholder))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-signaturetypeholder "https://template#/$defs/Template/properties/signature")
+
+### signature Type
+
+`object` ([signature is the http request signature method](nuclei-schema-defs-signaturetypeholder))
+
+## variables
+
+Variables are the global variables that once defined here can be used anywhere in the template
+Variables are evaluated in the order they are defined so one variable can be referenced in another variable
+Variables are evaluated before sending every requests so one can reference any variables that are available at runtime and they will be evaluate and used when referenced
+Example:
+
+```yaml
+variables:
+  oast: {{interact-sh}}
+  payload: "{{base64(oast)}}"
+```
+
+Full example template of variables is available at <https://cloud.projectdiscovery.io/public/screenshot>
+Note: -
+These variables can be overridden by -V flag at runtime if needed
+
+`variables`
+
+* is optional
+
+* Type: `object` ([variables for the http request](nuclei-schema-defs-template-properties-variables-for-the-http-request))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-variables-for-the-http-request "https://template#/$defs/Template/properties/variables")
+
+### variables Type
+
+`object` ([variables for the http request](nuclei-schema-defs-template-properties-variables-for-the-http-request))
+
+### variables Examples
+
+```json
+"\n\tdomain: \"{{FQDN}}\"\n\temail: pdteam@{{domain}}"
+```
+
+```json
+"\n\toast: \"{{interact-sh}}\"\n\tpayload: \"{{base64(oast)}}\""
+```
+
+## constants
+
+Constants are the global constants that once defined here can be used anywhere in the template
+It can be used in same way as variables but only difference is that constants cannot be overridden by -V flag at runtime
+Example:
+
+```yaml
+constants:
+  exploit: 'x0x0x0x0x0x0x
+```
+
+`constants`
+
+* is optional
+
+* Type: `object` ([constant for the template](nuclei-schema-defs-template-properties-constant-for-the-template))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-template-properties-constant-for-the-template "https://template#/$defs/Template/properties/constants")
+
+### constants Type
+
+`object` ([constant for the template](nuclei-schema-defs-template-properties-constant-for-the-template))
+
+### constants Examples
+
+```json
+"\n\texploit: 'x0x0x0x0x0x0x"
+```

@@ -1,0 +1,27 @@
+# type of rule Schema
+
+```txt
+https://template#/$defs/Rule/properties/type
+```
+
+Type of fuzzing rule to perform
+
+| Abstract            | Extensible | Status         | Identifiable            | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                             |
+| :------------------ | :--------- | :------------- | :---------------------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------- |
+| Can be instantiated | No         | Unknown status | Unknown identifiability | Forbidden         | Allowed               | none                | [nuclei-schema.schema.json\*](../out/nuclei-schema.schema.json "open original schema") |
+
+## type Type
+
+`string` ([type of rule](nuclei-schema-defs-rule-properties-type-of-rule))
+
+## type Constraints
+
+**enum**: the value of this property must be equal to one of the following values:
+
+| Value             | Explanation |
+| :---------------- | :---------- |
+| `"replace"`       |             |
+| `"prefix"`        |             |
+| `"postfix"`       |             |
+| `"infix"`         |             |
+| `"replace-regex"` |             |
