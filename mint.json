@@ -505,6 +505,7 @@
         {
           "group": "Vulnerabilities",
           "pages": [
+            "api-reference/results/get-all-results",
             "api-reference/results/get-scan-vulnerability",
             "api-reference/results/get-vulnerability-changelogs",
             "api-reference/results/get-all-vulnerability-changelogs",
@@ -517,6 +518,7 @@
         {
           "group": "Leaks",
           "pages": [
+            "api-reference/leaks/get-all-leaked-credentials",
             "api-reference/leaks/export-leaks",
             "api-reference/leaks/get-leak-info",
             "api-reference/leaks/update-leak-status",
@@ -566,6 +568,8 @@
             "api-reference/enumerations/export-enumeration-of-user",
             "api-reference/enumerations/delete-an-asset-group",
             "api-reference/enumerations/update-an-asset-group",
+            "api-reference/enumerations/get-all-enumeration-contents",
+            "api-reference/enumerations/get-enumeration-contents",
             "api-reference/asset/export-list-of-unique-domains-discovered-in-an-enumeration",
             "api-reference/assets/get-asset-changelogs-for-a-given-asset_id",
             "api-reference/assets/update-asset-labels",
@@ -591,6 +595,7 @@
             "api-reference/configurations/get-config",
             "api-reference/configurations/delete-config",
             "api-reference/configurations/update-config",
+            "api-reference/configurations/verify-config",
             "api-reference/configurations/get-excluded-templates",
             "api-reference/configurations/add-excluded-templates-and-targets",
             "api-reference/configurations/delete-excluded-templates-or-targets-by-ids",
