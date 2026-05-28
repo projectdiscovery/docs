@@ -6,11 +6,16 @@ sidebarTitle: "Scan Exclusions"
 
 ## Overview
 
-Scan Exclusions provide granular control over your vulnerability scanning operations by allowing you to exclude specific targets or templates from scans. This feature helps optimize scan performance, reduce noise, and focus scanning efforts on relevant assets and vulnerabilities.
+Scan Exclusions provide granular control over your vulnerability scanning operations by allowing you to exclude or include specific targets or templates from scans. This feature helps optimize scan performance, reduce noise, and focus scanning efforts on relevant assets and vulnerabilities.
 
 The exclusion system operates at two levels:
 - **Scan Target Exclusions**: Prevent specific targets from being scanned
+- **Scan Target Inclusions**: Restrict scans to only matching targets (allowlist mode)
 - **Scan Template Exclusions**: Prevent specific vulnerability templates from being executed
+
+<Note>
+  **Inclusion Patterns**: Target exclusions also support inclusion (allowlist) mode using a `+` prefix. When inclusion patterns are present, only targets matching those patterns will be scanned. See [Target Inclusion Patterns](#target-inclusion-patterns) for details.
+</Note>
 
 <Note>
   **Quick Access**: Scan Exclusions are managed in [Settings → Scan Exclusions](https://cloud.projectdiscovery.io/settings/exclusions), available on the same page as Discovery Target Exclusions.
@@ -109,6 +114,91 @@ api.company.com
     *.azure.com
     customer-*.company.com
     ```
+  </Accordion>
+</AccordionGroup>
+
+## Target Inclusion Patterns
+
+### Overview
+
+In addition to excluding targets, you can use **inclusion patterns** to create an allowlist — restricting scans to only the targets that match your specified patterns. This is done by prefixing patterns with `+` in the `exclusions` field when creating a scan via the API.
+
+<Important>
+  **Allowlist Behavior**: When any inclusion pattern (prefixed with `+`) is present, the system switches to allowlist mode. Targets that do **not** match at least one inclusion pattern are automatically excluded from the scan — even if they aren't matched by any exclusion pattern.
+</Important>
+
+### How Inclusion Works
+
+When inclusion patterns are configured:
+
+1. **Inclusion check first**: Each target is checked against all `+` patterns. If the target does not match any inclusion pattern, it is excluded.
+2. **Exclusion check second**: Targets that pass the inclusion check are then checked against exclusion patterns (without `+` prefix). If a target matches an exclusion, it is still excluded.
+
+This allows you to define a broad allowlist and then carve out specific exceptions.
+
+<Note>
+  **API-Only Feature**: Inclusion patterns are configured through the API's `exclusions` field when creating a scan (POST /scans) or enumeration. They use the same field as exclusion patterns — the `+` prefix distinguishes inclusions from exclusions.
+</Note>
+
+### Inclusion Pattern Examples
+
+#### Include Only Production Targets
+Only scan production systems, excluding everything else:
+```
++prod-*.company.com
++api.company.com
++*.production.company.com
+```
+
+#### Include Specific IP Range
+Restrict scanning to a specific network segment:
+```
++10.0.1.0/24
++192.168.100.0/24
+```
+
+#### Combined Inclusion and Exclusion
+Include production systems but exclude a specific staging subdomain that matches the pattern:
+```
++prod-*.company.com
++api.company.com
+*.staging.company.com
+```
+
+In this example:
+- `prod-web.company.com` → **scanned** (matches inclusion `+prod-*.company.com`)
+- `api.company.com` → **scanned** (matches inclusion `+api.company.com`)
+- `prod-web.staging.company.com` → **excluded** (matches inclusion, but also matches exclusion `*.staging.company.com`)
+- `other.company.com` → **excluded** (does not match any inclusion pattern)
+
+### Inclusion Use Cases
+
+<AccordionGroup>
+  <Accordion title="Scoping to Production Only">
+    Restrict scans to production infrastructure when you have a broad target list:
+    ```
+    +*.prod.company.com
+    +api.company.com
+    +payments.company.com
+    ```
+  </Accordion>
+
+  <Accordion title="Network Segment Scanning">
+    Scan only specific network segments while excluding everything else:
+    ```
+    +10.0.1.0/24
+    +10.0.2.0/24
+    ```
+  </Accordion>
+
+  <Accordion title="Combined Scoping">
+    Include a broad set of targets but exclude specific subsets:
+    ```
+    +*.company.com
+    *.internal.company.com
+    *.dev.company.com
+    ```
+    This scans all `company.com` subdomains except internal and dev environments.
   </Accordion>
 </AccordionGroup>
 
@@ -212,6 +302,19 @@ Target exclusions support wildcard patterns using the asterisk (`*`) character:
 - **Suffix wildcards**: `test-*.company.com`
 - **Multiple wildcards**: `*.staging.*.company.com`
 
+### Target Inclusions - `+` Prefix
+
+Target inclusion patterns use the same syntax as exclusions, prefixed with `+`:
+
+- **Exact match**: `+api.company.com`
+- **Wildcard**: `+prod-*.company.com`
+- **CIDR range**: `+10.0.0.0/24`
+- **IP address**: `+192.168.1.100`
+
+<Note>
+  Inclusion and exclusion patterns can be mixed in the same `exclusions` field. The `+` prefix is what distinguishes an inclusion from an exclusion.
+</Note>
+
 ### Template Exclusions - Exact Match Only
 
 Template exclusions require exact identifiers:
@@ -222,11 +325,12 @@ Template exclusions require exact identifiers:
 
 ### Pattern Matching Rules
 
-- **Target patterns** are case-insensitive and support wildcards
+- **Target exclusion patterns** are case-insensitive and support wildcards
+- **Target inclusion patterns** use the `+` prefix with the same wildcard and CIDR support as exclusions
 - **Template patterns** are case-sensitive and require exact matches
-- Each line represents a separate exclusion pattern
+- Each line represents a separate pattern
+- When inclusion patterns are present, targets must match at least one inclusion pattern **and** not match any exclusion pattern
 - Patterns are matched during the scan planning phase
-- Once excluded, targets/templates will not be included in any scan operations
 
 ## Managing Exclusions
 
@@ -273,6 +377,13 @@ To remove individual exclusions:
     - Add exclusions for new development environments
     - Re-evaluate template exclusions as your infrastructure evolves
     - Monitor scan results to identify new false positive patterns
+  </Accordion>
+
+  <Accordion title="Inclusion Pattern Strategy">
+    Use inclusion patterns when you want to restrict scan scope rather than exclude individual targets:
+    - Prefer inclusions over large exclusion lists when you want to scan a small subset of a broad target list
+    - Combine inclusions with exclusions to create precise scoping (e.g., include all production but exclude a specific staging subdomain)
+    - Start with broader inclusion patterns and add exclusions for specific exceptions
   </Accordion>
 </AccordionGroup>
 
