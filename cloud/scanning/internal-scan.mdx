@@ -26,15 +26,15 @@ To use this feature you'll need to install and deploy pd-agent within your inter
 
 ### What is pd-agent?
 
-pd-agent is a lightweight agent that you deploy within your internal network to execute scans and enumerations remotely. It establishes a secure connection between your internal infrastructure and ProjectDiscovery's platform, receives scan configurations and executes them locally using ProjectDiscovery's tools.
+pd-agent is a lightweight agent that you deploy within your internal network to execute scans and enumerations remotely. It establishes a secure outbound connection to ProjectDiscovery's platform, receives scan configurations, and runs them locally. Nuclei, httpx, naabu, dnsx, and tlsx are all built into the agent — there's nothing else to install on the host, and nothing in your network needs to be exposed publicly.
 
 **Key Capabilities:**
 
-- **Network Discovery**: Automatically discover assets, services, and open ports across your internal network
-- **Vulnerability Scanning**: Execute Nuclei-based vulnerability scans using templates from the ProjectDiscovery's platform  
-- **Agent Tagging**: Organize agents with tags and networks for targeted execution
-- **Passive Discovery**: Optional passive network discovery via libpcap/gopacket
-- **Automatic Updates**: Receive and execute new scan configurations automatically
+- **Multi-Tool Scanning**: Runs Nuclei, httpx, naabu, dnsx, and tlsx — vulnerability scanning, port discovery, HTTP probing, DNS enumeration, and TLS inspection, all from a single agent
+- **Network Discovery**: Automatically discovers the host's subnets on registration. Inside Kubernetes it discovers node IPs, pod CIDRs, and service CIDRs and reports them to the platform
+- **Vulnerability Scanning**: Execute Nuclei-based scans using templates from the ProjectDiscovery platform
+- **Network Routing**: Assign each agent a network name (`-agent-network`) to route scans to specific sites, data centers, or VPCs
+- **Parallel Execution**: Splits each scan into chunks and runs them concurrently, auto-tuning parallelism to the host's available CPU for faster completion
 
 <Note>
   Agent based internal scanning is an Enterprise-exclusive feature. Free users can still perform internal scans using the local scanning method described below.
@@ -52,6 +52,10 @@ pd-agent is a lightweight agent that you deploy within your internal network to 
 
   These specifications are suitable for most deployment scenarios. A basic VPS (Virtual Private Server) meeting these requirements is sufficient for running pd-agent efficiently.
 </Note>
+
+<Warning>
+  **Distribute large scans and discoveries across multiple agents.** For large networks, deploy **several agents with the same `-agent-network` name** instead of one big agent. Agents sharing a network name automatically fan in on the same scans and discoveries — work is split across them with no leader and no manual sharding, so two agents finish in roughly half the time. This is the recommended setup for any sizeable internal environment. See the [scaling guide](https://github.com/projectdiscovery/pd-agent/blob/main/docs/scaling.md) for autoscaling.
+</Warning>
 
 ### Step 1: Create a Network
 
@@ -72,51 +76,45 @@ Before installing the agent, you need to create a network in the ProjectDiscover
 
 ### Step 2: Install the agent
 
-After creating your network, the platform will display a unique installation command pre-configured with your credentials and network settings. 
+After creating your network, the platform displays a ready-to-run installation command pre-configured with your `PDCP_API_KEY`, `PDCP_TEAM_ID`, and network name. Copy it and run it on a machine inside the network you want to scan.
 
-<Note>
-**Prerequisites for Go installation method**
-
-If you're using the Go command option to install pd-agent, ensure you have:
-1. **Go installed** on your system ([download Go](https://go.dev/dl/))
-2. **pdtm (ProjectDiscovery Tool Manager)** installed
-
-To install pdtm, run:
+The Docker command is the fastest way to get going — no prerequisites beyond Docker itself:
 
 ```bash
-go install -v github.com/projectdiscovery/pdtm/cmd/pdtm@latest
-pdtm -ia
+docker run -d --name pd-agent \
+  --network host --cap-add NET_RAW --cap-add NET_ADMIN \
+  -e PDCP_API_KEY=your-api-key \
+  -e PDCP_TEAM_ID=your-team-id \
+  ghcr.io/projectdiscovery/pd-agent:latest \
+  -agent-network your-network-name
 ```
 
-Or combine both commands:
-
-```bash
-go install -v github.com/projectdiscovery/pdtm/cmd/pdtm@latest && pdtm -ia
-```
-</Note>
-
-Finally copy and run the command (displayed when you create a network) in your internal environment where you want the agent deployed.
-
-If you're using the Docker option, you can directly run the installation command without any additional prerequisites.
+- `--network host` lets the agent see your real network interfaces for subnet discovery.
+- `NET_RAW` / `NET_ADMIN` enable naabu SYN scanning; drop them if you only need full-connect scans.
+- `-agent-network` is the routing label scans are dispatched to — give each network a distinct name.
 
 <Warning>
   Keep your installation command secure - it contains your API key and agent configuration. Anyone with this command can connect an agent to your network.
 </Warning>
 
-The installation command will:
-- Download and configure the agent
-- Establish a secure connection to ProjectDiscovery's platform
-- Register the agent with your network
+<Tip>
+  **Run it as a service for production.** A one-off `docker run` is fine for evaluation, but for a long-lived deployment run pd-agent under a process manager so it survives reboots and crashes. The repo ships ready-made install paths and example manifests:
 
-Once the agent runs successfully, it will appear in your network dashboard, indicating that it's ready to execute scans.
+  <CardGroup cols={2}>
+    <Card title="Install guide" icon="github" href="https://github.com/projectdiscovery/pd-agent/blob/main/docs/install.md">
+      Docker, Kubernetes, systemd, launchd, and Windows (NSSM) service installs.
+    </Card>
+    <Card title="Configuration" icon="sliders" href="https://github.com/projectdiscovery/pd-agent/blob/main/docs/configuration.md">
+      Every environment variable and CLI flag the agent accepts.
+    </Card>
+  </CardGroup>
+</Tip>
+
+Once the agent runs successfully, it appears in your network dashboard along with the subnets it discovered on the host, indicating that it's ready to execute scans.
 
 <Frame>
   <img src="/images/pd-agent-setup-demo.gif" alt="Complete pd-agent Setup: Create Network, Install Agent, and Verify Connection" />
 </Frame>
-
-<Note>
-  The agent must remain running to execute scans. For production deployments, consider running it as a system service (systemd, Docker, or Kubernetes) to ensure it stays active.
-</Note>
 
 ### Step 3: Discover Assets
 
@@ -135,10 +133,6 @@ Before running vulnerability scans, you can discover assets in your internal net
   Asset discovery helps you build an accurate inventory of your internal infrastructure before running targeted vulnerability scans. This ensures comprehensive coverage of your attack surface.
 </Note>
 
-<Tip>
-  **Scaling for Large Networks:** If your network has a large number of assets that need to be scanned, consider deploying multiple pd-agents across different network segments. This distributes the scanning load and improves performance for comprehensive vulnerability assessments.
-</Tip>
-
 ### Step 4: Trigger Internal Scans
 
 Once your pd-agent is connected and assets are discovered (optional), you can trigger vulnerability scans. The workflow is identical to external scanning - configure scans through the same interface and view results in the same dashboard.
@@ -146,7 +140,7 @@ Once your pd-agent is connected and assets are discovered (optional), you can tr
 1. Click on the **Scan** button for the network you want to scan, or go to the **Scans** menu (https://cloud.projectdiscovery.io/scans) and click **Create New Scan**, choose **Internal** followed by the network
 2. Select the Asset Group created from the previous discovery operation, or manually enter your targets (internal IPs, hostnames, or CIDR ranges like `192.168.1.0/24`, `internal-server.local`)
 3. Select Nuclei templates (CVEs, misconfigurations, vulnerabilities, etc.) and configure scan settings (rate limits, headers, parameters)
-4. Click **Create Scan** to start - the scan executes through pd-agent in your internal network and results appear in your dashboard
+4. Click **Create Scan** to start - the agent runs the scan locally using its embedded toolset (nuclei, httpx, naabu, dnsx, tlsx) and streams results back to your dashboard
 
 <Frame>
   <img src="/images/pdcp-internal-scan-demo.gif" alt="Creating and Running an Internal Scan in PDCP" />
