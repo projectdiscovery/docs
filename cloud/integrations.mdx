@@ -1135,6 +1135,12 @@ aws iam put-role-policy \
 
 Leave **Account IDs** empty — accounts are discovered automatically. Click **Verify** to test the connection.
 
+<Warning>
+**Scanner role is still required.** Organization Discovery only automates finding account IDs — the scanner role (`PDScannerRole` from [Step 3](#step-3-create-a-scanner-role)) must still exist in every account you want to scan. Use [AWS CloudFormation StackSets](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/what-is-cfnstacksets.html), [Terraform](https://developer.hashicorp.com/terraform/tutorials/aws/aws-iam-policy), or [AWS Organizations delegated admin](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_delegate_policies.html) to deploy the scanner role across all accounts automatically.
+
+Accounts where the scanner role is missing will be silently skipped — no error is shown. To avoid blind spots, ensure the scanner role is deployed to all accounts before enabling org discovery.
+</Warning>
+
 ---
 
 #### AWS Troubleshooting
