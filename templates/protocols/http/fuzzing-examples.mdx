@@ -188,31 +188,49 @@ http:
 
 ## Basic Path Based SQLi
 
-A example template to discover path-based SQLi issues.
+An example template to discover path-based SQL injection vulnerabilities. It targets numeric path segments (e.g. `/user/15/profile`, `/posts/100`) and appends a SQLi payload as a postfix.
 
 ```yaml
+id: path-based-sqli
+
+info:
+  name: Path Based SQLi
+  author: pdteam
+  severity: info
+  description: |
+    Attempts to find SQL injection vulnerabilities in numeric path segments.
+    Covers patterns like /admin/user/55/profile, /user/15/action/update, /posts/15, etc.
+    Note: payloads and matchers should be tuned for the target application.
+
 http:
-    # pre-condition to determine if the template should be executed
   - pre-condition:
       - type: dsl
         dsl:
-          - 'method == "POST"'       # only run if method is POST
-          - 'contains(path,"reset")' # only run if path contains reset word
+          - 'method == "GET"'  # only run on GET requests
         condition: and
+
+    payloads:
+      pathsqli:
+        - '%20OR%20True'
 
     # fuzzing rules
     fuzzing:
-      - part: header # This rule will be applied to the header
-        type: replace # replace the type of rule (i.e., existing values will be replaced with payload)
-        mode: multiple # multiple mode (i.e., all existing values will be replaced/used at once)
+      - part: path   # This rule targets URL path segments
+        type: postfix # append the payload after each numeric path value
+        mode: single
         fuzz:
-          X-Forwarded-For: "{{domain}}"  # here {{domain}} is attacker-controlled server
-          X-Forwarded-Host: "{{domain}}"
-          Forwarded: "{{domain}}"
-          X-Real-IP: "{{domain}}"
-          X-Original-URL: "{{domain}}"
-          X-Rewrite-URL: "{{domain}}"
-          Host: "{{domain}}"
+          - '{{pathsqli}}'
+
+    matchers:
+      - type: status
+        status:
+          - 200
+      - type: word
+        words:
+          - "sql"
+          - "syntax"
+          - "error"
+    matchers-condition: or
 ```
 
 
