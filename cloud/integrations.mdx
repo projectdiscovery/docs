@@ -1245,7 +1245,26 @@ gcloud projects describe YOUR_PROJECT_ID --format='value(projectNumber)'
 ```
 </Note>
 
-**Step 6: Get the Provider Resource Path**
+**Step 6: Enable the Cloud Asset API**
+
+The GCP org-level integration uses the Cloud Asset Inventory API (`cloudasset.googleapis.com`). This API must be enabled in the project where you created the service account and WIF pool.
+
+```bash
+gcloud services enable cloudasset.googleapis.com --project="YOUR_PROJECT_ID"
+```
+
+To verify it is enabled:
+
+```bash
+gcloud services list \
+  --project="YOUR_PROJECT_ID" \
+  --filter="name:cloudasset.googleapis.com" \
+  --format="value(name,state)"
+```
+
+The output should show `ENABLED`. If the command returns no output, the API is not enabled — run the enable command above.
+
+**Step 7: Get the Provider Resource Path**
 
 ```bash
 gcloud iam workload-identity-pools providers describe projectdiscovery-oidc \
@@ -1260,13 +1279,13 @@ This returns a path like:
 projects/123456789012/locations/global/workloadIdentityPools/projectdiscovery-pool/providers/projectdiscovery-oidc
 ```
 
-**Step 7: Configure in ProjectDiscovery**
+**Step 8: Configure in ProjectDiscovery**
 
 In the ProjectDiscovery platform, create a new GCP integration and select **Workload Identity Federation** as the authentication method. Provide:
 
 | Field | Value |
 |---|---|
-| **Workload Identity Provider** | Full provider path from Step 6 |
+| **Workload Identity Provider** | Full provider path from Step 7 |
 | **Service Account Email** | `pd-cloudlist-reader@YOUR_PROJECT_ID.iam.gserviceaccount.com` |
 | **Organization ID** | Your numeric org ID — leave empty for project-level enumeration |
 
@@ -1278,7 +1297,18 @@ Click **Verify** to confirm the connection, then **Create & Start Discovery**.
 
 **"Google Cloud denied access" with Organization ID set**
 
-The service account does not have permissions at the org level. Ensure all four org-level roles are granted: `roles/cloudasset.viewer`, `roles/resourcemanager.organizationViewer`, `roles/resourcemanager.folderViewer`, and `roles/browser`. See the Organization-Level tab in the [Grant Permissions](#service-account-key) step for details.
+This error can have two causes:
+
+1. **Cloud Asset API not enabled** — The Cloud Asset Inventory API must be enabled in the project where your service account and WIF pool were created. Check and enable it:
+   ```bash
+   # Check
+   gcloud services list --project="YOUR_PROJECT_NUMBER" --filter="name:cloudasset.googleapis.com" --format="value(name,state)"
+   # Fix
+   gcloud services enable cloudasset.googleapis.com --project="YOUR_PROJECT_NUMBER"
+   ```
+   Replace `YOUR_PROJECT_NUMBER` with the numeric project number from your Workload Identity Provider path (the number between `projects/` and `/locations/`).
+
+2. **Missing org-level IAM roles** — Ensure all four org-level roles are granted: `roles/cloudasset.viewer`, `roles/resourcemanager.organizationViewer`, `roles/resourcemanager.folderViewer`, and `roles/browser`. See the Organization-Level tab in the [Grant Permissions](#service-account-key) step for details.
 
 **"GCP token exchange failed"** (WIF only)
 - Verify the Workload Identity Provider path is correct (check for typos)
