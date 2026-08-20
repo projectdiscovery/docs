@@ -8,6 +8,8 @@ sidebarTitle: "Target Exclusions"
 
 Discovery Target Exclusions allow you to proactively prevent specific assets or patterns from being discovered during asset enumeration. When exclusions are configured, these targets are actively filtered out of the discovery process, helping you focus on relevant assets and reduce noise in your asset inventory.
 
+This feature also supports **inclusion patterns** (prefixed with `+`) that restrict discovery to only matching targets, functioning as an allowlist. See [Inclusion Patterns](#inclusion-patterns) for details.
+
 This feature is particularly useful for excluding internal staging environments, test domains, government domains, or any other assets that should not be included in your attack surface monitoring.
 
 <Note>
@@ -76,6 +78,89 @@ dev-*.internal.company.com
 *.edu
 ```
 
+## Inclusion Patterns
+
+### Overview
+
+In addition to excluding targets, you can use **inclusion patterns** to create an allowlist — restricting discovery to only the targets that match your specified patterns. This is done by prefixing patterns with `+` in the `exclusions` field when creating an enumeration via the API.
+
+<Important>
+  **Allowlist Behavior**: When any inclusion pattern (prefixed with `+`) is present, the system switches to allowlist mode. Targets that do **not** match at least one inclusion pattern are automatically filtered out — even if they aren't matched by any exclusion pattern.
+</Important>
+
+### How Inclusion Works
+
+When inclusion patterns are configured:
+
+1. **Inclusion check first**: Each discovered target is checked against all `+` patterns. If the target does not match any inclusion pattern, it is filtered out.
+2. **Exclusion check second**: Targets that pass the inclusion check are then checked against exclusion patterns (without `+` prefix). If a target matches an exclusion, it is still filtered out.
+
+<Note>
+  **API-Only Feature**: Inclusion patterns are configured through the API's `exclusions` field when creating an enumeration (POST /enumerate). They use the same field as exclusion patterns — the `+` prefix distinguishes inclusions from exclusions.
+</Note>
+
+### Inclusion Pattern Examples
+
+#### Include Only Production Targets
+Restrict discovery to production subdomains only:
+```
++prod-*.company.com
++api.company.com
++*.production.company.com
+```
+
+#### Include Specific IP Range
+Restrict discovery to a specific network segment:
+```
++10.0.1.0/24
++192.168.100.0/24
+```
+
+#### Combined Inclusion and Exclusion
+Include production systems but exclude a specific staging subdomain that matches the pattern:
+```
++prod-*.company.com
++api.company.com
+*.staging.company.com
+```
+
+In this example:
+- `prod-web.company.com` → **discovered** (matches inclusion `+prod-*.company.com`)
+- `api.company.com` → **discovered** (matches inclusion `+api.company.com`)
+- `prod-web.staging.company.com` → **filtered out** (matches inclusion, but also matches exclusion `*.staging.company.com`)
+- `other.company.com` → **filtered out** (does not match any inclusion pattern)
+
+### Inclusion Use Cases
+
+<AccordionGroup>
+  <Accordion title="Scoping to Production Only">
+    Restrict discovery to production infrastructure:
+    ```
+    +*.prod.company.com
+    +api.company.com
+    +payments.company.com
+    ```
+  </Accordion>
+
+  <Accordion title="Network Segment Discovery">
+    Discover assets only in specific network segments:
+    ```
+    +10.0.1.0/24
+    +10.0.2.0/24
+    ```
+  </Accordion>
+
+  <Accordion title="Combined Scoping">
+    Include a broad set of targets but exclude specific subsets:
+    ```
+    +*.company.com
+    *.internal.company.com
+    *.dev.company.com
+    ```
+    This discovers all `company.com` subdomains except internal and dev environments.
+  </Accordion>
+</AccordionGroup>
+
 ## Pattern Syntax
 
 ### Wildcard Support
@@ -86,10 +171,25 @@ The exclusion system supports wildcard patterns using the asterisk (`*`) charact
 - **Suffix wildcards**: `test.*.company.com` - Excludes any subdomain starting with `test.` and ending with `.company.com`
 - **Multiple wildcards**: `*.staging.*.company.com` - Supports multiple wildcards in a single pattern
 
+### Inclusion Prefix
+
+Inclusion patterns use the same syntax as exclusions, prefixed with `+`:
+
+- **Exact match**: `+api.company.com`
+- **Wildcard**: `+prod-*.company.com`
+- **CIDR range**: `+10.0.0.0/24`
+- **IP address**: `+192.168.1.100`
+
+<Note>
+  Inclusion and exclusion patterns can be mixed in the same `exclusions` field. The `+` prefix is what distinguishes an inclusion from an exclusion.
+</Note>
+
 ### Pattern Matching Rules
 
 - Patterns are **case-insensitive**
-- Each line represents a separate exclusion pattern
+- Each line represents a separate pattern
+- Inclusion patterns use the `+` prefix with the same wildcard and CIDR support as exclusions
+- When inclusion patterns are present, targets must match at least one inclusion pattern **and** not match any exclusion pattern
 - Patterns are matched during the discovery phase
 - Once excluded, targets will not appear in any subsequent discovery results
 
@@ -130,6 +230,13 @@ The exclusion system supports wildcard patterns using the asterisk (`*`) charact
     - Instead of listing individual staging subdomains, use `*.staging.company.com`
     - Group similar patterns together for better organization
     - Regularly review and update exclusion patterns as your infrastructure evolves
+  </Accordion>
+
+  <Accordion title="Inclusion Pattern Strategy">
+    Use inclusion patterns when you want to restrict discovery scope rather than exclude individual targets:
+    - Prefer inclusions over large exclusion lists when you want to discover a small subset of a broad target list
+    - Combine inclusions with exclusions to create precise scoping (e.g., include all production but exclude a specific staging subdomain)
+    - Start with broader inclusion patterns and add exclusions for specific exceptions
   </Accordion>
 </AccordionGroup>
 

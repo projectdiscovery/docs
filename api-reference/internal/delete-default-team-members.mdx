@@ -1,0 +1,69 @@
+---
+openapi: delete /v1/user/team/default-members
+---
+
+Remove default team members from your configuration. You can delete a specific member by email or clear all default members at once.
+
+## How It Works
+
+This endpoint provides two deletion modes:
+- **Specific deletion**: Provide an `email` to remove a single default member
+- **Clear all**: Send empty body `{}` to remove all default members
+
+<Note>
+  This only affects future team creation. Existing teams and their members remain unchanged.
+</Note>
+
+## Request Body
+
+| Field   | Type   | Required | Description |
+|---------|--------|----------|-------------|
+| `email` | string | No       | Email of specific member to remove. Omit to remove all |
+
+## Examples
+
+### Delete Specific Member
+
+```bash
+curl -X DELETE "https://api.projectdiscovery.io/v1/user/team/default-members" \
+  -H "Content-Type: application/json" \
+  -H "X-Api-Key: YOUR_API_KEY" \
+  -H "X-Team-Id: YOUR_TEAM_ID" \
+  -d '{ "email": "user@example.com" }'
+```
+
+**Response:**
+```json
+{
+  "message": "default team member deleted successfully"
+}
+```
+
+### Delete All Default Members
+
+```bash
+curl -X DELETE "https://api.projectdiscovery.io/v1/user/team/default-members" \
+  -H "Content-Type: application/json" \
+  -H "X-Api-Key: YOUR_API_KEY" \
+  -H "X-Team-Id: YOUR_TEAM_ID" \
+  -d '{}'
+```
+
+**Response:**
+```json
+{
+  "message": "default team member deleted successfully"
+}
+```
+
+## Alternative Approach
+
+Instead of deleting individual members, you can also use the [Set Default Team Members](/api-reference/internal/set-default-team-members) endpoint with an updated list, which replaces the entire configuration at once.
+
+<Tip>
+  For bulk updates, using POST to replace the entire list is more efficient than multiple DELETE operations.
+</Tip>
+
+## Authorization
+
+Only **owner** or **admin** of the workspace (identified by `X-Team-Id`) can delete default members.

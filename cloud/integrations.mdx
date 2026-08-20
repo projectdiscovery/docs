@@ -784,11 +784,12 @@ By covering these services, ProjectDiscovery can map out a broad range of AWS as
 
 **AWS Integration Methods**
 
-ProjectDiscovery supports three methods to connect to AWS, each suited for different use cases and security preferences:
+ProjectDiscovery supports four methods to connect to AWS, each suited for different use cases and security preferences:
 
 1. **Single AWS Account (Access Key & Secret)** – Direct credential-based authentication using an IAM User's Access Key ID and Secret Access Key to connect one AWS account. Choose this for quick setups or single-account monitoring.
 2. **Multiple AWS Accounts (Assume Role)** – Use one set of credentials to assume roles in multiple accounts. This method is ideal for organizations with multiple AWS accounts (e.g. dev, prod, etc.). You provide one account's credentials and the common role name that exists in all target accounts.
-3. **Cross-Account Role (Role ARN)** – Use a dedicated IAM role with an External ID for third-party access. This option lets you create a cross-account IAM role in your AWS account and grant ProjectDiscovery access via that role's Amazon Resource Name (ARN). This is the most secure integration method, as it follows AWS best practices for third-party account access.
+3. **Cross-Account Role (Role ARN)** – Use a dedicated IAM role with an External ID for third-party access. This option lets you create a cross-account IAM role in your AWS account and grant ProjectDiscovery access via that role's Amazon Resource Name (ARN).
+4. **Workload Identity Federation (Recommended)** – Connect without storing any AWS credentials. ProjectDiscovery's OIDC identity provider exchanges short-lived tokens with AWS for each scan. This is the most secure method — no long-lived keys to manage, rotate, or risk leaking.
 
 **Prerequisites**
 
@@ -847,25 +848,117 @@ The most secure method using ProjectDiscovery's service account:
    - Give the integration a unique name
    - Select the AWS services you want to monitor
 
-**Required Permissions**
+#### 4. Workload Identity Federation (Recommended)
 
-ProjectDiscovery needs read-only access to your AWS assets. The following AWS-managed policies are recommended:
+<Note>
+**Recommended.** Workload Identity Federation (WIF) eliminates long-lived AWS credentials entirely. ProjectDiscovery's OIDC identity provider exchanges short-lived tokens with AWS STS for each scan — no access keys are stored or need rotation.
+</Note>
 
-- EC2 - AmazonEC2ReadOnlyAccess
-- Route53 - AmazonRoute53ReadOnlyAccess
-- S3 - AmazonS3ReadOnlyAccess
-- Lambda - AWSLambda_ReadOnlyAccess
-- ELB - ElasticLoadBalancingReadOnly
-- Cloudfront - CloudFrontReadOnlyAccess
+**Benefits over credential-based methods:**
+- No long-lived access keys to manage or rotate
+- Tokens are short-lived and scoped per-scan
+- Audit trail in AWS CloudTrail shows federated identity access
+- Trust is scoped to your specific ProjectDiscovery workspace ID
+- Follows AWS security best practices for third-party integrations
 
-Alternatively, you can use this custom policy for minimal permissions:
+**Prerequisites:**
+- An AWS account with IAM admin access
+- AWS CLI configured (`aws configure`)
+- Your ProjectDiscovery **Team ID** (found in the platform sidebar)
 
-```json
+<Tip>
+**Finding your Team ID** — In the ProjectDiscovery platform, click on your team name in the left sidebar to reveal your Team ID. Use the copy button to copy it.
+
+<img
+  src="/images/pdcp-teamid.png"
+  alt="Finding your Team ID in ProjectDiscovery"
+  title="Finding your Team ID in ProjectDiscovery"
+  style={{ width:"45%" }}
+/>
+</Tip>
+
+**Step 1: Create the OIDC Identity Provider**
+
+Register ProjectDiscovery as a trusted OIDC provider in your AWS account.
+
+```bash
+aws iam create-open-id-connect-provider \
+  --url "https://oidc.projectdiscovery.io" \
+  --client-id-list "sts.amazonaws.com"
+```
+
+Save the OIDC Provider ARN from the output (e.g., `arn:aws:iam::123456789012:oidc-provider/oidc.projectdiscovery.io`).
+
+**Step 2: Create the WIF Role**
+
+Create an IAM role that ProjectDiscovery can assume via OIDC token exchange. The trust policy restricts access to your specific workspace.
+
+```bash
+ACCOUNT_ID="YOUR_AWS_ACCOUNT_ID"
+TEAM_ID="YOUR_PROJECTDISCOVERY_TEAM_ID"
+OIDC_PROVIDER="oidc.projectdiscovery.io"
+
+cat > trust-policy.json <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Sid": "RequiredReadPermissions",
+      "Effect": "Allow",
+      "Principal": {
+        "Federated": "arn:aws:iam::${ACCOUNT_ID}:oidc-provider/${OIDC_PROVIDER}"
+      },
+      "Action": "sts:AssumeRoleWithWebIdentity",
+      "Condition": {
+        "StringEquals": {
+          "${OIDC_PROVIDER}:aud": "sts.amazonaws.com",
+          "${OIDC_PROVIDER}:sub": "${TEAM_ID}"
+        }
+      }
+    }
+  ]
+}
+EOF
+
+aws iam create-role \
+  --role-name PDWorkloadIdentityRole \
+  --assume-role-policy-document file://trust-policy.json
+```
+
+**Step 3: Create a Scanner Role**
+
+The WIF role is the trust boundary — it should **not** have direct resource permissions. Create a separate scanner role with read-only permissions in each account you want to scan, starting with the account where the WIF role lives.
+
+```bash
+ACCOUNT_ID="YOUR_AWS_ACCOUNT_ID"
+
+cat > scanner-trust-policy.json <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::${ACCOUNT_ID}:role/PDWorkloadIdentityRole"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+EOF
+
+aws iam create-role \
+  --role-name PDScannerRole \
+  --assume-role-policy-document file://scanner-trust-policy.json
+```
+
+Attach scanner permissions to the scanner role:
+
+```bash
+cat > scanner-policy.json <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
       "Effect": "Allow",
       "Action": [
         "ec2:DescribeInstances",
@@ -873,6 +966,7 @@ Alternatively, you can use this custom policy for minimal permissions:
         "route53:ListHostedZones",
         "route53:ListResourceRecordSets",
         "s3:ListAllMyBuckets",
+        "s3:GetBucketLocation",
         "lambda:ListFunctions",
         "elasticloadbalancing:DescribeLoadBalancers",
         "elasticloadbalancing:DescribeTargetGroups",
@@ -893,33 +987,303 @@ Alternatively, you can use this custom policy for minimal permissions:
     }
   ]
 }
+EOF
+
+aws iam put-role-policy \
+  --role-name PDScannerRole \
+  --policy-name ScannerPermissions \
+  --policy-document file://scanner-policy.json
 ```
 
-**Verifying the Integration**
+<Note>
+For **multiple accounts**, repeat [Step 3](#step-3-create-a-scanner-role) in each account you want to scan — the role name must be the same (`PDScannerRole`) across all accounts. Use [AWS CloudFormation StackSets](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/what-is-cfnstacksets.html), Terraform, or similar infrastructure-as-code tools to deploy the scanner role across all accounts at once.
+</Note>
 
-After configuring the integration, it's important to verify that ProjectDiscovery is successfully connected and enumerating your AWS assets:
+**Step 4: Grant the WIF Role AssumeRole Permission**
 
-- **Check Asset Discovery:** In the ProjectDiscovery platform, navigate to the cloud assets or inventory section. After a successful integration, you should start seeing resources from your AWS account(s) listed (for example, EC2 instance IDs, S3 bucket names, etc., corresponding to the integrated accounts). It may take a short while for the initial discovery to complete. If you see those assets, the integration is working.
-- **Test with a Known Resource:** As a quick test, pick a known resource (like a specific EC2 instance or S3 bucket in your AWS account) and search for it in ProjectDiscovery's asset inventory. If it appears, the connection is functioning and pulling data.
-- **Troubleshooting Errors:** If the integration fails or some assets are missing, consider these common issues:
-  - _Incorrect Credentials:_ Double-check that the Access Key and Secret (if used) were entered correctly and correspond to an active IAM user. If you recently created the user, ensure you copied the keys exactly (no extra spaces or missing characters).
-  - _Insufficient Permissions:_ If certain services aren't showing up, the IAM policy might be missing permissions. For example, if S3 buckets aren't listed, confirm that the policy includes `s3:ListAllMyBuckets`. Refer back to the Required Permissions and make sure all relevant actions are allowed. You can also use AWS IAM Policy Simulator or CloudTrail logs to see if any **AccessDenied** errors occur when ProjectDiscovery calls AWS APIs.
-  - _Assume Role Failures:_ In multi-account or cross-account setups, a common issue is a misconfigured trust relationship. If ProjectDiscovery cannot assume a role, you might see an error in the UI or logs like "AccessDenied: Not authorized to perform sts:AssumeRole". In that case, check the following:
-    - The trust policy of the IAM role (in target account) trusts the correct principal (either your primary account's IAM user/role ARN for multi-account, or ProjectDiscovery's external account ID for cross-account) and the External ID if applicable.
-    - The role name or ARN in the ProjectDiscovery config exactly matches the one in AWS (spelling/case must match).
-    - The primary credentials (for multi-account) have permission to call `AssumeRole`.
-  - _External ID Mismatch:_ For cross-account roles, if the external ID in ProjectDiscovery and the one in the IAM role's trust policy do not match, AWS will deny the assume request. Ensure you didn't accidentally copy the wrong value or include extra spaces. It must be exact.
-- **AWS CloudTrail Logs:** As an additional verification, you can check AWS CloudTrail in your account. When ProjectDiscovery connects, you should see events like `DescribeInstances`, `ListBuckets`, etc., being called by the IAM user or assumed role. For cross-account roles, you will see an `AssumeRole` event from ProjectDiscovery's AWS account ID, and subsequent calls under the assumed role's identity. This audit trail can confirm that the integration is working as intended and using only allowed actions.
+Allow the WIF role to assume scanner roles. Use a wildcard to cover all accounts, or list specific account ARNs.
 
-If all checks out, ProjectDiscovery is now actively monitoring your AWS environment. New resources launched in AWS should be detected on the next scan cycle, and any changes to your cloud footprint will be reflected in the platform. Make sure to regularly review the integration and update the IAM permissions if you start using new AWS services.
+```bash
+cat > assume-scanner-policy.json <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "sts:AssumeRole",
+      "Resource": "arn:aws:iam::*:role/PDScannerRole"
+    }
+  ]
+}
+EOF
+
+aws iam put-role-policy \
+  --role-name PDWorkloadIdentityRole \
+  --policy-name AssumeScannerRole \
+  --policy-document file://assume-scanner-policy.json
+```
+
+**Step 5: Configure in ProjectDiscovery**
+
+| Field | Value |
+|---|---|
+| **OIDC Provider ARN** | ARN from Step 1 |
+| **WIF Role Name** | `PDWorkloadIdentityRole` |
+| **Scanner Role Name** | `PDScannerRole` |
+| **Account IDs** | AWS account IDs to scan, one per line |
+
+Click **Verify** to test the connection.
+
+<Note>
+For a single account, enter just that account's ID. For multiple accounts, list all account IDs — the scanner role must exist in each one.
+</Note>
+
+---
+
+**Optional: Organization Discovery**
+
+Instead of listing account IDs manually, you can have ProjectDiscovery automatically discover all accounts in your AWS Organization.
+
+**Step 6: Create an Organization Discovery Role**
+
+<Note>
+This role must be created in the **management (root) account** of your AWS Organization — only the management account has permission to call `organizations:ListAccounts`. If the WIF role already lives in the management account, use the same account ID for both variables.
+</Note>
+
+```bash
+MANAGEMENT_ACCOUNT_ID="YOUR_MANAGEMENT_ACCOUNT_ID"  # AWS Organization management account (use the same value as ACCOUNT_ID if WIF is in the management account)
+ACCOUNT_ID="YOUR_AWS_ACCOUNT_ID"                     # Account where WIF role lives
+
+cat > org-discovery-trust-policy.json <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::${ACCOUNT_ID}:role/PDWorkloadIdentityRole"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+EOF
+
+aws iam create-role \
+  --role-name PDOrgDiscoveryRole \
+  --assume-role-policy-document file://org-discovery-trust-policy.json
+```
+
+Attach organization read permissions:
+
+```bash
+cat > org-policy.json <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "organizations:ListAccounts",
+        "organizations:DescribeOrganization"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+EOF
+
+aws iam put-role-policy \
+  --role-name PDOrgDiscoveryRole \
+  --policy-name OrgDiscoveryPermissions \
+  --policy-document file://org-policy.json
+```
+
+**Step 7: Allow the WIF role to assume the org discovery role**
+
+```bash
+MANAGEMENT_ACCOUNT_ID="YOUR_MANAGEMENT_ACCOUNT_ID"
+
+cat > assume-org-discovery-policy.json <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "sts:AssumeRole",
+      "Resource": "arn:aws:iam::${MANAGEMENT_ACCOUNT_ID}:role/PDOrgDiscoveryRole"
+    }
+  ]
+}
+EOF
+
+aws iam put-role-policy \
+  --role-name PDWorkloadIdentityRole \
+  --policy-name AssumeOrgDiscoveryRole \
+  --policy-document file://assume-org-discovery-policy.json
+```
+
+**Configure in ProjectDiscovery:**
+
+| Field | Value |
+|---|---|
+| **OIDC Provider ARN** | ARN from Step 1 |
+| **WIF Role Name** | `PDWorkloadIdentityRole` |
+| **Scanner Role Name** | `PDScannerRole` |
+| **Org Discovery Role ARN** | `arn:aws:iam::MANAGEMENT_ACCOUNT_ID:role/PDOrgDiscoveryRole` |
+| **Exclude Account IDs** | _(optional)_ Account IDs to skip, one per line |
+
+Leave **Account IDs** empty — accounts are discovered automatically. Click **Verify** to test the connection.
+
+<Warning>
+**Scanner role is still required.** Organization Discovery only automates finding account IDs — the scanner role (`PDScannerRole` from [Step 3](#step-3-create-a-scanner-role)) must still exist in every account you want to scan. Use [AWS CloudFormation StackSets](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/what-is-cfnstacksets.html), [Terraform](https://developer.hashicorp.com/terraform/tutorials/aws/aws-iam-policy), or [AWS Organizations delegated admin](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_delegate_policies.html) to deploy the scanner role across all accounts automatically.
+
+Accounts where the scanner role is missing will be silently skipped — no error is shown. To avoid blind spots, ensure the scanner role is deployed to all accounts before enabling org discovery.
+</Warning>
+
+---
+
+#### AWS Troubleshooting
+
+| Error | Fix |
+|---|---|
+| `Not authorized to perform sts:AssumeRoleWithWebIdentity` | Check OIDC provider URL, WIF role trust policy `sub` condition (Team ID), and `aud` condition (`sts.amazonaws.com`) |
+| `Access Denied` on AssumeRole | Check target role trust policy trusts `PDWorkloadIdentityRole`, and WIF role has `sts:AssumeRole` permission |
+| `Access Denied` on resource enumeration | Check scanner permissions are on `PDScannerRole`, not the WIF role |
+
+---
+
+#### API Setup
+
+You can set up the AWS integration entirely through the API. The process involves creating a cloudlist configuration, verifying it, and then using it to create an enumeration.
+
+The cloudlist configuration is a YAML array that must be **base64-encoded** before sending it to the API. Each connection method uses a different YAML structure, but the API calls are the same.
+
+**Configuration Format**
+
+<AccordionGroup>
+  <Accordion title="Single AWS Account (Access Key & Secret)">
+    ```yaml
+    - provider: aws
+      aws_access_key: "AKIAIOSFODNN7EXAMPLE"
+      aws_secret_key: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+      aws_session_token: "optional-session-token"
+      services:
+        - ec2
+        - route53
+        - s3
+    ```
+  </Accordion>
+
+  <Accordion title="Multiple AWS Accounts (Assume Role)">
+    ```yaml
+    - provider: aws
+      aws_access_key: "AKIAIOSFODNN7EXAMPLE"
+      aws_secret_key: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+      assume_role_name: "ProjectDiscoveryReadOnlyRole"
+      account_ids:
+        - "123456789012"
+        - "987654321098"
+      services:
+        - ec2
+        - route53
+        - s3
+    ```
+  </Accordion>
+
+  <Accordion title="Cross-Account Role (Role ARN)">
+    ```yaml
+    - provider: aws
+      assume_role_arn: "arn:aws:iam::123456789012:role/ProjectDiscoveryRole"
+      external_id: "your-external-id"
+      assume_role_session_name: "projectdiscovery_role"
+      services:
+        - ec2
+        - route53
+        - s3
+    ```
+
+    The `external_id` is displayed in the ProjectDiscovery UI when you select the Cross-Account Role method. You can also retrieve it from your account settings.
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  The YAML configuration must be **base64-encoded** before passing it as the `config` field in the API request. For example, using the command line: `cat config.yaml | base64`.
+</Note>
+
+**Step 1: Verify the Configuration**
+
+<Note>
+  While verification is optional, it is strongly recommended before creating the integration. This step validates that the credentials are correct and that ProjectDiscovery can successfully connect to your AWS account, saving you from debugging failed enumerations later.
+</Note>
+
+```bash
+curl -X POST https://api.projectdiscovery.io/v1/scans/config/verify \
+  -H 'Content-Type: application/json' \
+  -H 'X-API-Key: <your-api-key>' \
+  -d '{
+    "config_type": "cloudlist",
+    "config": "<base64-encoded-yaml>"
+  }'
+```
+
+A successful response:
+
+```json
+{
+  "is_verified": true,
+  "response": "config verified successfully"
+}
+```
+
+If verification fails, check your credentials, IAM permissions, and role trust policies before proceeding.
+
+**Step 2: Create the Integration**
+
+Once verified, send the base64-encoded configuration to create a cloudlist config:
+
+```bash
+curl -X POST https://api.projectdiscovery.io/v1/scans/config \
+  -H 'Content-Type: application/json' \
+  -H 'X-API-Key: <your-api-key>' \
+  -d '{
+    "name": "My AWS Integration",
+    "config_type": "cloudlist",
+    "config": "<base64-encoded-yaml>"
+  }'
+```
+
+The response includes the config `id` that you will use in the next step:
+
+```json
+{
+  "id": "config-id",
+  "message": "successfully created configuration"
+}
+```
+
+**Step 3: Create an Enumeration**
+
+Use the config `id` from Step 2 to create a cloud asset enumeration:
+
+```bash
+curl -X POST https://api.projectdiscovery.io/v1/asset/enumerate \
+  -H 'Content-Type: application/json' \
+  -H 'X-API-Key: <your-api-key>' \
+  -d '{
+    "cloudlist_config_ids": ["<config-id-from-step-2>"],
+    "name": "AWS Cloud Enumeration"
+  }'
+```
+
+The example above shows a minimal request. Refer to the [Create Enumeration API reference](/api-reference/enumerations/create-enumeration) for the complete list of required and optional fields.
 
 **References:**
 
-1. https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_iam_read-only-console.html
+1. https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html
 2. https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html
-3. https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html
-4. https://docs.aws.amazon.com/sdkref/latest/guide/feature-assume-role-credentials.html
-5. https://docs.logrhythm.com/OCbeats/docs/aws-cross-account-access-using-sts-assume-role
+3. https://docs.aws.amazon.com/sdkref/latest/guide/feature-assume-role-credentials.html
+4. https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts.html
 
 ### Google Cloud Platform (GCP)
 
@@ -1072,6 +1436,16 @@ Grant the required roles based on your [enumeration scope](#enumeration-scope).
   | Organization Viewer | `roles/resourcemanager.organizationViewer` |
   | Folder Viewer | `roles/resourcemanager.folderViewer` |
   | Browser | `roles/browser` |
+  | Compute Viewer | `roles/compute.viewer` |
+  | DNS Reader | `roles/dns.reader` |
+  | Storage Bucket Viewer | `roles/storage.bucketViewer` |
+  | Cloud Run Viewer | `roles/run.viewer` |
+  | Cloud Functions Viewer | `roles/cloudfunctions.viewer` |
+  | Kubernetes Engine Viewer | `roles/container.clusterViewer` |
+
+  <Note>
+  **Permission Inheritance:** Organization-level IAM roles automatically cascade to all projects and folders within the organization. This means granting these 10 roles at the org level provides access across your entire GCP environment without per-project configuration.
+  </Note>
 
   Find your Organization ID:
   ```bash
@@ -1081,7 +1455,7 @@ Grant the required roles based on your [enumeration scope](#enumeration-scope).
   Grant these roles at the **organization level** via the [Cloud Console IAM page](https://console.cloud.google.com/iam-admin/iam) (switch to organization scope) or using `gcloud`:
 
   ```bash
-  for role in roles/cloudasset.viewer roles/resourcemanager.organizationViewer roles/resourcemanager.folderViewer roles/browser; do
+  for role in roles/cloudasset.viewer roles/resourcemanager.organizationViewer roles/resourcemanager.folderViewer roles/browser roles/compute.viewer roles/dns.reader roles/storage.bucketViewer roles/run.viewer roles/cloudfunctions.viewer roles/container.clusterViewer; do
     gcloud organizations add-iam-policy-binding YOUR_ORG_ID \
       --member="serviceAccount:projectdiscovery-scanner@YOUR_PROJECT_ID.iam.gserviceaccount.com" \
       --role="$role"
@@ -1101,9 +1475,25 @@ Or via the [Cloud Console](https://console.cloud.google.com/iam-admin/serviceacc
 
 **Step 4: Configure in ProjectDiscovery**
 
-In the ProjectDiscovery platform, create a new GCP integration and select **Service Account Key** as the authentication method. Upload the JSON key file and optionally provide your Organization ID for org-level enumeration.
+In the ProjectDiscovery platform, create a new GCP integration and select **Service Account Key** as the authentication method. Upload the JSON key file and optionally provide your Organization ID for org-level enumeration and an **optional Project IDs** list to limit discovery to specific projects (leave it empty to scan all projects).
 
 Click **Verify** to confirm the connection, then **Create & Start Discovery**.
+
+<AccordionGroup>
+  <Accordion title="How to find list of project IDs">
+  The **Project IDs** field is optional. If you provide it, **only those projects will be scanned** (not all projects under the organization).
+
+  To list the projects your service account can access:
+
+  ```bash
+  # Authenticate as the service account
+  gcloud auth activate-service-account --key-file=PATH_TO_SA_KEY.json
+
+  # List all projects the service account can see
+  gcloud projects list --format="value(projectId)"
+  ```
+  </Accordion>
+</AccordionGroup>
 
 ---
 
@@ -1197,6 +1587,16 @@ Grant the required roles based on your [enumeration scope](#enumeration-scope).
   | Organization Viewer | `roles/resourcemanager.organizationViewer` |
   | Folder Viewer | `roles/resourcemanager.folderViewer` |
   | Browser | `roles/browser` |
+  | Compute Viewer | `roles/compute.viewer` |
+  | DNS Reader | `roles/dns.reader` |
+  | Storage Bucket Viewer | `roles/storage.bucketViewer` |
+  | Cloud Run Viewer | `roles/run.viewer` |
+  | Cloud Functions Viewer | `roles/cloudfunctions.viewer` |
+  | Kubernetes Engine Viewer | `roles/container.clusterViewer` |
+
+  <Note>
+  **Permission Inheritance:** Organization-level IAM roles automatically cascade to all projects and folders within the organization. This means granting these 10 roles at the org level provides access across your entire GCP environment without per-project configuration.
+  </Note>
 
   Find your Organization ID:
   ```bash
@@ -1206,7 +1606,7 @@ Grant the required roles based on your [enumeration scope](#enumeration-scope).
   Grant these roles at the **organization level** via the [Cloud Console IAM page](https://console.cloud.google.com/iam-admin/iam) (switch to organization scope) or using `gcloud`:
 
   ```bash
-  for role in roles/cloudasset.viewer roles/resourcemanager.organizationViewer roles/resourcemanager.folderViewer roles/browser; do
+  for role in roles/cloudasset.viewer roles/resourcemanager.organizationViewer roles/resourcemanager.folderViewer roles/browser roles/compute.viewer roles/dns.reader roles/storage.bucketViewer roles/run.viewer roles/cloudfunctions.viewer roles/container.clusterViewer; do
     gcloud organizations add-iam-policy-binding YOUR_ORG_ID \
       --member="serviceAccount:pd-cloudlist-reader@YOUR_PROJECT_ID.iam.gserviceaccount.com" \
       --role="$role"
@@ -1247,7 +1647,7 @@ gcloud projects describe YOUR_PROJECT_ID --format='value(projectNumber)'
 
 **Step 6: Enable the Cloud Asset API**
 
-The GCP org-level integration uses the Cloud Asset Inventory API (`cloudasset.googleapis.com`). This API must be enabled in the project where you created the service account and WIF pool.
+The GCP org-level integration uses the Cloud Asset Inventory API (`cloudasset.googleapis.com`) for all discovery operations. This API must be enabled in the project where you created the service account and WIF pool.
 
 ```bash
 gcloud services enable cloudasset.googleapis.com --project="YOUR_PROJECT_ID"
@@ -1288,8 +1688,23 @@ In the ProjectDiscovery platform, create a new GCP integration and select **Work
 | **Workload Identity Provider** | Full provider path from Step 7 |
 | **Service Account Email** | `pd-cloudlist-reader@YOUR_PROJECT_ID.iam.gserviceaccount.com` |
 | **Organization ID** | Your numeric org ID — leave empty for project-level enumeration |
+| **Project IDs (Optional)** | Limit discovery to specific projects |
 
 Click **Verify** to confirm the connection, then **Create & Start Discovery**.
+
+<AccordionGroup>
+  <Accordion title="How to find list of project IDs">
+  The **Project IDs** field is optional. If you provide it, **only those projects will be scanned** (not all projects under the organization).
+
+  To list the projects you can access:
+
+  ```bash
+  gcloud projects list --format="value(projectId)"
+  ```
+
+  Run this as an org admin (or a principal with org-level visibility) if you need the full list of projects.
+  </Accordion>
+</AccordionGroup>
 
 ---
 
@@ -1299,16 +1714,15 @@ Click **Verify** to confirm the connection, then **Create & Start Discovery**.
 
 This error can have two causes:
 
-1. **Cloud Asset API not enabled** — The Cloud Asset Inventory API must be enabled in the project where your service account and WIF pool were created. Check and enable it:
+1. **Cloud Asset API not enabled** — The Cloud Asset Inventory API must be enabled in the project where your service account and WIF pool were created (the project number is visible in your Workload Identity Provider path). Check and enable it:
    ```bash
-   # Check
+   # Check (use the project number from your WIF provider path)
    gcloud services list --project="YOUR_PROJECT_NUMBER" --filter="name:cloudasset.googleapis.com" --format="value(name,state)"
    # Fix
    gcloud services enable cloudasset.googleapis.com --project="YOUR_PROJECT_NUMBER"
    ```
-   Replace `YOUR_PROJECT_NUMBER` with the numeric project number from your Workload Identity Provider path (the number between `projects/` and `/locations/`).
 
-2. **Missing org-level IAM roles** — Ensure all four org-level roles are granted: `roles/cloudasset.viewer`, `roles/resourcemanager.organizationViewer`, `roles/resourcemanager.folderViewer`, and `roles/browser`. See the Organization-Level tab in the [Grant Permissions](#service-account-key) step for details.
+2. **Missing org-level IAM roles** — Ensure all required org-level roles are granted. See the Organization-Level tab in the [Grant Permissions](#service-account-key) step for details.
 
 **"GCP token exchange failed"** (WIF only)
 - Verify the Workload Identity Provider path is correct (check for typos)
@@ -1638,6 +2052,10 @@ References
 Supported Cloudflare Services:
 
 - DNS and CDN assets
+
+<Note>
+  Connecting a Cloudflare integration also enables **origin IP exposure** detection under [Misconfigurations](/api-reference/enumerations/list-enumeration-misconfigurations). When a hostname from your asset inventory resolves to the same IP as the origin behind one of your proxied Cloudflare records, it is flagged as an origin exposure finding.
+</Note>
 
 **Cloudflare Integration Methods:**
 
