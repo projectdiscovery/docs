@@ -48,20 +48,41 @@ Since authentication can be done in multiple ways, for example, using 3rd party 
     <Note> Only one secret can be used for a particular target, if multiple secrets are found for a target, the first one will be used with priority given to `domains` over `domains-regex`.</Note>
 
 
-### Security & Storing Secret
+### Encrypting Secret Files
 
-    We have not imposed the need to hardcode secrets in the `Secret File` configuration, and support the use of third-party secret management systems to templatize and manage secrets.
+Nuclei can read secret files encrypted with [SOPS](https://getsops.io/). Both encrypted and plain `.yaml`, `.yml`, and `.json` files use the existing `-secret-file` (`-sf`) option. Nuclei decrypts an encrypted file when it loads the file for a scan.
 
+Configure SOPS with an age recipient or another supported key provider. To encrypt only the fields that can contain authentication data, add this rule to a `.sops.yaml` file in the directory where you run SOPS:
 
-### Integrations with Secret Management Systems
+```yaml
+creation_rules:
+  - age: "<AGE_RECIPIENT>"
+    encrypted_regex: "^(password|username|token|value|key|raw)$"
+```
 
-    We are currently exploring integrations with popular secret management systems for easy and secure management of secrets
+Replace `<AGE_RECIPIENT>` with your public age recipient. If you use a different key provider, replace `age` with the applicable [SOPS key configuration](https://getsops.io/docs/).
 
-    We are prioritizng support for:
+Encrypt the secret file in place:
 
-    - **1Password**
-    - **Hashicorp Vault**
-    - **AWS Secrets Manager**
+```bash
+sops encrypt --in-place secrets.yaml
+```
+
+Make the corresponding decryption key available through the normal SOPS key lookup. For example, set `SOPS_AGE_KEY_FILE` to the path of an age identity file. You can then give the encrypted file directly to Nuclei:
+
+```bash
+SOPS_AGE_KEY_FILE=/path/to/keys.txt nuclei \
+  -u https://example.com \
+  -secret-file secrets.yaml
+```
+
+<Note>
+Keep `.yaml`, `.yml`, or `.json` as the final file extension. Nuclei rejects other extensions, even if SOPS can decrypt the file.
+</Note>
+
+<Warning>
+Do NOT commit the plaintext secret file, private keys, or key-provider credentials. Store only the encrypted secret file and any public key configuration allowed by your security policy.
+</Warning>
 
 ### Skipping Secret File
 
@@ -366,4 +387,3 @@ Example:
 ```yaml
 input: auth-server.projectdiscovery.io
 ```
-
