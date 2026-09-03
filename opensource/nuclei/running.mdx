@@ -121,15 +121,15 @@ Nuclei engine supports three basic filters to customize template execution.
 
    Filter based on author field available in the template.
 
-As default, Filters are applied on installed path of templates and can be customized with manual template path input.
+By default, filters apply to templates below the active template root. Use a template path to limit the scan to another location.
 
-For example, below command will run all the templates installed at `~/nuclei-templates/` directory and has `cve` tags in it.
+For example, the following command runs templates from the active template root that have the `cve` tag.
 
 ```sh
 nuclei -u https://example.com -tags cve
 ```
 
-And this example will run all the templates available under `~/nuclei-templates/exposures/` directory and has `config` tag in it.
+This example limits the scan to the `exposures/` directory below the active template root and selects templates with the `config` tag.
 
 ```sh
 nuclei -u https://example.com -tags config -t exposures/
@@ -189,6 +189,25 @@ In Workflows, Nuclei filters are applied on templates or sub-templates running v
 Nuclei has built-in support for automatic template download/update from [**nuclei templates**](https://github.com/projectdiscovery/nuclei-templates) project which provides [community-contributed](https://github.com/projectdiscovery/nuclei-templates#-community) list of ready-to-use templates that is constantly updated.
 
 Nuclei checks for new community template releases upon each execution and automatically downloads the latest version when available. optionally, this feature can be disabled using the `-duc` cli flag or the configuration file.
+
+#### Template storage and discovery
+
+Nuclei selects the active public template root in this order:
+
+1. The final `-update-template-dir` value after configuration and CLI precedence are applied.
+2. `NUCLEI_TEMPLATES_DIR`.
+3. A previously persisted template path, including one migrated from legacy state.
+4. The XDG default selection.
+
+If no explicit or persisted path is available, Nuclei checks the XDG locations in this order:
+
+1. An existing `$XDG_DATA_HOME/nuclei/nuclei-templates` directory.
+2. The first existing `$XDG_DATA_DIRS/nuclei/nuclei-templates` directory, using the listed XDG preference order.
+3. `$XDG_DATA_HOME/nuclei/nuclei-templates` as the installation target when no existing root is found.
+
+A root discovered through `XDG_DATA_DIRS` behaves like any other active template root. Nuclei can install, update, regenerate metadata, and reset it when filesystem permissions allow. The XDG location controls discovery order only; it does not establish ownership.
+
+Template installations and updates place `.nuclei-ignore` in the active root. If the active file is missing, Nuclei logs a warning and continues without its default ignore exclusions. If the file exists but cannot be opened or parsed, Nuclei stops before template execution and reports the active path and underlying error. Repair or restore the file before running Nuclei again.
 
 ### Custom Templates
 
@@ -257,23 +276,21 @@ export DISABLE_NUCLEI_TEMPLATES_AWS_DOWNLOAD=true
 export DISABLE_NUCLEI_TEMPLATES_AZURE_DOWNLOAD=true
 ```
 
-Once the environment variables are set, following command to download the custom templates:
+After setting the environment variables, run the following command to download the custom templates:
 
 ```bash
 nuclei -update-templates
 ```
 
-This command will clone the repository containing the custom templates to the default nuclei templates directory (`$HOME/nuclei-templates/github/`).
+Nuclei stores downloaded provider templates below the active public template root.
 
 The directory structure of the custom templates looks as follows:
 
-```bash
-tree $HOME/nuclei-templates/
-
-nuclei-templates/
-└── github/$GH_REPO_NAME # Custom templates downloaded from public / private GitHub project
-└── gitlab/$GL_REPO_NAME # Custom templates downloaded from public / private GitLab project
-└── s3/$BUCKET_NAME # Custom templates downloaded from public / private AWS Bucket
+```text
+<active-template-root>/
+├── github/$GH_REPO_NAME # Custom templates downloaded from public / private GitHub project
+├── gitlab/$GL_REPO_NAME # Custom templates downloaded from public / private GitLab project
+├── s3/$BUCKET_NAME # Custom templates downloaded from public / private AWS Bucket
 └── azure/$CONTAINER_NAME # Custom templates downloaded from public / private Azure Blob Storage
 ```
 
@@ -625,7 +642,7 @@ Feel free to play with these flags to tune your nuclei scan speed and accuracy. 
 
 ### Traffic **Tagging**
 
-Many BugBounty platform/programs requires you to identify the HTTP traffic you make, this can be achieved by setting custom header using config file at `$HOME/.config/nuclei/config.yaml` or CLI flag `-H / header`
+Many bug bounty programs require you to identify your HTTP traffic. Set a custom header in `$XDG_CONFIG_HOME/nuclei/config.yaml`, in `$NUCLEI_CONFIG_DIR/config.yaml`, or with the `-H / header` CLI flag.
 
 <Note>
 Setting custom header using config file
@@ -698,12 +715,12 @@ nuclei -l urls.txt -t cves/ -etags sqli,rce
 ```
 </Note>
 
-- [.nuclei-ignore](https://github.com/projectdiscovery/nuclei-templates/blob/main/.nuclei-ignore) list - default list of tags and templates excluded from nuclei scan as default.
+- The [.nuclei-ignore](https://github.com/projectdiscovery/nuclei-templates/blob/main/.nuclei-ignore) file in the active template root lists the tags and templates excluded by default.
 
 <Warning>
-  **.nuclei-ignore** file is not supposed to be modified by
-  user, as it gets used by nuclei internally, to overwrite ignore list, utilize [nuclei
-  configuration](/opensource/nuclei/running#nuclei-config) file.
+  Do not modify the active **.nuclei-ignore** file. Nuclei can replace it during
+  a template update. To override the denylist, use [Nuclei
+  configuration](/opensource/nuclei/running#nuclei-config) or the include flags.
 </Warning>
 
 To prioritize certain templates or tags over the [.nuclei-ignore](https://github.com/projectdiscovery/nuclei-templates/blob/master/.nuclei-ignore) file or denylist, you must use the `-include-templates` or `-include-tags` flags. This will ensure that the specified templates or tags take precedence over any `.nuclei-ignore` or denylist entries.
@@ -807,11 +824,60 @@ We can update the nuclei configuration file to include these tags for all scans.
 
 ## Nuclei **Config**
 
-> Since release of [v2.3.2](https://blog.projectdiscovery.io/nuclei-v2-3-0-release/) nuclei uses [goflags](https://github.com/projectdiscovery/goflags) for clean CLI experience and long/short formatted flags.
->
-> [goflags](https://github.com/projectdiscovery/goflags) comes with auto-generated config file support that coverts all available CLI flags into config file, basically you can define all CLI flags into config file to avoid repetitive CLI flags that loads as default for every scan of nuclei.
->
-> Default path of nuclei config file is `$HOME/.config/nuclei/config.yaml`, uncomment and configure the flags you wish to run as default.
+Nuclei loads configuration from the standard XDG locations:
+
+- Each `$XDG_CONFIG_DIRS/nuclei/config.yaml` file is an optional, read-only system configuration. Nuclei loads the directories in reverse order so earlier entries in `XDG_CONFIG_DIRS` have higher priority.
+- On Unix, `/etc/nuclei/config.yaml` is an optional local system override. It has higher priority than every `XDG_CONFIG_DIRS` file and lower priority than the user configuration.
+- `$XDG_CONFIG_HOME/nuclei/config.yaml` is the writable user configuration. If the XDG variables are not set, Nuclei uses the platform defaults, such as `/etc/xdg` and `$HOME/.config` on Linux.
+
+Set `NUCLEI_CONFIG_DIR` to use `$NUCLEI_CONFIG_DIR/config.yaml` instead of the XDG user configuration. When that file is missing, Nuclei copies the XDG user configuration if one exists. Otherwise, it generates a new file with the built-in options commented out. Generated user files never include values from system configuration. If the active user path also appears in `XDG_CONFIG_DIRS`, Nuclei loads it only once, as the writable user configuration.
+
+Nuclei applies configuration sources from lowest to highest priority:
+
+```mermaid
+flowchart BT
+  builtins[Built-ins] --> xdg["reverse($XDG_CONFIG_DIRS)/nuclei/config.yaml"]
+  xdg --> etc["/etc/nuclei/config.yaml on Unix"]
+  etc --> user["$XDG_CONFIG_HOME/nuclei/config.yaml or $NUCLEI_CONFIG_DIR/config.yaml"]
+  user --> config["Selected -config"]
+  config --> profile["Selected -profile"]
+  profile --> cli[CLI]
+```
+
+A higher-priority file replaces collections from lower-priority files rather than appending to them. Use an empty list (`[]`) to clear a collection. An explicit CLI flag always wins, even when its value matches the built-in default. Configuration files can select a `config` or `profile` path, and higher-priority sources can change that selection. A selected config cannot redirect to another config. A selected profile cannot redirect to another config or profile.
+
+If Nuclei cannot read or parse an automatic system or user configuration, it prints a warning and ignores all automatic layers. It still applies any config file, profile, and CLI values selected explicitly on the command line. An error in any selected config or profile stops startup.
+
+Immediate actions such as `reset`, `version`, and `templates-version` are CLI-only. The `auth` setting is also accepted only from the command line. Equivalent YAML keys do not run these actions. Update settings such as `update`, `update-templates`, `update-template-dir`, and `disable-update-check` continue to work in configuration files.
+
+### Template profiles
+
+The `profile` setting accepts a file path or an extensionless community profile ID. For a relative YAML file path, Nuclei checks the current directory first and then `profiles/` in the active template root. For a profile ID, it searches that profile directory and its subdirectories for a matching YAML file.
+
+A profile can provide targets through a multiline `targets-inline` value. A multiline `list` value also becomes inline targets, while a single-line `list` value remains a file path. Nuclei trims each target and ignores blank lines and lines that start with `#`.
+
+Profiles can include a `secrets` section. Nuclei creates a private temporary directory and writes the secrets to a file with mode `0600` for the scan. It removes the directory after normal exit, interruption, or a fatal error.
+
+### Storage locations
+
+Nuclei keeps configuration, installed data, persistent state, and regenerable cache in separate directories:
+
+| Purpose | Default location |
+| --- | --- |
+| User configuration | `$XDG_CONFIG_HOME/nuclei` |
+| Public template installation target | `$XDG_DATA_HOME/nuclei/nuclei-templates` |
+| Restart-persistent state | `$XDG_STATE_HOME/nuclei` |
+| Regenerable cache | `$XDG_CACHE_HOME/nuclei` |
+
+`NUCLEI_CONFIG_DIR` remains a compatibility override for the user configuration directory, including `config.yaml`, signing keys, and reporting configuration. It does not change the XDG data, state, or cache locations.
+
+Nuclei stores the active template path and version metadata in `$XDG_STATE_HOME/nuclei/templates.json` with file mode `0600`. On startup, it reads this file first. If the file does not exist, Nuclei reads the legacy `.templates-config.json`, writes `templates.json` atomically, and leaves the legacy file in place for compatibility. If `templates.json` exists but cannot be read or parsed, Nuclei reports an error instead of falling back to the legacy file.
+
+Generated `resume-*.cfg` and `crash-resume-file-*.dump` files are stored under `$XDG_STATE_HOME/nuclei`. Nuclei uses an explicit `-resume` path unchanged. The catalog index is stored under `$XDG_CACHE_HOME/nuclei`.
+
+The `-health-check` output reports the config, state, and cache directories separately. It checks configuration initialization and read/write access for `config.yaml`, `templates.json`, the active `.nuclei-ignore`, and the active template checksum.
+
+The `-reset` command validates every deletion target before removing the configuration, state, cache, and active template root.
 
 Here is an example config file:
 
@@ -825,9 +891,6 @@ templates:
   - cves/
   - vulnerabilities/
   - misconfiguration/
-
-# Tags based template execution
-tags: exposures,cve
 
 # Template Filters
 tags: exposures,cve
@@ -855,7 +918,7 @@ bulk-size: 50
 concurrency: 50
 ```
 
-Once configured, **the config file will be used by default**, additional custom config files can also be provided using multiple `-config` flags.
+Once configured, the active user configuration is used by default. Use `-config` to add one higher-priority config file for a command.
 
 <Note>
 **Running nuclei with custom config file**
