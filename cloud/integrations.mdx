@@ -2164,8 +2164,9 @@ Supported Vercel Services:
 
 - Enter the token as **API Access Token**.
 - Enter a **Team ID** (`team_xxx`, shown in Vercel under **Team Settings → General**) only when you are using a Full Account token and want a team's projects. Team-scoped and project-scoped tokens already carry their team, so leave the field empty for those.
-- Under **Services**, select **deployments**, **domains**, or both. At least one service is required.
-- Give a unique Integration name and click **Verify**.
+- Give a unique **Integration Name**, set a discovery **Frequency** or keep the daily default, and click **Verify**.
+
+Both services are enumerated by default. To restrict an integration to one of them, create it from [Integrations](https://cloud.projectdiscovery.io/integrations) instead, where the connection form exposes a **Services** selector, or set `services` directly in a Cloudlist configuration as shown in [Cloudlist Providers](/opensource/cloudlist/providers#vercel).
 
 <Tip>
   A team-scoped token is the least-privilege choice for this integration. It reaches one team, needs no Team ID, and can be revoked without disturbing your other Vercel automation. Pair it with the shortest expiration your rotation schedule allows.
