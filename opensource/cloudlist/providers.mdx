@@ -440,6 +440,39 @@ Linode can be integrated by using the following configuration block.
 References: 
 1. https://www.linode.com/docs/guides/getting-started-with-the-linode-api/#get-an-access-token
 
+### Vercel
+
+Supported Vercel Services:
+  - Deployments
+  - Domains
+
+**Example Config:**
+
+Vercel can be integrated by using the following configuration block.
+
+```yaml
+- provider: vercel # provider is the name of the provider
+  # id is the name defined by user for filtering (optional)
+  id: staging
+  # vercel_api_token is the access token for the vercel account
+  vercel_api_token: $VERCEL_API_TOKEN
+  # vercel_team_id scopes enumeration to a team, only needed with a
+  # Full Account token (optional)
+  vercel_team_id: $VERCEL_TEAM_ID
+  # services to enumerate, defaults to all (optional)
+  services:
+    - deployments
+    - domains
+```
+
+`vercel_api_token` can be created from https://vercel.com/account/tokens. Vercel tokens have no read-only setting, so the available control is scope: a **Team** token (select the team, then **All Projects**) reaches one team and needs no `vercel_team_id`. A **Full Account** token needs `vercel_team_id` to reach a team's projects, and a **Project** token returns only that project.
+
+`deployments` returns the hostnames of each project's latest deployments, not its full deployment history. `domains` returns the aliases on each project's production target, so preview and branch aliases are not included.
+
+References: 
+1. https://vercel.com/docs/accounts/access-tokens
+2. https://vercel.com/docs/rest-api
+
 ## CDN & DNS Management
 
 ### Fastly
