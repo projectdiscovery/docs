@@ -54,6 +54,9 @@ icon: "plug-circle-plus"
   <Card title="DigitalOcean" icon="digital-ocean" href="#digitalocean">
     
   </Card>
+  <Card title="Vercel" icon="cloud" href="#vercel">
+    
+  </Card>
 </CardGroup>
 
 ## Notification Integrations
@@ -2121,3 +2124,72 @@ References:
 
 1. https://docs.digitalocean.com/reference/api/create-personal-access-token/
 2. https://docs.digitalocean.com/reference/api/
+
+### Vercel
+
+<Card title="Configure Vercel Integration" icon="cloud" href="https://cloud.projectdiscovery.io/assets/configure?provider=vercel">
+  Click here to open the Vercel integration configuration page in the ProjectDiscovery Cloud platform
+</Card>
+
+<img
+  src="/images/Vercel_integration_screen.png"
+  alt="Vercel Integration Screen"
+  title="Vercel Integration Screen"
+  style={{ width:"65%" }}
+/>
+
+ProjectDiscovery's Vercel integration pulls the hostnames Vercel serves for your projects into your asset inventory, so the frontends your team ships continuously are scanned alongside the rest of your attack surface. Like the other cloud integrations it runs on ProjectDiscovery's open-source **Cloudlist** engine, reading the Vercel REST API with a token you supply.
+
+Supported Vercel Services:
+
+| Service                                                       | Description                                                                |
+| :------------------------------------------------------------ | :------------------------------------------------------------------------- |
+| [Deployments](https://vercel.com/docs/deployments)            | Deployment hostnames from each project's latest deployments, flagged public or private |
+| [Domains](https://vercel.com/docs/domains)                    | Production domain aliases assigned to each project                         |
+
+**Create the token in Vercel**
+
+- Set the scope selector in the Vercel dashboard to your personal account rather than a team, then open the [Account Tokens page ↗](https://vercel.com/account/tokens).
+- Click **Create Token** and enter a descriptive name.
+- Open the **Scope** dropdown and choose how far the token reaches. See the table below for how each choice behaves here.
+- Choose an **Expiration** and click **Create**.
+- Copy the token now. Vercel shows the value once, prefixed `vcp_`.
+
+<Note>
+  Some Vercel teams require two-factor authentication or SAML before a token can be scoped to them. The Vercel dashboard tells you when you select such a team.
+</Note>
+
+**Choosing a scope**
+
+| Token scope                                          | What ProjectDiscovery enumerates                              | Team ID field                       |
+| :--------------------------------------------------- | :------------------------------------------------------------ | :---------------------------------- |
+| **Team** (select the team, then **All Projects**)    | Every project in that team                                     | Leave empty                         |
+| **Full Account**                                     | Your personal account's projects, unless you supply a Team ID  | Required to reach a team's projects |
+| **Project**                                          | That single project only                                       | Leave empty                         |
+
+**Connect it in ProjectDiscovery**
+
+- Enter the token as **API Access Token**.
+- Enter a **Team ID** (`team_xxx`, shown in Vercel under **Team Settings → General**) only when you are using a Full Account token and want a team's projects. Team-scoped and project-scoped tokens already carry their team, so leave the field empty for those.
+- Give a unique **Integration Name**, set a discovery **Frequency** or keep the daily default, and click **Verify**.
+
+Both services are enumerated by default. To restrict an integration to one of them, create it from [Integrations](https://cloud.projectdiscovery.io/integrations) instead, where the connection form exposes a **Services** selector, or set `services` directly in a Cloudlist configuration as shown in [Cloudlist Providers](/opensource/cloudlist/providers#vercel).
+
+<Tip>
+  A team-scoped token is the least-privilege choice for this integration. It reaches one team, needs no Team ID, and can be revoked without disturbing your other Vercel automation. Pair it with the shortest expiration your rotation schedule allows.
+</Tip>
+
+<Warning>
+  Vercel access tokens have no read-only permission setting. A token carries the permissions of the account that created it, within the scope you select, so scope and expiry are the only controls available to you. ProjectDiscovery issues read requests only.
+</Warning>
+
+**What this integration does not cover**
+
+- **Full deployment history**: only the deployments Vercel reports as a project's latest are enumerated, not every deployment ever created for that project.
+- **Preview and branch aliases**: domains are read from each project's production target, so aliases pointing at preview or branch environments are not enumerated.
+- **The shared `vercel.app` suffix**: the integration reads the projects your token can see. It does not enumerate the wider `*.vercel.app` public suffix.
+
+References:
+
+1. https://vercel.com/docs/accounts/access-tokens
+2. https://vercel.com/docs/rest-api
