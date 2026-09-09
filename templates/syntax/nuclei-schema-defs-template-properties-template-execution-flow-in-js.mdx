@@ -1,0 +1,33 @@
+# template execution flow in js Schema
+
+```txt
+https://template#/$defs/Template/properties/flow
+```
+
+Flow describes how multiple request-blocks/protocols should be combined together and executed
+It is a javascript code where each protocol is a function and all request-blocks are indexed by their corresponding index in request array
+Example:
+flow: http(1) && http(2)
+means that second http request will be executed only if first http request is successful (aka matched)
+
+| Abstract            | Extensible | Status         | Identifiable            | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                             |
+| :------------------ | :--------- | :------------- | :---------------------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------- |
+| Can be instantiated | No         | Unknown status | Unknown identifiability | Forbidden         | Allowed               | none                | [nuclei-schema.schema.json\*](../out/nuclei-schema.schema.json "open original schema") |
+
+## flow Type
+
+`string` ([template execution flow in js](nuclei-schema-defs-template-properties-template-execution-flow-in-js))
+
+## flow Examples
+
+```json
+"'flow: http(0) && http(1)'"
+```
+
+```json
+"http(1) && http(2)"
+```
+
+```json
+" | # example-vhost-enum\n\tssl(); // ->  execute all ssl protocol requests\n\tdns(); // ->  execute all dns protocol requests\n\tfor (let got of template.domains) { // ->  iterate over 'domains' array variable\n\t\tset('vhost', got); // ->  set 'vhost' variable to current domain\n\t\thttp(); // ->  execute all http protocol requests\n\t}\n"
+```
