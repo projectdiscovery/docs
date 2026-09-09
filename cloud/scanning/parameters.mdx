@@ -25,14 +25,16 @@ Enter a descriptive name for your configuration to identify it later. Examples:
 
 **Rate limit per host**
 Set the number of requests per second per host to control scan speed:
-- Enter a number (e.g., `60` for 60 requests per second)
+- Enter a number (e.g., `100` for 100 requests per second)
 - Leave empty for maximum speed (default behavior)
-- Lower values are more respectful to target hosts
-- Higher values increase scan speed but may overwhelm targets
+- Use `100` or higher for scans across the full template set
+- Lower values suit small template selections and hosts that need protecting
 
-<Note>
-Lower rate limit values reduce scan speed but are more respectful to target hosts. Leave empty for maximum speed (default behavior).
-</Note>
+<Warning>
+Scans run under a per-host time budget. If the rate limit is too low for the number of templates selected, not every template runs, and the exploitation templates that may find Critical and High issues can be dropped.
+
+For a host that cannot take `100` requests/second, narrow the template selection to match. The [Recommended profile](/cloud/editor/recommended) excludes informational templates.
+</Warning>
 
 ### Custom Headers
 
@@ -158,7 +160,7 @@ When you enable the "Enable for all scans" toggle:
 - **Global Application:** The configuration applies to every scan automatically
 - **Manual Selection:** You choose when to apply the configuration per scan
 
-**Recommendation:** Use global application for rate limiting configurations to ensure consistent, respectful scanning behavior across all your scans.
+**Recommendation:** Global application keeps scanning behavior consistent. Note that a rate limit set for one sensitive host then applies to every scan, including full template-set scans. See [Rate Limiting](#rate-limiting).
 
 ## Advanced Configuration Examples
 
@@ -184,7 +186,7 @@ When you enable the "Enable for all scans" toggle:
 - **Custom Headers:**
   - `X-Forwarded-For: 192.168.1.100`
   - `User-Agent: Corporate Security Scanner`
-- **Rate limit per host:** `10`
+- **Rate limit per host:** `100`
 
 ## Best Practices
 
@@ -200,9 +202,9 @@ When you enable the "Enable for all scans" toggle:
    - Limit configuration access to authorized users
 
 3. **Rate Limiting Guidelines**
-   - Start with lower values (10-30 requests/second)
-   - Increase gradually based on target capacity
-   - Use global rate limiting for consistent behavior
+   - Use 100+ requests/second for full template-set scans
+   - Reserve 10-30 requests/second for small template selections
+   - Narrow the template selection alongside the rate limit
    - Monitor target server response times
 
 4. **Template Variables**
