@@ -27,23 +27,14 @@ Enter a descriptive name for your configuration to identify it later. Examples:
 Set the number of requests per second per host to control scan speed:
 - Enter a number (e.g., `100` for 100 requests per second)
 - Leave empty for maximum speed (default behavior)
-- Lower values are gentler on the target, but reduce how much of the template set the scan completes
-- Higher values increase coverage and scan speed, but may overwhelm targets
+- Use `100` or higher for scans across the full template set
+- Lower values suit small template selections and hosts that need protecting
 
 <Warning>
-**A low rate limit costs vulnerability coverage, not just scan speed.** Scans run under a per-host time budget. If the selected templates cannot finish inside that budget at the configured rate, the scan stops at the budget and reports as **finished at 100%** rather than erroring, having run only the templates it reached.
+Scans run under a per-host time budget. A rate limit too low for the number of templates selected means not every template runs, and the exploitation templates that find Critical and High issues are the ones dropped.
 
-In practice the cheap informational templates complete and the exploitation templates that confirm real vulnerabilities are the ones dropped. A heavily throttled scan across the full template set can return `info` findings only, missing the Critical and High findings that an earlier unthrottled scan of the same targets reported.
-
-**Symptom to look for:** a scan that completes normally but returns only informational findings, or far fewer Critical and High findings than a previous scan of the same targets. Check the rate limit on the configuration that was applied.
+For a host that cannot take `100` requests/second, narrow the template selection to match. The [Recommended profile](/cloud/editor/recommended) excludes informational templates.
 </Warning>
-
-<Tip>
-**Sizing the rate limit:**
-- **Full template set**: use **100 requests/second or higher** per host.
-- **A target that genuinely cannot take that load**: keep the low rate, but narrow the template selection to match so the smaller set still finishes inside the budget. The [Recommended profile](/cloud/editor/recommended) is a good starting point, since it excludes informational templates and keeps the exploitable ones.
-- **Small, targeted selections** (a handful of templates, such as an authenticated login check): a low value such as `20` is fine, because the work fits the budget easily.
-</Tip>
 
 ### Custom Headers
 
@@ -169,7 +160,7 @@ When you enable the "Enable for all scans" toggle:
 - **Global Application:** The configuration applies to every scan automatically
 - **Manual Selection:** You choose when to apply the configuration per scan
 
-**Recommendation:** Global application gives consistent scanning behavior across all your scans. Be deliberate when the configuration carries a *rate limit*: a value chosen for one sensitive host then applies to every scan, including full template-set scans, where too low a value costs coverage. See [Rate Limiting](#rate-limiting).
+**Recommendation:** Global application keeps scanning behavior consistent. Note that a rate limit set for one sensitive host then applies to every scan, including full template-set scans. See [Rate Limiting](#rate-limiting).
 
 ## Advanced Configuration Examples
 
@@ -195,7 +186,7 @@ When you enable the "Enable for all scans" toggle:
 - **Custom Headers:**
   - `X-Forwarded-For: 192.168.1.100`
   - `User-Agent: Corporate Security Scanner`
-- **Rate limit per host:** `100` (high enough for the full template set to finish inside the per-host budget)
+- **Rate limit per host:** `100`
 
 ## Best Practices
 
@@ -211,10 +202,10 @@ When you enable the "Enable for all scans" toggle:
    - Limit configuration access to authorized users
 
 3. **Rate Limiting Guidelines**
-   - Start at 100+ requests/second for full template-set scans, and lower it only if the target shows strain
-   - Reserve low values (10-30 requests/second) for small, targeted template selections
-   - Narrow the template selection alongside the rate limit when a target needs protecting
-   - Monitor target server response times, and compare finding counts against a previous unthrottled scan
+   - Use 100+ requests/second for full template-set scans
+   - Reserve 10-30 requests/second for small template selections
+   - Narrow the template selection alongside the rate limit
+   - Monitor target server response times
 
 4. **Template Variables**
    - Use consistent naming (lowercase, underscores)
