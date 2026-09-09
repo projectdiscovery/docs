@@ -31,13 +31,18 @@ Set the number of requests per second per host to control scan speed:
 - Higher values increase coverage and scan speed, but may overwhelm targets
 
 <Warning>
-**A low rate limit reduces coverage, not just speed.** Scans run under a per-host time budget. If the selected templates cannot finish inside that budget at the configured rate, the scan stops at the budget and reports as **finished at 100%** rather than erroring, having run only the templates it reached. Lighter passive checks tend to run first, so a heavily throttled scan across the full template set can return passive findings only and miss vulnerabilities an earlier scan found.
+**A low rate limit costs vulnerability coverage, not just scan speed.** Scans run under a per-host time budget. If the selected templates cannot finish inside that budget at the configured rate, the scan stops at the budget and reports as **finished at 100%** rather than erroring, having run only the templates it reached.
 
-**Symptom to look for:** a scan that completes normally but returns noticeably fewer findings than a previous scan of the same targets. Check the rate limit on the configuration that was applied.
+In practice the cheap informational templates complete and the exploitation templates that confirm real vulnerabilities are the ones dropped. A heavily throttled scan across the full template set can return `info` findings only, missing the Critical and High findings that an earlier unthrottled scan of the same targets reported.
+
+**Symptom to look for:** a scan that completes normally but returns only informational findings, or far fewer Critical and High findings than a previous scan of the same targets. Check the rate limit on the configuration that was applied.
 </Warning>
 
 <Tip>
-**Sizing the rate limit:** for scans across the full template set, use **100 requests/second or higher** per host. A low value such as `20` is safe only for a small, targeted template selection that finishes well inside the budget. If a target genuinely cannot take the load, narrow the template selection as well as the rate, so the smaller set still completes.
+**Sizing the rate limit:**
+- **Full template set**: use **100 requests/second or higher** per host.
+- **A target that genuinely cannot take that load**: keep the low rate, but narrow the template selection to match so the smaller set still finishes inside the budget. The [Recommended profile](/cloud/editor/recommended) is a good starting point, since it excludes informational templates and keeps the exploitable ones.
+- **Small, targeted selections** (a handful of templates, such as an authenticated login check): a low value such as `20` is fine, because the work fits the budget easily.
 </Tip>
 
 ### Custom Headers
