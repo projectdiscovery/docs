@@ -31,7 +31,7 @@ Set the number of requests per second per host to control scan speed:
 - Lower values suit small template selections and hosts that need protecting
 
 <Warning>
-Scans run under a per-host time budget. A rate limit too low for the number of templates selected means not every template runs, and the exploitation templates that find Critical and High issues are the ones dropped.
+Scans run under a per-host time budget. If the rate limit is too low for the number of templates selected, not every template runs, and the exploitation templates that may find Critical and High issues can be dropped.
 
 For a host that cannot take `100` requests/second, narrow the template selection to match. The [Recommended profile](/cloud/editor/recommended) excludes informational templates.
 </Warning>
