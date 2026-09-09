@@ -38,9 +38,28 @@ This guide will help you set up automated user provisioning for your account usi
     - Authorization Token
 5. Test the connection to verify the integration
 
-### Step 2: Map Users and Roles
+### Step 2: Assign Users and Roles
 
-When assigning users to ProjectDiscovery's platform in your IdP, you'll need to specify their roles:
+When assigning users to ProjectDiscovery's platform in your IdP, you'll need to specify their role. There are two ways to do this:
+
+#### Option 1: Standard SCIM Role Assignment
+
+Use your IdP's standard role assignment feature to specify the ProjectDiscovery role during user provisioning.
+
+#### Option 2: Custom Role Attribute
+
+If the standard SCIM role assignment doesn't work with your IdP, configure a custom attribute with the following values:
+
+- **Data type**: String (`string`)
+- **Variable name**: `memberRole`
+- **External name**: `memberRole`
+- **External namespace**: `urn:projectdiscovery:params:scim:schemas:extension:custom:2.0:User`
+- **Fully qualified path**: `urn:projectdiscovery:params:scim:schemas:extension:custom:2.0:User:memberRole`
+- **Value**: the role in uppercase, for example `ADMIN`
+
+#### Available Roles
+
+When assigning users to ProjectDiscovery's platform in your IdP, you'll need to specify their role:
 
 - `ADMIN` - Full administrative access to the workspace
 - `MEMBER` - Standard access for team collaboration (default)
