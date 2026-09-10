@@ -128,12 +128,11 @@ Before getting started with this part of the setup ensure that you have complete
       id: '{{if eq .Severity "critical"}}10104{{else}}4{{end}}'
     ```
 
-    <Warning>
-      Do not include a `custom-fields:` line of your own. This box *is* the
-      custom-fields block, so adding that key nests your fields one level too
-      deep and the issue tracker cannot read them. The same applies to the
-      `custom_fields:` spelling.
-    </Warning>
+    <Note>
+      This box is the custom-fields block, so your entries go in directly. If you
+      paste an example that still has a `custom-fields:` (or `custom_fields:`)
+      line at the top, that line is ignored and the fields under it are used.
+    </Note>
 
      - Use `id` or `name` for dropdown fields, and `freeform` for text fields.
      - Review Atlassian's documentation on [creating custom fields](https://support.atlassian.com/jira-cloud-administration/docs/create-a-custom-field/), or [locating existing custom field IDs](https://confluence.atlassian.com/jirakb/how-to-find-any-custom-field-s-ids-744522503.html).
