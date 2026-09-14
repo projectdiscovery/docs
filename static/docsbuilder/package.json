@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/projectdiscovery/nuclei-js-types#readme",
   "devDependencies": {
-    "typedoc": "^0.25.7",
+    "typedoc": "^0.28.20",
     "typedoc-github-wiki-theme": "^1.1.0",
     "typedoc-plugin-markdown": "^3.17.1"
   }
