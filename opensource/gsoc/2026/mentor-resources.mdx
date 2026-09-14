@@ -1,0 +1,400 @@
+---
+title: "Mentor Resources & Best Practices"
+description: "Resources and tips for successful mentoring in GSoC"
+sidebarTitle: "Mentor Resources"
+icon: "book-open"
+---
+
+# Mentor Resources & Best Practices
+
+Practical tips, strategies, and resources to help you be an effective GSoC mentor.
+
+## Communication Best Practices
+
+### Frequency & Timing
+
+**Minimum Requirements**:
+- 2 check-ins per week
+- 24-hour response time for blocking issues
+- 48-hour response time for general questions
+
+**Recommended**:
+- 3-4 touchpoints per week (mix of sync/async)
+- Daily presence in Discord during active hours
+- Weekly video/voice call for deeper discussions
+- Quick responses to show you're engaged
+
+### Effective Check-ins
+
+**Good Check-in Questions**:
+- What did you accomplish since last time?
+- What are you working on now?
+- Any blockers or challenges?
+- What's your plan for the next few days?
+- How are you feeling about progress?
+
+**Structure for Weekly Meetings**:
+1. **Progress review** (10 min): What got done
+2. **Blockers discussion** (10 min): Current challenges
+3. **Code review** (15 min): Review recent PRs
+4. **Planning** (10 min): Next week's goals
+5. **Questions** (5 min): Open discussion
+
+### Communication Channels
+
+**Discord** - Daily, informal:
+- Quick questions
+- Progress updates
+- Casual conversations
+- Community engagement
+
+**GitHub** - Code-related:
+- Pull request reviews
+- Technical discussions
+- Issue tracking
+
+**Video/Voice** - Weekly:
+- Deeper technical discussions
+- Complex problem-solving
+- Building rapport
+
+**Email** - Rare:
+- Formal communications
+- Privacy-sensitive topics
+
+## Student Management
+
+### Setting Clear Expectations
+
+**First Week Checklist**:
+- [ ] Define "done" for each milestone
+- [ ] Agree on code quality standards
+- [ ] Establish testing requirements
+- [ ] Set documentation expectations
+- [ ] Clarify communication norms
+- [ ] Define success criteria
+
+**Document Your Agreement**:
+Create a shared document covering:
+- Weekly goals and milestones
+- Check-in schedule
+- Code review process
+- Testing requirements
+- Documentation standards
+- Emergency procedures
+
+### Creating Actionable Milestones
+
+**Bad Milestone**:
+- "Work on feature X"
+- "Improve performance"
+- "Fix bugs"
+
+**Good Milestone**:
+- "Implement feature X with unit tests achieving 80% coverage"
+- "Optimize function Y to reduce execution time by 30%, measured by benchmark suite"
+- "Fix issues #123, #456, #789 with regression tests"
+
+**SMART Milestones**:
+- **Specific**: Clear what needs to be done
+- **Measurable**: Can verify completion
+- **Achievable**: Realistic scope
+- **Relevant**: Contributes to project goals
+- **Time-bound**: Clear deadline
+
+### Providing Constructive Feedback
+
+**Feedback Framework**:
+
+1. **Acknowledge effort**: Recognize what they did well
+2. **Identify issue**: Specific problem, not general criticism
+3. **Explain why**: Context for why it matters
+4. **Suggest solution**: Concrete improvement steps
+5. **Offer resources**: Links, examples, documentation
+
+**Example**:
+```
+❌ "This code is inefficient"
+
+✅ "Great work implementing the feature! I noticed the nested loops
+here create O(n²) complexity. For large datasets, this could slow
+things down significantly. Consider using a hashmap for O(n) lookup
+instead. Here's an example from our codebase: [link].
+
+Also, the PR description is very clear - nice job explaining your
+approach!"
+```
+
+### Recognizing Warning Signs Early
+
+**Red Flags**:
+- 🚩 No commits for 3+ days without explanation
+- 🚩 Consistently missing self-set deadlines
+- 🚩 Not responding to messages for 24+ hours
+- 🚩 Code quality declining
+- 🚩 Avoiding difficult parts of project
+- 🚩 Making excuses instead of asking for help
+- 🚩 Defensive about feedback
+
+**What to Do**:
+1. **Reach out proactively**: "Haven't heard from you, is everything okay?"
+2. **Have a direct conversation**: Express concerns clearly
+3. **Identify root cause**: Technical blocker? Personal issue? Motivation?
+4. **Create action plan**: Specific steps to get back on track
+5. **Set checkpoints**: More frequent check-ins temporarily
+6. **Escalate if needed**: Involve org admins if no improvement
+
+## Technical Guidance
+
+### Code Review Strategies
+
+**What to Focus On**:
+
+**Priority 1** - Must fix:
+- Security vulnerabilities
+- Breaking changes
+- Test failures
+- Critical bugs
+
+**Priority 2** - Should fix:
+- Code style violations
+- Missing tests
+- Unclear variable names
+- Missing documentation
+
+**Priority 3** - Nice to have:
+- Minor optimizations
+- Formatting nitpicks
+- Subjective style preferences
+
+**Review Checklist**:
+- [ ] Does code solve the problem?
+- [ ] Are there tests with good coverage?
+- [ ] Is code readable and maintainable?
+- [ ] Are edge cases handled?
+- [ ] Is documentation updated?
+- [ ] Does it follow project conventions?
+- [ ] Are there security concerns?
+- [ ] Is performance acceptable?
+
+### Balancing Guidance vs. Independence
+
+**When to Guide More**:
+- Early in the project
+- Learning new concepts
+- Complex architectural decisions
+- Security-critical code
+- Stuck for > 24 hours
+
+**When to Let Them Struggle**:
+- Straightforward implementations
+- Similar to past work
+- Good learning opportunities
+- Stuck for < 8 hours
+- Would figure it out with time
+
+**Signs You're Too Hands-Off**:
+- Contributor stuck for days
+- Making same mistakes repeatedly
+- Quality declining
+- Losing motivation
+
+**Signs You're Too Hands-On**:
+- Telling them exactly what to code
+- Solving problems for them
+- Not giving time to think
+- Micromanaging implementation details
+
+### Teaching Moments
+
+Transform code review into learning:
+
+**Instead of**: "Change line 45 to X"
+**Try**: "What do you think would happen if we used X here instead? Consider edge case Y."
+
+**Instead of**: "This is the wrong approach"
+**Try**: "This works, but there's a tradeoff. Approach A is simpler but slower. Approach B is faster but more complex. For our use case, which do you think fits better and why?"
+
+## Common Challenges & Solutions
+
+### Challenge: Contributor Becomes Unresponsive
+
+**Early Warning Signs**:
+- Delayed responses (24+ hours)
+- Vague progress updates
+- Decreasing commit frequency
+
+**Action Plan**:
+1. **Day 1**: Send friendly check-in via Discord
+2. **Day 2**: Follow up via email
+3. **Day 3**: Mark as urgent, CC org admins
+4. **Day 4-7**: Daily check-ins, document attempts
+5. **Day 7+**: Escalate to org admins, discuss evaluation
+
+**Prevention**:
+- Build rapport early
+- Make yourself approachable
+- Notice early signs of disengagement
+- Regular, positive interactions
+
+### Challenge: Project Scope Too Ambitious
+
+**Signs**:
+- Consistently behind timeline
+- Milestones taking 2x estimated time
+- Contributor feeling overwhelmed
+- Quality declining due to rush
+
+**Solutions**:
+1. **Assess realistically**: How much can be done?
+2. **Prioritize ruthlessly**: What's essential vs. nice-to-have?
+3. **Rescope project**: Cut features, not quality
+4. **Adjust timeline**: Rebalance milestones
+5. **Document changes**: Update proposal and timeline
+6. **Reset expectations**: Communicate new goals
+
+**Prevention**:
+- Review timeline carefully during community bonding
+- Build in 20-30% buffer time
+- Start with MVP, add features incrementally
+
+### Challenge: Code Quality Issues Despite Feedback
+
+**Patterns to Notice**:
+- Same issues in every PR
+- Not addressing review comments
+- Tests added but don't actually test
+- Documentation is placeholder text
+
+**Approach**:
+1. **Understand why**: Lack of skill? Time pressure? Confusion?
+2. **Be more explicit**: Show examples of what "good" looks like
+3. **Pair program**: Work through one example together
+4. **Set standards**: "This PR can't merge until tests pass and coverage is >75%"
+5. **Escalate if needed**: If no improvement, discuss with org admins
+
+**Resources to Share**:
+- Project style guide
+- Example PRs from the codebase
+- Testing best practices docs
+- Pair programming sessions
+
+### Challenge: Technical Blockers
+
+**Types of Blockers**:
+- **Knowledge gap**: Doesn't know how to approach problem
+- **Tool/environment issues**: Setup problems
+- **Dependency on others**: Waiting for external factors
+- **Complexity**: Problem harder than expected
+
+**Resolution Strategies**:
+
+**For knowledge gaps**:
+- Share relevant documentation
+- Point to similar code in codebase
+- Explain concepts with examples
+- Pair program if needed
+
+**For tool issues**:
+- Help debug setup
+- Provide working examples
+- Consider alternative tools
+- Screen share to troubleshoot
+
+**For dependencies**:
+- Identify workarounds
+- Help remove blockers
+- Adjust timeline if needed
+- Work on parallel tasks
+
+**For complexity**:
+- Break into smaller pieces
+- Simplify approach
+- Adjust scope if necessary
+- Provide more guidance
+
+## Evaluation Guidelines
+
+### Midterm Evaluation
+
+**Pass Indicators**:
+✅ 40-50% of project completed
+✅ Regular communication maintained
+✅ Code quality meets standards
+✅ Demonstrated learning and growth
+✅ On track to finish
+
+**Borderline - Discuss First**:
+⚠️ 30-40% completed but good trajectory
+⚠️ Some communication gaps but improving
+⚠️ Code quality issues but responsive to feedback
+⚠️ Behind schedule but has recovery plan
+
+**Likely Fail**:
+❌ <30% completed with no clear path
+❌ Unresponsive for extended periods
+❌ Poor quality despite repeated feedback
+❌ No evidence of independent work
+
+### Final Evaluation
+
+**Pass Indicators**:
+✅ Core deliverables completed
+✅ Code merged or ready to merge
+✅ Tests passing with good coverage
+✅ Documentation comprehensive
+✅ Consistent engagement throughout
+
+**Success Beyond Completion**:
+🌟 Exceeded expectations
+🌟 Additional features implemented
+🌟 Helped community members
+🌟 Fixed bugs beyond project scope
+🌟 Plans to continue contributing
+
+## External Resources
+
+**Google's GSoC Guides**:
+- [Mentor Guide](https://google.github.io/gsocguides/mentor/)
+- [Evaluations Guide](https://google.github.io/gsocguides/mentor/evaluations)
+- [Communications Best Practices](https://google.github.io/gsocguides/mentor/communication)
+
+**Code Review Resources**:
+- [Google's Code Review Guide](https://google.github.io/eng-practices/review/)
+- [How to Review Code You Don't Like](https://mtlynch.io/code-review-love/)
+
+**Mentorship Resources**:
+- [The Art of Mentoring](https://opensource.com/article/19/2/the-art-of-mentoring)
+- [First-Time Mentor Guide](https://developers.google.com/open-source/gsoc/resources/guide)
+
+## Quick Reference
+
+### Weekly Checklist
+
+- [ ] 2+ check-ins with contributor
+- [ ] Review all PRs within 48 hours
+- [ ] Check progress against milestones
+- [ ] Update in #mentors channel
+- [ ] Help resolve any blockers
+
+### Evaluation Deadlines
+
+⚠️ **Submit 24-48 hours before GSoC deadline**
+- Midterm: July 7-14
+- Final: September 1-8
+
+### Emergency Contacts
+
+- Organization Admins: [To be specified]
+- Discord: #mentors channel (private)
+- GSoC Support: gsoc-support@google.com
+
+## Need Help?
+
+Mentoring is challenging! Don't hesitate to:
+- Ask questions in #mentors channel
+- Discuss concerns with org admins
+- Reach out to fellow mentors
+- Consult GSoC resources
+
+We're all here to support each other. 🤝
