@@ -647,8 +647,6 @@ paths:
             schema:
               type: object
               properties:
-                socks5_proxy:
-                  type: string
                 agent_id:
                   type: string
                 agent_tags:
@@ -8345,8 +8343,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/EnumerationIDTypesDetail'
-        socks5_proxy:
-          type: string
         agent_id:
           type: string
         agent_tags:
@@ -8403,8 +8399,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/EnumerationIDTypes'
-        socks5_proxy:
-          type: string
         agent_id:
           type: string
         agent_tags:
@@ -8955,8 +8949,6 @@ components:
           type: boolean
         disable_global_scan_config:
           type: boolean
-        socks5_proxy:
-          type: string
         agent_id:
           type: string
         agent_tags:
@@ -12937,8 +12929,6 @@ components:
                 type: boolean
               disable_global_scan_config:
                 type: boolean
-              socks5_proxy:
-                type: string
               agent_id:
                 type: string
               agent_tags:
