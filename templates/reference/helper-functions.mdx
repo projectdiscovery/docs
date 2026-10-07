@@ -5,6 +5,22 @@ icon: "function"
 iconType: "solid"
 ---
 
+## Operators
+
+Expressions in `{{ }}`, DSL matchers, extractors and variables support these operators:
+
+| Operator                       | Description                               | Example                               | Output |
+| ------------------------------ | ----------------------------------------- | ------------------------------------- | ------ |
+| `==` `!=` `>` `>=` `<` `<=`    | Comparison                                | `status_code >= 200`                  | `true` |
+| `=~` `!~`                      | Matches / does not match a regex          | `body =~ "^h.*o$"`                    | `true` |
+| `&&` `\|\|` `!`                | Logical and, or, not                      | `status_code == 200 && len(body) > 3` | `true` |
+| `in`                           | Value is in a list                        | `status_code in (200, 301)`           | `true` |
+| `+` `-` `*` `/` `%` `**`       | Arithmetic; `+` also concatenates strings | `2 ** 10`                             | `1024` |
+| `&` `\|` `^` `<<` `>>` `~`     | Bitwise                                   | `6 & 3`                               | `2`    |
+| `? :`                          | Ternary                                   | `status_code == 200 ? "up" : "down"`  | `up`   |
+
+## Functions
+
 Here is the list of all supported helper functions can be used in the RAW requests / Network requests.
 
 | Helper function                                                       | Description                                                                                                                                                                                                                           | Example                                                                                                                                                  | Output                                                                                                                                                                                                                                                                                                                                                                                     |
