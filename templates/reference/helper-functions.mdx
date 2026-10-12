@@ -5,6 +5,24 @@ icon: "function"
 iconType: "solid"
 ---
 
+## Operators
+
+Expressions in `{{ }}`, DSL matchers, extractors and variables support these operators:
+
+| Operator                       | Description                               | Example                            | Output |
+| ------------------------------ | ----------------------------------------- | ---------------------------------- | ------ |
+| `==` `!=` `>` `>=` `<` `<=`    | Comparison                                | `1 >= 1`                           | `true` |
+| `=~` `!~`                      | Matches / does not match a regex          | `"hello" =~ "^h.*o$"`              | `true` |
+| `&&` `\|\|` `!`                | Logical and, or, not                      | `200 == 200 && len("abcd") > 3`    | `true` |
+| `in`                           | Value is in a list                        | `200 in (200, 301)`                | `true` |
+| `+` `-` `*` `/` `%` `**`       | Arithmetic; `+` also concatenates strings | `2 ** 10`                          | `1024` |
+| `&` `\|` `^` `<<` `>>` `~`     | Bitwise                                   | `6 & 3`                            | `2`    |
+| `? :`                          | Ternary                                   | `200 == 200 ? "up" : "down"`       | `up`   |
+
+In `{{ }}`, an expression is evaluated only when it uses a helper function or a variable, so `{{2 == 2}}` alone is kept as text. Template values inside `{{ }}` are strings: convert them with `to_number` before arithmetic, for example `{{to_number(n) * 2}}`.
+
+## Functions
+
 Here is the list of all supported helper functions can be used in the RAW requests / Network requests.
 
 | Helper function                                                       | Description                                                                                                                                                                                                                           | Example                                                                                                                                                  | Output                                                                                                                                                                                                                                                                                                                                                                                     |
