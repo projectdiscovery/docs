@@ -749,6 +749,95 @@ query {
 
 For detailed API documentation, refer to the [Linear API Documentation](https://developers.linear.app/docs/graphql/working-with-the-graphql-api).
 
+### Two-way sync
+
+Two-way sync keeps a vulnerability's status in step with its ticket. When someone closes or reopens a ticket in Jira, GitHub, GitLab, or Linear, ProjectDiscovery updates the vulnerability within seconds, so your team doesn't triage the same finding twice.
+
+| In your tracker | Vulnerability status |
+| --- | --- |
+| Ticket closed as done | Fixed |
+| Ticket closed as won't do | Accepted risk |
+| Ticket reopened | Open |
+
+- Won't do means "Close as not planned" in GitHub and a Canceled status in Linear. In Jira it means a Won't Do, Won't Fix, Declined, Rejected, or Cancelled resolution or status. GitLab has no won't-do state, so a closed GitLab issue always marks the vulnerability Fixed.
+- Only open, triaged, and fix-in-progress vulnerabilities are closed by the tracker, and only fixed or accepted-risk vulnerabilities are reopened. A vulnerability you marked as a false positive is never changed.
+- In Jira and Linear, tickets closed as duplicates are ignored.
+- The other direction still works as before: when ProjectDiscovery sees that a vulnerability is fixed, it closes the ticket.
+
+Sync applies to tickets that ProjectDiscovery created, whether from a scan or from a vulnerability's **Create ticket** action.
+
+<img
+  height="300"
+  src="/images/platform/ticketsync-webhook.png"
+/>
+
+#### Turn on two-way sync
+
+1. Open [Integrations](https://cloud.projectdiscovery.io/integrations), then add or edit your Jira, GitHub, GitLab, or Linear integration.
+2. Turn on **Two-way sync** and save the integration.
+3. Edit the integration again. The **Connect webhook** panel shows the webhook URL and secret for this integration. Each integration has its own URL and secret.
+4. Add the webhook in your tracker by following the steps for your tracker below.
+5. Back in ProjectDiscovery, click **Refresh** in the **Connect webhook** panel to check the status.
+
+#### Add the webhook in your tracker
+
+<Tabs>
+  <Tab title="Jira">
+    You need Jira administrator access.
+
+    1. In Jira, open **Settings → System → WebHooks** and click **Create a WebHook**.
+    2. Paste the webhook URL into **URL** and the secret into **Secret**.
+    3. Under **Issue**, tick **updated**. To send events for only some projects, add a JQL filter such as `project = SEC`.
+    4. Save the webhook.
+    5. Jira doesn't send a test event. Change the status of any issue covered by the webhook, and the status in ProjectDiscovery turns **Connected**.
+
+    See Atlassian's guide to [registering a webhook](https://developer.atlassian.com/cloud/jira/platform/webhooks/).
+  </Tab>
+  <Tab title="GitHub">
+    You need admin access to the repository.
+
+    1. In the repository, open **Settings → Webhooks** and click **Add webhook**.
+    2. Paste the webhook URL into **Payload URL** and set **Content type** to `application/json`.
+    3. Paste the secret into **Secret**.
+    4. Choose **Let me select individual events**, tick **Issues**, and untick **Pushes**.
+    5. Click **Add webhook**. GitHub sends a test event right away, so the status in ProjectDiscovery turns **Connected**.
+
+    See GitHub's guide to [creating webhooks](https://docs.github.com/en/webhooks/using-webhooks/creating-webhooks).
+  </Tab>
+  <Tab title="GitLab">
+    You need the Maintainer or Owner role in the project.
+
+    1. In the project, open **Settings → Webhooks** and click **Add new webhook**.
+    2. Paste the webhook URL into **URL** and the secret into **Secret token**.
+    3. Under **Trigger**, tick **Issues events**.
+    4. Click **Add webhook**.
+    5. Click **Test → Issues events** next to the new webhook. The status in ProjectDiscovery turns **Connected**.
+
+    See GitLab's guide to [webhooks](https://docs.gitlab.com/user/project/integrations/webhooks/).
+  </Tab>
+  <Tab title="Linear">
+    You need Linear workspace admin access. Linear creates the signing secret, so for Linear you paste the secret into ProjectDiscovery instead of copying it from ProjectDiscovery.
+
+    1. In Linear, open **Settings → API → Webhooks** and click **New webhook**.
+    2. Paste the webhook URL into **URL**, choose the team, and tick **Issues** under data change events.
+    3. Create the webhook and copy its **Signing secret**.
+    4. In ProjectDiscovery, paste the signing secret into the **Connect webhook** panel and save the integration.
+    5. Change the status of any issue in the team, and the status in ProjectDiscovery turns **Connected**.
+
+    See Linear's guide to [webhooks](https://linear.app/developers/webhooks).
+  </Tab>
+</Tabs>
+
+#### Webhook status
+
+The **Connect webhook** panel shows one of these:
+
+- **Waiting for first event**: ProjectDiscovery hasn't received anything from your tracker yet. Check the URL and that the right event is ticked, then change an issue.
+- **Connected**: the last event arrived with the right secret. The time beside it shows when.
+- **Secret didn't match**: an event arrived, but its secret was wrong, so ProjectDiscovery ignored it. Copy the secret again into your tracker's webhook settings.
+
+The secret stays the same when you edit the integration. Turning two-way sync off deletes the secret; turning it on again creates a new one, so update the webhook in your tracker too.
+
 ## Cloud Asset Discovery
 
 ProjectDiscovery supports integrations with all popular cloud providers to automatically sync externally facing hosts for vulnerability scanning. This comprehensive approach ensures all your cloud resources with external exposure are continuously monitored, complementing our external discovery capabilities. The result is complete visibility of your attack surface across cloud environments through a simple web interface.
