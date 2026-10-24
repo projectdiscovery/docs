@@ -762,6 +762,7 @@ Two-way sync keeps a vulnerability's status in step with its ticket. When someon
 - Won't do means "Close as not planned" in GitHub and a Canceled status in Linear. In Jira it means a Won't Do, Won't Fix, Declined, Rejected, or Cancelled resolution or status. GitLab has no won't-do state, so a closed GitLab issue always marks the vulnerability Fixed.
 - Only open, triaged, and fix-in-progress vulnerabilities are closed by the tracker, and only fixed or accepted-risk vulnerabilities are reopened. A vulnerability you marked as a false positive is never changed.
 - In Jira and Linear, tickets closed as duplicates are ignored.
+- If ProjectDiscovery can't read the ticket from your tracker when an event arrives, it tries again every 5 minutes for up to 24 hours.
 - The other direction still works as before: when ProjectDiscovery sees that a vulnerability is fixed, it closes the ticket.
 
 Sync applies to tickets that ProjectDiscovery created, whether from a scan or from a vulnerability's **Create ticket** action.
@@ -787,7 +788,7 @@ Sync applies to tickets that ProjectDiscovery created, whether from a scan or fr
 
     1. In Jira, open **Settings → System → WebHooks** and click **Create a WebHook**.
     2. Paste the webhook URL into **URL** and the secret into **Secret**.
-    3. Under **Issue**, tick **updated**. To send events for only some projects, add a JQL filter such as `project = SEC`.
+    3. Under **Issue related events**, enter a JQL filter for the projects ProjectDiscovery files tickets in, such as `project = SEC`. Then under **Issue**, tick **updated**.
     4. Save the webhook.
     5. Jira doesn't send a test event. Change the status of any issue covered by the webhook, and the status in ProjectDiscovery turns **Connected**.
 
@@ -832,6 +833,7 @@ Sync applies to tickets that ProjectDiscovery created, whether from a scan or fr
 
 The **Connect webhook** panel shows one of these:
 
+- **Not saved**: you turned on two-way sync for an existing integration, and the secret shown takes effect once you save the integration.
 - **Waiting for first event**: ProjectDiscovery hasn't received anything from your tracker yet. Check the URL and that the right event is ticked, then change an issue.
 - **Connected**: the last event arrived with the right secret. The time beside it shows when.
 - **Secret didn't match**: an event arrived, but its secret was wrong, so ProjectDiscovery ignored it. Copy the secret again into your tracker's webhook settings.
