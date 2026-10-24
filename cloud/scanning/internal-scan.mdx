@@ -156,7 +156,7 @@ Once your pd-agent is connected and assets are discovered (optional), you can tr
 
 1. Click on the **Scan** button for the network you want to scan, or go to the **Scans** menu (https://cloud.projectdiscovery.io/scans) and click **Create New Scan**, choose **Internal** followed by the network
 2. Select the Asset Group created from the previous discovery operation, or manually enter your targets (internal IPs, hostnames, or CIDR ranges like `192.168.1.0/24`, `internal-server.local`)
-3. Select Nuclei templates (CVEs, misconfigurations, vulnerabilities, etc.) and configure scan settings (rate limits, headers, parameters)
+3. Select Nuclei templates (CVEs, misconfigurations, vulnerabilities, etc.) and configure scan settings (rate limits, headers, parameters). If the network contains printers, OT controllers, or other embedded devices, review [Safety Considerations](#safety-considerations) first
 4. Click **Create Scan** to start - the agent runs the scan locally using its embedded toolset (nuclei, httpx, naabu, dnsx, tlsx) and streams results back to your dashboard
 
 <Frame>
@@ -227,6 +227,29 @@ nuclei -l internal-hosts.txt -cloud-upload
 nuclei -u http://internal-target -t misconfiguration/ -cloud-upload
 ```
 
+Before pointing Nuclei at an internal range, review [Safety Considerations](#safety-considerations).
+
 <Note>
   This method is ideal when you want to maintain complete control over scan execution or integrate with existing automation scripts.
 </Note>
+
+## Safety Considerations
+
+Internal ranges include hardware that public-facing scans never touch: printers, badge readers, PLCs, VoIP phones, and other embedded devices. Most run minimal firmware, and some do not fail safely when probed.
+
+<Warning>
+  **Printer templates can have physical side effects.** Nuclei ships checks that reach printers and MFPs over raw print protocols (port `9100` / JetDirect), IPP, and SNMP. On live hardware they can print pages, change the control-panel display, use up toner, or hang the print controller until someone power-cycles it.
+</Warning>
+
+Decide for each category below whether it is in scope with those side effects accepted, or excluded.
+
+- **Printers and MFPs**: Prefer banner grabs, SNMP reads, and version fingerprinting over templates that submit print jobs. If they stay in scope, run the scan when IT or facilities is expecting it.
+- **OT/ICS and building systems**: PLCs, HVAC controllers, badge readers, and fire panels can fail unsafely under scanning. Keep these to read-only discovery, with sign-off from the team that owns the physical systems.
+- **VoIP phones and end-of-life hardware**: Desk phones and unpatched appliances break more easily than the rest of your inventory, and recovery often means someone walking to the device.
+- **Directory services**: Credential checks against Active Directory can lock out real user and service accounts. Settle lockout thresholds with your identity team first.
+- **Network appliances**: Firewalls, load balancers, and older switches have finite connection tables. A fast port sweep across a segment can fill one and disrupt traffic unrelated to the scan.
+
+### Excluding devices from a scan
+
+- **Agent based scanning**: Add printer, OT, and appliance ranges to [Scan Exclusions](/cloud/scanning/exclusions) under **Settings → Scan Exclusions**. Exclusions are global, so one entry also covers scheduled and automated scans. Template exclusions work the same way when the range should be scanned but a specific check should not run.
+- **Local scanning and upload**: Nuclei tags its most disruptive templates and leaves them out of default scans; they run only when you request them with `-itags`. Narrow the rest with `-exclude-templates`, or point `-t` at specific template directories.
