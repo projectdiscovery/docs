@@ -71,7 +71,7 @@ Subfinder is available immediately after installation, however the following ser
 
 [BeVigil](https://bevigil.com/osint-api), [BinaryEdge](https://binaryedge.io), [BufferOver](https://tls.bufferover.run), [C99](https://api.c99.nl/), [Censys](https://censys.io), [CertSpotter](https://sslmate.com/certspotter/api/), [Chaos](https://chaos.projectdiscovery.io), 
 [Chinaz](http://my.chinaz.com/ChinazAPI/DataCenter/MyDataApi), [DNSDB](https://api.dnsdb.info), [Fofa](https://fofa.info/api), [FullHunt](https://fullhunt.io), [GitHub](https://github.com), [Intelx](https://intelx.io), 
-[PassiveTotal](http://passivetotal.org), [quake](https://quake.360.cn), [Robtex](https://www.robtex.com/api/), [SecurityTrails](http://securitytrails.com), [Shodan](https://shodan.io), [ThreatBook](https://x.threatbook.cn/en), 
+[PassiveTotal](http://passivetotal.org), [Profundis](https://docs.profundis.io/api/subdomain-enumeration/), [quake](https://quake.360.cn), [Robtex](https://www.robtex.com/api/), [SecurityTrails](http://securitytrails.com), [Shodan](https://shodan.io), [ThreatBook](https://x.threatbook.cn/en),
 [VirusTotal](https://www.virustotal.com), [WhoisXML API](https://whoisxmlapi.com/), ZoomEye API [china](https://api.zoomeye.org) - [worldwide](https://api.zoomeye.hk), 
 [dnsrepo](https://dnsrepo.noc.org), [Hunter](https://hunter.qianxin.com/), [Facebook](https://developers.facebook.com), [BuiltWith](https://api.builtwith.com/domain-api)
 
@@ -81,6 +81,8 @@ These values are stored in the `$HOME/.config/subfinder/provider-config.yaml` fi
 The configuration file uses the YAML format. Multiple API keys can be specified for each of these services from which one of them will be used for enumeration.
 
 Composite keys for sources like, Censys, PassiveTotal, Fofa, Intellix and 360quake, need to be separated with a colon (:).
+
+Profundis accepts a [personal API key](https://docs.profundis.io/api/generate-token/) (`pk_`) or an [organization service key](https://docs.profundis.io/organizations/service-api/) (`pb2b_`). Organization keys need `tools:execute` and access to one client space.
 
 ## Example provider config
 An example provider config file: 
@@ -94,6 +96,9 @@ censys:
 certspotter: []
 passivetotal:
   - sample-email@user.com:sample_password
+profundis:
+  - pk_<12-character-id>_<43-character-secret>
+  # Or use: pb2b_<key-id>_<secret>
 redhuntlabs:
   - ENDPOINT:API_TOKEN
   - https://reconapi.redhuntlabs.com/community/v1/domains/subdomains:joEPzJJp2AuOCw7teAj63HYrPGnsxuPQ
