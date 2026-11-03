@@ -181,7 +181,7 @@ dynamic:
 
 
 ## Secret File Fields
-Here's a brief explaination of each field in the secret file:
+Here's a brief explanation of each field in the secret file:
 
 ### `type`
 
@@ -387,3 +387,59 @@ Example:
 ```yaml
 input: auth-server.projectdiscovery.io
 ```
+
+## Limitations and Workarounds
+
+### Headless Templates
+
+Secrets from the secret file are applied to HTTP requests only. Headless templates run in a fresh browser context that never receives them, so a session that works for HTTP templates does not carry over to headless ones.
+
+To scan a login-protected page with a headless template, perform the login inside the template's own steps before visiting the protected page, as shown in the [DVWA headless example](/templates/protocols/headless-examples#dvwa-xss-reproduction-with-headless-mode). Pass the credentials with `-var` instead of hardcoding them:
+
+```yaml
+headless:
+  - steps:
+      - action: navigate
+        args:
+          url: "{{BaseURL}}/login"
+      - action: waitload
+      - action: text
+        args:
+          by: x
+          xpath: //input[@name='username']
+          value: "{{username}}"
+      - action: text
+        args:
+          by: x
+          xpath: //input[@name='password']
+          value: "{{password}}"
+      - action: click
+        args:
+          by: x
+          xpath: //button[@type='submit']
+      - action: waitload
+      - action: navigate
+        args:
+          url: "{{BaseURL}}/account"
+      - action: waitload
+```
+
+```bash
+nuclei -u https://example.com -t login-check.yaml -headless -var username=admin -var password=secret
+```
+
+### Browser-Based Login Flows (OAuth, PKCE, SSO)
+
+Nuclei cannot complete redirect-based login flows such as OAuth Authorization Code with PKCE, which many single-page applications use through SDKs like Auth0, Okta, or MSAL. The tokens in these flows are issued to and held by the browser.
+
+Instead, log in outside Nuclei, for example with a browser automation script (Playwright, Puppeteer) or by copying the token from your browser's developer tools, then pass the resulting token to Nuclei as a static secret:
+
+```yaml
+static:
+  - type: bearertoken
+    domains:
+      - api.example.com
+    token: <access-token>
+```
+
+If the application keeps its session in a cookie instead, use `type: cookie`. Access tokens from these flows usually expire within minutes to hours, so refresh the token before each scan.
