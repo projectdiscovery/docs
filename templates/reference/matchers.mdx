@@ -91,6 +91,15 @@ Every part of a Protocol response can be matched with DSL matcher. Some examples
 | header_name    | Lowercase header name with `-` converted to `_` | len(user_agent)        |
 | raw            | Headers + Response                              | len(raw)               |
 
+Word matchers match anywhere in the part. To require the response to begin with a value, use the `starts_with` helper, or anchor a regex with `^`, which matches the start of the whole part, not the start of every line:
+
+```yaml
+matchers:
+  - type: dsl
+    dsl:
+      - 'starts_with(body, "SQLite format 3")'
+```
+
 
 ### Conditions
 
