@@ -168,9 +168,41 @@ Available options to perform host discovery:
 Naabu supports config file as default located at `$HOME/.config/naabu/config.yaml`, It allows you to define any flag in the config file and set default values to include for all scans.
 
 
+# Service Discovery
+
+Naabu can identify the services running on open ports without handing off to nmap.
+
+| Flag | Description |
+|------|-------------|
+| `-sD`, `-service-discovery` | Name the service by port number only, with no active probing |
+| `-sV`, `-service-version` | Probe open ports to detect the service, product, and version |
+| `-sV-fast` | Only probe the services hinted by the port number, skipping fallback probes |
+| `-sV-timeout` | Timeout for each service version probe |
+| `-sV-workers` | Number of concurrent service version workers |
+| `-sV-probes` | Path to a custom `nmap-service-probes` file |
+
+```console
+naabu -host scanme.sh -sV
+
+scanme.sh:22 [ssh OpenSSH/6.6.1p1 Ubuntu 2ubuntu2.13]
+scanme.sh:80 [http Apache httpd/2.4.7]
+```
+
+With `-json`, each result also carries the `name`, `product`, `version`, `banner`, and `cpes` fields.
+
+<Note>
+`-sV` reads nmap's `nmap-service-probes` database, which naabu does not ship because of its license. Install nmap so naabu can find the file in its standard location, or point `-sV-probes` at a copy.
+</Note>
+
+For UDP scans, `-uP` sends protocol-specific payloads from the same database (a DNS query to port 53, an NTP request to port 123, and so on), so silent UDP services reply and show up as open:
+
+```console
+naabu -host scanme.sh -p u:53,u:123,u:161 -uP
+```
+
 # Nmap integration
 
-We have integrated nmap support for service discovery or any additional scans supported by nmap on the found results by Naabu, make sure you have `nmap` installed to use this feature.
+To run any other nmap scan on the results, use the nmap integration. We have integrated nmap support for service discovery or any additional scans supported by nmap on the found results by Naabu, make sure you have `nmap` installed to use this feature.
 
 To use,`nmap-cli` flag can be used followed by nmap command, for example:-
 
