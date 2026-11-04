@@ -5239,6 +5239,7 @@ paths:
         default:
           $ref: '#/components/responses/ErrorResponse'
       operationId: post-v1-leaks-status
+      x-cli-name: leaks status update
       requestBody:
         content:
           application/json:
@@ -5260,6 +5261,7 @@ paths:
       tags:
         - leaks
       operationId: post-v1-leaks-info
+      x-cli-name: leaks get
       requestBody:
         required: true
         content:
