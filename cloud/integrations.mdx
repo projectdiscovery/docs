@@ -1711,14 +1711,27 @@ Grant the required roles based on your [enumeration scope](#enumeration-scope).
 
 **Step 5: Allow WIF to Impersonate the Service Account**
 
-Bind the service account to your ProjectDiscovery workspace using an attribute condition on the `sub` claim. Replace `YOUR_TEAM_ID` with your Team ID from the ProjectDiscovery platform.
+Bind the service account to your ProjectDiscovery workspace using an attribute condition on the `sub` claim. Replace `YOUR_PROJECT_ID` with the project where you created the pool in Step 1, and `YOUR_TEAM_ID` with your Team ID from the ProjectDiscovery platform.
+
+The commands below read the pool's full resource name from GCP, so you don't have to build the member path by hand:
 
 ```bash
+PROJECT_ID="YOUR_PROJECT_ID"
+TEAM_ID="YOUR_TEAM_ID"
+
+POOL=$(gcloud iam workload-identity-pools describe projectdiscovery-pool \
+  --project="$PROJECT_ID" \
+  --location="global" \
+  --format='value(name)')
+
+# Should print projects/<numeric project number>/locations/global/workloadIdentityPools/projectdiscovery-pool
+echo "$POOL"
+
 gcloud iam service-accounts add-iam-policy-binding \
-  pd-cloudlist-reader@YOUR_PROJECT_ID.iam.gserviceaccount.com \
-  --project="YOUR_PROJECT_ID" \
+  "pd-cloudlist-reader@${PROJECT_ID}.iam.gserviceaccount.com" \
+  --project="$PROJECT_ID" \
   --role="roles/iam.workloadIdentityUser" \
-  --member="principalSet://iam.googleapis.com/projects/YOUR_PROJECT_NUMBER/locations/global/workloadIdentityPools/projectdiscovery-pool/attribute.sub/YOUR_TEAM_ID"
+  --member="principalSet://iam.googleapis.com/${POOL}/attribute.sub/${TEAM_ID}"
 ```
 
 <Tip>
@@ -1733,9 +1746,9 @@ gcloud iam service-accounts add-iam-policy-binding \
 </Tip>
 
 <Note>
-`YOUR_PROJECT_NUMBER` is the numeric project number, not the project ID. Find it with:
-```bash
-gcloud projects describe YOUR_PROJECT_ID --format='value(projectNumber)'
+The member must use the **numeric project number** of the project that holds `projectdiscovery-pool`, not the project ID. This applies to organization-level setups too: the pool always lives in a project, so never use your Organization ID or a folder path here. The final member looks like:
+```
+principalSet://iam.googleapis.com/projects/123456789012/locations/global/workloadIdentityPools/projectdiscovery-pool/attribute.sub/YOUR_TEAM_ID
 ```
 </Note>
 
@@ -1817,6 +1830,10 @@ This error can have two causes:
    ```
 
 2. **Missing org-level IAM roles** — Ensure all required org-level roles are granted. See the Organization-Level tab in the [Grant Permissions](#service-account-key) step for details.
+
+**"The member principalSet://... is of an unknown type"** (WIF setup, Step 5)
+
+`gcloud` returns this when the `--member` value is not a valid principal identifier. The most common cause is a project ID, Organization ID or folder path in the `projects/...` segment instead of the numeric project number. Run the Step 5 commands as written: they read the pool path from GCP. Check that `echo "$POOL"` prints `projects/<digits>/locations/global/workloadIdentityPools/projectdiscovery-pool`, and that `TEAM_ID` has no spaces, quotes or angle brackets.
 
 **"GCP token exchange failed"** (WIF only)
 - Verify the Workload Identity Provider path is correct (check for typos)
