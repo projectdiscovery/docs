@@ -1,0 +1,341 @@
+# Untitled object in undefined Schema
+
+```txt
+https://template#/$defs/WorkflowTemplate/properties/matchers/items
+```
+
+
+
+| Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                             |
+| :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------- |
+| Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [nuclei-schema.schema.json\*](../out/nuclei-schema.schema.json "open original schema") |
+
+## items Type
+
+`object` ([Details](nuclei-schema-defs-matcher))
+
+# items Properties
+
+| Property                              | Type      | Required | Nullable       | Defined by                                                                                                                                             |
+| :------------------------------------ | :-------- | :------- | :------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [type](#type)                         | `object`  | Required | cannot be null | [Untitled schema](nuclei-schema-defs-matchertypeholder "https://template#/$defs/Matcher/properties/type")                                           |
+| [condition](#condition)               | `string`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-matcher-properties-condition-between-matcher-variables "https://template#/$defs/Matcher/properties/condition") |
+| [part](#part)                         | `string`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-matcher-properties-part-of-response-to-match "https://template#/$defs/Matcher/properties/part")                |
+| [negative](#negative)                 | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-matcher-properties-negative-specifies-if-match-reversed "https://template#/$defs/Matcher/properties/negative") |
+| [name](#name)                         | `string`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-matcher-properties-name-of-the-matcher "https://template#/$defs/Matcher/properties/name")                      |
+| [status](#status)                     | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-matcher-properties-status-to-match "https://template#/$defs/Matcher/properties/status")                        |
+| [size](#size)                         | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-matcher-properties-acceptable-size-for-response "https://template#/$defs/Matcher/properties/size")             |
+| [words](#words)                       | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-matcher-properties-words-to-match-in-response "https://template#/$defs/Matcher/properties/words")              |
+| [regex](#regex)                       | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-matcher-properties-regex-to-match-in-response "https://template#/$defs/Matcher/properties/regex")              |
+| [binary](#binary)                     | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-matcher-properties-binary-patterns-to-match-in-response "https://template#/$defs/Matcher/properties/binary")   |
+| [dsl](#dsl)                           | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-matcher-properties-dsl-expressions-to-match-in-response "https://template#/$defs/Matcher/properties/dsl")      |
+| [xpath](#xpath)                       | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-matcher-properties-xpath-queries-to-match-in-response "https://template#/$defs/Matcher/properties/xpath")      |
+| [encoding](#encoding)                 | `string`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-matcher-properties-encoding-for-word-field "https://template#/$defs/Matcher/properties/encoding")              |
+| [case-insensitive](#case-insensitive) | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-matcher-properties-use-case-insensitive-match "https://template#/$defs/Matcher/properties/case-insensitive")   |
+| [match-all](#match-all)               | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-matcher-properties-match-all-values "https://template#/$defs/Matcher/properties/match-all")                    |
+| [internal](#internal)                 | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-matcher-properties-hide-matcher-from-output "https://template#/$defs/Matcher/properties/internal")             |
+
+## type
+
+Type of the matcher
+
+`type`
+
+* is required
+
+* Type: `object` ([type of matcher](nuclei-schema-defs-matchertypeholder))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-matchertypeholder "https://template#/$defs/Matcher/properties/type")
+
+### type Type
+
+`object` ([type of matcher](nuclei-schema-defs-matchertypeholder))
+
+## condition
+
+Condition between the matcher variables
+
+`condition`
+
+* is optional
+
+* Type: `string` ([condition between matcher variables](nuclei-schema-defs-matcher-properties-condition-between-matcher-variables))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-matcher-properties-condition-between-matcher-variables "https://template#/$defs/Matcher/properties/condition")
+
+### condition Type
+
+`string` ([condition between matcher variables](nuclei-schema-defs-matcher-properties-condition-between-matcher-variables))
+
+### condition Constraints
+
+**enum**: the value of this property must be equal to one of the following values:
+
+| Value   | Explanation |
+| :------ | :---------- |
+| `"and"` |             |
+| `"or"`  |             |
+
+## part
+
+Part of response to match data from
+
+`part`
+
+* is optional
+
+* Type: `string` ([part of response to match](nuclei-schema-defs-matcher-properties-part-of-response-to-match))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-matcher-properties-part-of-response-to-match "https://template#/$defs/Matcher/properties/part")
+
+### part Type
+
+`string` ([part of response to match](nuclei-schema-defs-matcher-properties-part-of-response-to-match))
+
+## negative
+
+Negative specifies if the match should be reversed. It will only match if the condition is not true
+
+`negative`
+
+* is optional
+
+* Type: `boolean` ([negative specifies if match reversed](nuclei-schema-defs-matcher-properties-negative-specifies-if-match-reversed))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-matcher-properties-negative-specifies-if-match-reversed "https://template#/$defs/Matcher/properties/negative")
+
+### negative Type
+
+`boolean` ([negative specifies if match reversed](nuclei-schema-defs-matcher-properties-negative-specifies-if-match-reversed))
+
+## name
+
+Name of the matcher
+
+`name`
+
+* is optional
+
+* Type: `string` ([name of the matcher](nuclei-schema-defs-matcher-properties-name-of-the-matcher))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-matcher-properties-name-of-the-matcher "https://template#/$defs/Matcher/properties/name")
+
+### name Type
+
+`string` ([name of the matcher](nuclei-schema-defs-matcher-properties-name-of-the-matcher))
+
+## status
+
+Status to match for the response
+
+`status`
+
+* is optional
+
+* Type: `integer[]`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-matcher-properties-status-to-match "https://template#/$defs/Matcher/properties/status")
+
+### status Type
+
+`integer[]`
+
+## size
+
+Size is the acceptable size for the response
+
+`size`
+
+* is optional
+
+* Type: `integer[]`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-matcher-properties-acceptable-size-for-response "https://template#/$defs/Matcher/properties/size")
+
+### size Type
+
+`integer[]`
+
+## words
+
+Words contains word patterns required to be present in the response part
+
+`words`
+
+* is optional
+
+* Type: `string[]`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-matcher-properties-words-to-match-in-response "https://template#/$defs/Matcher/properties/words")
+
+### words Type
+
+`string[]`
+
+## regex
+
+Regex contains regex patterns required to be present in the response part
+
+`regex`
+
+* is optional
+
+* Type: `string[]`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-matcher-properties-regex-to-match-in-response "https://template#/$defs/Matcher/properties/regex")
+
+### regex Type
+
+`string[]`
+
+## binary
+
+Binary are the binary patterns required to be present in the response part
+
+`binary`
+
+* is optional
+
+* Type: `string[]`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-matcher-properties-binary-patterns-to-match-in-response "https://template#/$defs/Matcher/properties/binary")
+
+### binary Type
+
+`string[]`
+
+## dsl
+
+DSL are the dsl expressions that will be evaluated as part of nuclei matching rules
+
+`dsl`
+
+* is optional
+
+* Type: `string[]`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-matcher-properties-dsl-expressions-to-match-in-response "https://template#/$defs/Matcher/properties/dsl")
+
+### dsl Type
+
+`string[]`
+
+## xpath
+
+xpath are the XPath queries that will be evaluated against the response part of nuclei matching rules
+
+`xpath`
+
+* is optional
+
+* Type: `string[]`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-matcher-properties-xpath-queries-to-match-in-response "https://template#/$defs/Matcher/properties/xpath")
+
+### xpath Type
+
+`string[]`
+
+## encoding
+
+Optional encoding for the word fields
+
+`encoding`
+
+* is optional
+
+* Type: `string` ([encoding for word field](nuclei-schema-defs-matcher-properties-encoding-for-word-field))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-matcher-properties-encoding-for-word-field "https://template#/$defs/Matcher/properties/encoding")
+
+### encoding Type
+
+`string` ([encoding for word field](nuclei-schema-defs-matcher-properties-encoding-for-word-field))
+
+### encoding Constraints
+
+**enum**: the value of this property must be equal to one of the following values:
+
+| Value   | Explanation |
+| :------ | :---------- |
+| `"hex"` |             |
+
+## case-insensitive
+
+use case insensitive match
+
+`case-insensitive`
+
+* is optional
+
+* Type: `boolean` ([use case insensitive match](nuclei-schema-defs-matcher-properties-use-case-insensitive-match))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-matcher-properties-use-case-insensitive-match "https://template#/$defs/Matcher/properties/case-insensitive")
+
+### case-insensitive Type
+
+`boolean` ([use case insensitive match](nuclei-schema-defs-matcher-properties-use-case-insensitive-match))
+
+## match-all
+
+match all matcher values ignoring condition
+
+`match-all`
+
+* is optional
+
+* Type: `boolean` ([match all values](nuclei-schema-defs-matcher-properties-match-all-values))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-matcher-properties-match-all-values "https://template#/$defs/Matcher/properties/match-all")
+
+### match-all Type
+
+`boolean` ([match all values](nuclei-schema-defs-matcher-properties-match-all-values))
+
+## internal
+
+hide matcher from output
+
+`internal`
+
+* is optional
+
+* Type: `boolean` ([hide matcher from output](nuclei-schema-defs-matcher-properties-hide-matcher-from-output))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-matcher-properties-hide-matcher-from-output "https://template#/$defs/Matcher/properties/internal")
+
+### internal Type
+
+`boolean` ([hide matcher from output](nuclei-schema-defs-matcher-properties-hide-matcher-from-output))

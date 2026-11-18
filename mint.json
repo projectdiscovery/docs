@@ -275,7 +275,8 @@
       "pages": [
         "templates/introduction",
         "templates/structure",
-        "templates/faq"
+        "templates/faq",
+        "templates/syntax/README"
       ]
     },
     {

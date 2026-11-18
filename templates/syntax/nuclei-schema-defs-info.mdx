@@ -1,0 +1,359 @@
+# info for the template Schema
+
+```txt
+https://template#/$defs/Template/properties/info
+```
+
+Info contains the required metadata information about the template
+It is meant to provide basic but necessary info like name, author , severity
+along with many other fields like metadata, classification etc
+Note: -
+For a template to be valid name,author,severity of `info` section must be set
+
+| Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                             |
+| :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------- |
+| Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [nuclei-schema.schema.json\*](../out/nuclei-schema.schema.json "open original schema") |
+
+## info Type
+
+`object` ([info for the template](nuclei-schema-defs-info))
+
+## info Examples
+
+```json
+"\n\tname: Example Template\n\tauthor: pdteam\n\tseverity: info\n\tdescription: This is an example template"
+```
+
+```json
+"\n\tname: example-template\n\tauthor: pdteam\n\tseverity: unknown\n\tdescription: Example description of the template\n\timpact: Impact of the template\n\treference: \n\t  - https://example.com\n\tmetadata: \n\t  max-request: 1\n\ttags: http"
+```
+
+# info Properties
+
+| Property                          | Type     | Required | Nullable       | Defined by                                                                                                                                        |
+| :-------------------------------- | :------- | :------- | :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------ |
+| [name](#name)                     | `string` | Required | cannot be null | [Untitled schema](nuclei-schema-defs-info-properties-name-of-the-template "https://template#/$defs/Info/properties/name")                      |
+| [author](#author)                 | Merged   | Required | cannot be null | [Untitled schema](nuclei-schema-defs-info-properties-author-of-the-template "https://template#/$defs/Info/properties/author")                  |
+| [tags](#tags)                     | Merged   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-info-properties-tags-of-the-template "https://template#/$defs/Info/properties/tags")                      |
+| [description](#description)       | `string` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-info-properties-description-of-the-template "https://template#/$defs/Info/properties/description")        |
+| [impact](#impact)                 | `string` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-info-properties-impact-of-the-template "https://template#/$defs/Info/properties/impact")                  |
+| [reference](#reference)           | Merged   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-stringorslice "https://template#/$defs/Info/properties/reference")                                        |
+| [severity](#severity)             | `string` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-severity-of-the-template "https://template#/$defs/Info/properties/severity")                              |
+| [metadata](#metadata)             | `object` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-info-properties-additional-metadata-for-the-template "https://template#/$defs/Info/properties/metadata")  |
+| [classification](#classification) | `object` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-classification "https://template#/$defs/Info/properties/classification")                                  |
+| [remediation](#remediation)       | `string` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-info-properties-remediation-steps-for-the-template "https://template#/$defs/Info/properties/remediation") |
+
+## name
+
+Name should be good short summary that identifies what the template does
+
+`name`
+
+* is required
+
+* Type: `string` ([name of the template](nuclei-schema-defs-info-properties-name-of-the-template))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-info-properties-name-of-the-template "https://template#/$defs/Info/properties/name")
+
+### name Type
+
+`string` ([name of the template](nuclei-schema-defs-info-properties-name-of-the-template))
+
+### name Examples
+
+```json
+"Nagios Default Credentials Check"
+```
+
+```json
+"example-template"
+```
+
+```json
+"TeamCity - Authentication Bypass"
+```
+
+## author
+
+Author is the author of the template
+
+`author`
+
+* is required
+
+* Type: merged type ([author of the template](nuclei-schema-defs-info-properties-author-of-the-template))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-info-properties-author-of-the-template "https://template#/$defs/Info/properties/author")
+
+### author Type
+
+merged type ([author of the template](nuclei-schema-defs-info-properties-author-of-the-template))
+
+one (and only one) of
+
+* [Untitled string in undefined](nuclei-schema-defs-info-properties-author-of-the-template-oneof-0 "check type definition")
+
+* [Untitled array in undefined](nuclei-schema-defs-info-properties-author-of-the-template-oneof-1 "check type definition")
+
+## tags
+
+Any tags for the template
+
+`tags`
+
+* is optional
+
+* Type: merged type ([tags of the template](nuclei-schema-defs-info-properties-tags-of-the-template))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-info-properties-tags-of-the-template "https://template#/$defs/Info/properties/tags")
+
+### tags Type
+
+merged type ([tags of the template](nuclei-schema-defs-info-properties-tags-of-the-template))
+
+one (and only one) of
+
+* [Untitled string in undefined](nuclei-schema-defs-info-properties-tags-of-the-template-oneof-0 "check type definition")
+
+* [Untitled array in undefined](nuclei-schema-defs-info-properties-tags-of-the-template-oneof-1 "check type definition")
+
+## description
+
+Description of the template.
+You can go in-depth here on what the template actually does.
+Example:
+Apache Log4j2 <=2.14.1 JNDI features used in configuration, log messages, and parameters do not protect against attacker controlled LDAP and other JNDI related endpoints. An attacker who can control log messages or log message parameters can execute arbitrary code loaded from LDAP servers when message lookup substitution is enabled.
+
+`description`
+
+* is optional
+
+* Type: `string` ([description of the template](nuclei-schema-defs-info-properties-description-of-the-template))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-info-properties-description-of-the-template "https://template#/$defs/Info/properties/description")
+
+### description Type
+
+`string` ([description of the template](nuclei-schema-defs-info-properties-description-of-the-template))
+
+### description Examples
+
+```json
+"Bower is a package manager which stores package information in the bower.json file"
+```
+
+```json
+"Example description of the template"
+```
+
+## impact
+
+Impact of the template.
+You can go in-depth here on impact of the template.
+Example:
+Successful exploitation of this vulnerability can lead to remote code execution, potentially compromising the affected system.
+
+`impact`
+
+* is optional
+
+* Type: `string` ([impact of the template](nuclei-schema-defs-info-properties-impact-of-the-template))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-info-properties-impact-of-the-template "https://template#/$defs/Info/properties/impact")
+
+### impact Type
+
+`string` ([impact of the template](nuclei-schema-defs-info-properties-impact-of-the-template))
+
+### impact Examples
+
+```json
+"Successful exploitation of this vulnerability could allow an attacker to execute arbitrary SQL queries"
+```
+
+```json
+"Impact of the template"
+```
+
+## reference
+
+References for the template.
+This should contain links relevant to the template.
+Example:
+<https://logging.apache.org/log4j/2.x/security.html>
+<https://nvd.nist.gov/vuln/detail/CVE-2021-44228>
+
+`reference`
+
+* is optional
+
+* Type: `array` ([references for the template](nuclei-schema-defs-stringorslice))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-stringorslice "https://template#/$defs/Info/properties/reference")
+
+### reference Type
+
+`array` ([references for the template](nuclei-schema-defs-stringorslice))
+
+one (and only one) of
+
+* [Untitled string in undefined](nuclei-schema-defs-stringorslice-oneof-0 "check type definition")
+
+* [Untitled array in undefined](nuclei-schema-defs-stringorslice-oneof-1 "check type definition")
+
+### reference Examples
+
+```json
+"\n\t- https://example.com"
+```
+
+## severity
+
+Seriousness of the implications of the template
+
+`severity`
+
+* is optional
+
+* Type: `string` ([severity of the template](nuclei-schema-defs-severity-of-the-template))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-severity-of-the-template "https://template#/$defs/Info/properties/severity")
+
+### severity Type
+
+`string` ([severity of the template](nuclei-schema-defs-severity-of-the-template))
+
+### severity Constraints
+
+**enum**: the value of this property must be equal to one of the following values:
+
+| Value        | Explanation |
+| :----------- | :---------- |
+| `"info"`     |             |
+| `"low"`      |             |
+| `"medium"`   |             |
+| `"high"`     |             |
+| `"critical"` |             |
+| `"unknown"`  |             |
+
+### severity Examples
+
+```json
+"info"
+```
+
+## metadata
+
+Optional metadata for the template.
+this could be any useful metadata like Vendor, Product, Version, etc.
+Note - This is autogenerated and updated regularly for templates merged in projectdiscovery/nuclei-templates repository.
+Example:
+
+```yaml
+Vendor: Apache
+Product: Log4j2
+Version: <=2.14.1
+```
+
+`metadata`
+
+* is optional
+
+* Type: `object` ([additional metadata for the template](nuclei-schema-defs-info-properties-additional-metadata-for-the-template))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-info-properties-additional-metadata-for-the-template "https://template#/$defs/Info/properties/metadata")
+
+### metadata Type
+
+`object` ([additional metadata for the template](nuclei-schema-defs-info-properties-additional-metadata-for-the-template))
+
+### metadata Examples
+
+```json
+"\n\tmax-request: 1"
+```
+
+```json
+"\n\tmax-request: 2\n\tvendor: apache\n\tproduct: log4j2"
+```
+
+## classification
+
+Classification contains classification information about the template.
+This could be any classification information like CWE, CVE, EPSS etc.
+Note - This is autogenerated and updated regularly for CVE templates merged in projectdiscovery/nuclei-templates repository.
+Example:
+
+```yaml
+cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H
+cvss-score: 10
+cve-id: CVE-2021-44228
+cwe-id: CWE-20,CWE-917
+epss-score: 0.97453
+epss-percentile: 0.99942
+cpe: cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*
+```
+
+`classification`
+
+* is optional
+
+* Type: `object` ([classification info for the template](nuclei-schema-defs-classification))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-classification "https://template#/$defs/Info/properties/classification")
+
+### classification Type
+
+`object` ([classification info for the template](nuclei-schema-defs-classification))
+
+### classification Examples
+
+```json
+"\n\tcvss-metrics: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H\n\tcvss-score: 10\n\tcve-id: CVE-2021-44228"
+```
+
+```json
+"\n\tcwe-id: CWE-20,CWE-917"
+```
+
+## remediation
+
+In-depth explanation on how to fix the issues found by the template
+
+`remediation`
+
+* is optional
+
+* Type: `string` ([remediation steps for the template](nuclei-schema-defs-info-properties-remediation-steps-for-the-template))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-info-properties-remediation-steps-for-the-template "https://template#/$defs/Info/properties/remediation")
+
+### remediation Type
+
+`string` ([remediation steps for the template](nuclei-schema-defs-info-properties-remediation-steps-for-the-template))
+
+### remediation Examples
+
+```json
+"Change the default administrative username and password of Apache ActiveMQ by editing the file jetty-realm.properties"
+```

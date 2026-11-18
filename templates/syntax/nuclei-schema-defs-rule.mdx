@@ -1,0 +1,206 @@
+# Untitled object in undefined Schema
+
+```txt
+https://template#/$defs/Rule
+```
+
+
+
+| Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                             |
+| :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------- |
+| Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [nuclei-schema.schema.json\*](../out/nuclei-schema.schema.json "open original schema") |
+
+## Rule Type
+
+`object` ([Details](nuclei-schema-defs-rule))
+
+# Rule Properties
+
+| Property                        | Type     | Required | Nullable       | Defined by                                                                                                                             |
+| :------------------------------ | :------- | :------- | :------------- | :------------------------------------------------------------------------------------------------------------------------------------- |
+| [type](#type)                   | `string` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-rule-properties-type-of-rule "https://template#/$defs/Rule/properties/type")                   |
+| [part](#part)                   | `string` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-rule-properties-part-of-rule "https://template#/$defs/Rule/properties/part")                   |
+| [mode](#mode)                   | `string` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-rule-properties-mode-of-rule "https://template#/$defs/Rule/properties/mode")                   |
+| [keys](#keys)                   | `array`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-rule-properties-keys-of-parameters-to-fuzz "https://template#/$defs/Rule/properties/keys")     |
+| [keys-regex](#keys-regex)       | `array`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-rule-properties-keys-regex-to-fuzz "https://template#/$defs/Rule/properties/keys-regex")       |
+| [values](#values)               | `array`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-rule-properties-values-regex-to-fuzz "https://template#/$defs/Rule/properties/values")         |
+| [fuzz](#fuzz)                   | `object` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-sliceormapslice "https://template#/$defs/Rule/properties/fuzz")                                |
+| [replace-regex](#replace-regex) | `string` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-rule-properties-replace-regex-of-rule "https://template#/$defs/Rule/properties/replace-regex") |
+
+## type
+
+Type of fuzzing rule to perform
+
+`type`
+
+* is optional
+
+* Type: `string` ([type of rule](nuclei-schema-defs-rule-properties-type-of-rule))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-rule-properties-type-of-rule "https://template#/$defs/Rule/properties/type")
+
+### type Type
+
+`string` ([type of rule](nuclei-schema-defs-rule-properties-type-of-rule))
+
+### type Constraints
+
+**enum**: the value of this property must be equal to one of the following values:
+
+| Value             | Explanation |
+| :---------------- | :---------- |
+| `"replace"`       |             |
+| `"prefix"`        |             |
+| `"postfix"`       |             |
+| `"infix"`         |             |
+| `"replace-regex"` |             |
+
+## part
+
+Part of request rule to fuzz
+
+`part`
+
+* is optional
+
+* Type: `string` ([part of rule](nuclei-schema-defs-rule-properties-part-of-rule))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-rule-properties-part-of-rule "https://template#/$defs/Rule/properties/part")
+
+### part Type
+
+`string` ([part of rule](nuclei-schema-defs-rule-properties-part-of-rule))
+
+### part Constraints
+
+**enum**: the value of this property must be equal to one of the following values:
+
+| Value       | Explanation |
+| :---------- | :---------- |
+| `"query"`   |             |
+| `"header"`  |             |
+| `"path"`    |             |
+| `"body"`    |             |
+| `"cookie"`  |             |
+| `"request"` |             |
+
+## mode
+
+Mode of request rule to fuzz
+
+`mode`
+
+* is optional
+
+* Type: `string` ([mode of rule](nuclei-schema-defs-rule-properties-mode-of-rule))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-rule-properties-mode-of-rule "https://template#/$defs/Rule/properties/mode")
+
+### mode Type
+
+`string` ([mode of rule](nuclei-schema-defs-rule-properties-mode-of-rule))
+
+### mode Constraints
+
+**enum**: the value of this property must be equal to one of the following values:
+
+| Value        | Explanation |
+| :----------- | :---------- |
+| `"single"`   |             |
+| `"multiple"` |             |
+
+## keys
+
+Keys of parameters to fuzz
+
+`keys`
+
+* is optional
+
+* Type: `string[]`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-rule-properties-keys-of-parameters-to-fuzz "https://template#/$defs/Rule/properties/keys")
+
+### keys Type
+
+`string[]`
+
+## keys-regex
+
+Regex of parameter keys to fuzz
+
+`keys-regex`
+
+* is optional
+
+* Type: `string[]`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-rule-properties-keys-regex-to-fuzz "https://template#/$defs/Rule/properties/keys-regex")
+
+### keys-regex Type
+
+`string[]`
+
+## values
+
+Regex of parameter values to fuzz
+
+`values`
+
+* is optional
+
+* Type: `string[]`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-rule-properties-values-regex-to-fuzz "https://template#/$defs/Rule/properties/values")
+
+### values Type
+
+`string[]`
+
+## fuzz
+
+Payloads to perform fuzzing substitutions with
+
+`fuzz`
+
+* is optional
+
+* Type: `object` ([payloads of fuzz rule](nuclei-schema-defs-sliceormapslice))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-sliceormapslice "https://template#/$defs/Rule/properties/fuzz")
+
+### fuzz Type
+
+`object` ([payloads of fuzz rule](nuclei-schema-defs-sliceormapslice))
+
+## replace-regex
+
+Regex for regex-replace rule type
+
+`replace-regex`
+
+* is optional
+
+* Type: `string` ([replace regex of rule](nuclei-schema-defs-rule-properties-replace-regex-of-rule))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-rule-properties-replace-regex-of-rule "https://template#/$defs/Rule/properties/replace-regex")
+
+### replace-regex Type
+
+`string` ([replace regex of rule](nuclei-schema-defs-rule-properties-replace-regex-of-rule))

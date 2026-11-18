@@ -1,0 +1,760 @@
+# Untitled object in undefined Schema
+
+```txt
+https://template#/$defs/Template/properties/javascript/items
+```
+
+
+
+| Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                             |
+| :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------- |
+| Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [nuclei-schema.schema.json\*](../out/nuclei-schema.schema.json "open original schema") |
+
+## items Type
+
+`object` ([Details](nuclei-schema-defs-request))
+
+# items Properties
+
+| Property                                                              | Type      | Required | Nullable       | Defined by                                                                                                                                                                                      |
+| :-------------------------------------------------------------------- | :-------- | :------- | :------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [matchers](#matchers)                                                 | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-matchers-to-run-on-response "https://template#/$defs/Request/properties/matchers")                                                   |
+| [extractors](#extractors)                                             | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-extractors-to-run-on-response "https://template#/$defs/Request/properties/extractors")                                               |
+| [matchers-condition](#matchers-condition)                             | `string`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-condition-between-the-matchers "https://template#/$defs/Request/properties/matchers-condition")                                      |
+| [path](#path)                                                         | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-paths-for-the-http-request "https://template#/$defs/Request/properties/path")                                                        |
+| [raw](#raw)                                                           | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-raw "https://template#/$defs/Request/properties/raw")                                                                                |
+| [id](#id)                                                             | `string`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-id-for-the-http-request "https://template#/$defs/Request/properties/id")                                                             |
+| [name](#name)                                                         | `string`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-name-for-the-http-request "https://template#/$defs/Request/properties/name")                                                         |
+| [attack](#attack)                                                     | `object`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-attacktypeholder "https://template#/$defs/Request/properties/attack")                                                                                   |
+| [method](#method)                                                     | `object`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-httpmethodtypeholder "https://template#/$defs/Request/properties/method")                                                                               |
+| [body](#body)                                                         | `string`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-body-is-the-http-request-body "https://template#/$defs/Request/properties/body")                                                     |
+| [payloads](#payloads)                                                 | `object`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-payloads-for-the-http-request "https://template#/$defs/Request/properties/payloads")                                                 |
+| [headers](#headers)                                                   | `object`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-headers-to-send-with-the-http-request "https://template#/$defs/Request/properties/headers")                                          |
+| [race\_count](#race_count)                                            | `integer` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-number-of-times-to-repeat-request-in-race-condition "https://template#/$defs/Request/properties/race_count")                         |
+| [max-redirects](#max-redirects)                                       | `integer` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-maximum-number-of-redirects-to-follow "https://template#/$defs/Request/properties/max-redirects")                                    |
+| [pipeline-concurrent-connections](#pipeline-concurrent-connections)   | `integer` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-number-of-pipelining-connections "https://template#/$defs/Request/properties/pipeline-concurrent-connections")                       |
+| [pipeline-requests-per-connection](#pipeline-requests-per-connection) | `integer` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-number-of-requests-to-send-per-pipelining-connections "https://template#/$defs/Request/properties/pipeline-requests-per-connection") |
+| [threads](#threads)                                                   | `integer` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-threads-for-sending-requests "https://template#/$defs/Request/properties/threads")                                                   |
+| [max-size](#max-size)                                                 | `integer` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-maximum-http-response-body-size "https://template#/$defs/Request/properties/max-size")                                               |
+| [fuzzing](#fuzzing)                                                   | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-fuzzin-rules-for-http-fuzzing "https://template#/$defs/Request/properties/fuzzing")                                                  |
+| [self-contained](#self-contained)                                     | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-self-contained "https://template#/$defs/Request/properties/self-contained")                                                          |
+| [signature](#signature)                                               | `object`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-signaturetypeholder "https://template#/$defs/Request/properties/signature")                                                                             |
+| [cookie-reuse](#cookie-reuse)                                         | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-optional-cookie-reuse-enable "https://template#/$defs/Request/properties/cookie-reuse")                                              |
+| [disable-cookie](#disable-cookie)                                     | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-optional-disable-cookie-reuse "https://template#/$defs/Request/properties/disable-cookie")                                           |
+| [read-all](#read-all)                                                 | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-force-read-all-body "https://template#/$defs/Request/properties/read-all")                                                           |
+| [redirects](#redirects)                                               | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-follow-http-redirects "https://template#/$defs/Request/properties/redirects")                                                        |
+| [host-redirects](#host-redirects)                                     | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-follow-same-host-http-redirects "https://template#/$defs/Request/properties/host-redirects")                                         |
+| [pipeline](#pipeline)                                                 | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-perform-http-11-pipelining "https://template#/$defs/Request/properties/pipeline")                                                    |
+| [unsafe](#unsafe)                                                     | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-use-rawhttp-non-strict-rfc-client "https://template#/$defs/Request/properties/unsafe")                                               |
+| [race](#race)                                                         | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-perform-race-http-request-coordination-attack "https://template#/$defs/Request/properties/race")                                     |
+| [req-condition](#req-condition)                                       | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-preserve-request-history "https://template#/$defs/Request/properties/req-condition")                                                 |
+| [stop-at-first-match](#stop-at-first-match)                           | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-stop-at-first-match "https://template#/$defs/Request/properties/stop-at-first-match")                                                |
+| [skip-variables-check](#skip-variables-check)                         | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-skip-variable-checks "https://template#/$defs/Request/properties/skip-variables-check")                                              |
+| [iterate-all](#iterate-all)                                           | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-iterate-all-the-values "https://template#/$defs/Request/properties/iterate-all")                                                     |
+| [digest-username](#digest-username)                                   | `string`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-specifies-the-username-for-digest-authentication "https://template#/$defs/Request/properties/digest-username")                       |
+| [digest-password](#digest-password)                                   | `string`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-specifies-the-password-for-digest-authentication "https://template#/$defs/Request/properties/digest-password")                       |
+| [disable-path-automerge](#disable-path-automerge)                     | `boolean` | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-disable-auto-merging-of-path "https://template#/$defs/Request/properties/disable-path-automerge")                                    |
+| [filter](#filter)                                                     | `array`   | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-filter-for-fuzzing "https://template#/$defs/Request/properties/filter")                                                              |
+| [filter-condition](#filter-condition)                                 | `string`  | Optional | cannot be null | [Untitled schema](nuclei-schema-defs-request-properties-condition-between-the-filters "https://template#/$defs/Request/properties/filter-condition")                                         |
+
+## matchers
+
+Detection mechanism to identify whether the request was successful by doing pattern matching
+
+`matchers`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-matcher))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-matchers-to-run-on-response "https://template#/$defs/Request/properties/matchers")
+
+### matchers Type
+
+`object[]` ([Details](nuclei-schema-defs-matcher))
+
+## extractors
+
+Extractors contains the extraction mechanism for the request to identify and extract parts of the response
+
+`extractors`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-extractor))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-extractors-to-run-on-response "https://template#/$defs/Request/properties/extractors")
+
+### extractors Type
+
+`object[]` ([Details](nuclei-schema-defs-extractor))
+
+## matchers-condition
+
+Conditions between the matchers
+
+`matchers-condition`
+
+* is optional
+
+* Type: `string` ([condition between the matchers](nuclei-schema-defs-request-properties-condition-between-the-matchers))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-condition-between-the-matchers "https://template#/$defs/Request/properties/matchers-condition")
+
+### matchers-condition Type
+
+`string` ([condition between the matchers](nuclei-schema-defs-request-properties-condition-between-the-matchers))
+
+### matchers-condition Constraints
+
+**enum**: the value of this property must be equal to one of the following values:
+
+| Value   | Explanation |
+| :------ | :---------- |
+| `"and"` |             |
+| `"or"`  |             |
+
+## path
+
+Path(s) to send http requests to
+
+`path`
+
+* is optional
+
+* Type: `string[]`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-paths-for-the-http-request "https://template#/$defs/Request/properties/path")
+
+### path Type
+
+`string[]`
+
+## raw
+
+HTTP Requests in Raw Format
+
+`raw`
+
+* is optional
+
+* Type: `string[]`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-raw "https://template#/$defs/Request/properties/raw")
+
+### raw Type
+
+`string[]`
+
+## id
+
+ID for the HTTP Request
+
+`id`
+
+* is optional
+
+* Type: `string` ([id for the http request](nuclei-schema-defs-request-properties-id-for-the-http-request))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-id-for-the-http-request "https://template#/$defs/Request/properties/id")
+
+### id Type
+
+`string` ([id for the http request](nuclei-schema-defs-request-properties-id-for-the-http-request))
+
+## name
+
+Optional name for the HTTP Request
+
+`name`
+
+* is optional
+
+* Type: `string` ([name for the http request](nuclei-schema-defs-request-properties-name-for-the-http-request))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-name-for-the-http-request "https://template#/$defs/Request/properties/name")
+
+### name Type
+
+`string` ([name for the http request](nuclei-schema-defs-request-properties-name-for-the-http-request))
+
+## attack
+
+Attack is the type of payload combinations to perform
+
+`attack`
+
+* is optional
+
+* Type: `object` ([attack is the payload combination](nuclei-schema-defs-attacktypeholder))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-attacktypeholder "https://template#/$defs/Request/properties/attack")
+
+### attack Type
+
+`object` ([attack is the payload combination](nuclei-schema-defs-attacktypeholder))
+
+## method
+
+Method is the HTTP Request Method
+
+`method`
+
+* is optional
+
+* Type: `object` ([method is the http request method](nuclei-schema-defs-httpmethodtypeholder))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-httpmethodtypeholder "https://template#/$defs/Request/properties/method")
+
+### method Type
+
+`object` ([method is the http request method](nuclei-schema-defs-httpmethodtypeholder))
+
+## body
+
+Body is an optional parameter which contains HTTP Request body
+
+`body`
+
+* is optional
+
+* Type: `string` ([body is the http request body](nuclei-schema-defs-request-properties-body-is-the-http-request-body))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-body-is-the-http-request-body "https://template#/$defs/Request/properties/body")
+
+### body Type
+
+`string` ([body is the http request body](nuclei-schema-defs-request-properties-body-is-the-http-request-body))
+
+## payloads
+
+Payloads contains any payloads for the current request
+
+`payloads`
+
+* is optional
+
+* Type: `object` ([payloads for the http request](nuclei-schema-defs-request-properties-payloads-for-the-http-request))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-payloads-for-the-http-request "https://template#/$defs/Request/properties/payloads")
+
+### payloads Type
+
+`object` ([payloads for the http request](nuclei-schema-defs-request-properties-payloads-for-the-http-request))
+
+## headers
+
+Headers contains HTTP Headers to send with the request
+
+`headers`
+
+* is optional
+
+* Type: `object` ([headers to send with the http request](nuclei-schema-defs-request-properties-headers-to-send-with-the-http-request))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-headers-to-send-with-the-http-request "https://template#/$defs/Request/properties/headers")
+
+### headers Type
+
+`object` ([headers to send with the http request](nuclei-schema-defs-request-properties-headers-to-send-with-the-http-request))
+
+## race\_count
+
+Number of times to send a request in Race Condition Attack
+
+`race_count`
+
+* is optional
+
+* Type: `integer` ([number of times to repeat request in race condition](nuclei-schema-defs-request-properties-number-of-times-to-repeat-request-in-race-condition))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-number-of-times-to-repeat-request-in-race-condition "https://template#/$defs/Request/properties/race_count")
+
+### race\_count Type
+
+`integer` ([number of times to repeat request in race condition](nuclei-schema-defs-request-properties-number-of-times-to-repeat-request-in-race-condition))
+
+## max-redirects
+
+Maximum number of redirects that should be followed
+
+`max-redirects`
+
+* is optional
+
+* Type: `integer` ([maximum number of redirects to follow](nuclei-schema-defs-request-properties-maximum-number-of-redirects-to-follow))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-maximum-number-of-redirects-to-follow "https://template#/$defs/Request/properties/max-redirects")
+
+### max-redirects Type
+
+`integer` ([maximum number of redirects to follow](nuclei-schema-defs-request-properties-maximum-number-of-redirects-to-follow))
+
+## pipeline-concurrent-connections
+
+Number of connections to create during pipelining
+
+`pipeline-concurrent-connections`
+
+* is optional
+
+* Type: `integer` ([number of pipelining connections](nuclei-schema-defs-request-properties-number-of-pipelining-connections))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-number-of-pipelining-connections "https://template#/$defs/Request/properties/pipeline-concurrent-connections")
+
+### pipeline-concurrent-connections Type
+
+`integer` ([number of pipelining connections](nuclei-schema-defs-request-properties-number-of-pipelining-connections))
+
+## pipeline-requests-per-connection
+
+Number of requests to send per connection when pipelining
+
+`pipeline-requests-per-connection`
+
+* is optional
+
+* Type: `integer` ([number of requests to send per pipelining connections](nuclei-schema-defs-request-properties-number-of-requests-to-send-per-pipelining-connections))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-number-of-requests-to-send-per-pipelining-connections "https://template#/$defs/Request/properties/pipeline-requests-per-connection")
+
+### pipeline-requests-per-connection Type
+
+`integer` ([number of requests to send per pipelining connections](nuclei-schema-defs-request-properties-number-of-requests-to-send-per-pipelining-connections))
+
+## threads
+
+Threads specifies number of threads to use sending requests. This enables Connection Pooling
+
+`threads`
+
+* is optional
+
+* Type: `integer` ([threads for sending requests](nuclei-schema-defs-request-properties-threads-for-sending-requests))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-threads-for-sending-requests "https://template#/$defs/Request/properties/threads")
+
+### threads Type
+
+`integer` ([threads for sending requests](nuclei-schema-defs-request-properties-threads-for-sending-requests))
+
+## max-size
+
+Maximum size of http response body to read in bytes
+
+`max-size`
+
+* is optional
+
+* Type: `integer` ([maximum http response body size](nuclei-schema-defs-request-properties-maximum-http-response-body-size))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-maximum-http-response-body-size "https://template#/$defs/Request/properties/max-size")
+
+### max-size Type
+
+`integer` ([maximum http response body size](nuclei-schema-defs-request-properties-maximum-http-response-body-size))
+
+## fuzzing
+
+Fuzzing describes rule schema to fuzz http requests
+
+`fuzzing`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-rule))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-fuzzin-rules-for-http-fuzzing "https://template#/$defs/Request/properties/fuzzing")
+
+### fuzzing Type
+
+`object[]` ([Details](nuclei-schema-defs-rule))
+
+## self-contained
+
+
+
+`self-contained`
+
+* is optional
+
+* Type: `boolean`
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-self-contained "https://template#/$defs/Request/properties/self-contained")
+
+### self-contained Type
+
+`boolean`
+
+## signature
+
+Signature is the HTTP Request signature Method
+
+`signature`
+
+* is optional
+
+* Type: `object` ([signature is the http request signature method](nuclei-schema-defs-signaturetypeholder))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-signaturetypeholder "https://template#/$defs/Request/properties/signature")
+
+### signature Type
+
+`object` ([signature is the http request signature method](nuclei-schema-defs-signaturetypeholder))
+
+## cookie-reuse
+
+Optional setting that enables cookie reuse
+
+`cookie-reuse`
+
+* is optional
+
+* Type: `boolean` ([optional cookie reuse enable](nuclei-schema-defs-request-properties-optional-cookie-reuse-enable))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-optional-cookie-reuse-enable "https://template#/$defs/Request/properties/cookie-reuse")
+
+### cookie-reuse Type
+
+`boolean` ([optional cookie reuse enable](nuclei-schema-defs-request-properties-optional-cookie-reuse-enable))
+
+## disable-cookie
+
+Optional setting that disables cookie reuse
+
+`disable-cookie`
+
+* is optional
+
+* Type: `boolean` ([optional disable cookie reuse](nuclei-schema-defs-request-properties-optional-disable-cookie-reuse))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-optional-disable-cookie-reuse "https://template#/$defs/Request/properties/disable-cookie")
+
+### disable-cookie Type
+
+`boolean` ([optional disable cookie reuse](nuclei-schema-defs-request-properties-optional-disable-cookie-reuse))
+
+## read-all
+
+Enables force reading of entire unsafe http request body
+
+`read-all`
+
+* is optional
+
+* Type: `boolean` ([force read all body](nuclei-schema-defs-request-properties-force-read-all-body))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-force-read-all-body "https://template#/$defs/Request/properties/read-all")
+
+### read-all Type
+
+`boolean` ([force read all body](nuclei-schema-defs-request-properties-force-read-all-body))
+
+## redirects
+
+Specifies whether redirects should be followed by the HTTP Client
+
+`redirects`
+
+* is optional
+
+* Type: `boolean` ([follow http redirects](nuclei-schema-defs-request-properties-follow-http-redirects))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-follow-http-redirects "https://template#/$defs/Request/properties/redirects")
+
+### redirects Type
+
+`boolean` ([follow http redirects](nuclei-schema-defs-request-properties-follow-http-redirects))
+
+## host-redirects
+
+Specifies whether redirects to the same host should be followed by the HTTP Client
+
+`host-redirects`
+
+* is optional
+
+* Type: `boolean` ([follow same host http redirects](nuclei-schema-defs-request-properties-follow-same-host-http-redirects))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-follow-same-host-http-redirects "https://template#/$defs/Request/properties/host-redirects")
+
+### host-redirects Type
+
+`boolean` ([follow same host http redirects](nuclei-schema-defs-request-properties-follow-same-host-http-redirects))
+
+## pipeline
+
+Pipeline defines if the attack should be performed with HTTP 1.1 Pipelining
+
+`pipeline`
+
+* is optional
+
+* Type: `boolean` ([perform HTTP 1.1 pipelining](nuclei-schema-defs-request-properties-perform-http-11-pipelining))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-perform-http-11-pipelining "https://template#/$defs/Request/properties/pipeline")
+
+### pipeline Type
+
+`boolean` ([perform HTTP 1.1 pipelining](nuclei-schema-defs-request-properties-perform-http-11-pipelining))
+
+## unsafe
+
+Unsafe specifies whether to use rawhttp engine for sending Non RFC-Compliant requests
+
+`unsafe`
+
+* is optional
+
+* Type: `boolean` ([use rawhttp non-strict-rfc client](nuclei-schema-defs-request-properties-use-rawhttp-non-strict-rfc-client))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-use-rawhttp-non-strict-rfc-client "https://template#/$defs/Request/properties/unsafe")
+
+### unsafe Type
+
+`boolean` ([use rawhttp non-strict-rfc client](nuclei-schema-defs-request-properties-use-rawhttp-non-strict-rfc-client))
+
+## race
+
+Race determines if all the request have to be attempted at the same time (Race Condition)
+
+`race`
+
+* is optional
+
+* Type: `boolean` ([perform race-http request coordination attack](nuclei-schema-defs-request-properties-perform-race-http-request-coordination-attack))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-perform-race-http-request-coordination-attack "https://template#/$defs/Request/properties/race")
+
+### race Type
+
+`boolean` ([perform race-http request coordination attack](nuclei-schema-defs-request-properties-perform-race-http-request-coordination-attack))
+
+## req-condition
+
+Automatically assigns numbers to requests and preserves their history
+
+`req-condition`
+
+* is optional
+
+* Type: `boolean` ([preserve request history](nuclei-schema-defs-request-properties-preserve-request-history))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-preserve-request-history "https://template#/$defs/Request/properties/req-condition")
+
+### req-condition Type
+
+`boolean` ([preserve request history](nuclei-schema-defs-request-properties-preserve-request-history))
+
+## stop-at-first-match
+
+Stop the execution after a match is found
+
+`stop-at-first-match`
+
+* is optional
+
+* Type: `boolean` ([stop at first match](nuclei-schema-defs-request-properties-stop-at-first-match))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-stop-at-first-match "https://template#/$defs/Request/properties/stop-at-first-match")
+
+### stop-at-first-match Type
+
+`boolean` ([stop at first match](nuclei-schema-defs-request-properties-stop-at-first-match))
+
+## skip-variables-check
+
+Skips the check for unresolved variables in request
+
+`skip-variables-check`
+
+* is optional
+
+* Type: `boolean` ([skip variable checks](nuclei-schema-defs-request-properties-skip-variable-checks))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-skip-variable-checks "https://template#/$defs/Request/properties/skip-variables-check")
+
+### skip-variables-check Type
+
+`boolean` ([skip variable checks](nuclei-schema-defs-request-properties-skip-variable-checks))
+
+## iterate-all
+
+Iterates all the values extracted from internal extractors
+
+`iterate-all`
+
+* is optional
+
+* Type: `boolean` ([iterate all the values](nuclei-schema-defs-request-properties-iterate-all-the-values))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-iterate-all-the-values "https://template#/$defs/Request/properties/iterate-all")
+
+### iterate-all Type
+
+`boolean` ([iterate all the values](nuclei-schema-defs-request-properties-iterate-all-the-values))
+
+## digest-username
+
+Optional parameter which specifies the username for digest auth
+
+`digest-username`
+
+* is optional
+
+* Type: `string` ([specifies the username for digest authentication](nuclei-schema-defs-request-properties-specifies-the-username-for-digest-authentication))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-specifies-the-username-for-digest-authentication "https://template#/$defs/Request/properties/digest-username")
+
+### digest-username Type
+
+`string` ([specifies the username for digest authentication](nuclei-schema-defs-request-properties-specifies-the-username-for-digest-authentication))
+
+## digest-password
+
+Optional parameter which specifies the password for digest auth
+
+`digest-password`
+
+* is optional
+
+* Type: `string` ([specifies the password for digest authentication](nuclei-schema-defs-request-properties-specifies-the-password-for-digest-authentication))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-specifies-the-password-for-digest-authentication "https://template#/$defs/Request/properties/digest-password")
+
+### digest-password Type
+
+`string` ([specifies the password for digest authentication](nuclei-schema-defs-request-properties-specifies-the-password-for-digest-authentication))
+
+## disable-path-automerge
+
+Disable merging target url path with raw request path
+
+`disable-path-automerge`
+
+* is optional
+
+* Type: `boolean` ([disable auto merging of path](nuclei-schema-defs-request-properties-disable-auto-merging-of-path))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-disable-auto-merging-of-path "https://template#/$defs/Request/properties/disable-path-automerge")
+
+### disable-path-automerge Type
+
+`boolean` ([disable auto merging of path](nuclei-schema-defs-request-properties-disable-auto-merging-of-path))
+
+## filter
+
+Filter is matcher-like field to check if fuzzing should be performed on this request or not
+
+`filter`
+
+* is optional
+
+* Type: `object[]` ([Details](nuclei-schema-defs-matcher))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-filter-for-fuzzing "https://template#/$defs/Request/properties/filter")
+
+### filter Type
+
+`object[]` ([Details](nuclei-schema-defs-matcher))
+
+## filter-condition
+
+Conditions between the filters
+
+`filter-condition`
+
+* is optional
+
+* Type: `string` ([condition between the filters](nuclei-schema-defs-request-properties-condition-between-the-filters))
+
+* cannot be null
+
+* defined in: [Untitled schema](nuclei-schema-defs-request-properties-condition-between-the-filters "https://template#/$defs/Request/properties/filter-condition")
+
+### filter-condition Type
+
+`string` ([condition between the filters](nuclei-schema-defs-request-properties-condition-between-the-filters))
+
+### filter-condition Constraints
+
+**enum**: the value of this property must be equal to one of the following values:
+
+| Value   | Explanation |
+| :------ | :---------- |
+| `"and"` |             |
+| `"or"`  |             |
