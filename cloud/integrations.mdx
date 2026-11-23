@@ -1613,7 +1613,14 @@ Click **Verify** to confirm the connection, then **Create & Start Discovery**.
 **Prerequisites:**
 - A GCP project with billing enabled
 - `Owner` or `IAM Admin` role on the project (to create WIF resources)
-- The Cloud IAM API enabled on your project
+- The IAM API and the IAM Service Account Credentials API enabled on your project
+
+The IAM API (`iam.googleapis.com`) is used to create the pool and service account. The IAM Service Account Credentials API (`iamcredentials.googleapis.com`) lets ProjectDiscovery get short-lived tokens for the service account. Enabling the IAM API usually turns on the Service Account Credentials API too, but enable both to be sure:
+
+```bash
+gcloud services enable iam.googleapis.com iamcredentials.googleapis.com \
+  --project="YOUR_PROJECT_ID"
+```
 
 **Step 1: Create a Workload Identity Pool**
 
@@ -1635,6 +1642,20 @@ gcloud iam workload-identity-pools providers create-oidc projectdiscovery-oidc \
   --issuer-uri="https://oidc.projectdiscovery.io" \
   --attribute-mapping="google.subject=assertion.sub,attribute.sub=assertion.sub"
 ```
+
+<Tip>
+**Optional: limit the provider to your team.** Step 5 already allows only your Team ID to use the service account. To also stop the pool from accepting tokens issued for other ProjectDiscovery teams, add an attribute condition to the provider:
+
+```bash
+gcloud iam workload-identity-pools providers update-oidc projectdiscovery-oidc \
+  --project="YOUR_PROJECT_ID" \
+  --location="global" \
+  --workload-identity-pool="projectdiscovery-pool" \
+  --attribute-condition="assertion.sub=='YOUR_TEAM_ID'"
+```
+
+If you connect more than one ProjectDiscovery team, list every Team ID, for example `assertion.sub in ['TEAM_ID_1', 'TEAM_ID_2']`. A Team ID missing from the condition makes the token exchange fail for that team.
+</Tip>
 
 **Step 3: Create a Service Account**
 
@@ -1833,12 +1854,17 @@ This error can have two causes:
 
 **"The member principalSet://... is of an unknown type"** (WIF setup, Step 5)
 
-`gcloud` returns this when the `--member` value is not a valid principal identifier. The most common cause is a project ID, Organization ID or folder path in the `projects/...` segment instead of the numeric project number. Run the Step 5 commands as written: they read the pool path from GCP. Check that `echo "$POOL"` prints `projects/<digits>/locations/global/workloadIdentityPools/projectdiscovery-pool`, and that `TEAM_ID` has no spaces, quotes or angle brackets.
+`gcloud` returns this when the `projects/...` segment of `--member` has more than one part, for example a folder path such as `security/my-project`, or the pool's full resource name pasted in. Run the Step 5 commands as written: they read the pool path from GCP. Check that `echo "$POOL"` prints `projects/<digits>/locations/global/workloadIdentityPools/projectdiscovery-pool`, and that `TEAM_ID` has no spaces, quotes or angle brackets.
+
+**"Identity Pool does not exist"** (WIF setup, Step 5)
+
+The `projects/...` segment of `--member` holds a single value that isn't the pool's project number, such as the project ID, a wrong number or a leftover placeholder. Use the Step 5 commands, which read the correct value from GCP.
 
 **"GCP token exchange failed"** (WIF only)
 - Verify the Workload Identity Provider path is correct (check for typos)
 - Ensure the OIDC provider issuer URI is `https://oidc.projectdiscovery.io`
 - Check the attribute mapping includes `google.subject=assertion.sub,attribute.sub=assertion.sub` in the OIDC provider configuration
+- If you added an attribute condition to the provider, check that it contains your exact Team ID
 
 **"GCP service account impersonation failed"** (WIF only)
 - Verify `roles/iam.workloadIdentityUser` binding exists on the service account
