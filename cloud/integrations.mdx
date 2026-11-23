@@ -1615,7 +1615,7 @@ Click **Verify** to confirm the connection, then **Create & Start Discovery**.
 - `Owner` or `IAM Admin` role on the project (to create WIF resources)
 - The IAM API and the IAM Service Account Credentials API enabled on your project
 
-The IAM API (`iam.googleapis.com`) is used to create the pool and service account. The IAM Service Account Credentials API (`iamcredentials.googleapis.com`) lets ProjectDiscovery get short-lived tokens for the service account. Enabling the IAM API usually turns on the Service Account Credentials API too, but enable both to be sure:
+The IAM API (`iam.googleapis.com`) is used to create the pool and service account. The IAM Service Account Credentials API (`iamcredentials.googleapis.com`) lets ProjectDiscovery get short-lived tokens for the service account:
 
 ```bash
 gcloud services enable iam.googleapis.com iamcredentials.googleapis.com \
@@ -1771,6 +1771,10 @@ The member must use the **numeric project number** of the project that holds `pr
 ```
 principalSet://iam.googleapis.com/projects/123456789012/locations/global/workloadIdentityPools/projectdiscovery-pool/attribute.sub/YOUR_TEAM_ID
 ```
+To check the project number by hand:
+```bash
+gcloud projects describe YOUR_PROJECT_ID --format='value(projectNumber)'
+```
 </Note>
 
 **Step 6: Enable the Cloud Asset API**
@@ -1854,7 +1858,7 @@ This error can have two causes:
 
 **"The member principalSet://... is of an unknown type"** (WIF setup, Step 5)
 
-`gcloud` returns this when the `projects/...` segment of `--member` has more than one part, for example a folder path such as `security/my-project`, or the pool's full resource name pasted in. Run the Step 5 commands as written: they read the pool path from GCP. Check that `echo "$POOL"` prints `projects/<digits>/locations/global/workloadIdentityPools/projectdiscovery-pool`, and that `TEAM_ID` has no spaces, quotes or angle brackets.
+`gcloud` returns this when the `projects/...` segment of `--member` has more than one part, for example a folder path such as `security/my-project`, or the pool's full resource name pasted where only the project number belongs (giving `projects/projects/...`). Run the Step 5 commands as written: they read the pool path from GCP. Check that `echo "$POOL"` prints `projects/<digits>/locations/global/workloadIdentityPools/projectdiscovery-pool`, and that `TEAM_ID` has no spaces, quotes or angle brackets.
 
 **"Identity Pool does not exist"** (WIF setup, Step 5)
 
