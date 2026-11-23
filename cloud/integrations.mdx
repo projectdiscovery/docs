@@ -1612,13 +1612,12 @@ Click **Verify** to confirm the connection, then **Create & Start Discovery**.
 
 **Prerequisites:**
 - A GCP project with billing enabled
-- `Owner` or `IAM Admin` role on the project (to create WIF resources)
-- Permission to enable APIs: `Owner`, `Service Usage Admin` (`roles/serviceusage.serviceUsageAdmin`) or another role with `serviceusage.services.enable`. IAM admin roles such as `Project IAM Admin` (`roles/resourcemanager.projectIamAdmin`) do not include it.
+- `Owner` on the project, or equivalent roles that can enable APIs, create the pool and service account, and grant IAM roles
 - The following APIs enabled on the project that will hold the pool:
   - IAM API (`iam.googleapis.com`): creates the pool, provider and service account.
   - Security Token Service API (`sts.googleapis.com`): exchanges the ProjectDiscovery OIDC token for a Google federated token.
   - IAM Service Account Credentials API (`iamcredentials.googleapis.com`): lets ProjectDiscovery get short-lived tokens for the service account.
-  - Cloud Resource Manager API (`cloudresourcemanager.googleapis.com`): used by the `gcloud projects ...` and `gcloud organizations ...` commands in Steps 4 and 5, such as granting roles and looking up the project number.
+  - Cloud Resource Manager API (`cloudresourcemanager.googleapis.com`): used by the `gcloud projects ...` and `gcloud organizations ...` commands in Step 4.
 
 ```bash
 gcloud services enable iam.googleapis.com sts.googleapis.com \
@@ -1637,6 +1636,8 @@ gcloud iam workload-identity-pools create projectdiscovery-pool \
 
 **Step 2: Add ProjectDiscovery as an OIDC Provider**
 
+The attribute condition makes the provider accept tokens only for your ProjectDiscovery team. Replace `YOUR_TEAM_ID` with your Team ID from the ProjectDiscovery platform.
+
 ```bash
 gcloud iam workload-identity-pools providers create-oidc projectdiscovery-oidc \
   --project="YOUR_PROJECT_ID" \
@@ -1644,32 +1645,22 @@ gcloud iam workload-identity-pools providers create-oidc projectdiscovery-oidc \
   --workload-identity-pool="projectdiscovery-pool" \
   --display-name="ProjectDiscovery OIDC" \
   --issuer-uri="https://oidc.projectdiscovery.io" \
-  --attribute-mapping="google.subject=assertion.sub,attribute.sub=assertion.sub"
-```
-
-<Tip>
-**Optional: limit the provider to your team.** Step 5 already allows only your Team ID to use the service account. To also stop the pool from accepting tokens issued for other ProjectDiscovery teams, add an attribute condition to the provider:
-
-```bash
-gcloud iam workload-identity-pools providers update-oidc projectdiscovery-oidc \
-  --project="YOUR_PROJECT_ID" \
-  --location="global" \
-  --workload-identity-pool="projectdiscovery-pool" \
+  --attribute-mapping="google.subject=assertion.sub,attribute.sub=assertion.sub" \
   --attribute-condition="assertion.sub=='YOUR_TEAM_ID'"
 ```
 
-If you connect more than one ProjectDiscovery team, list every Team ID in the condition:
+<Tip>
+**Finding your Team ID** — In the ProjectDiscovery platform, click on your team name in the left sidebar to reveal your Team ID. Use the copy button to copy it.
 
-```bash
-gcloud iam workload-identity-pools providers update-oidc projectdiscovery-oidc \
-  --project="YOUR_PROJECT_ID" \
-  --location="global" \
-  --workload-identity-pool="projectdiscovery-pool" \
-  --attribute-condition="assertion.sub in ['TEAM_ID_1', 'TEAM_ID_2']"
-```
-
-A Team ID missing from the condition makes the token exchange fail for that team. If the teams share one service account, each team also needs its own Step 5 binding.
+<img
+  src="/images/pdcp-teamid.png"
+  alt="Finding your Team ID in ProjectDiscovery"
+  title="Finding your Team ID in ProjectDiscovery"
+  style={{ width:"45%" }}
+/>
 </Tip>
+
+If you connect more than one ProjectDiscovery team to this pool, list every Team ID, for example `--attribute-condition="assertion.sub in ['TEAM_ID_1', 'TEAM_ID_2']"`, and add a Step 5 binding for each team.
 
 **Step 3: Create a Service Account**
 
@@ -1746,9 +1737,7 @@ Grant the required roles based on your [enumeration scope](#enumeration-scope).
 
 **Step 5: Allow WIF to Impersonate the Service Account**
 
-Grant `roles/iam.workloadIdentityUser` on the service account to the principals in your pool whose mapped `sub` attribute equals your Team ID. This is an IAM binding on a `principalSet://` member, not a CEL condition like the optional one in Step 2. Replace `YOUR_PROJECT_ID` with the project where you created the pool in Step 1, and `YOUR_TEAM_ID` with your Team ID from the ProjectDiscovery platform.
-
-The commands below read the pool's full resource name from GCP, so you don't have to build the member path by hand:
+Allow your ProjectDiscovery team to impersonate the service account. Replace `YOUR_PROJECT_ID` with the project where you created the pool in Step 1, and `YOUR_TEAM_ID` with your Team ID. The commands read the pool's full resource name from GCP, so you don't have to build the member path by hand:
 
 ```bash
 PROJECT_ID="YOUR_PROJECT_ID"
@@ -1773,28 +1762,6 @@ else
   echo "Pool lookup failed: check PROJECT_ID and that projectdiscovery-pool exists (Step 1)."
 fi
 ```
-
-<Tip>
-**Finding your Team ID** — In the ProjectDiscovery platform, click on your team name in the left sidebar to reveal your Team ID. Use the copy button to copy it.
-
-<img
-  src="/images/pdcp-teamid.png"
-  alt="Finding your Team ID in ProjectDiscovery"
-  title="Finding your Team ID in ProjectDiscovery"
-  style={{ width:"45%" }}
-/>
-</Tip>
-
-<Note>
-The member must use the **numeric project number** of the project that holds `projectdiscovery-pool`, not the project ID. This applies to organization-level setups too: the pool always lives in a project, so never use your Organization ID or a folder path here. The final member looks like:
-```
-principalSet://iam.googleapis.com/projects/123456789012/locations/global/workloadIdentityPools/projectdiscovery-pool/attribute.sub/YOUR_TEAM_ID
-```
-To check the project number by hand:
-```bash
-gcloud projects describe YOUR_PROJECT_ID --format='value(projectNumber)'
-```
-</Note>
 
 **Step 6: Enable the Cloud Asset API**
 
@@ -1899,7 +1866,7 @@ Common causes:
 - Verify the Workload Identity Provider path is correct (check for typos)
 - Ensure the OIDC provider issuer URI is `https://oidc.projectdiscovery.io`
 - Check the attribute mapping includes `google.subject=assertion.sub,attribute.sub=assertion.sub` in the OIDC provider configuration
-- If you added an attribute condition to the provider, check that it contains your exact Team ID
+- Check that the provider's attribute condition contains your exact Team ID
 
 **"GCP service account impersonation failed"** (WIF only)
 - Verify `roles/iam.workloadIdentityUser` binding exists on the service account
