@@ -1613,12 +1613,12 @@ Click **Verify** to confirm the connection, then **Create & Start Discovery**.
 **Prerequisites:**
 - A GCP project with billing enabled
 - `Owner` or `IAM Admin` role on the project (to create WIF resources)
-- Permission to enable APIs: `Owner`, `Service Usage Admin` (`roles/serviceusage.serviceUsageAdmin`) or another role with `serviceusage.services.enable`. `IAM Admin` alone does not include it.
+- Permission to enable APIs: `Owner`, `Service Usage Admin` (`roles/serviceusage.serviceUsageAdmin`) or another role with `serviceusage.services.enable`. IAM admin roles such as `Project IAM Admin` (`roles/resourcemanager.projectIamAdmin`) do not include it.
 - The following APIs enabled on the project that will hold the pool:
   - IAM API (`iam.googleapis.com`): creates the pool, provider and service account.
   - Security Token Service API (`sts.googleapis.com`): exchanges the ProjectDiscovery OIDC token for a Google federated token.
   - IAM Service Account Credentials API (`iamcredentials.googleapis.com`): lets ProjectDiscovery get short-lived tokens for the service account.
-  - Cloud Resource Manager API (`cloudresourcemanager.googleapis.com`): used by `gcloud projects describe` when you look up the project number by hand (see Step 5).
+  - Cloud Resource Manager API (`cloudresourcemanager.googleapis.com`): used by the `gcloud projects ...` and `gcloud organizations ...` commands in Steps 4 and 5, such as granting roles and looking up the project number.
 
 ```bash
 gcloud services enable iam.googleapis.com sts.googleapis.com \
@@ -1661,7 +1661,11 @@ gcloud iam workload-identity-pools providers update-oidc projectdiscovery-oidc \
 If you connect more than one ProjectDiscovery team, list every Team ID in the condition:
 
 ```bash
---attribute-condition="assertion.sub in ['TEAM_ID_1', 'TEAM_ID_2']"
+gcloud iam workload-identity-pools providers update-oidc projectdiscovery-oidc \
+  --project="YOUR_PROJECT_ID" \
+  --location="global" \
+  --workload-identity-pool="projectdiscovery-pool" \
+  --attribute-condition="assertion.sub in ['TEAM_ID_1', 'TEAM_ID_2']"
 ```
 
 A Team ID missing from the condition makes the token exchange fail for that team. If the teams share one service account, each team also needs its own Step 5 binding.
@@ -1875,13 +1879,21 @@ The two errors below are the most common Step 5 failures. Each section lists the
 
 **"The member principalSet://... is of an unknown type"** (WIF setup, Step 5)
 
-A common cause: `gcloud` returns this when the `projects/...` segment of `--member` has more than one part, for example a folder path such as `security/my-project`, or the pool's full resource name pasted where only the project number belongs (giving `projects/projects/...`). Run the Step 5 commands as written: they read the pool path from GCP. Check that `echo "$POOL"` prints `projects/<digits>/locations/global/workloadIdentityPools/projectdiscovery-pool`, and that `TEAM_ID` has no spaces, quotes or angle brackets.
+This usually means the `projects/...` segment of `--member` has more than one part, for example a folder path such as `security/my-project`, or the pool's full resource name pasted where only the project number belongs (giving `projects/projects/...`). Run the Step 5 commands as written: they read the pool path from GCP. Check that `echo "$POOL"` prints `projects/<digits>/locations/global/workloadIdentityPools/projectdiscovery-pool`, and that `TEAM_ID` has no spaces, quotes or angle brackets.
 
 **"Identity Pool does not exist"** (WIF setup, Step 5)
 
 Common causes:
 - The `projects/...` segment of `--member` holds a single value that isn't the pool's project number, such as the project ID, a wrong number or a leftover placeholder. Use the Step 5 commands, which read the correct value from GCP.
-- The pool is missing, was deleted, or has a different name. List pools, including deleted ones, with `gcloud iam workload-identity-pools list --project="YOUR_PROJECT_ID" --location="global" --show-deleted`. Restore a deleted pool with `gcloud iam workload-identity-pools undelete`, or create it again (Step 1).
+- The pool is missing, was deleted, or has a different name. List pools, including deleted ones:
+  ```bash
+  gcloud iam workload-identity-pools list --project="YOUR_PROJECT_ID" --location="global" --show-deleted
+  ```
+  If `projectdiscovery-pool` shows as deleted, restore it (this also restores its provider). Its name can't be reused for a new pool until it is permanently deleted.
+  ```bash
+  gcloud iam workload-identity-pools undelete projectdiscovery-pool --project="YOUR_PROJECT_ID" --location="global"
+  ```
+  If it isn't listed at all, create it with Step 1 and the provider with Step 2.
 
 **"GCP token exchange failed"** (WIF only)
 - Verify the Workload Identity Provider path is correct (check for typos)
